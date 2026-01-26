@@ -1,0 +1,11 @@
+---
+- name: Configuración Identidad de MikroTik
+  hosts: mikrotik_router
+  gather_facts: no
+
+  tasks:
+    - name: 1. Aplicar identidad al sistema
+      community.routeros.command:
+        commands:
+          # Usamos la variable dentro del comando
+          - /system identity set name="Mikrotik-{{ inventory_hostname }}"

@@ -1,0 +1,7 @@
+[mikrotik_router]
+Router_Ing ansible_host=192.168.150.98 ansible_user=pi ansible_ssh_private_key_file=~/.ssh/id_ed25519 ansible_network_os=routeros ansible_connection=network_cli
+
+[mikrotik_router:vars]
+#ansible_connection=local  ##← Importante para API
+##ansible_ssh_user=pi
+##ansible_ssh_pass=CITROENsurvolt1

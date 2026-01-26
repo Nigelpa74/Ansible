@@ -1,0 +1,13 @@
+---
+- hosts: mikrotik_router
+  gather_facts: no
+  tasks:
+    - name: Obtención de identidad
+      community.routeros.command:
+        commands:
+          - /system identity print
+      register: identity_output
+
+    - name: Display output
+      debug:
+        msg: "{{ identity_output.stdout_lines }}"

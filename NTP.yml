@@ -1,0 +1,35 @@
+---
+- name: Configuración de MikroTik vía SSH
+  hosts: mikrotik_router
+  gather_facts: no
+  vars_files:
+    - secrets.yml
+
+  tasks:
+    - name: 1. Obtención de identidad
+      community.routeros.command:
+        commands:
+          - /system identity print
+      register: identity_output
+
+    - name: 2. Corregir Zona Horaria
+      community.routeros.command:
+        commands:
+          - /system clock set time-zone-autodetect=yes time-zone-name=America/Lima
+
+    - name: 3. Habilitar el servicio Cliente NTP
+      community.routeros.command:
+        commands:
+          - /system ntp client set enabled=yes
+
+    - name: 4. Agregar Servidor NTP Google
+      community.routeros.command:
+        commands:
+          # Usamos la lógica de verificación para que no falle si ya existe
+          - :if ([:len [/system ntp client servers find address="time.google.com"]] = 0) do={ /system ntp client servers add address="time.google.com" }
+
+    - name: 5. Mostrar resultados
+      debug:
+        msg: 
+          - "Identidad: {{ identity_output.stdout_lines }}"
+          - "NTP: Servidor de Google asegurado"

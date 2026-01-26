@@ -1,0 +1,22 @@
+---
+- name: Export Rseources MikroTik
+  hosts: mikrotik_router
+  gather_facts: false
+  
+  tasks:
+      - name: Obtener información del sistema
+        community.routeros.command:
+          commands:
+            - /system resource print
+        register: system_info
+    
+      - name: Interfaces Output
+        community.routeros.command:
+          commands:
+            - /interface print
+        register: interfaces
+
+      - name: Mostrar información
+        ansible.builtin.debug:
+          msg:
+          - "Interfaces: {{ interfaces.stdout_lines }}"

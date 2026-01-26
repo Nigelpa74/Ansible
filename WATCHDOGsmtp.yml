@@ -1,0 +1,36 @@
+---
+- name: Configurar System Watchdog en nodos MikroTik
+  hosts: mikrotik_router
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    # Variables globales para el ISP
+    watchdog_ping_target: "8.8.8.8"
+    smtp_server_ip: "172.16.0.25"
+    support_email: "ingenieria@tu-isp.com"
+    domain_isp: "tu-isp.com"
+
+  tasks:
+    - name: Aplicar configuración de Watchdog y Supout
+      community.routeros.command:
+        commands:
+          - /system watchdog set watchdog-timer=yes automatic-supout=yes watch-address={{ watchdog_ping_target }} auto-send-supout=yes 
+#            send-email-to="{{ support_email }}" 
+#            send-email-from="{{ inventory_hostname }}@{{ domain_isp }}" 
+#            send-smtp-server={{ smtp_server_ip }}
+
+    - name: Configuración correo de Supout
+      community.routeros.command:
+        commands:
+          - /system watchdog set send-email-to="{{ support_email }}" send-email-from="{{ inventory_hostname }}@{{ domain_isp }}" send-smtp-server={{ smtp_server_ip }}
+
+    - name: Verificar configuración aplicada
+      community.routeros.command:
+        commands:
+          - /system watchdog print
+      register: watchdog_status
+
+    - name: Mostrar estado actual
+      debug:
+        msg: "{{ watchdog_status.stdout_lines }}"

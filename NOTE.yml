@@ -1,0 +1,79 @@
+---
+- name: Configuración NOTE de MikroTik
+  hosts: mikrotik_router
+  gather_facts: no
+  vars:
+    #SNMP
+    snmp_community_name: "Gl0B4lF1b3r"
+    monitoring_server_ip: "172.17.10.12/32"
+    monitoring_server_raw_ip: "172.17.10.12" # Sin la máscara para el trap-target
+
+    #Puertos
+    #ssh_custom_port: 1022
+    winbox_custom_port: 8026
+
+    #ASCII
+    ascii_art: |
+      _________________________________________________________________
+      | [1] [2] [3] [4]  [5] [6] [7] [8]        SFP+ [9] [10]         |
+      |  -- LAN PORTS --  -- WAN PORTS --       -- OPTIC --           |
+      |                                                               |
+      |   M I K R O T I K   R O U T E R O S  I N G.     PRO ISP NODE  |
+      |_______________________________________________________________|
+
+  tasks:
+    - name: 1. Aplicar el arte ASCII al sistema
+      community.routeros.command:
+        commands:
+          # Usamos la variable dentro del comando
+          - /system note set show-at-login=yes show-at-cli-login=yes note="{{ ascii_art }}"
+
+#    - name: 2. SNMP
+#      community.routeros.command:
+#        commands:
+#          - /snmp set enabled=yes trap-community=Gl0B4lF1b3r trap-generators=interfaces,temp-exception,start-trap trap-target=45.232.148.59,172.17.10.12 trap-version=2
+    
+    - name: 3. Configurar servicios IP (Desactivar inseguros y cambiar puertos)
+      community.routeros.command:
+        commands:
+          - /ip service set telnet disabled=yes
+          - /ip service set ftp disabled=yes
+          - /ip service set www disabled=yes
+          - /ip service set api disabled=yes
+          - /ip service set api-ssl disabled=yes
+          - /ip service set winbox port={{ winbox_custom_port }} disabled=no
+          # 
+#          - /ip service set ssh port={{ ssh_custom_port }} disabled=yes
+
+    - name: 4. Verificar estado de los servicios
+      community.routeros.command:
+        commands:
+          - /ip service print
+      register: services_status
+
+    - name: 5. Mostrar resumen de servicios
+      debug:
+        msg: "{{ services_status.stdout_lines }}"
+
+    - name: 6. Configurar Comunidad SNMP
+      community.routeros.command:
+        commands:
+          # Intentamos agregar la comunidad. 
+          # Nota: Si ya existe, el comando podría dar un aviso, pero se puede ignorar.
+          - /snmp community add name={{ snmp_community_name }} addresses={{ monitoring_server_ip }} read-access=yes
+
+    - name: 7. Activar SNMP y Configurar Traps
+      community.routeros.command:
+        commands:
+          - >
+            /snmp set enabled=yes 
+            trap-community={{ snmp_community_name }} 
+            trap-generators=interfaces,temp-exception,start-trap
+            trap-interfaces=all 
+            trap-target={{ monitoring_server_raw_ip }} 
+            trap-version=2
+
+    - name: 7. Desactivar comunidad 'public' por seguridad
+      community.routeros.command:
+        commands:
+          - /snmp community set [find name=public] disabled=yes

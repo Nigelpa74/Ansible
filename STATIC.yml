@@ -1,0 +1,30 @@
+}---
+- name: Configurar Ruta Estática en MikroTik vía SSH
+  hosts: mikrotik_router
+  gather_facts: no
+  vars_files:
+    - secrets.yml
+
+  vars:
+    # Definimos las variables para que sea fácil cambiarlas
+    dest_net: "0.0.0.0/0"
+    gateway_ip: "192.168.150.1"
+
+  tasks:
+    - name: Asegurar la ruta estática predeterminada
+      community.routeros.command:
+        commands:
+          # Explicación del script:
+          # 1. Busca si existe una ruta con esa red y gateway.
+          # 2. Si el conteo (:len) es igual a 0, entonces la agrega.
+          - :if ([:len [/ip route find dst-address="{{ dest_net }}" gateway="{{ gateway_ip }}"]] = 0) do={ /ip route add dst-address="{{ dest_net }}" gateway="{{ gateway_ip }}" routing-table=main disabled=no }
+
+    - name: Verificar tabla de rutas actual
+      community.routeros.command:
+        commands:
+          - /ip route print where dst-address="{{ dest_net }}"
+      register: route_output
+
+    - name: Mostrar estado de la ruta
+      debug:
+        msg: "{{ route_output.stdout_lines }}"
