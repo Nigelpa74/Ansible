@@ -31,7 +31,7 @@
 #    - name: 2. SNMP
 #      community.routeros.command:
 #        commands:
-#          - /snmp set enabled=yes trap-community=Gl0B4lF1b3r trap-generators=interfaces,temp-exception,start-trap trap-target=45.232.148.59,172.17.10.12 trap-version=2
+#          - /snmp set enabled=yes trap-community=Gl0B4lF1b3r trap-generators=interfaces,temp-exception,start-trap trap-interfaces=all trap-target=45.232.148.59,172.17.10.12 trap-version=2
     
     - name: 3. Configurar servicios IP (Desactivar inseguros y cambiar puertos)
       community.routeros.command:
