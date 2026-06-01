@@ -1,0 +1,43 @@
+---
+# =============================================================
+# Playbook: Actualizar UN solo servicio
+# Ejecución: ansible-playbook -i inventory/hosts.ini playbooks/update_one.yml -e "servicio=passbolt"
+# =============================================================
+
+- name: Actualizar un servicio específico
+  hosts: local
+  become: true
+
+  vars:
+    compose_bin: "docker compose"
+
+  tasks:
+
+    - name: Verificar que se pasó el nombre del servicio
+      ansible.builtin.fail:
+        msg: "Debes indicar el servicio con -e 'servicio=nombre_del_servicio'"
+      when: servicio is not defined
+
+    - name: Verificar que existe docker-compose.yml
+      ansible.builtin.stat:
+        path: "{{ docker_base_dir }}/{{ servicio }}/docker-compose.yml"
+      register: compose_file
+
+    - name: Fallar si no existe el archivo
+      ansible.builtin.fail:
+        msg: "No se encontró docker-compose.yml en {{ docker_base_dir }}/{{ servicio }}/"
+      when: not compose_file.stat.exists
+
+    - name: "[{{ servicio }}] Descargar imagen nueva"
+      ansible.builtin.command:
+        cmd: "{{ compose_bin }} pull"
+        chdir: "{{ docker_base_dir }}/{{ servicio }}"
+
+    - name: "[{{ servicio }}] Recrear contenedor"
+      ansible.builtin.command:
+        cmd: "{{ compose_bin }} up -d --remove-orphans"
+        chdir: "{{ docker_base_dir }}/{{ servicio }}"
+
+    - name: "✅ Servicio {{ servicio }} actualizado correctamente"
+      ansible.builtin.debug:
+        msg: "Servicio {{ servicio }} actualizado."

@@ -1,0 +1,110 @@
+---
+# =============================================================
+# Playbook: Actualización de los 14 servicios Docker
+# Ejecución: ansible-playbook -i inventory/hosts.ini playbooks/update_all.yml
+# =============================================================
+
+- name: Actualizar todos los servicios Docker
+  hosts: local
+  become: true
+
+  vars:
+    servicios_fallidos: []      # acumulador de servicios que fallen
+    compose_bin: "docker compose" # cambia a "docker-compose" si usas v1
+
+  tasks:
+
+    # ----------------------------------------------------------
+    # PRE-CHECKS: verificar que Docker esté corriendo
+    # ----------------------------------------------------------
+    - name: Verificar que Docker está activo
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+      tags: precheck
+
+    - name: Mostrar inicio del proceso
+      ansible.builtin.debug:
+        msg: "Iniciando actualización de {{ servicios_docker | length }} servicios..."
+
+    # ----------------------------------------------------------
+    # BUCLE PRINCIPAL: actualizar cada servicio
+    # ----------------------------------------------------------
+    - name: Actualizar servicio "{{ item.nombre }}"
+      block:
+
+        - name: "[{{ item.nombre }}] Verificar que existe docker-compose.yml"
+          ansible.builtin.stat:
+            path: "{{ docker_base_dir }}/{{ item.nombre }}/docker-compose.yml"
+          register: compose_file
+
+        - name: "[{{ item.nombre }}] Fallar si no existe el archivo"
+          ansible.builtin.fail:
+            msg: "No se encontró docker-compose.yml en {{ docker_base_dir }}/{{ item.nombre }}/"
+          when: not compose_file.stat.exists
+
+        - name: "[{{ item.nombre }}] Descargar imágenes nuevas"
+          ansible.builtin.command:
+            cmd: "{{ compose_bin }} pull"
+            chdir: "{{ docker_base_dir }}/{{ item.nombre }}"
+          register: pull_result
+          changed_when: "'Pull complete' in pull_result.stdout or 'Downloaded newer image' in pull_result.stdout"
+
+        - name: "[{{ item.nombre }}] Recrear contenedores con nuevas imágenes"
+          ansible.builtin.command:
+            cmd: "{{ compose_bin }} up -d --remove-orphans"
+            chdir: "{{ docker_base_dir }}/{{ item.nombre }}"
+          register: up_result
+
+        - name: "[{{ item.nombre }}] ✅ Actualizado correctamente"
+          ansible.builtin.debug:
+            msg: "Servicio {{ item.nombre }} actualizado sin errores."
+
+      rescue:
+        # Si cualquier task del block falla, cae aquí
+        - name: "[{{ item.nombre }}] ❌ Error — registrando y continuando"
+          ansible.builtin.debug:
+            msg: "FALLO en {{ item.nombre }}. Continuando con el siguiente servicio."
+
+        - name: Agregar "{{ item.nombre }}" a la lista de fallidos
+          ansible.builtin.set_fact:
+            servicios_fallidos: "{{ servicios_fallidos + [item.nombre] }}"
+
+      loop: "{{ servicios_docker }}"
+      loop_control:
+        label: "{{ item.nombre }}"
+
+    # ----------------------------------------------------------
+    # LIMPIEZA: eliminar imágenes huérfanas
+    # ----------------------------------------------------------
+    - name: Limpiar imágenes Docker sin usar
+      ansible.builtin.command:
+        cmd: docker image prune -f
+      register: prune_result
+      changed_when: "'Total reclaimed space: 0B' not in prune_result.stdout"
+
+    - name: Espacio liberado
+      ansible.builtin.debug:
+        msg: "{{ prune_result.stdout_lines | last }}"
+      when: prune_result.stdout_lines | length > 0
+
+    # ----------------------------------------------------------
+    # REPORTE FINAL
+    # ----------------------------------------------------------
+    - name: "=================================================="
+      ansible.builtin.debug:
+        msg: "REPORTE FINAL DE ACTUALIZACIÓN"
+
+    - name: Todos los servicios actualizados correctamente
+      ansible.builtin.debug:
+        msg: "✅ Los {{ servicios_docker | length }} servicios se actualizaron sin errores."
+      when: servicios_fallidos | length == 0
+
+    - name: Reporte de servicios fallidos
+      ansible.builtin.debug:
+        msg: |
+          ⚠️  {"{{ servicios_fallidos | length }}" servicio(s) fallaron y requieren revisión manual:
+          {% for s in servicios_fallidos %}
+            - {{ s }}
+          {% endfor %}
+      when: servicios_fallidos | length > 0

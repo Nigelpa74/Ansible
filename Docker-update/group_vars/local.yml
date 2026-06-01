@@ -1,0 +1,22 @@
+# =============================================================
+# Variables globales para los servicios Docker
+# Edita esta lista para agregar, quitar o reordenar servicios
+# =============================================================
+
+docker_base_dir: "/home/nigelpa74/Docker-files"
+
+servicios_docker:
+  - nombre: Akvorado      # <-- reemplaza con el nombre real de tu carpeta
+  - nombre: FreeRadius
+  - nombre: LibreNMS
+  - nombre: Passbolt
+  - nombre: Portainer
+  - nombre: SNMP_exporter
+#  - nombre: servicio_07
+#  - nombre: servicio_08
+#  - nombre: servicio_09
+#  - nombre: servicio_10
+#  - nombre: servicio_11
+#  - nombre: servicio_12
+#  - nombre: servicio_13
+#  - nombre: servicio_14
