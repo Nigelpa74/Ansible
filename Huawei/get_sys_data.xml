@@ -1,0 +1,14 @@
+❯ python3 get_sys_data.py
+[AR5710-Prueba] Sesion ID: 55295
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:e3da9593-d09f-48fa-8719-c01446bc91be">
+  <data>
+    <system xmlns="urn:huawei:yang:huawei-system">
+      <system-info>
+        <sys-name>Huawei_Netconf</sys-name>
+        <sys-contact>Llamar al +51 949384654</sys-contact>
+        <sys-location>Sec. Ing.</sys-location>
+      </system-info>
+    </system>
+  </data>
+</rpc-reply>

@@ -1,0 +1,6 @@
+routers:
+  - nombre: AR5710-Prueba
+    host: 192.168.150.201
+    port: 830
+    user: netconf
+    password: Admin@1234

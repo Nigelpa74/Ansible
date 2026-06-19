@@ -1,0 +1,15 @@
+❯ python3 get_ztp.py
+[AR5710-Prueba] Sesion ID: 60746
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:f97fe2ca-6fdf-4635-beda-cbd4cb9ba07e">
+  <data>
+    <ztp xmlns="urn:huawei:yang:huawei-ztp">
+      <status>
+        <enable>false</enable>
+      </status>
+      <usb-deployment>
+        <enable>true</enable>
+      </usb-deployment>
+    </ztp>
+  </data>
+</rpc-reply>
