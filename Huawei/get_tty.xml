@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:7f6f26a8-4595-4807-b5d9-cee2d2e8c011">
+  <data>
+    <tty xmlns="urn:huawei:yang:huawei-tty">
+      <console>
+        <idle-time-out-min>30</idle-time-out-min>
+        <idle-time-out-sec>1</idle-time-out-sec>
+        <auth-mode>password</auth-mode>
+        <auth-password>$1d$dBR&lt;M!CHU)[+X,7w$!`MA500;aB.#&lt;_&gt;Jl7xO]L.h2khE&amp;++cO8@4XwwR$</auth-password>
+        <privilege-level>3</privilege-level>
+        <history-cmd-size>10</history-cmd-size>
+        <screen-length>24</screen-length>
+        <speed>9600</speed>
+        <flow-control>none</flow-control>
+        <stop-bits>1</stop-bits>
+        <data-bits>8</data-bits>
+        <parity>none</parity>
+        <shutdown-enble>false</shutdown-enble>
+      </console>
+    </tty>
+  </data>
+</rpc-reply>
