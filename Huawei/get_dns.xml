@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:06f10539-f8b5-40e9-9c51-a9c55bbca76b">
+  <data>
+    <dns xmlns="urn:huawei:yang:huawei-dns">
+      <global>
+        <enable>true</enable>
+        <server-algorithm>auto</server-algorithm>
+      </global>
+      <timeout>
+        <interval-time>3</interval-time>
+      </timeout>
+      <try-number>
+        <probe-count>2</probe-count>
+      </try-number>
+      <ipv4-servers>
+        <ipv4-server>
+          <vpn>_public_</vpn>
+          <address>1.1.1.1</address>
+        </ipv4-server>
+      </ipv4-servers>
+      <dns-relay>
+        <enable>false</enable>
+        <ipv6-enable>false</ipv6-enable>
+      </dns-relay>
+      <cache-ttl>
+        <maximum>86400</maximum>
+        <minimum>600</minimum>
+      </cache-ttl>
+    </dns>
+  </data>
+</rpc-reply>

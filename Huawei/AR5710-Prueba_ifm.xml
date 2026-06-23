@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:2371ff93-769b-4def-a16e-424dc337f797">
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:d1819f61-449f-4bdb-b5a5-5d672723c673">
   <data>
     <ifm xmlns="urn:huawei:yang:huawei-ifm">
       <global>
@@ -394,6 +394,7 @@
           <class>main-interface</class>
           <type>GEBrief</type>
           <number>0/0/4</number>
+          <description>Test_Netconf</description>
           <admin-status>up</admin-status>
           <link-protocol>ethernet</link-protocol>
           <router-type>broadcast</router-type>
@@ -408,29 +409,34 @@
             <output-rising-rate>90</output-rising-rate>
             <output-resume-rate>90</output-resume-rate>
           </trap-threshold>
-          <dhcpv6-if xmlns="urn:huawei:yang:huawei-dhcpv6">
-            <option>
-              <insert-interface-id>true</insert-interface-id>
-              <insert-remote-id>false</insert-remote-id>
-              <insert-vss>false</insert-vss>
-              <insert-client-lla>false</insert-client-lla>
-            </option>
-          </dhcpv6-if>
-          <dhcpv6-relay-attribute xmlns="urn:huawei:yang:huawei-dhcpv6">
-            <pd-route>false</pd-route>
-          </dhcpv6-relay-attribute>
-          <dhcp-relay-attribute xmlns="urn:huawei:yang:huawei-dhcp">
-            <enable>false</enable>
-            <gateway-enable>false</gateway-enable>
-            <giaddr-out-address>false</giaddr-out-address>
-            <information>false</information>
-            <information-strategy>replace</information-strategy>
-            <option82>
-              <vss-control-enable>false</vss-control-enable>
-              <link-selection-enable>false</link-selection-enable>
-              <server-id-override-enable>false</server-id-override-enable>
-            </option82>
-          </dhcp-relay-attribute>
+          <ethernet xmlns="urn:huawei:yang:huawei-ethernet">
+            <main-interface>
+              <l2-attribute>
+                <link-type>access</link-type>
+                <pvid>10</pvid>
+                <mac-address-learning xmlns="urn:huawei:yang:huawei-mac">
+                  <status>enable</status>
+                </mac-address-learning>
+                <mstp-attribute xmlns="urn:huawei:yang:huawei-mstp">
+                  <enable>true</enable>
+                  <compliance>auto</compliance>
+                  <digest-snooping>false</digest-snooping>
+                  <loop-protection>false</loop-protection>
+                  <no-agreement-check>false</no-agreement-check>
+                  <point-to-point>auto</point-to-point>
+                  <root-protection>false</root-protection>
+                  <tc-restriction>false</tc-restriction>
+                  <bpdu-filter>default</bpdu-filter>
+                  <edge-port>default</edge-port>
+                </mstp-attribute>
+              </l2-attribute>
+            </main-interface>
+          </ethernet>
+          <dhcp-if xmlns="urn:huawei:yang:huawei-dhcp">
+            <append-vendor-specific>
+              <enble>false</enble>
+            </append-vendor-specific>
+          </dhcp-if>
           <arp-entry xmlns="urn:huawei:yang:huawei-arp">
             <expire-time>1200</expire-time>
             <probe-interval>5</probe-interval>
@@ -448,36 +454,22 @@
             <anyway-proxy-enable>false</anyway-proxy-enable>
             <gratuitous-arp-drop>false</gratuitous-arp-drop>
           </arp-entry>
-          <ip-statistics-enable xmlns="urn:huawei:yang:huawei-ifm-ip-statistics">
-            <unified-mode>
-              <ip-enable>disable</ip-enable>
-            </unified-mode>
-          </ip-statistics-enable>
           <lacp-force-up xmlns="urn:huawei:yang:huawei-lacp">
             <force-up>false</force-up>
             <extension-enable>false</extension-enable>
           </lacp-force-up>
-          <qos xmlns="urn:huawei:yang:huawei-qos">
-            <port-priority>
-              <priority>0</priority>
-            </port-priority>
-            <port-phb-trusts>
-              <port-phb-trust>
-                <type>8021p</type>
-                <dscp-phb-enable>false</dscp-phb-enable>
-              </port-phb-trust>
-              <port-phb-trust>
-                <type>ip-dscp</type>
-                <dscp-phb-enable>false</dscp-phb-enable>
-              </port-phb-trust>
-            </port-phb-trusts>
-            <trust-upstream>
-              <diffserv-domain-name>default</diffserv-domain-name>
-            </trust-upstream>
-          </qos>
-          <wan-unit-manage xmlns="urn:huawei:yang:huawei-wan-unit-manage">
-            <enable>false</enable>
-          </wan-unit-manage>
+          <mac-notification xmlns="urn:huawei:yang:huawei-mac-notify">
+            <learning>false</learning>
+            <aging>false</aging>
+          </mac-notification>
+          <system-controller xmlns="urn:huawei:yang:huawei-system-controller">
+            <pnp>
+              <pnp-enable>true</pnp-enable>
+              <startup-vlan>
+                <send-enable>true</send-enable>
+              </startup-vlan>
+            </pnp>
+          </system-controller>
           <xldp xmlns="urn:huawei:yang:huawei-xldp">
             <enable>true</enable>
           </xldp>
@@ -1102,6 +1094,102 @@
             <band-width>1000</band-width>
             <damping-time>0</damping-time>
           </vlanif-attribute>
+        </interface>
+        <interface>
+          <name>GE0/0/9.300</name>
+          <class>sub-interface</class>
+          <type>GEBrief</type>
+          <parent-name>GE0/0/9</parent-name>
+          <number>300</number>
+          <description>Test_Netconf</description>
+          <admin-status>up</admin-status>
+          <link-protocol>ethernet</link-protocol>
+          <router-type>broadcast</router-type>
+          <clear-ip-df>false</clear-ip-df>
+          <link-up-down-trap-enable>true</link-up-down-trap-enable>
+          <mtu>1500</mtu>
+          <vrf-name>_public_</vrf-name>
+          <network-layer-status>ipv4-ipv6-up</network-layer-status>
+          <ethernet xmlns="urn:huawei:yang:huawei-ethernet">
+            <l3-sub-interface>
+              <dot1q-termination>
+                <dot1q-vlans>
+                  <dot1q-vlans>
+                    <vlan-list>300</vlan-list>
+                  </dot1q-vlans>
+                </dot1q-vlans>
+              </dot1q-termination>
+            </l3-sub-interface>
+          </ethernet>
+          <dhcpv6-if xmlns="urn:huawei:yang:huawei-dhcpv6">
+            <option>
+              <insert-interface-id>true</insert-interface-id>
+              <insert-remote-id>false</insert-remote-id>
+              <insert-vss>false</insert-vss>
+              <insert-client-lla>false</insert-client-lla>
+            </option>
+          </dhcpv6-if>
+          <dhcpv6-relay-attribute xmlns="urn:huawei:yang:huawei-dhcpv6">
+            <pd-route>false</pd-route>
+          </dhcpv6-relay-attribute>
+          <dhcp-relay-attribute xmlns="urn:huawei:yang:huawei-dhcp">
+            <enable>false</enable>
+            <gateway-enable>false</gateway-enable>
+            <giaddr-out-address>false</giaddr-out-address>
+            <information>false</information>
+            <information-strategy>replace</information-strategy>
+            <option82>
+              <vss-control-enable>false</vss-control-enable>
+              <link-selection-enable>false</link-selection-enable>
+              <server-id-override-enable>false</server-id-override-enable>
+            </option82>
+          </dhcp-relay-attribute>
+          <arp-entry xmlns="urn:huawei:yang:huawei-arp">
+            <expire-time>1200</expire-time>
+            <probe-interval>5</probe-interval>
+            <probe-times>3</probe-times>
+            <arp-learn-disable>false</arp-learn-disable>
+            <arp-learn-strict>trust</arp-learn-strict>
+            <route-proxy-enable>false</route-proxy-enable>
+            <inner-proxy-enable>false</inner-proxy-enable>
+            <inter-proxy-enable>false</inter-proxy-enable>
+            <fake-expire-time>5</fake-expire-time>
+            <probe-unicast>false</probe-unicast>
+            <dest-mac-check>false</dest-mac-check>
+            <src-mac-check>false</src-mac-check>
+            <gratuitous-send>accord-global</gratuitous-send>
+            <anyway-proxy-enable>false</anyway-proxy-enable>
+            <gratuitous-arp-drop>false</gratuitous-arp-drop>
+          </arp-entry>
+          <ip-statistics-enable xmlns="urn:huawei:yang:huawei-ifm-ip-statistics">
+            <unified-mode>
+              <ip-enable>disable</ip-enable>
+            </unified-mode>
+          </ip-statistics-enable>
+          <ipv4 xmlns="urn:huawei:yang:huawei-ip">
+            <addresses>
+              <address>
+                <ip>172.16.30.2</ip>
+                <mask>255.255.255.252</mask>
+                <type>main</type>
+              </address>
+            </addresses>
+          </ipv4>
+          <qos xmlns="urn:huawei:yang:huawei-qos">
+            <port-phb-trusts>
+              <port-phb-trust>
+                <type>8021p</type>
+                <dscp-phb-enable>false</dscp-phb-enable>
+              </port-phb-trust>
+              <port-phb-trust>
+                <type>ip-dscp</type>
+                <dscp-phb-enable>false</dscp-phb-enable>
+              </port-phb-trust>
+            </port-phb-trusts>
+            <trust-upstream>
+              <diffserv-domain-name>default</diffserv-domain-name>
+            </trust-upstream>
+          </qos>
         </interface>
       </interfaces>
       <hdlc-damp xmlns="urn:huawei:yang:huawei-ifm-hdlc">
