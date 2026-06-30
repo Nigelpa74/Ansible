@@ -37,7 +37,7 @@ def get_ifm(router):
                 line for line in xml_bonito.split("\n") if line.strip()
             )
 
-            os.makedirs("outputs", exist_ok=True)
+            #os.makedirs("outputs", exist_ok=True)
             archivo = f"{nombre}_ifm.xml"
             #archivo = f"outputs/{nombre}_ifm.xml"
             with open(archivo, "w") as f:

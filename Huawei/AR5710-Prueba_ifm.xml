@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:865915fc-83d9-4548-b7a6-134bdeb4faf8">
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:5e05d3f4-fd32-4d18-91e5-305be20e2822">
   <data>
     <ifm xmlns="urn:huawei:yang:huawei-ifm">
       <global>
