@@ -9,11 +9,19 @@ CONFIG_XML = """
         <server-algorithm>auto</server-algorithm>
     </global>
     <ipv4-servers>
-        <ipv4-server>
-          <vpn>_public_</vpn>
-          <address>8.8.8.8</address>
+        <ipv4-server xc:operation="remove">
+            <vpn>_public_</vpn>
+            <address>1.1.1.3</address>
         </ipv4-server>
-      </ipv4-servers>
+        <ipv4-server xc:operation="remove">
+            <vpn>_public_</vpn>
+            <address>8.8.8.8</address>
+        </ipv4-server>
+        <ipv4-server>
+            <vpn>_public_</vpn>
+            <address>10.50.2.5</address>
+        </ipv4-server>
+    </ipv4-servers>
   </dns>
 </config>
 """

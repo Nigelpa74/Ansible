@@ -1,6 +1,6 @@
 routers:
-  - nombre: AR5710-Prueba
-    host: 192.168.150.201
+  - nombre: CID258382_364123_BELEN
+    host: 10.139.50.19
     port: 830
-    user: netconf
-    password: Admin@1234
+    user: AdminGF
+    password: HW#*c8Q$Tq9W

@@ -2,7 +2,6 @@ import yaml
 import xml.dom.minidom
 from ncclient import manager
 
-from get_snmp import get_snmp
 
 FILTER = """
 <filter type="subtree">
