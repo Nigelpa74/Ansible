@@ -19,7 +19,7 @@ def huawei_connect(router):
         device_params={'name': "huaweiyang"},
         allow_agent=False,
         look_for_keys=False,
-        timeout=60
+        timeout=15
     )
 
 def get_ifm(router):
@@ -48,7 +48,7 @@ def get_ifm(router):
     except Exception as e:
         print(f"[{nombre}] ❌ Error: {e}")
 
-def cargar_inventario(archivo="inventario.yml"):
+def cargar_inventario(archivo="inventario-m.yml"):
     with open(archivo) as f:
         data = yaml.safe_load(f)
     return data["routers"]
