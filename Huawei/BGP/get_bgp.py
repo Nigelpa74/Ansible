@@ -6,12 +6,6 @@ from ncclient import manager
 FILTER = """
 <filter type="subtree">
   <bgp xmlns="urn:huawei:yang:huawei-bgp">
-    <instances>
-      <instance>
-        <name>101</name>
-        <bgp xmlns="urn:huawei:yang:huawei-bgp"/>
-      </instance>
-    </instances>
   </bgp>
 </filter>
 """

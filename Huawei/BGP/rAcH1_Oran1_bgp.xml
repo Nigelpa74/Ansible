@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:f65218c3-15e5-46e9-a885-1afa28c37486">
+  <data>
+    <bgp xmlns="urn:huawei:yang:huawei-bgp">
+      <global>
+        <yang-enable>false</yang-enable>
+      </global>
+      <base-process>
+        <enable>true</enable>
+        <as>266757</as>
+        <keep-all-routes>false</keep-all-routes>
+        <check-first-as>true</check-first-as>
+        <router-id-auto-select>false</router-id-auto-select>
+        <shutdown>false</shutdown>
+        <local-ifnet-mtu>1500</local-ifnet-mtu>
+        <private-4byte-as>true</private-4byte-as>
+        <dynamic-session-limit>100</dynamic-session-limit>
+        <peer-up-route-lowest-priority>false</peer-up-route-lowest-priority>
+        <route-loop-detect-enable>false</route-loop-detect-enable>
+        <vrf-route-distribute-vpnv4>true</vrf-route-distribute-vpnv4>
+        <vrf-route-distribute-vpnv6>true</vrf-route-distribute-vpnv6>
+        <router-id-allow-same>false</router-id-allow-same>
+        <slow-peer-auto-recover>true</slow-peer-auto-recover>
+        <confederation>
+          <nonstanded>false</nonstanded>
+        </confederation>
+        <graceful-restart>
+          <enable>false</enable>
+          <time-wait-for-rib>600</time-wait-for-rib>
+          <restart-time>150</restart-time>
+          <peer-reset>false</peer-reset>
+        </graceful-restart>
+        <reference-period>
+          <suppress-interval>60</suppress-interval>
+          <hold-interval>120</hold-interval>
+          <clear-interval>600</clear-interval>
+        </reference-period>
+        <send-hold>
+          <time>86400</time>
+        </send-hold>
+        <timer>
+          <connect-retry-time>32</connect-retry-time>
+          <keep-alive-time>30</keep-alive-time>
+          <hold-time>90</hold-time>
+          <min-hold-time>0</min-hold-time>
+        </timer>
+      </base-process>
+      <memory-overload>
+        <connect-escape-timeout>72</connect-escape-timeout>
+      </memory-overload>
+    </bgp>
+  </data>
+</rpc-reply>
