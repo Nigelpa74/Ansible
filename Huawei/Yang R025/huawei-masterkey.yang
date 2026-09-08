@@ -1,0 +1,222 @@
+/*
+Copyright (C) 2019-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-masterkey {
+  namespace "urn:huawei:yang:huawei-masterkey";
+  prefix masterkey;
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Master key.";
+  revision 2023-09-01 {
+    description
+      "Add the rpc node set-masterkey-default.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-19 {
+    description
+      "Add new nodes about check synchronization status of master key.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-20 {
+    description
+      "Fixed units and description problems.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-05-22 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef mk-config-type {
+    type enumeration {
+      enum "default" {
+        value 1;
+        description
+          "Default master key.";
+      }
+      enum "user-defined" {
+        value 2;
+        description
+          "User defined master key.";
+      }
+      enum "auto-update" {
+        value 3;
+        description
+          "Auto update master key.";
+      }
+    }
+    description
+      "The config type of master key.";
+  }
+  typedef mk-modify-result {
+    type enumeration {
+      enum "success" {
+        value 1;
+        description
+          "Success.";
+      }
+      enum "operating" {
+        value 2;
+        description
+          "Operating.";
+      }
+      enum "failure" {
+        value 3;
+        description
+          "Failure.";
+      }
+    }
+    description
+      "The status of operation.";
+  }
+  container masterkey {
+    description
+      "Master key.";
+    container current-type {
+      config false;
+      description
+        "Operational state of master key current type.";
+      leaf type {
+        type mk-config-type;
+        description
+          "Master key current type.";
+      }
+    }
+    container modify-result {
+      config false;
+      description
+        "Operational state of master key modify information.";
+      leaf modify-start-time {
+        type yang:date-and-time;
+        description
+          "Start time.";
+      }
+      leaf modify-end-time {
+        type yang:date-and-time;
+        description
+          "End time.";
+      }
+      leaf modify-result {
+        type mk-modify-result;
+        description
+          "Modify result.";
+      }
+      leaf modify-error-reason {
+        type string {
+          length "1..128";
+        }
+        description
+          "Modify error reason.";
+      }
+    }
+    container auto-update {
+      description
+        "Configure master key auto update.";
+      leaf interval {
+        type uint32 {
+          range "1..3650";
+        }
+        units "d";
+        description
+          "Auto update interval.";
+      }
+    }
+    container current-masterkey {
+      config false;
+      description
+        "Operational data of current master key information.";
+      leaf domain-id {
+        type uint32 {
+          range "0..1023";
+        }
+        description
+          "Domain ID of current master key.";
+      }
+      leaf key-id {
+        type uint32 {
+          range "1..4096";
+        }
+        description
+          "Key ID of current master key.";
+      }
+      leaf create-time {
+        type yang:date-and-time;
+        description
+          "Create time of current master key.";
+      }
+      leaf expired-time {
+        type yang:date-and-time;
+        description
+          "Expired time of current master key.";
+      }
+    }
+  }
+  rpc set-masterkey {
+    ext:node-ref "/masterkey";
+    description
+      "Modify master key.";
+    input  {
+      leaf new-masterkey {
+        type pub-type:password-extend {
+          length "20..32";
+        }
+        description
+          "The input field is the master key. If this field is not carried, the system automatically generates the master key.";
+      }
+    }
+  }
+  rpc clear-masterkey {
+    ext:node-ref "/masterkey";
+    description
+      "Delete historical master key.";
+  }
+  rpc check-masterkey-sync-status {
+    ext:node-ref "/masterkey";
+    description
+      "Check synchronization status of master key.";
+    output  {
+      leaf synchronization-status {
+        type enumeration {
+          enum "synchronized" {
+            value 0;
+            description
+              "The master key has been synchronized.";
+          }
+          enum "unsynchronized" {
+            value 1;
+            description
+              "The master key has not been synchronized.";
+          }
+        }
+        description
+          "Master key synchronization status.";
+      }
+    }
+  }
+  rpc set-masterkey-default {
+    description
+      "Set master key to default.";
+  }
+  ext:task-name "system";
+}

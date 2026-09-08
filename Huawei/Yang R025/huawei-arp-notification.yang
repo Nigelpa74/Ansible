@@ -1,0 +1,255 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-arp-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-arp-notification";
+  prefix arp-notification;
+  import ietf-yang-types{
+    prefix yang;
+  }
+  import ietf-inet-types{
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of ARP.";
+  revision 2025-07-02 {
+    description
+      "Add detect-abnormal and detect-abnormal-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-09 {
+    description
+      "Add arp-dynamic-entry-exceed and arp-dynamic-entry-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "arp";
+  notification ip-conflict-event {
+    description
+    "IP address collision is detected.";
+    leaf ip-addr {
+      type inet:ipv4-address-no-zone;
+    description
+      "Source IP addresses of the received ARP packets.";
+    }
+    leaf local-mac-addr {
+      type yang:mac-address;
+    description
+      "The local MAC address.";
+    }
+    leaf local-if-name {
+      type pub-type:if-name;
+    description
+      "The local interface name.";
+    }
+    leaf local-pe-vlan {
+      type uint32;
+    description
+      "The local VLAN ID.";
+    }
+    leaf local-ce-vlan {
+      type uint32;
+    description
+      "The local inner VLAN ID.";
+    }
+    leaf recv-mac-addr {
+      type yang:mac-address;
+    description
+      "The destination MAC address.";
+    }
+    leaf recv-if-name {
+      type pub-type:if-name;
+    description
+      "The name of the destination interface.";
+    }
+    leaf recv-pe-vlan {
+      type uint32;
+    description
+      "Received VLAN ID.";
+    }
+    leaf recv-ce-vlan {
+      type uint32;
+    description
+      "Received inner VLAN ID.";
+    }
+    leaf conflict-type {
+      type string {
+        length "1..8";
+      }
+    description
+      "IP address conflict type.";
+    }
+  }
+  notification gateway-conflict {
+    description
+    "Received an ARP packet with a duplicate IP address from the interface.";
+    leaf if-name {
+      type pub-type:if-name;
+    description
+      "Name of the interface.";
+    }
+    leaf ip-addr {
+      type inet:ipv4-address-no-zone;
+    description
+      "IP address that is conflicted with the existing one.";
+    }
+    leaf mac-addr {
+      type yang:mac-address;
+    description
+      "Mac Address.";
+    }
+    leaf pe-vlan {
+      type uint32;
+    description
+      "Outer VLAN.";
+    }
+    leaf ce-vlan {
+      type uint32;
+    description
+      "Inner VLAN.";
+    }
+  }
+  notification arp-dynamic-entry-exceed {
+    description
+      "The number of dynamic ARP entries exceeded the specification.";
+    leaf ent-physical-index {
+      type uint32;
+	  description
+      "Indicates the index of the physical entity.";
+    }
+    leaf slot-name {
+      type string {
+        length "1..31";
+      }
+	  description
+      "Indicates the board name.";
+    }
+    leaf specs {
+      type uint32;
+	  description
+      "Indicates the maximum number of dynamic ARP entries.";
+    }
+    leaf dyn-entries {
+      type uint32;
+	  description
+      "Indicates the number of dynamic ARP entries.";
+    }
+  }
+  notification arp-dynamic-entry-resume {
+    description
+      "The number of dynamic ARP entries fell below the specification.";
+    leaf ent-physical-index {
+      type uint32;
+	  description
+      "Indicates the index of the physical entity.";
+    }
+    leaf slot-name {
+      type string {
+        length "1..31";
+      }
+	  description
+      "Indicates the board name.";
+    }
+    leaf specs {
+      type uint32;
+	  description
+      "Indicates the maximum number of dynamic ARP entries.";
+    }
+    leaf dyn-entries {
+      type uint32;
+	  description
+      "Indicates the number of dynamic ARP entries.";
+    }
+  }
+  notification detect-abnormal {
+    description
+      "ARP detection is abnormal.";
+    leaf if-name {
+      type pub-type:if-name;
+    description
+      "Name of the interface whose ARP entry status is different from that of the IS-IS neighbor entry.";
+    }
+    leaf ip-addr {
+      type inet:ipv4-address-no-zone;
+    description
+      "IP address.";
+    }
+    leaf mac-addr {
+      type yang:mac-address;
+    description
+      "Mac address.";
+    }
+    leaf pe-vlan {
+      type uint32;
+    description
+      "Outer VLAN.";
+    }
+    leaf ce-vlan {
+      type uint32;
+    description
+      "Inner VLAN.";
+    }
+    leaf out-if-name {
+      type pub-type:if-name;
+    description
+      "Name of the physical forwarding interface.";
+    }
+  }
+  notification detect-abnormal-resume {
+    description
+      "ARP detection abnormality is resolved.";
+    leaf if-name {
+      type pub-type:if-name;
+    description
+      "Name of the interface whose ARP entry status is different from that of the IS-IS neighbor entry.";
+    }
+    leaf ip-addr {
+      type inet:ipv4-address-no-zone;
+    description
+      "IP address.";
+    }
+    leaf mac-addr {
+      type yang:mac-address;
+    description
+      "Mac address.";
+    }
+    leaf pe-vlan {
+      type uint32;
+    description
+      "Outer VLAN.";
+    }
+    leaf ce-vlan {
+      type uint32;
+    description
+      "Inner VLAN.";
+    }
+    leaf out-if-name {
+      type pub-type:if-name;
+    description
+      "Name of the physical forwarding interface.";
+    }
+  }
+}

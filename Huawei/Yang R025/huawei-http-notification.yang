@@ -1,0 +1,66 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-http-notification {
+  namespace "urn:huawei:yang:huawei-http-notification";
+  prefix http-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-http {
+    prefix http;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of HTTP.";
+  
+  revision 2024-09-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  
+  ext:task-name "https";
+  notification httpc-transfer-result {
+    description
+      "HTTP client transfer file result notification.";
+    leaf operation-type {
+      type http:httpc-trans-cmd-type;
+      description
+        "Specify the type of the operation to be performed.";
+    }
+    leaf file-url {
+      type string {
+        length "1..255";
+      }
+      description
+        "Download/upload file URL.";
+    }
+    leaf transfer-status {
+      type http:httpc-transfer-status-type;
+      description
+        "Indicates that the transfer status.";
+    }
+    leaf error-tag {
+      type uint32;
+      description
+        "Show the error code when http transfer failed.";
+    }
+    leaf error-message {
+      type string {
+        length "0..255";
+      }
+      description
+        "A message describing the error.";
+    }
+  }
+}

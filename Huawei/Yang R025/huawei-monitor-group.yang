@@ -1,0 +1,326 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-monitor-group {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-monitor-group";
+  prefix monitor-group;
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Global monitor group configuration.";
+  revision 2024-03-08 {
+    description
+      "Add monitor-group name patterns.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-27 {
+    description
+      "Complementary for display command.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-20 {
+    description
+      "Modified monitor-group Capacity.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-09 {
+    description
+      "Fix trigger-up-delay units.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-04-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "interface-mgr";
+  typedef status-type {
+    type enumeration {
+      enum "inactive" {
+        value 0;
+        description
+          "The status of monitor group is inactive.";
+      }
+      enum "active" {
+        value 1;
+        description
+          "The status of monitor group is active.";
+      }
+    }
+    description
+      "Status type is like inactive/active.";
+  }
+  typedef trigger-type {
+    type enumeration {
+      enum "normal" {
+        value 255;
+        description
+          "The status of the interface tracking monitor group is normal.";
+      }
+      enum "down" {
+        value 0;
+        description
+          "The status of the interface tracking monitor group is trigger down.";
+      }
+      enum "up" {
+        value 1;
+        description
+          "The status of the interface tracking monitor group is trigger up.";
+      }
+    }
+    description
+      "Trigger type is like normal/down/up.";
+  }
+  typedef valid-type {
+    type enumeration {
+      enum "valid" {
+        value 1;
+        description
+          "Interface is valid.";
+      }
+      enum "invalid" {
+        value 0;
+        description
+          "Interface is invalid.";
+      }
+    }
+    description
+      "Valid type is like valid/invalid.";
+  }
+  typedef bind-if-status-type {
+    type enumeration {
+      enum "invalid" {
+        value 255;
+        description
+          "Invalid state.";
+      }
+      enum "down" {
+        value 0;
+        description
+          "Down state.";
+      }
+      enum "up" {
+        value 1;
+        description
+          "Up state.";
+      }
+    }
+    description
+      "Binding interface's status type is like invalid/down/up.";
+  }
+  container monitor-group {
+    description
+      "Global monitor group configuration.";
+    container groups {
+      description
+        "List of monitor groups.";
+      list group {
+        key "name";
+        description
+          "Configure this table to operate monitor groups on devices.";
+        leaf name {
+          type string {
+            length "1..31";
+            pattern '(".+"|"*[^ "]+"*)';
+          }
+          description
+            "Specifies the name of an interface monitoring group.";
+        }
+        leaf trigger-up-delay {
+          type uint32 {
+            range "0..4294967295";
+          }
+          units s;
+          default "0";
+          description
+            "Delay for a track interface to go up.";
+        }
+        leaf enable-status {
+          type status-type;
+          default "inactive";
+          description
+            "Status of monitor group.";
+        }
+        leaf index {
+          type uint32;
+          config false;
+          description
+            "Index of a monitor group.";
+        }
+        leaf down-weight {
+          type uint32;
+          config false;
+          description
+            "Down weight of a interface monitoring group.";
+        }
+        leaf weight-sum {
+          type uint32;
+          config false;
+          description
+            "Sum of down weights of all binding interfaces.";
+        }
+        leaf max-track-weight {
+          type uint32;
+          config false;
+          description
+            "The largest trigger-down-weight among the trigger-down-weights of track interfaces associated with an interface monitoring group.";
+        }
+        leaf binding-if-num {
+          type uint32;
+          config false;
+          description
+            "Number of binding interfaces in an interface monitoring group.";
+        }
+        leaf tracked-if-num {
+          type uint32;
+          config false;
+          description
+            "Number of interfaces tracking the monitor group.";
+        }
+        container binding-ifs {
+          description
+            "List of monitor group binding interfaces.";
+          list binding-if {
+            key "if-name";
+            max-elements 1024;
+            description
+              "Configure monitor group binding interface.";
+            leaf if-name {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description
+                "Name of monitor group binding interface.";
+            }
+            leaf down-weight {
+              type uint32 {
+                range "1..1000";
+              }
+              default "10";
+              description
+                "Down weight of monitor group binding interface.";
+            }
+            leaf ifindex {
+              type uint32;
+              config false;
+              description
+                "Index of monitor group binding interface.";
+            }
+            leaf phy-status {
+              type bind-if-status-type;
+              config false;
+              description
+                "Physical status of monitor group binding interface.";
+            }
+            leaf bfd-status {
+              type bind-if-status-type;
+              config false;
+              description
+                "BFD status of monitor group binding interface.";
+            }
+            leaf last-phy-up-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Time at which the physical status of a binding interface went Up last time.";
+            }
+            leaf last-phy-down-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Time at which the physical status of a binding interface went Down last time.";
+            }
+            leaf last-bfd-up-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Time at which the BFD status of a binding interface went Up last time.";
+            }
+            leaf last-bfd-down-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Time at which the BFD status of a binding interface went Down last time.";
+            }
+            leaf valid-flag {
+              type valid-type;
+              config false;
+              description
+                "A flag identifying whether the interface is valid.";
+            }
+          }
+        }
+      }
+    }
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "A set of track interfaces.";
+    container track-monitor-group {
+      description
+        "Configure a set of track interfaces.";
+      leaf name {
+        type leafref {
+          path "/monitor-group:monitor-group/monitor-group:groups/monitor-group:group/monitor-group:name";
+        }
+        description
+          "The monitoring group was tracked under the interface.";
+      }
+      leaf down-weight {
+        when "../name";
+        type uint32 {
+          range "1..32000";
+        }
+        description
+          "Trigger down weight of a track interface.";
+      }
+      leaf trigger-status {
+        type trigger-type;
+        config false;
+        description
+          "Triggered status of a track interface.";
+      }
+      leaf last-trigger-up-time {
+        type yang:date-and-time;
+        config false;
+        description
+          "Time at which a track interface is triggered by an interface monitoring group to go Up.";
+      }
+      leaf last-trigger-down-time {
+        type yang:date-and-time;
+        config false;
+        description
+          "Time at which a track interface is triggered by an interface monitoring group to go Down.";
+      }
+      leaf valid-flag {
+        type valid-type;
+        config false;
+        description
+          "A flag identifying whether the interface is valid.";
+      }
+    }
+  }
+}

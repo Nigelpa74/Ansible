@@ -1,0 +1,764 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cpu-memory {
+  namespace "urn:huawei:yang:huawei-cpu-memory";
+  prefix cpu-memory;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Configuring and querying CPU and memory information.";
+  revision 2024-09-14 {
+    description
+      "Add slot-id and cpu-id key to board-storage-flash-erase-infos and board-storage-flash-bad-block-infos.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-09 {
+    description
+      "Modify board-cpu-infos and board-memory-infos nodes support config.";
+    reference
+      "Huawei private.";
+  }
+    revision 2024-02-02 {
+    description
+      "Add new nodes board-cpu-top-infos and board-memory-top-infos.";
+    reference
+      "Huawei private.";
+  }
+
+    revision 2023-07-27 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+    
+    revision 2022-03-26 {
+    description
+      "Add dataplane-cpu-usage nodes.";
+    reference
+      "Huawei private.";
+  }
+    revision 2021-10-21 {
+    description
+      "Add new nodes about erase number and bad block number of flash storage.";
+    reference
+      "Huawei private.";
+  }
+    revision 2021-10-13 {
+    description
+      "Add board-cpu-process-infos nodes.";
+    reference
+      "Huawei private.";
+  }
+    revision 2021-02-08 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+    revision 2020-08-31 {
+    description
+      "Add new nodes about hugepages and forwarding plane.";
+    reference
+      "Huawei private.";
+  }
+    revision 2020-06-28 {
+    description
+      "Modify parameter length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-16 {
+    description
+      "Add service-name as a key for board-cpu-service-infos nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-01 {
+    description
+      "Add board-cpu-service-infos nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-30 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "diagnose";
+  container cpu-memory {
+    description "CPU and memory configuration and status information.";
+    container board-cpu-infos {
+        description
+          "List of CPU information of boards.";       
+        list board-cpu-info {
+          must "unoverload-threshold <= (overload-threshold - 3)";
+          ext:generated-by system;
+          ext:operation-exclude create;
+          key "slot-id cpu-id";       
+          description
+            "Configure CPU information of a board.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+             type string {       
+              length "1..50";       
+            }        
+            description       
+              "CPU ID.";       
+          }       
+          leaf overload-threshold {       
+            type uint32 {       
+              range "4..100";       
+            }       
+            units %;       
+            default "90";
+            description       
+              "Overload threshold.";       
+          }       
+          leaf unoverload-threshold {       
+            type uint32 {       
+              range "1..97";       
+            }       
+            units %;       
+            default "75"; 
+            description       
+              "Overload alarm clear threshold.";       
+          }       
+          leaf interval {       
+            type uint32 {       
+              range "1..60";       
+            }       
+            units min;       
+            default "1";       
+            description       
+              "Overload alarm cycle.";       
+          }       
+          leaf system-cpu-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;       
+            default "0";             
+            config false;
+            description       
+              "CPU usage.";       
+          }       
+          leaf cpu-cores {
+            type uint32 {
+              range "0..512";
+            }
+            default "0";
+            config false;
+            description
+              "CPU cores.";
+          }
+          leaf monitor-cycle {       
+            type uint32;       
+            units ms;              
+            config false;
+            description       
+              "Monitor cycle.";       
+          }       
+          leaf overload-state-change-time {       
+            type yang:date-and-time;            
+            config false;
+            description
+              "Last overload state changetime.";       
+          }
+          leaf current-overload-state {       
+            type enumeration {
+             enum "unoverload" {
+               value 0;
+               description
+                 "CPU is unoverload.";
+              }
+              enum "overload" {
+                value 1;      
+                description
+                "CPU is overload.";
+              }
+            }     
+            config false;
+            description       
+              "Current overload state.";       
+          }
+          leaf forward-is-deployed {
+            type boolean;
+            default "false";
+            config false;
+            description
+              "Whether the forwarding plane is deployed.";
+          }
+          leaf forward-cpu-usage {
+            when "../forward-is-deployed='true'";
+            type uint32 {
+              range "0..100";
+            }
+            units %;
+            default "0";
+            config false;
+            description
+              "CPU usage of the forwarding plane.";
+          }
+          leaf dataplane-cpu-usage {
+            type uint32 {
+              range "0..100";
+            }
+            units %;
+            default "0";
+            config false;
+            description
+              "CPU usage of the data plane.";
+          }
+        }       
+    }       
+    container board-cpu-core-infos {       
+        config false;       
+        description       
+          "List of CPU usage of every core.";                
+        list board-cpu-core-info {       
+          key "slot-id cpu-id core-id";       
+          description       
+            "Statistics of CPU information of a board.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..50";       
+            }
+            description       
+              "CPU ID.";       
+          }       
+          leaf core-id {       
+           type uint8 {       
+              range "0..127";       
+            }       
+            description       
+              "CPU core ID.";       
+          }       
+          leaf cpu-core-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;       
+            default "0";       
+            description       
+              "CPU core usage.";       
+          }       
+        }       
+    }   
+    container board-cpu-service-infos {       
+        config false;       
+        description       
+          "List of CPU usage of every service.";                
+        list board-cpu-service-info {       
+          key "slot-id cpu-id service-name";       
+          description       
+            "Statistics of service information of a board.";       
+          leaf slot-id {       
+            type string {       
+              length "1..32";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..32";       
+            }
+            description       
+              "CPU ID.";       
+          }       
+          leaf service-name {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Service name.";       
+          }       
+          leaf service-cpu-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;       
+            default "0";       
+            description       
+              "Cpu usage of a service.";       
+          }       
+        }       
+    }           
+    container board-memory-infos {
+        description
+          "List of memory information of boards.";       
+        list board-memory-info {       
+          must "unoverload-threshold <= (overload-threshold - 3)";
+          ext:generated-by system;
+          ext:operation-exclude create;
+          key "slot-id cpu-id";       
+          description       
+            "Configure memory information of a board.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "CPU ID.";       
+          }       
+          leaf overload-threshold {       
+            ext:dynamic-default;
+            type uint32 {       
+              range "50..100";       
+            }       
+            units %;  
+            description       
+              "Overload threshold.";       
+          }       
+          leaf unoverload-threshold {       
+            type uint32 {       
+              range "1..97";       
+            }       
+            units %;     
+            default "75";
+            description       
+              "Overload alarm clear threshold.";       
+          }       
+          leaf os-memory-total {       
+            type uint32;       
+            units kB;          
+            config false;
+            description       
+              "Total OS memory.";       
+          }       
+          leaf os-memory-use {       
+            type uint32;       
+            units kB;           
+            config false;
+            description       
+              "Used OS memory.";       
+          }       
+          leaf os-memory-free {       
+            type uint32;       
+            units kB;         
+            config false;
+            description       
+              "Available OS memory.";       
+          }       
+          leaf os-memory-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;          
+            config false;
+            description       
+              "OS memory usage.";       
+          }       
+          leaf overload-state-change-time {       
+            type yang:date-and-time;       
+            config false;
+            description       
+              "Last overload state changetime.";       
+          }       
+          leaf current-overload-state {       
+            type enumeration {
+             enum "unoverload" {
+               value 0;
+               description
+                 "Memory is unoverload.";
+              }
+              enum "overload" {
+                value 1;      
+                description
+                "Memory is overload.";
+              }
+            }         
+            config false;
+            description       
+              "Current overload state.";       
+          }
+          leaf hugepages-total {       
+            type uint32;       
+            units kB;          
+            config false;
+            description       
+              "Total hugepages memory.";       
+          }       
+          leaf hugepages-free {       
+            type uint32;       
+            units kB;         
+            config false;
+            description       
+              "Available hugepages memory.";       
+          }       
+         }       
+    }               
+    container board-process-memory-infos {       
+        config false;       
+        description       
+          "List of memory information of process.";       
+        list board-process-memory-info {       
+          key "slot-id cpu-id process-id";       
+          description       
+            "Statistics of memory information of a process.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "CPU ID.";       
+          }       
+          leaf process-id {       
+           type uint32;       
+            description       
+              "Process ID.";       
+          }       
+          leaf process-name {       
+            type string {       
+              length "1..32";       
+            }       
+            description       
+              "Process Name.";       
+          }       
+          leaf vm-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process virtual memory size.";       
+          }       
+          leaf vm-rss-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process physical memory size.";       
+          }       
+          leaf vm-data-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process data segment size.";       
+          }       
+          leaf vm-stk-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process user stack size.";       
+          }       
+          leaf vm-exe-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process code segment size.";       
+          }       
+          leaf vm-lib-size {       
+            type uint32;       
+            units kB;       
+            description       
+              "Process library size.";       
+          }       
+        }       
+    }
+    container board-storage-partition-infos {       
+         config false;       
+         description       
+          "List of system partition information.";                
+        list board-storage-partition-info {       
+          key "slot-id cpu-id partition-name";       
+          description       
+            "Statistics of system partitions.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Board slot-id.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..50";       
+            }
+            description       
+              "CPU ID.";       
+          }
+          leaf partition-name {       
+            type string {       
+              length "1..32";       
+            }
+            description       
+              "Partition name.";   
+          }
+          leaf partition-size-all {       
+            type uint64;       
+            units kB;       
+            description       
+              "Total partition size.";       
+          }
+          leaf partition-size-use {       
+            type uint64;       
+            units kB;       
+            description       
+              "Partition memory used size.";       
+          }
+          leaf partition-memory-free {       
+            type uint64;       
+            units kB;       
+            description       
+              "Available partition size.";       
+          }             
+          leaf partition-memory-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;            
+            description       
+              "Partition usage.";       
+          }
+          leaf partition-mounted-info {       
+            type string {       
+              length "1..64";       
+            }
+            description       
+              "Directory to which the partition is mounted."; 
+          }          
+        }       
+    }
+    container board-storage-flash-erase-infos {
+        config false;
+        description
+          "List of Statistics for system flash erase information.";
+        list board-storage-flash-erase-info {
+            key "slot-id cpu-id flash-id";
+            description
+              "Statistics of system flash erase information.";
+            leaf slot-id {
+              type string {
+                length "1..50";
+              }
+              description
+                "Board slot-id.";
+            }
+            leaf cpu-id {
+              type string {
+                length "1..50";
+              }
+              description
+                "CPU ID.";
+            }
+            leaf flash-id {
+                type uint32;
+                description
+                  "Board flash-id.";
+            }
+            leaf erase-number {
+              type uint64;
+              description
+                "Board flash erase number.";
+            }
+        }
+    }
+    container board-storage-flash-bad-block-infos {
+        config false;
+        description
+          "List of Statistics system flash bad block information.";
+        list board-storage-flash-bad-block-info {
+            key "slot-id cpu-id partition-name";
+            description
+              "Statistics of system flash bad block information.";
+            leaf slot-id {
+              type string {
+                length "1..50";
+              }
+              description
+                "Board slot-id.";
+            }
+            leaf cpu-id {
+              type string {
+                length "1..50";
+              }
+              description
+                "CPU ID.";
+            }
+            leaf partition-name {
+                type string {
+                    length "1..32";
+                }
+                description
+                  "Partition name.";
+            }
+            leaf bad-number {
+              type uint64;
+              description
+                "Board flash bad block number.";
+            }
+        }
+    }
+	container board-cpu-process-infos {       
+        config false;       
+        description       
+          "List of CPU usage of every process.";                
+        list board-cpu-process-info {       
+          key "slot-id cpu-id process-id";       
+          description       
+            "Statistics of process information of a board.";       
+          leaf slot-id {       
+            type string {       
+              length "1..50";       
+            }       
+            description       
+              "Slot ID.";       
+          }       
+          leaf cpu-id {       
+            type string {       
+              length "1..50";       
+            }
+            description       
+              "CPU ID.";       
+          }       
+          leaf process-id {
+            type uint32;
+            description
+              "Process ID.";
+          }
+          leaf process-name {       
+            type string {       
+              length "1..32";       
+            }       
+            description       
+              "Process name.";       
+          }       
+          leaf process-cpu-usage {       
+            type uint32 {       
+              range "0..100";       
+            }       
+            units %;       
+            default "0";       
+            description       
+              "Cpu usage of a process.";       
+          }       
+        }       
+    }
+    container board-memory-top-infos  {
+        config false;
+        description
+          "List of top 3 processes memory usage.";
+        list board-memory-top-info {
+          key "slot-id process-id";
+          description
+            "Statistics of processes with highest memory usage.";
+          leaf slot-id {
+            type string {
+              length "1..32";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf process-id {
+           type uint32;
+            description
+              "Process ID.";
+          }
+          leaf process-name {
+            type string {
+              length "1..32";
+            }
+            description
+              "Process Name.";
+          }
+          leaf memory-usage {
+            type uint32;
+            units kB;
+            description
+              "Memory usage.";
+          }
+        }
+    }
+    container board-cpu-top-infos {
+        config false;
+        description
+          "List of top 3 threads CPU usage.";
+        list board-cpu-top-info {
+            key "slot-id thread-id";
+            description
+              "Statistics of threads with highest CPU usage.";
+            leaf slot-id {
+              type string {
+                length "1..32";
+              }
+              description
+                "Slot ID.";
+            }
+            leaf thread-id {
+              type uint32;
+              description
+                "Thread ID.";
+            }
+            leaf thread-name {
+              type string {
+                length "1..32";
+              }
+              description
+                "Thread Name.";
+            }
+            leaf process-id {
+              type uint32;
+              description
+                "Process ID.";
+            }
+            leaf process-name {
+              type string {
+                length "1..32";
+              }
+              description
+                "Process Name.";
+            }
+            leaf thread-cpu-usage {
+              type uint32 {
+                range "0..100";
+              }
+              units %;
+              description
+                "Cpu usage of a thread.";
+            }
+        }
+    }
+  }
+}

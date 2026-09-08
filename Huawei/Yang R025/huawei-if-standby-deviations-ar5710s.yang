@@ -1,0 +1,81 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-if-standby-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-if-standby-deviations-ar5710s";
+  prefix if-standby-devs-ar5710s;
+
+  import huawei-if-standby {
+    prefix if-standby;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-if-standby module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef backup-state-type-deviations {
+    type enumeration {
+      enum up {
+        value 1;
+        description
+          "Indicates that the interface is in Up state.";
+      }
+      enum down {
+        value 2;
+        description
+          "Indicates that the interface is in Down state.";
+      }
+      enum standby {
+        value 5;
+        description
+          "Indicates that the interface is in standby state.";
+      }
+    }
+    description
+      "Backup state type.";
+  }
+
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:primary-interface" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby" {
+    deviate delete {
+      must 'not (./primary-interface and ./standby-track)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:standby-track" {
+    deviate delete {
+      must 'count(/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:primary-interface/if-standby:standby-interfaces/if-standby:standby-interface/if-standby:name[.=current()/../../ifm:name])=0';
+    }
+    deviate add {
+      must "../../ifm:type='Ethernet' or ../../ifm:type='GigabitEthernet' or ../../ifm:type='GEBrief' or ../../ifm:type='100GE' or ../../ifm:type='40GE' or ../../ifm:type='10GE' or ../../ifm:type='25GE' or ../../ifm:type='50GE' or ../../ifm:type='200GE' or ../../ifm:type='400GE' or ../../ifm:type='Tunnel' or ../../ifm:type='Mp-group' or ../../ifm:type='Dialer' or ../../ifm:type='Cellular' or ../../ifm:type='Serial' or ../../ifm:type='Pos' or ../../ifm:type='Eth-Trunk' or ../../ifm:type='Ip-Trunk'";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:standby-track/if-standby:backup-state" {
+    deviate replace {
+      type if-standby-devs-ar5710s:backup-state-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:standby-track/if-standby:switch-delay/if-standby:primary-to-standby" {
+    deviate replace {
+      default "0";
+    }
+  }
+}

@@ -1,0 +1,96 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-sd-wan-tunnel {
+
+  namespace "urn:huawei:yang:huawei-sd-wan-tunnel";
+  prefix sd-wan-tunnel;
+  
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     SD-WAN tunnel encapsulation protocol on a Tunnel interface.";
+
+  revision 2025-01-07 {
+    description "Add statistics-enable.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2020-07-30 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "sdwan";    
+
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type" {
+    description
+      "SD-WAN configuration on interface.";
+    case sd-wan-tunnel {
+      description
+        "SD-WAN tunnel encapsulation protocol.";
+      container sd-wan-tunnel {
+        presence "Specifies tunnel-protocol SD-WAN.";
+        description
+          "Configure SD-WAN tunnel.";
+        leaf service-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable SD-WAN services on the tunnel interface.";
+        }
+        leaf statistics-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable statistics function on the tunnel interface.";
+        }
+      }
+    }
+  }
+}

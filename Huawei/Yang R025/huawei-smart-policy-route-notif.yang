@@ -1,0 +1,261 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-policy-route-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-smart-policy-route-notif";
+  prefix smart-policy-route-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of spr instance module.";
+  revision 2024-07-08 {
+    description "Add link rate.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-05-10 {
+    description
+      "Add link status changed.";
+    reference
+      "";
+  }
+  revision 2021-01-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+  notification spr-instance-change {
+    description
+      "The path of SPR instance changed.";
+    leaf dest-site-index {
+      type uint32;
+      description
+        "Index of the destination site.";
+    }
+    leaf policy-name {
+      type string {
+        length "1..96";
+      }
+      description
+        "SPR policy name.";
+    }
+    leaf previous-link {
+      type string {
+        length "1..64";
+      }
+      description
+        "Name of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf previous-link-loss {
+      type uint32;
+      units "‰";
+      description
+        "Packet loss rate of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf previous-link-delay {
+      type uint32;
+      units "ms";
+      description
+        "Delay of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf previous-link-jitter {
+      type uint32;
+      units "ms";
+      description
+        "Jitter of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf previous-link-cmi {
+      type uint32;
+      description
+        "Comprehensive metric value of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf current-link {
+      type string {
+        length "1..64";
+      }
+      description
+        "Name of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf current-link-loss {
+      type uint32;
+      units "‰";
+      description
+        "Packet loss rate of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf current-link-delay {
+      type uint32;
+      units "ms";
+      description
+        "Delay of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf current-link-jitter {
+      type uint32;
+      units "ms";
+      description
+        "Jitter of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf current-link-cmi {
+      type uint32;
+      description
+        "Comprehensive metric value of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf changed-reason {
+      type string {
+        length "1..32";
+      }
+      description
+        "Cause of the link switchover.";
+    }
+    leaf previous-link-output-rate {
+      type string {
+        length "1..32";
+      }
+      description
+        "Output rate of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf current-link-output-rate {
+      type string {
+        length "1..32";
+      }
+      description
+        "Output rate of the link selected by the SPR instance after the link switchover.";
+    }
+    leaf previous-link-application-rate {
+      type string {
+        length "1..32";
+      }
+      description
+        "Application rate of the link selected by the SPR instance before the link switchover.";
+    }
+    leaf current-link-application-rate {
+      type string {
+        length "1..32";
+      }
+      description
+        "Application rate of the link selected by the SPR instance after the link switchover.";
+    }
+  }
+  notification spr-instance-change-statistic {
+    description
+      "Statistics are collected on the number of SPR instance switchover alarms reported for the same switchover cause within a period of time.";
+    leaf dest-site-index {
+      type uint32;
+      description
+        "Index of the destination site.";
+    }
+    leaf policy-name {
+      type string {
+        length "1..96";
+      }
+      description
+        "SPR policy name.";
+    }
+    leaf changed-reason {
+      type string {
+        length "1..32";
+      }
+      description
+        "Cause of the link switchover.";
+    }
+    leaf changed-count {
+      type uint32;
+      description
+        "Count of the link switchover.";
+    }
+    leaf time {
+      type uint32;
+      units "s";
+      description
+        "Duration in which statistics on SPR instance switchover alarms are collected before the current alarm is reported.";
+    }
+  }
+  notification spr-link-status-change {
+    description
+      "The link status of SPR instance changed.";
+    leaf dest-site-index {
+      type uint32;
+      description
+        "Index of the destination site.";
+    }
+    leaf policy-name {
+      type string {
+        length "1..96";
+      }
+      description
+        "SPR policy name.";
+    }
+    leaf link-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Name of the link.";
+    }
+    leaf link-status {
+      type string {
+        length "1..64";
+      }
+      description
+        "The status of the link.";
+    }
+    leaf link-loss {
+      type uint32;
+      units "‰";
+      description
+        "Packet loss rate of the link.";
+    }
+    leaf link-delay {
+      type uint32;
+      units "ms";
+      description
+        "Delay of the link.";
+    }
+    leaf link-jitter {
+      type uint32;
+      units "ms";
+      description
+        "Jitter of the link.";
+    }
+    leaf link-cmi {
+      type uint32;
+      description
+        "Comprehensive metric value of the link.";
+    }
+    leaf link-output-rate {
+      type uint32;
+      units "kbit/s";
+      description
+        "Output rate of the link.";
+    }
+    leaf changed-reason {
+      type string {
+        length "1..32";
+      }
+      description
+        "Cause of the link status switchover.";
+    }
+    leaf link-application-rate {
+      type string {
+        length "1..32";
+      }
+      description
+        "Application rate of the link.";
+    }
+  }
+}

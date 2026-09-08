@@ -1,0 +1,847 @@
+/*
+* Copyright (C) 2024-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-card {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-card";
+  prefix hw-ap-card;
+  import huawei-wlan-ap {
+    prefix hw-wlan-ap;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix hw-wlan-agp;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import huawei-wlan-wired-port-profile {
+    prefix wired-port-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "AP iot card service package.";
+  revision 2025-03-20 {
+    description
+      "Add reset-card-statistic.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-03-10 {
+    description
+      "Add interfacename.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-17 {
+    description
+      "Modify the leaf power-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-02 {
+    description
+      "Modify the type of card command result leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-26 {
+    description
+      "Fix description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-21 {
+    description
+      "Add Ble type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-20 {
+    description
+      "Modify description of list iot-card-statistic.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-06-07 {
+    description
+      "Modify group profile and instance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-29 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  grouping card-configuration {
+    description
+      "Card configuration.";
+
+    leaf card-connect-type {
+      type enumeration {
+        enum "serial" {
+          value 0;
+          description
+            "IoT card type with device.";
+        }
+        enum "ethernet" {
+          value 1;
+          description
+            "IoT card type with device.";
+        }
+        enum "container" {
+          value 2;
+          description
+            "IoT card type with device.";
+        }
+      }
+      description
+        "IoT card interface type with device.";
+    }
+    leaf baud-rate {
+      type enumeration {
+        enum "9600-rate" {
+          value 9600;
+          description
+            "Baud rate 9600bps.";
+        }
+        enum "19200-rate" {
+          value 19200;
+          description
+            "Baud rate 19200bps.";
+        }
+        enum "38400-rate" {
+          value 38400;
+          description
+            "Baud rate 38400bps.";
+        }
+        enum "57600-rate" {
+          value 57600;
+          description
+            "Baud rate 57600bps.";
+        }
+        enum "115200-rate" {
+          value 115200;
+          description
+            "Baud rate 115200bps.";
+        }
+        enum "921600-rate" {
+          value 921600;
+          description
+            "Baud rate 921600bps.";
+        }
+      }
+      description
+        "Baud rate of iot card.";
+    }
+    leaf bind-wiredport-profile {
+      type leafref {
+        path "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:profile-name";
+      }
+      must "(../card-name and ../card-name != 'ble')";
+      description
+        "Binding a wired port profile to card.";
+    }
+  }
+  grouping ap-card-instances {
+    description
+      "Card instances.";
+    list ap-card-instance {
+      key "card-name";
+      description
+        "Configure card instance.";
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        description
+          "Card name.";
+      }
+      uses hw-ap-card:card-configuration;
+      leaf power-switch {
+        type enumeration {
+          enum "on" {
+            value 0;
+            description
+              "Card power switch on.";
+          }
+          enum "off" {
+            value 1;
+            description
+              "Card power switch off.";
+          }
+        }
+        must "(../card-name and ../card-name != 'ble' and ../card-name != 'usb')";
+        description
+          "Power switch for iot card.";
+      }
+    }
+  }
+  grouping group-card-instances {
+    description
+      "Card instances.";
+    list group-card-instance {
+      key "card-name";
+      description
+        "Configure card instance.";
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        description
+          "Card name.";
+      }
+      uses hw-ap-card:card-configuration;
+      leaf power-switch {
+        type enumeration {
+          enum "on" {
+            value 0;
+            description
+              "Card power switch on.";
+          }
+          enum "off" {
+            value 1;
+            description
+              "Card power switch off.";
+          }
+        }
+        must "(../card-name and ../card-name != 'ble' and ../card-name != 'usb')";
+        default "on";
+        description
+          "Power switch for iot card.";
+      }
+    }
+  }
+  rpc get-card-statistic {
+    description
+      "Get the card statistics.";
+    input {
+      leaf esn {
+        type string {
+          length "1..31";
+        }
+        description
+          "Ap esn of ap which needs to get statistics.";
+      }
+    }
+    output {
+      container iot-card-statistics {
+        description
+          "List of IoT card statistics.";
+        list iot-card-statistic {
+          key "ap-esn card-name";
+          description
+            "Iot card statistics list.";
+          leaf ap-esn {
+            type string {
+              length "1..31";
+            }
+            description
+              "Ap esn of ap where card is installed.";
+          }
+          leaf card-name {
+            type string {
+              length "1..32";
+              pattern '(1|2|3|usb|ble)';
+            }
+            description
+              "Card name.";
+          }
+          container iot-statistic {
+            description
+              "IoT card statistic item.";
+            leaf recvbytes {
+              type uint64;
+              description
+                "IoT card bytes recv from card for serial connect type.";
+            }
+            leaf sentbytes {
+              type uint64;
+              description
+                "IoT card bytes sent out for serial connect type.";
+            }
+            leaf recvpks {
+              type uint64;
+              description
+                "IoT card packets received from card for serial connect type.";
+            }
+            leaf sentpks {
+              type uint64;
+              description
+                "IoT card packets sent out to card for serial connect type.";
+            }
+          }
+        }
+      }
+    }
+  }
+  rpc reset-card-statistic {
+    description
+      "Reset the card statistics.";
+    input {
+      leaf esn {
+        type string {
+          length "1..31";
+        }
+        description
+          "Ap esn of ap which needs to reset statistics.";
+      }
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        description
+          "Card name.";
+      }
+      leaf all {
+        type string {
+          length "1..31";
+        }
+        description
+          "All aps which needs to reset statistics.";
+      }
+    }
+    output {
+      leaf operation-result {
+        type string {
+          length "0..max";
+        }
+        description
+          "Operation result.";
+      }
+    }
+  }
+  rpc iot-card-operation {
+    description
+      "Operate the iot card.";
+    input {
+      leaf esn {
+        type string {
+          length "1..31";
+        }
+        mandatory true;
+        description
+          "Ap esn of ap which needs to operate.";
+      }
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        mandatory true;
+        description
+          "Card name.";
+      }
+      leaf operation {
+        type enumeration {
+          enum "reboot" {
+            value 0;
+            description
+              "Reboot iot card.";
+          }
+          enum "reset-factory-configuration" {
+            value 1;
+            description
+              "Reset factory configuration of the card.";
+          }
+          enum "switch-firmware" {
+            value 2;
+            description
+              "Switch firmware of the card.";
+          }
+          enum "reset-network-configuration" {
+            value 3;
+            description
+              "Reset network configuration of the card.";
+          }
+        }
+        mandatory true;
+        description
+          "Operation for the iot card.";
+      }
+    }
+    output {
+      leaf operation-result {
+        type string {
+          length "0..max";
+        }
+        description
+          "Operation result.";
+      }
+    }
+  }
+  rpc card-command {
+    description
+      "Send the meta command to iot card.";
+    input {
+      leaf esn {
+        type string {
+          length "1..31";
+        }
+        mandatory true;
+        description
+          "Ap esn of ap which needs to operate.";
+      }
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        mandatory true;
+        description
+          "Card name.";
+      }
+      leaf command-string {
+        type string {
+          length "0..max";
+        }
+        mandatory true;
+        description
+          "Meta command for the iot card.";
+      }
+      leaf operation {
+        type enumeration {
+          enum "execute" {
+            value 0;
+            description
+              "Execute the iot-command.";
+          }
+          enum "get-result" {
+            value 1;
+            description
+              "Get the result of iot-command.";
+          }
+        }
+        mandatory true;
+        description
+          "Operation for the iot card.";
+      }
+    }
+    output {
+      leaf result {
+        type string {
+          length "0..max";
+        }
+        description
+          "Operation result.";
+      }
+      leaf timeout {
+        type uint32;
+        description
+          "Indicate the timeout that the controller needs to wait for the response.";
+      }
+      leaf count {
+        type uint32;
+        description
+          "Indicates the number of response packets the device has received.";
+      }
+      leaf card-response {
+        type string {
+          length "0..max";
+        }
+        description
+          "IoT command response.";
+      }
+    }
+  }
+  rpc get-iot-card-info {
+    description
+      "Get iot card total info.";
+    input {
+      leaf esn {
+        type string {
+          length "1..31";
+        }
+        description
+          "Ap esn of ap which needs to operate.";
+      }
+      leaf card-name {
+        type string {
+          length "1..32";
+          pattern '(1|2|3|usb|ble)';
+        }
+        description
+          "Card name.";
+      }
+    }
+    output {
+      container card-infos {
+        description
+          "List of IoT card info.";
+        list card-info {
+          key "ap-esn card-name";
+          description
+            "Iot card info list.";
+          leaf ap-esn {
+            type string {
+              length "1..31";
+            }
+            description
+              "Esn of ap where card installed.";
+          }
+          leaf card-name {
+            type string {
+              length "1..32";
+              pattern '(1|2|3|usb|ble)';
+            }
+            description
+              "Card name.";
+          }
+          leaf card-status {
+            type enumeration {
+              enum "present" {
+                value 0;
+                description
+                  "Iot card status.";
+              }
+              enum "absent" {
+                value 1;
+                description
+                  "Iot card status.";
+              }
+            }
+            description
+              "Iot card status.";
+          }
+          leaf if-type {
+            when "../card-status = 'present'";
+            type enumeration {
+              enum "unknown" {
+                value 0;
+                description
+                  "Iot card interface type with device.";
+              }
+              enum "serial" {
+                value 1;
+                description
+                  "Iot card interface type with device.";
+              }
+              enum "ethernet" {
+                value 2;
+                description
+                  "Iot card interface type with device.";
+              }
+              enum "container" {
+                value 3;
+                description
+                  "Iot card interface type with device.";
+              }
+              enum "serial-container" {
+                value 4;
+                description
+                  "Iot card interface type with device.";
+              }
+            }
+            description
+              "Iot card interface type with device.";
+          }
+          leaf card-connect-status {
+            when "../card-status = 'present'";
+            type enumeration {
+              enum "mismatch" {
+                value 0;
+                description
+                  "Iot card interface type configure is not same as plug card type's interface type.";
+              }
+              enum "match" {
+                value 1;
+                description
+                  "Iot card interface type configure is the same as plug card type's interface type.";
+              }
+            }
+            description
+              "Iot card interface type configure is not same as plug card type's interface type.";
+          }
+          leaf protocol-version {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Protocol version, 16 bytes ASCII.";
+          }
+          leaf wireless-standard {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Wireless-standard, 16 bytes ASCII.";
+          }
+          leaf frequency {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Frequency used by card, 16 bytes ASCII.";
+          }
+          leaf vendor-name {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Vendor name, 8 bytes ASCII.";
+          }
+          leaf card-type {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Type of card, 12 bytes ASCII.";
+          }
+          leaf hardware-version {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "2 bytes ASCIIn.";
+          }
+          leaf firmware-version {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "IoT Card FW Version.";
+          }
+          leaf card-sn {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "16 bytes BCD number or 4 bytes card ID.";
+          }
+          leaf interfacename {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Interfacename.";
+          }
+          leaf baudrate {
+            when "../if-type = 'serial'";
+            type uint32;
+            description
+              "Baudrate for serial port.";
+          }
+          leaf frame-type {
+            when "../if-type = 'serial'";
+            type string {
+              length "0..max";
+            }
+            description
+              "'1.0' or '2.0'. '1.0' means frame with start/stop bits, '2.0' means TLV frame.";
+          }
+          leaf antenna {
+            when "../card-status = 'present'";
+            type enumeration {
+              enum "internal" {
+                value 1;
+                description
+                  "Internal antenna.";
+              }
+              enum "external" {
+                value 2;
+                description
+                  "External antenna.";
+              }
+              enum "invalid" {
+                value 3;
+                description
+                  "Invalid antenna.";
+              }
+            }
+            description
+              "Antenna of iot.";
+          }
+          leaf ip {
+            when "../card-status = 'present'";
+            type inet:ip-address;
+            description
+              "Specify iot card ip address.";
+          }
+          leaf mac {
+            when "../card-status = 'present'";
+            type pub-type:mac-address;
+            description
+              "Iot mac.";
+          }
+          leaf centeral-frequency {
+            when "../card-status = 'present'";
+            type uint32;
+            description
+              "Centeral frequency for iot card.";
+          }
+          leaf bandwidth {
+            when "../card-status = 'present'";
+            type uint32;
+            description
+              "Bandwidth for iot card.";
+          }
+          leaf server-connect-status {
+            when "../card-status = 'present'";
+            type enumeration {
+              enum "disconnected" {
+                value 0;
+                description
+                  "Iot card disconnect status with the server.";
+              }
+              enum "connected" {
+                value 1;
+                description
+                  "Iot card connect status with the server.";
+              }
+              enum "unknown" {
+                value 2;
+                description
+                  "Iot card unknown connect status with the server.";
+              }
+            }
+            description
+              "Iot card connect status with the server.";
+          }
+          leaf server-name {
+            when "../card-status = 'present'";
+            type string {
+              length "0..max";
+            }
+            description
+              "Iot server name.";
+          }
+          leaf physical-connect-type {
+            when "../card-status = 'present'";
+            type enumeration {
+              enum "unknown" {
+                value 0;
+                description
+                  "Physical connection type between the card and the AP.";
+              }
+              enum "PCIE" {
+                value 1;
+                description
+                  "Physical connection type between the card and the AP.";
+              }
+              enum "USB" {
+                value 2;
+                description
+                  "Physical connection type between the card and the AP.";
+              }
+              enum "BLE" {
+                value 3;
+                description
+                  "Physical connection type between the card and the AP.";
+              }
+            }
+            description
+              "Physical connection type between the card and the AP.";
+          }
+          leaf subnet-mask {
+            when "../card-status = 'present'";
+            type uint32;
+            description
+              "Specify iot card subnet mask length.";
+          }
+          leaf gateway-address {
+            when "../card-status = 'present'";
+            type inet:ip-address;
+            description
+              "Specify iot card gateway address.";
+          }
+          container iot-statistic {
+            description
+              "Iot card statistic item.";
+            leaf recvbytes {
+              type uint64;
+              description
+                "Iot card bytes recv from card for serial connect type.";
+            }
+            leaf sentbytes {
+              type uint64;
+              description
+                "Iot card bytes sent out for serial connect type.";
+            }
+            leaf recvpks {
+              type uint64;
+              description
+                "Iot card packets received from card for serial connect type.";
+            }
+            leaf sentpks {
+              type uint64;
+              description
+                "Iot card packets sent out to card for serial connect type.";
+            }
+          }
+          leaf power-status {
+            type enumeration {
+              enum "on" {
+                value 0;
+                description
+                  "Power status of IOT card.";
+              }
+              enum "off" {
+                value 1;
+                description
+                  "Power status of IOT card.";
+              }
+              enum "default" {
+                value 2;
+                description
+                  "Power status of IOT card.";
+              }
+            }
+            description
+              "IoT card status.";
+          }
+        }
+      }
+    }
+  }
+  augment "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance" {
+    description
+      "Configure ap instance iot card instances.";
+    container ap-card-instances {
+      description
+        "Configure ap instance iot card instances.";
+      uses hw-ap-card:ap-card-instances;
+    }
+  }
+  augment "/hw-wlan-agp:wlan-ap-group-profile/hw-wlan-agp:ap-group-profiles/hw-wlan-agp:ap-group-profile" {
+    description
+      "Configure ap group instance iot card instances.";
+    container group-card-instances {
+      description
+        "Configure ap group instance iot card instances.";
+      uses hw-ap-card:group-card-instances;
+    }
+  }
+  ext:task-name "pcm";
+}

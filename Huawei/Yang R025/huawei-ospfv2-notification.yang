@@ -1,0 +1,250 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ospfv2-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ospfv2-notification";
+  prefix ospfv2-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of ospfv2.";
+  revision 2025-05-20 {
+    description
+      "Add notification import-lsa-threshold-exceed and import-lsa-threshold-exceed-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-11 {
+    description
+      "Update description of neighbor-exceed-threshold and neighbor-exceed-threshold-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-06 {
+    description
+      "Add notification ospf-ip-conflict and ospf-ip-conflict-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-16 {
+    description
+      "Add notification recv-lsa-exceed-threshold and recv-lsa-exceed-threshold-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-13 {
+    description
+      "Add notification lsa-retran-exceed-limit and lsa-retran-exceed-limit-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-10 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ospf";
+  notification neighbor-exceed-threshold {
+    description
+      "This object indicates that the number of ospfv2 exceeds the configured threshold.";
+    leaf neighbor-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the upper alarm threshold for the number of neighbors.";
+    }
+  }
+  notification neighbor-exceed-threshold-resume {
+    description
+      "This object indicates that the number of ospfv2 has been less than the configured threshold.";
+    leaf neighbor-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the upper alarm threshold for the number of neighbors.";
+    }
+  }
+  notification lsa-retran-exceed-limit {
+    description
+      "This object indicates that the number of OSPF LSA retransmissions on an interface exceeds the limit.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Area ID.";
+    }
+    leaf if-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification  lsa-retran-exceed-limit-clear {
+    description
+      "This object indicates that the number of OSPF LSA retransmissions on an interface is lower than the limit.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Area ID.";
+    }
+    leaf if-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification recv-lsa-exceed-threshold {
+    description
+      "This object indicates that the number of received LSAs exceeded the threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf received-lsa-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the threshold value of received LSAs.";
+    }
+  }
+  notification recv-lsa-exceed-threshold-resume {
+    description
+      "This object indicates that the number of received LSAs fell below 90 percent of the threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf received-lsa-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the threshold value of received LSAs.";
+    }
+  }
+  notification ospf-ip-conflict {
+    description
+      "The OSPF IP address conflict between the local device and another device is detected.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPF process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPF area ID.";
+    }
+    leaf conflict-type {
+      type string {
+        length "0..255";
+      }
+      description
+        "Type of conflict.";
+    }
+    leaf conflict-ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "The conflicting IP address.";
+    }
+    leaf conflict-router-id1 {
+      type inet:ipv4-address-no-zone;
+      description
+        "The first conflicting OSPF router ID.";
+    }
+    leaf conflict-router-id2 {
+      type inet:ipv4-address-no-zone;
+      description
+        "The second conflicting OSPF router ID.";
+    }
+  }
+  notification ospf-ip-conflict-clear {
+    description
+      "The OSPF IP address conflict is cleared between the local device and another device.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPF process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPF area ID.";
+    }
+    leaf conflict-type {
+      type string {
+        length "0..255";
+      }
+      description
+        "Type of conflict.";
+    }
+    leaf conflict-ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "The conflicting IP address.";
+    }
+    leaf conflict-router-id1 {
+      type inet:ipv4-address-no-zone;
+      description
+        "The first conflicting OSPF router ID.";
+    }
+    leaf conflict-router-id2 {
+      type inet:ipv4-address-no-zone;
+      description
+        "The second conflicting OSPF router ID.";
+    }
+  }
+  notification import-lsa-threshold-exceed {
+    description
+      "The number of AS-external LSAs generated when an OSPF process imports external routes exceeds the configured alarm upper threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPF process ID.";
+    }
+    leaf lsa-num-threshold {
+      type uint32;
+      description
+        "The upper alarm threshold for the number of generated ASE LSAs.";
+    }
+  }
+  notification import-lsa-threshold-exceed-clear {
+    description
+      "The number of AS-external LSAs generated when an OSPF process imports external routes has been less than the configured alarm lower threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPF process ID.";
+    }
+    leaf lsa-num-threshold {
+      type uint32;
+      description
+        "The upper alarm threshold for the number of generated ASE LSAs.";
+    }
+  }
+}

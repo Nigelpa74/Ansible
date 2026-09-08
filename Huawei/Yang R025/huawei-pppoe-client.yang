@@ -1,0 +1,258 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pppoe-client {
+
+  namespace "urn:huawei:yang:huawei-pppoe-client";
+  prefix hw-pppoe-client;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for PPPOE client.";
+  revision 2025-02-27 {
+    description
+      "Add when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-05 {
+    description
+      "Update pppoe client.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-15 {
+    description
+      "Update pppoe client.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-02 {
+    description
+      "Update pppoe client session.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef pppoe-session-state {
+    type enumeration {
+      enum "IDLE" {
+        value 0;
+        description
+          "PPPoE session is idle.";
+      }
+      enum "PADI" {
+        value 1;
+        description
+          "PPPoE session is at the Discovery stage and a PPPoE Active Discovery Initiation (PADI) packet has been sent.";
+      }
+      enum "PADR" {
+        value 2;
+        description
+          "PPPoE session is at the Discovery stage and a PPPoE Active Discovery Request (PADR) packet has been sent.";
+      }
+	  enum "UP" {
+        value 3;
+        description
+          "PPPoE session has been established successfully.";
+      }
+    }
+    description
+      "Status of the PPPoE session.";
+  }
+
+  rpc reset-pppoe-client-session {
+    description
+      "Reset pppoe client session.";
+    input {
+      choice session {
+        description
+        "Pppoe client reset.";
+        case all-session{
+          description
+          "PPPoE client sessions.";
+          leaf all{
+          type boolean;
+          mandatory true;
+          description
+            "Reset all pppoe client sessions.";
+          }
+        }
+        case specified-interface-session{
+          description
+          "PPPoE client session.";
+          leaf interface{
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+          mandatory true;
+          description
+            "Reset the pppoe client session under the specified interface.";
+          }		
+        }
+      }
+    }
+  } 
+  rpc get-pppoe-client-bind-info {
+    description
+      "Get pppoe client bind information.";
+    output {
+      container bind-infos {
+        description
+          "List of bind infos.";
+        list bind-info {
+          key "if-name";
+          description
+            "Configured bind info.";
+              leaf if-name {
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                description
+                  "Interface name.";
+              }
+              container pppoe-clients {
+                description
+                  "List of pppoe client.";  
+                list pppoe-client {
+                  key "dialer";
+                  description
+                    "Configure the pppoe client.";
+                  leaf dialer {
+                    type uint32 {
+                      range "1..4";
+                    }
+                  description
+                    "Specifies the dialer interface number of a PPPoE session.";
+                  }
+                }
+              }
+        }
+      }
+    }
+  }
+  ext:task-name "pppoec";
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Add configuration in the interfaces.";
+
+    container pppoe-clients {
+      when "../ifm:type='Ethernet' or
+        ../ifm:type='GigabitEthernet' or
+        ../ifm:type='XGigabitEthernet' or
+        ../ifm:type='10GE' or
+        ../ifm:type='25GE' or
+        ../ifm:type='40GE' or
+        ../ifm:type='50GE' or
+        ../ifm:type='100GE' or
+        ../ifm:type='200GE' or
+        ../ifm:type='400GE' or
+        ../ifm:type='Vlanif' or
+        ../ifm:type='MultiGE'";
+      description "List of pppoe client.";
+      
+      list pppoe-client {
+        key "dialer";
+        unique "bundle-number";
+        description "Configure the pppoe client.";
+        leaf dialer {
+          type uint32 {
+            range "0..1023";
+          }
+          description "Specifies the dialer interface number of a PPPoE session.";
+        }
+        
+        leaf bundle-number {
+          type uint16 {
+            range "1..255";
+          }
+          mandatory true;
+          description "Specifies the dialer bundle corresponding to the PPPoE session.";
+        }
+      
+        leaf ppp-max-payload {
+          type uint16 {
+            range "64..2000";
+          }
+          description "Specifies the maximum value of the MTU of PPP negotiation.";
+        }
+      
+        leaf service-name {
+          type string {
+              length "1..128";
+              pattern '[^\s\*\?"]*';
+          }
+          description "Specifies the value of the Service-Name field in packets sent.";
+        }
+      }
+    }
+    container pppoe-client-session-summarys {
+      config false;
+      description
+        "List of pppoe client summary sessions.";
+
+      list pppoe-client-session-summary {
+        key "session-id";
+        description
+          "Statistics of pppoe client sessions.";
+
+        leaf session-id {		  
+          type uint32 {
+            range "0..65535";
+          }
+          description
+            "Pppoe client session id.";
+        }
+
+        leaf if-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+
+        leaf client-mac{
+          type pub-type:mac-address;
+          description
+            "Pppoe client MAC address.";			
+        }
+
+        leaf server-mac{
+          type pub-type:mac-address;
+          description
+          "Pppoe server MAC address.";			
+        }
+
+        leaf state{
+          type pppoe-session-state;
+          description
+            "Status of the PPPoE session.";			
+        }		  
+      }
+    }
+  } //end of augment
+} //end module

@@ -1,0 +1,41 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-tftpc-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-tftpc-deviations-ar5710s";
+  prefix tftpc-devs-ar5710s;
+
+  import huawei-tftpc {
+    prefix tftpc;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-tftpc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/tftpc:tftpc/tftpc:client/tftpc:ipv4-acl" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+  }
+}

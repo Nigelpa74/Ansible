@@ -1,0 +1,1288 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ssid-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ssid-profile";
+  prefix ssid-prof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-vap-profile {
+    prefix vap-prof;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "SSID profile configuration service package.";
+  revision 2025-09-16 {
+    description
+      "Add vht-mcs-map must condition.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2025-09-03 {
+    description
+      "Modify u-apsd-switch.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2025-07-25 {
+    description
+      "Add er-su switch.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2025-07-18 {
+    description
+      "Add ht-mcs-map.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2025-05-07 {
+    description
+      "Add inter-ac-roam switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-27 {
+    description
+      "Add legacy station switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-10 {
+    description
+      "Add FTM and LCI switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-21 {
+    description
+      "Modify ssid radio-type.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-08-13 {
+    description
+      "Add ssid radio-type and 802.11k/v configurations. Add edca ecw value limit.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2024-07-23 {
+    description
+      "Add phy-protection/beamforming-switch cfg check.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2024-07-05 {
+    description
+      "Add ssid service configurations of V600R24C10.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add phy-protection function add mimo-optimize.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-11 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-16 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-07 {
+    description
+      "Add pmk-cache-roam, add mimo-switch/beamforming-switch cfg check.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-18 {
+    description
+      "Update profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-01 {
+    description
+      "Modify max-sta-number.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-28 {
+    description
+      "Optimize reach-max-policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-29 {
+    description
+      "Add active-dull-client.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add excessive-retry-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-25 {
+    description
+      "Add private dot11r.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-05 {
+    description
+      "Add default ssid.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-27 {
+    description
+      "Add ofdam policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add qssload and sta-reach-max policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-19 {
+    description
+      "Modify rate-5g and rate-6g enum value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-09 {
+    description
+      "Fix vht-mcs-map and he-mcs-map.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-02 {
+    description
+      "Delete server-mode leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add configuration of V6R22C10.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Fix path.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-11 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping ssid-containers {
+    description
+      "SSID configurations.";
+    leaf ssid {
+      type string {
+        length "1..32";
+      }
+      default "HUAWEI-WLAN";
+      description
+        "The ssid character string of the VAP.";
+    }
+    leaf max-sta-number {
+      type uint16 {
+        range "1..1024";
+      }
+      default "64";
+      description
+        "Configure the maximum number of successfully associated STAs on a VAP.";
+    }
+    container beacon-rate {
+      description
+        "Configure the transmit rate of management frames.";
+      leaf rate-2g {
+        type enumeration {
+          enum "1mbps" {
+            value 0;
+            description
+              "Radio is 1Mbps.";
+          }
+          enum "2mbps" {
+            value 1;
+            description
+              "Radio is 2Mbps.";
+          }
+          enum "5.5mbps" {
+            value 2;
+            description
+              "Radio is 5.5Mbps.";
+          }
+          enum "6mbps" {
+            value 3;
+            description
+              "Radio is 6Mbps.";
+          }
+          enum "9mbps" {
+            value 4;
+            description
+              "Radio is 9Mbps.";
+          }
+          enum "11mbps" {
+            value 5;
+            description
+              "Radio is 11Mbps.";
+          }
+          enum "12mbps" {
+            value 6;
+            description
+              "Radio is 12Mbps.";
+          }
+          enum "18mbps" {
+            value 7;
+            description
+              "Radio is 18Mbps.";
+          }
+          enum "24mbps" {
+            value 8;
+            description
+              "Radio is 24Mbps.";
+          }
+          enum "36mbps" {
+            value 9;
+            description
+              "Radio is 36Mbps.";
+          }
+          enum "48mbps" {
+            value 10;
+            description
+              "Radio is 48Mbps.";
+          }
+          enum "54mbps" {
+            value 11;
+            description
+              "Radio is 54Mbps.";
+          }
+        }
+        default "5.5mbps";
+        description
+          "Configure the transmit rate of management frames on a 2.4 GHz radio.";
+      }
+      leaf rate-5g {
+        type enumeration {
+          enum "6mbps" {
+            value 0;
+            description
+              "Radio is 6Mbps.";
+          }
+          enum "9mbps" {
+            value 1;
+            description
+              "Radio is 9Mbps.";
+          }
+          enum "12mbps" {
+            value 2;
+            description
+              "Radio is 12Mbps.";
+          }
+          enum "18mbps" {
+            value 3;
+            description
+              "Radio is 18Mbps.";
+          }
+          enum "24mbps" {
+            value 4;
+            description
+              "Radio is 24Mbps.";
+          }
+          enum "36mbps" {
+            value 5;
+            description
+              "Radio is 36Mbps.";
+          }
+          enum "48mbps" {
+            value 6;
+            description
+              "Radio is 48Mbps.";
+          }
+          enum "54mbps" {
+            value 7;
+            description
+              "Radio is 54Mbps.";
+          }
+        }
+        default "6mbps";
+        description
+          "Configure the transmit rate of management frames on a 5 GHz radio.";
+      }
+      leaf rate-6g {
+        type enumeration {
+          enum "6mbps" {
+            value 0;
+            description
+              "Radio is 6Mbps.";
+          }
+          enum "9mbps" {
+            value 1;
+            description
+              "Radio is 9Mbps.";
+          }
+          enum "12mbps" {
+            value 2;
+            description
+              "Radio is 12Mbps.";
+          }
+          enum "18mbps" {
+            value 3;
+            description
+              "Radio is 18Mbps.";
+          }
+          enum "24mbps" {
+            value 4;
+            description
+              "Radio is 24Mbps.";
+          }
+          enum "36mbps" {
+            value 5;
+            description
+              "Radio is 36Mbps.";
+          }
+          enum "48mbps" {
+            value 6;
+            description
+              "Radio is 48Mbps.";
+          }
+          enum "54mbps" {
+            value 7;
+            description
+              "Radio is 54Mbps.";
+          }
+        }
+        default "6mbps";
+        description
+          "Configure the transmit rate of management frames on a 6 GHz radio.";
+      }
+    }
+    leaf advertise-ap-name {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable Beacon frames to carry the AP name.";
+    }
+
+    leaf ssid-hide {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable SSID hiding in Beacon frames in an SSID profile.";
+    }
+    leaf mimo-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the downlink MU-MIMO scheduling function.";
+    }
+    leaf mimo-optimize {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the MU-MIMO optimization function.";
+    }
+    leaf beamforming-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable beamforming switch.";
+    }
+    leaf association-timeout {
+      type uint16 {
+        range "1..30";
+      }
+      default "5";
+      description
+        "Config association-timeout.";
+    }
+    leaf u-apsd-switch {
+      type enumeration {
+        enum "disable" {
+          value 0;
+          description
+            "Config u-apsd-switch switch to be disable.";
+        }
+        enum "enable" {
+          value 1;
+          description
+            "Config u-apsd-switch switch to be enable.";
+        }
+      }
+      description
+        "Config u-apsd-switch.";
+    }
+    leaf probe-response-retry {
+      type uint32 {
+        range "0..3";
+      }
+      default 1;
+      description
+        "Config probe-response-retry.";
+    }
+    leaf deny-broadcast-probe {
+      type boolean;
+      default false;
+      description
+        "Enable/disable the deny broadcast probe function.";
+    }
+    container he-mcs-map {
+      description
+        "Configure he-mcs-map.";
+      leaf tx-nss {
+        type uint8 {
+          range "1..8";
+        }
+        default 8;
+        description
+          "Configure tx-nss.";
+      }
+      leaf tx-mcs {
+        type uint8 {
+          range "7|9|11";
+        }
+        default 11;
+        description
+          "Configure tx-mcs.";
+      }
+      leaf rx-nss {
+        type uint8 {
+          range "1..8";
+        }
+        default 8;
+        description
+          "Configure rx-nss.";
+      }
+      leaf rx-mcs {
+        type uint8 {
+          range "7|9|11";
+        }
+        default 11;
+        description
+          "Configure rx-mcs.";
+      }
+    }
+    container vht-mcs-map {
+      must "(./tx-nss) and (./tx-mcs)";
+      must "(./rx-nss) and (./rx-mcs)";
+      description
+        "Configure vht-mcs-map.";
+      leaf tx-nss {
+        type uint8 {
+          range "1..8";
+        }
+        description
+          "Configure tx-nss.";
+      }
+      leaf tx-mcs {
+        type uint8 {
+          range "7..9";
+        }
+        description
+          "Configure tx-mcs.";
+      }
+      leaf rx-nss {
+        type uint8 {
+          range "1..8";
+        }
+        description
+          "Configure rx-nss.";
+      }
+      leaf rx-mcs {
+        type uint8 {
+          range "7..9";
+        }
+        description
+          "Configure xx-mcs.";
+      }
+    }
+    leaf dtim-interval {
+      type uint32 {
+        range "1..255";
+      }
+      default 1;
+      description
+        "Configure DTIM period.";
+    }
+    leaf qbss-load {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable qbss-load.";	  
+    }
+    container dot11r {
+      leaf dot11r-switch {
+        type boolean;
+        default false;
+        description
+          "Enable/disable 802.11r function.";
+      }
+      leaf dot11r-mode {
+        type enumeration {
+          enum "over-the-air" {
+            value 0;
+            description
+              "802.11r over the air mode.";
+          }
+          enum "over-the-ds" {
+            value 1;
+            description
+              "802.11r over the ds mode.";
+          }
+        }
+        default "over-the-air";
+        description
+          "Configure dot11r-mode.";
+      }
+    leaf reassociate-timeout {
+      type uint32 {
+        range "1..10";
+      }
+        default "1";
+        description
+          "Configure reassociate timeout.";
+    }
+    leaf proprietary {
+        type boolean;
+        default false;
+        description
+          "Enable/disable proprietary dot11r.";
+    }
+      description
+        "Configure dot11r.";
+    }
+
+    leaf wmm-switch {
+      type boolean;
+      description
+        "Enable/disable the Wi-Fi Multimedia (WMM) function in a ssid profile.";
+    }
+    container wmm-edca-client-acvo {
+      must "./ecwmax >= ./ecwmin";
+      description
+        "Configure wmm-edca-client-acvo.";
+      leaf aifsn {
+        type uint32 {
+          range "2..15";
+        }
+        default "2";
+        description
+          "Configure aifsn of wmm-edca-client-acvo.";
+      }
+      leaf ecwmin {
+        type uint32 {
+          range "0..15";
+        }
+        default "2";
+        description
+          "Configure ecwmin of wmm-edca-client-acvo.";
+      }
+      leaf ecwmax {
+        type uint32 {
+          range "0..15";
+        }
+        default "3";
+        description
+          "Configure ecwmax of wmm-edca-client-acvo.";
+      }
+      leaf txoplimit {
+        type uint32 {
+          range "0..255";
+        }
+        default "47";
+        description
+          "Configure txoplimit of wmm-edca-client-acvo.";
+      }
+    }
+    container wmm-edca-client-acvi {
+      must "./ecwmax >= ./ecwmin";
+      description
+        "Configure wmm-edca-client-acvi.";
+      leaf aifsn {
+        type uint32 {
+          range "2..15";
+        }
+        default "2";
+        description
+          "Configure aifsn of wmm-edca-client-acvi.";
+      }
+      leaf ecwmin {
+        type uint32 {
+          range "0..15";
+        }
+        default "3";
+        description
+          "Configure ecwmin of wmm-edca-client-acvi.";
+      }
+      leaf ecwmax {
+        type uint32 {
+          range "0..15";
+        }
+        default "4";
+        description
+          "Configure ecwmax of wmm-edca-client-acvi.";
+      }
+      leaf txoplimit {
+        type uint32 {
+          range "0..255";
+        }
+        default "94";
+        description
+          "Configure txoplimit of wmm-edca-client-acvi.";
+      }
+    }
+    container wmm-edca-client-acbe {
+      must "./ecwmax >= ./ecwmin";
+      description
+        "Configure wmm-edca-client-acbe.";
+      leaf aifsn {
+        type uint32 {
+          range "2..15";
+        }
+        default "3";
+        description
+          "Configure aifsn of wmm-edca-client-acbe.";
+      }
+      leaf ecwmin {
+        type uint32 {
+          range "0..15";
+        }
+        default "4";
+        description
+          "Configure ecwmin of wmm-edca-client-acbe.";
+      }
+      leaf ecwmax {
+        type uint32 {
+          range "0..15";
+        }
+        default "10";
+        description
+          "Configure ecwmax of wmm-edca-client-acbe.";
+      }
+      leaf txoplimit {
+        type uint32 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Configure txoplimit of wmm-edca-client-acbe.";
+      }
+    }
+    container wmm-edca-client-acbk {
+      must "./ecwmax >= ./ecwmin";
+      description
+        "Configure wmm-edca-client-acbk.";
+      leaf aifsn {
+        type uint32 {
+          range "2..15";
+        }
+        default "7";
+        description
+          "Configure aifsn of wmm-edca-client-acbk.";
+      }
+      leaf ecwmin {
+        type uint32 {
+          range "0..15";
+        }
+        default "4";
+        description
+          "Configure ecwmin of wmm-edca-client-acbk.";
+      }
+      leaf ecwmax {
+        type uint32 {
+          range "0..15";
+        }
+        default "10";
+        description
+          "Configure ecwmax of wmm-edca-client-acbk.";
+      }
+      leaf txoplimit {
+        type uint32 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Configure txoplimit of wmm-edca-client-acbk.";
+      }
+    }
+	
+    container reach-max-policy {
+      leaf reach-max-policy {
+          type enumeration {
+            enum "do-nothing" {
+            value 0;
+            description
+              "Deny new STA access.";
+          }
+          enum "hide-ssid" {
+            value 1;
+            description
+              "Hide the SSID.";
+          }
+          enum "priority-replace" {
+            value 2;
+            description
+              "Replace existing STAs with higher-priority ones.";
+          }
+          }
+          default "hide-ssid";
+          description
+            "Configure the policy when the maximum number of STAs is reached.";
+      }
+      description
+          "Configure reach-max-policy.";	
+    }
+	
+    container ofdma-policy {
+      leaf ofdma-downlink-switch {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable ofdma-downlink-policy.";		
+      }
+      leaf ofdma-uplink-switch {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable ofdma-uplink-policy.";		  
+      }
+      description
+          "Configure ofdma-policy.";	
+    }
+    container excessive-retry-threshold {
+      description
+        "Configure excessive-retry quick kick station threshold.";
+      leaf retry-count {
+        type uint16 {
+          range "64..1024";
+        }
+        default 512;
+        description
+          "Configure excessive-retry quick kick station count threshold.";
+      }
+      leaf retry-duration {
+        type uint8 {
+          range "3..60";
+        }
+        default 8;
+        description
+          "Configure excessive-retry quick kick station duration threshold.";
+      }
+    }
+    leaf active-dull-client {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the function of preventing terminals from entering energy-saving mode.";
+    }
+    leaf pmk-cache-roam {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the function of pmk-cache-roam enhancement.";
+    }
+    leaf phy-protection {
+      type enumeration {
+        enum "security-priority" {
+          value 0;
+          description
+            "Enables security-first PHY protection for VIP users.";
+        }
+        enum "business-priority" {
+          value 1;
+          description
+            "Enables service-first PHY protection for VIP users.";
+        }
+        enum "disable" {
+          value 2;
+          description
+            "Disables PHY protection for VIP users.";
+        }
+      }
+      default "disable";
+      description
+        "PHY protection for VIP users is disabled.";
+    }
+    container twt {
+      description
+        "Configure target wake time service.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of target wake time.";
+      }
+    }
+    container dot11a-basic-rate-lists {
+      description
+        "List of dot11a basic rate.";
+      list dot11a-basic-rate-list {
+        key "basic-rate";
+        leaf basic-rate {
+          type enumeration {
+            enum "6mbps" {
+              value 6;
+              description
+                "6Mbps.";
+            }
+            enum "9mbps" {
+              value 9;
+              description
+                "9Mbps.";
+            }
+            enum "12mbps" {
+              value 12;
+              description
+                "12Mbps.";
+            }
+            enum "18mbps" {
+              value 18;
+              description
+                "18Mbps.";
+            }
+            enum "24mbps" {
+              value 24;
+              description
+                "24Mbps.";
+            }
+            enum "36mbps" {
+              value 36;
+              description
+                "36Mbps.";
+            }
+            enum "48mbps" {
+              value 48;
+              description
+                "48Mbps.";
+            }
+            enum "54mbps" {
+              value 54;
+              description
+                "54Mbps.";
+            }
+          }
+          description
+            "Dot11a basic rate list.";
+        }
+        description
+          "Configure list of dot11a basic rate.";
+      }
+    }
+    container dot11a-support-rate-lists {
+      description
+        "List of dot11a support rate.";
+      list dot11a-support-rate-list {
+        key "support-rate";
+        leaf support-rate {
+          type enumeration {
+            enum "6mbps" {
+              value 6;
+              description
+                "6Mbps.";
+            }
+            enum "9mbps" {
+              value 9;
+              description
+                "9Mbps.";
+            }
+            enum "12mbps" {
+              value 12;
+              description
+                "12Mbps.";
+            }
+            enum "18mbps" {
+              value 18;
+              description
+                "18Mbps.";
+            }
+            enum "24mbps" {
+              value 24;
+              description
+                "24Mbps.";
+            }
+            enum "36mbps" {
+              value 36;
+              description
+                "36Mbps.";
+            }
+            enum "48mbps" {
+              value 48;
+              description
+                "48Mbps.";
+            }
+            enum "54mbps" {
+              value 54;
+              description
+                "54Mbps.";
+            }
+          }
+          description
+            "Dot11a support rate list.";
+        }
+        description
+          "Configure list of dot11a support rate.";
+      }
+    }
+    container dot11bg-basic-rate-lists {
+      description
+        "List of dot11bg basic rate.";
+      list dot11bg-basic-rate-list {
+        key "basic-rate";
+        leaf basic-rate {
+          type enumeration {
+            enum "1mbps" {
+              value 1;
+              description
+                "1Mbps.";
+            }
+            enum "2mbps" {
+              value 2;
+              description
+                "2Mbps.";
+            }
+            enum "5.5mbps" {
+              value 5;
+              description
+                "5.5Mbps.";
+            }
+            enum "6mbps" {
+              value 6;
+              description
+                "6Mbps.";
+            }
+            enum "9mbps" {
+              value 9;
+              description
+                "9Mbps.";
+            }
+            enum "11mbps" {
+              value 11;
+              description
+                "11Mbps.";
+            }
+            enum "12mbps" {
+              value 12;
+              description
+                "12Mbps.";
+            }
+            enum "18mbps" {
+              value 18;
+              description
+                "18Mbps.";
+            }
+            enum "24mbps" {
+              value 24;
+              description
+                "24Mbps.";
+            }
+            enum "36mbps" {
+              value 36;
+              description
+                "36Mbps.";
+            }
+            enum "48mbps" {
+              value 48;
+              description
+                "48Mbps.";
+            }
+            enum "54mbps" {
+              value 54;
+              description
+                "54Mbps.";
+            }
+          }
+          description
+            "Dot11bg basic rate list.";
+        }
+        description
+          "Configure list of dot11bg basic rate.";
+      }
+    }
+    container dot11bg-support-rate-lists {
+      description
+        "List of dot11bg support rate.";
+      list dot11bg-support-rate-list {
+        key "support-rate";
+        leaf support-rate {
+          type enumeration {
+            enum "1mbps" {
+              value 1;
+              description
+                "1Mbps.";
+            }
+            enum "2mbps" {
+              value 2;
+              description
+                "2Mbps.";
+            }
+            enum "5.5mbps" {
+              value 5;
+              description
+                "5.5Mbps.";
+            }
+            enum "6mbps" {
+              value 6;
+              description
+                "6Mbps.";
+            }
+            enum "9mbps" {
+              value 9;
+              description
+                "9Mbps.";
+            }
+            enum "11mbps" {
+              value 11;
+              description
+                "11Mbps.";
+            }
+            enum "12mbps" {
+              value 12;
+              description
+                "12Mbps.";
+            }
+            enum "18mbps" {
+              value 18;
+              description
+                "18Mbps.";
+            }
+            enum "24mbps" {
+              value 24;
+              description
+                "24Mbps.";
+            }
+            enum "36mbps" {
+              value 36;
+              description
+                "36Mbps.";
+            }
+            enum "48mbps" {
+              value 48;
+              description
+                "48Mbps.";
+            }
+            enum "54mbps" {
+              value 54;
+              description
+                "54Mbps.";
+            }
+          }
+          description
+            "Dot11bg support rate list.";
+        }
+        description
+          "Configure list of dot11bg support rate.";
+      }
+    }
+    leaf single-txchain-switch {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the function of single txchain.";
+    }
+    leaf inter-ac-roam-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the function of inter ac roam.";
+    }
+    leaf radio-type {
+      type enumeration {
+        enum "dot11a" {
+          value 0;
+          description
+            "The 802.11a radio type.";
+        }
+        enum "dot11b" {
+          value 1;
+          description
+            "The 802.11b radio type.";
+        }
+        enum "dot11g" {
+          value 2;
+          description
+            "The 802.11g radio type.";
+        }
+        enum "dot11n" {
+          value 3;
+          description
+            "The 802.11n radio type.";
+        }
+        enum "dot11ac" {
+          value 4;
+          description
+            "The 802.11ac radio type.";
+        }
+        enum "dot11ax" {
+          value 5;
+          description
+            "The 802.11ax radio type.";
+        }
+        enum "dot11be" {
+          value 6;
+          description
+            "The 802.11be radio type.";
+        }
+      }
+      default "dot11be";
+      description
+        "The radio type configured in an SSID profile takes precedence over that configured in a radio profile. 
+         But if the radio type configured in an SSID profile exceeds the range supported by the current radio profile, the radio type configured in the radio profile takes effect.";
+    }
+    leaf dot11k-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the function of 802.11k.";
+    }
+    leaf dot11v-bss-transition-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the bss transition function of 802.11v.";
+    }
+    leaf ftm-switch {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the FTM function.";
+    }
+    leaf ftm-lci-switch {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the FTM LCI function.";
+    }
+    leaf legacy-station-switch {
+      type enumeration {
+        enum "enable" {
+          value 0;
+          description "Legacy stations are allowed to access.";
+        }
+        enum "disable" {
+          value 1;
+          description "Legacy stations are not allowed to access.";
+        }
+        enum "only-dot11b-disable" {
+          value 2;
+          description "Only 802.11b legacy stations are not allowed to access.";
+        }
+      }
+      default "enable";
+      description "Configuring whether to forbid access from 802.11a, 802.11b, and 802.11g legacy stations.";
+    }
+    leaf-list ht-mcs-map {
+        type uint8 {
+            range "0..31";
+        }
+        max-elements 32;
+        description
+          "Configure ht-mcs-map.";
+    }
+    leaf er-su-switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the extended range single user function.";
+    }
+  }
+  grouping binding-ssid-profile {
+    description
+      "Binding ssid profile.";
+    container binding-ssid-profile {
+      description
+        "Configure binding ssid profile.";
+      leaf binding-ssid-profile {
+        type leafref {
+          path "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:profile-name";
+        }
+        default "default";
+        description
+          "Binding a ssid profile.";
+      }
+    }
+  }
+  container wlan-ssid-profile {
+    description
+      "Configure ssid profile.";
+    container ssid-profiles {
+      description
+        "List of ssid profiles.";
+      list ssid-profile {
+        ext:generated-by system {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        must "not(./beamforming-switch = 'false' and ./mimo-switch = 'true')";
+        must "not(./beamforming-switch = 'false' and ./phy-protection != 'disable')";
+        must "not(./ftm-switch = 'false' and ./ftm-lci-switch = 'true')";
+        key "profile-name";
+        description
+          "Configure a ssid profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "SSID profile name.";
+        }
+        uses ssid-prof:ssid-containers;
+      }
+    }
+  }
+  augment "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile" {
+    description
+      "Configure binding ssid profile to vap profile.";
+    uses ssid-prof:binding-ssid-profile;
+  }
+  ext:task-name "lcm";
+}

@@ -1,0 +1,450 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dhcpv6-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dhcpv6-deviations-ar5710s";
+  prefix dhcpv6-devs-ar5710s;
+
+  import huawei-dhcpv6 {
+    prefix dhcpv6;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dhcpv6 module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef dhcpv6-duid-deviations {
+    type enumeration {
+      enum llt {
+        value 1;
+        description
+          "Link-layer address plus time.";
+      }
+      enum ll {
+        value 2;
+        description
+          "Link-layer address.";
+      }
+      enum user-defined {
+        value 3;
+        description
+          "User-defined.";
+      }
+    }
+    description
+      "The type of DHCPv6 DUID.";
+  }
+
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-client-if/dhcpv6:enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-client-if/dhcpv6:vendor-specific" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-client-query/dhcpv6:request-option" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-client-query/dhcpv6:dns-domains" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-snooping-if" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-server-if/dhcpv6:packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if/dhcpv6:is-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if/dhcpv6:option/dhcpv6:insert-option79" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:gateway-switch-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:strict-check" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:current-link-address" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-addresses/dhcpv6:destination-address/dhcpv6:net-type" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:option" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:rebuild-option" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:access-limit-setting" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:pd-route-track-vrrp" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:option18" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:option37" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:access-vlans" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:dot1q-access-limits" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:qinq-access-limits" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:qinq-any-access-limits" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-if" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-snooping-attribute" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcpv6:dhcpv6-relay-vlan" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcpv6:dhcpv6-snooping-vlan" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:duid-format" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:duid-string" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:rate-limit-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:rate-limit" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:source-ip-adaptive" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:aging-time" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:active-duid" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:packet-rate" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:drop-alarm-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:drop-alarm-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:session-car" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:chasten" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:ipsec-peers" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:export" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:write-route-delay" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:write-route-number" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:access-limit" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:file-authentication-mode" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:option18-formats" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:option37-formats" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group/dhcpv6:server-addresses/dhcpv6:server-address/dhcpv6:interface-name" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:global-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:access-vlans" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:user-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:client-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:client-fail-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:server-storage/dhcpv6:database-recover-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:server-storage/dhcpv6:database-url" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:capwap-ac" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:address-allocate-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:user-bind-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:address-conflict-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:address-status-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:global-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:snooping" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-snooping-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-snooping-discarded-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-snooping-dynamic-binding-table" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-if-vlan" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-mac" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-client-duid" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-server-duid" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-client-address" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:reset-dhcpv6-relay-user-by-server-address" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:set-dhcpv6-relay-pd-route-immediate-write" {
+    deviate not-supported;
+  }
+  deviation "/dhcpv6:dhcpv6-client-renew" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/dhcpv6:dhcpv6-snooping-bd" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if" {
+    deviate add {
+      must "(../ifm:type != 'Tunnel') and (../ifm:type != 'NULL')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if/dhcpv6:option/dhcpv6:insert-vss" {
+    deviate add {
+      must '(not(../../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if/dhcpv6:option/dhcpv6:insert-client-lla" {
+    deviate add {
+      must '(not(../../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-if/dhcpv6:option/dhcpv6:insert-interface-id" {
+    deviate replace {
+      default "true";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute" {
+    deviate add {
+      must "(../ifm:type != 'Tunnel') and (../ifm:type != 'NULL') and (not(../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:source-address" {
+    deviate add {
+      must '(not(../source-interface))';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:source-interface" {
+    deviate add {
+      must '(not(../source-address))';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-addresses/dhcpv6:destination-address" {
+    deviate replace {
+      max-elements 20;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-ifs/dhcpv6:destination-if" {
+    deviate replace {
+      max-elements 20;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-ifs/dhcpv6:destination-if/dhcpv6:if-name" {
+    deviate delete {
+      must "not(((../../../../ifm:type = 'Virtual-Ethernet') or (../../../../ifm:type = 'Global-VE')) and (../../../../ifm:class = 'main-interface'))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-vpn-addresses/dhcpv6:destination-vpn-address" {
+    deviate replace {
+      max-elements 20;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcpv6:dhcpv6-relay-attribute/dhcpv6:destination-vpn-addresses/dhcpv6:destination-vpn-address/dhcpv6:vpn-name" {
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:enable" {
+    deviate replace {
+      default "false";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:remote-id-user-define-text" {
+    deviate replace {
+      type string {
+        length "1..249";
+      }
+    }
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:common/dhcpv6:global/dhcpv6:interface-id-user-define-text" {
+    deviate replace {
+      type string {
+        length "1..253";
+      }
+    }
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:global/dhcpv6:source-interface" {
+    deviate add {
+      must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type != 'Tunnel') and (/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type != 'NULL') and (not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:pd-route/dhcpv6:save-file-name" {
+    deviate replace {
+      type string {
+        length "12..51";
+        pattern 'flash:/[a-z0-9\-_\.]+\.pdr';
+      }
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group" {
+    deviate replace {
+      max-elements 32;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group/dhcpv6:name" {
+    deviate replace {
+      type string {
+        length "1..32";
+        pattern '([a-zA-Z0-9._-]{3,32})|([a-zA-Z0-9._]-)|(-[a-zA-Z0-9._])|([a-zA-Z0-9._]{1,2})';
+      }
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group/dhcpv6:vpn-name" {
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group/dhcpv6:server-address-ifs/dhcpv6:server-address-if/dhcpv6:server-address" {
+    deviate add {
+      must "(starts-with(translate(., 'FEABab9', 'fe88888'), 'fe8'))";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:relay/dhcpv6:server-groups/dhcpv6:server-group/dhcpv6:server-address-ifs/dhcpv6:server-address-if/dhcpv6:interface-name" {
+    deviate add {
+      must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type != 'Tunnel') and (/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type != 'NULL') and (/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute)";
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool" {
+    deviate add {
+      max-elements 64;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:excluded-addresses/dhcpv6:excluded-address" {
+    deviate add {
+      max-elements 1024;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:capwap-acs/dhcpv6:capwap-ac" {
+    deviate add {
+      max-elements 2;
+    }
+  }
+  deviation "/dhcpv6:dhcpv6/dhcpv6:server/dhcpv6:ipv6-pools/dhcpv6:ipv6-pool/dhcpv6:vendor-specifics/dhcpv6:vendor-specific/dhcpv6:suboptions/dhcpv6:suboption/dhcpv6:code-type/dhcpv6:ascii/dhcpv6:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcpv6:set-dhcpv6-duid/dhcpv6:input/dhcpv6:duid-format" {
+    deviate replace {
+      type dhcpv6-devs-ar5710s:dhcpv6-duid-deviations;
+    }
+  }
+}

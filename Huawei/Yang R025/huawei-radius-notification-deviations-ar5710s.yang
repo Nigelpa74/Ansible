@@ -1,0 +1,51 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-radius-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-radius-notification-deviations-ar5710s";
+  prefix radius-notification-devs-ar5710s;
+
+  import huawei-radius-notification {
+    prefix radius-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-radius-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/radius-notification:authentication-server-down/radius-notification:ip-address" {
+    deviate replace {
+      type string;
+    }
+  }
+  deviation "/radius-notification:authentication-server-down-resume/radius-notification:ip-address" {
+    deviate replace {
+      type string;
+    }
+  }
+  deviation "/radius-notification:accounting-server-down/radius-notification:ip-address" {
+    deviate replace {
+      type string;
+    }
+  }
+  deviation "/radius-notification:accounting-server-down-resume/radius-notification:ip-address" {
+    deviate replace {
+      type string;
+    }
+  }
+}

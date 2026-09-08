@@ -1,0 +1,908 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-driver-monitor-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-driver-monitor-notif";
+  prefix driver-monitor-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of driver monitor module.";
+  revision 2025-05-19 {
+    description
+      "Add enum power-not-identify.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-10 {
+    description
+      "Add enum power-a-cable-mismatch and power-b-cable-mismatch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-11 {
+    description
+      "Add fan and power alarm info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-24 {
+    description
+      "Add enum power-phase-fault.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-01 {
+    description
+      "Add enum board-temperature-too-low and card-temperature-too-low.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-19 {
+    description
+      "Modify the Field Type of Temperature Nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-17 {
+    description
+      "Add enum power-under-output-voltage.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-07-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "device-mgr";
+  typedef notification-driver-mon-fault-type {
+    type enumeration {
+      enum "fan-backplane-cable-not-present"{
+        value 131353;
+        description
+          "The fan backplane cable was not installed properly.";
+      }
+      enum "power-was-not-present"{
+        value 136448;
+        description
+          "The power was not present.";
+      }
+      enum "power-communicate-fail"{
+        value 136704;
+        description
+          "Communication failed between power and MPU.";
+      }
+      enum "power-module-fail"{
+        value 136707;
+        description
+          "The power module failed.";
+      }
+      enum "power-slight-share"{
+        value 136712;
+        description
+          "The current slight share.";
+      }
+      enum "power-supply-not-average"{
+        value 136714;
+        description
+          "The current of the power is not average.";
+      }
+      enum "power-switch-fail"{
+        value 136720;
+        description
+          "The power supply switch failed.";
+      }
+      enum "power-airflow-direction-abnormal"{
+        value 136732;
+        description
+          "Airflow direction is abnormal.";
+      }
+      enum "power-fan-fail"{
+        value 136733;
+        description
+          "The fan inside a power module fails.";
+      }
+      enum "power-over-output-current"{
+        value 136734;
+        description
+          "The current of the power exceed the max value.";
+      }
+      enum "power-two-canbus-abnormal"{
+        value 136736;
+        description
+          "Two CAN bus connections were abnormal.";
+      }
+      enum "power-fan-full-speed"{
+        value 136737;
+        description
+          "The fan module in the power module run at full speed.";
+      }
+      enum "power-eeprom-fault"{
+        value 136738;
+        description
+          "The EEPROM module in a power module was faulty.";
+      }
+      enum "power-id-address-conflict"{
+        value 136743;
+        description
+          "The power id address conflict.";
+      }
+      enum "power-phase-fault"{
+        value 136748;
+        description
+          "Phase missing occurred on the power module.";
+      }
+      enum "power-a-cable-mismatch"{
+        value 136749;
+        description
+          "The input A cable did not match the PM.";
+      }
+      enum "power-b-cable-mismatch"{
+        value 136750;
+        description
+          "The input B cable did not match the PM.";
+      }
+      enum "power-supply-fail"{
+        value 136961;
+        description
+          "The power module supply failed.";
+      }
+      enum "power-over-input-voltage"{
+        value 136962;
+        description
+          "Over input voltage occurred on the power module.";
+      }
+      enum "power-lack-input-voltage"{
+        value 136963;
+        description
+          "Under input voltage occurred on the power module.";
+      }
+      enum "power-temperature-high"{
+        value 136964;
+        description
+          "Over temperature occurred on the power module.";
+      }
+      enum "power-was-power-off"{
+        value 136966;
+        description
+          "The power module was installed but not powered on.";
+      }
+      enum "power-output-fail"{
+        value 136967;
+        description
+          "The output of the power module failed.";
+      }
+      enum "power-over-output-voltage"{
+        value 136968;
+        description
+          "Over output voltage occurred on the power module.";
+      }
+      enum "power-under-output-voltage"{
+        value 136969;
+        description
+          "Under output voltage occurred on the power module.";
+      }
+      enum "actual-power-exceeded-rated-power"{
+        value 136981;
+        description
+          "The actual power exceeded the rated power.";
+      }
+      enum "power-type-mismatch"{
+        value 136982;
+        description
+          "The power type does not match the type of the backplane.";
+      }
+      enum "power-environment-temperature-high"{
+        value 136983;
+        description
+          "The power module is in over temperature protection state.";
+      }
+      enum "power-a-plane-supply-fail"{
+        value 136986;
+        description
+          "The A plane power supply on the power module is faulty.";
+      }
+      enum "power-b-plane-supply-fail"{
+        value 136987;
+        description
+          "The B plane power supply on the power module is faulty.";
+      }
+      enum "power-a-plane-over-input-voltage"{
+        value 136988;
+        description
+          "The A plane power supply on the power module is over voltage.";
+      }
+      enum "power-b-plane-over-input-voltage"{
+        value 136989;
+        description
+          "The B plane power supply on the power module is over voltage.";
+      }
+      enum "power-a-plane-under-input-voltage"{
+        value 136990;
+        description
+          "The A plane power supply on the power module is under voltage.";
+      }
+      enum "power-b-plane-under-input-voltage"{
+        value 136992;
+        description
+          "The B plane power supply on the power module is under voltage.";
+      }
+      enum "power-backplane-cable-not-stable"{
+        value 136991;
+        description
+          "The power backplane cable was not installed properly.";
+      }
+      enum "power-not-identify"{
+        value 136998;
+        description
+          "Unknown device type in power slot.";
+      }
+      enum "fan-was-not-present"{
+        value 137216;
+        description
+          "The fan was not present.";
+      }
+      enum "fan-status-abnormal"{
+        value 137472;
+        description
+          "The fan module was in abnormal state.";
+      }
+      enum "fan-not-stable"{
+        value 137473;
+        description
+          "The fan is not stable.";
+      }
+      enum "fan-wind-direction-abnormal"{
+        value 137474;
+        description
+          "The fan wind direction was abnormal.";
+      }
+      enum "fan-was-removed"{
+        value 138925;
+        description
+          "A fan module was removed.";
+      }
+      enum "fan-all-failed"{
+        value 139264;
+        description
+          "The fans in the fan module failed.";
+      }
+      enum "fan-type-mismatch"{
+        value 139266;
+        description
+          "The fan type is mismatch with the device.";
+      }
+      enum "fan-communicate-fail"{
+        value 139269;
+        description
+          "Fan communicate with MPU is failed.";
+      }
+      enum "fan-speed-difference-too-large"{
+        value 139288;
+        description
+          "The speed difference between the two fans in the fan assembly is too large.";
+      }
+      enum "card-temperature-too-high"{
+        value 143616;
+        description
+          "The card temperature was too high.";
+      }
+      enum "board-temperature-too-high"{
+        value 143617;
+        description
+          "The board temperature was too high.";
+      }
+      enum "board-temperature-extremely-high"{
+        value 143872;
+        description
+          "The board temperature was extremely high.";
+      }
+      enum "card-temperature-extremely-high"{
+        value 143873;
+        description
+          "The card temperature was extremely high.";
+      }
+      enum "board-temperature-too-low"{
+        value 143619;
+        description
+          "The board temperature fell below the lower limit.";
+      }
+      enum "card-temperature-too-low"{
+        value 143620;
+        description
+          "The subcard temperature fell below the lower limit.";
+      }
+    }
+    description
+      "This list contains the root reasons of the huawei proprietary notifications.";
+  }
+  notification board-temperature-high {
+    description
+      "The board or card temperature was too high.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf threshold-type {
+      type uint32;
+      description
+        "Indicates the threshold type of the entity. 1 for rise over, 2 for fall below.";
+    }
+    leaf threshold-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the temperature threshold of the entity. 1 for rise over, 2 for fall below.";
+    }
+    leaf current-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the current temperature.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+  }
+  notification board-temperature-high-resume {
+    description
+      "The board or card resumed from temperature too high.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf threshold-type {
+      type uint32;
+      description
+        "Indicates the threshold type of the entity. 1 for rise over, 2 for fall below.";
+    }
+    leaf threshold-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the temperature threshold of the entity.";
+    }
+    leaf current-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the current temperature.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+  }
+  notification board-temperature-fatal {
+    description
+      "The board or card temperature exceeded the fatal alarm threshold.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf threshold-type {
+      type uint32;
+      description
+        "Indicates the threshold type of the entity. 1 for rise over, 2 for fall below.";
+    }
+    leaf threshold-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the temperature threshold of the entity.";
+    }
+    leaf current-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the current temperature.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+  }
+  notification board-temperature-fatal-resume {
+    description
+      "The board or card resumed from temperature too high.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf threshold-type {
+      type uint32;
+      description
+        "Indicates the threshold type of the entity. 1 for rise over, 2 for fall below.";
+    }
+    leaf threshold-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the temperature threshold of the entity.";
+    }
+    leaf current-temperature {
+      type int32;
+      units "°C";
+      description
+        "Indicates the current temperature.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+  }
+  notification fan-fail {
+    description
+      "The fan partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification fan-fail-resume {
+    description
+      "The fan resumed from partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification fan-invalid {
+    description
+      "The fan module failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification fan-invalid-resume {
+    description
+      "The fan module resumed from failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification fan-remove {
+    description
+      "A fan was removed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification fan-remove-resume {
+    description
+      "A fan was installed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-fail {
+    description
+      "The power module partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-fail-resume {
+    description
+      "The power module resumed from partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-invalid {
+    description
+      "The power module completely failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-invalid-resume {
+    description
+      "The power module resumed from completely failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-remove {
+    description
+      "A power was removed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+  notification power-remove-resume {
+    description
+      "A power was installed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type notification-driver-mon-fault-type;
+      description
+        "Indicates the error code.";
+    }
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates a possible cause.";
+    }
+    leaf status {
+      type uint32;
+      description
+        "Indicates the status.";
+    }
+  }
+}

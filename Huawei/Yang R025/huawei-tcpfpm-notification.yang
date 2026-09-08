@@ -1,0 +1,51 @@
+/*
+Copyright (C) 2021-2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-tcpfpm-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-tcpfpm-notification";
+  prefix tcpfpm-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of tcpfpm.";
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2021-01-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+  notification tcpfpm-session-max-exceed {
+    description
+      "The number of tcp fpm session has reached 100% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of tcp fpm session of device support.";
+    }
+  }
+  notification tcpfpm-session-max-clear {
+    description
+      "The number of tcp fpm session has decreased 95% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of tcp fpm session of device support.";
+    }
+  }
+}

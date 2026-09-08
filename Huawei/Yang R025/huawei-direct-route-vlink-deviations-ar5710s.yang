@@ -1,0 +1,54 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-direct-route-vlink-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-direct-route-vlink-deviations-ar5710s";
+  prefix directrtvlink-devs-ar5710s;
+
+  import huawei-direct-route-vlink {
+    prefix directrtvlink;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-direct-route-vlink module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/directrtvlink:direct-route-vlink" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/directrtvlink:vlink-configuration/directrtvlink:tag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/directrtvlink:vlink-configuration/directrtvlink:delay-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/directrtvlink:vlink-vpns" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/directrtvlink:vlink" {
+    deviate not-supported;
+  }
+}

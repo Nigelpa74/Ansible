@@ -1,0 +1,74 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-site-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-site-deviations-ar5710s";
+  prefix site-devs-ar5710s;
+
+  import huawei-site {
+    prefix site;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-site module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/site:site/site:site-instances/site:site-instance/site:interworking-gateway" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:site-instances/site:site-instance/site:transport-network-points/site:transport-network-point/site:srv6" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:site-groups" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:adaptive-qos-policys" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:srv6-te-static-path" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:app-statistics/site:visitor-statistics" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:connection/site:details" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:site-infos" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:remote-sites" {
+    deviate not-supported;
+  }
+  deviation "/site:site/site:site-instances/site:site-instance/site:routing-domains/site:routing-domain" {
+    deviate add {
+      max-elements 32;
+    }
+  }
+  deviation "/site:site/site:site-instances/site:site-instance/site:transport-networks/site:transport-network" {
+    deviate add {
+      max-elements 32;
+    }
+  }
+  deviation "/site:site/site:site-instances/site:site-instance/site:transport-network-points/site:transport-network-point/site:mtu" {
+    deviate replace {
+      type uint32 {
+        range "46..9000";
+      }
+    }
+  }
+}

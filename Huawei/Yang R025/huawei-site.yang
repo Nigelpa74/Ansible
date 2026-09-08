@@ -1,0 +1,1367 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-site {
+  namespace "urn:huawei:yang:huawei-site";
+  prefix site;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     configuring site and transport network point.";
+  revision 2025-05-09 {
+    description "Add peer-site-multi-group-enable.";
+    reference "";
+  }
+  revision 2025-01-20 {
+    description "1. Add site and CPE usage. 2. Add unicast and multicast statitics of connection.";
+    reference "";
+  }
+  revision 2024-12-12 {
+    description "Delete the mandatory constraint of policy-name in the site-group.";
+    reference "";
+  }
+  revision 2024-07-30 {
+    description "Update connection-bandwidth-percentage of adaptive-qos-policys.";
+    reference "";
+  }
+  revision 2024-07-23 {
+    description "Modify transport-network type of site-group.";
+    reference "";
+  }
+  revision 2024-06-26 {
+    description "Add load-balance mode.";
+    reference "";
+  }
+  revision 2024-06-17 {
+    description "Add traffic-usage lower threshold.";
+    reference "";
+  }
+  revision 2024-05-21 {
+    description "Modify based-rules string format.";
+    reference "";
+  }
+  revision 2024-02-19 {
+    description "Add packet loss ratio units.";
+    reference "";
+  }
+  revision 2024-01-31 {
+    description "Add adaptive QoS policy.";
+    reference "";
+  }
+  revision 2023-11-10 {
+    description "Add forward loop check node.";
+    reference "";
+  }
+  revision 2023-08-08 {
+    description "Update node.";
+    reference "";
+  }
+  revision 2023-08-03 {
+    description "Add encrypt status node.";
+    reference "";
+  }
+  revision 2023-07-24 {
+    description "Add leaf node follow-enable.";
+    reference "";
+  }
+  revision 2023-03-30 {
+    description "Add connection details and site-infos.";
+    reference "";
+  }
+  revision 2023-03-09 {
+    description "Add ext-udp and ext-format.";
+    reference "";
+  }
+  revision 2023-02-28 {
+    description "Modify based hub.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-10-18 {
+    description "Modifying nat-detect node attributes.";
+    reference "";
+  }
+  revision 2022-07-19 {
+    description "Add dynamic connection.";
+    reference "";
+  }
+  revision 2022-01-27 {
+    description "Add qos local id.";
+    reference "";
+  }
+  revision 2022-01-10 {
+    description "Add site group.";
+    reference "";
+  }
+  revision 2020-08-13 {
+    description "Initial revision.";
+    reference "";
+  }
+
+  ext:task-name "sdwan";
+
+  typedef lqm-type {
+    type enumeration {
+      enum "ipfpm" {
+        value 1;
+        description "Ipfpm type.";
+      }
+    }
+    description "The lqm types.";
+  }
+  typedef connection-fsm-state {
+    type enumeration {
+      enum "invalid" {
+        value 0;
+        description "The fsm state is invalid.";
+      }
+      enum "init" {
+        value 1;
+        description "The fsm state is init.";
+      }
+      enum "nat-parse" {
+        value 2;
+        description "The fsm state is nat-parse.";
+      }
+      enum "check-connection" {
+        value 3;
+        description "The fsm state is check-connection.";
+      }
+      enum "pending" {
+        value 4;
+        description "The fsm state is pending.";
+      }
+      enum "active" {
+        value 5;
+        description "The fsm state is active.";
+      }
+    }
+    description "The connection fsm state types.";
+  }
+  typedef connection-role-type {
+    type enumeration {
+      enum "master" {
+        value 0;
+        description "Master role.";
+      }
+      enum "slave" {
+        value 1;
+        description "Slave role.";
+      }
+    }
+    description "The connection role types.";
+  }
+  typedef location-type {
+    type enumeration {
+      enum "local" {
+        value 0;
+        description "Local.";
+      }
+      enum "peer" {
+        value 1;
+        description "Dual gateways.";
+      }
+      enum "remote" {
+        value 2;
+        description "Remote.";
+      }
+    }
+    description "The location types.";
+  }
+  typedef status-type {
+    type enumeration {
+      enum "down" {
+        value 0;
+        description "The status is down.";
+      }
+      enum "up" {
+        value 1;
+        description "The status is up.";
+      }
+    }
+    description "The status types.";
+  }
+  typedef site-role-type {
+    type enumeration {
+      enum "RR" {
+        value 1;
+        description "Specify RR role.";
+      }
+      enum "CPE" {
+        value 2;
+        description "Specify CPE role.";
+      }
+      enum "RR-CPE" {
+        value 3;
+        description "Specify CPE && RR role.";
+      }
+    }
+    description "The role types of site.";
+  }
+  typedef tnp-encap-type {
+    type enumeration {
+      enum "gre-ipv4" {
+        value 0;
+        description "The tnp encapsulation type is gre IPv4.";
+      }
+      enum "gre-ipv6" {
+        value 1;
+        description "The tnp encapsulation type is IPv6.";
+      }
+      enum "vxlan" {
+        value 2;
+        description "The tnp encapsulation type is vxlan.";
+      }
+    }
+    description "The tnp encapsulation type.";
+  }
+  typedef tnp-fsm-state {
+    type enumeration {
+      enum "invalid" {
+        value 0;
+        description "The fsm state is invalid.";
+      }
+      enum "init" {
+        value 1;
+        description "The fsm state is init.";
+      }
+      enum "starting" {
+        value 2;
+        description "The fsm state is starting.";
+      }
+      enum "nat-detecting" {
+        value 3;
+        description "The fsm state is nat-detecting.";
+      }
+      enum "pending" {
+        value 4;
+        description "The fsm state is pending.";
+      }
+      enum "full" {
+        value 5;
+        description "The fsm state is full.";
+      }
+    }
+    description "The tnp fsm state types.";
+  }
+
+  grouping connection-key {
+    description "Ingress statistics of connection application.";
+    leaf src-tnp-id {
+      type uint32;
+        description "Source Tnp ID.";
+    }
+    leaf dest-tnp-id {
+      type uint32;
+      description "Destination Tnp ID.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description "Destination Site ID.";
+    }
+  }
+  grouping traffic-statistic {
+    description "Traffic statistics of connection application.";
+    leaf in-octets {
+      type uint64;
+      description "Ingress bytes statitics.";
+    }
+    leaf in-pkts {
+      type uint64;
+      description "Ingress packets statitics.";
+    }
+    leaf out-octets {
+      type uint64;
+      description "Egress bytes statitics.";
+    }
+    leaf out-pkts {
+      type uint64;
+      description "Egress packets statitics.";
+    }
+  }
+
+  container site {
+    description "Local site parameters.";
+
+    container site-instances {
+      description "List of site configuration.";
+
+      list site-instance {
+        key "id";
+        max-elements "1";
+        description "Specify the site configuration.";
+
+        leaf id {
+          type uint32 {
+              range "1..65535";
+          }
+          description "Specify the site id.";
+        }
+        leaf type {
+          ext:operation-exclude update|delete;
+          type site-role-type;
+          default "CPE";
+          description "Specify the role of local site.";
+        }
+
+        leaf system-id {
+          ext:operation-exclude update|delete {
+            when "../transport-network-points/transport-network-point/point-id";
+            description "The 'system-id' cannot be updated or deleted, when point-id node is not empty.";
+          }
+          type inet:ipv4-address-no-zone;
+          description "Specify local management address.";
+        }
+
+        leaf gateway {
+          type enumeration {
+            enum single {
+              value 1;
+              description "Specify single site.";
+            }
+            enum dual {
+              value 2;
+              description "Specify dual site.";
+            }
+          }
+          default "single";
+          description "Specify gateway role of site.";
+        }
+        leaf peer-system-id {
+          when "../gateway='dual'";
+          type inet:ipv4-address-no-zone;
+          mandatory true;
+          description "Specify peer management address.";
+        }
+
+        leaf interworking-gateway {
+          type boolean;
+          default "false";
+          description "Enable/disable the gateway role in network.";
+        }
+        leaf interworking-gateway-qos-local-id {
+          type uint32 {
+            range "1..255";
+          }
+          description "Specify the QoS local ID of the interworking gateway.";
+        }
+
+        leaf hub-enable {
+          type boolean;
+          default "false";
+          description "Enable/disable the hub site in network.";
+        }
+        leaf dynamic-connection-enable {
+          type boolean;
+          default "false";
+          description "Enable/disable the dynamic connections function.";
+        }
+        leaf unsecure-pkt-discard-enable {
+          type boolean;
+          default "false";
+          description "Enable/disable unsecure packet discard function.";
+        }
+        leaf load-balance-mode {
+          type enumeration {
+            enum local-prefer {
+              value 1;
+              description "Specify local-connection preferred load-balance mode.";
+            }
+            enum local-and-peer {
+              value 2;
+              description "Specify local-connection and extend-connection load-balance mode.";
+            }
+          }
+          default "local-prefer";
+          description "Specify load-balance mode.";
+        }
+
+        container routing-domains {
+          description "List of routing domain parameters.";
+
+          list routing-domain {
+            key "domain-name";
+            unique domain-id;
+            description "Specify the routing-domain.";
+
+            leaf domain-name {
+              type string {
+                length "1..31";
+              }
+              description "Specify the routing-domain name.";
+            }
+            leaf domain-id {
+              ext:operation-exclude update;
+              type uint32 {
+                range "1..4294967295";
+              }
+              mandatory true;
+              description "Specify the routing-domain id.";
+            }
+          }
+        }
+
+        container transport-networks {
+          description "List of transport network parameters.";
+
+          list transport-network {
+            key "network-name";
+            unique network-id;
+            description "Specify the transport-network.";
+
+            leaf network-name {
+              type string {
+                length "1..31";
+              }
+              description "Specify the transport-network name.";
+            }
+            leaf network-id {
+              ext:operation-exclude update;
+              type uint32 {
+                range "1..4294967295";
+              }
+              mandatory true;
+              description "Specify the transport-network id.";
+            }
+            leaf priority {
+              type uint16 {
+                range "1..255";
+              }
+              description "Specify the transport-network priority.";
+            }
+          }
+        }
+
+        container transport-network-points {
+          when "../system-id";
+          description "List of transport-network-point parameters.";
+
+          list transport-network-point {
+            key "point-id";
+            unique source-interface;
+            description "Specify the transport-network-point parameters.";
+
+            leaf point-id {
+              type uint32 {
+                range "1..4294967295";
+              }
+              description "Specify the transport-network-point index.";
+            }
+            leaf tnp-type {
+              ext:operation-exclude update|delete;
+              type enumeration {
+                enum ipv4 {
+                  value 0;
+                  description "Specify IPv4 tnp.";
+                }
+                enum ipv6 {
+                  value 1;
+                  description "Specify IPv6 tnp.";
+                }
+              }
+              default "ipv4";
+              description "Specify ip type of tnp.";
+            }
+            leaf public-ip {
+              when "(../../../type = 'RR-CPE' or ../../../type = 'RR') and (../tnp-type = 'ipv4')";
+              type inet:ipv4-address-no-zone;
+              description "Specify public ip address.";
+            }
+            leaf domain-name {
+              ext:operation-exclude update|delete {
+                when "../source-interface";
+                description "The domain-name cannot be updated or deleted, when source-interface node is not empty.";
+              }
+              type leafref {
+                path "/site:site/site-instances/site-instance/routing-domains/routing-domain/domain-name";
+              }
+              description "Specify the routing-domain name.";
+            }
+            leaf network-name {
+              ext:operation-exclude update|delete {
+                when "../source-interface";
+                description "The network-name cannot be updated or deleted, when source-interface node is not empty.";
+              }
+              type leafref {
+                path "/site:site/site-instances/site-instance/transport-networks/transport-network/network-name";
+              }
+              description "Specify the transport-networkname.";
+            }
+            leaf weight {
+              type uint8 {
+                range "1..255";
+              }
+              default "6";
+              description "Specify the weight.";
+            }
+            leaf source-interface {
+              when "../domain-name and ../network-name";
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description "Specify the source interface name.";
+            }
+            container nat-detect {
+              when "(../tnp-type = 'ipv4')";
+              description "Configure the nat-detect.";
+              leaf enable {
+                type boolean;
+                default "false";
+                description "Enable/disable the nat-detect function.";
+              }
+              leaf dest-port {
+                ext:dynamic-default;
+                type uint16 {
+                  range "1024..65535";
+                }
+                description "Specify the nat-detect destination port.";
+              }
+            }
+            leaf srv6 {
+              when "../tnp-type='ipv6'";
+              type boolean;
+              default "false";
+              description "Enable/disable the SRv6 function in the TNP.";
+            }
+            leaf statistics {
+              type boolean;
+              default "false";
+              description "Enable/disable the collecting statistics function on the TNP.";
+            }
+            leaf mtu {
+              type uint32 {
+                range "46..9600";
+              }
+              units "Byte";
+              default "1500";
+              description "Specify mtu of the TNP.";
+            }
+            leaf input-bandwidth {
+              type uint32 {
+                range "1..4294967295";
+              }
+              units "kbit/s";
+              description "Specify the input bandwidth of the TNP.";
+            }
+            leaf output-bandwidth {
+              type uint32 {
+                range "1..4294967295";
+              }
+              units "kbit/s";
+              description "Specify the output bandwidth of the TNP.";
+            }
+          }
+        }
+        container color-policys {
+          description "Configure color policys of the site.";
+          container based-site-id {
+            description "Configure color policy by site-id.";
+            leaf mode {
+              type enumeration {
+                enum smaller {
+                  value 0;
+                  description "Color the transport network based on the small site id.";
+                }
+                enum larger {
+                  value 1;
+                  description "Color the transport network based on the large site id.";
+                }
+              }
+              default "smaller";
+              description "Color the transport network based on site id.";
+            }
+          }
+          container based-rules {
+            must "./based-transport-network-priority/priority != ./based-bandwidth/priority and ./based-transport-network-priority/priority != ./based-hub/priority and ./based-bandwidth/priority != ./based-hub/priority";
+            container based-transport-network-priority {
+              presence "Based site transport network priority";
+              description "Configure color policy by transport-network-priority.";
+              leaf mode {
+                type enumeration {
+                  enum smaller {
+                    value 1;
+                    description "Color the transport network based on the small transport network priority.";
+                  }
+                  enum larger {
+                    value 2;
+                    description "Color the transport network based on the large transport network priority.";
+                  }
+                }
+                mandatory true;
+                description "Color the transport network based on transport network priority.";
+              }
+              leaf priority {
+                type uint16 {
+                  range "1..3";
+                }
+                mandatory true;
+                description "Specify the color based priority.";
+              }
+            }
+            container based-bandwidth {
+              presence "Based bandwidth";
+              description "Configure color policy by bandwidth.";
+              leaf mode {
+                type enumeration {
+                  enum smaller {
+                    value 1;
+                    description "Color the transport network based on the small bandwidth.";
+                  }
+                  enum larger {
+                    value 2;
+                    description "Color the transport network based on the large bandwidth.";
+                  }
+                }
+                mandatory true;
+                description "Color the transport network based on bandwidth.";
+              }
+              leaf priority {
+                type uint16 {
+                  range "1..3";
+                }
+                mandatory true;
+                description "Specify the color based priority.";
+              }
+            }
+            container based-hub {
+              presence "Based hub site";
+              description "Configure color policy by hub site.";
+              leaf enable {
+                type empty;
+                description "When this function is enabled, the transport network is colored based on hub sites. Otherwise, the transport network is colored based on spoke sites.";
+              }
+              leaf priority {
+                type uint16 {
+                  range "1..3";
+                }
+                mandatory true;
+                description "Specify the color based priority.";
+              }
+            }
+            description "Configure color policy rules.";
+          }
+        }
+        container encapsulation-data-format {
+          description "Configure extended format for encapsulation data.";
+          leaf routing-present-bit-zero {
+            type boolean;
+            default "false";
+            description "Enable/disable the extended format for encapsulation data.";
+          }
+
+          container ext-udp-header {
+            description "Configure extended udp header for encapsulation data.";
+            leaf header-added {
+              type boolean;
+              default "false";
+              description "Enable/disable the extended udp header for encapsulation data.";
+            }
+            leaf destination-port {
+              type uint16 {
+                range "1024..65535";
+              }
+              default "4755";
+              description "Specify the destination port of added udp header, default is 4755.";
+            }
+            leaf source-port {
+              type uint16 {
+                range "1024..65535";
+              }
+              default "4755";
+              description "Specify the source port of added udp header, default is 4755.";
+            }
+          }
+        }
+
+        container forward-loop-check {
+          description "Configure the check for forward loop.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description "Enable/disable the check for forward loop.";
+          }
+          leaf cycle {
+            type uint32 {
+              range "60..300";
+            }
+            units s;
+            default "180";
+            description "Specify the time cycle of forward loop check, default is 180s.";
+          }
+        }
+      }
+    }
+
+    container site-groups {
+      description "List of site group configuration.";
+
+      leaf peer-site-multi-group-enable {
+        type boolean;
+        default "true";
+        description "Enable/disable the function of binding same site to site groups.";
+      }
+
+      list site-group {
+        key "name";
+        description "Specify the site group configuration.";
+
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description "Specify the site group name.";
+        }
+
+        choice peer-site-parameters {
+          description "Configure peer sites.";
+
+          case peer-site-list {
+            description "List of peer site id configuration.";
+            container peer-sites {
+              description "List of peer site configuration.";
+              list peer-site {
+                key "id";
+                description "Specify the peer site configuration.";
+
+                leaf id {
+                  type uint32 {
+                    range "1..65535";
+                  }
+                  description "Specify the peer site id.";
+                }
+                leaf bandwidth-percentage {
+                  type uint8 {
+                    range "1..100";
+                  }
+                  units %;
+                  default "100";
+                  description "Specify the peer site bandwdith percentage.";
+                }
+              }
+            }
+          }
+
+          case peer-site-all {
+            description "Configure all peer sites.";
+            container all-sites {
+              presence "All sites";
+              description "Configure all sites.";
+              leaf bandwidth-percentage {
+                type uint8 {
+                  range "1..100";
+                }
+                units %;
+                default "100";
+                description "Specify all peer site bandwdith percentage.";
+              }
+            }
+          }
+        }
+
+        container transport-networks {
+          description "List of transport networks of the site group.";
+          list transport-network {
+            key "name";
+            leaf name {
+              type string {
+                length "1..31";
+              }
+              description "Specify the transport network name.";
+            }
+            description "Specify the transport network list of site group.";
+          }
+        }
+      }
+    }
+
+    container adaptive-qos-policys {
+      description "List of adaptive QoS policies configuration.";
+      list adaptive-qos-policy {
+        key "name";
+        description "Specify the adaptive QoS policy configuration.";
+
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description "Specify the name of adaptive QoS policy.";
+        }
+
+        leaf adjustment-period {
+          type uint32 {
+            range "5..3600";
+          }
+          units s;
+          default "30";
+          description "Specify the adjustment period.";
+        }
+
+        leaf connection-bandwidth-percentage {
+          type uint8 {
+            range "1..99";
+          }
+          units %;
+          default "50";
+          description "Specify the percentage of connection bandwidth threshold.";
+        }
+
+        leaf service-bandwidth-percentage {
+          type uint8 {
+            range "1..99";
+          }
+          units %;
+          default "10";
+          description "Specify the percentage of service bandwidth threshold.";
+        }
+
+        leaf wan-loss-permillage {
+          type uint16 {
+            range "1..999";
+          }
+          units ‰;
+          default "2";
+          description "Specify the WAN packet loss threshold for adaptive QoS adjustment (in permillage).";
+        }
+
+        leaf traffic-usage-lower-threshold {
+          type uint8 {
+            range "1..99";
+          }
+          units %;
+          default "50";
+          description "Specify traffic usage lower threshold for increase bandwidth.";
+        }
+      }
+    }
+
+    container srv6-te-static-path {
+      presence "Create srv6-te static path.";
+      description "Configure the SRv6 TE static path parameters.";
+
+      container path-groups {
+        description "List of path group.";
+
+        list path-group {
+          key "name";
+          max-elements "128";
+          description "Specify the path group.";
+
+          leaf name {
+            type string {
+              length "1..31";
+            }
+            description "Specify the path group name.";
+          }
+
+          leaf headpoint-tnp {
+            ext:operation-exclude update;
+            type leafref {
+              path "/site:site/site-instances/site-instance/transport-network-points/transport-network-point/point-id";
+            }
+            mandatory true;
+            description "Specify the headpoint transport-network-point id.";
+          }
+
+          container path-nodes {
+            description "List of Path nodes.";
+
+            list path-node {
+              key "node-id";
+              description "Specify the path-node parameters.";
+
+              leaf node-id {
+                type uint32 {
+                  range "1..4294967295";
+                }
+                description "Specify the path-node index.";
+              }
+
+              leaf endpoint-site {
+                ext:operation-exclude update;
+                type uint32 {
+                  range "1..65535";
+                }
+                mandatory true;
+                description "Specify the endpoint site id.";
+              }
+
+              leaf endpoint-tnp {
+                ext:operation-exclude update;
+                type uint32 {
+                  range "1..4294967295";
+                }
+                mandatory true;
+                description "Specify the endpoint transport-network-point id.";
+              }
+
+              container candidate-paths {
+                description "List of candidate path.";
+
+                list candidate-path {
+                  key "name";
+                  unique "discriminator";
+                  unique "preference";
+                  unique "binding-sid";
+                  description "Specify the candidate-path parameters.";
+
+                  leaf name {
+                    type string {
+                      length "1..31";
+                    }
+                    description "Specify the path name.";
+                  }
+
+                  leaf discriminator {
+                    ext:operation-exclude update;
+                    type uint16 {
+                      range "1..65535";
+                    }
+                    mandatory true;
+                    description "Specify the discriminator.";
+                  }
+
+                  leaf preference {
+                    ext:operation-exclude update;
+                    type uint16 {
+                      range "1..65535";
+                    }
+                    mandatory true;
+                    description "Specify the preference.";
+                  }
+
+                  leaf binding-sid {
+                    ext:operation-exclude update;
+                    type inet:ipv6-address-no-zone;
+                    mandatory true;
+                    description "Binding sid.";
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    container app-statistics {
+      config false;
+      description "Statistics of application statistics.";
+      container statistics {
+        config false;
+        description "List of ingress statistics of connection application.";
+
+        list statistic {
+          key "app-id src-tnp-id dest-tnp-id dest-site-id";
+          description "Statistics of ingress statistics of connection application.";
+          leaf app-id {
+            type uint32;
+            description "Application ID.";
+          }
+
+          uses connection-key;
+
+          leaf app-name {
+            type string {
+              length "1..31";
+            }
+            description "Application name.";
+          }
+          uses traffic-statistic;
+        }
+      }
+
+      container visitor-statistics {
+        config false;
+        description "List of visitor statistics of connection application.";
+        list visitor-statistic {
+
+          key "src-ip app-id";
+          description "Statistics of visitor statistics of connection application.";
+          leaf src-ip {
+            type inet:ip-address-no-zone;
+            description "Source ip address of visitor app statistics.";
+          }
+
+          leaf app-id {
+            type uint32;
+            description "Application ID.";
+          }
+
+          leaf app-name {
+            type string {
+              length "1..31";
+            }
+            description "Application name.";
+          }
+
+          leaf app-type {
+            type uint32;
+            description "Application type.";
+          }
+
+          leaf app-class {
+            type string {
+              length "1..31";
+            }
+            description "Application class name.";
+          }
+
+          uses traffic-statistic;
+        }
+      }
+    }
+
+    container connection {
+      config false;
+      description "Statistics of connection statistics.";
+
+      container statistics {
+        config false;
+        description "List of connection statistics.";
+        list statistic {
+          key "src-tnp-id dest-tnp-id dest-site-id";
+          description "Statistics of connection.";
+
+          uses connection-key;
+          uses traffic-statistic;
+          leaf in-unicast-octets {
+            type uint64;
+            description "Ingress unicast bytes statitics.";
+          }
+          leaf in-unicast-pkts {
+            type uint64;
+            description "Ingress unicast packets statitics.";
+          }
+          leaf out-unicast-octets {
+            type uint64;
+            description "Egress unicast bytes statitics.";
+          }
+          leaf out-unicast-pkts {
+            type uint64;
+            description "Egress unicast packets statitics.";
+          }
+          leaf in-multicast-octets {
+            type uint64;
+            description "Ingress multicast bytes statitics.";
+          }
+          leaf in-multicast-pkts {
+            type uint64;
+            description "Ingress multicast packets statitics.";
+          }
+          leaf out-multicast-octets {
+            type uint64;
+            description "Egress multicast bytes statitics.";
+          }
+          leaf out-multicast-pkts {
+            type uint64;
+            description "Egress multicast packets statitics.";
+          }
+        }
+      }
+      container qualitys {
+        config false;
+        description "List of connection lqm statistics.";
+
+        list quality {
+          key "src-tnp-id dest-tnp-id dest-site-id";
+          description "Statistics of connection lqm entity.";
+
+          uses connection-key;
+
+          leaf type {
+            type lqm-type;
+            description "Entity types.";
+          }
+
+          leaf packet-loss-ratio {
+            type uint32;
+            units ‰;
+            description "Packet loss Precision.";
+          }
+          leaf packet-loss {
+            type int32 {
+              range "0..1000";
+            }
+            description "Packet Loss rate (permille).";
+          }
+          leaf jitter {
+            type uint32;
+            units "ms";
+            description "VPN Packet Jitter.";
+          }
+          leaf delay {
+            type uint32;
+            units "ms";
+            description "VPN Packet Delay.";
+          }
+        }
+      }
+      container connection-usage {
+        config false;
+        description "Statistics of evpn connection usage.";
+        leaf connection-limit {
+          type uint32;
+          description "Get evpn connection limit.";
+        }
+        leaf connection-number {
+          type uint32;
+          description "Get evpn connection number.";
+        }
+      }
+      container details {
+        config false;
+        description "List of detailed information of EVPN connections.";
+        list detail {
+          key "src-tnp-id dest-tnp-id dest-site-id";
+          description "Operational data of EVPN connection.";
+          uses connection-key;
+          leaf connection-id {
+            ext:support-filter "true";
+            type uint32 {
+              range "1..4294967295";
+            }
+            description "The id of connection.";
+          }
+          leaf status {
+            ext:support-filter "true";
+            type status-type;
+            description "The status of connection status.";
+          }
+          leaf ipsec-flag {
+            type boolean;
+            description "Whether IPsec is enabled.";
+          }
+          leaf fsm-state {
+            type connection-fsm-state;
+            description "Current status of the connection state machine.";
+          }
+          leaf weight {
+            type uint8;
+            description "The weight value.";
+          }
+          leaf nat-exist {
+            type boolean;
+            description "Whether the nat is exist.";
+          }
+          leaf role {
+            type connection-role-type;
+            description "The role of connection.";
+          }
+          leaf mtu {
+            type uint32;
+            units "Byte";
+            description "The mtu of connection.";
+          }
+          leaf destination-nat-ip {
+            type inet:ipv4-address-no-zone;
+            description "The nat hole punching IP address.";
+          }
+          leaf destination-nat-port {
+            type uint32;
+            description "The nat hole punching port number.";
+          }
+          leaf last-down-time {
+            type yang:date-and-time;
+            description "Time when the connection last went Down.";
+          }
+          leaf last-down-reason {
+            type string {
+              length "1..64";
+            }
+            description "Reason why the connection last went Down.";
+          }
+          leaf follow-enable {
+            type boolean;
+            description "Whether the traffic follows the selection of the destination site.";
+          }
+        }
+      }
+    }
+    container site-infos {
+      config false;
+      description "List of detailed information of EVPN site.";
+
+      list site-info {
+        key "id system-id";
+        description "Operational data of site.";
+        leaf id {
+          type uint32 {
+            range "1..65535";
+          }
+          description "The site id.";
+        }
+        leaf system-id {
+          type inet:ipv4-address-no-zone;
+          description "The local management address.";
+        }
+        leaf location {
+          type location-type;
+          description "The location of site.";
+        }
+        leaf role {
+          type site-role-type;
+          description "The role of site.";
+        }
+        container transport-network-point-infos {
+          description "List of the informations of transport network port.";
+          list transport-network-point-info {
+            key "point-id";
+            description "Operational data of transport network port.";
+            leaf point-id {
+              type uint32 {
+                range "1..4294967295";
+              }
+              description "The transport network port index.";
+            }
+            leaf status {
+              type status-type;
+              description "The status of transport network port.";
+            }
+            leaf routing-domain-id {
+              type uint32 {
+                range "1..4294967295";
+              }
+              description "The routing domain id.";
+            }
+            leaf transport-network-id {
+              type uint32 {
+                range "1..4294967295";
+              }
+              description "The transport network id.";
+            }
+            leaf transport-network-priority {
+              type uint16 {
+                range "1..255";
+              }
+              description "The priority of the transport network.";
+            }
+            leaf public-ip {
+              type inet:ip-address-no-zone;
+              description "Public IP address of the destination TNP.";
+            }
+            leaf public-port {
+              type uint16;
+              description "Public port number of the destination TNP.";
+            }
+            leaf private-ip {
+              type inet:ip-address-no-zone;
+              description "Private IP address of the source TNP.";
+            }
+            leaf private-port {
+              type uint16;
+              description "Private port number of the destination TNP.";
+            }
+            leaf weight {
+              type uint8 {
+                range "1..255";
+              }
+              description "The weight of transport network port.";
+            }
+            leaf encap-type {
+              type tnp-encap-type;
+              description "The encapsulation type of transport network port.";
+            }
+            leaf nat-exist {
+              type boolean;
+              description "Whether the nat is exist.";
+            }
+            leaf version {
+              type uint8;
+              description "The version number.";
+            }
+            leaf input-bandwidth {
+              type uint32;
+              description "TNP inbound bandwidth.";
+            }
+            leaf hub-attribute {
+              type boolean;
+              description "Hub attribute of a site.";
+            }
+            leaf fsm-state {
+              type tnp-fsm-state;
+              description "The current status of the TNP state machine.";
+            }
+          }
+        }
+      }
+    }
+    container remote-sites {
+      description "List of remote site configuration.";
+      list remote-site {
+        key "id";
+        description "Specify the remote site configuration.";
+        leaf id {
+          type uint32 {
+            range "1..65535";
+          }
+          description "Specify the remote site id.";
+        }
+      }
+    }
+    container site-cpe-usage {
+      config false;
+      description "Statistics of remote sites or CPEs number.";
+      leaf remote-site-limit {
+        type uint32;
+        description
+          "The remote site specifications of the device.";
+      }
+      leaf remote-site-number {
+        type uint32;
+        description
+          "The number of remote sites of the device.";
+      }
+      leaf remote-cpe-limit {
+        type uint32;
+        description
+          "The remote CPE specifications of the device.";
+      }
+      leaf remote-cpe-number {
+        type uint32;
+        description
+          "The number of remote CPEs of the device.";
+      }
+    }
+  }
+
+  augment "/site:site/site-groups/site-group" {
+    description "Reference site group.";
+    container adaptive-qos-policy {
+      description "Configure adaptive QoS policy on site group node.";
+      leaf policy-name {
+        type leafref {
+          path "/site:site/adaptive-qos-policys/adaptive-qos-policy/name";
+        }
+        description "Specify the adaptive QoS policy name.";
+      }
+    }
+  }
+}

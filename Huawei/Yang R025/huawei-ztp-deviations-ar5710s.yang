@@ -1,0 +1,71 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ztp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ztp-deviations-ar5710s";
+  prefix ztp-devs-ar5710s;
+
+  import huawei-ztp {
+    prefix ztp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ztp module.";
+
+  revision 2022-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef ztp-domain-type-deviations {
+    type enumeration {
+      enum registration-center {
+        value 1;
+        description
+          "Registration center domain type.";
+      }
+    }
+    description
+      "The ztp domain type.";
+  }
+
+  deviation "/ztp:ztp/ztp:status/ztp:last" {
+    deviate not-supported;
+  }
+  deviation "/ztp:ztp/ztp:status/ztp:pre-configuration-name" {
+    deviate not-supported;
+  }
+  deviation "/ztp:ztp/ztp:control" {
+    deviate not-supported;
+  }
+  deviation "/ztp:query-ztp-uplink-port" {
+    deviate not-supported;
+  }
+  deviation "/ztp:set-pre-configuration" {
+    deviate not-supported;
+  }
+  deviation "/ztp:reset-pre-configuration" {
+    deviate not-supported;
+  }
+  deviation "/ztp:register-center-interactions" {
+    deviate not-supported;
+  }
+  deviation "/ztp:bootstrap-server-interactions" {
+    deviate not-supported;
+  }
+  deviation "/ztp:ztp/ztp:domains/ztp:domain/ztp:domain-type" {
+    deviate replace {
+      type ztp-devs-ar5710s:ztp-domain-type-deviations;
+    }
+  }
+}

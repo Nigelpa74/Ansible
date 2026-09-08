@@ -1,0 +1,43 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l3vpn-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-l3vpn-notification-deviations-ar5710s";
+  prefix l3vpn-notification-devs-ar5710s;
+
+  import huawei-l3vpn-notification {
+    prefix l3vpn-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-l3vpn-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/l3vpn-notification:vpn-route-label-num-reach-maximum" {
+    deviate not-supported;
+  }
+  deviation "/l3vpn-notification:vpn-route-label-num-reach-maximum-clear" {
+    deviate not-supported;
+  }
+  deviation "/l3vpn-notification:vpn-route-label-num-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/l3vpn-notification:vpn-route-label-num-reach-threshold-clear" {
+    deviate not-supported;
+  }
+}

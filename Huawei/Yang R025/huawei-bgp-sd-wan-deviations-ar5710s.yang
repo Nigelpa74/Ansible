@@ -1,0 +1,47 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-sd-wan-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-sd-wan-deviations-ar5710s";
+  prefix bgp-sd-wan-devs-ar5710s;
+
+  import huawei-bgp-sd-wan {
+    prefix bgp-sd-wan;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-sd-wan module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-sd-wan:ipv4-sd-wan/bgp-sd-wan:slow-peer/bgp-sd-wan:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-sd-wan:ipv4-sd-wan" {
+    deviate add {
+      must "../../../bgp:peer-establish-mode!='dynamic-ipv6'";
+    }
+  }
+}

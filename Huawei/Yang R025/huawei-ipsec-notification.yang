@@ -1,0 +1,332 @@
+/*
+Copyright (C) 2019-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-ipsec-notification {
+  namespace "urn:huawei:yang:huawei-ipsec-notification";
+  prefix ipsec-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ipsec {
+    prefix ipsec;
+  }
+  import huawei-ipsec-type {
+    prefix ipsec-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  } 
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for IPSec notification.";
+
+  revision 2023-12-20 { 
+    description "Add IPSec SLA notification.";
+    reference "";
+  }
+  revision 2023-01-04 { 
+    description "Add ipsec negotiation fail notification.";
+    reference "";
+  }
+  revision 2022-07-02 { 
+    description "Change sub-policy/ipsec:id to sub-policy/ipsec:seq-number.";
+    reference "";
+  }
+  revision 2021-11-23 {
+    description "Modify file for the firewall netconf function.";
+    reference "";
+  }
+  revision 2019-12-07 {
+    description "Initial revision.";
+    reference "";
+  }
+  
+  grouping sla-detection-attribute {
+    description "IPSec SLA detection attributes of notification.";
+
+    leaf if-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description "The interface name.";
+    }
+    leaf policy-name {
+      type leafref {
+        path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:name";
+      }
+      description "The IPSec policy name."; 
+    }
+    leaf policy-id { 
+      type leafref {
+        path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:seq-number";
+      }
+      description "The IPSec policy sequence number.";
+    }
+    leaf policy-alias { 
+      type string {
+        length "1..128";
+      }
+      description "The IPSec policy alias.";
+    }    
+    leaf tunnel-vpn-name { 
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description "The VPN instance name of the IPSec peer-address and local-address.";
+    }
+    leaf peer-address {
+      type inet:host;
+      description "Peer address."; 
+    }
+    leaf local-address {
+      type inet:host;
+      description "Local address."; 
+    }
+  }
+
+  /***************************************************************
+  * notification
+  ***************************************************************/
+  notification  ipsec-notification {
+    description "IPSec notification.";
+    
+    leaf if-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description "The interface name.";
+    }
+
+    leaf policy-name {
+      type leafref {
+        path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:name";
+      }
+      description "The IPSec policy name."; 
+    }
+
+    leaf policy-id { 
+      type leafref {
+        path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:seq-number";
+      }
+      description "The IPSec policy sequence number.";
+    }
+
+    leaf policy-alias { 
+      type string {
+        length "1..128";
+      }
+      description "The IPSec policy alias.";
+    }    
+
+    leaf tunnel-vpn-name { 
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description "The VPN instance name of the IPSec peer-address and local-address.";
+    }
+    
+    leaf flow-vpn-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description "The VPN instance name of data packets.";
+    }
+
+    leaf peer-address {
+      type inet:host;
+      description "Peer address."; 
+    }
+    
+    leaf peer-port { 
+      type uint16;
+      description "Peer udp port.";
+    }
+
+    leaf local-address {
+      type inet:host;
+      description "Local address."; 
+    }
+
+    leaf local-port {
+      type uint16;
+      description "Local udp port."; 
+    }
+
+    leaf flow-info {
+      type string {
+        length "1..256";
+      }
+      description "The flow info.";
+    }
+
+    leaf reason {
+      type string {
+        length "1..127";
+      }
+      description "The reason of notification.";
+    }
+
+    leaf status {
+      type ipsec-type:up-down-type;
+      description "The notification status.";
+    }
+  }
+
+  notification ipsec-negotiation-fail {
+    description "IPSec negotiation fail notification.";
+    
+    leaf if-index {
+      type uint32;
+      description "The interface index.";
+    }
+
+    leaf policy-seq { 
+      type uint32;
+      description "The IPSec policy sequence number.";
+    }
+
+    leaf reason {
+      type string {
+        length "1..127";
+      }
+      description "The reason of ipsec negotiation fail.";
+    }
+
+    leaf reason-code { 
+      type uint32;
+      description "The negotiation fail reason code.";
+    }    
+
+    leaf peer-address {
+      type inet:host;
+      description "Peer address."; 
+    }
+    
+    leaf peer-port { 
+      type uint32;
+      description "Peer udp port.";
+    }
+
+    leaf vsys-name {
+      type string {
+        length "1..31";
+      }
+      description "The vsys name."; 
+    }
+
+    leaf if-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description "The interface name.";
+    }
+  }
+  
+  notification sla-status-change {
+    description "IPSec SLA status change notification.";
+
+    uses sla-detection-attribute;
+
+    leaf status {
+      type ipsec-type:up-down-type;
+      description "The SLA link status.";
+    }
+  }
+
+  notification sla-quality-change {
+    description "IPSec SLA quality change notification.";
+
+    uses sla-detection-attribute;
+
+    leaf last-delay {
+      type uint16;
+      description "The last delay of SLA detection.";
+    }
+
+    leaf last-loss-rate {
+      type uint8;
+      units %;
+      description "The last loss rate of SLA detection.";
+    }
+
+    leaf last-jitter {
+      type uint16;
+      description "The last jitter of SLA detection.";
+    }
+
+    leaf current-delay {
+      type uint16;
+      description "The current delay of SLA detection.";
+    }
+
+    leaf current-loss-rate {
+      type uint8;
+      units %;
+      description "The current loss rate of SLA detection.";
+    }
+
+    leaf current-jitter {
+      type uint16;
+      description "The current jitter of SLA detection.";
+    }
+  }
+  
+  notification sla-threshold-exceeded {
+    description "IPSec SLA threshold exceeded notification.";
+    
+    uses sla-detection-attribute;
+
+    leaf current-delay {
+      type uint16;
+      description "The current delay of SLA detection.";
+    }
+
+    leaf current-loss-rate {
+      type uint8;
+      units %;
+      description "The current loss rate of SLA detection.";
+    }
+
+    leaf current-jitter {
+      type uint16;
+      description "The current jitter of SLA detection.";
+    }
+
+    leaf delay-threshold {
+      type uint16;
+      description "The delay threshold.";
+    }
+
+    leaf loss-rate-threshold {
+      type uint8;
+      description "The loss rate threshold.";
+    }
+
+    leaf jitter-threshold {
+      type uint16;
+      description "The jitter threshold.";
+    } 
+  }
+  
+  ext:task-name "ipsec";
+} /*end of module huawei-ipsec-notification*/
+  
+ 

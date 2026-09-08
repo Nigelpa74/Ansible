@@ -1,0 +1,777 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-isis-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-isis-notification";
+  prefix isis-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of isis.";
+  revision 2025-03-14 {
+    description
+      "Add leaf conflict-host-name. Add notification for the adaptive-routing-congest and adaptive-routing-congest-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-04 {
+    description
+      "Add notification for the instance-id-mismatch, instance-id-mismatch-clear, SRv6 port license and SR-MPLS port license.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-03 {
+    description
+      "Add notification for the isis-ip-conflict, system-id-cfg-conflict, database-overload.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-29 {
+    description
+      "Add notification for the adj-af-down and adj-af-down-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-28 {
+    description
+      "Add notification for the network-slice-source-prefix-conflict and network-slice-source-prefix-conflict-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-04 {
+    description
+      "Add notification lsp-retrans-exceeds-limit and lsp-retrans-exceeds-limit-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-11 {
+    description
+      "Modified notification for the locator-prefix-conflict.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-29 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "isis";
+  typedef af-type {
+    type enumeration {
+      enum "afipv4" {
+        value 1;
+        description
+          "IPv4 address family.";
+      }
+      enum "afipv6" {
+        value 2;
+        description
+          "IPv6 address family.";
+      }
+    }
+    description
+      "ISIS address family type.";
+  }
+  notification locator-prefix-conflict {
+    description
+      "A locator prefix conflict was detected between the local device and another device.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf mt-id {
+      type uint32;
+      description
+        "IS-IS multi-topology ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflict IS-IS system ID.";
+    }
+    leaf local-flex-algorithm {
+      type uint32;
+      description
+        "Local Flexible Algorithm.";
+    }
+    leaf remote-flex-algorithm {
+      type uint32;
+      description
+        "Remote Flexible Algorithm.";
+    }
+    leaf conflict-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Conflict IS-IS dynamic name.";
+    }
+  }
+  notification locator-prefix-conflict-clear {
+    description
+      "The locator prefix conflict was cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf mt-id {
+      type uint32;
+      description
+        "IS-IS multi-topology ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflict IS-IS system ID.";
+    }
+    leaf local-flex-algorithm {
+      type uint32;
+      description
+        "Local Flexible Algorithm.";
+    }
+    leaf remote-flex-algorithm {
+      type uint32;
+      description
+        "Remote Flexible Algorithm.";
+    }
+    leaf conflict-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Conflict IS-IS dynamic name.";
+    }
+  }
+  notification lsp-retrans-exceeds-limit {
+    description
+      "The number of IS-IS LSP retransmissions on an interface exceeds the limit.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name in which the lsp has be retransmitted.";
+    }
+  }
+  notification lsp-retrans-exceeds-limit-clear {
+    description
+      "The number of IS-IS LSP retransmissions on an interface is lower than the limit.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+      length "1..64";
+      }
+      description
+        "Interface name in which the lsp has be retransmitted.";
+    }
+  }
+  notification network-slice-source-prefix-conflict {
+    description
+      "A conflict between the network slice source prefix of the local device and the IPv6 prefix of another device is detected.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf mt-id {
+      type uint32;
+      description
+        "IS-IS multi-topology ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflict IS-IS system ID.";
+    }
+    leaf conflict-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Conflict IS-IS dynamic name.";
+    }
+  }
+  notification network-slice-source-prefix-conflict-clear {
+    description
+      "The conflict between the network slice source prefix and the IPv6 prefix is cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf mt-id {
+      type uint32;
+      description
+        "IS-IS multi-topology ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflict IS-IS system ID.";
+    }
+    leaf conflict-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Conflict IS-IS dynamic name.";
+    }
+  }
+ notification adj-af-down {
+    description
+      "Only one address family of IS-IS dual-stack neighbors is up.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS level.";
+    }
+    leaf interface-id {
+      type uint32;
+      description
+        "IS-IS interface ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf address-family {
+      type af-type;
+      description
+        "IS-IS adjacency address family.";
+    }
+    leaf reason {
+      type string {
+        length "256";
+      }
+      description
+        "Reason why an IS-IS neighbor in one address family is up.";
+    }
+  }
+  notification adj-af-down-clear {
+    description
+      "Both IS-IS dual-stack neighbor address families are up or down.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS level.";
+    }
+    leaf interface-id {
+      type uint32;
+      description
+        "IS-IS interface ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf address-family {
+      type af-type;
+      description
+        "IS-IS adjacency address family.";
+    }
+    leaf reason {
+      type string {
+        length "256";
+      }
+      description
+        "Reason why an adj-af-down alarm is cleared.";
+    }
+  }
+  notification system-id-cfg-conflict{
+    description
+      "System ID conflict. The system ID may have been automatically recovered, but the conflicting configuration still exists.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflicting IS-IS system ID.";
+    }
+    leaf local-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS local dynamic name.";
+    }
+    leaf remote-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS remote dynamic name.";
+    }
+  }
+  notification system-id-cfg-conflict-clear {
+    description
+      "The system ID conflict has been cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS Level.";
+    }
+    leaf conflict-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "Conflicting IS-IS system ID.";
+    }
+    leaf local-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS local dynamic name.";
+    }
+    leaf remote-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS remote dynamic name.";
+    }
+  }
+  notification database-overload {
+    description
+      "IS-IS LSP at this node is overloaded start.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+  }
+  notification database-overload-clear {
+    description
+      "IS-IS LSP at this node is overloaded end.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+  }
+  notification isis-ip-conflict {
+    description
+      "The IS-IS IP address conflict between the local device and another device is detected.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS level.";
+    }
+    leaf conflict-type {
+      type string {
+        length "0..255";
+      }
+      description
+        "Type of conflict.";
+    }
+    leaf conflict-ip-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "The conflicting IP address.";
+    }
+    leaf conflict-system-id1 {
+      type string {
+        length "1..6";
+      }
+      description
+        "The first conflicting IS-IS system ID.";
+    }
+    leaf conflict-system-id2 {
+      type string {
+        length "1..6";
+      }
+      description
+        "The second conflicting IS-IS system ID.";
+    }
+  }
+  notification isis-ip-conflict-clear {
+    description
+      "The IS-IS IP address conflict is cleared between the local device and another device.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf system-level-index {
+      type uint32;
+      description
+        "IS-IS level.";
+    } 
+    leaf conflict-type {
+      type string {
+        length "0..255";
+      }
+      description
+        "Type of conflict.";
+    }
+    leaf conflict-ip-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "The conflicting IP address.";
+    }
+    leaf conflict-system-id1 {
+      type string {
+        length "1..6";
+      }
+      description
+        "The first conflicting IS-IS system ID.";
+    }
+    leaf conflict-system-id2 {
+      type string {
+        length "1..6";
+      }
+      description
+        "The second conflicting IS-IS system ID.";
+    }
+  }
+  notification instance-id-mismatch {
+    description
+      "The local device detected that the instance ID was mismatched with that of a neighboring device.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-id {
+      type uint32;
+      description
+        "IS-IS interface ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf adj-system-instance {
+      type uint32;
+      description
+        "IS-IS adjacency process ID.";
+    }
+  }
+  notification instance-id-mismatch-clear {
+    description
+      "The instance ID mismatch with its neighboring device has been cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-id {
+      type uint32;
+      description
+        "IS-IS interface ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf adj-system-instance {
+      type uint32;
+      description
+        "IS-IS adjacency process ID.";
+    }
+  }
+  notification srv6-port-license-inactive {
+    description
+      "No SRv6 license authorization was available.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+  notification srv6-port-license-inactive-clear {
+    description
+      "The alarm indicating that no SRv6 license authorization was available was cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+  notification srmpls-port-license-inactive {
+    description
+      "No SR-MPLS license authorization was available.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+  notification srmpls-port-license-inactive-clear {
+    description
+      "The alarm indicating that no SR-MPLS license authorization was available was cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+  notification adaptive-routing-congest {
+    description
+      "The IS-IS link to the neighbor is congested. As a result, some routes may enter the adaptive state.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf adj-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS adjacency host name.";
+    }
+  }
+  notification adaptive-routing-congest-clear {
+    description
+      "The adaptive status of the IS-IS link is cleared.";
+    leaf system-instance {
+      type uint32;
+      description
+        "IS-IS process ID.";
+    }
+    leaf adj-system-id {
+      type string {
+        length "6";
+      }
+      description
+        "IS-IS adjacency system ID.";
+    }
+    leaf adj-host-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "IS-IS adjacency host name.";
+    }
+  }
+}

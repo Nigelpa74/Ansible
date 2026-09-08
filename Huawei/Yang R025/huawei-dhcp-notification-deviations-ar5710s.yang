@@ -1,0 +1,120 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dhcp-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dhcp-notification-deviations-ar5710s";
+  prefix dhcp-notification-devs-ar5710s;
+
+  import huawei-dhcp-notification {
+    prefix dhcp-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dhcp-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/dhcp-notification:alarm-mac-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:alarm-request-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:alarm-reply-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:alarm-bd-reply-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-ip-unnumbered-table-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-ip-unnumbered-table-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-ip-unnumbered-table-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-ip-unnumbered-table-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:snooping-binding-table-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:snooping-binding-table-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:snooping-binding-table-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:snooping-binding-table-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-table-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-table-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-table-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-table-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-ip-table-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-ip-table-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-ip-table-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-relay-ip-table-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-alarm-reply-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:v6-alarm-bd-reply-reach-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:used-ip-reach-threshold/dhcp-notification:pool-index" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:used-ip-reach-threshold-resume/dhcp-notification:pool-index" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:used-ip-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:used-ip-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-proxy-table-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-proxy-table-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-proxy-table-exhaust" {
+    deviate not-supported;
+  }
+  deviation "/dhcp-notification:relay-proxy-table-exhaust-resume" {
+    deviate not-supported;
+  }
+}

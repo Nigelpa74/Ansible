@@ -1,0 +1,60 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-openconfig-vlan-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-openconfig-vlan-deviations-ar5710s";
+  prefix oc-vlan-devs-ar5710s;
+
+  import openconfig-vlan {
+    prefix oc-vlan;
+  }
+  import openconfig-if-ethernet {
+    prefix oc-eth;
+  }
+  import openconfig-if-aggregate {
+    prefix oc-lag;
+  }
+  import openconfig-interfaces {
+    prefix oc-if;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for openconfig-vlan module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-vlan:vlan" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-if:config/oc-vlan:tpid" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-vlan:tpid" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-vlan:switched-vlan" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-lag:aggregation/oc-vlan:switched-vlan" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-vlan:config" {
+    deviate not-supported;
+  }
+  deviation "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-vlan:state" {
+    deviate not-supported;
+  }
+}

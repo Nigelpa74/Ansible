@@ -1,0 +1,73 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-radio-5g-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-radio-5g-profile-deviations-ar5710s";
+  prefix radio-5g-prof-devs-ar5710s;
+
+  import huawei-wlan-radio-5g-profile {
+    prefix radio-5g-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-radio-5g-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:fragmentation-threshold" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:edca/radio-5g-prof:wmm-mandatory" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:edca/radio-5g-prof:wmm-edca-ap-acvo" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:edca/radio-5g-prof:wmm-edca-ap-acvi" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:edca/radio-5g-prof:wmm-edca-ap-acbe" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:edca/radio-5g-prof:wmm-edca-ap-acbk" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:smart-antenna" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:anti-interference-parameters/radio-5g-prof:agc-high-threshold" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:wifi-light" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:vip-user-phy-protection" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:interference" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:vht-mcs-map" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:dot11n-lsig-len-compatible-switch" {
+    deviate not-supported;
+  }
+  deviation "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:radar-filter-sensitivity-level" {
+    deviate not-supported;
+  }
+}

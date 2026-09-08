@@ -1,0 +1,155 @@
+/*
+Copyright (C) 2020-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-gre-fwd {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-gre-fwd";
+  prefix gre-fwd;
+  import huawei-gre {
+    prefix gre;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "GRE tunnel-related configuration for forwarding adaptation.";
+  revision 2023-07-14 {
+    description
+      "Add global-attribute node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-11 {
+    description
+      "Add target-board, reassemble-board, target-board-info and reassemble-board-info node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-08-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "forwarding";
+  grouping board-info {
+    leaf binding-interface-number {
+      type uint32;
+      description
+        "Total binding interface number.";
+    }
+    leaf master-slot-id {
+      type leafref {
+        path "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:position";
+      }
+      description "Master slot for tunnel binding.";
+    }
+    leaf backup-slot-id {
+      type leafref {
+        path "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:position";
+      }
+      description "Backup slot for tunnel binding.";
+    }
+    leaf processing-slot-id {
+      type leafref {
+        path "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:position";
+      }
+      description "Tunnel processing slot.";
+    }
+    description
+      "Binding information about GRE tunnel.";
+  }
+  grouping board-slot-id {
+    leaf main-slot-id {
+      type leafref {
+        path "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:position";
+      }
+      mandatory true;
+      description "Main GRE tunnel board.";
+    }
+    leaf backup-slot-id {
+      type leafref {
+        path "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:position";
+      }
+      must "../backup-slot-id != ../main-slot-id";
+      description "Backup GRE tunnel board.";
+    }
+    description
+      "Specifies the number of the slot where a GRE tunnel board resides.";
+  }
+  container gre-fwd {
+    description "Configure GRE forward.";
+    container global-attribute {
+      description "Configure global atrributes.";
+      leaf gre-map-ve-broadcast {
+        type boolean;
+        default "true";
+        description "Enable/disable GRE map VE forward-boardcast.";
+      }
+    }
+    container target-board-info {
+      config false;
+      description "Statistics of GRE service board info.";
+      uses board-info;
+    }
+    container reassemble-board-info {
+      config false;
+      description "Statistics of GRE reassembly board info.";
+      uses board-info;
+    }
+  }
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description "GRE forward configuration to the ifm module.";
+    container gre-fwd {
+      description "Configure GRE forward.";
+      container target-board {
+        when "../../ifm:type = 'Ethernet' or ../../ifm:type = 'GigabitEthernet' or ../../ifm:type = 'Eth-Trunk' or ../../ifm:type = 'LoopBack' or ../../ifm:type = '100GE' or ../../ifm:type = '25GE' or ../../ifm:type = '400GE' or ../../ifm:type = 'FlexE' or ../../ifm:type = '50|100GE' or ../../ifm:type = '50GE' or ../../ifm:type = '40GE' or ../../ifm:type = 'XGigabitEthernet' or ../../ifm:type = 'Vlanif'";
+        presence "Enable mapping to a GRE service board.";
+        description "Configure the mapping between a Layer 3 interface and a GRE service board.";
+        uses board-slot-id;
+      }
+    }
+  }
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre/gre:gre-tunnel"{
+    description
+      "Unicast forward configuration to the GRE module.";
+    container unicast-forward {
+      description
+        "Configure GRE unicast forward.";
+        leaf tcp-mss {
+          type uint16 {
+            range "32..9500";
+          }
+          units "Byte";
+          description
+            "Maximum segment size of an interface.";
+      }
+      container reassemble-board {
+        presence "Enable mapping to a GRE reassembly board.";
+        description "Configure the mapping from a tunnel interface to a GRE reassembly board.";
+        uses board-slot-id;
+      }
+    }
+  }
+}

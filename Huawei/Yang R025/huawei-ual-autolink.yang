@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ual-autolink {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ual-autolink";
+  prefix ual-autolink;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ual {
+    prefix ual;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Ubiquitous autonomy link configurations.";
+  revision 2025-04-16 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef auto-link-mode {
+    type enumeration {
+      enum "close" {
+        value 0;
+        description
+          "Close aggregation.";
+      }
+      enum "open" {
+        value 1;
+        description
+          "Open aggregation.";
+      }
+      enum "lock" {
+        value 2;
+        description
+          "Lock aggregation.";
+      }
+    }
+    description
+      "The auto-link mode of device.";
+  }
+  augment /ual:ual {
+    description
+      "Configure UAL.";
+    container auto-link {
+        description
+          "Configure auto-link of the device.";
+        leaf eth-trunk-mode {
+          type auto-link-mode;
+          default "close";
+          description
+            "Configure the auto-link mode of the device.";
+        }
+      }
+    }
+  ext:task-name "ual";
+}

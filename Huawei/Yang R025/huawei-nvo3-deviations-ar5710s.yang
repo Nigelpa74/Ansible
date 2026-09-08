@@ -1,0 +1,63 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nvo3-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-nvo3-deviations-ar5710s";
+  prefix nvo3-devs-ar5710s;
+
+  import huawei-nvo3 {
+    prefix nvo3;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-evpl {
+    prefix evpl;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nvo3 module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/nvo3:nvo3" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3:nve" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3:nvo3-gateway" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/nvo3:nvo3" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/nvo3:nvo3" {
+    deviate not-supported;
+  }
+  deviation "/evpl:evpl/evpl:instances/evpl:instance/nvo3:nvo3" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:profiles/bd:profile/nvo3:nvo3" {
+    deviate not-supported;
+  }
+}

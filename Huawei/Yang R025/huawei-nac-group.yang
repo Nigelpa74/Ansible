@@ -1,0 +1,343 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-group {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-group";
+  prefix hw-nac-group;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-grpc {
+    prefix hw-grpc;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+    configuring NAC implementations.
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject
+    to the license terms contained in, the Simplified BSD License
+    set forth in Section 4.c of the IETF Trust's Legal Provisions
+    Relating to IETF Documents.";
+  revision 2025-08-05 {
+    description
+      "Add the pattern of domain in ucl-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-25 {
+    description
+      "Remove extra spaces.
+      Modify length of ucl-group name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-07 {
+    description
+      "Modify operation type of index in ucl-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-15 {
+    description
+      "Modify leaf of ucl-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-20 {
+    description
+      "Modify leaf of grpc-client type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-19 {
+    description
+      "Add leaf of UCL group type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-15 {
+    description
+      "Add dynamic-default for ucl-groups's leaf index.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add leaf of container ip-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-16 {
+    description
+      "Add container isolate to list ucl-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-31 {
+    description
+      "Added IP-Group low priority channel.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-28 {
+    description
+      "Key of list ucl-group is changed from index to name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping ip-subnet {
+    description
+      "The IP subnet group.";
+    leaf ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Specifies the IP address of a static UCL group.";
+    }
+    choice subnet {
+      mandatory true;
+      description
+        "The subnet choice.";
+      case prefix-length {
+        description
+          "Case prefix length.";
+        leaf prefix-length {
+          type uint8 {
+            range "0..32";
+          }
+          description
+            "Specifies the mask length of an IP address.";
+        }
+      }
+      case net-mask {
+        description
+          "Case network mask.";
+        leaf net-mask {
+          type yang:dotted-quad;
+          description
+            "Specifies the mask of the IP address.";
+        }
+      }
+    }
+  }
+  container nac-group {
+    description
+      "List of configuration and state data of group related.";
+    container ucl-groups {
+      description
+        "List of the feature of ucl group.";
+      list ucl-group {
+        key "name";
+        description
+          "Configure the feature of ucl group.";
+        leaf name {
+          type string {
+            length "1..761";
+          }
+          description
+            "Specifies the name of a UCL group.";
+        }
+        leaf index {
+          ext:dynamic-default;
+          type uint16 {
+            range "1..64000";
+          }
+          description
+            "Specifies the index of a UCL group.";
+          ext:operation-exclude update {
+            description "After the configuration is created, the node cannot be modified.";
+          }
+        }
+        leaf type {
+          type enumeration {
+            enum "security" {
+              value 0;
+              description
+                "Security UCL group.";
+            }
+            enum "ou" {
+              value 1;
+              description
+                "Organizational unit UCL group.";
+            }
+          }
+          default "security";
+          description
+            "UCL group type.";
+        }
+        container domains {
+          description
+            "List of configuration domain in ucl group list.";
+          list domain {
+            key "domain-name";
+            description
+              "Configure domain in ucl group.";
+            leaf domain-name {
+              type string {
+                length "3..255";
+                pattern '[a-zA-Z0-9_.-]{3,255}|(\*\.[a-zA-Z0-9_.-]{1,253})|([a-zA-Z0-9_.-]{1,253}\.\*)';
+              }
+              description
+                "Domain name.";
+            }
+          }
+        }
+        container ips {
+          description
+            "List of an IP address of the static UCL group.";
+          list ip {
+            key "ip";
+            description
+              "Configure an IP address of the static UCL group list.";
+            uses ip-subnet;
+          }
+        }
+        container ip-escapes {
+          description
+            "List of an escape static UCL group.";
+          list ip-escape {
+            key "ip";
+            description
+              "Configure an escape static UCL group list.";
+            uses ip-subnet;
+          }
+        }
+        container ipv6s {
+          description
+            "List of an IPv6 address of the static UCL group.";
+          list ipv6 {
+            key "ipv6";
+            description
+              "Configure an IPv6 address of the static UCL group list.";
+            leaf ipv6 {
+              type inet:ipv6-address-no-zone;
+              description
+                "Specifies the IPv6 address of a static UCL group.";
+            }
+            leaf prefix-length {
+              type uint8 {
+                range "0..128";
+              }
+              description
+                "Specifies the prefix length of an IPv6 address.";
+            }
+          }
+        }
+        container isolate {
+          description
+            "Configure the feature of user isolation in a UCL group.";
+          leaf isolate-inter {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the inter-group isolation in a UCL group.";
+          }
+          leaf isolate-inner {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the inner-group isolation in a UCL group.";
+          }
+        }
+      }
+    }
+    container ip-group {
+      description
+        "Configure the feature of ip group.";
+      leaf timer-heart-beat {
+        type uint16 {
+          range "1..1440";
+        }
+        units "min";
+        default "5";
+        description
+          "Specifies the interval at which IP-GROUP channel heartbeat packets are sent.";
+      }
+      leaf timer-reconnection {
+        type uint8 {
+          range "1..255";
+        }
+        units "min";
+        default "1";
+        description
+          "Specifies the IP-GROUP channel reconnection interval.";
+      }
+      leaf timer-down-delay {
+        type uint16 {
+          range "0..600";
+        }
+        units "s";
+        default "30";
+        description
+          "Specifies a delay in responding to the IP-GROUP channel interruption event.";
+      }
+      leaf timer-up-delay {
+        type uint16 {
+          range "0..600";
+        }
+        units "s";
+        default "30";
+        description
+          "Specifies a delay in responding to the IP-GROUP channel Up event.";
+      }
+      leaf grpc-client {
+        type leafref {
+          path "/hw-grpc:grpc/hw-grpc:client/hw-grpc:destination-groups/hw-grpc:destination-group/hw-grpc:group-name";
+        }
+        description
+          "Specifies GRPC client to the IP-GROUP channel.";
+      }
+      leaf second-grpc-client {
+        type leafref {
+          path "/hw-grpc:grpc/hw-grpc:client/hw-grpc:destination-groups/hw-grpc:destination-group/hw-grpc:group-name";
+        }
+        must "(../grpc-client) and (../grpc-client != ../second-grpc-client)";
+        description
+          "Specifies second GRPC client to the IP-GROUP channel.";
+      }
+      container group-service {
+        description
+          "Configure an IP address of a controller.";
+        leaf ip-address {
+          type inet:ip-address-no-zone;
+          description
+            "Specifies the IP address of a controller.";
+        }
+        leaf port {
+          type inet:port-number;
+          description
+            "Specifies the port number of a controller.";
+        }
+        leaf pki-realm {
+          type string {
+            length "1..64";
+          }
+          description
+            "Specifies the name of a PKI realm.";
+        }
+      }
+    }
+  }
+  ext:task-name "nac-group";
+}

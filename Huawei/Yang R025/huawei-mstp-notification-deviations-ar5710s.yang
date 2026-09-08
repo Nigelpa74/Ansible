@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mstp-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mstp-notification-deviations-ar5710s";
+  prefix mstp-notification-devs-ar5710s;
+
+  import huawei-mstp-notification {
+    prefix mstp-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mstp-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mstp-notification:vstp-mac-different-rising" {
+    deviate not-supported;
+  }
+  deviation "/mstp-notification:vstp-mac-different-resume" {
+    deviate not-supported;
+  }
+}

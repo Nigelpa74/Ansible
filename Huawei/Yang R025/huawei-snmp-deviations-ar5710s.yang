@@ -1,0 +1,86 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-snmp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-snmp-deviations-ar5710s";
+  prefix snmp-devs-ar5710s;
+
+  import huawei-snmp {
+    prefix snmp;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-snmp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/snmp:snmp/snmp:system/snmp:trap-source-ipv4-address" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:system/snmp:local-user-cmplx-check" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:system/snmp:ipv6-acl" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:isolate-source-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:isolate-ipv6-sources" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:target-hosts/snmp:target-host/snmp:heart-beat-time" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:local-users" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:proxy/snmp:isolate-source-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:proxy/snmp:isolate-ipv6-sources" {
+    deviate not-supported;
+  }
+  deviation "/snmp:snmp/snmp:v3-groups/snmp:v3-group/snmp:acl-number" {
+    deviate replace {
+      type string {
+        length "1..32";
+      }
+    }
+  }
+  deviation "/snmp:snmp/snmp:usm-users/snmp:usm-user/snmp:acl-number" {
+    deviate replace {
+      type string {
+        length "1..32";
+      }
+    }
+  }
+  ext:deviation-ext "/snmp:snmp/snmp:mib-views/snmp:mib-view" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update" {
+        ext:filter "view-name = 'ViewDefault'";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:generated-by "system" {
+        ext:filter "view-name = 'ViewDefault'";
+      }
+    }
+  }
+}

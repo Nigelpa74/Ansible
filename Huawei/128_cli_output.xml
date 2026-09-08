@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:c66772e9-fa01-4dba-bbf7-705a7cdc43a3">
+  <result xmlns="urn:huawei:yang:huawei-cli">success</result>
+  <error-content xmlns="urn:huawei:yang:huawei-cli"/>
+  <batch-commands-results xmlns="urn:huawei:yang:huawei-cli">
+    <batch-commands-result>
+      <sequence>1</sequence>
+      <content>
+&lt;CID258491_374023_PUNCHANA&gt;dis interface ge0/0/8 transceiver verbose | i Wavelength|Distance|Serial|Manufacturing|Part
+   Wavelength (nm)                       :1490
+   Transfer Distance (m)                 :20000(9um/125um SMF)
+   Vendor Part Number                    :TS-SF-BL4312-20D
+   Manu. Serial Number                   :H202604300211
+   Manufacturing Date                    :2026-4-30
+&lt;CID258491_374023_PUNCHANA&gt;dis interface ge0/0/9 transceiver verbose | i Wavelength|Distance|Serial|Manufacturing|Part
+   Wavelength (nm)                       :1490
+   Transfer Distance (m)                 :40000(9um/125um SMF)
+   Vendor Part Number                    :TS-SF-BL4312-40D
+   Manu. Serial Number                   :H202604300665
+   Manufacturing Date                    :2026-4-30
+</content>
+      <output-status>end</output-status>
+    </batch-commands-result>
+  </batch-commands-results>
+</rpc-reply>

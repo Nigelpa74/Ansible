@@ -1,0 +1,371 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-software-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-software-notification";
+  prefix software-notification;
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-software {
+    prefix software;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of software.";
+  revision 2024-10-08 {
+    description
+      "Redefine package-type and add package-operation-failed.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-27 {
+    description
+      "Add oncard-firmware-damaged-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-23 {
+    description
+      "Redefine the name and version length of the software package and patch package.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add oncard-firmware-damaged.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-30 {
+    description
+      "Delete Smart-Upgrade-User-Data-Retention-Period-Expired.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-31 {
+    description
+      "Add onboard-firmware-damaged.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-10-18 {
+    description
+      "Add package-operation-success and package-version-downgrade.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-23 {
+    description
+      "Add Smart-Upgrade-User-Data-Retention-Period-Expired.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-11 {
+    description
+      "Add system-rollback.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-10-16 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef package-type {
+    type enumeration {
+      enum "feature-software" {
+        value 1;
+        description
+          "Specify a feature package.";
+      }
+      enum "extended-system-software" {
+        value 2;
+        description
+          "Specify a extended system software package.";
+      }
+      enum "system-software" {
+        value 3;
+        description
+          "Specify a system software package.";
+      }
+    }
+    description
+      "List the type of the software.";
+  }
+  typedef package-operation-type {
+    type enumeration {
+      enum "install" {
+        value 1;
+        description
+          "Install software package.";
+      }
+      enum "uninstall" {
+        value 2;
+        description
+          "Uninstall software package.";
+      }
+      enum "startup" {
+        value 3;
+        description
+          "Restart the software package.";
+      }
+      enum "upgrade" {
+        value 4;
+        description
+          "Upgrade software package.";
+      }
+    }
+    description
+      "List the operation of the software.";
+  }
+  ext:task-name "rpm";
+  notification package-verify-failed {
+    description
+      "Package digital signature verification failed to be verified.";
+    leaf physical-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Entity name.";
+    }
+    leaf package-name {
+      type software:system-software-name;
+      description
+        "Software package name.";
+    }
+    leaf fail-reason {
+      type string {
+        length "1..127";
+      }
+      description
+        "Error reason.";
+    }
+  }
+  notification package-verify-failed-resume {
+    description
+      "Package digital signature verification succeeded to be verified.";
+    leaf physical-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Entity name.";
+    }
+    leaf package-name {
+      type software:system-software-name;
+      description
+        "Software package name.";
+    }
+    leaf fail-reason {
+      type string {
+        length "1..127";
+      }
+      description
+        "Error reason.";
+    }
+  }
+  notification startup-secure-version-configuration-need-refresh{
+    description
+      "The secure boot version configuration needs to be updated.";
+        leaf slot-id {
+          type string {
+            length "1..49";
+          }
+          description
+            "Slot ID.";
+        }
+  }
+  notification startup-secure-version-configuration-need-refresh-resume {
+    description
+      "The secure boot version configuration is successfully updated.";
+        leaf slot-id {
+          type string {
+            length "1..49";
+          }
+          description
+            "Slot ID.";
+        }
+  }
+  notification system-rollback{
+    description
+      "Upgraded software fails to start the system, and the software rolls back to the old version.";
+    leaf package-name {
+      type string {
+        length "4..127";
+      }
+      description
+        "The software package name before the rollback.";
+    }
+    leaf version {
+      type string {
+        length "1..63";
+      }
+      description
+        "The version before the rollback.";
+    }
+    leaf fail-reason {
+      type string {
+        length "1..127";
+      }
+      description
+        "Error reason.";
+    }
+  }
+  notification package-operation-success {
+    description
+      "Notification about a software package operation success.";
+    leaf package-operation-type {
+      type package-operation-type;
+      description
+        "The operation of the software package.";
+    }
+    leaf package-type {
+      type package-type;
+      description
+        "The type of the software package.";
+    }
+    leaf package-name {
+      type software:system-software-name;
+      description
+        "The name of the software package.";
+    }
+    leaf package-version {
+      type software:system-software-version;
+      description
+        "The version of the software package.";
+    }
+  }
+  notification package-version-downgrade {
+    description
+      "Notification about a software package version downgrade.";
+    leaf previous-package-name {
+      type string {
+        length "5..127";
+      }
+      description
+        "The name of the previous software package.";
+    }
+    leaf previous-version {
+      type string {
+        length "1..63";
+      }
+      description
+        "The version of the previous software package.";
+    }
+    leaf current-package-name {
+      type string {
+        length "5..127";
+      }
+      description
+        "The name of the current software package.";
+    }
+    leaf current-version {
+      type string {
+        length "1..63";
+      }
+      description
+        "The version of the current software package.";
+    }
+  }
+  notification onboard-firmware-damaged {
+    description
+      "The onboard firmware is damaged.";
+    leaf physical-index {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:index";
+      }
+      description
+        "Indicates the index of the physical entity.";
+    }
+    leaf physical-name {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:name";
+      }
+      description
+        "Indicates the name of the physical entity.";
+    }
+  }
+  notification oncard-firmware-damaged {
+    description
+      "The on-card firmware is damaged.";
+    leaf physical-index {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:index";
+      }
+      description
+        "Indicates the index of the physical entity.";
+    }
+    leaf physical-name {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:name";
+      }
+      description
+        "Indicates the name of the physical entity.";
+    }
+  }
+  notification oncard-firmware-damaged-resume {
+    description
+      "The on-card firmware is rectified.";
+    leaf physical-index {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:index";
+      }
+      description
+        "Indicates the index of the physical entity.";
+    }
+    leaf physical-name {
+      type leafref {
+        path "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:name";
+      }
+      description
+        "Indicates the name of the physical entity.";
+    }
+  }
+  notification package-operation-failed {
+    description
+      "Notification about a software package operation fail.";
+    leaf package-operation-type {
+      type package-operation-type;
+      description
+        "The operation of the software package.";
+    }
+    leaf package-type {
+      type package-type;
+      description
+        "The type of the software package.";
+    }
+    leaf package-name {
+      type software:system-software-name;
+      description
+        "The name of the software package.";
+    }
+    leaf package-version {
+      type software:system-software-version;
+      description
+        "The version of the software package.";
+    }
+    leaf fail-reason {
+      type software:operation-fail-reason;
+      description
+        "Cause of the software operation failure.";
+    }  
+  }
+}
+
+

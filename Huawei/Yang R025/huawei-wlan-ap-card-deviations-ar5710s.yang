@@ -1,0 +1,51 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-card-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-card-deviations-ar5710s";
+  prefix hw-ap-card-devs-ar5710s;
+
+  import huawei-wlan-ap-card {
+    prefix hw-ap-card;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ap-card module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-ap-card:card-command/hw-ap-card:output/hw-ap-card:timeout" {
+    deviate not-supported;
+  }
+  deviation "/hw-ap-card:card-command/hw-ap-card:output/hw-ap-card:count" {
+    deviate not-supported;
+  }
+  deviation "/hw-ap-card:card-command/hw-ap-card:output/hw-ap-card:card-response" {
+    deviate not-supported;
+  }
+  deviation "/hw-ap-card:card-command/hw-ap-card:input/hw-ap-card:operation" {
+    deviate replace {
+      type enumeration {
+        enum execute {
+          value 0;
+          description
+            "Execute the iot-command.";
+        }
+      }
+    }
+  }
+}

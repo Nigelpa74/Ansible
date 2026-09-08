@@ -1,0 +1,47 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-urpf-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-urpf-deviations-ar5710s";
+  prefix urpf-devs-ar5710s;
+
+  import huawei-urpf {
+    prefix urpf;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-urpf module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/urpf:urpf" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/urpf:urpf/urpf:ip-urpf" {
+    deviate add {
+      must "../../ifm:type != 'Vbdif'";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/urpf:urpf/urpf:ip-urpf/urpf:check-mode" {
+    deviate add {
+      mandatory true;
+    }
+  }
+}

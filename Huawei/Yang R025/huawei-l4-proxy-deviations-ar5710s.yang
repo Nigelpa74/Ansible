@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l4-proxy-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-l4-proxy-deviations-ar5710s";
+  prefix l4-proxy-devs-ar5710s;
+ 
+  import huawei-l4-proxy {
+    prefix l4-proxy;
+  }
+ 
+  organization
+    "Huawei Technologies Co., Ltd.";
+ 
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+ 
+  description
+    "This module defines deviation statements for huawei-l4-proxy module.";
+ 
+  revision 2022-12-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+ 
+  deviation "/l4-proxy:l4-proxy/l4-proxy:tcp-reorder/l4-proxy:set-enable" {
+    deviate not-supported;
+  }
+}

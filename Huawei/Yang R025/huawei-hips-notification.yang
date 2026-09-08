@@ -1,0 +1,696 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-hips-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-hips-notification";
+  prefix hips-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of hips module.";
+  revision 2024-04-09 {
+    description
+      "Add notification abnormal-behavior-detected, abnormal-behavior-resolved, abnormal-shell-detected, file-privilege-escalation-detected, key-file-tampering-detected, rootkit-attack-detected, unauthorized-root-user-detected.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-04 {
+    description
+      "Modify the description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-10-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  notification policy-activate-finish {
+    description
+      "The policy file activation has been finished.";
+    leaf task-id {
+      type string {
+        length "1..40";
+      }
+      description
+        "The task id of history activation policy.";
+    }
+    leaf result {
+      type string {
+        length "1..10";
+      }
+      description
+        "The result of history activation policy.";
+    }
+  }
+  ext:task-name "hips";
+  notification abnormal-behavior-detected {
+    description
+      "The abnormal behavior has been detected.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf event-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the type of an event.";
+    }
+    leaf event-level {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the level of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf user-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of the visitor.";
+    }
+    leaf visitor-ip {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the IP address of a visitor.";
+    }
+    leaf evidence {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the evidence of an event.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification abnormal-behavior-resolved {
+    description
+      "The abnormal behavior has been resolved.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf event-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the type of an event.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf evidence {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the evidence of an event.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification abnormal-shell-detected {
+    description
+      "The abnormal shell behavior has been detected.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf event-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the type of an event.";
+    }
+    leaf event-level {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the level of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf shell-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the path of the shell file.";
+    }
+    leaf operation-type {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the operation type of the shell file.";
+    }
+    leaf cmdline {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the command executed by the shell.";
+    }
+    leaf attribute-type {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the type of the changed attribute of the shell file.";
+    }
+    leaf old-attribute {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the attribute before the change.";
+    }
+    leaf new-attribute {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the attribute after the change.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification file-privilege-escalation-detected {
+    description
+      "The file privilege has been escalated.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf event-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the type of an event.";
+    }
+    leaf event-level {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the level of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf file-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the file path of an event.";
+    }
+    leaf method {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the file privilege escalation method.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification key-file-tampering-detected {
+    description
+      "The file has been created or modified.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf event-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the type of an event.";
+    }
+    leaf event-level {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the level of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf user-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of the visitor.";
+    }
+    leaf login-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the login time of a visitor.";
+    }
+    leaf visitor-ip {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the IP address of a visitor.";
+    }
+    leaf file-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the file path of an event.";
+    }
+    leaf operation-type {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the operation type of an event.";
+    }
+    leaf process-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the process path of an event.";
+    }
+    leaf attribute-type {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the type of the changed attribute of the shell file.";
+    }
+    leaf old-attribute {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the attribute before the change.";
+    }
+    leaf new-attribute {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the attribute after the change.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification rootkit-attack-detected {
+    description
+      "A rootkit file has been detected.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf rootkit-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of the rootkit file.";
+    }
+    leaf detection-type {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the detection type of the rootkit file.";
+    }
+    leaf detected-threat {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the detection threat of the rootkit file.";
+    }
+    leaf detection-source {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the detection source of the rootkit file.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+  notification unauthorized-root-user-detected {
+    description
+      "An unauthorized root user has been detected.";
+    leaf event-category {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the category of an event.";
+    }
+    leaf occur-time {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the time when an event occurs.";
+    }
+    leaf operation-result {
+      type string {
+        length "1..15";
+      }
+      description
+        "Indicates the operation result of an event.";
+    }
+    leaf unauthorized-user {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the name of a user.";
+    }
+    leaf group-id {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the group ID of a user.";
+    }
+    leaf home-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the home path of a user.";
+    }
+    leaf shell-path {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the path of the shell file.";
+    }
+    leaf user-id {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the user ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf card-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the card ID.";
+    }
+    leaf cpu-id {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the cpu ID.";
+    }
+    leaf barcode {
+      type string {
+        length "1..63";
+      }
+      description
+        "Indicates the board barcode.";
+    }
+  }
+}

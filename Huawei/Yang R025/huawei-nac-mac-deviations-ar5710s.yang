@@ -1,0 +1,57 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-mac-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-nac-mac-deviations-ar5710s";
+  prefix hw-nac-mac-devs-ar5710s;
+
+  import huawei-nac-mac {
+    prefix hw-nac-mac;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nac-mac module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nac-mac:nac-mac/hw-nac-mac:mac-access-profiles/hw-nac-mac:mac-access-profile/hw-nac-mac:off-line-dhcp-release" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-mac:nac-mac/hw-nac-mac:mac-access-profiles/hw-nac-mac:mac-access-profile/hw-nac-mac:mac-re-authenticate/hw-nac-mac:re-authenticate-dhcp-renew" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-mac:nac-mac/hw-nac-mac:mac-access-profiles/hw-nac-mac:mac-access-profile/hw-nac-mac:name" {
+    deviate add {
+      must "../name != '-' and ../name != '--'";
+    }
+    deviate replace {
+      type string {
+        length "1..31";
+        pattern "([^/\\*\":?<>|%'@]{1,31})";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/hw-nac-mac:nac-mac/hw-nac-mac:mac-access-profiles/hw-nac-mac:mac-access-profile/hw-nac-mac:permit-mac-authenticates/hw-nac-mac:permit-mac-authenticate/hw-nac-mac:subnet/hw-nac-mac:mask-length/hw-nac-mac:prefix-length" {
+    deviate replace {
+      type uint8 {
+        range "1..48";
+      }
+    }
+  }
+}

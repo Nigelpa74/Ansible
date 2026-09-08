@@ -1,0 +1,763 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+
+*/
+module huawei-wlan-security-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-security-profile";
+  prefix wlan-sec-prof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-wlan-vap-profile {
+    prefix wlan-vap-prof;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Security profile configuration service package.";
+
+  revision 2025-06-03 {
+    description
+      "Add wpa-unicast-timeout-kickoff.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-05-26 {
+    description
+      "Add WPA group-key-negotiation.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-03-01 {
+    description
+      "Modify WEP para.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-08-12 {
+    description
+      "Delete default mesh security profile.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-02 {
+    description
+      "Add sew-certificate configuration.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-06-20 {
+    description
+      "Add DPSK.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-05-27 {
+    description
+      "Modify aes and aesgcm256 description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-16 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-19 {
+    description
+      "Update profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-12 {
+    description
+      "Add psk pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Modify encrption-wapi description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-24 {
+    description
+      "Modify aes description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add WEP para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-12 {
+    description
+      "Add wapi cert-retrans-count.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2022-08-19 {
+    description
+      "Add wapi and wpa3 configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Add pass-type leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping binding-security-profile {
+    description
+      "Binding security profile.";
+    container binding-security-profile {
+      description
+        "Configure binding security profile.";
+      leaf binding-security-profile {
+        type leafref {
+          path "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:profile-name";
+        }
+        default "default";
+        description
+          "Binding a security profile.";
+      }
+    }
+  }
+  grouping wpa-parameters {
+    description
+      "WPA policy related parameters.";
+    reference
+      "WiFi: WPA and WPA2 Implementation White Paper or IEEE 802.11-2012";
+    leaf wpa-type {
+      type enumeration {
+        enum "wpa" {
+          value 0;
+          description
+            "WPA.";
+        }
+        enum "wpa2" {
+          value 1;
+          description
+            "WPA2.";
+        }
+        enum "wpa-wpa2" {
+          value 2;
+          description
+            "WPA-WPA2.";
+        }
+        enum "wpa3" {
+          value 3;
+          description
+            "WPA3.";
+        }
+        enum "wpa2-wpa3" {
+          value 4;
+          description
+            "WPA2-WPA3.";
+        }
+      }
+      mandatory true;
+      description
+        "Configure sub type.";
+    }
+    choice authentication-method {
+      mandatory true;
+      description
+        "Config the authentication-method, it can be psk or dot1x.";
+      case psk {
+        description
+          "Config the wpa psk include psk type and psk.";
+        leaf pass-type {
+          type enumeration {
+            enum "hex" {
+              value 0;
+              description
+                "The psk is hex-type.";
+            }
+            enum "pass-phrase" {
+              value 1;
+              description
+                "The psk is pass-phrase.";
+            }
+          }
+          mandatory true;
+          description
+            "Config the psk type which can be hex-type or pass-phrase.";
+        }
+        leaf psk {
+          type pub-type:password-extend {
+            length "8..188" {
+              description
+                "The value is of 8 to 63 ASCII characters in plain text, or 64 hexadecimal characters in plain text, or 128-188 characters in cipher text.";
+            }
+            pattern "[ -~]{8,63}|[ -~]{128,188}|[0-9a-fA-F]{64}";
+          }
+          mandatory true;
+          description
+            "The WPA psk.";
+        }
+      }
+      case dot1x {
+        description
+          "Dot1x authentication.";
+        leaf dot1x-method {
+          type empty;
+          mandatory true;
+          description
+            "Dot1x authentication.";
+        }
+      }
+      case ppsk {
+        description
+          "Ppsk authentication.";
+        leaf ppsk-method {
+          type empty;
+          description
+            "Configure personal psk authentication.";
+        }
+      }
+      case dpsk {
+        description
+          "Dpsk authentication.";
+        leaf dpsk-method {
+          type empty;
+          description
+            "Configure DPSK authentication.";
+        }
+      }
+    }
+    leaf encrption-method {
+      type enumeration {
+        enum "tkip" {
+          value 0;
+          description
+            "Temporal Key Integrity Protocol.";
+        }
+        enum "aes" {
+          value 1;
+          description
+            "Counter Mode CBC-MAC Protocol. It is based on AES,
+             so sometimes it is also called aes or aes-ccmp.";
+        }
+        enum "aes-tkip" {
+          value 2;
+          description
+            "Tkip plus aes hybrid encryption.";
+        }
+        enum "tkip-aes" {
+          value 3;
+          description
+            "WPA and WPA2 use TKIP and AES for data encryption respectively.";
+        }
+        enum "aesgcm256" {
+          value 4;
+          description
+            "Counter Mode GCM-MAC Protocol. It is based on AES,
+             so sometimes it is also called aes or aes-gcmp 256.";
+        }
+      }
+      must "not (../encrption-method = 'tkip-aes' and not (../wpa-type = 'wpa-wpa2'))";
+      mandatory true;
+      description
+        "The type of encryption method.";
+    }
+  }
+  grouping wapi-parameters {
+    description
+      "WAPI policy related parameters.";
+    reference
+      "WAPI: wireless local area network authentication and privacy infrastructure";
+    choice authentication-method {
+      case psk {
+        container psk-info {
+          leaf pass-type {
+            type enumeration {
+              enum "hex" {
+                value 0;
+                description
+                  "The psk is hex-type.";
+              }
+              enum "pass-phrase" {
+                value 1;
+                description
+                  "The psk is pass-phrase.";
+              }
+            }
+            mandatory true;
+            description
+              "Config the psk type which can be hex-type or pass-phrase.";
+          }
+          leaf psk {
+            type pub-type:password-extend {
+              length "8..188";
+              pattern "[ -~]{8,63}|[ -~]{128,188}|[0-9a-fA-F]{8,32}";
+            }
+            mandatory true;
+            description
+              "Configure the WAPI psk.";
+          }
+          description
+            "Configure the wapi psk include psk type and psk.";
+        }
+        description
+          "Configure the wapi psk include psk type and psk.";
+      }
+      case cert {
+        leaf cert-method {
+          type empty;
+          description
+            "Configure wapi cert authentication.";
+        }
+        description
+          "Configure wapi cert authentication.";
+      }
+      mandatory true;
+      description
+        "Configure the authentication-method, it can be psk or cert.";
+    }
+    leaf encrption-wapi {
+      type enumeration {
+        enum "sm4" {
+          value 0;
+          description
+            "SM4 encryption algorithm.";
+        }
+        enum "gcm-sm4" {
+          value 1;
+          description
+            "GCM-SM4 encryption algorithm, compatible with SM4 encryption algorithm.";
+        }
+      }
+      default "sm4";
+      description
+        "Configure wpa authentication encryption algorithm.";
+    }
+    leaf sa-timeout {
+      type uint32 {
+        range "1..255";
+      }
+      default "60";
+      description
+        "WAPI sa timeout.";
+    }
+    leaf bk-threshold {
+      type uint32 {
+        range "1..100";
+      }
+      default "70";
+      description
+        "WAPI bk threshold.";
+    }
+    leaf bk-update-interval {
+      type uint32 {
+        range "600..604800";
+      }
+      default "43200";
+      description
+        "WAPI bk update interval.";
+    }
+    leaf asu-ip {
+      type inet:ip-address;
+      description
+        "Configure an IP address of WAPI ASU server.";
+    }
+    leaf pki-realm {
+      type string {
+        length "1..64";
+      }
+      description
+        "Configure the name of WAPI cert PKI realm.";
+    }
+    leaf usk-key-update {
+      type enumeration {
+        enum "disabled" {
+          value 0;
+          description
+            "Config disabled mode.";
+        }
+        enum "time-based" {
+          value 1;
+          description
+            "Config time-based mode.";
+        }
+      }
+      default "time-based";
+      description
+        "Config usk key update parameter.";
+    }
+    leaf usk-update-interval {
+      type uint32 {
+        range "600..604800";
+      }
+      default "86400";
+      description
+        "Configure usk update interval of WAPI.";
+    }
+    leaf usk-retrans-count {
+      type uint32 {
+        range "1..10";
+      }
+      default "3";
+      description
+        "Configure usk retrans count of WAPI.";
+    }
+    leaf msk-key-update {
+      type enumeration {
+        enum "disabled" {
+          value 0;
+          description
+            "Config disabled mode.";
+        }
+        enum "time-based" {
+          value 1;
+          description
+            "Config time-based mode.";
+        }
+      }
+      default "time-based";
+      description
+        "Config msk key update parameter.";
+    }
+    leaf msk-update-interval {
+      type uint32 {
+        range "600..604800";
+      }
+      default "86400";
+      description
+        "Configure msk update interval of WAPI.";
+    }
+    leaf msk-retrans-count {
+      type uint32 {
+        range "1..10";
+      }
+      default "3";
+      description
+        "Configure msk retrans count of WAPI.";
+    }
+    leaf cert-retrans-count {
+      type uint32 {
+        range "1..10";
+      }
+      default "3";
+      description
+        "Configure cert-retrans-count of WAPI.";        
+    }
+  }
+  
+  grouping wep-parameters {
+    description
+      "Configure wep policy related parameters.";	 
+    leaf wep-type {
+      type enumeration {
+        enum "share-key" {
+          value 0;
+          description
+            "Authentication base on shared key.";
+        }
+        enum "open" {
+          value 1;
+          description
+             "No authentication.";
+        }
+      }
+      mandatory true;
+      description
+        "Configure wep type.";
+    }
+    leaf default-key {
+      type uint8 {
+        range "0..3";
+      }
+      mandatory true;
+      description
+        "Configure wep default-key.";
+    }
+    container wep-key-lists {	
+	  list wep-key-list {
+       	key "index";
+        leaf index {
+          type uint8 {
+            range "0..3";
+          }
+          description
+               "Configure wep key index.";		  
+        }		
+        leaf psd-len {
+          type enumeration {
+            enum "wep-40" {
+              value 0;
+              description
+                "Wep-40.";
+            }
+            enum "wep-128" {
+              value 1;
+              description
+             "Wep-128.";
+            }
+            enum "wep-104" {
+              value 2;
+              description
+                "Wep-104.";
+           }
+         }
+         mandatory true;
+         description
+               "Configure wep psd-len.";			
+       }
+       leaf psd-type {
+         type enumeration {
+           enum "hex" {
+             value 0;
+             description
+                  "The psk is hex-type.";
+           }
+           enum "pass-phrase" {
+             value 1;
+             description
+                  "The psk is pass-phrase.";
+           }
+         }
+         mandatory true;
+         description
+               "Configure wep psd-type.";			
+        }
+        leaf psk {
+          type pub-type:password-extend {
+            length "5..188";
+          }
+          mandatory true; 
+          description
+                "Configure psk, the value contains 5 ASCII or 10 hex characters in WEP-40, 13 ASCII or 26 hex characters in WEP-104, and 16 ASCII or 32 hex characters in WEP-128.";
+	 
+        }
+        description
+         "Configure wep-key."; 
+      }
+      description
+        "List of wep-key.";	
+    }	
+	  
+  }
+  container wlan-security-profile {
+    description
+      "Configure security profile.";
+    container security-profiles {
+      description
+        "List of security profiles.";
+      list security-profile {
+        ext:generated-by "system" {
+          description
+            "The default profile is generated by system.";
+          ext:filter "profile-name='default'";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        key "profile-name";
+        description
+          "Configure a security profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "Security profile name.";
+        }
+        choice policy {
+          description
+            "Config the policy, it can be open or WPA.";
+          case open {
+            description
+              "Config the policy is open.";
+            leaf open-policy {
+              type empty;
+              description
+                "Config the policy is open.";
+            }
+          }
+          case wpa {
+            description
+              "Configure parameters is wpa.";
+            container wpa-parameter {
+              description
+                "Configure parameters is wpa.";
+              uses wpa-parameters;
+            }
+          }
+          case enhanced-open {
+            leaf enhanced-open-flag  {
+              type empty;
+              mandatory true;
+              description
+                "Configure enhanced-open.";
+            }
+            leaf transition-ssid {
+              type string {
+                length "1..32";
+              }
+              description
+                "The ssid string of the enhanced open transition mode.";
+            }
+            description
+              "Config the policy is enhanced open.";
+          }
+          case wapi {
+            container wapi-parameter {
+              description
+                "Configure parameters is wapi.";
+              uses wapi-parameters;
+            }
+            description
+              "Configure parameters is wapi.";
+          }
+          case wep {
+            container wep-parameter {
+              description
+                "Configure parameters is wep.";
+              uses wep-parameters;
+            }
+            description
+              "Configure parameters is wep.";			  
+          }
+          case sew-certificate {
+            description
+              "Configure the SEW certificate policy.";
+            leaf sew-certificate-policy {
+              type empty;
+              description
+                "Configure the SEW certificate policy.";
+            }
+          }
+        }
+        leaf pmf {
+          type enumeration {
+            enum "optional" {
+              value 0;
+              description
+                "Config optional mode.";
+            }
+            enum "mandatory" {
+              value 1;
+              description
+                "Config mandatory mode.";
+            }
+          }
+          description
+            "Config PMF parameter.";
+        }
+        leaf wpa-ptk-update {
+          type enumeration {
+            enum "disabled" {
+              value 0;
+              description
+                "Config disabled mode.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Config enable mode.";
+            }
+          }
+          default "disabled";
+          description
+            "Config wpa-ptk-update mode.";
+        }
+        leaf wpa-ptk-update-interval {
+          type uint32 {
+            range "43200..86400";
+          }
+          default "43200";
+          description
+            "Configure wpa-ptk-update-interval.";
+        }
+        leaf wpa-group-key-negotiation {
+          type enumeration {
+            enum "disabled" {
+              value 0;
+              description
+                "Config disabled mode.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Config enable mode.";
+            }
+          }
+          default "enable";
+          description
+            "Config wpa-group-key-negotiation switch.";
+        }
+        leaf wpa-unicast-timeout-kickoff {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Config disabled mode.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Config enable mode.";
+            }
+          }
+          default "disable";
+          description
+            "Config wpa-unicast-timeout-kickoff switch.";
+        }
+      }
+    }
+  }
+  augment "/wlan-vap-prof:wlan-vap-profile/wlan-vap-prof:vap-profiles/wlan-vap-prof:vap-profile" {
+    description
+      "Configure binding security profile to vap profile.";
+    uses wlan-sec-prof:binding-security-profile;
+  }
+  ext:task-name "mm";
+}

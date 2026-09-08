@@ -1,0 +1,365 @@
+/*
+Copyright (C) 2020-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cpu-memory-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-cpu-memory-notification";
+  prefix cpu-memory-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of cpu-memory-notification.";
+  revision 2023-02-03 {
+    description
+      "Modify task to diagnose.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-12-07 {
+    description
+      "Add new notification about entity-ext-cpu-usage-notfication.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-08-25 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "diagnose";
+  notification cpu-usage-rising-alarm {
+    description
+      "The CPU usage exceeded the pre-set overload threshold.";
+    leaf trap-severity {
+      type int32;
+      description
+        "Alarm severity.";
+    }
+    leaf probable-cause {
+      type int32;
+      description
+        "Possible cause.";
+    }
+    leaf event-type {
+      type int32;
+      description
+        "Alarm type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Physical index.";
+    }
+    leaf physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Entity name.";
+    }
+    leaf relative-resource {
+      type string {
+        length "1..255";
+      }
+      description
+        "Relevant resource name.";
+    }
+    leaf usage-type {
+      type int32;
+      description
+        "Overload type.";
+    }
+    leaf sub-index {
+      type int32;
+      description
+        "Entity sub-index.";
+    }
+    leaf cpu-usage {
+      type int32;
+      description
+        "CPU usage.";
+    }
+    leaf unit {
+      type int32;
+      description
+        "Unit.";
+    }
+    leaf cpu-usage-threshold {
+      type int32;
+      description
+        "Overload threshold.";
+    }
+  }
+  notification cpu-usage-rising-alarm-resume {
+    description
+      "The CPU usage falls below the pre-set clear threshold.";
+    leaf trap-severity {
+      type int32;
+      description
+        "Alarm severity.";
+    }
+    leaf probable-cause {
+      type int32;
+      description
+        "Possible cause.";
+    }
+    leaf event-type {
+      type int32;
+      description
+        "Alarm type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Physical index.";
+    }
+    leaf physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Entity name.";
+    }
+    leaf relative-resource {
+      type string {
+        length "1..255";
+      }
+      description
+        "Relevant resource name.";
+    }
+    leaf usage-type {
+      type int32;
+      description
+        "Overload type.";
+    }
+    leaf sub-index {
+      type int32;
+      description
+        "Entity sub-index.";
+    }
+    leaf cpu-usage {
+      type int32;
+      description
+        "CPU usage.";
+    }
+    leaf unit {
+      type int32;
+      description
+        "Unit.";
+    }
+    leaf cpu-usage-threshold {
+      type int32;
+      description
+        "Overload threshold.";
+    }
+  }
+  notification storage-usage-rising-alarm {
+    description
+      "The storage usage exceeded the pre-set overload threshold.";
+    leaf trap-severity {
+      type int32;
+      description
+        "Alarm severity.";
+    }
+    leaf probable-cause {
+      type int32;
+      description
+        "Possible cause, values are as follows: - 75264 : Memory usage exceeded the overload threshold. - 75265 : Storage usage exceeded the overload threshold.";
+    }
+    leaf event-type {
+      type int32;
+      description
+        "Alarm type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Physical index.";
+    }
+    leaf physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Entity name.";
+    }
+    leaf relative-resource {
+      type string {
+        length "1..255";
+      }
+      description
+        "Relevant resource name.";
+    }
+    leaf usage-type {
+      type int32;
+      description
+        "Overload type.";
+    }
+    leaf sub-index {
+      type int32;
+      description
+        "Entity sub-index.";
+    }
+    leaf usage-value {
+      type int32;
+      description
+        "Storage usage.";
+    }
+    leaf unit {
+      type int32;
+      description
+        "Unit.";
+    }
+    leaf usage-threshold {
+      type int32;
+      description
+        "Overload threshold.";
+    }
+  }
+  notification storage-usage-rising-alarm-resume {
+    description
+      "The storage usage falls below the pre-set clear threshold.";
+    leaf trap-severity {
+      type int32;
+      description
+        "Alarm severity.";
+    }
+    leaf probable-cause {
+      type int32;
+      description
+        "Possible cause, values are as follows: - 75264 : Memory usage exceeded the overload threshold. - 75265 : Storage usage exceeded the overload threshold.";
+    }
+    leaf event-type {
+      type int32;
+      description
+        "Alarm type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Physical index.";
+    }
+    leaf physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Entity name.";
+    }
+    leaf relative-resource {
+      type string {
+        length "1..255";
+      }
+      description
+        "Relevant resource name.";
+    }
+    leaf usage-type {
+      type int32;
+      description
+        "Overload type.";
+    }
+    leaf sub-index {
+      type int32;
+      description
+        "Entity sub-index.";
+    }
+    leaf usage-value {
+      type int32;
+      description
+        "Storage usage.";
+    }
+    leaf unit {
+      type int32;
+      description
+        "Unit.";
+    }
+    leaf usage-threshold {
+      type int32;
+      description
+        "Overload threshold.";
+    }
+  }
+  notification entity-ext-cpu-usage-notfication {
+    description
+      "The cpu usage exceeds the threshold value.";
+    leaf cpu-usage-trape-index {
+      type uint32;
+      description
+        "Entry Id.";
+    }
+    leaf cpu-usage-trap-type {
+      type uint32;
+      description
+        "Forwarding type.";
+    }
+    leaf cpu-usage-trap-slot {
+      type string {
+        length "1..50";
+      }
+      description
+        "SLOT ID.";
+    }
+    leaf cpu-usage-trap-cpu {
+      type uint32;
+      description
+        "CPU ID.";
+    }
+    leaf cpu-usage-current-usage {
+      type uint32;
+      description
+        "Current CPU usage.";
+    }
+    leaf cpu-usage-threashold {
+      type uint32;
+      description
+        "Alarm threshold for CPU usage.";
+    }
+  }
+  notification entity-ext-cpu-usage-notfication-clear {
+    description
+      "The cpu usage fell below the threshold value.";
+    leaf cpu-usage-trape-index {
+      type uint32;
+      description
+        "Entry Id.";
+    }
+    leaf cpu-usage-trap-type {
+      type uint32;
+      description
+        "Forwarding type.";
+    }
+    leaf cpu-usage-trap-slot {
+      type string {
+        length "1..50";
+      }
+      description
+        "SLOT ID.";
+    }
+    leaf cpu-usage-trap-cpu {
+      type uint32;
+      description
+        "CPU ID.";
+    }
+    leaf cpu-usage-current-usage {
+      type uint32;
+      description
+        "Current CPU usage.";
+    }
+    leaf cpu-usage-threashold {
+      type uint32;
+      description
+        "Alarm threshold for CPU usage.";
+    }
+  }
+}

@@ -1,0 +1,191 @@
+/*
+Copyright (C) 2021 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-security-application-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-security-application-deviations-ar5710s";
+  prefix application-devs-ar5710s;
+  import huawei-security-application {
+    prefix security-app;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-security-application.";   
+  revision 2021-05-11{
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  
+  deviation "/security-app:security-application/security-app:global/security-app:application-cache" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:domain" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:global/security-app:max-bytes" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:global/security-app:ip-identification" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:global/security-app:asset-identification" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:global/security-app:dns-identification" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:global/security-app:quic-decrypt" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:delete-dns-ip-table" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:reset-sa-statistics" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:query-dns-ip-table" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:set-sa-bypass" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:query-sa-bypass" {
+    deviate not-supported;
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:name" {
+    deviate replace {
+      type string {
+          length "4..32";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:name" {
+    deviate replace {
+      type string {
+          length "1..31";
+          pattern '("[^"\?,\-]*( [^"\?,\-]*"))|([^"\?, \-]*)';
+      }
+    }
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:domain" {
+    deviate replace {
+      type string {
+          length "3..127";
+          pattern '([a-zA-Z0-9.*-]*)';
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:description" {
+    deviate replace {
+      type string {
+          length "1..128";
+          pattern '(".*[ ]*.*")|([^ ]+)';
+      }
+    }
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:rules/security-app:rule/security-app:name" {
+    deviate replace {
+      type string {
+          length "1..32";
+      }
+    }
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:rules/security-app:rule/security-app:signature/security-app:pattern" {
+    deviate replace {
+      type string { 
+          length "3..128";
+      }
+    }
+  }
+
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:ports/security-app:port-equal/security-app:port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:ports/security-app:port-equal/security-app:next-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:ports/security-app:port-range/security-app:start-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65534";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:dns-rules/security-app:dns-rule/security-app:ports/security-app:port-range/security-app:end-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:rules/security-app:rule/security-app:port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:rules/security-app:rule/security-app:port-infos/security-app:port-info/security-app:port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:rules/security-app:rule/security-app:port-infos/security-app:port-info/security-app:end-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+
+  deviation /security-app:query-sa-statistics {
+    deviate not-supported;
+  }
+
+  ext:deviation-ext "/security-app:security-application/security-app:user-defined-apps/security-app:user-defined-app/security-app:app-id" {
+    ext:deviate-ext add {
+      ext:operation-exclude "delete";
+    }
+  }
+
+}

@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ecc-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ecc-deviations-ar5710s";
+  prefix ecc-devs-ar5710s;
+
+  import huawei-ecc {
+    prefix ecc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ecc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ecc:ecc/ecc:local-keys/ecc:local-key-ed25519" {
+    deviate not-supported;
+  }
+  deviation "/ecc:ecc/ecc:peer-key-ed25519s" {
+    deviate not-supported;
+  }
+}

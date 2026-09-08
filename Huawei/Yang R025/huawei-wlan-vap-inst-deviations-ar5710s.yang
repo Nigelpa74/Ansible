@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-vap-inst-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-vap-inst-deviations-ar5710s";
+  prefix vap-inst-devs-ar5710s;
+
+  import huawei-wlan-vap-inst {
+    prefix vap-inst;
+  }
+  import huawei-wlan-ap {
+    prefix wlan-ap;
+  }
+  import huawei-wlan-ap-radio {
+    prefix ap-radio;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix wlan-apg;
+  }
+  import huawei-wlan-group-radio {
+    prefix wlan-gr;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-vap-inst module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance/ap-radio:radio-instances/ap-radio:radio-instance/vap-inst:vap-instances/vap-inst:vap-instance/vap-inst:service-vlan/vap-inst:vlan-mode/vap-inst:pool" {
+    deviate not-supported;
+  }
+  deviation "/wlan-apg:wlan-ap-group-profile/wlan-apg:ap-group-profiles/wlan-apg:ap-group-profile/wlan-gr:radio-instances/wlan-gr:radio-instance/vap-inst:vap-instances/vap-inst:vap-instance/vap-inst:service-vlan/vap-inst:vlan-mode/vap-inst:pool" {
+    deviate not-supported;
+  }
+}

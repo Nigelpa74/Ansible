@@ -1,0 +1,55 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ospfv3-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ospfv3-notification-deviations-ar5710s";
+  prefix ospfv3-notification-devs-ar5710s;
+
+  import huawei-ospfv3-notification {
+    prefix ospfv3-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ospfv3-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ospfv3-notification:neighbor-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:neighbor-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:recv-lsa-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:recv-lsa-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:source-prefix-conflict" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:source-prefix-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:srv6-port-license-inactive" {
+    deviate not-supported;
+  }
+  deviation "/ospfv3-notification:srv6-port-license-inactive-clear" {
+    deviate not-supported;
+  }
+}

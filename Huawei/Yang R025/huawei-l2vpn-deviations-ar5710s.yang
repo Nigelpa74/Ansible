@@ -1,0 +1,84 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l2vpn-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-l2vpn-deviations-ar5710s";
+  prefix l2vpn-devs-ar5710s;
+
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-l2vpn module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/l2vpn:l2vpn" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:switch-protect-aps" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpws-ldp-pw" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-pw-template" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpws-ldp-ac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpws-ldp-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpws-bgp-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpls-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpls-ldp-pw-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:switch-vpls-protect-group" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:reset-vpls-pw-suppression-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/l2vpn:track-pw-state" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/l2vpn:l3ve-delay-up" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/l2vpn:arp-sending" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/l2vpn:nd-sending" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/l2vpn:l2vpn" {
+    deviate not-supported;
+  }
+}

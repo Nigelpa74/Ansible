@@ -1,0 +1,62 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-grpc-deviations-YOS {
+  namespace "urn:huawei:yang:huawei-grpc-deviations-YOS";
+  prefix hw-grpc-devs-YOS;
+
+  import huawei-grpc {
+    prefix hw-grpc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module defines deviation statements for huawei-grpc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  deviation "/hw-grpc:grpc/hw-grpc:service/hw-grpc:dscp" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:service-ipv6/hw-grpc:dscp" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:client/hw-grpc:dscp" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:session-car" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:ip-block" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:activate-ip" {
+    deviate not-supported;
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:client/hw-grpc:destination-groups/hw-grpc:destination-group" {
+    deviate add {
+      max-elements 2;
+    }
+  }
+  deviation "/hw-grpc:grpc/hw-grpc:client/hw-grpc:destination-groups/hw-grpc:destination-group/hw-grpc:destinations/hw-grpc:destination" {
+    deviate add {
+      max-elements 1;
+    }
+  }
+
+}

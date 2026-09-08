@@ -1,0 +1,126 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-keychain-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-keychain-deviations-ar5710s";
+  prefix keychain-devs-ar5710s;
+
+  import huawei-keychain {
+    prefix keychain;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-keychain module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef keychain-algorithm-type-deviations {
+    type enumeration {
+      enum md5 {
+        value 1;
+        description
+          "MD5 algorithm.";
+      }
+      enum sha-1 {
+        value 2;
+        description
+          "SHA-1 algorithm.";
+      }
+      enum hmac-md5 {
+        value 3;
+        description
+          "HMAC-MD5 algorithm.";
+      }
+      enum hmac-sha1-12 {
+        value 4;
+        description
+          "HMAC-SHA1-12 algorithm.";
+      }
+      enum hmac-sha1-20 {
+        value 5;
+        description
+          "HMAC-SHA1-20 algorithm.";
+      }
+      enum hmac-sha-256 {
+        value 6;
+        description
+          "HMAC-SHA-256 algorithm.";
+      }
+      enum sha-256 {
+        value 7;
+        description
+          "SHA-256 algorithm.";
+      }
+      enum sm3 {
+        value 8;
+        description
+          "SM3 algorithm.";
+      }
+      enum hmac-sha-384 {
+        value 10;
+        description
+          "HMAC-SHA-384 algorithm.";
+      }
+      enum hmac-sha-512 {
+        value 11;
+        description
+          "HMAC-SHA-512 algorithm.";
+      }
+      enum hmac-sm3 {
+        value 12;
+        description
+          "HMAC-SM3 algorithm.";
+      }
+    }
+    description
+      "Algorithm configuration for that Key-ID.";
+  }
+
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:kc-tcp/keychain:tcp-aes128-cmac-alg-id" {
+    deviate not-supported;
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:abs-key-ids" {
+    deviate add {
+      must "count(abs-key-id[default-send-key-id='true'])<=1";
+    }
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:abs-key-ids/keychain:abs-key-id/keychain:algorithm" {
+    deviate replace {
+      type keychain-devs-ar5710s:keychain-algorithm-type-deviations;
+    }
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:year-key-ids/keychain:year-key-id/keychain:algorithm" {
+    deviate replace {
+      type keychain-devs-ar5710s:keychain-algorithm-type-deviations;
+    }
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:month-key-ids/keychain:month-key-id/keychain:algorithm" {
+    deviate replace {
+      type keychain-devs-ar5710s:keychain-algorithm-type-deviations;
+    }
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:week-key-ids/keychain:week-key-id/keychain:algorithm" {
+    deviate replace {
+      type keychain-devs-ar5710s:keychain-algorithm-type-deviations;
+    }
+  }
+  deviation "/keychain:keychain/keychain:keychains/keychain:keychain/keychain:day-key-ids/keychain:day-key-id/keychain:algorithm" {
+    deviate replace {
+      type keychain-devs-ar5710s:keychain-algorithm-type-deviations;
+    }
+  }
+}

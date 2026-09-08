@@ -119,6 +119,12 @@ routers:
   #   user: AdminGF
   #   password: HW#*c8Q$Tq9W
 
+  - nombre: 128
+    host: 10.139.50.128
+    port: 830
+    user: AdminGF
+    password: HW#*c8Q$Tq9W
+
   # - nombre: 129
   #   host: 10.139.50.129
   #   port: 830

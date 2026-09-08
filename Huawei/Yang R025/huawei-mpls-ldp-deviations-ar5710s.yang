@@ -1,0 +1,262 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-ldp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mpls-ldp-deviations-ar5710s";
+  prefix mpls-ldp-devs-ar5710s;
+
+  import huawei-mpls-ldp {
+    prefix mpls-ldp;
+  }
+  import huawei-mpls {
+    prefix mpls;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls-ldp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef ldp-peer-auth-mode-deviations {
+    type enumeration {
+      enum md5 {
+        value 1;
+        description
+          "Specifies mode for cipher or plain MD5 password.";
+      }
+      enum keychain {
+        value 2;
+        description
+          "Specifies mode for keychain password.";
+      }
+    }
+    description
+      "LDP Peer Authentication Type.";
+  }
+
+  typedef ldp-route-type-deviations {
+    type enumeration {
+      enum igp {
+        value 1;
+        description
+          "IP route.";
+      }
+      enum egp {
+        value 2;
+        description
+          "EGP route.";
+      }
+      enum unknown {
+        value 0;
+        description
+          "Unknown route type.";
+      }
+    }
+    description
+      "LDP Route Type.";
+  }
+
+  deviation "/mpls-ldp:reset-ldp-session/mpls-ldp:input/mpls-ldp:vrfname" {
+    deviate not-supported;
+  }
+  deviation "/mpls-ldp:reset-all-ldp/mpls-ldp:input/mpls-ldp:vrfname" {
+    deviate not-supported;
+  }
+  deviation "/mpls-ldp:reset-ldp-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/mpls-ldp:reset-mldp-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/mpls-ldp:reset-mldp-all-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/mpls-ldp:diagnose-lsp-establishment/mpls-ldp:input/mpls-ldp:vrfname" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:bgp-label" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:bgp-ip-prefix-name" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:bgp-not-only-host" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:sr-lsp-trigger-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:trap-pub-session" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:trap-session-rlfa-disable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:announcement-enable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:entropy-label-enable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:ecmp-frr-coexist-enable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:bit-err-detect-level" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:global/mpls-ldp:ti-lfa-remote-peer-disable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:mldp" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-ldp:ldp/mpls-ldp:bfd" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:send-all-loopback" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:loop-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:traffic-statistic-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:traffic-statistic-ip-prefix-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:interfaces/mpls-ldp:interface/mpls-ldp:mldp-p2mp-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:remote-peers/mpls-ldp:remote-peer/mpls-ldp:status/mpls-ldp:auto-create-type/mpls-ldp:rlfa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:remote-peers/mpls-ldp:remote-peer/mpls-ldp:status/mpls-ldp:auto-create-type/mpls-ldp:auto-accept-function" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auth-peers/mpls-ldp:auth-peer/mpls-ldp:tcp-ao-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:accept-target-hello" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:topology-instances/mpls-ldp:topology-instance/mpls-ldp:entropy-label-negotiate-primary-only" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:topology-instances/mpls-ldp:topology-instance/mpls-ldp:outbound/mpls-ldp:bgp-peer-all" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:topology-instances/mpls-ldp:topology-instance/mpls-ldp:outbound/mpls-ldp:bgp-peer-groups" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:topology-instances/mpls-ldp:topology-instance/mpls-ldp:outbound/mpls-ldp:bgp-peers" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:adjacencys/mpls-ldp:adjacency/mpls-ldp:crc-error-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:loop-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:path-vector-limit" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:announcement-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:mldp-p2mp-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:mldp-mbb-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:peer-infos/mpls-ldp:peer-info/mpls-ldp:iccp-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:sessions/mpls-ldp:session/mpls-ldp:announcement-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:sessions/mpls-ldp:session/mpls-ldp:mldp-p2mp-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:sessions/mpls-ldp:session/mpls-ldp:mldp-mbb-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:sessions/mpls-ldp:session/mpls-ldp:iccp-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:lsps/mpls-ldp:lsp/mpls-ldp:is-rlfa-lsp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:lsps/mpls-ldp:lsp/mpls-ldp:is-tilfa-lsp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:lsps/mpls-ldp:lsp/mpls-ldp:entropy-label-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:flows" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auto-config-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auto-config-remote-peers/mpls-ldp:auto-config-remote-peer/mpls-ldp:auto-config-type/mpls-ldp:rlfa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auto-config-remote-peers/mpls-ldp:auto-config-remote-peer/mpls-ldp:auto-config-type/mpls-ldp:auto-accept-function" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:session-car/mpls-ldp:ldp" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:micro-isolation-car/mpls-ldp:ldp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance" {
+    deviate add {
+      must "../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auth-peers/mpls-ldp:auth-peer/mpls-ldp:authen-mode" {
+    deviate replace {
+      type mpls-ldp-devs-ar5710s:ldp-peer-auth-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:auth-peer-groups/mpls-ldp:auth-peer-group/mpls-ldp:authen-mode" {
+    deviate replace {
+      type enumeration {
+        enum md5 {
+          value 1;
+          description
+            "Specifies mode for cipher or plain MD5 password.";
+        }
+        enum keychain {
+          value 2;
+          description
+            "Specifies mode for keychain password.";
+        }
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-ldp:ldp/mpls-ldp:instance/mpls-ldp:fecs/mpls-ldp:fec/mpls-ldp:route-type" {
+    deviate replace {
+      type mpls-ldp-devs-ar5710s:ldp-route-type-deviations;
+    }
+  }
+}

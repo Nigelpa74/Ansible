@@ -1,0 +1,42 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-netconf-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-netconf-deviations-ar5710s";
+  prefix netconf-devs-ar5710s;
+
+  import huawei-netconf {
+    prefix netconf;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-netconf module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/netconf:netconf/netconf:active-modules" {
+    deviate not-supported;
+  }
+  deviation "/netconf:netconf/netconf:enable-alarms" {
+    deviate not-supported;
+  }
+  deviation "/netconf:netconf/netconf:config-cache" {
+    deviate not-supported;
+  }
+  deviation "/netconf:activate-module" {
+    deviate not-supported;
+  }
+}

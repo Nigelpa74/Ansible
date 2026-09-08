@@ -1,0 +1,1209 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-notification";
+  prefix hw-wapntf;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  } 
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "WLAN AP notification package.";
+
+  revision 2025-08-12 {
+    description
+      "Add ap-port-traffic-limited, ap-port-traffic-limited-restore.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-08-06 {
+    description
+      "Add ap camera detection not available alarm, Modify ap-detected-camera.";
+    reference
+      "Huawei private.";
+  }
+	
+  revision 2025-07-21 {
+    description
+      "Add GNSS faulty ap alarm.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-07-19 {
+    description
+      "Add tunnel ap alarm.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-07-18 {
+    description
+      "Add camera detection alarm.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2025-03-31 {
+    description
+      "Add ap-crc-too-high and ap-crc-too-high-restore.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-03 {
+    description
+      "Modify ap-update-result.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-15 {
+    description
+      "Add ap-ipfpm-flow-overload and ap-ipfpm-flow-overload-restore alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-11 {
+    description
+      "Add inner ap alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-04 {
+    description
+      "Add ap-stp-auto-shutdown and ap-stp-auto-shutdown-restore alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-10 {
+    description
+      "Modify ap-container-cpu-overload-par ap-container-mem-overload-para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-29 {
+    description
+      "Modify iot card id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-31 {
+    description
+      "Add iot card alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-22 {
+    description
+      "Add certificate alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add csi alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-08 {
+    description      
+      "Add impact some leafs of ap alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add impact leaf of ap-softgre-down and ap-softgre-down-restore.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-10 {
+    description
+      "Add impact leaf of ap-ble-faulty and ap-ble-faulty-restore.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add impact leaf of ap-cold-boot ap-cold-boot-restore ap-hot-boot ap-hot-boot-restore.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-01-08 {
+    description
+      "Add impact leaf of ap-sac-session-overload and ap-sac-session-overload-restore.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-16 {
+    description
+      "Add impact leaf of ap-power-insuff and ap-power-insuff-restore.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-07 {
+    description
+      "Delete impact leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-25 {
+    description
+      "Modify the top-cpu-occu-thread value type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping ap-basic-para {
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP MAC.";
+    }
+    leaf ap-name {
+      type string {
+		length "1..63";
+	  }
+      description
+        "AP Name.";
+    }
+	leaf ap-id {
+      type uint32;
+      description
+        "AP ID.";
+	}
+    description
+        "The AP basic para.";
+  }
+  grouping ap-cpu-overload-basic-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf ap-cpu-rate {
+      type uint32;
+      description
+        "AP cpu rate.";
+    }
+
+    description
+        "The basic para of ap cpu overload.";
+  }
+  grouping ap-mem-overload-basic-para {
+    description
+        "The basic para of ap memory overload.";
+    uses hw-wapntf:ap-basic-para;
+    leaf ap-memory-rate {
+      type int32;
+      description
+        "AP memory rate.";
+    }
+  }
+  grouping ap-temp-basic-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf temperature {
+      type int32;
+      description
+        "AP temperature.";
+    }
+    leaf temperature-type {
+      type string {
+		length "1..15";
+	  }
+      description
+        "AP temperature type.";
+    }
+
+    description
+        "The basic para of ap temperature.";
+  }
+  grouping ap-power-para {
+    uses hw-wapntf:ap-basic-para;
+	leaf power-mode {
+	  type string {
+		length "1..9";
+	  }
+      description
+        "AP power mode.";
+	}
+	leaf expect-power-mode {
+	  type string {
+		length "1..9";
+	  }
+      description
+        "Expect AP power mode.";
+	}
+
+    description
+        "The basic para of ap power.";
+  }
+  grouping ap-disk-para {
+    uses hw-wapntf:ap-basic-para;
+	leaf threshold {
+	  type int32;
+      description
+        "The threshold of disk warning occupancy.";
+	}
+	leaf cur-occupancy {
+	  type int32;
+      description
+        "The disk current occupancy.";
+	}
+    description
+        "The basic para of ap disk.";
+  }
+  grouping ap-sac-session-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf cur-rate {
+      type int32;
+      description
+        "The current rate of SAC session.";
+    }
+    leaf upper-threshold {
+      type int32;
+      description
+        "The upper threshold of SAC session.";
+    }
+    leaf lower-threshold {
+      type int32;
+      description
+        "The lower threshold of SAC session.";
+    }
+    description
+      "The basic para of ap sac session.";
+  }
+
+  grouping ap-cold-boot-para {
+    uses hw-wapntf:ap-basic-para;
+	leaf ap-type {
+	  type string {
+        length "1..32";
+      }
+      description
+        "AP type.";
+	}
+	leaf alarm-time {
+	  type string {
+          length "1..32";
+       }
+      description
+        "Alarm time.";
+	}
+	leaf alarm-name {
+	  type string{
+        length "1..32";
+      }
+      description
+        "Alarm name.";
+	}
+    description
+        "Basic parameters of AP cold start.";
+  }
+  grouping ap-hot-boot-para {
+    uses hw-wapntf:ap-basic-para;
+	leaf ap-type {
+	  type string {
+        length "1..32";
+      }
+      description
+        "AP type.";
+	}
+	leaf alarm-time {
+	  type string {
+          length "1..32";
+       }
+      description
+        "Alarm time.";
+	}
+	leaf alarm-name {
+	  type string{
+        length "1..32";
+      }
+      description
+        "Alarm name.";
+	}
+    description
+        "Basic parameters of AP warm start.";
+  }
+  grouping ap-softgre-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf destination-ip {
+      type string {
+        length "1..256";
+      }
+      description
+        "Destination IP address of SoftGRE tunnel.";
+    }
+    description
+        "Basic parameters of AP SoftGRE tunnel.";
+  }
+
+  grouping ap-ca-certificate {
+    uses hw-wapntf:ap-basic-para;
+    leaf issuer {
+      type string {
+	    length "1..512";
+	  }
+      description
+        "Indicate the issuer of the CA certificate.";
+    }
+    leaf subject {
+      type string {
+	    length "1..512";
+	  }
+      description
+        "Indicate the subject of the CA certificate.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "Indicate the start time of the CA certificate.";
+    }
+    leaf finish-time {
+      type yang:date-and-time;
+      description
+        "Indicate the end time of the CA certificate.";
+    }
+    description
+      "Indicate that the CA certificate is invalid or about to expire."; 
+  }
+
+  grouping ap-local-certificate {
+    uses hw-wapntf:ap-basic-para;
+    leaf issuer {
+      type string {
+	    length "1..512";
+	  }
+      description
+        "Indicate the issuer of the local certificate.";
+    }
+    leaf subject {
+      type string {
+	    length "1..512";
+	  }
+      description
+        "Indicate the subject of the local certificate.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "Indicate the start time of the local certificate.";
+    }
+    leaf finish-time {
+      type yang:date-and-time;
+      description
+        "Indicate the end time of the local certificate.";
+    }
+    description
+      "Indicate that the local certificate is invalid or about to expire.";
+  }
+
+  grouping ap-crl {
+    uses hw-wapntf:ap-basic-para;
+    leaf issuer {
+      type string {
+	    length "1..512";
+	  }
+      description
+        "Indicate the issuer of the CRL.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "Indicate the start time of the CRL.";
+    }
+    leaf finish-time {
+      type yang:date-and-time;
+      description
+        "Indicate the end time of the CRL.";
+    }
+    description
+      "Indicate that the CRL is invalid or about to expire.";
+  }
+
+  grouping ap-container-abnormal-para {
+    uses hw-wapntf:ap-basic-para;
+      leaf ap-application-name {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Configure the AP container name."; 
+    }
+    leaf ap-application-fault-reason {
+      type string {
+        length "1..256";
+	  }
+      description
+        "Configure the reason for an AP container fault.";
+    }
+    description
+      "Configure the AP container parameters that are abnormal.";
+   }
+ grouping ap-container-cpu-overload-para {
+    uses hw-wapntf:ap-basic-para;
+      leaf ap-application-name {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Configure the AP container name.";
+    }
+    leaf cur-rate {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Indicate the current CPU usage of the AP container.";
+    }
+    leaf upper-threshold {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Indicate the CPU alarm threshold of the AP container.";
+    }
+    description
+      "The CPU usage of the AP container exceeded the alarm threshold.";
+   }
+
+ grouping ap-container-mem-overload-para {
+    uses hw-wapntf:ap-basic-para;
+      leaf ap-application-name {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Configure the AP container name.";
+    }
+    leaf cur-rate {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Indicate the current memory usage of the AP container.";
+    }
+    leaf upper-threshold {
+      type string {
+        length "1..127";
+	  }
+      description
+        "Indicate the memory alarm threshold of the AP container.";
+    }
+    description
+      "The memory usage of the AP container exceeded the alarm threshold.";
+   }
+  grouping ap-csi-no-available-radio-para {
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP mac.";
+    }
+    leaf ap-id {
+      type uint32;
+      description
+        "AP ID.";	  
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";   
+      }
+      description
+        "AP name.";
+    }
+    description
+        "AP csi no available radio alarm parameters.";	
+  }
+ grouping ap-iotcard-basic-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf card-id {
+        type uint8;
+        description "Card ID.";
+    }
+    leaf card-connect-type {
+      type enumeration {
+        enum "serial" {
+          value 0;
+          description
+            "IoT card type with device.";
+        }
+        enum "ethernet" {
+          value 1;
+          description
+            "IoT card type with device.";
+        }
+        enum "container" {
+          value 2;
+          description
+            "IoT card type with device.";
+        }
+      }
+      description
+        "IoT card interface type with device.";
+    }
+    description
+      "The basic para of ap iot card.";
+   }
+  grouping ap-iotcard-server-start-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf card-id {
+        type uint8;
+        description "Card ID.";
+    }
+    leaf server-port {
+      type uint16 {
+        range "1..65535";
+      }
+      description
+        "The port number.";
+    }
+    description
+      "The basic para of ap iot card server start alarm.";
+   }
+
+  grouping ap-wired-port-basic-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf ap-if-index {
+      type uint32;
+      description
+        "The AP interface index.";
+    }
+    leaf ap-if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "The AP interface name."; 
+    }
+    description
+      "The basic para of ap wired port.";
+  }
+
+  grouping ap-sipfpm-flow-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf sipfpm-flow-rate {
+      type uint32;
+      description
+        "The current sipfpm flow usage rate of the AP.";
+    }
+    leaf sipfpm-flow-upper-threshold {
+      type uint32;
+      description
+        "The upper threshold for sipfpm flow.";
+    }
+    leaf sipfpm-flow-lower-threshold {
+      type uint32;
+      description
+        "The lower threshold for sipfpm flow.";
+    }
+    description
+      "The parameters of ap Native-iFit flow usage rate alarm.";
+  }
+
+  grouping ap-crc-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf ap-port-type {
+      type string {
+        length "1..64";
+      }
+      description
+        "The AP port type."; 
+    }
+    leaf ap-port-id {
+      type uint32;
+      description
+        "The AP port ID.";
+    }
+    leaf crc-err-rate {
+      type uint32;
+      description
+        "CRC error packet rate. The unit is 1/10000.";
+    }
+    description
+      "The AP crc alarm parameters.";
+  }
+
+  grouping inner-ap-basic-para {
+    leaf ap-sn {
+        type string {
+        length "1..31";
+ 
+        }
+        description
+        "The AP SN.";
+    }
+    description
+        "The basic para of inner ap basic para.";
+  }
+
+  grouping tunnel-ap-basic-para {
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP's MAC address.";
+    }
+    leaf ap-sn {
+      type string {
+		length "1..31";
+	  }
+      description
+        "The AP SN.";
+    }
+	leaf ap-ip {
+      type string {
+		length "1..127";
+	  }
+      description
+        "AP's IP address.";
+	}
+    description
+        "Basic parameters of the tunnel AP.";
+  }
+
+  grouping port-traffic-limited-para {
+    uses hw-wapntf:ap-basic-para;
+    leaf ap-if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "The AP interface name."; 
+    }
+    description
+        "AP's neighbor device of port illegal alarm parameters.";
+  }
+
+  notification ap-cpu-overload {
+    description
+      "AP CPU overload notify.";
+    uses hw-wapntf:ap-cpu-overload-basic-para;
+    leaf top-cpu-occu-thread {
+      type string {
+        length "1..127";
+	  }
+      description
+        "The top threads CPU occupancy."; 
+    }
+
+  }
+  notification ap-cpu-overload-restore {
+    description
+      "AP CPU overload restore.";
+    uses hw-wapntf:ap-cpu-overload-basic-para;
+  }
+
+  notification ap-mem-overload {
+    description
+      "AP memory overload notify.";
+    uses hw-wapntf:ap-mem-overload-basic-para;
+  }
+  notification ap-mem-overload-restore {
+    description
+      "AP memory overload restore.";
+    uses hw-wapntf:ap-mem-overload-basic-para;
+  }
+
+
+  notification ap-temp-too-low {
+    description
+      "AP temperature too low notify.";
+    uses hw-wapntf:ap-temp-basic-para;
+  }
+  notification ap-temp-too-low-restore {
+    description
+      "AP temperature too low restore.";
+    uses hw-wapntf:ap-temp-basic-para;
+  }
+
+  notification ap-temp-too-high {
+    description
+      "AP temperature too high notify.";
+    uses hw-wapntf:ap-temp-basic-para;
+  }
+  notification ap-temp-too-high-restore {
+    description
+      "AP temperature too high restore.";
+    uses hw-wapntf:ap-temp-basic-para;
+  }
+
+
+  notification ap-power-insuff {
+    description
+      "AP power insufficient notify.";
+    uses hw-wapntf:ap-power-para;
+    leaf impact {
+        type string {
+            length "1..15";
+        }
+      description
+        "The impact of power insufficient.";
+    }
+  }
+  notification ap-power-insuff-restore {
+    description
+      "AP power insufficient restore.";
+    uses hw-wapntf:ap-power-para;
+    leaf impact {
+        type string {
+            length "1..15";
+        }
+      description
+        "The impact of power insufficient.";
+    }
+  }
+
+  notification ap-power-limited {
+    description
+      "AP power limited notify.";
+    uses hw-wapntf:ap-power-para;
+  }
+  notification ap-power-limited-restore {
+    description
+      "AP power limited restore.";
+    uses hw-wapntf:ap-power-para;
+  }
+
+
+  notification ap-disk-overload {
+    description
+      "AP disk overload notify.";
+    uses hw-wapntf:ap-disk-para;
+  }
+  notification ap-disk-overload-restore {
+    description
+      "AP disk overload restore.";
+    uses hw-wapntf:ap-disk-para;
+  }
+
+  notification ap-sac-session-overload {
+    description
+      "AP sac session overload.";
+    uses hw-wapntf:ap-sac-session-para;
+  }
+
+  notification ap-sac-session-overload-restore {
+    description
+      "AP sac session overload restore.";
+    uses hw-wapntf:ap-sac-session-para;
+  }
+  notification ap-cold-boot {
+    description
+      "AP cold start.";
+    uses hw-wapntf:ap-cold-boot-para;
+  }
+  notification ap-cold-boot-restore {
+    description
+      "Recovers from an AP cold start.";
+    uses hw-wapntf:ap-cold-boot-para;
+  }
+  notification ap-hot-boot {
+    description
+      "AP warm start.";
+    uses hw-wapntf:ap-hot-boot-para;
+  }
+  notification ap-hot-boot-restore {
+    description
+      "Recovers from an AP warm start.";
+    uses hw-wapntf:ap-hot-boot-para;
+  }
+  notification ap-ble-faulty {
+    description
+      "AP ble faulty notify.";
+    uses hw-wapntf:ap-basic-para;
+  }
+  notification ap-ble-faulty-restore {
+    description
+      "AP ble faulty restore.";
+    uses hw-wapntf:ap-basic-para;
+  }
+  notification ap-gnss-faulty {
+    description
+      "AP GNSS faulty notify.";
+    uses hw-wapntf:ap-basic-para;
+  }
+  notification ap-gnss-faulty-restore {
+    description
+      "AP GNSS faulty restore.";
+    uses hw-wapntf:ap-basic-para;
+  }
+  notification ap-softgre-down {
+    description
+      "AP detect softgre tunnel down notify.";
+    uses hw-wapntf:ap-softgre-para;
+  }
+  notification ap-softgre-down-restore {
+    description
+      "AP detect softgre tunnel down recover notify.";
+    uses hw-wapntf:ap-softgre-para;
+  }
+
+  notification ap-container-abnormal {
+    description
+      "The AP container is abnormal.";
+    uses hw-wapntf:ap-container-abnormal-para;
+  }
+
+  notification ap-container-abnormal-restore {
+    description
+      "The AP container recovers from the abnormal state.";
+    uses hw-wapntf:ap-container-abnormal-para;
+  }
+
+  notification ap-container-cpu-overload {
+    description
+      "The CPU usage of the AP container exceeds the threshold.";
+    uses hw-wapntf:ap-container-cpu-overload-para ;
+  }
+
+  notification ap-container-cpu-overload-restore {
+    description
+      "The CPU usage of the AP container recovers.";
+    uses hw-wapntf:ap-container-cpu-overload-para ;
+  }
+
+  notification ap-container-mem-overload {
+    description
+      "The memory usage of the AP container exceeds the threshold.";
+    uses hw-wapntf:ap-container-mem-overload-para ;
+  }
+
+  notification ap-container-mem-overload-restore {
+    description
+      "The memory usage of the AP container recovers.";
+    uses hw-wapntf:ap-container-mem-overload-para ;
+  }
+
+  notification ap-ca-certificate-invalid {
+    description
+      "The AP CA certificate is invalid.";
+    uses hw-wapntf:ap-ca-certificate;
+  }
+  notification ap-ca-certificate-invalid-restore {
+    description
+      "The alarm indicating that the AP CA certificate is invalid is cleared.";
+    uses hw-wapntf:ap-ca-certificate;
+  }
+  notification ap-ca-certificate-nearly-expired {
+    description
+      "The AP CA certificate is about to expire.";
+    uses hw-wapntf:ap-ca-certificate;
+  }
+  notification ap-ca-certificate-nearly-expired-restore {
+    description
+      "The alarm indicating that the AP CA certificate is about to expire is cleared.";
+    uses hw-wapntf:ap-ca-certificate;
+  }
+  notification ap-local-certificate-invalid {
+    description
+      "The AP local certificate is invalid."; 
+    uses hw-wapntf:ap-local-certificate;
+  }
+
+  notification ap-local-certificate-invalid-restore {
+    description
+      "The alarm indicating that the AP local certificate is invalid is cleared."; 
+    uses hw-wapntf:ap-local-certificate;
+  }
+
+  notification ap-local-certificate-nearly-expired {
+    description
+      "The AP local certificate is about to expire.";
+    uses hw-wapntf:ap-local-certificate;
+  }
+  notification ap-local-certificate-nearly-expired-restore {
+    description
+      "The alarm indicating that the AP local certificate is about to expire is cleared.";
+    uses hw-wapntf:ap-local-certificate;
+  }
+  notification ap-crl-invalid {
+    description
+      "The alarm indicating that the AP CRL is invalid is cleared.";
+    uses hw-wapntf:ap-crl;
+  }
+  notification ap-crl-invalid-restore {
+    description
+      "The AP CRL is invalid.";
+    uses hw-wapntf:ap-crl;
+  }
+  notification ap-crl-nearly-expired {
+    description
+      "The AP CRL is about to expire.";
+    uses hw-wapntf:ap-crl;
+  }
+  notification ap-crl-nearly-expired-restore {
+    description
+      "The alarm indicating that the AP CRL is about to expire is cleared.";
+    uses hw-wapntf:ap-crl;
+  }
+
+  notification ap-csi-no-available-radio {
+    description
+      "Ap no available radio for csi measurement notify.";
+    uses hw-wapntf:ap-csi-no-available-radio-para;
+    leaf reason {
+      type string {
+        length "1..256";   
+      }
+      description
+        "Reason of no available radio.";	 		
+    }
+  }
+  notification ap-csi-no-available-radio-restore {
+    description 
+      "Ap no available radio for csi measurement notify clear.";
+    uses hw-wapntf:ap-csi-no-available-radio-para;
+  }
+  notification ap-iotcard-server-disconnect {
+    description
+      "The IoT card is disconnected from the server.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+  notification ap-iotcard-server-disconnect-restore {
+    description
+      "The IoT card is connected to the server.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+
+  notification ap-iotcard-server-start-fail {
+    description
+      "Failed to start the server used by the IoT card.";
+    uses hw-wapntf:ap-iotcard-server-start-para;
+  }
+
+  notification ap-iotcard-server-start-fail-restore {
+    description
+      "Successfully started the server used by the IoT card.";
+    uses hw-wapntf:ap-iotcard-server-start-para;
+  }
+
+  notification ap-iotcard-insert {
+    description
+      "A iot card is inserted.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+
+  notification ap-iotcard-remove {
+    description
+      "A iot card is removed.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+
+  notification ap-iotcard-type-mismatch {
+    description
+      "The IoT card does not match the configured type.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+
+  notification ap-iotcard-type-mismatch-restroe {
+    description
+      "The IoT card matches the configured type.";
+    uses hw-wapntf:ap-iotcard-basic-para;
+  }
+
+  notification ap-stp-auto-shutdown {
+    description
+      "Interface has turned into DOWN state.";
+    uses hw-wapntf:ap-wired-port-basic-para;
+  }
+
+  notification ap-stp-auto-shutdown-restore {
+    description
+      "Interface has turned into UP state.";
+    uses hw-wapntf:ap-wired-port-basic-para;
+  }
+
+  notification ap-ipfpm-flow-overload {
+    description
+      "The IPCA flow usage on the AP is high.";
+    uses hw-wapntf:ap-sipfpm-flow-para;
+  }
+
+  notification ap-ipfpm-flow-overload-restore {
+    description
+      "Cleared the alarm of high IPCA flow usage on the AP.";
+    uses hw-wapntf:ap-sipfpm-flow-para;
+  }
+
+  notification inner-ap-not-online {
+    description
+      "Inner ap has not online over 10mins.";
+    uses hw-wapntf:inner-ap-basic-para;
+
+    
+  }
+  notification inner-ap-not-online-restore {
+    description
+      "Inner ap has not online over 10mins.";
+    uses hw-wapntf:inner-ap-basic-para;
+  }
+
+  notification ap-update-result {
+    description
+      "Ap update result notification.";
+    uses hw-wapntf:ap-basic-para;
+    leaf time {
+	  type string {
+          length "1..32";
+       }
+      description
+        "Indicate the update time of the ap.";
+    }
+
+    leaf filename {
+	  type string {
+          length "1..256";
+       }
+      description
+        "Indicate the update file name of the ap.";
+    }
+     leaf result {
+      type uint32;
+      description
+        "Indicate the update result of the ap.";
+    }
+    leaf update-status {
+	  type string {
+          length "1..32";
+       }
+      description
+        "Indicate the update status of the ap.";
+    }
+    leaf next-operator {
+      type enumeration {
+        enum "need-reset" {
+          value 0;
+          description
+            "Need to reset after update.";
+        }
+        enum "not-reset" {
+          value 1;
+          description
+            "Not need to reset after update.";
+        }
+
+      }
+      description
+        "Indicate the next operator of the ap.";
+    }
+  }
+
+  notification ap-crc-too-high {
+    description
+      "AP CRC is abnormal notify.";
+    uses hw-wapntf:ap-crc-para;
+  }
+
+  notification ap-crc-too-high-restore {
+    description
+      "The number of the AP's CRC errors changes to normal.";
+    uses hw-wapntf:ap-crc-para;
+  }
+
+  notification ap-detected-camera {
+    description
+      "Ap detected camera notify.";
+    uses hw-wapntf:ap-basic-para;
+    leaf status {
+       type uint32;
+      description
+        "Camera detection status.";	 		
+    }
+	leaf rssi {
+      type string {
+        length "1..256";   
+      }
+      description
+        "Camera detection rssi information.";
+    }
+  }
+  notification ap-detected-camera-restore {
+    description 
+      "Ap detected camera notify clear.";
+    uses hw-wapntf:ap-basic-para;
+  }
+  
+  notification tunnel-ap-fault {
+    description
+      "The link between the tunnel AP and AC is down.";
+    uses hw-wapntf:tunnel-ap-basic-para;
+	leaf ap-id {
+      type uint32;
+      description
+        "AP ID.";
+	}
+  }
+
+  notification tunnel-ap-fault-restore {
+    description 
+      "The link between the tunnel AP and AC is restored to normal.";
+    uses hw-wapntf:tunnel-ap-basic-para;
+	leaf ap-id {
+      type uint32;
+      description
+        "AP ID.";
+	}
+  }
+
+  notification tunnel-ap-online-fail {
+    description
+      "The link negotiation between the tunnel AP and AC fails.";
+    uses hw-wapntf:tunnel-ap-basic-para;
+  }
+
+  notification tunnel-ap-online-fail-restore {
+    description 
+      "The failure in the link negotiation between the tunnel AP and AC is resolved.";
+    uses hw-wapntf:tunnel-ap-basic-para;
+  }
+
+  notification ap-camera-detection-not-available {
+    description
+      "Ap camera detection function not available notify.";
+    uses hw-wapntf:ap-basic-para;
+    leaf reason {
+      type string {
+        length "1..256";
+      }
+      description
+        "Reason of camera detection function not available.";	 	
+    }
+  }
+  notification ap-camera-detection-not-available-restore {
+    description 
+      "Ap camera detection function not available notify clear.";
+    uses hw-wapntf:ap-basic-para;
+  }
+
+  notification ap-port-traffic-limited {
+    description
+      "The ap port traffic is limited.";
+    uses hw-wapntf:port-traffic-limited-para;
+  }
+
+  notification ap-port-traffic-limited-restore {
+    description
+      "The ap port traffic recovery.";
+    uses hw-wapntf:port-traffic-limited-para;
+  }
+
+  ext:task-name "pcm";
+}

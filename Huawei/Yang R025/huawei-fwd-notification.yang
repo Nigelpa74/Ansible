@@ -1,0 +1,883 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fwd-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-fwd-notification";
+  prefix fwd-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of fwd-notification.";
+
+  revision 2025-05-07 {
+    description
+      "Add IPv6 security session exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-22 {
+    description
+      "Add leaf slot and cpu for table usage threshold exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-11 {
+    description
+      "Add hardware session exceed alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-08 {
+    description
+      "Add IPv6 session leak alarm node and session exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add fwd table resource alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-11 {
+    description
+      "Delete saas user table exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-19 {
+    description
+      "Add saas user table exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-25 {
+    description
+      "Add multi-cast egress interfaces resource alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-30 {
+    description
+      "Add session leak alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-10 {
+    description
+      "Modify the session exceed node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-17 {
+    description
+      "Modify the format.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-11 {
+    description
+      "Add packet discard alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-17 {
+    description
+      "Add forwarding table usage alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-26 {
+    description
+      "Add forwarding session resource alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "hpf";
+  notification hardware-session-exceed {
+    description
+      "The number of hardware session resources exceeds the limit.";
+    leaf session-resource-usage {
+      type uint32;
+      units %;
+      description
+        "Indicates the percentage of the number of current sessions to the maximum number of hardware sessions.";
+    }
+    leaf session-resource-threshold {
+      type uint32;
+      units %;
+      description
+          "Indicates the alarm threshold of hardware session resources.";
+    }
+    leaf session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of hardware sessions.";
+    }
+  }
+  notification hardware-session-exceed-clear {
+    description
+      "The number of hardware session resources belows the limit.";
+    leaf session-resource-usage {
+      type uint32;
+      units %;
+      description
+        "Indicates the percentage of the number of current hardware sessions to the maximum number of sessions.";
+    }
+    leaf session-resource-threshold {
+      type uint32;
+      units %;
+      description
+        "Indicates the alarm threshold of hardware session resources.";
+    }
+    leaf session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of hardware sessions.";
+    }
+  }
+  notification hardware-session-threshold-exceed {
+    description
+      "The number of hardware session resources exceeds the threshold.";
+    leaf session-resource-usage {
+      type uint32;
+      units %;
+      description
+        "Indicates the percentage of the number of current hardware sessions to the maximum number of sessions.";
+    }
+    leaf session-resource-threshold {
+      type uint32;
+      units %;
+      description
+        "Indicates the alarm threshold of hardware session resources.";
+    }
+    leaf session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of hardware sessions.";
+    }
+  }
+  notification hardware-session-threshold-exceed-clear {
+    description
+      "The number of hardware session resources falls below the threshold.";
+    leaf session-resource-usage {
+      type uint32;
+      units %;
+      description
+        "Indicates the percentage of the number of current hardware sessions to the maximum number of sessions.";
+    }
+    leaf session-resource-threshold {
+      type uint32;
+      units %;
+      description
+        "Indicates the alarm threshold of hardware session resources.";
+    }
+    leaf session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of hardware sessions.";
+    }
+  }
+  notification session-exceed {
+    description
+      "The number of session resources exceeds the limit.";
+    leaf session-res-usage {
+      type uint32;
+      description
+        "Percentage of the number of current sessions to the maximum number of sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+    leaf topn-source-ip-address {
+      type string {
+        length "1..256";
+      }
+      description
+        "Source IP address with the highest session resource usage. A maximum of three source IP addresses can be displayed. If multiple source IP addresses are displayed, they are separated by commas (,).";
+    }
+  }
+  notification session-exceed-clear {
+    description
+      "The number of session resources falls below the limit.";
+    leaf session-res-usage {
+      type uint32;
+      description
+        "Percentage of the number of current sessions to the maximum number of sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+  }
+  notification session-threshold-exceed {
+    description
+      "The number of session resources exceeds the threshold.";
+    leaf session-res-usage {
+      type uint32;
+      description
+        "Percentage of the number of current sessions to the maximum number of sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+    leaf topn-source-ip-address {
+      type string {
+        length "1..256";
+      }
+      description
+        "Source IP address with the highest session resource usage. A maximum of three source IP addresses can be displayed. If multiple source IP addresses are displayed, they are separated by commas (,).";
+    }
+  }
+  notification session-threshold-exceed-clear {
+    description
+      "The number of session resources falls below the threshold.";
+    leaf session-res-usage {
+      type uint32;
+      description
+        "Percentage of the number of current sessions to the maximum number of sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+  }
+  notification acl-rule-exceed {
+    description
+      "The number of acl rule resource is full.";
+    leaf acl-rule-res-usage {
+      type uint32;
+      description
+        "Usage of the device acl rule resources.";
+    }
+    leaf acl-rule-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device acl rule resources.";
+    }
+  }
+  notification acl-rule-exceed-clear {
+    description
+      "The number of acl rule resource falls below the threshold.";
+    leaf acl-rule-res-usage {
+      type uint32;
+      description
+        "Usage of the device acl rule resources.";
+    }
+    leaf acl-rule-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device acl rule resources.";
+    }
+  }
+  notification acl-group-exceed {
+    description
+      "The number of acl group resource is full.";
+    leaf acl-group-res-usage {
+      type uint32;
+      description
+        "Usage of the device acl group resources.";
+    }
+    leaf acl-group-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device acl group resources.";
+    }
+  }
+  notification acl-group-exceed-clear {
+    description
+      "The number of acl group resource falls below the threshold.";
+    leaf acl-group-res-usage {
+      type uint32;
+      description
+        "Usage of the device acl group resources.";
+    }
+    leaf acl-group-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device acl group resources.";
+    }
+  }
+  notification session-number-threshold-exceed {
+    description
+      "The total number of IPv4 sessions exceeded the alarm threshold.";
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf session-number {
+      type uint32;
+      description
+        "Indicates the number of sessions.";
+    }
+    leaf session-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+  }
+  notification session-number-threshold-exceed-clear {
+    description
+      "The total number of IPv4 sessions fell below the alarm threshold.";
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf session-number {
+      type uint32;
+      description
+        "Indicates the number of sessions.";
+    }
+    leaf session-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of session resources.";
+    }
+  }
+  notification table-usage-threshold-exceed {
+    description
+      "The table usage exceeded the alarm threshold.";
+    leaf table-name {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates table name.";
+    }
+    leaf table-spec {
+      type uint32;
+      description
+        "Indicates table spec.";
+    }
+    leaf node-count {
+      type uint32;
+      description
+        "Indicates table node count.";
+    }
+    leaf usage-threshold {
+      type uint32;
+      units "%";
+      description
+        "Indicates usage threshold.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+  }
+  notification table-usage-threshold-exceed-clear {
+    description
+      "The usage of table fell below the alarm threshold.";
+    leaf table-name {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates table name.";
+    }
+    leaf table-spec {
+      type uint32;
+      description
+        "Indicates table spec.";
+    }
+    leaf node-count {
+      type uint32;
+      description
+        "Indicates table node count.";
+    }
+    leaf usage-threshold {
+      type uint32;
+      units "%";
+      description
+        "Indicates usage threshold.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+  }
+  notification packet-discard {
+    description
+      "IP packets are discarded.";
+    leaf discard-reason {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates IP packets discard reason.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates interface name.";
+    }
+  }
+  notification packet-discard-clear {
+    description
+      "IP packets are discarded alarm clear.";
+    leaf discard-reason {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates IP packets discard reason.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates interface name.";
+    }
+  }
+  notification session-leak-entry-exceed {
+    description
+      "The number of session leak entries exceeds the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "Session specification.";
+    }
+    leaf leak-entry-usage {
+      type uint32;
+      description
+        "The ratio of the number of leaked entries in the current session table to the number of specifications.";
+    }
+    leaf leak-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for leaked entries in the session table.";
+    }
+  }
+  notification session-leak-entry-exceed-clear {
+    description
+      "The number of session leak entries falls below the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "Session specification.";
+    }
+    leaf leak-entry-usage {
+      type uint32;
+      description
+        "The ratio of the number of leaked entries in the current session table to the number of specifications.";
+    }
+    leaf leak-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for leaked entries in the session table.";
+    }
+  }
+  notification session-unrecoverable-entry-exceed {
+    description
+      "The number of session unrecoverable entries exceeds the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "Session specification.";
+    }
+    leaf unrecoverable-entry-usage {
+      type uint32;
+      description
+        "The ratio of the number of unrecoverable entries in the current session table to the number of specifications.";
+    }
+    leaf unrecoverable-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for unrecoverable entries in the session table.";
+    }
+  }
+  notification multi-cast-elb-exceed {
+    description
+      "The number of multi-cast egress interfaces resource is full.";
+    leaf multi-cast-elb-res-usage {
+      type uint32;
+      description
+        "Usage of the device multi-cast egress interfaces resources.";
+    }
+    leaf multi-cast-elb-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device multi-cast egress interfaces resources.";
+    }
+  }
+  notification multi-cast-elb-exceed-clear {
+    description
+      "The number of multi-cast egress interfaces resource falls below the threshold.";
+    leaf multi-cast-elb-res-usage {
+      type uint32;
+      description
+        "Usage of the device multi-cast egress interfaces resources.";
+    }
+    leaf multi-cast-elb-res-threshold {
+      type uint32;
+      description
+        "The threshold of the device multi-cast egress interfaces resources.";
+    }
+  }
+  notification fwd-table-res-threshold-exceed {
+    description
+      "The table usage exceeded the alarm threshold.";
+    leaf table-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates table name.";
+    }
+    leaf table-res-usage {
+      type uint32;
+      description
+        "Usage of the fwd table resources.";
+    }
+    leaf table-res-threshold {
+      type uint32;
+      description
+        "The threshold of the fwd table resources.";
+    }
+  }
+  notification fwd-table-res-threshold-exceed-clear {
+    description
+      "The usage of table fell below the alarm threshold.";
+    leaf table-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates table name.";
+    }
+    leaf table-res-usage {
+      type uint32;
+      description
+        "Usage of the fwd table resources.";
+    }
+    leaf table-res-threshold {
+      type uint32;
+      description
+        "The threshold of the fwd table resources.";
+    }
+  }
+  notification ipv6-session-leak-entry-exceed {
+    description
+      "The number of IPv6 session leak entries exceeds the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current IPv6 session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak IPv6 session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable IPv6 session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "IPv6 session specification.";
+    }
+    leaf leak-entry-usage {
+      type uint32;
+      units %;
+      description
+        "The ratio of the number of leaked entries in the current IPv6 session table to the number of specifications.";
+    }
+    leaf leak-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for leaked entries in the IPv6 session table.";
+    }
+  }
+  notification ipv6-session-leak-entry-exceed-clear {
+    description
+      "The number of IPv6 session leak entries falls below the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current IPv6 session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak IPv6 session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable IPv6 session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "IPv6 session specification.";
+    }
+    leaf leak-entry-usage {
+      type uint32;
+      units %;
+      description
+        "The ratio of the number of leaked entries in the current IPv6 session table to the number of specifications.";
+    }
+    leaf leak-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for leaked entries in the IPv6 session table.";
+    }
+  }
+  notification ipv6-session-unrecoverable-entry-exceed {
+    description
+      "The number of IPv6 session unrecoverable entries exceeds the threshold.";
+    leaf current-entry-number {
+      type uint32;
+      description
+        "The number of current IPv6 session entries.";
+    }
+    leaf leak-entry-number {
+      type uint32;
+      description
+        "The number of leak IPv6 session entries.";
+    }
+    leaf unrecoverable-entry-number {
+      type uint32;
+      description
+        "The number of unrecoverable IPv6 session entries.";
+    }
+    leaf session-spec {
+      type uint32;
+      description
+        "IPv6 session specification.";
+    }
+    leaf unrecoverable-entry-usage {
+      type uint32;
+      units %;
+      description
+        "The ratio of the number of unrecoverable entries in the current IPv6 session table to the number of specifications.";
+    }
+    leaf unrecoverable-entry-threshold {
+      type uint32;
+      description
+        "Alarm threshold for unrecoverable entries in the IPv6 session table.";
+    }
+  }
+  notification ipv6-session-exceed {
+    description
+      "The number of IPv6 session resources exceeds the limit.";
+    leaf session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 sessions to the maximum number of IPv6 sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of IPv6 session resources.";
+    }
+    leaf topn-source-ipv6-address {
+      type string {
+        length "1..256";
+      }
+      description
+        "Source IPv6 address with the highest IPv6 session resource usage. A maximum of three source IPv6 addresses can be displayed. If multiple source IPv6 addresses are displayed, they are separated by commas (,).";
+    }
+  }
+  notification ipv6-session-exceed-clear {
+    description
+      "The number of IPv6 session resources falls below the limit.";
+    leaf session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 sessions to the maximum number of IPv6 sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of IPv6 session resources.";
+    }
+  }
+  notification ipv6-session-threshold-exceed {
+    description
+      "The number of IPv6 session resources exceeds the threshold.";
+    leaf session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 sessions to the maximum number of IPv6 sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of IPv6 session resources.";
+    }
+    leaf topn-source-ipv6-address {
+      type string {
+        length "1..256";
+      }
+      description
+        "Source IPv6 address with the highest IPv6 session resource usage. A maximum of three source IPv6 addresses can be displayed. If multiple source IPv6 addresses are displayed, they are separated by commas (,).";
+    }
+  }
+  notification ipv6-session-threshold-exceed-clear {
+    description
+      "The number of IPv6 session resources falls below the threshold.";
+    leaf session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 sessions to the maximum number of IPv6 sessions.";
+    }
+    leaf session-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of IPv6 session resources.";
+    }
+  }
+  notification ipv6-security-session-exceed {
+    description
+      "The number of IPv6 security session resources exceeds the limit.";
+    leaf security-session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 security sessions to the maximum number of IPv6 security sessions.";
+    }
+    leaf security-session-res-threshold {
+      type uint32;
+      units %;
+      description
+        "Indicates the alarm threshold of IPv6 security session resources.";
+    }
+    leaf security-session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of IPv6 security sessions.";
+    }
+  }
+  notification ipv6-security-session-exceed-clear {
+    description
+      "The number of IPv6 security session resources falls below the limit.";
+    leaf security-session-res-usage {
+      type uint32;
+      units %;
+      description
+        "Percentage of the number of current IPv6 security sessions to the maximum number of IPv6 security sessions.";
+    }
+    leaf security-session-res-threshold {
+      type uint32;
+      units %;
+      description
+        "Indicates the alarm threshold of IPv6 security session resources.";
+    }
+    leaf security-session-maximum-number {
+      type uint32;
+      description
+          "Indicates the maximum number of IPv6 security sessions.";
+    }
+  }
+}

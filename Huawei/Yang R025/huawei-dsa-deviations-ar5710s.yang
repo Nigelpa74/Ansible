@@ -1,0 +1,44 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dsa-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dsa-deviations-ar5710s";
+  prefix dsa-devs-ar5710s;
+
+  import huawei-dsa {
+    prefix dsa;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dsa module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/dsa:dsa/dsa:local-keys/dsa:local-key/dsa:key-size" {
+    deviate replace {
+      type uint32 {
+        range "2048";
+      }
+    }
+  }
+  deviation "/dsa:dsa/dsa:key-pairs/dsa:key-pair/dsa:key-size" {
+    deviate replace {
+      type uint32 {
+        range "2048";
+      }
+    }
+  }
+}

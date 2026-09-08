@@ -1,0 +1,48 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-segment-routing-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-segment-routing-deviations-ar5710s";
+  prefix sr-devs-ar5710s;
+
+  import huawei-segment-routing {
+    prefix sr;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-segment-routing module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/sr:reset-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/sr:get-srlb-by-range" {
+    deviate not-supported;
+  }
+  deviation "/sr:get-srgb-by-range" {
+    deviate not-supported;
+  }
+  deviation "/sr:get-sr-states" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/sr:segment-routing" {
+    deviate not-supported;
+  }
+}

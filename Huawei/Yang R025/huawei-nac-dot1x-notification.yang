@@ -1,0 +1,114 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-dot1x-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-dot1x-notification";
+  prefix nac-dot1x-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of NAC DOT1X.";
+  revision 2022-01-04 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "nac-dot1x";
+  notification eap-max-user {
+  description
+      "The number of 802.1X authentication users reaches the upper limit.";
+    leaf port-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Port name.";
+    }
+    leaf ifindex {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+  notification quiet-user-max {
+  description
+      "The number of users in quiet state on the interface reached the maximum value.";
+    leaf threshold {
+      type uint32;
+      description
+        "Indicates the percentage of current users in quiet state to the total users in quiet state.";
+    }
+    leaf user-num {
+      type uint32;
+      description
+        "Indicates the number of users in quiet state.";
+    }
+    leaf lower-threshold {
+      type uint32;
+      description
+        "Indicates the lower alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf upper-threshold {
+      type uint32;
+      description
+        "Indicates the upper alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+  notification quiet-user-clear {
+  description
+      "The alarm indicating that the number of 802.1x users in quiet state reached the maximum was cleared.";
+    leaf threshold {
+      type uint32;
+      description
+        "Indicates the percentage of current users in quiet state to the total users in quiet state.";
+    }
+    leaf user-num {
+      type uint32;
+      description
+        "Indicates the number of users in quiet state.";
+    }
+    leaf lower-threshold {
+      type uint32;
+      description
+        "Indicates the lower alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf upper-threshold {
+      type uint32;
+      description
+        "Indicates the upper alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+}

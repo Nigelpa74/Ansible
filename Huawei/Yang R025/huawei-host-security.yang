@@ -1,0 +1,3595 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-host-security {
+  namespace "urn:huawei:yang:huawei-host-security";
+  prefix host-security;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Common interface management, which includes the public configuration of interfaces.";
+  revision 2025-08-28 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-19 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-07 {
+    description
+      "Change the line ending format to Unix-style.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-15 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-12 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-11 {
+    description
+      "Add a Period sign to the description of container applied-policys and policy-applied-type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-04 {
+    description
+      "Add a new leaf VLAN-LIST and add a obsolete mark to VLANS for list filter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-20 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-09 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-08 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-29 {
+    description
+      "Modify policy node related constraints.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-25 {
+    description
+      "Rollback dns-capwap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-22 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-02 {
+    description
+      "Change when condition to must for applied-policy-mcu and applied-policy-slots.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-12 {
+    description
+      "Add must condition for applied-policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-11 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-08 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-24 {
+    description
+      "Add host-car protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-22 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-21 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-20 {
+    description
+      "Add new ntid cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-17 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-31 {
+    description
+      "Add the constraints of history packet statistics.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-24 {
+    description
+      "Correct the default statement expression of session-car.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-28 {
+    description
+      "Modify the descriptions.";
+    reference
+      "Huawei private.";
+  }
+   revision 2024-10-15 {
+    description
+      "Modify the descriptions.";
+    reference
+      "Huawei private.";
+  }
+   revision 2024-10-10 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-27 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-20 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-11 {
+    description
+      "Add new cpcar protocol and delete sac-hpf-fail sac-hpf-fin.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-21 {
+    description
+      "Add new cpcar protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-16 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-03 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-01 {
+    description
+      "Modify the constraints of session-car.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-01 {
+    description
+      "Add the constraints of session-car.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-17 {
+    description
+      "Modify profinet cpcar protocols name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-31 {
+    description
+      "Add the correct constraints for the filter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-13 {
+    description
+      "Modify aqm cpcar protocols name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-08 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-07 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-29 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-22 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-20 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-18 {
+    description
+      "Add a system-generated identifier to the default policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-14 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-06 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-27 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-22 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-21 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-07 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-01 {
+    description
+      "Add new container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-31 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-08 {
+    description
+      "Add auto-port-defend.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-21 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-10 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-17 {
+    description
+      "Add host-car configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-25 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-06 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-05 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-28 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-24 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-18 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-14 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-08 {
+    description
+      "Add new cpcar protocols efm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-26 {
+    description
+      "Add new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-21 {
+    description
+      "Add new cpcar protocols inof-rpfr.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-14 {
+    description
+      "Add wireless packet statistics and top wireless packet statistics.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-23 {
+    description
+      "Add obsolete policy slots.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-13 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-07 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-03 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-22 {
+    description
+      "Modify cpcar protocol name ifit-follow-stream to ifit-dcn.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-18 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-12 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2022-11-10 {
+    description
+      "Add new protocols.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2022-10-13 {
+    description
+      "Add applied-policy-specified and modify applied-policys.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2022-09-20 {
+    description
+      "Add encrypted coap protocols for cpcar.";
+    reference
+      "Huawei private.";
+  }  
+  revision 2022-08-29 {
+    description
+      "Change 'string' to 'if-name' for interface-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-23 {
+    description
+      "Add new cpcar protocol netstream-enhance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-20 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-15 {
+    description
+      "Add some new cpcar protocols.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-23 {
+    description
+      "Modify some protocol names of cpcar to be consistent with the device.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Add dad and pim-mc for cpcar.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-28 {
+    description
+      "Add clear-packet-statistic rpc.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Add multiple new protocols for cpcar and add units in auto-defend.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-24 {
+    description
+      "Add adjust car, cpcar and auto defend in policy; Augment devm for policy name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-30 {
+    description
+      "Modify the range for slot in auto-traces.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-03 {
+    description
+      "Add top packet statistics.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-07 {
+    description
+      "Modify task-name to cpu-defend.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-12-16 {
+    description
+      "Add capwap protocol type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-07-01 {
+    description
+      "Add policy and filter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-03-04 {
+    description
+      "Add packet protocol type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-03 {
+    description
+      "Add packet protocol type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-11-13 {
+    description
+      "Add auto source trace.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-07-13 {
+    description
+      "Add 2nd packet statistic type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-05-23 {
+    description
+      "Add packet protocol type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-01-02 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+    typedef packet-protocol-type {
+        type enumeration {
+            enum "bfd" {
+                value 1;
+                description "BFD protocol.";
+            }
+            enum "arp-miss" {
+                value 2;
+                description "ARP-miss protocol.";
+            }
+            enum "arp" {
+                value 3;
+                description "ARP protocol.";
+            }
+            enum "bgp" {
+                value 4;
+                description "BGP protocol.";
+            }
+            enum "gmac" {
+                value 5;
+                description "GMAC protocol.";
+            }
+            enum "dhcp" {
+                value 6;
+                description "DHCP protocol.";
+            }
+            enum "dldp" {
+                value 7;
+                description "DLDP protocol.";
+            }
+            enum "fib-hit" {
+                value 8;
+                description "FIB-hit protocol.";
+            }
+            enum "ftp" {
+                value 9;
+                description "FTP protocol.";
+            }
+            enum "aaa" {
+                value 10;
+                description "AAA protocol.";
+            }
+            enum "icmp" {
+                value 11;
+                description "ICMP protocol.";
+            }
+            enum "igmp" {
+                value 12;
+                description "IGMP protocol.";
+            }
+            enum "unknown-multicast" {
+                value 13;
+                description "Unknown-multicast protocol.";
+            }
+            enum "isis" {
+                value 14;
+                description "ISIS protocol.";
+            }
+            enum "lacp" {
+                value 15;
+                description "LACP protocol.";
+            }
+            enum "ldt" {
+                value 16;
+                description "LDT protocol.";
+            }
+            enum "lldp" {
+                value 17;
+                description "LLDP protocol.";
+            }
+            enum "ntp" {
+                value 18;
+                description "NTP protocol.";
+            }
+            enum "ospf" {
+                value 19;
+                description "OSPF protocol.";
+            }
+            enum "rip" {
+                value 20;
+                description "RIP protocol.";
+            }
+            enum "snmp" {
+                value 21;
+                description "SNMP protocol.";
+            }
+            enum "stp" {
+                value 22;
+                description "STP protocol.";
+            }
+            enum "telnet" {
+                value 23;
+                description "Telnet protocol.";
+            }
+            enum "ttl-expired" {
+                value 24;
+                description "TTL-expired protocol.";
+            }
+            enum "udp-helper" {
+                value 25;
+                description "UDP-helper protocol.";
+            }
+            enum "vrrp" {
+                value 26;
+                description "VRRP protocol.";
+            }
+            enum "fcoe" {
+                value 27;
+                description "FCOE protocol.";
+            }
+            enum "trill" {
+                value 28;
+                description "Trill protocol.";
+            }
+            enum "mpls-ldp" {
+                value 29;
+                description "MPLS-LDP protocol.";
+            }
+            enum "trill-management" {
+                value 30;
+                description "Trill-management protocol.";
+            }
+            enum "nd" {
+                value 31;
+                description "ND protocol.";
+            }
+            enum "smart-link" {
+                value 32;
+                description "Smart-link protocol.";
+            }
+            enum "bpdu-tunnel" {
+                value 33;
+                description "BPDU-tunnel protocol.";
+            }
+            enum "gre-keepalive" {
+                value 34;
+                description "GRE-keepalive protocol.";
+            }
+            enum "eoam-3ah" {
+                value 35;
+                description "EOAM-3ah protocol.";
+            }
+            enum "netstream" {
+                value 36;
+                description "Netstream protocol.";
+            }
+            enum "erps" {
+                value 37;
+                description "ERPS protocol.";
+            }
+            enum "8021x" {
+                value 38;
+                description "8021X protocol.";
+            }
+            enum "dns-reply" {
+                value 39;
+                description "DNS-reply protocol.";
+            }
+            enum "common" {
+                value 40;
+                description "Common protocol.";
+            }
+            enum "openflow" {
+                value 41;
+                description "Openflow protocol.";
+            }
+            enum "mtu" {
+                value 42;
+                description "MTU protocol.";
+            }  
+           enum "ipsec" {
+                value 43;
+                description "IPSec protocol.";
+            }
+            enum "vxlan-detect" {
+                value 44;
+                description "VXLAN-detect protocol.";
+            }
+            enum "lltd" {
+                value 45;
+                description "LLTD protocol.";
+            }
+            enum "mac" {
+                value 46;
+                description "MAC protocol.";
+            }
+            enum "gvrp" {
+                value 47;
+                description "GVRP protocol.";
+            }
+            enum "vbst" {
+                value 48;
+                description "VBST protocol.";
+            }
+            enum "acl-logging" {
+                value 49;
+                description "ACL-logging protocol.";
+            }
+            enum "ptp-ann-timeout" {
+                value 50;
+                description "PTP-ANN-timeout protocol.";
+            }
+            enum "ptp-ann-change" {
+                value 51;
+                description "PTP-ANN-change protocol.";
+            }
+            enum "ssm" {
+                value 52;
+                description "SSM protocol.";
+            }
+            enum "m-lag" {
+                value 53;
+                description "M-LAG protocol.";
+            }
+            enum "m-lag-heart" {
+                value 54;
+                description "M-LAG-heart protocol.";
+            }
+            enum "ovsdb" {
+                value 55;
+                description "OVSDB protocol.";
+            }
+            enum "telemetry" {
+                value 56;
+                description "Telemetry protocol.";
+            }
+            enum "ospf-overlay" {
+                value 57;
+                description "OSPF-overlay protocol.";
+            }
+            enum "vrrp-overlay" {
+                value 58;
+                description "VRRP-overlay protocol.";
+            }
+            enum "isis-overlay" {
+                value 59;
+                description "ISIS-overlay protocol.";
+            }
+            enum "nd-overlay" {
+                value 60;
+                description "ND-overlay protocol.";
+            }
+            enum "rip-overlay" {
+                value 61;
+                description "RIP-overlay protocol.";
+            }
+            enum "drop-packet" {
+                value 62;
+                description "Drop-packet protocol.";
+            }
+            enum "ptp-enp" {
+                value 63;
+                description "PTP-ENP protocol.";
+            }
+            enum "arp-request" {
+                value 64;
+                description "ARP-request protocol.";
+            }
+            enum "arp-request-uc" {
+                value 65;
+                description "ARP-request-uc protocol.";
+            }
+            enum "arp-reply" {
+                value 66;
+                description "ARP-reply protocol.";
+            }
+            enum "bgp4plus-overlay" {
+                value 67;
+                description "BGP4PLUS-overlay protocol.";
+            }
+            enum "bgp-overlay" {
+                value 68;
+                description "BGP-overlay protocol.";
+            }
+            enum "cdp" {
+                value 69;
+                description "CDP protocol.";
+            }
+            enum "dhcp-request" {
+                value 70;
+                description "DHCP-request protocol.";
+            }
+            enum "dhcp-reply" {
+                value 71;
+                description "DHCP-reply protocol.";
+            }
+            enum "dhcp-discovery" {
+                value 72;
+                description "DHCP-discovery protocol.";
+            }
+            enum "dhcpv6-request" {
+                value 73;
+                description "DHCPv6-request protocol.";
+            }
+            enum "dhcpv6-reply" {
+                value 74;
+                description "DHCPv6-reply protocol.";
+            }
+            enum "dhcpv6-discovery" {
+                value 75;
+                description "DHCPv6-discovery protocol.";
+            }
+            enum "fib-miss" {
+                value 76;
+                description "FIB-miss protocol.";
+            }
+            enum "ipsec-ike-first" {
+                value 77;
+                description "IPSec-ike-first protocol.";
+            }
+            enum "m-lag-sync" {
+                value 78;
+                description "M-LAG-sync protocol.";
+            }
+            enum "ospf-hello" {
+                value 79;
+                description "OSPF-hello protocol.";
+            }
+            enum "ospf-hello-overlay" {
+                value 80;
+                description "OSPF-hello-overlay protocol.";
+            }
+            enum "ospfv3-overlay" {
+                value 81;
+                description "OSPFv3-overlay protocol.";
+            }
+            enum "ssh" {
+                value 82;
+                description "SSH protocol.";
+            }
+            enum "vrrp6" {
+                value 83;
+                description "VRRP6 protocol.";
+            }
+            enum "bgp4plus" {
+                value 84;
+                description "BGP4PLUS protocol.";
+            }
+            enum "hrp" {
+                value 85;
+                description "HRP protocol.";
+            }
+            enum "hwtacacs" {
+                value 86;
+                description "HWTACACS protocol.";
+            }
+            enum "icmpv6" {
+                value 87;
+                description "ICMPv6 protocol.";
+            }
+            enum "nd-miss" {
+                value 88;
+                description "ND-miss protocol.";
+            }
+            enum "ospfv3" {
+                value 89;
+                description "OSPFv3 protocol.";
+            }
+            enum "radius" {
+                value 90;
+                description "Radius protocol.";
+            }
+            enum "ripng" {
+                value 91;
+                description "Ripng protocol.";
+            }
+            enum "udp" {
+                value 92;
+                description "UDP protocol.";
+            }
+            enum "tcp" {
+                value 93;
+                description "TCP protocol.";
+            }
+            enum "dns-request" {
+                value 94;
+                description "DNS-request protocol.";
+            }
+            enum "ip-option" {
+                value 95;
+                description "IP-option protocol.";
+            }
+            enum "forward-drop" {
+                value 96;
+                description "Forward-drop protocol.";
+            }
+            enum "buffer-drop" {
+                value 97;
+                description "Buffer-drop protocol.";
+            }
+            enum "latency" {
+                value 98;
+                description "LATENCY protocol.";
+            }
+            enum "cnp" {
+                value 99;
+                description "CNP protocol.";
+            }
+            enum "scnp" {
+                value 100;
+                description "SCNP protocol.";
+            }
+            enum "ioam" {
+                value 101;
+                description "IOAM protocol.";
+            }
+            enum "traffic-analysis" {
+                value 102;
+                description "Traffic-analysis protocol.";
+            }
+            enum "any-flow" {
+                value 103;
+                description "Any-flow protocol.";
+            }
+           enum "rip-terminated" {
+                value 104;
+                description "RIP-terminated protocol.";
+            }
+            enum "ptp-1588" {
+                value 105;
+                description "PTP-1588 protocol.";
+            }
+            enum "iqcn-sync" {
+                value 106;
+                description "IQCN-sync protocol.";
+            }
+            enum "sampling" {
+                value 107;
+                description "Sampling protocol.";
+            }
+            enum "nd-dad" {
+                value 108;
+                description "ND-dad protocol.";
+            }
+        enum "dtls" {
+                value 109;
+                description "DTLS protocol.";
+            }
+        enum "stun-request" {
+                value 110;
+                description "STUN request protocol.";
+            }
+            enum "said-ping" {
+                value 111;
+                description "SAID-Ping protocol.";
+            }
+            enum "dtls-hello" {
+                value 112;
+                description "DTLS-Hello protocol.";
+            }
+            enum "macsec" {
+                value 113;
+                description "MACSEC protocol.";
+            }
+            enum "headroom-detect" {
+                value 114;
+                description "HEADROOM-detect protocol.";
+            }
+            enum "npcc-roce" {
+                value 115;
+                description "NPCC-roce protocol.";
+            }
+            enum "stun-reply" {
+                value 116;
+                description "STUN reply protocol.";
+            }
+            enum "ipv4-multicast-registration" {
+                value 118;
+                description "IPv4 multicast registration protocol.";
+            }
+            enum "itrace" {
+                value 119;
+                description "Itrace protocol.";
+            }
+            enum "l2vpn-l2pt" {
+                value 120;
+                description "L2VPN_L2PT protocol.";
+            }
+            enum "l2vpn-l2pt-egress" {
+                value 121;
+                description "L2VPN_L2PT_EGRESS protocol.";
+            }
+            enum "pim" {
+                value 181;
+                description "PIM protocol.";
+            }
+            enum "l2tp" {
+                value 188;
+                description "L2TP protocol.";
+            }
+            enum "http-server" {
+                value 195;
+                description "HTTP-server protocol.";
+            }
+            enum "https-server" {
+                value 197;
+                description "HTTPS-server protocol.";
+            }
+            enum "http-client" {
+                value 207;
+                description "HTTP-client protocol.";
+            }
+             enum "https-client" {
+                value 208;
+                description "HTTPS-client protocol.";
+            }
+            enum "nqa" {
+                value 221;
+                description "NQA protocol.";
+            }
+            enum "pimv6-mc" {
+                value 228;
+                description "IPv6 PIM MC protocol.";
+            }
+            enum "mld" {
+                value 229;
+                description "MLD protocol.";
+            }
+            enum "pimv6" {
+                value 230;
+                description "IPv6 PIM protocol.";
+            }
+            enum "arp-limit-port" {
+                value 236;
+                description "ARP-limit-port protocol.";
+            }
+            enum "default" {
+                value 247;
+                description "Default protocol.";
+            }
+            enum "nac-dhcpv6" {
+                value 249;
+                description "NAC-DHCPV6 protocol.";
+            }
+            enum "nac-nd" {
+                value 250;
+                description "NAC-ND protocol.";
+            }
+            enum "8021x-start" {
+                value 251;
+                description "802.1x-start protocol.";
+            }
+            enum "8021x-ident" {
+                value 252;
+                description "802.1x-ident protocol.";
+            }
+            enum "nac-arp-request" {
+                value 253;
+                description "NAC-ARP-request protocol.";
+            }
+            enum "nac-arp-reply" {
+                value 254;
+                description "NAC-ARP-reply protocol.";
+            }
+            enum "nac-dhcp" {
+                value 255;
+                description "NAC-DHCP protocol.";
+            }
+            enum "mac-miss" {
+                value 256;
+                description "MAC-miss protocol.";
+            }
+            enum "ad" {
+                value 257;
+                description "AD protocol.";
+            }
+            enum "ldap" {
+                value 258;
+                description "LDAP protocol.";
+            }
+            enum "capwap-discovery-bc" {
+                value 259;
+                description "CAPWAP_DISCOVERY_BC protocol.";
+            }
+            enum "capwap-discovery-uc" {
+                value 260;
+                description "CAPWAP_DISCOVERY_UC protocol.";
+            }
+            enum "capwap-other" {
+                value 261;
+                description "CAPWAP_OTHER protocol.";
+            }
+            enum "capwap-echo" {
+                value 262;
+                description "CAPWAP_ECHO protocol.";
+            }
+            enum "capwap-as-associate" {
+                value 263;
+                description "CAPWAP_AS_ASSOCIATE protocol.";
+            }
+            enum "mac-move-static" {
+                value 264;
+                description "MAC_MOVE_STATIC protocol.";
+            }
+            enum "ifit-native-ip" {
+                value 265;
+                description "IFIT_NATIVE_IP protocol.";
+            }
+            enum "ifit-lrn-egress" {
+                value 266;
+                description "IFIT_LRN_EGRESS protocol.";
+            }
+            enum "sesslog-hb" {
+                value 267;
+                description "SESSLOG_HB protocol.";
+            }
+            enum "eoam-1ag" {
+                value 268;
+                description "EOAM_1AG protocol.";
+            }
+            enum "nd-deny" {
+                value 269;
+                description "ND_DENY protocol.";
+            }
+            enum "l2pt" {
+                value 270;
+                description "L2PT protocol.";
+            }
+            enum "capwap-keepalive" {
+                value 271;
+                description "CAPWAP_KEEPALIVE protocol.";
+            }
+            enum "capwap-association" {
+                value 272;
+                description "CAPWAP_ASSOCIATION protocol.";
+            }
+            enum "capwap-add-sta" {
+                value 273;
+                description "CAPWAP_ADD_STA protocol.";
+            }
+            enum "capwap-sta-auth" {
+                value 274;
+                description "CAPWAP_STA_AUTH protocol.";
+            }
+            enum "capwap-lldp-report-req" {
+                value 275;
+                description "CAPWAP_LLDP_REPORT_REQ protocol.";
+            }
+            enum "capwap-asyn-collect-rep" {
+                value 276;
+                description "CAPWAP_ASYN_COLLECT_REP protocol.";
+            }
+            enum "capwap-wids-rep" {
+                value 277;
+                description "CAPWAP_WIDS_REQUEST protocol.";
+            }
+            enum "capwap-ap-report-info-rep" {
+                value 278;
+                description "CAPWAP_AP_REPORT_INFO_REP protocol.";
+            }
+            enum "capwap-reset-rep" {
+                value 279;
+                description "CAPWAP_RESET_REP protocol.";
+            }
+            enum "capwap-primary-dis-req" {
+                value 280;
+                description "CAPWAP_PRIMARY_DIS_REQ protocol.";
+            }
+            enum "capwap-wtp-event-req" {
+                value 281;
+                description "CAPWAP_WTP_EVENT_REQ protocol.";
+            }
+            enum "capwap-report-link-req" {
+                value 282;
+                description "CAPWAP_REPORT_LINK_REQ protocol.";
+            }
+            enum "capwap-ac-auth-req" {
+                value 283;
+                description "CAPWAP_AC_AUTH_REQ protocol.";
+            }
+            enum "capwap-ac-auth-rep" {
+                value 284;
+                description "CAPWAP_AC_AUTH_REP protocol.";
+            }
+            enum "capwap-direct" {
+                value 285;
+                description "CAPWAP_DIRECT protocol.";
+            }
+            enum "capwap-non-wifi-req" {
+                value 286;
+                description "CAPWAP_NON_WIFI_REQ protocol.";
+            }
+            enum "capwap-sta-report-req" {
+                value 287;
+                description "CAPWAP_STA_REPORT_REQ protocol.";
+            }
+            enum "capwap-license-mng-rep" {
+                value 288;
+                description "CAPWAP_LICENSE_MNG_REP protocol.";
+            }
+            enum "capwap-license-mng-req" {
+                value 289;
+                description "CAPWAP_LICENSE_MNG_REQ protocol.";
+            }
+            enum "capwap-navi-authproc-req" {
+                value 290;
+                description "CAPWAP_NAVI_AUTHPROC_REQ protocol.";
+            }
+            enum "capwap-navi-authproc-direct-req" {
+                value 291;
+                description "CAPWAP_NAVI_AUTHPROC_DIRECT_REQ protocol.";
+            }
+            enum "capwap-navi-authstart-req" {
+                value 292;
+                description "CAPWAP_NAVI_AUTHSTART_REQ protocol.";
+            }
+            enum "capwap-navi-authstart-direct-req" {
+                value 293;
+                description "CAPWAP_NAVI_AUTHSTART_DIRECT_REQ protocol.";
+            }
+            enum "capwap-pkt-msg-probe-req" {
+                value 294;
+                description "CAPWAP_PKT_MSG_PROBE_REQ protocol.";
+            }
+            enum "capwap-pkt-msg-probe-resp" {
+                value 295;
+                description "CAPWAP_PKT_MSG_PROBE_RESP protocol.";
+            }
+            enum "arn" {
+                value 296;
+                description "ARN protocol.";
+            }
+            enum "arn-logging" {
+                value 297;
+                description "ARN_LOGGING protocol.";
+            }
+            enum "ifit-lrn-mid-in" {
+                value 298;
+                description "IFIT_LRN_MID_IN protocol.";
+            }
+            enum "ifit-lrn-mid-out" {
+                value 299;
+                description "IFIT_LRN_MID_OUT protocol.";
+            }
+            enum "ifit-lrn-ingress" {
+                value 300;
+                description "IFIT_LRN_INGRESS protocol.";
+            }
+            enum "ifit-lrn-egress-lan-intf" {
+                value 301;
+                description "IFIT_LRN_EGRESS_LAN_INTF protocol.";
+            }
+            enum "mice-elephant-flow" {
+                value 302;
+                description "MICE_ELEPHANT_FLOW protocol.";
+            }
+            enum "mice-elephant-flow-statistics" {
+                value 303;
+                description "MICE_ELEPHANT_FLOW_STATISTICS protocol.";
+            }
+            enum "eoam-1ag-lblt" {
+                value 304;
+                description "EOAM_1AG_LBLT protocol.";
+            }
+            enum "linkup-mlag" {
+                value 305;
+                description "LINKUP_MLAG protocol.";
+            }
+            enum "linkup-mlag-sync" {
+                value 306;
+                description "LINKUP_MLAG_SYNC protocol.";
+            }
+            enum "mqtt" {
+                value 307;
+                description "MQTT protocol.";
+            }
+            enum "ztna" {
+                value 308;
+                description "ZTNA protocol.";
+            }
+            enum "dad" {
+                value 309;
+                description "DAD protocol.";
+            }
+            enum "pim-mc" {
+                value 310;
+                description "PIM_MC protocol.";
+            }
+            enum "pppoe-discovery" {
+                value 311;
+                description "PPPOE_DISCOVERY protocol.";
+            }
+            enum "pppoe-session" {
+                value 312;
+                description "PPPOE_SESSION protocol.";
+            }
+            enum "coap" {
+                value 313;
+                description "COAP protocol.";
+            }
+            enum "ip-cloud" {
+                value 314;
+                description "IP_CLOUD protocol.";
+            }
+            enum "wapi-msg" {
+                value 315;
+                description "WAPI_MSG protocol.";
+            }
+            enum "xldp" {
+                value 316;
+                description "XLDP protocol.";
+            }
+            enum "mpls-ldp-hello" {
+                value 317;
+                description "MPLS_LDP_HELLO protocol.";
+            }
+            enum "mpls-ping" {
+                value 318;
+                description "MPLS_PING protocol.";
+            }
+            enum "mpls-tracert" {
+                value 319;
+                description "MPLS_TRACERT protocol.";
+            }
+            enum "mpls-ldp-uc" {
+                value 320;
+                description "MPLS_LDP_UC protocol.";
+            }
+            enum "ppp" {
+                value 321;
+                description "PPP protocol.";
+            }
+            enum "srv6-ping" {
+                value 322;
+                description "SRV6_PING protocol.";
+            }
+            enum "ifit" {
+                value 323;
+                description "IFIT protocol.";
+            }
+            enum "netstream-enhance" {
+                value 324;
+                description "Netstream enhance protocol.";
+            }
+            enum "coap-server" {
+                value 325;
+                description "Normal COAP protocol.";
+            }
+            enum "coap-server-dtls" {
+                value 326;
+                description "Encrypted COAP protocol.";
+            }
+            enum "radius-sso" {
+                value 327;
+                description "RADIUS_SSO protocol.";
+            }
+            enum "tsm-sso" {
+                value 328;
+                description "TSM_SSO protocol.";
+            }
+            enum "ifit-native-ip-ingress" {
+                value 329;
+                description "IFIT_NATIVE_IP_LRN_INGRESS protocol.";
+            }
+            enum "ifit-native-ip-egress" {
+                value 330;
+                description "IFIT_NATIVE_IP_LRN_EGRESS protocol.";
+            }
+            enum "nac-dhcp-discovery" {
+                value 331;
+                description "NAC_DHCP_DISCOVERY protocol.";
+            }
+            enum "nac-dhcpv6-discovery" {
+                value 332;
+                description "NAC_DHCPV6_DISCOVERY protocol.";
+            }
+            enum "container" {
+                value 333;
+                description "Container protocol.";
+            }
+            enum "capwap-image-resp" {
+                value 334;
+                description "CAPWAP_IMAGE_RESP protocol.";
+            }
+            enum "radius-gtp" {
+                value 335;
+                description "RADIUS_GTP protocol.";
+            }
+            enum "arp-mlagpeer" {
+                value 336;
+                description "ARP_MLAGPEER protocol.";
+            }
+            enum "nd-mlagpeer" {
+                value 337;
+                description "ND_MLAGPEER protocol.";
+            }
+            enum "capwap-rrm-report-req" {
+                value 338;
+                description "CAPWAP_RRM_REPORT_REQ protocol.";
+            }
+            enum "ifit-dcn" {
+                value 339;
+                description "IFIT_FOLLOW_STREAM protocol.";
+            }
+            enum "dpfr-uplink-sampling" {
+                value 340;
+                description "DPFR_UPLINK_SAMPLING protocol.";
+            }
+            enum "dpfr-notification" {
+                value 341;
+                description "DPFR_NOTIFICATION protocol.";
+            }
+            enum "portal" {
+                value 342;
+                description "PORTAL protocol.";
+            }
+            enum "portal-http-syn" {
+                value 343;
+                description "PORTAL_HTTP_SYN protocol.";
+            }
+            enum "portal-http-other" {
+                value 344;
+                description "PORTAL_HTTP_OTHER protocol.";
+            }
+            enum "portal-https-syn" {
+                value 345;
+                description "PORTAL_HTTPS_SYN protocol.";
+            }
+            enum "portal-https-other" {
+                value 346;
+                description "PORTAL_HTTPS_OTHER protocol.";
+            }
+            enum "portal-http-cfg-syn" {
+                value 347;
+                description "PORTAL_HTTP_CFG_SYN protocol.";
+            }
+            enum "portal-http-cfg-other" {
+                value 348;
+                description "PORTAL_HTTP_CFG_OTHER protocol.";
+            }
+            enum "portal-https-cfg-syn" {
+                value 349;
+                description "PORTAL_HTTPS_CFG_SYN protocol.";
+            }
+            enum "portal-https-cfg-other" {
+                value 350;
+                description "PORTAL_HTTPS_CFG_OTHER protocol.";
+            }
+            enum "mpls-spec-label" {
+                value 351;
+                description "MPLS_SPEC_LABEL protocol.";
+            }
+            enum "mpls-ttl-0or1" {
+                value 352;
+                description "MPLS_TTL_0OR1 protocol.";
+            }
+            enum "capwap-discovery-mc" {
+                value 353;
+                description "CAPWAP_DISCOVERY_MC protocol.";
+            }
+            enum "inof-rpfr" {
+                value 355;
+                description "INOF_RPFR protocol.";
+            }
+            enum "dpfr-downlink-outbound" {
+                value 356;
+                description "DPFR_DOWNLINK_OUTBOUND protocol.";
+            }
+            enum "m-lag-tcp" {
+                value 357;
+                description "M_LAG_TCP protocol.";
+            }
+            enum "efm" {
+                value 358;
+                description "EFM protocol.";
+            }
+            enum "tsn-flow-id-learn" {
+                value 359;
+                description "TSN_FLOW_ID_LEARN protocol.";
+            }
+            enum "tsn-flow-spec-learn" {
+                value 360;
+                description "TSN_FLOW_SPEC_LEARN protocol.";
+            }
+            enum "mac-learning" {
+                value 361;
+                description "MAC_LEARNING protocol.";
+            }
+            enum "profinet" {
+                value 362;
+                description "PROFINET protocol.";
+            }
+            enum "ntid-probe-reply" {
+                value 364;
+                description "NTID_PROBE_REPLY protocol.";
+            }
+            enum "ntid-passive" {
+                value 365;
+                description "NTID_PASSIVE protocol.";
+            }
+            enum "ntid-http" {
+                value 366;
+                description "NTID_HTTP protocol.";
+            }
+            enum "ntid-grouping-reply" {
+                value 367;
+                description "NTID_GROUPING_REPLY protocol.";
+            }
+            enum "ntid-dns" {
+                value 368;
+                description "NTID_DNS protocol.";
+            }
+            enum "ntid-tcp-syn" {
+                value 369;
+                description "NTID_TCP_SYN protocol.";
+            }
+            enum "sflow" {
+                value 371;
+                description "SFLOW protocol.";
+            }
+            enum "8021x-wlan" {
+                value 372;
+                description "8021X_WLAN protocol.";
+            }
+            enum "8021x-ident-wlan" {
+                value 373;
+                description "8021X_IDENT_WLAN protocol.";
+            }
+            enum "8021x-start-wlan" {
+                value 374;
+                description "8021X_START_WLAN protocol.";
+            }
+            enum "y1731" {
+                value 375;
+                description "Y1731 protocol.";
+            }
+            enum "y1731-statistics" {
+                value 376;
+                description "Y1731_STATISTICS protocol.";
+            }
+            enum "sep" {
+                value 377;
+                description "SEP protocol.";
+            }
+            enum "dod-tocp" {
+                value 378;
+                description "DOD_TOCP protocol.";
+            }
+            enum "dod-statistics" {
+                value 379;
+                description "DOD_STATISTICS protocol.";
+            }
+            enum "service-telemetry" {
+                value 382;
+                description "SERVICE_TELEMETRY protocol.";
+            }
+            enum "service-telemetry-statistics" {
+                value 383;
+                description "SERVICE_TELEMETRY_STATISTICS protocol.";
+            }
+            enum "hdlc" {
+                value 384;
+                description "HDLC protocol.";
+            }
+            enum "collector-export" {
+                value 385;
+                description "COLLECTOR_EXPORT protocol.";
+            }
+            enum "slice-alarm" {
+                value 386;
+                description "SLICE_ALARM protocol.";
+            }
+            enum "fault-self-heal" {
+                value 387;
+                description "FAULT_SELF_HEAL protocol.";
+            }
+            enum "portal-http-ipv6-syn" {
+                value 388;
+                description "PORTAL_HTTPV6_SYN protocol.";
+            }
+            enum "portal-https-ipv6-syn" {
+                value 389;
+                description "PORTAL_HTTPSV6_SYN protocol.";
+            }
+            enum "y1731-1dm" {
+                value 391;
+                description "Y1731_1DM protocol.";
+            }
+            enum "y1731-ais" {
+                value 392;
+                description "Y1731_AIS protocol.";
+            }
+            enum "flex-ecmp-sample" {
+                value 393;
+                description "FLEX_ECMP_SAMPLE protocol.";
+            }
+            enum "l2tp-vpn" {
+                value 394;
+                description "L2TP_VPN protocol.";
+            }
+            enum "netstream-storage" {
+                value 395;
+                description "NETSTREAM_STORAGE protocol.";
+            }
+            enum "vcmp" {
+                value 396;
+                description "VCMP protocol.";
+            }
+            enum "nhrp" {
+                value 397;
+                description "NHRP protocol.";
+            }
+            enum "capwap-frag-assem" {
+                value 398;
+                description "CAPWAP_FRAG_ASSEM protocol.";
+            }
+            enum "mpls-rsvp" {
+                value 399;
+                description "MPLS_RSVP protocol.";
+            }
+            enum "lnp" {
+                value 400;
+                description "LNP protocol.";
+            }
+            enum "aqm" {
+                value 401;
+                description "AQM protocol.";
+            }
+            enum "gar" {
+                value 402;
+                description "GAR protocol.";
+            }
+            enum "profinet-l3" {
+                value 403;
+                description "PROFINET L3 protocol.";
+            }
+            enum "profinet-rtc" {
+                value 404;
+                description "PROFINET RTC protocol.";
+            }
+            enum "rucp" {
+                value 405;
+                description "RUCP protocol.";
+            }
+            enum "nac-http-tcp-link" {
+                value 406;
+                description "NAC_HTTP_TCP_LINK protocol.";
+            }
+            enum "flc" {
+                value 407;
+                description "FLC protocol.";
+            }
+            enum "dpcf" {
+                value 408;
+                description "DPCF protocol.";
+            }
+            enum "dpcf-warning" {
+                value 409;
+                description "DPCF_WARNING protocol.";
+            }
+            enum "sac-packet" {
+                value 410;
+                description "SAC_PACKET protocol.";
+            }
+            enum "sac-stat" {
+                value 411;
+                description "SAC_STAT protocol.";
+            }
+            enum "sac-netstream" {
+                value 412;
+                description "SAC_NETSTREAM protocol.";
+            }
+            enum "spectrum-analysis" {
+                value 413;
+                description "SPECTRUM_ANALYSIS protocol.";
+            }
+            enum "rpfc" {
+                value 414;
+                description "RPFC protocol.";
+            }
+            enum "rsta" {
+                value 415;
+                description "RSTA protocol.";
+            }
+            enum "ospfv3-hello" {
+                value 416;
+                description "OSPFV3_HELLO protocol.";
+            }
+            enum "ospfv3-hello-overlay" {
+                value 417;
+                description "OSPFV3_HELLO_OVERLAY protocol.";
+            }
+            enum "latency-event" {
+                value 418;
+                description "LATENCY_EVENT protocol.";
+            }
+            enum "arp-common" {
+                value 419;
+                description "ARP_COMMON protocol.";
+            }
+            enum "ip-common" {
+                value 420;
+                description "IP_COMMON protocol.";
+            }
+            enum "hrp-mp-tcp" {
+                value 421;
+                description "HRP_MP_TCP protocol.";
+            }
+            enum "portal-http-localserver-other" {
+                value 422;
+                description "PORTAL_HTTP_LOCALSERVER_OTHER protocol.";
+            }
+            enum "portal-http-localserver-syn" {
+                value 423;
+                description "PORTAL_HTTP_LOCALSERVER_SYN protocol.";
+            }
+            enum "portal-https-localserver-other" {
+                value 424;
+                description "PORTAL_HTTPS_LOCALSERVER_OTHER protocol.";
+            }
+            enum "portal-https-localserver-syn" {
+                value 425;
+                description "PORTAL_HTTPS_LOCALSERVER_SYN protocol.";
+            }
+            enum "radius-dtls" {
+                value 427;
+                description "RADIUS_DTLS protocol.";
+            }
+            enum "dpcf-age" {
+                value 428;
+                description "DPCF_AGE protocol.";
+            }
+            enum "m-seg-logging" {
+                value 430;
+                description "MICRO_SEG_LOG protocol.";
+            }
+            enum "packet-event-drop-aged" {
+                value 431;
+                description "PACKET_EVENT_DROP_AGED protocol.";
+            }
+            enum "ip-segment-address" {
+                value 432;
+                description "IP_SEGMENT_ADDRESS protocol.";
+            }
+            enum "netstream-export" {
+                value 433;
+                description "NETSTREAM_EXPORT protocol.";
+            }
+            enum "sflow-export" {
+                value 434;
+                description "SFLOW_EXPORT protocol.";
+            }
+            enum "nac-mlag-msg" {
+                value 435;
+                description "NAC_MLAG_MSG protocol.";
+            }
+            enum "nac-mlag-sync" {
+                value 436;
+                description "NAC_MLAG_SYNC protocol.";
+            }
+            enum "mrp-test" {
+                value 437;
+                description "MRP_TEST protocol.";
+            }
+            enum "mrp-intest" {
+                value 438;
+                description "MRP_INTEST protocol.";
+            }
+            enum "mrp-control" {
+                value 439;
+                description "MRP_CONTROL protocol.";
+            }
+            enum "mrp-incontrol" {
+                value 440;
+                description "MRP_INCONTROL protocol.";
+            }
+            enum "capwap-ac-roaming-syn" {
+                value 441;
+                description "CAPWAP_AC_ROAMING_SYN protocol.";
+            }
+            enum "unknown" {
+                value 1000;
+                description "UNKNOWN protocol.";
+            }
+            enum "eth-mac-sync" {
+                value 1001;
+                description "ETH_MAC_SYNC protocol.";
+            }
+            enum "eap-key" {
+                value 1002;
+                description "EAP_KEY protocol.";
+            }
+            enum "icmp-request" {
+                value 1003;
+                description "ICMP_REQUEST protocol.";
+            }
+            enum "icmp-reply" {
+                value 1004;
+                description "ICMP_REPLY protocol.";
+            }
+            enum "icmp-ext" {
+                value 1005;
+                description "ICMP_EXT protocol.";
+            }
+            enum "eth-other" {
+                value 1006;
+                description "ETH_OTHER protocol.";
+            }
+            enum "ssw-uc-miss" {
+                value 1007;
+                description "SSW_UC_MISS protocol.";
+            }
+            enum "ssw-mc-miss" {
+                value 1008;
+                description "SSW_MC_MISS protocol.";
+            }
+            enum "eap-pre" {
+                value 1009;
+                description "EAP_PRE protocol.";
+            }
+            enum "mesh-ctrl" {
+                value 1010;
+                description "MESH_CTRL protocol.";
+            }
+            enum "mesh-eth-pkt-miss" {
+                value 1011;
+                description "MESH_ETH_PKT_MISS protocol.";
+            }
+            enum "mesh-80211s-pkt-miss" {
+                value 1012;
+                description "MESH_80211S_PKT_MISS protocol.";
+            }
+            enum "mesh-80211s-pkt-local" {
+                value 1013;
+                description "MESH_80211S_PKT_LOCAL protocol.";
+            }
+            enum "drv-comm" {
+                value 1014;
+                description "DRV_COMM protocol.";
+            }
+            enum "mpls-ingress-to-cp" {
+                value 1015;
+                description "MPLS_INGRESS_TO_CP protocol.";
+            }
+            enum "mpls-ttl-to-cp" {
+                value 1016;
+                description "MPLS_TTL_TO_CP protocol.";
+            }
+            enum "http-url" {
+                value 1017;
+                description "HTTP_URL protocol.";
+            }
+            enum "ios-redirect-done" {
+                value 1018;
+                description "IOS_REDIRECT_DONE protocol.";
+            }
+            enum "simulator-icmp-reply" {
+                value 1019;
+                description "SIMULATOR_ICMP_REPLY protocol.";
+            }
+            enum "nat-ike-keepalive" {
+                value 1020;
+                description "NAT_IKE_KEEPALIVE protocol.";
+            }
+            enum "ssl-vpn" {
+                value 1021;
+                description "SSL_VPN protocol.";
+            }
+            enum "dlsw" {
+                value 1022;
+                description "DLSW protocol.";
+            }
+            enum "bpdu" {
+                value 1023;
+                description "BPDU protocol.";
+            }
+            enum "ipv4-res-mc-ospf" {
+                value 1024;
+                description "IPv4_RES_MC_OSPF protocol.";
+            }
+            enum "ipv4-res-mc-ospf-dr" {
+                value 1025;
+                description "IPv4_RES_MC_OSPF_DR protocol.";
+            }
+            enum "ipv4-res-mc-rip2" {
+                value 1026;
+                description "IPv4_RES_MC_RIP2 protocol.";
+            }
+            enum "eth-vrrp" {
+                value 1027;
+                description "ETH_VRRP protocol.";
+            }
+            enum "static-ip" {
+                value 1028;
+                description "STATIC_IP protocol.";
+            }
+            enum "send-up-msg" {
+                value 1029;
+                description "SEND_UP_MSG protocol.";
+            }
+            enum "ip-learn" {
+                value 1030;
+                description "IP_LEARN protocol.";
+            }
+            enum "rarp-request" {
+                value 1031;
+                description "RARP_REQUEST protocol.";
+            }
+            enum "rarp-reply" {
+                value 1032;
+                description "RARP_REPLY protocol.";
+            }
+            enum "eth-dhcp-s" {
+                value 1033;
+                description "ETH_DHCP_S protocol.";
+            }
+            enum "rfid-port" {
+                value 1034;
+                description "RFID_PORT protocol.";
+            }
+            enum "haca" {
+                value 1035;
+                description "HACA protocol.";
+            }
+            enum "eth-http-portal" {
+                value 1036;
+                description "ETH_HTTP_PORTAL protocol.";
+            }
+            enum "http-ua" {
+                value 1037;
+                description "HTTP_UA protocol.";
+            }
+            enum "ftp-src" {
+                value 1038;
+                description "FTP_SRC protocol.";
+            }
+            enum "local-to-cp" {
+                value 1039;
+                description "LOCAL_TO_CP protocol.";
+            }
+            enum "re-opcode-tocp" {
+                value 1040;
+                description "RE_OPCODE_TOCP protocol.";
+            }
+            enum "tacacs" {
+                value 1041;
+                description "TACACS protocol.";
+            }
+            enum "ssh-src" {
+                value 1042;
+                description "SSH_SRC protocol.";
+            }
+            enum "ssh-v6" {
+                value 1043;
+                description "SSH_V6 protocol.";
+            }
+            enum "ssh-src-v6" {
+                value 1044;
+                description "SSH_SRC_V6 protocol.";
+            }
+            enum "telnetv6" {
+                value 1045;
+                description "TELNETV6 protocol.";
+            }
+            enum "telnet-src" {
+                value 1046;
+                description "TELNET_SRC protocol.";
+            }
+            enum "telnet-src-v6" {
+                value 1047;
+                description "TELNET_SRC_V6 protocol.";
+            }
+            enum "usermac-hit" {
+                value 1048;
+                description "USERMAC_HIT protocol.";
+            }
+            enum "ip-ttl-too-small" {
+                value 1049;
+                description "IP_TTL_TOO_SMALL protocol.";
+            }
+            enum "out-tunnel" {
+                value 1050;
+                description "OUT_TUNNEL protocol.";
+            }
+            enum "ike" {
+                value 1051;
+                description "IKE protocol.";
+            }
+            enum "ipsec-inbound-sa-miss" {
+                value 1052;
+                description "IPSEC_INBOUND_SA_MISS protocol.";
+            }
+            enum "osa-miss" {
+                value 1053;
+                description "OSA_MISS protocol.";
+            }
+            enum "isdn-lapd" {
+                value 1054;
+                description "ISDN_LAPD protocol.";
+            }
+            enum "dns-snooping" {
+                value 1055;
+                description "DNS_SNOOPING protocol.";
+            }
+            enum "type-host-pro-icmp-fast" {
+                value 1056;
+                description "TYPE_HOST_PRO_ICMP_FAST protocol.";
+            }
+            enum "type-host-pro-ip" {
+                value 1057;
+                description "TYPE_HOST_PRO_IP protocol.";
+            }
+            enum "fw-ftp" {
+                value 1058;
+                description "FW_FTP protocol.";
+            }
+            enum "fw-http" {
+                value 1059;
+                description "FW_HTTP protocol.";
+            }
+            enum "fw-sip" {
+                value 1060;
+                description "FW_SIP protocol.";
+            }
+            enum "fw-rtsp" {
+                value 1061;
+                description "FW_RTSP protocol.";
+            }
+            enum "fw-http-filter" {
+                value 1062;
+                description "FW_HTTP_FILTER protocol.";
+            }
+            enum "nat-dbg" {
+                value 1063;
+                description "NAT_DBG protocol.";
+            }
+            enum "fw-pptp" {
+                value 1064;
+                description "FW_PPTP protocol.";
+            }
+            enum "ipv4-pkt-with-option" {
+                value 1065;
+                description "IPv4_PKT_WITH_OPTION protocol.";
+            }
+            enum "acl-mirror-to-cp" {
+                value 1066;
+                description "ACL_MIRROR_TO_CP protocol.";
+            }
+            enum "ppp-ipcp" {
+                value 1067;
+                description "PPP_IPCP protocol.";
+            }
+            enum "ppp-pap" {
+                value 1068;
+                description "PPP_PAP protocol.";
+            }
+            enum "ppp-chap" {
+                value 1069;
+                description "PPP_CHAP protocol.";
+            }
+            enum "ppp-ipv6cp" {
+                value 1070;
+                description "PPP_IPv6CP protocol.";
+            }
+            enum "ppp-osicp" {
+                value 1071;
+                description "PPP_OSICP protocol.";
+            }
+            enum "ppp-bcp" {
+                value 1072;
+                description "PPP_BCP protocol.";
+            }
+            enum "ppp-ccp" {
+                value 1073;
+                description "PPP_CCP protocol.";
+            }
+            enum "ppp-mplscp" {
+                value 1074;
+                description "PPP_MPLSCP protocol.";
+            }
+            enum "ppp-lcp" {
+                value 1075;
+                description "PPP_LCP protocol.";
+            }
+            enum "ppp-cbcp" {
+                value 1076;
+                description "PPP_CBCP protocol.";
+            }
+            enum "ppp-lqr" {
+                value 1077;
+                description "PPP_LQR protocol.";
+            }
+            enum "nhrp-miss" {
+                value 1078;
+                description "NHRP_MISS protocol.";
+            }
+            enum "nhrp-redirect" {
+                value 1079;
+                description "NHRP_REDIRECT protocol.";
+            }
+            enum "https-portal" {
+                value 1080;
+                description "HTTPS_PORTAL protocol.";
+            }
+            enum "https-portal-syn" {
+                value 1081;
+                description "HTTPS_PORTAL_SYN protocol.";
+            }
+            enum "leader-bc-to-cp" {
+                value 1082;
+                description "LEADER_BC_TO_CP protocol.";
+            }
+            enum "http-webmng" {
+                value 1083;
+                description "HTTP_WEBMNG protocol.";
+            }
+            enum "http-webmng-syn" {
+                value 1084;
+                description "HTTP_WEBMNG_SYN protocol.";
+            }
+            enum "https-webmng" {
+                value 1085;
+                description "HTTPS_WEBMNG protocol.";
+            }
+            enum "https-webmng-syn" {
+                value 1086;
+                description "HTTPS_WEBMNG_SYN protocol.";
+            }
+            enum "lync" {
+                value 1087;
+                description "LYNC protocol.";
+            }
+            enum "cops" {
+                value 1088;
+                description "COPS protocol.";
+            }
+            enum "ctl-pkt" {
+                value 1089;
+                description "CTL_PKT protocol.";
+            }
+            enum "l2acl-redirect-to-cp" {
+                value 1090;
+                description "L2ACL_REDIRECT_TO_CP protocol.";
+            }
+            enum "l4acl-redirect-to-cp" {
+                value 1091;
+                description "L4ACL_REDIRECT_TO_CP protocol.";
+            }
+            enum "l2acl-mirror-to-cp" {
+                value 1092;
+                description "L2ACL_MIRROR_TO_CP protocol.";
+            }
+            enum "l4acl-mirror-to-cp" {
+                value 1093;
+                description "L4ACL_MIRROR_TO_CP protocol.";
+            }
+            enum "acl-outbound-mirror-to-cp" {
+                value 1094;
+                description "ACL_OUTBOUND_MIRROR_TO_CP protocol.";
+            }
+            enum "voice-vlan" {
+                value 1095;
+                description "VOICE_VLAN protocol.";
+            }
+            enum "voice-media" {
+                value 1096;
+                description "VOICE_MEDIA protocol.";
+            }
+            enum "voice-signal" {
+                value 1097;
+                description "VOICE_SIGNAL protocol.";
+            }
+            enum "3g-pkt" {
+                value 1098;
+                description "3G_PKT protocol.";
+            }
+            enum "dialer" {
+                value 1099;
+                description "DIALER protocol.";
+            }
+            enum "bridge-dialer" {
+                value 1100;
+                description "BRIDGE_DIALER protocol.";
+            }
+            enum "ipv6-dialer" {
+                value 1101;
+                description "IPv6_DIALER protocol.";
+            }
+            enum "ipv4-pkt-force-dont-frag" {
+                value 1102;
+                description "IPv4_PKT_FORCE_DONT_FRAG protocol.";
+            }
+            enum "mfib-rpf-check-fail" {
+                value 1103;
+                description "MFIB_RPF_CHECK_FAIL protocol.";
+            }
+            enum "ipv4-res-mc-default" {
+                value 1104;
+                description "IPv4_RES_MC_DEFAULT protocol.";
+            }
+            enum "search-mfib-fail" {
+                value 1105;
+                description "SEARCH_MFIB_FAIL protocol.";
+            }
+            enum "voice" {
+                value 1106;
+                description "VOICE protocol.";
+            }
+            enum "mfr-ctrl" {
+                value 1107;
+                description "MFR_CTRL protocol.";
+            }
+            enum "fr-lmi" {
+                value 1108;
+                description "FR_LMI protocol.";
+            }
+            enum "hdlc-keepalive" {
+                value 1109;
+                description "HDLC_KEEPALIVE protocol.";
+            }
+            enum "3ah-test" {
+                value 1110;
+                description "3AH_TEST protocol.";
+            }
+            enum "x25" {
+                value 1111;
+                description "X25 protocol.";
+            }
+            enum "lapb" {
+                value 1112;
+                description "LAPB protocol.";
+            }
+            enum "sdlc" {
+                value 1113;
+                description "SDLC protocol.";
+            }
+            enum "wapi" {
+                value 1114;
+                description "WAPI protocol.";
+            }
+            enum "capwap" {
+                value 1115;
+                description "CAPWAP protocol.";
+            }
+            enum "capwap-sta-report-request" {
+                value 1116;
+                description "CAPWAP_STA_REPORT_REQUEST protocol.";
+            }
+            enum "mdns" {
+                value 1117;
+                description "MDNS protocol.";
+            }
+            enum "mng-port-to-cp" {
+                value 1118;
+                description "MNG_PORT_TO_CP protocol.";
+            }
+            enum "pkt2veth" {
+                value 1119;
+                description "PKT2VETH protocol.";
+            }
+            enum "otherpkt2veth" {
+                value 1120;
+                description "OTHERPKT2VETH protocol.";
+            }
+            enum "hsb" {
+                value 1121;
+                description "HSB protocol.";
+            }
+            enum "arp-request-l3" {
+                value 1122;
+                description "ARP_REQUEST_L3 protocol.";
+            }
+            enum "arp-reply-l3" {
+                value 1123;
+                description "ARP_REPLY_L3 protocol.";
+            }
+            enum "dhcp-client-l3" {
+                value 1124;
+                description "DHCP_CLIENT_L3 protocol.";
+            }
+            enum "dhcp-server-l3" {
+                value 1125;
+                description "DHCP_SERVER_L3 protocol.";
+            }
+            enum "dhcpv6-client-l3" {
+                value 1126;
+                description "DHCPV6_CLIENT_L3 protocol.";
+            }
+            enum "dhcpv6-server-l3" {
+                value 1127;
+                description "DHCPV6_SERVER_L3 protocol.";
+            }
+            enum "nd-l3" {
+                value 1128;
+                description "ND_L3 protocol.";
+            }
+            enum "mdns-l3" {
+                value 1129;
+                description "MDNS_L3 protocol.";
+            }
+            enum "spec-analy-to-cp" {
+                value 1130;
+                description "SPEC_ANALY_TO_CP protocol.";
+            }
+            enum "pppoe-padi" {
+                value 1131;
+                description "PPPOE_PADI protocol.";
+            }
+            enum "capwap-lowlevel" {
+                value 1132;
+                description "CAPWAP_LOWLEVEL protocol.";
+            }
+            enum "https-download" {
+                value 1133;
+                description "HTTPS_DOWNLOAD protocol.";
+            }
+            enum "iot-card-ctrl" {
+                value 1134;
+                description "IOT_CARD_CTRL protocol.";
+            }
+            enum "capwap-pkt-msg-wctl-report-rssi-direct-request" {
+                value 1135;
+                description "CAPWAP_PKT_MSG_WCTL_REPORT_RSSI_DIRECT_REQUEST protocol.";
+            }
+            enum "capwap-pkt-msg-high-way-neighbor-send-response" {
+                value 1136;
+                description "CAPWAP_PKT_MSG_HIGH_WAY_NEIGHBOR_SEND_RESPONSE protocol.";
+            }
+            enum "capwap-pkt-msg-kpi-frag-request" {
+                value 1137;
+                description "CAPWAP_PKT_MSG_KPI_FRAG_REQUEST protocol.";
+            }
+            enum "capwap-pkt-msg-kpi-frag-resonse" {
+                value 1138;
+                description "CAPWAP_PKT_MSG_KPI_FRAG_RESONSE protocol.";
+            }
+            enum "capwap-pkt-ac-roaming-syn" {
+                value 1139;
+                description "CAPWAP_PKT_AC_ROAMING_SYN protocol.";
+            }
+            enum "sip" {
+                value 1140;
+                description "SIP protocol.";
+            }
+            enum "eogre-data" {
+                value 1141;
+                description "EOGRE_DATA protocol.";
+            }
+            enum "capwap-pkt-msg-rrm-measure-report-request" {
+                value 1142;
+                description "CAPWAP_PKT_MSG_RRM_MEASURE_REPORT_REQUEST protocol.";
+            }
+            enum "capwap-wtp-event-request" {
+                value 1143;
+                description "CAPWAP_WTP_EVENT_REQUEST protocol.";
+            }
+            enum "capwap-reset-response" {
+                value 1144;
+                description "CAPWAP_RESET_RESPONSE protocol.";
+            }
+            enum "capwap-primary-discovery-request" {
+                value 1145;
+                description "CAPWAP_PRIMARY_DISCOVERY_REQUEST protocol.";
+            }
+            enum "capwap-pkt-msg-response-ap-report-info" {
+                value 1146;
+                description "CAPWAP_PKT_MSG_RESPONSE_AP_REPORT_INFO protocol.";
+            }
+            enum "capwap-pkt-msg-wids-request" {
+                value 1147;
+                description "CAPWAP_PKT_MSG_WIDS_REQUEST protocol.";
+            }
+            enum "capwap-pkt-msg-wids-response" {
+                value 1148;
+                description "CAPWAP_PKT_MSG_WIDS_RESPONSE protocol.";
+            }
+            enum "capwap-pkt-msg-request-bridge-report-link" {
+                value 1149;
+                description "CAPWAP_PKT_MSG_REQUEST_BRIDGE_REPORT_LINK protocol.";
+            }
+            enum "capwap-pkt-msg-request-lldp-report-neighbor" {
+                value 1150;
+                description "CAPWAP_PKT_MSG_REQUEST_LLDP_REPORT_NEIGHBOR protocol.";
+            }
+            enum "capwap-pkt-msg-response-asyn-data-collect" {
+                value 1151;
+                description "CAPWAP_PKT_MSG_RESPONSE_ASYN_DATA_COLLECT protocol.";
+            }
+            enum "capwap-pkt-msg-request-duc-data" {
+                value 1152;
+                description "CAPWAP_PKT_MSG_REQUEST_DUC_DATA protocol.";
+            }
+            enum "capwap-pkt-msg-response-duc-data" {
+                value 1153;
+                description "CAPWAP_PKT_MSG_RESPONSE_DUC_DATA protocol.";
+            }
+            enum "capwap-pkt-msg-request-ap-auth" {
+                value 1154;
+                description "CAPWAP_PKT_MSG_REQUEST_AP_AUTH protocol.";
+            }
+            enum "capwap-pkt-msg-request-ac-auth" {
+                value 1155;
+                description "CAPWAP_PKT_MSG_REQUEST_AC_AUTH protocol.";
+            }
+            enum "capwap-pkt-msg-response-ac-auth" {
+                value 1156;
+                description "CAPWAP_PKT_MSG_RESPONSE_AC_AUTH protocol.";
+            }
+            enum "capwap-non-wifi-report-request" {
+                value 1157;
+                description "CAPWAP_NON_WIFI_REPORT_REQUEST protocol.";
+            }
+            enum "capwap-ctrl-total-to-cp" {
+                value 1158;
+                description "CAPWAP_CTRL_TOTAL_TO_CP protocol.";
+            }
+            enum "mac-learn" {
+                value 1159;
+                description "MAC_LEARN protocol.";
+            }
+            enum "icmp-l3know" {
+                value 1160;
+                description "ICMP_L3KNOW protocol.";
+            }
+            enum "fw-dns" {
+                value 1161;
+                description "FW_DNS protocol.";
+            }
+            enum "ntp-mc" {
+                value 1162;
+                description "NTP_MC protocol.";
+            }
+            enum "nd-route-solicit" {
+                value 1163;
+                description "ND_ROUTE_SOLICIT protocol.";
+            }
+            enum "icmp-stack" {
+                value 1164;
+                description "ICMP_STACK protocol.";
+            }
+            enum "ipv4-igmp" {
+                value 1165;
+                description "IPv4_IGMP protocol.";
+            }
+            enum "ldp-tcp" {
+                value 1166;
+                description "LDP_TCP protocol.";
+            }
+            enum "ldp-udp" {
+                value 1167;
+                description "LDP_UDP protocol.";
+            }
+            enum "softgre-keepalive" {
+                value 1168;
+                description "SOFTGRE_KEEPALIVE protocol.";
+            }
+            enum "proto-type-pppoe" {
+                value 1169;
+                description "PROTO_TYPE_PPPOE protocol.";
+            }
+            enum "dns" {
+                value 1170;
+                description "DNS protocol.";
+            }
+            enum "proto-type-unkown-packet" {
+                value 1171;
+                description "PROTO_TYPE_UNKOWN_PACKET protocol.";
+            }
+            enum "proto-type-unkown-multicast" {
+                value 1172;
+                description "PROTO_TYPE_UNKOWN_MULTICAST protocol.";
+            }
+            enum "fr" {
+                value 1173;
+                description "FR protocol.";
+            }
+            enum "fib-l3know" {
+                value 1174;
+                description "FIB_L3KNOW protocol.";
+            }
+            enum "eth-mac-learn-sync" {
+                value 1175;
+                description "ETH_MAC_LEARN_SYNC protocol.";
+            }
+            enum "eth-mac-aging-sync" {
+                value 1176;
+                description "ETH_MAC_AGING_SYNC protocol.";
+            }
+            enum "pppoe-8863" {
+                value 1177;
+                description "PPPOE_8863 protocol.";
+            }
+            enum "pppoe-8864" {
+                value 1178;
+                description "PPPOE_8864 protocol.";
+            }
+            enum "ntid-probe-reply-to-host" {
+                value 1183;
+                description "NTID_PROBE_REPLY_TO_HOST protocol.";
+            }
+            enum "ntid-huawei-camera-reply" {
+                value 1184;
+                description "NTID_HUAWEI_CAMERA_REPLY protocol.";
+            }
+            enum "ntid-tplink-camera-reply" {
+                value 1185;
+                description "NTID_TPLINK_CAMERA_REPLY protocol.";
+            }
+            enum "nd-snp-rs" {
+                value 1200;
+                description "ND_SNP_RS protocol.";
+            }
+            enum "nd-snp-ra" {
+                value 1201;
+                description "ND_SNP_RA protocol.";
+            }
+            enum "nd-snp-ns" {
+                value 1202;
+                description "ND_SNP_NS protocol.";
+            }
+            enum "nd-snp-na" {
+                value 1203;
+                description "ND_SNP_NA protocol.";
+            }
+            enum "eap-server" {
+                value 1211;
+                description "EAP_SERVER protocol.";
+            }
+            enum "ntid-passive-dhcp" {
+                value 1213;
+                description "NTID_PASSIVE_DHCP protocol.";
+            }
+            enum "ntid-passive-mdns" {
+                value 1214;
+                description "NTID_PASSIVE_MDNS protocol.";
+            }
+            enum "dhcp-relay-server" {
+                value 1216;
+                description "DHCP_RELAY_SERVER protocol.";
+            }
+            enum "arp-security" {
+                value 1217;
+                description "ARP-SECURITY protocol.";
+            }
+            enum "ipsg-if" {
+                value 1219;
+                description "IPSG-IF protocol.";
+            }
+            enum "ipsg-vlan" {
+                value 1220;
+                description "IPSG-VLAN protocol.";
+            }
+            enum "push" {
+                value 1221;
+                description "PUSH protocol.";
+            }
+            enum "cfg-syn-88e7" {
+                value 1222;
+                description "CFG-SYN-88E7 protocol.";
+            }
+            enum "qa-oam" {
+                value 1223;
+                description "QA-OAM protocol.";
+            }
+            enum "qa-wmp" {
+                value 1224;
+                description "QA-WMP protocol.";
+            }
+        }
+        description
+            "The protocol type.";
+    }
+
+    typedef adjust-packet-protocol-type {
+        type enumeration {
+            enum "arp-reply" {
+                value 0;
+                description "ARP-reply protocol.";
+            }
+            enum "arp-request" {
+                value 1;
+                description "ARP-request protocol.";
+            }
+            enum "arp-request-uc" {
+                value 2;
+                description "ARP-request-uc protocol.";
+            }
+            enum "dhcp-reply" {
+                value 3;
+                description "DHCP-reply protocol.";
+            }
+            enum "dhcp-request" {
+                value 4;
+                description "DHCP-request protocol.";
+            }
+            enum "nd" {
+                value 5;
+                description "ND protocol.";
+            }
+            enum "dhcp-discovery" {
+                value 6;
+                description "DHCP-discovery protocol.";
+            }
+           enum "ipsec" {
+                value 7;
+                description "IPSec protocol.";
+            }
+            enum "capwap-discovery-bc" {
+                value 8;
+                description "CAPWAP_DISCOVERY_BC protocol.";
+            }
+            enum "capwap-discovery-uc" {
+                value 9;
+                description "CAPWAP_DISCOVERY_UC protocol.";
+            }
+            enum "capwap-as-associate" {
+                value 10;
+                description "CAPWAP_AS_ASSOCIATE protocol.";
+            }
+            enum "capwap-discovery-mc" {
+                value 14;
+                description "CAPWAP_DISCOVERY_MC protocol.";
+            }
+        }
+        description
+            "The adjust protocol type.";
+    }    
+ 
+    typedef host-protocol-type {
+        type enumeration {
+            enum "arp" {
+                value 0;
+                description "ARP protocol.";
+            }
+            enum "dhcp" {
+                value 1;
+                description "DHCP protocol.";
+            }
+            enum "802.1x" {
+                value 2;
+                description "802.1x protocol.";
+            }
+            enum "nd" {
+                value 3;
+                description "ND protocol.";
+            }
+            enum "dhcpv6" {
+                value 4;
+                description "DHCPV6 protocol.";
+            }
+        }
+        description
+            "The host protocol type.";
+    }
+ 
+    typedef anti-attack-type {
+        type enumeration {
+            enum "abnormal" {
+                value 1;
+                description "Anti-attack for abnormal packet.";
+            }
+            enum "fragment" {
+                value 2;
+                description "Anti-attack for fragment packet.";
+            }
+            enum "icmp-flood" {
+                value 3;
+                description "Anti-attack for ICMP packet.";
+            }
+            enum "tcp-syn" {
+                value 4;
+                description "Anti-attack for TCP packet.";
+            }
+            enum "udp-flood" {
+                value 5;
+                description "Anti-attack for UDP packet.";
+            }
+        }
+        description
+            "The anti-attack type.";
+    }
+    
+    typedef auto-defend-type {
+        type enumeration {
+            enum "source-mac" {
+                value 1;
+                description "Auto-defend-type:source-mac.";
+            }
+            enum "source-ip" {
+                value 2;
+                description "Auto-defend-type:source-ip.";
+            }
+            enum "source-portvlan" {
+                value 3;
+                description "Auto-defend-type:source-portVLAN.";
+            }
+        }
+        description
+            "The Auto defend type.";
+    }    
+    typedef auto-source-trace-packet-type {
+        type enumeration {
+            enum "arp-reply" {
+                value 1;
+                description "Auto-source-trace for arp-reply packet.";
+            }
+            enum "arp-request" {
+                value 2;
+                description "Auto-source-trace for arp-request packet.";
+            }
+            enum "arp-request-uc" {
+                value 3;
+                description "Auto-source-trace for arp-request-uc packet.";
+            }
+            enum "nd" {
+                value 4;
+                description "Auto-source-trace for nd packet.";
+            }
+        }
+        description
+            "The auto-source-trace packet type.";
+    }
+    typedef policy-applied-type {
+        type enumeration {
+            enum "all" {
+                value 1;
+                description "Indicates that the attack defense policy is applied on all board.";
+            }
+            enum "slot" {
+                value 2;
+                status obsolete;
+                description "Indicates that the attack defense policy is applied on the specific board. Advise to container '/host-security:host-security/host-security:applied-policy-specified/host-security:applied-policy-slots'.";
+            }
+        }
+        description
+            "The applied type of policy.";
+    }
+    typedef session-protocol-type {
+        type enumeration {
+            enum "bgp" {
+                value 1;
+                description "Session-car for bgp packet.";
+            }
+            enum "bgp4plus" {
+                value 2;
+                description "Session-car for bgp4plus packet.";
+            }
+            enum "isis" {
+                value 3;
+                description "Session-car for isis packet.";
+            }
+            enum "ospf" {
+                value 4;
+                description "Session-car for ospf packet.";
+            }
+            enum "ospfv3" {
+                value 5;
+                description "Session-car for ospfv3 packet.";
+            }
+        }
+    description
+        "The session-protocol type.";
+    }
+    grouping anti-attack-para {
+    description "Anti attack parameter.";
+    
+    leaf enable {
+      type boolean;
+      description
+        "Enable/disable anti-attack function.";
+    }
+    
+    leaf para {
+        type uint32 {
+        range "1..max";
+      }
+      units "bit/s";
+      description
+        "Anti-attack parameter value.";
+    }
+  }
+
+  grouping statistic-type {
+    description
+        "The statistic infomation.";
+        
+    leaf pass-packets {
+      type uint64;
+      units "pps";
+      description
+        "The statistic of the passed-packets.";
+    }
+    leaf drop-packets {
+      type uint64;
+      units "pps";
+      description
+        "The statistic of the droped-packets.";
+    }
+    leaf pass-bytes {
+      type uint64;
+      units "kbit/s";
+      description
+        "The statistic of the passed-bytes.";
+    }
+    leaf drop-bytes {
+      type uint64;
+      units "kbit/s";
+      description
+        "The statistic of the droped-bytes.";
+    }
+    leaf statistic-support-2nd {
+      type uint32;
+      description
+        "Indicate whether support 2nd statistic.";
+    }
+    leaf pass-packets-2nd {
+      type uint64;
+      units "pps";
+      description
+        "The statistic of the 2nd-passed-packets.";
+    }
+    leaf drop-packets-2nd {
+      type uint64;
+      units "pps";
+      description
+        "The statistic of the 2nd-droped-packets.";
+    }
+  }
+
+    ext:task-name "cpu-defend";
+    container host-security {
+        description
+            "Root host-security.";
+        container anti-attack {
+            description
+                "Configure the anti-attack configuration.";
+            leaf abnormal-enable {
+                type boolean;
+                default true;
+                description
+                    "Enable/disable abnormal anti-attack function.";
+            }
+            leaf fragment-enable {
+                type boolean;
+                default true;
+                description
+                    "Enable/disable fragment anti-attack function.";
+            }
+            leaf tcp-syn-enable {
+                type boolean;
+                default true;
+                description
+                    "Enable/disable tcp-syn anti-attack function.";
+            }
+            leaf udp-flood-enable {
+                type boolean;
+                default true;
+                description
+                    "Enable/disable udp-flood anti-attack function.";
+            }
+            leaf icmp-flood-enable {
+                type boolean;
+                default true;
+                description
+                    "Enable/disable icmp-flood anti-attack function.";
+            }
+        }
+        container anti-attacks {
+            description
+                "List of anti-attack configuration.";
+            list anti-attack {
+                key "anti-attack-type";
+                description
+                    "Configure anti-attack for packets.";
+                leaf anti-attack-type {
+                    type anti-attack-type;
+                    description
+                        "Anti-attack type.";
+                }
+                uses anti-attack-para;
+            }
+        }
+        container host-cars {
+            description
+                "Configure the host-car function.";
+            leaf enable {
+                type boolean;
+                default "false";
+                description
+                    "Enable/disable host-car.";
+            }
+            leaf cir {
+                type uint32;
+                units "pps";
+                description
+                    "Committed information rate.";
+            }
+            leaf-list host-protocol-type {
+                type host-protocol-type;
+                description
+                    "Configure the protocols which support host-car.";
+          }
+        }
+        container packet-statistics {
+            config false;
+            description
+                "List of protocol statistics.";
+            list packet-statistic {
+                key "slot packet-type";
+                description
+                    "List of statistics for packet in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf packet-type {
+                    type packet-protocol-type;
+                    description
+                        "Packet type.";
+                }
+                uses statistic-type;
+                container protocol-status {
+                    description "List of protocol state.";
+                    leaf status {
+                        type boolean;
+                        description "The protocol of enable-status.";
+                    }
+                    leaf car-value {
+                        type uint32;
+                        units "pps";
+                        description "The value of car.";
+                    }
+                }
+            }
+        }
+        container top-packet-statistics {
+            config false;
+            description
+                "List of top 3 protocol statistics.";
+            list top-packet-statistic {
+                key "slot packet-type";
+                description
+                    "List of top 3 statistics for packet in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf packet-type {
+                    type packet-protocol-type;
+                    description
+                        "Packet type.";
+                }
+                uses statistic-type;
+            }
+        }
+        container wireless-packet-statistics {
+            config false;
+            description
+                "List of protocol statistics.";
+            list wireless-packet-statistic {
+                key "slot packet-type";
+                description
+                    "List of statistics for wireless packet in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf packet-type {
+                    type packet-protocol-type;
+                    description
+                        "Packet type.";
+                }
+                uses statistic-type;
+                container protocol-status {
+                    description "List of protocol state.";
+                    leaf status {
+                        type boolean;
+                        description "The protocol of enable-status.";
+                    }
+                    leaf car-value {
+                        type uint32;
+                        units "pps";
+                        description "The value of car.";
+                    }
+                }
+            }
+        }
+        container top-wireless-packet-statistics {
+            config false;
+            description
+                "List of top 3 protocol statistics.";
+            list top-wireless-packet-statistic {
+                key "slot packet-type";
+                description
+                    "List of top 3 statistics for wireless packet in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf packet-type {
+                    type packet-protocol-type;
+                    description
+                        "Packet type.";
+                }
+                uses statistic-type;
+            }
+        }
+        container cpu-port-statistics {
+            config false;
+            description
+              "List of cpu port queue statistics.";
+      
+            list cpu-port-statistic {
+                key "slot queue";
+                description
+                    "List of statistics for cpu port in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf queue {
+                    type uint32 {
+                        range "0..63";
+                    }
+                    description
+                        "The queue id.";
+                }
+                uses statistic-type;
+            }
+        }
+        container auto-source-traces {
+            config false;
+            description
+                "List of auto source trace information.";
+            list auto-source-trace {
+                key "slot packet-type interface-name source-mac pe-vlan ce-vlan ip-address protocol";
+                description
+                    "Statistics of auto source trace information.";
+                leaf slot {
+                    type string {
+                        length "0..63";
+                    }
+                    description
+                        "Slot ID.";
+                }
+                leaf packet-type {
+                  type auto-source-trace-packet-type;
+                  description
+                    "Packet type.";
+                }
+                leaf interface-name {
+                  type pub-type:if-name;
+                  description
+                    "Interface Name.";
+                }
+                leaf source-mac {
+                  type pub-type:mac-address;
+                  description
+                    "Source MAC address.";
+                }
+                leaf pe-vlan {
+                  type uint16 {
+                    range "0..4095";
+                  }
+                  description
+                    "PE VLAN ID.";
+                }
+                leaf ce-vlan {
+                  type uint16 {
+                    range "0..4095";
+                  }
+                  description
+                    "CE VLAN ID.";
+                }
+                leaf ip-address {
+                  type inet:ip-address-no-zone;
+                  description
+                    "Source IPv4 or IPv6 address.";
+                }
+                leaf protocol {
+                  type uint32;
+                  description
+                    "Protocol.";
+                }
+                leaf start-time {
+                  type yang:date-and-time;
+                  description
+                    "Start time.";
+                }
+                leaf end-time {
+                  type yang:date-and-time;
+                  description
+                    "End time.";
+                }
+                leaf packet-count {
+                  type uint64;
+                  description
+                    "Packet count.";
+                }
+            }
+        }
+        
+        container adjust-car {
+          description
+            "Configure the adjust car function.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable adjust car.";
+          }
+          leaf-list adjust-protocol-type {
+            type adjust-packet-protocol-type;
+            description
+              "Configure the protocols which support adjust car.";                
+          }
+        }
+
+        container policys{
+          description "List of Policy.";
+
+          list policy{
+            must "count(/host-security:host-security/host-security:policys/host-security:policy/host-security:applied-policys/host-security:applied-policy[applied-type='all'])<=1";
+            key "name";
+            description "Configure an attack defense policy.";
+            ext:operation-exclude update {
+                ext:filter "name = 'default'";
+                description "The policy named 'default' cannot be modified manually.";
+            }
+            ext:generated-by system {
+              ext:filter "name = 'default'";
+              description "The policy named 'default' is automatically generated.";
+            }
+            leaf name{
+              type string {
+                length "1..31";
+              }
+              description "Specifies the name of an attack defense policy.";
+            }
+
+            container auto-port-defend {
+              description
+                "Configure auto port defend function.";
+              leaf enable {
+                type boolean;
+                default "true";
+                description
+                  "Enable/disable the switch of auto port defend function. If the switch is disabled, auto port defend functions are disabled.";
+              }
+            }
+            container filters {
+              description "List of Configuration for a filter.";
+              list filter {
+                key "filter-id";
+                unique "acl-type/ipv4/ipv4-acl";
+                unique "acl-type/ipv6/ipv6-acl";
+                description "Configure a filter.";
+                leaf filter-id {
+                  type uint32 {
+                    range "1..8";
+                  }
+                  description "Configure the ID of a filter.";
+                }
+
+                choice acl-type {
+                  mandatory true;
+                  description "Configure the number of an ACL referenced by a filter.";
+                  case ipv4 {
+                    description "IPv4 acl.";
+                    leaf ipv4-acl {
+                      type leafref {
+                        path "/acl:acl/acl:groups/acl:group/acl:identity";
+                      }
+                      description "Acl number or name. The IPv4 ACL range supported by filter is 2000 to 4999.";
+                    }
+                  }
+                  case ipv6{
+                    description "IPv6 acl.";
+                    leaf ipv6-acl {
+                      type leafref {
+                        path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+                      }
+                      description "Acl number or name. The IPv6 ACL range supported by filter is 2000 to 3999.";
+                    }
+                  }
+                }
+
+                container filter-interfaces {
+                  description "List of interface-name.";
+                  list filter-interface {
+                    key "interface";
+                    description "Configure the interface referenced by a filter. Interface and interface-end must be the same interface type and interface-end must be greater than interface.";
+                    leaf interface {
+                      type leafref {
+                        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                      }
+                      description "The begin numbers of interfaces in the filter.";
+                    }
+                    leaf interface-end {
+                      type leafref {
+                        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                      }
+                      description "The end numbers of interfaces in the filter.";
+                    }
+                  }
+                }
+
+                leaf-list vlans {
+                  type union {
+                    type uint16 {
+                      range "1..4094";
+                    }
+                    type pub-type:vlan-range;
+                  }
+                  status obsolete;
+                  description "Configure the VLAN IDs in the filter. Advise to use the leaf '/host-security:host-security/host-security:policys/host-security:policy/host-security:filters/host-security:filter/host-security:vlan-list'.";
+                }
+
+                leaf vlan-list {
+                  type pub-type:vlan-range;
+                  description "Configure the VLAN list in the filter.";
+                }
+              }
+            }
+            
+            
+            container cpcars {
+              description
+                "List of Configure the Committed Access Rate (CAR) function for packets by protocol name.";
+              list cpcar {
+                key "protocol-type";
+                description
+                  "Configure the Committed Access Rate (CAR) function for packets by protocol name.";
+                leaf protocol-type {
+                  type packet-protocol-type;
+                description
+                  "The packet name of the protocol packets.";
+                }
+                leaf cir {
+                  type uint32;
+                  units "pps";
+                  description
+                    "Committed information rate.";
+                }
+              }
+            }
+            
+            container auto-defend {
+              description
+                "Configure auto defend function.";
+              leaf enable {
+                type boolean;
+                default "true";
+                description
+                  "Enable/disable the switch of auto defend function. If the switch is disabled, auto defend functions are disabled.";
+              }
+              leaf alarm-enable {
+                type boolean;
+                default "true";
+                description
+                  "Enable/disable the switch of alarm function.";
+              }
+              leaf alarm-threshold {
+                type uint32 {
+                  range "1..65535";
+                }
+                units "pps";
+                default "128";
+                description
+                  "Alarm Threshold.";
+              }
+              leaf penalty-enable {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable the switch of penalty function.";
+              }
+              leaf penalty-threshold {
+                type uint32 {
+                  range "1..65535";
+                }
+                units "pps";
+                default "128";
+                description
+                  "Penalty Threshold.";
+              }
+              leaf-list defend-type {
+                type auto-defend-type;
+                description
+                  "Configure the auto defend type which indicates source-ip or source-mac or source-portVLAN.";
+            }
+              leaf sample-rate {
+                type uint32 {
+                  range "1..1024";
+                }
+                units "pps";
+                default "8";
+                description
+                  "Set the sampling ratio for the packets that are recorded by auto defend.";
+              }
+            }
+
+            container applied-policys {
+              description "List of policy applied to the specific board.";
+              list applied-policy{
+                key "applied-type";  
+                description "Configure an attack defense policy to the specific board.";         
+                leaf applied-type{
+                  type policy-applied-type;
+                  description "The type of applying policy.";
+                }
+
+                leaf-list slot{
+                  type string {
+                    length "1..31";
+                  }
+                  status obsolete;
+                  description "Configure the policy applied on the slot. Advise to container '/host-security:host-security/host-security:applied-policy-specified/host-security:applied-policy-slots'.";
+                }
+              }
+            }
+            container session-cars {
+                description "List of session-car configuration.";
+                list session-car {
+                    key "session-protocol";
+                    description "Configure protocol sessions.";
+                    ext:generated-by system {
+                      when "(not ((/host-security:host-security/host-security:policys/host-security:policy/host-security:name) = 'default'))";
+                      description "All session protocols are automatically generated.";
+                    }
+                    leaf session-protocol {
+                        type session-protocol-type;
+                        description "Session-protocol type.";
+                    }
+                    leaf enable {
+                        type boolean;
+                        default "false";
+                        description "Enable/disable session-car function.";
+                    }
+                    leaf cir {
+                        type uint32{
+                            range "2..100";
+                        }
+                        units "pps";
+                        ext:dynamic-default;
+                        description "Set session car value.";
+                    }
+                    leaf pir {
+                        type uint32{
+                            range "1000..10000";
+                        }
+                        units "pps";
+                        ext:dynamic-default;
+                        description "Set session car value.";
+                    }
+                }
+            }
+          }
+        }
+        container applied-policy-specified {
+            description
+                "Configure the specific board without the record of policy applied to the global.";
+            container applied-policy-slots {
+                must "(not(../../policys/policy/applied-policys))";
+                description
+                    "List of configure the applied policy to slots.";
+                list applied-policy-slot {
+                    key "slot";
+                    description
+                        "Configure the applied policy to slots.";
+                    leaf slot {
+                        type leafref {
+                            path "/devm:devm/devm:mpu-boards/devm:mpu-board/devm:position";
+                        }
+                        description
+                            "Specifies the slot ID.";
+                    }
+                    leaf name {
+                        type leafref {
+                            path "/host-security:host-security/host-security:policys/host-security:policy/host-security:name";
+                        }
+                        mandatory true;
+                        description
+                            "Specifies the policy applied to the slot.";
+                    }
+                }
+            }
+            container applied-policy-mcu {
+                must "(not(../../policys/policy/applied-policys))";
+                description
+                    "Configure the applied policy to the mcu.";
+                leaf name {
+                    type leafref {
+                        path "/host-security:host-security/host-security:policys/host-security:policy/host-security:name";
+                    }
+                    description
+                        "Specifies the policy applied to the mcu.";
+                }
+            }
+        }
+        container history-packet-statistics {
+            config false;
+            description
+                "List of protocol history statistics.";
+            list history-packet-statistic {
+                key "slot packet-type";
+                description
+                    "List of statistics for packet in slot.";
+                leaf slot {
+                    type string {
+                        length "1..255";
+                    }
+                    description
+                        "The slot number.";
+                }
+                leaf packet-type {
+                    type packet-protocol-type;
+                    description
+                        "Packet type.";
+                }
+                leaf begin-time {
+                    type yang:date-and-time;
+                    description
+                    "Begin time of history statistics table.";
+                }
+                leaf end-time {
+                    type yang:date-and-time;
+                    description
+                    "End time of history statistics table.";
+                }
+                leaf pass-packets {
+                    type uint64;
+                    units "pps";
+                    description
+                        "The statistic of the passed-packets.";
+                }
+                leaf drop-packets {
+                    type uint64;
+                    units "pps";
+                    description
+                        "The statistic of the droped-packets.";
+                }
+            }
+        }
+    }
+
+    rpc clear-packet-statistic {
+      description
+        "Clear the packet statistics.";
+      input  {
+          leaf slot {
+            type leafref {
+                path "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:slot";
+            }
+            mandatory true;
+            description
+            "The slot number.";
+          }
+          leaf packet-type {
+            type leafref {
+              path "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:packet-type";
+            }
+            mandatory true;
+            description
+            "Packet type.";
+          }
+      }
+    }
+}

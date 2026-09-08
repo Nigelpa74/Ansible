@@ -1,0 +1,149 @@
+/*
+Copyright (C) 2020-2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fwm-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-fwm-notification";
+  prefix fwm-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of forwarding resources.";
+  revision 2022-08-08 {
+    description
+      "Modify task-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-02 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  
+  ext:task-name "forwarding";
+  
+  notification board-res-threshold-exceed {
+    description
+      "The number of forwarding resources reaches the alarm threshold.";
+    leaf fwd-res-lack-slot {
+      type string {
+        length "1..24";
+      }
+      description
+        "Specifies a slot ID.";
+    }
+    leaf fwd-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of forwarding resources.";
+    }
+    leaf fwd-res-lack-reason-id {
+      type uint32;
+      description
+        "Indicates the ID of alarm cause.";
+    }
+    leaf reason-description {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification board-res-threshold-exceed-resume {
+    description
+      "The number of forwarding engine resources is less than the threshold.";
+    leaf fwd-res-lack-slot {
+      type string {
+        length "1..24";
+      }
+      description
+        "Specifies a slot ID.";
+    }
+    leaf fwd-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of forwarding resources.";
+    }
+    leaf fwd-res-lack-reason-id {
+      type uint32;
+      description
+        "Indicates the ID of alarm cause.";
+    }
+    leaf reason-description {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification board-res-warning-threshold-exceed {
+    description
+      "The number of forwarding resources reaches the alarm threshold.";
+    leaf fwd-res-lack-slot {
+      type string {
+        length "1..24";
+      }
+      description
+        "Specifies a slot ID.";
+    }
+    leaf fwd-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of forwarding resources.";
+    }
+    leaf fwd-res-lack-reason-id {
+      type uint32;
+      description
+        "Indicates the ID of alarm cause.";
+    }
+    leaf reason-description {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification board-res-warning-threshold-exceed-resume {
+    description
+      "The number of forwarding engine resources is less than the threshold.";
+    leaf fwd-res-lack-slot {
+      type string {
+        length "1..24";
+      }
+      description
+        "Specifies a slot ID.";
+    }
+    leaf fwd-res-threshold {
+      type uint32;
+      description
+        "Indicates the alarm threshold of forwarding resources.";
+    }
+    leaf fwd-res-lack-reason-id {
+      type uint32;
+      description
+        "Indicates the ID of alarm cause.";
+    }
+    leaf reason-description {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+}

@@ -1,0 +1,83 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-openconfig-telemetry-ext-deviations-YOS {
+  namespace "urn:huawei:yang:huawei-openconfig-telemetry-ext-deviations-YOS";
+  prefix hw-telemetry-ext-devs-YOS;
+
+  import huawei-openconfig-telemetry-ext {
+    prefix hw-telemetry-ext;
+  }
+
+  import openconfig-telemetry {
+    prefix ot;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module defines deviation statements for huawei-openconfig-telemetry-ext module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  deviation "/hw-telemetry-ext:resync-subscription" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/hw-telemetry-ext:filters/hw-telemetry-ext:filter/hw-telemetry-ext:config/hw-telemetry-ext:op-object" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/hw-telemetry-ext:filters/hw-telemetry-ext:filter/hw-telemetry-ext:state/hw-telemetry-ext:op-object" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/ot:config/hw-telemetry-ext:reset-when-start" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/ot:config/hw-telemetry-ext:sample-mode" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/ot:state/hw-telemetry-ext:reset-when-start" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/ot:sensor-paths/ot:sensor-path/ot:state/hw-telemetry-ext:sample-mode" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:subscriptions/ot:persistent/ot:subscription/ot:config/hw-telemetry-ext:dampening-interval" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:subscriptions/ot:persistent/ot:subscription/ot:config/hw-telemetry-ext:anchor-time" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:subscriptions/ot:persistent/ot:subscription/ot:state/hw-telemetry-ext:dampening-interval" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:subscriptions/ot:persistent/ot:subscription/ot:state/hw-telemetry-ext:anchor-time" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/hw-telemetry-ext:sensor-paths-self-define-event/hw-telemetry-ext:sensor-path/hw-telemetry-ext:config/hw-telemetry-ext:sample-mode" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/hw-telemetry-ext:sensor-paths-self-define-event/hw-telemetry-ext:sensor-path/hw-telemetry-ext:state/hw-telemetry-ext:sample-mode" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/hw-telemetry-ext:sensor-paths-self-define-event/hw-telemetry-ext:sensor-path/hw-telemetry-ext:filters/hw-telemetry-ext:filter/hw-telemetry-ext:config/hw-telemetry-ext:op-object" {
+    deviate not-supported;
+  }
+  deviation "/ot:telemetry-system/ot:sensor-groups/ot:sensor-group/hw-telemetry-ext:sensor-paths-self-define-event/hw-telemetry-ext:sensor-path/hw-telemetry-ext:filters/hw-telemetry-ext:filter/hw-telemetry-ext:state/hw-telemetry-ext:op-object" {
+    deviate not-supported;
+  }
+
+}

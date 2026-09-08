@@ -1,0 +1,560 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dsvpn-nhrp {
+  namespace "urn:huawei:yang:huawei-dsvpn-nhrp";
+  prefix dsvpn-nhrp;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+  import huawei-gre {
+    prefix gre;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Dynamic Smart Virtual Private Network (DSVPN) refers to a technology for dynamically
+    establishing VPN between a branch and a headquarters, a branch, and a branch in the
+    Hub-Spoke network model.
+    The Next Hop Resolution Protocol (NHRP) is an extension of the ATM ARP routing mechanism
+    that is sometimes used to improve the efficiency of routing computer network traffic over
+    Non-Broadcast, Multiple Access (NBMA) Networks.";
+  revision 2025-09-02 {
+    description
+      "Modify type of create-time and expire-time.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-20 {
+    description
+      "Add NHRP function and add default.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-26 {
+    description
+      "White-box errors are resolved.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-12-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef entry-type {
+    type enumeration {
+      enum "hub" {
+        value 0;
+        description
+          "Hub.";
+      }
+      enum "static" {
+        value 1;
+        description
+          "Static.";
+      }
+      enum "local" {
+        value 2;
+        description
+          "Local.";
+      }
+      enum "registered" {
+        value 3;
+        description
+          "Registered or spoke.";
+      }
+      enum "remote" {
+        value 4;
+        description
+          "Remote.";
+      }
+      enum "remote-network" {
+        value 5;
+        description
+          "Remote-network.";
+      }
+    }
+    description
+      "NHRP peer type.";
+  }
+  typedef entry-flag {
+    type enumeration {
+      enum "up" {
+        value 0;
+        description
+          "Up.";
+      }
+      enum "down" {
+        value 1;
+        description
+          "Down.";
+      }
+      enum "up.unique" {
+        value 2;
+        description
+          "Up|unique.";
+      }
+      enum "up.no-unique" {
+        value 3;
+        description
+          "Up|no-unique.";
+      }
+    }
+    description
+      "NHRP peer flag.";
+  }
+  typedef scenario-type {
+    type enumeration {
+      enum "hub" {
+        value 0;
+        description
+          "Hub.";
+      }
+      enum "spoke" {
+        value 1;
+        description
+          "Spoke.";
+      }
+      enum "hub-spoke" {
+        value 2;
+        description
+          "Hub-spoke.";
+      }
+    }
+    description
+      "Scenario type.";
+  }
+  typedef authen-mode {
+    type enumeration {
+      enum "sha2-256" {
+        value 2;
+        description
+          "SHA2-256.";
+      }
+      enum "sha2-384" {
+        value 3;
+        description
+          "SHA2-384.";
+      }
+      enum "sha2-512" {
+        value 4;
+        description
+          "SHA2-512.";
+      }
+    }
+    description
+      "Authentication algorithm.";
+  }
+  typedef hash-mode {
+    type enumeration {
+      enum "md5" {
+        value 1;
+        description
+          "Md5.";
+      }
+      enum "sha1" {
+        value 2;
+        description
+          "SHa1.";
+      }
+      enum "sha2-256" {
+        value 3;
+        description
+          "SHA2-256.";
+      }
+      enum "sha2-384" {
+        value 4;
+        description
+          "SHA2-384.";
+      }
+      enum "sha2-512" {
+        value 5;
+        description
+          "SHA2-512.";
+      }
+    }
+    description
+      "Authentication algorithm.";
+  }
+  typedef disconnection-reason-type {
+    type enumeration {
+      enum "unspecify-reason" {
+        value 0;
+        description
+          "Unspecify reason.";
+      }
+      enum "user-request" {
+        value 1;
+        description
+          "User request.";
+      }
+      enum "ipsec-tunnel-down" {
+        value 2;
+        description
+          "IPSec tunnel down.";
+      }
+      enum "ipsec-tunnel-up" {
+        value 3;
+        description
+          "IPSec tunnel up.";
+      }
+      enum "conflict-coverage" {
+        value 4;
+        description
+          "Conflict coverage.";
+      }
+      enum "configuration-change" {
+        value 5;
+        description
+          "Configuration change.";
+      }
+      enum "route-change" {
+        value 6;
+        description
+          "Route change.";
+      }
+      enum "purge-request" {
+        value 7;
+        description
+          "Purge request.";
+      }
+      enum "expired" {
+        value 8;
+        description
+          "Expired.";
+      }
+    }
+    description
+      "NHRP disconnect reason type.";
+  }
+  typedef interface-staus {
+    type enumeration {
+      enum "down" {
+        value 0;
+        description
+          "Down.";
+      }
+      enum "up" {
+        value 1;
+        description
+          "Up.";
+      }
+    }
+    description
+      "Interface status.";
+  }
+  ext:task-name "nhrp";
+  container dsvpn-nhrp {
+    description
+      "Dynamic Smart Virtual Private Network, Next Hop Resolution Protocol.";
+    container global {
+      description
+        "Configure NHRP on DSVPN.";
+      leaf enabled {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable global NHRP on DSVPN.";
+      }
+      leaf peer-warning-threshold {
+        when "../enabled = 'true'";
+        type uint8 {
+          range "80..100";
+        }
+        units "%";
+        default "90";
+        description
+          "Nhrp peer warning threshold.";
+      }
+    }
+      container entrys {
+        config false;
+        description
+          "List of NHRP entry information.";
+        list entry {
+          key "tunnel-name";
+          description
+            "Statistics of NHRP entry information.";
+          leaf tunnel-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "The name of tunnel.";
+          }
+          leaf tunnel-address {
+            type inet:ipv4-address-no-zone;
+            description
+              "Tunnel address.";
+          }
+          leaf tunnel-address-mask {
+            type inet:ipv4-address;
+            description
+            "Tunnel address mask.";
+          }
+          leaf source-address {
+            type inet:ipv4-address-no-zone;
+            description
+            "Source address.";
+          }
+          leaf source-interface {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "The name of source interface.";
+          }
+          leaf device-role {
+            type scenario-type;
+            description
+              "Device role, either Hub or Spoke.";
+          }
+          leaf status {
+            type interface-staus;
+            description
+              "Device role, either Hub or Spoke.";
+          }
+          leaf ni-name {
+            type string {
+              length "1..31";
+            }
+            description
+              "The name of network instance.";
+          }
+          leaf sys-name {
+            type string {
+              length "1..247";
+            }
+            description
+              "System name.";
+          }
+          leaf sys-esn {
+            type string {
+              length "1..255";
+            }
+            description
+              "System esn number.";
+          }
+          
+          container peers {
+            description
+              "List of NHRP peer information.";
+            list peer {
+              key "protocol-address";
+              description
+                "Statistics of NHRP peer information.";
+              leaf protocol-address {
+                type inet:ipv4-address-no-zone;
+                description
+                  "Protocol address.";
+              }
+              leaf protocol-address-mask {
+                type inet:ipv4-address;
+                description
+                  "Protocol address mask.";
+              }
+              leaf nbma-address {
+                type inet:ipv4-address-no-zone;
+                description
+                  "NBMA address.";
+              }
+              leaf next-hop-address {
+                type inet:ipv4-address-no-zone;
+                description
+                  "Next-hop IP address to reach Protocol-addr.";
+              }
+              leaf sys-name {
+                ext:support-filter "true";
+                type string {
+                  length "1..247";
+                }
+                description
+                  "System name.";
+              }
+              leaf sys-esn {
+                type string {
+                  length "1..255";
+                }
+                description
+                  "System esn number.";
+              }
+              leaf flag {
+                type entry-flag;
+                description
+                  "NHRP entry up/down, and whether it can be overridden flag.";
+              }
+              leaf type {
+                type entry-type;
+                description
+                  "Types of NHRP entries.";
+              }
+              leaf create-time {
+                type pub-type:time-tick;
+                units "s";
+                description
+                  "Creation time of the NHRP entry.";
+              }
+              leaf expire-time {
+                type pub-type:time-tick;
+                units "s";
+                description
+                  "NHRP entry aging time.";
+              }
+              leaf disconnection-time {
+                type yang:date-and-time;
+                description
+                  "The last disconnection time of NHRP entry.";
+              }
+              leaf disconnection-reason {
+                type disconnection-reason-type;
+                description
+                  "The last disconnection reason of NHRP entry.";
+              }
+            }
+          }
+        }
+      }
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:p2mp-gre/gre:mgre-tunnel" {
+    description
+      "The interface of mgre tunnel.";
+    container dsvpn-nhrp {
+      must "/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:global/dsvpn-nhrp:enabled = 'true'";
+      must "entry-hold-time >= registration-interval";
+      presence "Enable NHRP on interface.";
+      description
+        "Configure NHRP on interface.";
+        container authentication {
+          description
+            "Configure the authentication string for an interface using the NHRP.";
+          leaf cipher-text {
+            type pub-type:password-extend {
+              length "1..128";
+            }
+            description
+              "Authentication string in cipher text.";
+          }
+          leaf algorithm {
+            when "../cipher-text";
+            type hash-mode;
+            description
+              "NHRP hash algorithm.";
+          }
+        }
+        leaf network-id {
+          type uint32 {
+            range "1..4294967295";
+          }
+          description
+            "NHRP network id.";
+        }
+        leaf redirect {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable NHRP redirect.";
+        }
+        leaf registration-no-unique {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the client to not set the unique flag in the NHRP request and reply packets.";
+        }
+        leaf registration-interval {
+          type uint16 {
+            range "5..31845";
+          }
+          units "s";
+          default "2400";
+          description
+            "Time between periodic registration messages.";
+        }
+        leaf shortcut {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable NHRP shortcut.";
+        }
+        leaf entry-multicast-dynamic {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable allow NHRP to automatically add routers to the multicast NHRP mappings.";
+        }
+        leaf entry-hold-time {
+          type uint16 {
+            range "5..31845";
+          }
+          units "s";
+          default "7200";
+          description
+            "NHRP entry holdtime.";
+        }
+        leaf identity-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable allow NHRP to identity learning function.";
+        }
+        leaf identity-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "NHRP identity name.";
+        }
+        container entrys {
+          description
+            "List of NHRP entry.";
+          list entry {
+            key "protocol-address";
+            description
+              "Configure NHRP entry.";
+            leaf protocol-address {
+              type inet:ipv4-address-no-zone;
+              description
+                "Protocol address.";
+            }
+            leaf nbma-address {
+              type inet:ipv4-address-no-zone;
+              mandatory true;
+              description
+                "NBMA address.";
+            }
+            leaf register {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable hub registration mark.";
+            }
+          }
+        }
+      }
+  }
+}

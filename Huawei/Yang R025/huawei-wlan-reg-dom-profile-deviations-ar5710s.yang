@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-reg-dom-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-reg-dom-profile-deviations-ar5710s";
+  prefix wlan-rdp-devs-ar5710s;
+
+  import huawei-wlan-reg-dom-profile {
+    prefix wlan-rdp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-reg-dom-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-rdp:wlan-reg-dom-profile/wlan-rdp:regulatory-domain-profiles/wlan-rdp:regulatory-domain-profile/wlan-rdp:dbs-initial-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/wlan-rdp:wlan-reg-dom-profile/wlan-rdp:regulatory-domain-profiles/wlan-rdp:regulatory-domain-profile/wlan-rdp:dbs-sensitivity" {
+    deviate not-supported;
+  }
+}

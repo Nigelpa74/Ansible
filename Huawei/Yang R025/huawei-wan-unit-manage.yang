@@ -1,0 +1,301 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wan-unit-manage {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wan-unit-manage";
+  prefix wan-unit-manage;
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-ssl {
+    prefix ssl;
+  }
+  import huawei-file-operation {
+    prefix file-operation;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Wan unit management.";
+  revision 2024-01-23 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef wan-unit-operation-type {
+    type enumeration {
+      enum "reboot" {
+        value 0;
+        description
+          "Wan unit reboot.";
+      }
+      enum "system-package-update" {
+        value 1;
+        description
+          "Wan unit system package update.";
+      }
+      enum "ca-update" {
+        value 2;
+        description
+          "Wan unit ca update.";
+      }
+    }
+    description
+      "Indicates the operation type of the wan unit.";
+  }
+  grouping load-wan-unit-file {
+    description
+      "Upgrading the file of wan unit.";
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      mandatory true;
+      description
+        "Interface name.";
+    }
+    leaf file-name {
+      type string {
+        length "1..127";
+      }
+      mandatory true;
+      description
+        "Name of the system software package.";
+    }
+    leaf ip-address {
+      type inet:ipv4-address-no-zone;
+      mandatory true;
+      description
+        "SFTP server address.";
+    }
+    leaf user-name {
+      type string {
+        length "1..63";
+      }
+      mandatory true;
+      description
+        "User name of SFTP server.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "8..128";
+      }
+      mandatory true;
+      description
+        "Password of SFTP server.";
+    }
+  } 
+  ext:task-name "rum";
+  container wan-unit-manage {
+    description
+      "Wan unit management.";
+    container ssl-policy {
+      description
+        "Configure an SSL policy for the wan unit function.";
+      leaf name {
+        type leafref {
+          path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+        }
+        description
+          "SSL policy name of the wan unit function.";
+        ext:operation-exclude update {
+          description "After the configuration is created, the node cannot be modified.";
+        }
+      }
+    }
+    container wan-unit-infos {
+      config false;
+      description
+        "List of operational data of wan unit.";
+      list wan-unit-info {
+        key "interface-name";
+        description
+          "Operational data of wan unit.";
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+        leaf wan-unit-index {
+          type uint32;
+          description
+            "Wan unit index.";
+        }
+        leaf status {
+          type string {
+            length "1..31";
+          }
+          description
+            "Wan unit access status.";
+        }
+        leaf type {
+          type string {
+            length "1..31";
+          }
+          description
+            "Type of the connected wan unit.";
+        }
+        leaf esn {
+          type string {
+            length "1..63";
+          }
+          description
+            "Electronic label.";
+        }
+        leaf version {
+          type string {
+            length "1..63";
+          }
+          description
+            "Software version of the connected wan unit.";
+        }
+        leaf ip-address {
+          type inet:ipv4-address-no-zone;
+          description
+            "IP address of the connected wan unit.";
+        }
+        leaf time {
+          type yang:date-and-time;
+          description
+            "Time when an wan unit goes online and offline.";
+        }
+      }
+    }
+    container wan-unit-online-fail-records {
+      config false;
+      description
+        "List of operational data of wan unit online failure.";
+      list wan-unit-online-fail-record {
+        key "interface-name index";
+        description
+          "Operational data of wan unit online failure.";
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+        leaf index {
+          type uint32;
+          description
+            "Fail record index.";
+        }
+        leaf wan-unit-index {
+          type uint32;
+          description
+            "Wan unit index.";
+        }
+        leaf time {
+          type yang:date-and-time;
+          description
+            "Time when the wan unit fails to go online.";
+        }
+        leaf reason {
+          type string {
+            length "1..127";
+          }
+          description
+            "Reasons for wan unit login failures.";
+        }
+      }
+    }
+    container wan-unit-states {
+      config false;
+      description
+        "List of operational state of wan unit.";
+      list wan-unit-state {
+        key "interface-name operation-type";
+        description
+          "Operational state of wan unit.";
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+        leaf operation-type {
+          type wan-unit-operation-type;
+          description
+            "Wan unit operation type.";
+        }
+        leaf state-description {
+          type string {
+            length "1..127";
+          }
+          description
+            "State description.";
+        }
+      }
+    }
+  }
+  rpc reset-wan-unit-interface {
+    description
+      "Restart the wan unit connected to a specified interface.";
+    input {
+      leaf interface-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        mandatory true;
+        description
+          "Interface name.";
+      }
+    }
+  }
+  rpc load-wan-unit-system-software {
+    ext:node-ref "/file-operation:file-operation/file-operation:dirs/file-operation:dir";
+    description
+      "Upgrading the wan unit system software.";
+    input {
+      uses load-wan-unit-file;
+    }
+  }
+
+  rpc load-wan-unit-ca-certificate {
+    ext:node-ref "/file-operation:file-operation/file-operation:dirs/file-operation:dir";
+    description
+      "Upgrading the wan unit ca certificate.";
+    input {
+      uses load-wan-unit-file;
+    }
+  }  
+  
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+	when "(ifm:type = 'GEBrief' or ifm:type = '10GE' or ifm:type = '25GE' or ifm:type = '40GE' or ifm:type = 'MultiGE') and ifm:class='main-interface'";
+    description "Huawei's properties of interface.";
+	container wan-unit-manage {
+      description "Configure the wan unit function on interface.";
+	  leaf enable {
+		type boolean;
+        must "/wan-unit-manage:wan-unit-manage/wan-unit-manage:ssl-policy/wan-unit-manage:name";
+		default "false";
+		description "Enable/disable the function of wan unit to the interface.";
+	  }
+	}
+  }
+}

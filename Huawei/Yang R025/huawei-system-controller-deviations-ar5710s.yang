@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-controller-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-system-controller-deviations-ar5710s";
+  prefix controller-devs-ar5710s;
+
+  import huawei-system-controller {
+    prefix controller;
+  }
+  import huawei-system {
+    prefix hw-system;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-system-controller module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/controller:system-controller/controller:global/controller:manage-vlan" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:startup-vlan/controller:receive-enable" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:startup-vlan/controller:receive-vlan" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:startup-vlan/controller:receive-wireless-vlan" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:startup-vlan/controller:remove-lacp-mode-enable" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:startup-link-aggregation" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:pnp/controller:uplinks" {
+    deviate not-supported;
+  }
+  deviation "/controller:system-controller/controller:online-robustness-enhancement" {
+    deviate not-supported;
+  }
+  deviation "/controller:cloud-mng-controller" {
+    deviate not-supported;
+  }
+  deviation "/hw-system:system/hw-system:system-info/controller:upstream-info/controller:manage-vlan" {
+    deviate not-supported;
+  }
+  deviation "/hw-system:system/hw-system:system-info/controller:sitecode-info" {
+    deviate not-supported;
+  }
+}

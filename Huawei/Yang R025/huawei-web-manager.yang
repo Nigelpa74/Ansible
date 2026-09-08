@@ -1,0 +1,104 @@
+/*
+Copyright (C) 2023-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-web-manager {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-web-manager";
+  prefix hw-web-man;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Web manager configuration.";
+  revision 2024-04-01 {
+    description
+      "Modify web server default values and task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-27 {
+    description
+      "Add source all interface enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-26 {
+    description
+      "Add web server configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-07 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  container web-manager {
+    description
+      "Configure Web Server Configuration.";
+    container web-server {
+      description
+        "Configure the Web Server Configuration.";
+      leaf https-server-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the Web https service.";
+      }
+      leaf https-port-number {
+        type uint16 {
+          range "443|1025..50000";
+        }
+        default "8443";
+        description
+          "Specify the the listen port for Web server.";
+      }
+      leaf http-forward-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the http forward function.";
+      }
+    }
+    container source-interface {
+      description
+        "Configure the Web Server source interface.";
+      leaf all-interface-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable server source all interface.";
+      }
+      container interfaces {
+        description
+          "List of web server source interface list.";
+        list interface {
+          key "interface-name";
+          description
+            "Configure web server source interface.";
+          leaf interface-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "Source interface name.";
+          }
+        }
+      }
+    }
+  }
+  ext:task-name "webm";
+}

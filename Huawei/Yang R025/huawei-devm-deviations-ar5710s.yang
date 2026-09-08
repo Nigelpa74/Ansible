@@ -1,0 +1,193 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-devm-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-devm-deviations-ar5710s";
+  prefix devm-devs-ar5710s;
+
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-devm module.";
+
+  revision 2025-02-24 {
+    description
+      "The deviations of the huawei-devm module were modified.";
+    reference "Huawei private.";
+  }
+  revision 2023-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/devm:transfer-pnpp" {
+    deviate not-supported;
+  }
+  deviation "/devm:reset-offline-config" {
+    deviate not-supported;
+  }
+  deviation "/devm:clear-inactive-config" {
+    deviate not-supported;
+  }
+  deviation "/devm:cold-reset-lpu" {
+    deviate not-supported;
+  }
+  deviation "/devm:warm-reset-lpu" {
+    deviate not-supported;
+  }
+  deviation "/devm:cold-reset-mpu" {
+    deviate not-supported;
+  }
+  deviation "/devm:warm-reset-mpu" {
+    deviate not-supported;
+  }
+  deviation "/devm:clear-active-hardware-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:clear-history-hardware-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:remote-reboot" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:module-name" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:is-fru" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:physical-entitys/devm:physical-entity/devm:ls-name" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:logic-entitys/devm:logic-entity/devm:oper-state" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:logic-entitys/devm:logic-entity/devm:memo" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:slot-num" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:board-num" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:fan-num" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:power-num" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:up-time" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:status-last-change" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:entity-last-change" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:dust-clean-cycle" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:last-clean-date" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:up-to-last-clean" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:alarm-exist-days" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/devm:monitor-board-changes" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:logic-containers" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:containers" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/devm:cfcard-size" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/devm:cfcard2-size" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/devm:reset-count" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:clock-8k-port" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/devm:current-l3-clk" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cf-cards" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/devm:enable-transmission-delay" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/devm:physical-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:logic-ports" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:inconsistent-entitys" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:offlines" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:active-hardware-alarm-infos" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:history-hardware-alarm-infos" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:device-info" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:logic-entitys/devm:logic-entity/devm:vendor-type" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/devm:reset-sfu-board" {
+    deviate not-supported;
+  }
+  deviation "/devm:warm-reboot" {
+    deviate not-supported;
+  }
+  deviation "/devm:set-warm-reboot-switch" {
+    deviate not-supported;
+  }
+  deviation "/devm:get-warm-reboot-switch" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:sfu-boards" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:disable-hardware-alarms" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards" {
+    deviate not-supported;
+  }
+  deviation "/devm:reset-card" {
+    deviate not-supported;
+  }
+}

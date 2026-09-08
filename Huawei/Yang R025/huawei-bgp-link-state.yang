@@ -1,0 +1,3014 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-link-state {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-link-state";
+  prefix bgp-ls;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-routing-policy {
+    prefix rtp;
+  }
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Inter-AS routing protocol that exchanges Network Layer Reachability Information (NLRI) with other BGP systems.";
+  revision 2025-04-17 {
+    description
+      "Add ignore-address-type node. Add keep-all-routes node.";
+    reference "Huawei private.";
+  }
+  revision 2025-02-11 {
+    description
+      "Add asla-link-loss node. Add asla-link-loss-ratio node. Add asla-utilized-link-bandwidth node. Add network-slice-routes, peer-advertise-netslice-routes, peer-receive-netslice-routes containers and network-slice-route-number leaf. Modify the type of nrp-Flag. Modify the description of discard-attribute. Added the when condition for the link-state-unicast node.";
+    reference "Huawei private.";
+  }
+  revision 2024-02-29 {
+    description
+      "Add option container.";
+    reference "Huawei private.";
+  }
+  revision 2023-12-18 {
+    description
+      "Add utilized-link-bandwidth node.";
+    reference "Huawei private.";
+  }
+  revision 2023-11-21 {
+    description
+      "Modify the description of single-group-detection-threshold.";
+    reference "Huawei private.";
+  }
+  revision 2023-09-12 {
+    description
+      "Modify description for node-routes.";
+    reference "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add prefix attributes flags. Add srv6 binding sid attributes.";
+    reference "Huawei private.";
+  }
+  revision 2023-01-06 {
+    description
+      "Add link state route attributes.";
+    reference "Huawei private.";
+  }
+  revision 2022-11-15 {
+    description
+      "The modifications in the code are synchronized to the YANG file. Add link state route attributes.";
+    reference "Huawei private.";
+  }
+  revision 2022-09-16 {
+    description
+      "The modifications in the code are synchronized to the YANG file. Add link state route attributes.";
+    reference "Huawei private.";
+  }
+  revision 2020-08-18 {
+    description
+      "The YANG descriptions are modified according to new standards.";
+    reference "Huawei private.";
+  }
+  revision 2020-02-05 {
+    description
+      "The modifications in the code are synchronized to the YANG file.";
+    reference "Huawei private.";
+  }
+  revision 2019-03-22 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  ext:task-name "bgp";
+  typedef ls-route-type {
+    type enumeration {
+      enum "node" {
+        value 1;
+        description
+          "NODE.";
+      }
+      enum "link" {
+        value 2;
+        description
+          "LINK.";
+      }
+      enum "ipv4-prefix-route" {
+        value 3;
+        description
+          "IPv4 prefix route.";
+      }
+      enum "ipv6-prefix-route" {
+        value 4;
+        description
+          "IPv6 prefix route.";
+      }
+      enum "srv6-sid-route" {
+        value 6;
+        description
+          "SRv6 sid route.";
+      }
+      enum "network-slice-route" {
+        value 7;
+        description
+          "Network slice route.";
+      }
+    }
+    description
+      "The type of the bgpcommLsRoute.";
+  }
+  typedef protocol-type {
+    type enumeration {
+      enum "is-is-level-1" {
+        value 1;
+        description
+          "Isis level 1 protocol.";
+      }
+      enum "is-is-level-2" {
+        value 2;
+        description
+          "Isis level 2 protocol.";
+      }
+      enum "ospf" {
+        value 3;
+        description
+          "OSPF.";
+      }
+      enum "direct" {
+        value 4;
+        description
+          "Direct.";
+      }
+      enum "static" {
+        value 5;
+        description
+          "Static.";
+      }
+      enum "ospfv3" {
+        value 6;
+        description
+          "OSPFv3.";
+      }
+      enum "bgp" {
+        value 7;
+        description
+          "BGP protocol.";
+      }
+      enum "segment-routing" {
+        value 9;
+        description
+          "Segment routing.";
+      }
+    }
+    description
+      "The type of the bgpcommLsp protocol.";
+  }
+  typedef sid-value-type {
+    type union {
+      type uint32;
+      type inet:ipv6-address-no-zone;
+    }
+    description
+      "The SID value type.";
+  }
+  grouping route-type-element {
+    description
+      "Route type configuration.";
+    leaf type {
+      type ls-route-type;
+      description
+        "BGP link state unicast address family route type.";
+    }
+  }
+  grouping srv6-binding-sid {
+    description
+      "Information of SRv6 binding SID.";
+    container srv6-binding-sid {
+      description
+        "Statistics of SRv6 binding SID.";
+      leaf flags {
+        type uint16;
+        description
+          "SRv6 binding SID flags.";
+      }
+      leaf binding-sid {
+        type sid-value-type;
+        description
+          "SRv6 binding SID value.";
+      }
+      leaf specified-binding-sid {
+        type sid-value-type;
+        description
+          "SRv6 provisioned binding SID value.";
+      }
+      container endpoint-behavior {
+        description
+          "Statistics of SRv6 Binding SID struct.";
+        leaf value {
+          type uint16;
+          description
+            "SRv6 Binding SID endpoint behavior.";
+        }
+        leaf flags {
+          type uint8;
+          description
+            "Flags.";
+        }
+        leaf algorithm  {
+          type uint8;
+          description
+            "Algorithm.";
+        }
+      }
+      container sid-structure {
+        description
+          "Statistics of SRv6 Binding SID struct.";
+        leaf block-length {
+          type uint8;
+          description
+            "Block length.";
+        }
+        leaf node-length {
+          type uint8;
+          description
+            "Node length.";
+        }
+        leaf function-length {
+          type uint8;
+          description
+            "Function length.";
+        }
+        leaf argument-length {
+          type uint8;
+          description
+            "Argument length.";
+        }
+      }
+    }
+  }
+  grouping routing-table-label {
+    description
+      "BGP routing-table label.";
+    leaf in-label {
+      type uint32;
+      description
+        "In label.";
+    }
+    leaf out-label {
+      type uint32;
+      description
+        "Out label.";
+    }
+  }
+  grouping routing-table-basic-attribute {
+    description
+      "BGP routing-table basic attribute.";
+    leaf local-preference {
+      type uint32;
+      description
+        "Local priority. The attribute is only fit for the routes from IBGP peer, not suit for which of EBGP peer.";
+    }
+    leaf preferred-value {
+      type uint32;
+      description
+        "Preferred value of a protocol.";
+    }
+    leaf preference {
+      type uint8;
+      description
+        "Priority of BGP routes.";
+    }
+    leaf originator {
+      type inet:ip-address-no-zone;
+      description
+        "Router ID of the route initiator.";
+    }
+    leaf med {
+      type uint32;
+      description
+        "Route MED.The attribute is only fit for the routes from EBGP peer, not suit for which of IBGP peer.";
+    }
+  }
+  grouping route-key-element {
+    description
+      "Route key element configuration.";
+    leaf network {
+      type string {
+        length "1..600";
+      }
+      description
+        "Prefix of BGP-LS route.";
+    }
+    leaf from {
+      type inet:ip-address-no-zone;
+      description
+        "Source peer that sends a route.";
+    }
+    leaf protocol {
+      type protocol-type;
+      description
+        "IGP Protocol type.";
+    }
+    leaf identifier {
+      type uint64 {
+        range "0..4294967295";
+      }
+      description
+        "Identifier of IGP protocol.";
+    }
+    leaf peer-router-id {
+      type inet:ip-address-no-zone;
+      description
+        "Router ID of source peer that sends a route.";
+    }
+    leaf nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop address to which packets are forwarded.";
+    }
+    leaf route-type {
+      type bgp-rt:bgp-route-type-flag;
+      description
+        "Route Type Flag.";
+    }
+  }
+  grouping netslice-route-key-element {
+    description
+      "Route key element configuration.";
+    leaf network {
+      type string {
+        length "1..600";
+      }
+      description
+        "Prefix of BGP-LS route.";
+    }
+    leaf from {
+      type inet:ip-address-no-zone;
+      description
+        "Source peer that sends a route.";
+    }
+    leaf source {
+      type string {
+        length "1..100";
+      }
+      description
+        "Source of BGP-LS route.";
+    }
+    leaf path-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Path ID.";
+    }
+    leaf protocol {
+      type protocol-type;
+      description
+        "IGP Protocol type.";
+    }
+    leaf identifier {
+      type uint64 {
+        range "0..4294967295";
+      }
+      description
+        "Identifier of IGP protocol.";
+    }
+    leaf peer-router-id {
+      type inet:ip-address-no-zone;
+      description
+        "Router ID of source peer that sends a route.";
+    }
+    leaf nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop address to which packets are forwarded.";
+    }
+    leaf route-type {
+      type bgp-rt:bgp-route-type-flag;
+      description
+        "Route Type Flag.";
+    }
+  }
+  grouping flag-string {
+    description
+      "Route flag that contains a string of characters.";
+    leaf flag-string {
+      type string {
+        length "1..50";
+      }
+      description
+        "Route flag that contains a string of characters.";
+    }
+  }
+  grouping route-key-element-type {
+    description
+      "Route key element type configuration.";
+    uses route-key-element;
+    uses routing-table-basic-attribute;
+    uses flag-string;
+    uses routing-table-label;
+    leaf time {
+      type uint32;
+      units "s";
+      description
+        "Time stamp of a route.";
+    }
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description
+        "Name of the outbound interface of a route.";
+    }
+    leaf relay-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop to which a route is iterated.";
+    }
+    leaf peer-count {
+      type uint32;
+      description
+        "Count of Route Sending Peers.";
+    }
+    leaf advertise-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Advertise nexthop.";
+    }
+  }
+  grouping netslice-route-key-element-type {
+    description
+      "Route key element type configuration.";
+    uses netslice-route-key-element;
+    uses routing-table-basic-attribute;
+    uses flag-string;
+    uses routing-table-label;
+    leaf time {
+      type uint32;
+      units "s";
+      description
+        "Time stamp of a route.";
+    }
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description
+        "Name of the outbound interface of a route.";
+    }
+    leaf relay-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop to which a route is iterated.";
+    }
+    leaf peer-count {
+      type uint32;
+      description
+        "Count of Route Sending Peers.";
+    }
+    leaf advertise-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Advertise nexthop.";
+    }
+  }
+  grouping advertise-nexthop {
+    description
+      "Advertise nexthop.";
+    leaf advertise-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Advertise nexthop.";
+    }
+  }
+  grouping peer-count {
+    description
+      "Count of Route Sending Peers.";
+    leaf peer-count {
+      type uint32;
+      description
+        "Count of Route Sending Peers.";
+    }
+  }
+  grouping relay-nexthop {
+    description
+      "Next hop to which a route is iterated.";
+    leaf relay-nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop to which a route is iterated.";
+    }
+  }
+  grouping interface-name {
+    description
+      "Name of the outbound interface of a route.";
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description
+        "Name of the outbound interface of a route.";
+    }
+  }
+  grouping time {
+    description
+      "Time stamp of a route.";
+    leaf time {
+      type uint32;
+      units "s";
+      description
+        "Time stamp of a route.";
+    }
+  }
+  grouping time-new {
+    description
+      "Time stamp of a route.";
+    leaf time {
+      type pub-type:time-tick;
+      description
+        "Time stamp of a route.";
+    }
+  }
+  grouping route-common-element {
+    description
+      "Route key element type configuration.";
+    uses route-key-element;
+    uses flag-string;
+    uses time-new;
+    uses interface-name;
+    uses relay-nexthop;
+    uses peer-count;
+    uses advertise-nexthop;
+  }
+  grouping route-common-element-peer-receive {
+    description
+      "Route key element type configuration.";
+    uses route-key-element;
+    uses flag-string;
+    uses time-new;
+    uses interface-name;
+    uses relay-nexthop;
+    uses peer-count;
+  }
+  grouping route-attribute-string {
+    description
+      "Route attribute element type configuration.";
+    leaf path-as {
+      type string {
+        length "1..300";
+      }
+      description
+        "List of the AS_Paths that packets pass through.";
+    }
+    leaf discard-attribute {
+      type string {
+        length "1..300";
+      }
+      description
+        "The route attribute list.";
+    }
+    leaf sending-peers {
+      type string {
+        length "1..300";
+      }
+      description
+        "List of route sending peers.";
+    }
+  }
+  grouping worse-reason {
+    description
+      "Reason why a route is not selected.";
+    leaf worse-reason {
+      type string {
+        length "1..50";
+      }
+      description
+        "Reason why a route is not selected.";
+    }
+  }
+  grouping worse-reason-deprecated {
+    description
+      "Reason why a route is not selected.";
+    leaf worse-reason {
+      type string {
+        length "1..50";
+      }
+      status deprecated;
+      description
+        "Reason why a route is not selected. The node is deprecated.";
+    }
+  }
+  grouping originator {
+    description
+      "Reason why a route is not selected.";
+    leaf originator {
+      type inet:ip-address-no-zone;
+      description
+        "Router ID of the route initiator.";
+    }
+  }
+  grouping prefix-sid {
+    description
+      "Prefix Sid attribute information of route.";
+    leaf prefix-sid {
+      type string {
+        length "1..256";
+      }
+      description
+        "Prefix Sid attribute information of route.";
+    }
+  }
+  grouping prefix-igp-attribute {
+    description
+      "Prefix IGP attribute.";
+    leaf node-flags {
+      type pub-type:hex-binary;
+      description
+        "IGP flags.";
+    }
+    leaf route-tag {
+      type string {
+        length "1..121";
+      }
+      description
+        "Route tag.";
+    }
+    leaf extended-route-tag {
+      type string {
+        length "1..121";
+      }
+      description
+        "Extended route tag.";
+    }
+    leaf prefix-attributes-flags {
+      type string {
+        length "1..10";
+      }
+      description
+        "Prefix attributes flags.";
+    }
+  }
+  grouping prefix-attribute {
+    description
+      "Prefix private attribute.";
+    leaf prefix-metric {
+      type uint32;
+      description
+        "Prefix metric.";
+    }
+    leaf ospf-forwarding-address {
+      type inet:ip-address-no-zone;
+      description
+        "OSPF forwarding address.";
+    }
+    leaf opaque-prefix-attribute {
+      type inet:ip-address-no-zone;
+      description
+        "Opaque prefix attribute.";
+    }
+  }
+  grouping ls-ip-prefix-route-type {
+    description
+      "Link state unicast address family IP prefix route type configuration.";
+    uses route-type-element;
+    uses route-key-element-type;
+    uses route-attribute-string;
+    uses prefix-igp-attribute;
+    uses prefix-attribute;
+    uses prefix-sid;
+  }
+  grouping ls-srv6-sid-route-type {
+    description
+      "Link state unicast address family srv6 sid route type configuration.";
+    uses route-type-element;
+    uses route-key-element-type;
+    uses route-attribute-string;
+    leaf srv6-sid-info {
+      type inet:ip-address-no-zone;
+      description
+        "SRv6SidInfo attribute Value.";
+    }
+    leaf srv6-endpoint-function {
+      type string {
+        length "1..121";
+      }
+      description
+        "SRv6EndPtFunc attribute.";
+    }
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      description
+        "IGP topology ID.";
+    }
+    leaf srv6-sid-structure {
+      type string {
+        length "1..79";
+      }
+      description
+        "Length of each individual part of the SRv6 SID.";
+    }
+  }
+  grouping ls-network-slice-key-route-type {
+    description
+      "Link state unicast address family network slice route type configuration.";
+    uses route-type-element;
+    uses netslice-route-key-element-type;
+    uses route-attribute-string;
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      description
+        "IGP topology ID.";
+    }
+    leaf slice-id {
+      type uint32;
+      description
+        "Network slice identifier.";
+    }
+    leaf nrp-hierarchy {
+      type string {
+        length "1..20";
+      }
+      description
+        "NRP Hierarchy.";
+    }
+    leaf maximum-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum link bandwidth.";
+    }
+    leaf nrp-flag {
+      type pub-type:hex-binary;
+      description
+        "NRP Flag.";
+    }
+  }
+  grouping ls-network-slice-route-type {
+    description
+      "Link state unicast address family network slice route type configuration.";
+    uses route-type-element;
+    uses route-key-element-type;
+    uses route-attribute-string;
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      description
+        "IGP topology ID.";
+    }
+    leaf slice-id {
+      type uint32;
+      description
+        "Network slice identifier.";
+    }
+    leaf nrp-hierarchy {
+      type string {
+        length "1..20";
+      }
+      description
+        "NRP Hierarchy.";
+    }
+    leaf maximum-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum link bandwidth.";
+    }
+    leaf nrp-flag {
+      type pub-type:hex-binary;
+      description
+        "NRP Flag.";
+    }
+  }
+  grouping ls-link-route-type {
+    description
+      "Link state unicast address family link route type configuration.";
+    uses route-type-element;
+    uses route-key-element-type;
+    uses route-attribute-string;
+    leaf ipv4-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv4 router id of local node.";
+    }
+    leaf ipv6-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv6 router id of local node.";
+    }
+    leaf ipv4-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv4 router id of remote node.";
+    }
+    leaf ipv6-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv6 router id of remote node.";
+    }
+    leaf administrative-group {
+      type pub-type:hex-binary;
+      description
+        "Administrative group.";
+    }
+    leaf maximum-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum link bandwidth.";
+    }
+    leaf maximum-reservable-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum reservable bandwidth.";
+    }
+    leaf maximum-unreserved-bandwidth {
+      type string {
+        length "1..256";
+      }
+      units kbit/s;
+      description
+        "Maximum unreserved bandwidth.";
+    }
+    leaf utilized-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Utilized link bandwidth.";
+    }
+    leaf te-default-metric {
+      type uint32;
+      description
+        "TE default metric.";
+    }
+    leaf link-protect-type {
+      type uint16;
+      description
+        "Link protect type.";
+    }
+    leaf mpls-protocol-mask {
+      type pub-type:hex-binary;
+      description
+        "MPLS protocol mask.";
+    }
+    leaf igp-metric {
+      type uint32;
+      description
+        "IGP metric.";
+    }
+    leaf shared-risk-link-group {
+      type string {
+        length "1..800";
+      }
+      description
+        "Shared risk link group.";
+    }
+    leaf opaque-link-properties {
+      type string {
+        length "1..121";
+      }
+      description
+        "Opaque link properties.";
+    }
+    leaf link-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Link Name.";
+    }
+    leaf adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Adj segment id.";
+    }
+    leaf lan-adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "LAN Adj segment id.";
+    }
+    leaf unreserved-bandwidth {
+      type string {
+        length "1..20";
+      }
+      description
+        "Unreserved Bandwidth.";
+    }
+    leaf bandwidth-constraint-model {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint Model.";
+    }
+    leaf bandwidth-constraint {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint.";
+    }
+    leaf local-overbooking-multiplier {
+      type string {
+        length "1..10";
+      }
+      description
+        "Local Overbooking Multiplier.";
+    }
+    leaf bandwidth-constraint-model-standard {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint Model (Standard).";
+    }
+    leaf bandwidth-constraint-standard {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint (Standard).";
+    }
+    leaf sid-label {
+      type uint32;
+      description
+        "Peer Node or Adj label.";
+    }
+    leaf peer-set-sid-label {
+      type uint32;
+      description
+        "Peer set sid label.";
+    }
+    leaf min-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Min Delay time.";
+    }
+    leaf max-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Max Delay time.";
+    }
+    leaf average-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Average Delay time.";
+    }
+    leaf average-delay-variation {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Average Delay Variation time.";
+    }
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      description
+        "IGP topology ID.";
+    }
+    leaf srv6-endx-sid {
+      type string {
+        length "1..121";
+      }
+      description
+        "END.X SID of an SRv6 route on a P2P network.";
+    }
+    leaf srv6-lan-endx-sid {
+      type string {
+        length "1..300";
+      }
+      description
+        "END.X SID of an SRv6 route on a LAN network.";
+    }
+    leaf link-local-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      description
+        "Local ID of an LS link route.";
+    }
+    leaf link-remote-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      description
+        "Remote ID of an LS link route.";
+    }
+    leaf link-loss {
+      type uint32 {
+        range "0..16777215";
+      }
+      description
+        "Unidirectional link loss value.";
+    }
+    leaf link-loss-ratio {
+      type decimal64 {
+        fraction-digits 6;
+        range "0..100";
+      }
+      units "%";
+      description
+        "Unidirectional link loss ratio.";
+    }
+    leaf msd-type-value {
+      type string {
+        length "1..180";
+      }
+      description
+        "MSD type and value string.";
+    }
+    leaf asla-administrative-group {
+      type pub-type:hex-binary;
+      description
+        "Application specific link attribute administrative group.";
+    }
+    leaf asla-link-loss {
+      type uint32 {
+        range "0..16777215";
+      }
+      description
+        "Unidirectional link loss value in application specific link attribute.";
+    }
+    leaf asla-link-loss-ratio {
+      type decimal64 {
+        fraction-digits 6;
+        range "0..100";
+      }
+      units "%";
+      description
+        "Unidirectional link loss ratio in application specific link attribute.";
+    }
+    leaf asla-utilized-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Utilized link bandwidth in application specific link attribute.";
+    }
+  }
+  grouping ls-node-attribute {
+    description
+      "LS node route attribute configuration.";
+    leaf opaque-node-properties {
+      type string {
+        length "1..121";
+      }
+      description
+        "Opaque node properties.";
+    }
+    leaf mt-id-list {
+      type string {
+        length "1..121";
+      }
+      description
+        "MT ID.";
+    }
+    leaf node-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Name of IGP topology node.";
+    }
+    leaf isis-area-id {
+      type string {
+        length "1..121";
+      }
+      description
+        "ISIS area ID.";
+    }
+    leaf sid-label-binding {
+      type string {
+        length "1..121";
+      }
+      description
+        "SID/Label Binding.";
+    }
+    leaf sr-capabilities {
+      type string {
+        length "1..121";
+      }
+      description
+        "Segment routing capabilities.";
+    }
+    leaf sr-algorithm {
+      type string {
+        length "1..121";
+      }
+      description
+        "Segment routing algorithm.";
+    }
+    leaf node-flags {
+      type pub-type:hex-binary;
+      description
+        "Node flags.";
+    }
+    leaf ipv4-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv4 router id of local node.";
+    }
+    leaf ipv6-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv6 router id of local node.";
+    }
+    leaf sr-local-block {
+      type string {
+        length "1..121";
+      }
+      description
+        "Segment routing local block.";
+    }
+    leaf msd-type-value {
+      type string {
+        length "1..180";
+      }
+      description
+        "MSD type and value string.";
+    }
+    leaf srv6-capabilities {
+      type string {
+        length "1..121";
+      }
+      description
+        "Segment routing IPv6 capabilities.";
+    }
+  }
+  grouping ls-node-route-type {
+    description
+      "LS-node-route-type configuration.";
+    uses route-type-element;
+    uses route-key-element-type;
+    uses route-attribute-string;
+    uses ls-node-attribute;
+  }
+  grouping ls-route-st-type {
+    description
+      "Link-state route statistics information.";
+    leaf node-route-number {
+      type uint32;
+      description
+        "Total number of Node routes.";
+    }
+    leaf link-route-number {
+      type uint32;
+      description
+        "Total number of Link routes.";
+    }
+    leaf ipv4-prefix-route-number {
+      type uint32;
+      description
+        "Total number of IPv4 prefix routes.";
+    }
+    leaf ipv6-prefix-route-number {
+      type uint32;
+      description
+        "Total number of IPv6 prefix routes.";
+    }
+    leaf te-policy-route-number {
+      type uint32;
+      description
+        "Total number of TE policy routes.";
+    }
+    leaf srv6-sid-route-number {
+      type uint32;
+      description
+        "Total number of SRv6-Sid routes.";
+    }
+    leaf network-slice-route-number {
+      type uint32;
+      description
+        "Total number of Network-Slice routes.";
+    }
+  }
+  grouping te-policy-route {
+    description
+      "BGP te policy route.";
+    uses route-key-element-type;
+    leaf bsid-flag {
+      type uint16;
+      description
+        "BSID flag.";
+    }
+    leaf bsid-sid {
+      type string {
+        length "1..40";
+      }
+      description
+        "BSID SID.";
+    }
+    leaf bsid-prov-sid {
+      type string {
+        length "1..40";
+      }
+      description
+        "BSID Prov SID.";
+    }
+    leaf candidate-path-priority {
+      type uint8;
+      description
+        "Candidate path priority.";
+    }
+    leaf candidate-path-flag {
+      type uint16;
+      description
+        "Candidate path flags.";
+    }
+    leaf candidate-path-preference {
+      type uint32;
+      description
+        "Candidate path preference.";
+    }
+    leaf policy-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Policy Name.";
+    }
+    leaf candidate-path-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Candidate Path Name.";
+    }
+    leaf segment-list-count {
+      type uint32;
+      description
+        "Segment list count.";
+    }
+  }
+  grouping te-policy-route-attribute {
+    description
+      "BGP te policy route.";
+    leaf policy-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Policy Name.";
+    }
+    leaf candidate-path-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Candidate Path Name.";
+    }
+    leaf segment-list-count {
+      type uint32;
+      description
+        "Segment list count.";
+    }
+  }
+  grouping ls-link2-key-elements {
+    description
+      "Link state route key elements.";
+    leaf network {
+      type string {
+        length "1..600";
+      }
+      description
+        "Prefix of BGP-LS route.";
+    }
+    leaf from {
+      type inet:ip-address-no-zone;
+      description
+        "Source peer that sends a route.";
+    }
+    leaf source {
+      type string {
+        length "1..100";
+      }
+      description
+        "Source of BGP-LS route.";
+    }
+    leaf path-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Path ID.";
+    }
+  }
+  grouping ls-link-route-base-element {
+    description
+      "Link state route base element grouping.";
+    leaf protocol {
+      type protocol-type;
+      description
+        "IGP Protocol type.";
+    }
+    leaf identifier {
+      type uint64 {
+        range "0..4294967295";
+      }
+      description
+        "Identifier of IGP protocol.";
+    }
+    leaf peer-router-id {
+      type inet:ip-address-no-zone;
+      description
+        "Router ID of source peer that sends a route.";
+    }
+    leaf nexthop {
+      type inet:ip-address-no-zone;
+      description
+        "Next hop address to which packets are forwarded.";
+    }
+    leaf route-type {
+      type bgp-rt:bgp-route-type-flag;
+      description
+        "Route Type Flag.";
+    }
+  }
+  grouping ls-link-route-elements {
+    description
+      "Link state route elements.";
+    uses ls-link-route-base-element;
+    uses routing-table-basic-attribute;
+    uses flag-string;
+    uses routing-table-label;
+    uses time;
+    uses interface-name;
+    uses relay-nexthop;
+    uses peer-count;
+    uses advertise-nexthop;
+    uses route-attribute-string;
+    leaf ipv4-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv4 router id of local node.";
+    }
+    leaf ipv6-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv6 router id of local node.";
+    }
+    leaf ipv4-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv4 router id of remote node.";
+    }
+    leaf ipv6-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "IPv6 router id of remote node.";
+    }
+    leaf administrative-group {
+      type pub-type:hex-binary;
+      description
+        "Administrative group.";
+    }
+    leaf maximum-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum link bandwidth.";
+    }
+    leaf maximum-reservable-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Maximum reservable bandwidth.";
+    }
+    leaf maximum-unreserved-bandwidth {
+      type string {
+        length "1..256";
+      }
+      units kbit/s;
+      description
+        "Maximum unreserved bandwidth.";
+    }
+    leaf utilized-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Utilized link bandwidth.";
+    }
+    leaf te-default-metric {
+      type uint32;
+      description
+        "TE default metric.";
+    }
+    leaf link-protect-type {
+      type uint16;
+      description
+        "Link protect type.";
+    }
+    leaf mpls-protocol-mask {
+      type pub-type:hex-binary;
+      description
+        "MPLS protocol mask.";
+    }
+    leaf igp-metric {
+      type uint32;
+      description
+        "IGP metric.";
+    }
+    leaf shared-risk-link-group {
+      type string {
+        length "1..800";
+      }
+      description
+        "Shared risk link group.";
+    }
+    leaf opaque-link-properties {
+      type string {
+        length "1..121";
+      }
+      description
+        "Opaque link properties.";
+    }
+    leaf link-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Link Name.";
+    }
+    leaf adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Adj segment id.";
+    }
+    leaf lan-adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "LAN Adj segment id.";
+    }
+    leaf unreserved-bandwidth {
+      type string {
+        length "1..20";
+      }
+      description
+        "Unreserved Bandwidth.";
+    }
+    leaf bandwidth-constraint-model {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint Model.";
+    }
+    leaf bandwidth-constraint {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint.";
+    }
+    leaf local-overbooking-multiplier {
+      type string {
+        length "1..10";
+      }
+      description
+        "Local Overbooking Multiplier.";
+    }
+    leaf bandwidth-constraint-model-standard {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint Model (Standard).";
+    }
+    leaf bandwidth-constraint-standard {
+      type string {
+        length "1..20";
+      }
+      description
+        "Bandwidth Constraint (Standard).";
+    }
+    leaf sid-label {
+      type uint32;
+      description
+        "Peer Node or Adj label.";
+    }
+    leaf peer-set-sid-label {
+      type uint32;
+      description
+        "Peer set sid label.";
+    }
+    leaf min-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Min Delay time.";
+    }
+    leaf max-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Max Delay time.";
+    }
+    leaf average-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Average Delay time.";
+    }
+    leaf average-delay-variation {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      description
+        "Average Delay Variation time.";
+    }
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      description
+        "IGP topology ID.";
+    }
+    leaf srv6-endx-sid {
+      type string {
+        length "1..121";
+      }
+      description
+        "END.X SID of an SRv6 route on a P2P network.";
+    }
+    leaf srv6-lan-endx-sid {
+      type string {
+        length "1..300";
+      }
+      description
+        "END.X SID of an SRv6 route on a LAN network.";
+    }
+    leaf link-local-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      description
+        "Local ID of an LS link route.";
+    }
+    leaf link-remote-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      description
+        "Remote ID of an LS link route.";
+    }
+    leaf link-loss {
+      type uint32 {
+        range "0..16777215";
+      }
+      description
+        "Unidirectional link loss value.";
+    }
+    leaf link-loss-ratio {
+      type decimal64 {
+        fraction-digits 6;
+        range "0..100";
+      }
+      units "%";
+      description
+        "Unidirectional link loss ratio.";
+    }
+    leaf msd-type-value {
+      type string {
+        length "1..180";
+      }
+      description
+        "MSD type and value string.";
+    }
+    leaf asla-administrative-group {
+      type pub-type:hex-binary;
+      description
+        "Application specific link attribute administrative group.";
+    }
+    leaf asla-link-loss {
+      type uint32 {
+        range "0..16777215";
+      }
+      description
+        "Unidirectional link loss value in application specific link attribute.";
+    }
+    leaf asla-link-loss-ratio {
+      type decimal64 {
+        fraction-digits 6;
+        range "0..100";
+      }
+      units "%";
+      description
+        "Unidirectional link loss ratio in application specific link attribute.";
+    }
+    leaf asla-utilized-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      description
+        "Utilized link bandwidth in application specific link attribute.";
+    }
+  }
+  grouping node-route2-elements {
+    description
+      "Node routes elements grouping.";
+    uses ls-link-route-base-element;
+    uses routing-table-basic-attribute;
+    uses flag-string;
+    uses routing-table-label;
+    uses time;
+    uses interface-name;
+    uses relay-nexthop;
+    uses peer-count;
+    uses advertise-nexthop;
+    uses route-attribute-string;
+    uses ls-node-attribute;
+  }
+  grouping deprecate-vpn-name {
+    description
+      "Deprecate vpn name.";
+    leaf vpn-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      status deprecated;
+      description
+        "VPN name of a BGP instance.";
+    }
+  }
+  grouping deprecate-link-routes {
+    description
+      "Deprecate link routes.";
+    leaf type {
+      type ls-route-type;
+      status deprecated;
+      description
+        "BGP link state unicast address family route type.";
+    }
+    leaf network {
+      type string {
+        length "1..600";
+      }
+      status deprecated;
+      description
+        "Prefix of BGP-LS route.";
+    }
+    leaf from {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Source peer that sends a route.";
+    }
+    leaf protocol {
+      type protocol-type;
+      status deprecated;
+      description
+        "IGP Protocol type.";
+    }
+    leaf identifier {
+      type uint64 {
+        range "0..4294967295";
+      }
+      status deprecated;
+      description
+        "Identifier of IGP protocol.";
+    }
+    leaf peer-router-id {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Router ID of source peer that sends a route.";
+    }
+    leaf nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Next hop address to which packets are forwarded.";
+    }
+    leaf route-type {
+      type bgp-rt:bgp-route-type-flag;
+      status deprecated;
+      description
+        "Route Type Flag.";
+    }
+    leaf local-preference {
+      type uint32;
+      status deprecated;
+      description
+        "Local priority. The attribute is only fit for the routes from IBGP peer, not suit for which of EBGP peer.";
+    }
+    leaf preferred-value {
+      type uint32;
+      status deprecated;
+      description
+        "Preferred value of a protocol.";
+    }
+    leaf preference {
+      type uint8;
+      status deprecated;
+      description
+        "Priority of BGP routes.";
+    }
+    leaf originator {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Router ID of the route initiator.";
+    }
+    leaf med {
+      type uint32;
+      status deprecated;
+      description
+        "Route MED.The attribute is only fit for the routes from EBGP peer, not suit for which of IBGP peer.";
+    }
+    leaf flag-string {
+      type string {
+        length "1..50";
+      }
+      status deprecated;
+      description
+        "Route flag that contains a string of characters.";
+    }
+    leaf in-label {
+      type uint32;
+      status deprecated;
+      description
+        "In label.";
+    }
+    leaf out-label {
+      type uint32;
+      status deprecated;
+      description
+        "Out label.";
+    }
+    leaf time {
+      type uint32;
+      units "s";
+      status deprecated;
+      description
+        "Time stamp of a route.";
+    }
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      status deprecated;
+      description
+        "Name of the outbound interface of a route.";
+    }
+    leaf relay-nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Next hop to which a route is iterated.";
+    }
+    leaf peer-count {
+      type uint32;
+      status deprecated;
+      description
+        "Count of Route Sending Peers.";
+    }
+    leaf advertise-nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Advertise nexthop.";
+    }
+    leaf path-as {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "List of the AS_Paths that packets pass through.";
+    }
+    leaf discard-attribute {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "The route attribute list.";
+    }
+    leaf sending-peers {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "List of route sending peers.";
+    }
+    leaf ipv4-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv4 router id of local node.";
+    }
+    leaf ipv6-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv6 router id of local node.";
+    }
+    leaf ipv4-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv4 router id of remote node.";
+    }
+    leaf ipv6-remote-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv6 router id of remote node.";
+    }
+    leaf administrative-group {
+      type pub-type:hex-binary;
+      status deprecated;
+      description
+        "Administrative group.";
+    }
+    leaf maximum-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      status deprecated;
+      description
+        "Maximum link bandwidth.";
+    }
+    leaf maximum-reservable-bandwidth {
+      type uint64;
+      units kbit/s;
+      status deprecated;
+      description
+        "Maximum reservable bandwidth.";
+    }
+    leaf maximum-unreserved-bandwidth {
+      type string {
+        length "1..256";
+      }
+      units kbit/s;
+      status deprecated;
+      description
+        "Maximum unreserved bandwidth.";
+    }
+    leaf utilized-link-bandwidth {
+      type uint64;
+      units kbit/s;
+      status deprecated;
+      description
+        "Utilized link bandwidth.";
+    }
+    leaf te-default-metric {
+      type uint32;
+      status deprecated;
+      description
+        "TE default metric.";
+    }
+    leaf link-protect-type {
+      type uint16;
+      status deprecated;
+      description
+        "Link protect type.";
+    }
+    leaf mpls-protocol-mask {
+      type pub-type:hex-binary;
+      status deprecated;
+      description
+        "MPLS protocol mask.";
+    }
+    leaf igp-metric {
+      type uint32;
+      status deprecated;
+      description
+        "IGP metric.";
+    }
+    leaf shared-risk-link-group {
+      type string {
+        length "1..800";
+      }
+      status deprecated;
+      description
+        "Shared risk link group.";
+    }
+    leaf opaque-link-properties {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Opaque link properties.";
+    }
+    leaf link-name {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "Link Name.";
+    }
+    leaf adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "Adj segment id.";
+    }
+    leaf lan-adj-segment-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "LAN Adj segment id.";
+    }
+    leaf unreserved-bandwidth {
+      type string {
+        length "1..20";
+      }
+      status deprecated;
+      description
+        "Unreserved Bandwidth.";
+    }
+    leaf bandwidth-constraint-model {
+      type string {
+        length "1..20";
+      }
+      status deprecated;
+      description
+        "Bandwidth Constraint Model.";
+    }
+    leaf bandwidth-constraint {
+      type string {
+        length "1..20";
+      }
+      status deprecated;
+      description
+        "Bandwidth Constraint.";
+    }
+    leaf local-overbooking-multiplier {
+      type string {
+        length "1..10";
+      }
+      status deprecated;
+      description
+        "Local Overbooking Multiplier.";
+    }
+    leaf bandwidth-constraint-model-standard {
+      type string {
+        length "1..20";
+      }
+      status deprecated;
+      description
+        "Bandwidth Constraint Model (Standard).";
+    }
+    leaf bandwidth-constraint-standard {
+      type string {
+        length "1..20";
+      }
+      status deprecated;
+      description
+        "Bandwidth Constraint (Standard).";
+    }
+    leaf sid-label {
+      type uint32;
+      status deprecated;
+      description
+        "Peer Node or Adj label.";
+    }
+    leaf peer-set-sid-label {
+      type uint32;
+      status deprecated;
+      description
+        "Peer set sid label.";
+    }
+    leaf min-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      status deprecated;
+      description
+        "Min Delay time.";
+    }
+    leaf max-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      status deprecated;
+      description
+        "Max Delay time.";
+    }
+    leaf average-delay {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      status deprecated;
+      description
+        "Average Delay time.";
+    }
+    leaf average-delay-variation {
+      type uint32 {
+        range "0..16777215";
+      }
+      units "us";
+      status deprecated;
+      description
+        "Average Delay Variation time.";
+    }
+    leaf mt-id {
+      type uint32 {
+        range "0..4095";
+      }
+      status deprecated;
+      description
+        "IGP topology ID.";
+    }
+    leaf srv6-endx-sid {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "END.X SID of an SRv6 route on a P2P network.";
+    }
+    leaf srv6-lan-endx-sid {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "END.X SID of an SRv6 route on a LAN network.";
+    }
+    leaf link-local-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      status deprecated;
+      description
+        "Local ID of an LS link route.";
+    }
+    leaf link-remote-id {
+      type uint32 {
+        range "0..4294967295";
+      }
+      status deprecated;
+      description
+        "Remote ID of an LS link route.";
+    }
+    leaf link-loss {
+      type uint32 {
+        range "0..16777215";
+      }
+      status deprecated;
+      description
+        "Unidirectional link loss value.";
+    }
+    leaf link-loss-ratio {
+      type decimal64 {
+        fraction-digits 6;
+        range "0..100";
+      }
+      units "%";
+      status deprecated;
+      description
+        "Unidirectional link loss ratio.";
+    }
+    leaf msd-type-value {
+      type string {
+        length "1..180";
+      }
+      status deprecated;
+      description
+        "MSD type and value string.";
+    }
+    leaf asla-administrative-group {
+      type pub-type:hex-binary;
+      status deprecated;
+      description
+        "Application specific link attribute administrative group.";
+    }
+    leaf worse-reason {
+      type string {
+        length "1..50";
+      }
+      status deprecated;
+      description
+        "Reason why a route is not selected.";
+    }
+  }
+  grouping deprecate-node-routes {
+    description
+      "Deprecate node routes.";
+    leaf type {
+      type ls-route-type;
+      status deprecated;
+      description
+        "BGP link state unicast address family route type.";
+    }
+    leaf network {
+      type string {
+        length "1..600";
+      }
+      status deprecated;
+      description
+        "Prefix of BGP-LS route.";
+    }
+    leaf from {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Source peer that sends a route.";
+    }
+    leaf protocol {
+      type protocol-type;
+      status deprecated;
+      description
+        "IGP Protocol type.";
+    }
+    leaf identifier {
+      type uint64 {
+        range "0..4294967295";
+      }
+      status deprecated;
+      description
+        "Identifier of IGP protocol.";
+    }
+    leaf peer-router-id {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Router ID of source peer that sends a route.";
+    }
+    leaf nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Next hop address to which packets are forwarded.";
+    }
+    leaf route-type {
+      type bgp-rt:bgp-route-type-flag;
+      status deprecated;
+      description
+        "Route Type Flag.";
+    }
+    leaf local-preference {
+      type uint32;
+      status deprecated;
+      description
+        "Local priority. The attribute is only fit for the routes from IBGP peer, not suit for which of EBGP peer.";
+    }
+    leaf preferred-value {
+      type uint32;
+      status deprecated;
+      description
+        "Preferred value of a protocol.";
+    }
+    leaf preference {
+      type uint8;
+      status deprecated;
+      description
+        "Priority of BGP routes.";
+    }
+    leaf originator {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Router ID of the route initiator.";
+    }
+    leaf med {
+      type uint32;
+      status deprecated;
+      description
+        "Route MED.The attribute is only fit for the routes from EBGP peer, not suit for which of IBGP peer.";
+    }
+    leaf flag-string {
+      type string {
+        length "1..50";
+      }
+      status deprecated;
+      description
+        "Route flag that contains a string of characters.";
+    }
+    leaf in-label {
+      type uint32;
+      status deprecated;
+      description
+        "In label.";
+    }
+    leaf out-label {
+      type uint32;
+      status deprecated;
+      description
+        "Out label.";
+    }
+    leaf time {
+      type uint32;
+      units "s";
+      status deprecated;
+      description
+        "Time stamp of a route.";
+    }
+    leaf interface-name {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      status deprecated;
+      description
+        "Name of the outbound interface of a route.";
+    }
+    leaf relay-nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Next hop to which a route is iterated.";
+    }
+    leaf peer-count {
+      type uint32;
+      status deprecated;
+      description
+        "Count of Route Sending Peers.";
+    }
+    leaf advertise-nexthop {
+      type inet:ip-address-no-zone;
+      status deprecated;
+      description
+        "Advertise nexthop.";
+    }
+    leaf path-as {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "List of the AS_Paths that packets pass through.";
+    }
+    leaf discard-attribute {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "The route attribute list.";
+    }
+    leaf sending-peers {
+      type string {
+        length "1..300";
+      }
+      status deprecated;
+      description
+        "List of route sending peers.";
+    }
+    leaf opaque-node-properties {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Opaque node properties.";
+    }
+    leaf mt-id-list {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "MT ID.";
+    }
+    leaf node-name {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "Name of IGP topology node.";
+    }
+    leaf isis-area-id {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "ISIS area ID.";
+    }
+    leaf sid-label-binding {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "SID/Label Binding.";
+    }
+    leaf sr-capabilities {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Segment routing capabilities.";
+    }
+    leaf sr-algorithm {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Segment routing algorithm.";
+    }
+    leaf node-flags {
+      type pub-type:hex-binary;
+      status deprecated;
+      description
+        "Node flags.";
+    }
+    leaf ipv4-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv4 router id of local node.";
+    }
+    leaf ipv6-local-node-router-id {
+      type string {
+        length "1..256";
+      }
+      status deprecated;
+      description
+        "IPv6 router id of local node.";
+    }
+    leaf sr-local-block {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Segment routing local block.";
+    }
+    leaf msd-type-value {
+      type string {
+        length "1..180";
+      }
+      status deprecated;
+      description
+        "MSD type and value string.";
+    }
+    leaf srv6-capabilities {
+      type string {
+        length "1..121";
+      }
+      status deprecated;
+      description
+        "Segment routing IPv6 capabilities.";
+    }
+    leaf worse-reason {
+      type string {
+        length "1..50";
+      }
+      status deprecated;
+      description
+        "Reason why a route is not selected.";
+    }
+  }
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af" {
+    description
+      "BGP link-state address family configuration.";
+      container link-state-unicast {
+        when "../bgp:type='ls' and ../../../../../ni:name='_public_'";
+        description
+          "Configure link state unicast address family options.";
+        container common {
+          description
+            "Configure link state unicast address family common options.";
+          leaf reflect-between-client {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable route reflection between clients. If clients of a route reflector (RR) are fully meshed, you can disable route reflection among clients to reduce the cost.";
+          }
+          leaf domain-as {
+          type bgp:as-number-validate;
+          description
+            "Domain AS.";
+          }
+          leaf domain-identifier {
+            type inet:ipv4-address-no-zone;
+            description
+              "Domain ID.";
+          }
+          uses bgp:reflector-cluster-type;
+      }
+      uses bgp:slow-peer-type;
+    }
+  } 
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af" {
+    description
+      "BGP link state unicast address family configuration.";
+    container link-state-unicast {
+      when "../bgp:type='ls'";
+      description
+        "Configure link state unicast address family options.";
+      leaf group-name {
+        type leafref {
+          path "../../../../../../bgp:peer-groups/bgp:peer-group/bgp:name";
+        }
+        must "../../../../../../bgp:peer-groups/bgp:peer-group[bgp:name = current()]/bgp:afs/bgp:af[bgp:type='ls']";
+        description
+          "Configure a name for a peer group. After a peer is deleted from the peer group, the peer is disabled from the address family. The object cannot be modified.";
+        ext:operation-exclude update {
+          description "The node cannot be modified, when the peer already belongs to a peer-group.";
+        }
+      }
+      leaf reflect-client {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the local device as a route reflector (RR) and a peer or peer group as its client. This configuration is applicable between IBGP peers only. The configurations of RRs and its clients in an address family are valid only in this address family. Therefore, it is recommended to configure RRs and its clients in the specified address family that is required.";
+      }
+      leaf route-update-interval {
+        type uint16 {
+          range "0..600";
+        }
+        units "s";
+        description
+          "Specify the minimum interval at which Update packets are sent. By default, the interval at which Update packets are sent to IBGP peers is 15s, 
+          and the interval at which Update packets are sent to EBGP peers is 30s. When routes change, a router will send Update packets to notify its peers. 
+          If a route changes frequently, you can set an interval at which Update packets are sent to prevent the router from sending Update packets each time the route changes. 
+          This configuration is valid only to the routes learned from peers.";
+        ext:dynamic-default;
+      }
+      leaf allow-as-loop {
+        type uint32 {
+          range "1..10";
+        }
+        description
+          "Allow repetitive local AS numbers. By default, repetitive local AS numbers are not allowed.";
+      }
+      uses bgp:peer-independent-peer-group-type;
+      choice import-policy-type {
+        description
+          "Set route policy.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf import-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes learned from a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      choice export-policy-type {
+        description
+          "Set route policy.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf export-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes to be advertised to a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      uses bgp:route-limit-type;
+      uses bgp:path-attr-map-type;
+      container option {
+        description
+          "Configure BGP link state unicast peer extended options.";
+        leaf advertise-unsorted-nlri {
+          type bgp:peer-attr-enable-type;
+          description
+            "Enable/disable advertise unsorted Network Layer Reachability Information (NLRI) to a peer.";
+        }
+        leaf ignore-address-type {
+          type bgp:peer-attr-enable-type;
+          description
+            "Enable/Disable the function of ignoring the IP address type of the route source neighbor when advertising routes to peers.";
+        }
+      }
+      leaf keep-all-routes {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable saving all the updated information about BGP routes from a specified peer or peer group after a BGP connection is established, even though these BGP routes fail to match the routing policy on the ingress. By default, the updated information about BGP routes from a specified peer is saved only when the routes match the routing policy on the ingress. If a router supports route refreshing, this option is not required.";
+      }
+    }
+  }
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af" {
+    description
+      "BGP link state unicast address family configuration.";
+    container link-state-unicast {
+      when "../bgp:type='ls'";
+      description
+        "Configure link state unicast address family options.";
+      leaf reflect-client {
+        when "../../../../bgp:type='ibgp'";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the local device as a route reflector (RR) and a peer or peer group as its client. This configuration is applicable between IBGP peers only. The configurations of RRs and its clients in an address family are valid only in this address family. Therefore, it is recommended to configure RRs and its clients in the specified address family that is required.";
+      }
+      leaf allow-as-loop {
+        type uint32 {
+          range "1..10";
+        }
+        description
+          "Allow repetitive local AS numbers. By default, repetitive local AS numbers are not allowed.";
+      }
+      choice import-policy-type {
+        description
+          "Set route policy.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf import-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes learned from a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      choice export-policy-type {
+        description
+          "Set route policy.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf export-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes to be advertised to a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      uses bgp:rt-update-interval-type;
+      uses bgp:group-independent-peer-group-type;
+      uses bgp:route-limit-type;
+      container option {
+        description
+          "Configure BGP link state unicast peer group extended options.";
+        leaf advertise-unsorted-nlri {
+          type bgp:peer-attr-enable-type;
+          default "enable";
+          description
+            "Enable/disable advertise unsorted Network Layer Reachability Information (NLRI) to a peer group.";
+        }
+        leaf ignore-address-type {
+          type bgp:peer-attr-enable-type;
+          default "disable";
+          description
+            "Enable/Disable the function of ignoring the IP address type of the route source neighbor when advertising routes to peers.";
+        }
+      }
+      leaf keep-all-routes {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable saving all the updated information about BGP routes from a specified peer or peer group after a BGP connection is established, even though these BGP routes fail to match the routing policy on the ingress. By default, the updated information about BGP routes from a specified peer is saved only when the routes match the routing policy on the ingress. If a router supports route refreshing, this option is not required.";
+      }
+    }
+  }
+  augment "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route" {
+    description
+      "BGP link state unicast address family routing-table.";
+    container link-state-unicast {
+      config false;
+      description
+        "Statistics of link-state-unicast routes.";
+      container prefix-routes {
+        config false;
+        description
+          "List of displayed prefix route information in an address family.";
+        list prefix-route {
+          key "vpn-name type network from";
+          description
+            "Statistics of prefix routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses ls-ip-prefix-route-type;
+          uses worse-reason;
+        }
+      }
+      container link-routes {
+        config false;
+        status deprecated;
+        description
+          "List of displayed link route information in an address family. The node link-routes is deprecated. You are advised to use the node link-route2s.";
+        list link-route {
+          key "vpn-name type network from";
+          status deprecated;
+          description
+            "Statistics of link routes.";
+          uses deprecate-vpn-name;
+          uses deprecate-link-routes;
+        }
+      }
+      container node-routes {
+        config false;
+        status deprecated;
+        description
+          "List of displayed node route information in an address family. The node node-routes is deprecated. You are advised to use the node node-route2s.";
+        list node-route {
+          key "vpn-name type network from";
+          status deprecated;
+          description
+            "Statistics of node routes.";
+          uses deprecate-vpn-name;
+          uses deprecate-node-routes;
+        }
+      }
+      container link-route2s {
+        config false;
+        description
+          "List of displayed link route information in an address family.";
+        list link-route2 {
+          key "vpn-name type network from source path-id";
+          description
+            "Statistics of link routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses route-type-element;
+          uses ls-link2-key-elements;
+          uses ls-link-route-elements;
+          uses worse-reason;
+        }
+      }
+      container node-route2s {
+        config false;
+        description
+          "List of displayed node route information in an address family.";
+        list node-route2 {
+          key "vpn-name type network from source path-id";
+          description
+            "Statistics of node routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses route-type-element;
+          uses ls-link2-key-elements;
+          uses node-route2-elements;
+          uses worse-reason;
+        }
+      }
+      container srv6sid-routes {
+        config false;
+        description
+          "List of displayed srv6sid route information in an address family.";
+        list srv6sid-route {
+          key "vpn-name type network from";
+          description
+            "Statistics of srv6sid routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses ls-srv6-sid-route-type;
+          uses worse-reason;
+        }
+      }
+      container netslice-routes {
+        config false;
+        description
+          "List of displayed netslice route information in an address family.";
+        list netslice-route {
+          key "vpn-name type network from source path-id";
+          description
+            "Statistics of netslice routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses ls-network-slice-key-route-type;
+          uses worse-reason;
+        }
+      }
+      container peer-advertise-srv6sid-routes {
+        config false;
+        description
+          "List of displayed advertised SRv6-SID route information in an address family.";
+        list peer-advertise-srv6sid-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of advertised SRv6-SID routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbour address.";
+          }
+          uses ls-srv6-sid-route-type;
+          uses worse-reason-deprecated;
+        }
+      }
+      container peer-receive-srv6sid-routes {
+        config false;
+        description
+          "List of displayed received SRv6-SID route information in an address family.";
+        list peer-receive-srv6sid-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of received SRv6-SID routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses ls-srv6-sid-route-type;
+          uses worse-reason;
+        }
+      }
+      container peer-advertise-link-routes {
+        config false;
+        description
+          "List of displayed advertised link route information in an address family.";
+        list peer-advertise-link-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of advertised link routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses ls-link-route-type;
+          uses worse-reason-deprecated;
+        }
+      }
+      container peer-receive-link-routes {
+        config false;
+        description
+          "List of displayed received link route information in an address family.";
+        list peer-receive-link-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of received link routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses ls-link-route-type;
+          uses worse-reason;
+        }
+      }
+      container peer-advertise-node-routes {
+        config false;
+        description
+          "List of displayed advertised node route information in an address family.";
+        list peer-advertise-node-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of advertised node routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-type-element;
+          uses route-common-element;
+          uses routing-table-basic-attribute;
+        }
+      }
+      container peer-receive-node-routes {
+        config false;
+        description
+          "List of displayed received node route information in an address family.";
+        list peer-receive-node-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of received node routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-type-element;
+          uses route-common-element-peer-receive;
+          uses worse-reason;
+          uses routing-table-basic-attribute;
+        }
+      }
+      container peer-advertise-prefix-routes {
+        config false;
+        description
+          "List of displayed advertised prefix route information in an address family.";
+        list peer-advertise-prefix-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of advertised prefix routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-type-element;
+          uses route-common-element;
+          uses prefix-attribute;
+          uses routing-table-basic-attribute;
+        }
+      }
+      container peer-receive-prefix-routes {
+        config false;
+        description
+          "List of displayed received prefix route information in an address family.";
+        list peer-receive-prefix-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of received prefix routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-type-element;
+          uses route-common-element-peer-receive;
+          uses prefix-attribute;
+          uses worse-reason;
+          uses routing-table-basic-attribute;
+        }
+      }
+      container te-policy-routes {
+        config false;
+        description
+          "List of displayed the BGP te policy routes information.";
+        list te-policy-route {
+          key "vpn-name network from protocol identifier peer-router-id";
+          description
+            "Statistics of BGP te policy routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses te-policy-route;
+          uses worse-reason;
+          uses srv6-binding-sid;
+        }
+      }
+      container peer-advertise-te-policy-routes {
+        config false;
+        description
+          "List of displayed advertised te policy route information in an address family.";
+        list peer-advertise-te-policy-route {
+          key "vpn-name remote-peer-address network from";
+          description
+            "Statistics of advertised te policy routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-common-element;
+          uses te-policy-route-attribute;
+          uses routing-table-basic-attribute;
+          uses srv6-binding-sid;
+        }
+      }
+      container peer-receive-te-policy-routes {
+        config false;
+        description
+          "List of displayed received te policy route information in an address family.";
+        list peer-receive-te-policy-route {
+          key "vpn-name remote-peer-address network from";
+          description
+            "Statistics of received te policy routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses route-common-element-peer-receive;
+          uses te-policy-route-attribute;
+          uses worse-reason;
+          uses routing-table-basic-attribute;
+          uses srv6-binding-sid;
+        }
+      }
+      container peer-advertise-netslice-routes {
+        config false;
+        description
+          "List of displayed advertised NETWORK-SLICE route information in an address family.";
+        list peer-advertise-netslice-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of advertised NETWORK-SLICE routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbour address.";
+          }
+          uses ls-network-slice-route-type;
+          uses worse-reason;
+        }
+      }
+      container peer-receive-netslice-routes {
+        config false;
+        description
+          "List of displayed received NETWORK-SLICE route information in an address family.";
+        list peer-receive-netslice-route {
+          key "vpn-name remote-peer-address type network from";
+          description
+            "Statistics of received NETWORK-SLICE routes.";
+          uses bgp-rt:routing-table-vpn-name;
+          leaf remote-peer-address {
+            type inet:ip-address-no-zone;
+            description
+              "BGP neighbor address.";
+          }
+          uses ls-network-slice-route-type;
+          uses worse-reason;
+        }
+      }
+      container statistic {
+        description
+          "Statistics of BGP routes information of link-state unicast address family.";
+        uses bgp-rt:route-total-st-type;
+        uses ls-route-st-type;
+      }
+    }
+  }
+}

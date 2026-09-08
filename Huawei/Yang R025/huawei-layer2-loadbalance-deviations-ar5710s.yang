@@ -1,0 +1,196 @@
+/*
+Copyright (C) 2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-layer2-loadbalance-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-layer2-loadbalance-deviations-ar5710s";
+  prefix layer2-loadbalance-devs-ar5710s;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ifm-trunk {
+    prefix ifm-trunk;
+  }
+  import huawei-layer2-loadbalance {
+    prefix layer2-loadbalance;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Layer2-loadbalance deviations of AR5710.";
+
+  revision 2023-02-04 {
+    description
+      "Init revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:hashcalces" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-inner" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip" {
+    deviate add {
+      must "((./dst-ip='enable') or (./src-ip='enable'))";
+    }
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:l4-dst-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:l4-src-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:protocol" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:none" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:src-interface" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:vlan" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:src-mac" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:dst-mac" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:flowlabel" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:dest-qp" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:session-id" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:eth-type" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:outervlan" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:innervlan" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ip/layer2-loadbalance:dpcf" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6" {
+    deviate add {
+      must "((./dst-ip='enable') or (./src-ip='enable'))";
+    }
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:l4-dst-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:l4-src-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:protocol" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:flowlabel" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:next-header" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ipv6/layer2-loadbalance:none" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:l2" {
+    deviate add {
+      must "((./dst-mac='enable') or (./src-mac='enable'))";
+    }
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:l2/layer2-loadbalance:eth-type" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:l2/layer2-loadbalance:src-interface" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:l2/layer2-loadbalance:vlan" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:l2/layer2-loadbalance:none" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:third-label" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:src-interface" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:l4-src-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:l4-dst-port" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:protocol" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:vlan" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:all-label" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:none" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:tunnel" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:dst-mac" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:src-mac" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:fourth-label" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:mpls/layer2-loadbalance:fifth-label" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:universal" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:ecmp" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:eth-trunk" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:network" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-profile/layer2-loadbalance:symmetry" {
+    deviate not-supported;
+  }
+  deviation "/layer2-loadbalance:layer2-loadbalance/layer2-loadbalance:loadbalance-global" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/layer2-loadbalance:local-preference" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/layer2-loadbalance:trunk-loadbalance" {
+    deviate not-supported;
+  }
+}

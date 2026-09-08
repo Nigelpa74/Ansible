@@ -1,0 +1,368 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-active-directory {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-active-directory";
+  prefix active-directory;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-aaa {
+    prefix aaa;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+    configuring AD implementations.
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject
+    to the license terms contained in, the Simplified BSD License
+    set forth in Section 4.c of the IETF Trust's Legal Provisions
+    Relating to IETF Documents.";
+  revision 2025-08-12 {
+    description
+      "1.Modify ldap-server-parameter;
+       2.Modify the task-name of the active-directory node to ad.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-05 {
+    description
+      "Modify length of base-dn.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-04-09 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ad";
+  grouping ad-server-parameter {
+    description
+      "Parameters of AD servers.";
+    leaf server-ip-address {
+      type inet:ip-address;
+      description
+        "Specifies the IP address of an AD server.";
+    }
+    leaf port {
+      when "../server-ip-address";
+      type inet:port-number;
+      description
+        "Specifies the port number of an AD server.";
+    }
+    leaf encryption-type {
+      when "../server-ip-address";
+      type enumeration {
+        enum "ldap-over-ssl" {
+          value 1;
+          description
+            "When the device and AD server use LDAP over SSL for LDAP authentication, you need to specify this parameter.";
+        }
+        enum "no-ssl" {
+          value 2;
+          description
+            "Disables SSL encryption.";
+        }
+      }
+      default "ldap-over-ssl";
+      description
+        "Use LDAP over SSL for LDAP authentication or disable SSL encryption.";
+    }
+    leaf host-name {
+      type string {
+        length "1..127";
+      }
+      description
+        "Specifies the host name for an AD server. The host name of the AD server must contain a dot.";
+    }
+  }
+  container active-directory {
+    description
+      "AD related configuration and state data.";
+    container ad-servers {
+      description
+        "List of AD client related configuration and state data.";
+      list ad-server {
+        key "name";
+        description
+          "Configure AD client related configuration and state data list.";
+        leaf name {
+          type string {
+            length "1..32";
+          }
+          description
+            "Specifies the name of an AD server template. The value is a case-sensitive.";
+        }
+        leaf base-dn {
+          type string {
+            length "1..129";
+          }
+          description
+            "Specifies the Base DN for an AD authentication server.";
+        }
+        leaf bind-user {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable user binding during AD authorization.";
+        }
+        leaf ldap-port {
+          type inet:port-number;
+          default "389";
+          description
+            "Specifies the LDAP port number of an AD authentication server.";
+        }
+        leaf ldap-ssl-port {
+          type inet:port-number;
+          default "636";
+          description
+            "Specifies the LDAP ssl port number of an AD authentication server.";
+        }
+        leaf cipher-suite {
+          type enumeration {
+            enum "rc4-hmac-md5" {
+              value 1;
+              description
+                "Sets the cipher suite to rc4-hmac-md5.";
+            }
+            enum "aes256-hmac-sha1" {
+              value 2;
+              description
+                "Sets the cipher suite to aes256-hmac-sha1.";
+            }
+          }
+          description
+            "Configures the cipher suite used for interaction between the device and the Kerberos server integrated in an AD server.";
+        }
+        leaf user-filter {
+          type string {
+            length "1..63";
+          }
+          description
+            "Specifies the user filtering field.";
+        }
+        leaf group-filter {
+          type string {
+            length "1..63";
+          }
+          description
+            "Specifies the group filtering field.";
+        }
+        leaf mobile-number-filter {
+          type string {
+            length "1..63";
+          }
+          description
+            "Specifies the mobile number filtering field.";
+        }
+        leaf time-stamp-filter {
+          type string {
+            length "1..63";
+          }
+          description
+            "Specifies the timestamp attribute filtering field.";
+        }
+        container ip-address-filter {
+          description
+            "Configure the IP address filtering field for the AD server.";
+          leaf ip-field {
+            type string {
+              length "1..63";
+            }
+            description
+              "Specifies the filtering field of IP address attribute.";
+          }
+          leaf mask-field {
+            type string {
+              length "1..63";
+            }
+            description
+              "Specifies the filtering field of mask attribute.";
+          }
+        }
+        choice authentication-server {
+          description
+            "Configure an AD server.";
+          case use-ip {
+            description
+              "Use ip case.";
+            container primary-authentication-server {
+              description
+                "Configure the primary AD server.";
+              uses ad-server-parameter;
+            }
+            container secondary-authentication-server {
+              description
+                "Configure the secondary AD server.";
+              uses ad-server-parameter;
+            }
+            container thirdly-authentication-server {
+              description
+                "Configure the tertiary AD server.";
+              uses ad-server-parameter;
+            }
+          }
+          case use-url {
+            description
+              "Use url case.";
+            container url {
+              description
+                "Configure an AD server.";
+              leaf server-url {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Specifies the URL of an AD server. It must contain a dot, for example, abc.com.";
+              }
+              leaf port {
+                when "../server-url";
+                type inet:port-number;
+                description
+                  "Specifies the port number of an AD server.";
+              }
+              leaf encryption-type {
+                when "../server-url";
+                type enumeration {
+                  enum "ldap-over-ssl" {
+                    value 1;
+                    description
+                      "When the device and AD server use LDAP over SSL for LDAP authentication, you need to specify this parameter.";
+                  }
+                  enum "no-ssl" {
+                    value 2;
+                    description
+                      "Disables SSL encryption.";
+                  }
+                }
+                default "ldap-over-ssl";
+                description
+                  "Use LDAP over SSL for LDAP authentication or disable SSL encryption.";
+              }
+            }
+          }
+        }
+        choice access-parameters {
+          description
+            "Access parameters.";
+          case prohibit-anonymous-access {
+            description
+              "Prohibit anonymous access parameters.";
+            leaf with-base-dn {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable attaching the Base DN to an administrator DN.";
+            }
+            container manager {
+              description
+                "Configure manager parameters.";
+              leaf manager-dn {
+                type string {
+                  length "1..182";
+                }
+                description
+                  "Specifies the administrator DN of an AD authentication server.";
+              }
+              leaf password {
+                type pub-type:password-extend;
+                description
+                  "Specifies the administrator password of an AD authentication server.";
+              }
+              leaf repassword {
+                type pub-type:password-extend;
+                description
+                  "Re-enters the administrator password of an AD authentication server.";
+              }
+            }
+          }
+          case allow-anonymous-access {
+            description
+              "Allow anonymous access parameters.";
+            leaf manager-anonymous-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable an administrator to access an AD server anonymously.";
+            }
+          }
+        }
+        choice source-type {
+          default "loopback";
+          description
+            "Configures the source IP address that a device uses when sending packets to the AD server.";
+          case loopback {
+            description
+              "Case loopback.";
+            leaf loopback-number {
+              type int32 {
+                range "0..2147483647";
+              }
+              description
+                "Specifies the IP address of a loopback interface as the source IP address that the device uses when sending packets to the AD server.";
+            }
+          }
+          case source-ip {
+            description
+              "Case source ip.";
+            leaf ip-address {
+              type inet:ip-address-no-zone;
+              description
+                "Specifies an IP address as the source IP address that the device uses when sending packets to the AD server.";
+            }
+          }
+          case vlanif {
+            description
+              "Case VLANIF.";
+            leaf vlanif-id {
+              type int16 {
+                range "1..4094";
+              }
+              description
+                "Specifies the IP address of a VLANIF interface as the source IP address that the device uses when sending packets to the AD server.";
+            }
+          }
+        }
+      }
+    }
+  }
+  augment /aaa:aaa/aaa:domains/aaa:domain {
+    description
+      "Augment this aaa domain.";
+    container ad {
+      description
+        "Configure an AD function for an authentication domain.";
+      leaf ad-server {
+        type leafref {
+          path "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:name";
+        }
+        description
+          "Specifies the name of an AD server template.";
+      }
+    }
+  }
+}

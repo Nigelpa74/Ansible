@@ -1,0 +1,71 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-vdsl {
+  namespace "urn:huawei:yang:huawei-vdsl";
+  prefix vdsl;
+  import huawei-ifm {
+    prefix ifm;
+  } 
+  import huawei-extension {
+    prefix ext;
+  }  
+  organization "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Digital subscriber line is a technology at the transport layer. It makes full use of existing copper line resources and provides users with symmetric or asymmetric high-speed leased line access services over a pair of common twisted pairs.";
+  revision 2025-01-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  ext:task-name "vdsl";
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    when "ifm:class='main-interface' and ifm:type='Ethernet'";
+    description "Configuration of the interface.";
+    container vdsl {
+      description "Configure the physical link information on vdsl interface.";
+      leaf bitswap {
+        type boolean;
+        default "true";
+        description "Enable/disable Bit-switching function on the interface.";
+      }
+      leaf sra {
+        type boolean;
+        default "false";
+        description "Enable/disable seamless rate adaptation function on the interface.";
+      }
+      leaf trellis {
+        type boolean;
+        default "true";
+        description "Enable/disable trellis coding function on the interface.";
+      }
+      leaf anti-noise {
+        type boolean;
+        default "false";
+        description "Enable/disable enhanced anti-noise function on the interface.";
+      }
+      leaf band {
+        type boolean;
+        default "true";
+        description "Enable/disable band v43 function on the interface.";
+      }
+      leaf downstream-retrans {
+        type boolean;
+        default "true";
+        description "Enable/disable downstream retransmit function on the interface.";
+      }
+      leaf upstream-retrans {
+        type boolean;
+        default "true";
+        description "Enable/disable upstream retransmit function on the interface.";
+      }
+    }
+  }
+}

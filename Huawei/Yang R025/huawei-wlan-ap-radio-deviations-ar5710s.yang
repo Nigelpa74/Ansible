@@ -1,0 +1,52 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-radio-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-radio-deviations-ar5710s";
+  prefix hw-ap-radio-devs-ar5710s;
+
+  import huawei-wlan-ap-radio {
+    prefix hw-ap-radio;
+  }
+  import huawei-wlan-ap {
+    prefix hw-wlan-ap;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ap-radio module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:channel-info/hw-ap-radio:bandwidth/hw-ap-radio:bandwidth-80plus80mhz" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:flexible-radio" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:interference-visualization-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:coverage" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:reference-data-analysis" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-ap-radio:radio-instances/hw-ap-radio:radio-instance/hw-ap-radio:asfn-roam" {
+    deviate not-supported;
+  }
+}

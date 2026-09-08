@@ -1,0 +1,701 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-controller {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-system-controller";
+  prefix controller;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-system {
+    prefix hw-system;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "System management of the communication between controller and device.";
+    revision 2025-03-04 {
+     description
+      "Change cloud-with-configuration description.";
+     reference
+      "Huawei private.";
+   }
+   revision 2025-01-15 {
+     description
+      "Change cloud-with-configuration default value to false.";
+     reference
+      "Huawei private.";
+   }
+   revision 2024-11-19 {
+     description
+      "Add the leaf of cloud-with-configuration.";
+     reference
+      "Huawei private.";
+   }
+    revision 2024-07-26 {
+    description
+      "Modify description of enabled leaf.";
+    reference
+      "Huawei private.";
+   }
+   revision 2024-07-01 {
+    description
+      "Modify range of sitecode.";
+    reference
+      "Huawei private.";
+   }
+   revision 2024-06-18 {
+    description
+      "Add the leaf of startup-VLAN.";
+    reference
+      "Huawei private.";
+   }
+    revision 2024-06-14 {
+    description
+      "Add RPC cloud-mng-controller node.";
+    reference
+      "Huawei private.";
+   }
+    revision 2024-05-21 {
+    description
+      "Modify the english description of the uplink port information node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-27 {
+    description
+      "Add the dynamic-default of manage VLAN.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-25 {
+    description
+      "Add the leaf of online-robustness-enhancement.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-30 {
+    description
+      "Modify the description of controller address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-08 {
+    description
+      "Add controller address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-06 {
+    description
+      "Add IPv6 when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-21 {
+    description
+      "Modify online-robustness-enhancement/stable-time node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-09 {
+    description
+      "Modify pnp-enable node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-28 {
+    description
+      "Add pnp-enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-31 {
+    description
+      "Add ap-neighbors.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-27 {
+    description
+      "Change when to must.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-21 {
+    description
+      "Add online robustness enhancement configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-19 {
+    description
+      "Modify send-VLAN and wireless-send-VLAN.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-20 {
+    description
+      "Add plug and play function.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-23 {
+    description
+      "Change offline-records and register-fail-records max elements.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-16 {
+    description
+      "Add container register-info and leaf IPv6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-26 {
+    description
+      "Add token-info and sitecode-info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-06-05 {
+    description
+      "Add manage VLAN.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-09-16 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef port-link-type {
+    type enumeration {
+      enum "access" {
+        value 1;
+        description
+          "Access port that accepts packets without VLAN tags.";
+      }
+      enum "trunk" {
+        value 2;
+        description
+          "Trunk port that accepts packets with VLAN tags.";
+      }
+      enum "hybrid" {
+        value 3;
+        description
+          "Hybrid port that accepts packets with or without VLAN tags.";
+      }
+      enum "dot1q-tunnel" {
+        value 4;
+        description
+          "Dot1q tunnel port that accepts packets with double tags.";
+      }
+    }
+    description
+      "Ethernet link type.";
+  }
+  container system-controller {
+    description
+      "System management of the communication between controller and device.";
+    container global {
+      description
+        "Configure system management global attributes.";
+      leaf manage-vlan {
+        ext:dynamic-default;
+        type uint16 {
+          range "1..4094";
+        }
+        description
+          "Configure management VLAN id.";
+      }
+      leaf ipv6 {
+        when "../manage-vlan";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable to dynamically get the IPv6 address.";
+      }
+    }
+    container cloud-with-configuration {
+      description "Configure cloud management with configuration.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description "Enable/disable cloud management with configuration.";
+      }
+    }   
+    container pnp {
+      description "Configure PNP global attributes.";
+      container startup-vlan {
+        description "Configure PNP startup VLAN global attributes.";
+        leaf send-enable {
+          type boolean;
+          default "false";
+          description "Enable/disable to send PNP startup VLAN.";
+        }
+        leaf receive-enable {
+          type boolean;
+          default "true";
+          description "Enable/disable to receive PNP startup VLAN.";
+        }
+        leaf send-vlan {
+          type leafref {
+            path "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:id";
+          }
+          must "/vlan:vlan/vlan:vlans/vlan:vlan[vlan:id=current()]/vlan:type!='super'";
+          description "Configure the PNP startup VLAN id.";
+        }
+        leaf wireless-send-vlan {
+          type leafref {
+            path "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:id";
+          }
+          must "/vlan:vlan/vlan:vlans/vlan:vlan[vlan:id=current()]/vlan:type!='super'";
+          description "Configure the PNP wireless startup VLAN id.";
+        }
+        leaf receive-vlan {
+          type vlan:vlan-id;
+          config false;
+          description "The startup VLAN receive.";
+        }
+        leaf receive-wireless-vlan {
+          type vlan:vlan-id;
+          config false;
+          description "The wireless startup VLAN receive.";
+        }
+        leaf remove-lacp-mode-enable {
+          type boolean;
+          default "true";
+          description "Enable/disable the removal of LACP mode configuration when the uplink port is removed from Eth-Trunk0.";
+        }
+      }
+      container startup-link-aggregation {
+        description "Configure PNP startup link aggregation global attributes.";
+        leaf receive-enable {
+          type boolean;
+          default "true";
+          description "Enable/disable to receive link-aggregation.";
+        }
+      }
+      container uplinks {
+        config false;
+        description "List of PNP uplink interfaces.";
+        list uplink {
+          key "if-name";
+          description "Operational data of one PNP uplink interface.";
+          leaf if-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description "The name of uplink interface.";
+          }
+          leaf lag-negotiation {
+            type boolean;
+            description "The flag of PNP auto lag negotiation.";
+          }
+          leaf lacp-negotiation {
+            type boolean;
+            description "The flag of PNP auto lacp negotiation.";
+          }
+          leaf-list assign-interface {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description "Operational data of port added to the trunk.";
+          }
+        }
+      }
+      container ap-neighbors {
+        config false;
+        description "List of PNP downlink interfaces connected to the AP.";
+        list ap-neighbor {
+          key "if-name";
+          description "Operational data of the PNP downlink interface connected to the AP.";
+          leaf if-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description "The name of downlink interface.";
+          }
+          leaf link-type {
+            type port-link-type;
+            description "The link type of the downlink interface.";
+          }
+          leaf default-vlan {
+          type leafref {
+            path "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:id";
+          }
+            description "PVID of the downlink interface.";
+          }
+        }
+      }
+    }
+    container offline-records {
+      config false;
+      description
+        "List of device offline records.";
+      list offline-record {
+        key "id";
+        max-elements 200;
+        description
+          "Statistics of device offline records.";
+        leaf id {
+          type uint32 {
+            range "1..200";
+          }
+          description
+            "Id.";
+        }
+        leaf time {
+          type string {
+            length "1..31";
+          }
+          description
+            "Record generation time.";
+        }
+        leaf reason {
+          type string {
+            length "1..512";
+          }
+          description
+            "Detail reason.";
+        }
+      }
+    }
+    container register-fail-records {
+      config false;
+      description
+        "List of device register fail records.";
+      list register-fail-record {
+        key "id";
+        max-elements 200;
+        description
+          "Statistics of device register fail records.";
+        leaf id {
+          type uint32 {
+            range "1..200";
+          }
+          description
+            "Id.";
+        }
+        leaf time {
+          type string {
+            length "1..31";
+          }
+          description
+            "Record generation time.";
+        }
+        leaf reason {
+          type string {
+            length "1..512";
+          }
+          description
+            "Detail reason.";
+        }
+      }
+    }
+    container register-info {
+      config false;
+      description
+        "Operational state of register.";
+      leaf register-phase {
+        type string {
+          length "1..16";
+        }
+        description
+          "Record register phase.";
+      }
+    }
+    container online-robustness-enhancement {
+      description
+        "Configure online robustness enhancement attributes.";
+      leaf enabled {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable rollback configuration.";
+      }
+      leaf stable-time {
+        when "../enabled='true'";
+        type uint32 {
+          range "8..65535";
+        }
+        units min;
+        default "8";
+        description
+          "Device stable duration after which a configuration file backup operation is triggered.";
+      }
+      leaf retry-time {
+        when "../enabled='true'";
+        type uint32 {
+          range "5..65535";
+        }
+        units min;
+        default "5";
+        description
+          "Device offline duration after which a configuration rollback operation is triggered.";
+      }
+      leaf reboot-device {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable reboot device.";
+      }
+      leaf offline-time {
+        when "../reboot-device='true'";
+        type uint32 {
+          range "6..168";
+        }
+        units h;
+        default "24";
+        description
+          "The time interval from offline to restarting the device.";
+      }
+      leaf rollback-patch {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable rollback patch.";
+      }
+      leaf rollback-patch-time {
+        when "../rollback-patch='true'";
+        type uint32 {
+          range "10..1440";
+        }
+        units min;
+        default "30";
+        description
+          "The time interval between offline and executing configuration rollback patches.";
+      }
+      leaf rollback-system-software {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable rollback system software.";
+      }
+      leaf rollback-system-software-time {
+        when "../rollback-system-software='true'";
+        type uint32 {
+          range "10..1440";
+        }
+        units min;
+        default "30";
+        description
+          "The time interval between offline and executing configuration rollback system software.";
+      }
+    }
+  }
+
+  rpc set-register-status {
+    description
+      "Controller sets registration status and reason for registration failure.";
+    input  {
+      leaf register-status {
+        type enumeration {
+          enum "success" {
+            value 1;
+            description
+              "The device registration is successful.";
+          }
+          enum "fail" {
+            value 2;
+            description
+              "The device registration is failure.";
+          }
+        }
+        description
+          "The status of device registration.";
+      }
+      leaf register-fail-reason {
+        type uint32;
+        description
+          "Error code of the reason for registration failure.";
+      }
+    }
+  }
+  rpc cloud-mng-controller {
+    description
+      "Configure cloud management controller info.";
+    input {
+	  leaf type {
+        type enumeration {
+          enum "master" {
+            value 0;
+            description
+              "Master cloud controller.";
+          }
+          enum "backup" {
+            value 1;
+            description
+              "Backup cloud controller.";
+          }
+        }
+        mandatory true;
+        description
+          "Set the type of cloud controller.";
+      }
+      leaf host-addr-ipv4 {
+        type string {
+          length "1..255";
+        }
+        must "not(../host-addr-ipv6)";
+        description
+          "Specify the IPv4 address of remote system.";
+      }
+      leaf host-addr-ipv6 {
+        type string {
+          length "1..255";
+        }
+        description
+          "Specify the IPv6 address of remote system.";
+      }
+	  leaf port {
+        type uint32 {
+          range "1..65535";
+        }
+		mandatory true;
+        description
+          "Specify the port number.";
+      }
+      leaf source-ipv4-address {
+        type inet:ipv4-address-no-zone;
+        must "../host-addr-ipv4";
+        description
+          "Specify the source IPv4 address.";
+      }
+      leaf source-ipv6-address {
+        type inet:ipv6-address-no-zone;
+        must "../host-addr-ipv6";
+        description
+          "Specify the source IPv6 address.";
+      }
+      leaf source-interface-name {
+        type pub-type:if-name;
+        description
+          "Specify the source interface name.";
+      }
+	}
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description "Extend interface attribute.";
+    container system-controller {
+      description "Configure system controller attributes on an interface.";
+      container pnp {
+        must "(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-mode='enable')";
+        description "Configure PNP attributes on an interface.";
+        leaf pnp-enable {
+            type boolean;
+            default "true";
+            description "Enable/disable PNP function.";
+        }
+        container startup-vlan {
+          description "Configure PNP startup VLAN.";
+          leaf send-enable {
+              type boolean;
+              default "true";
+              description "Enable/disable to send PNP startup VLAN.";
+          }
+        }
+        container startup-link-aggregation {
+          must "(../../../ifm:type='Eth-Trunk')";
+          description "Configure PNP link-aggregation.";
+          leaf send-enable {
+            type boolean;
+            default "false";
+            description "Enable/disable to send PNP startup link-aggregation.";
+          }
+        }
+      }
+    }
+  }
+
+  augment /hw-system:system/hw-system:system-info {
+    description
+      "Adds system management configuration to the IFM module.";
+    container upstream-info {
+      config false;
+      description
+        "Statistics of uplink port information.";
+      leaf-list if-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description
+          "Statistics of interface name.";
+      }
+      leaf manage-vlan {
+        type uint32 {
+          range "1..4094";
+        }
+        description
+          "The VLAN id of upstream port.";
+      }
+      leaf ip-address {
+        type inet:ip-address;
+        description
+          "IP address of manage VLAN.";
+      }
+    }
+    container token-info {
+      config false;
+      description
+        "Operational state of device token.";
+      leaf token {
+        type string {
+          length "1..255";
+        }
+        description
+          "Device token.";
+      }
+    }
+    container sitecode-info {
+      config false;
+      description
+        "Operational state of device sitecode.";
+      leaf sitecode {
+        type string {
+          length "1..16";
+        }
+        description
+          "The sitecode from option 148.";
+      }
+    }
+    container controller-address {
+      config false;
+      description
+        "Operational data of IP address.";
+      leaf address {
+        type inet:ip-address;
+        description
+          "IP address of the controller with which the device registers.";
+      }
+    }
+  }
+
+  ext:task-name "cmng";
+}

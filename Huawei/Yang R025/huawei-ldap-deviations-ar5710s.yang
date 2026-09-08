@@ -1,0 +1,40 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ldap-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ldap-deviations-ar5710s";
+  prefix ldap-devs-ar5710s;
+
+  import huawei-ldap {
+    prefix ldap;
+  }
+  import huawei-aaa {
+    prefix aaa;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ldap module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ldap:ldap" {
+    deviate not-supported;
+  }
+  deviation "/aaa:aaa/aaa:domains/aaa:domain/ldap:ldap" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,105 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-dtls-authen {
+
+  namespace "urn:huawei:yang:huawei-dtls-authen";
+  prefix dtls-authen;
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     dtls authentication implementations.";
+
+  revision 2025-05-22 {
+    description "Add cert-authenticate.";
+    reference "";
+  }
+
+  revision 2022-05-27 {
+    description "Change type to mandatory.";
+    reference "";
+  }
+  revision 2022-05-25 {
+    description "Change type to optional.";
+    reference "";
+  }
+  revision 2021-12-01 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "sdwan";
+
+  typedef list-type {
+    type enumeration {
+      enum white-list {
+        value 1;
+        description "White list.";
+      }
+      enum black-list {
+        value 2;
+        description "Black list.";
+      }
+    }
+    description
+      "Type of the list.";
+  }
+  
+    container dtls-authen {
+        description "Dtls authentication parameters.";
+
+        container esn-lists {
+            description "List of ESN authentication.";
+            list esn-list {
+                key "name";
+                description "Specify an ESN list.";
+                leaf name {
+                    type string {
+                        length "1..31";
+                    }
+                    description "The name of the ESN list.";
+                }
+                leaf type {
+                    ext:operation-exclude update;
+                    type list-type;
+                    mandatory true;
+                    description "Configure type of the list.";
+                }
+                container esns {
+                    description "List of ESNs.";
+                    list esn {
+                        key "esn";
+                        leaf esn {
+                            type string {
+                                length "1..64";
+                            }
+                            description "Specify an ESN.";
+                        }
+                        description "Configure ESNs.";
+                    }
+                }
+            }
+        }
+
+        leaf cert-authenticate {
+            type boolean;
+            default "true";
+            description "Enable/disable DTLS certificate validity check."; 
+        }
+    }
+}

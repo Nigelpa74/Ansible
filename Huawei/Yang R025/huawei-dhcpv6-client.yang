@@ -1,0 +1,358 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-dhcpv6-client {
+  belongs-to huawei-dhcpv6 {
+    prefix dhcpv6;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing DHCPv6 client.";
+  revision 2024-09-15 {
+    description
+      "Add DHCPv6 Client option15.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-12 {
+    description
+      "Add DHCPv6 Client vendor-specific.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-17 {
+    description
+      "Add DHCPv6 Client request option24.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-25 {
+    description
+      "Add DHCPv6 Client BFD.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-22 {
+    description
+      "Add DHCPv6 Client option59.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-22 {
+    description
+      "Modify DHCPv6 Client nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-07-16 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description "Extend interface attribute.";
+    container dhcpv6-client-if {
+      when "../ip:ipv6";
+      description
+        "Configure DHCPv6 client interface configuration.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DHCPv6 client.";
+      }
+      container client-type {
+        description
+          "Configure DHCPv6 client configuration.";
+        choice client-type{
+          description "DHCPv6 client type.";
+          case inform {
+            description "DHCPv6 client only request information.";
+            leaf inform-request {
+              type empty;
+              description
+                "Enable/disable inform request.";
+            }
+          }
+          case address-and-prefix {
+            description "DHCPv6 client request IPv6 address or IPv6 prefix or both.";
+            leaf address-request {
+              type empty;
+              description
+                "Enable/disable IPv6 address request.";
+            }
+            leaf hint-address {
+              when "../address-request";
+              type inet:ipv6-address;
+              description
+                "Hint address of IPv6 address request.";
+            }
+            leaf prefix-request {
+              type empty;
+              description
+                "Enable/disable IPv6 address prefix request.";
+            }
+            leaf prefix-name {
+              when "../prefix-request";
+              type string {
+                length "1..63";
+                pattern '([^\t]{0,})';
+              }
+              mandatory true;
+              description
+                "Prefix name used for address prefix request from dhcpv6 server.";
+            }
+            leaf hint-prefix {
+              when "../prefix-request";
+              type inet:ipv6-prefix;
+              description
+                "Hint prefix of IPv6 address prefix request.";
+            }
+            leaf rapid-commit {
+              when "../address-request or ../prefix-request";
+              type boolean;
+              default "false";
+              description
+                "Enable/disable rapid commit flag.";
+            }
+            leaf unicast {
+              when "../address-request or ../prefix-request";
+              type boolean;
+              default "false";
+              description
+                "Enable/disable unicast flag.";
+            }
+            leaf union-mode {
+              when "../address-request and ../prefix-request";
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the flag which set client request both IPv6 address and prefix in one packet or two packets.";
+            }
+          }
+        }
+      }
+      container option16 {
+          description
+            "Configure option 16.";
+        choice option16-format {
+          description
+            "The format of option 16.";
+          case ascii {
+            description
+              "ASCII string format.";
+            leaf ascii-string {
+              type string {
+                length "1..250";
+              }
+              description
+                "ASCII string.";
+            }
+          }
+          case hex {
+            description
+              "Hex string format.";
+            leaf hex-string {
+              type string {
+                length "10..256";
+                pattern '(([0-9a-fA-F]{2}){5,128})';
+              }
+              description
+                "Hex string.";
+            }
+          }
+        }
+      }
+      container request-options {
+        description
+          "Configure lists of request options.";
+        leaf-list request-option {
+          type enumeration {
+            enum "option17" {
+              value 17;
+              description
+                "Vendor-specific Information Option.";
+            }
+            enum "option24" {
+              value 24;
+              description
+                "DNS domain Option.";
+            }
+            enum "option59" {
+              value 59;
+              description
+                "Boot File Uniform Resource Locator (URL) Option.";
+            }
+          }
+          description
+            "Configure a list of request options that the Option3 field in DHCPv6 packets carries besides the default options.";
+        }
+      }
+      
+      container bfd {
+        description
+          "Configure DHCPv6 client bfd." ;
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable DHCPv6 client bfd." ;
+        }
+
+        leaf min-rx-interval {
+          type uint32 {
+            range "10..120000";
+          }
+          default "1000";
+          description
+            "Minimum interval at which BFD echo messages are sent.";
+        }
+
+        leaf detect-multiplier {
+          type uint32 {
+            range "3..50";
+          }
+          default "3";
+          description
+            "Local detect multiplier for BFD messages. The value is an integer ranging from 3 to 50. The default value is 3.";
+        }
+      }
+      container vendor-specific {
+        description
+          "Configure the vendor-specific on the DHCPv6 client.";
+        leaf insert-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the insertion of suboption1 of Option 17.";
+        }
+        leaf sub-option-value {
+          when "../insert-enable='true'";
+          type string {
+            length "1..128";
+          }
+          description
+            "Specify the content of sub-option value by users.";
+        }
+      }
+      container option15 {
+          description
+            "Configure option 15.";
+        choice option15-format {
+          description
+            "The format of option 15.";
+          case ascii {
+            description
+              "ASCII string format.";
+            leaf ascii-string {
+              type string {
+                length "1..250";
+              }
+              description
+                "ASCII string.";
+            }
+          }
+          case hex {
+            description
+              "Hex string format.";
+            leaf hex-string {
+              type string {
+                length "1..256";
+                pattern '(([0-9a-fA-F]{2}){1,128})';
+              }
+              description
+                "Hex string.";
+            }
+          }
+        }
+      }
+    }
+    container dhcpv6-client-query {
+      config false;
+      description
+        "Statistics of the dynamic data obtained by the DHCPv6 client.";
+      leaf client-state {
+        type string {
+          length "1..20";
+        }
+        description
+          "Current DHCPv6 client state.";
+      }
+      leaf-list address {
+        type inet:ipv6-address;
+        description
+          "Operational data of IPv6 address obtained by the DHCPv6 client.";
+      }
+      leaf pd-client-state {
+        type string {
+          length "1..20";
+        }
+        description
+          "Current DHCPv6 PD client state.";
+      }
+      leaf-list prefix {
+        type inet:ipv6-prefix;
+        description
+          "Operational data of IPv6 address prefix obtained by the DHCPv6 PD client.";
+      }
+      leaf-list dns-server-ip {
+        type inet:ipv6-address-no-zone;
+        description
+          "Operational data of IPv6 address of a DNS server.";
+      }
+      leaf-list request-option {
+          type uint8;
+          description
+            "Operational data of request options.";
+      }
+      leaf-list dns-domains {
+          type string {
+            length "1..255";
+          }
+          description
+            "Operational data of dns-domains.";
+      }
+      container option17 {
+        description
+          "Operational data of Option17 infomation.";
+        leaf sub-option1 {
+          type string {
+            length "1..255";
+          }
+          description
+            "Option17 sub-option1, indicates the iMaster NCE-Campus's IP address/URL and port number.";
+        }
+        leaf sub-option2 {
+          type inet:ipv6-address;
+          description
+            "Option17 sub-option2, indicates the IPv6 address of the syslog server.";
+        }
+      }
+      leaf option59 {
+        type string {
+          length "1..255";
+        }
+        description
+          "Operational data of Option59, indicates the Boot File Uniform Resource Locator (URL).";
+      }
+    }
+  }
+}

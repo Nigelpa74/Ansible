@@ -1,0 +1,927 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-remote-unit-mng-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-remote-unit-mng-notif";
+  prefix remote-unit-mng-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-remote-unit-mng {
+    prefix rumng;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+  	"Notification of remote unit.";
+  revision 2025-01-03 {
+    description
+      "Add lldp neighbor notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-14 {
+    description
+      "Modify the backup-port-misconfigured-resume notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-10 {
+    description
+      "Add backup master port misconfigured notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-21 {
+    description
+      "Add backup master port unavailable notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-28 {
+    description
+      "Update description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-08 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+ 
+  ext:task-name "rumng";
+  
+  typedef port-status {
+    type enumeration {
+      enum down {
+        value 0;
+        description
+          "The interface is in down state.";
+      }
+      enum up {
+        value 1;
+        description
+          "The interface is in up state.";
+      }
+    }
+    description
+      "Interface status type.";
+  }
+  typedef lldp-remote-change-type {
+    type enumeration {
+      enum "added" {
+        value 1;
+        description
+          "Interface neighbors are added.";
+      }
+      enum "deleted" {
+        value 2;
+        description
+          "Interface neighbors are deleted.";
+      }
+      enum "updated" {
+        value 3;
+        description
+          "Interface neighbors are updated.";
+      }
+    }
+    description
+      "Neighbor change type.";
+  }
+  notification link-abnormal {
+  	description "Remote unit connection is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf connect-interface {
+  		type string {
+        length "1..64";
+      }
+      description "Connection interface.";
+  	}
+  	leaf reason {
+  		type string {
+        length "1..128";
+      }
+      description "Cause of the link exception of the remote unit.";
+  	}
+  }
+  
+  notification link-normal {
+  	description "Remote unit connection is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf connect-interface {
+  		type string {
+        length "1..64";
+      }
+      description "Connection interface.";
+  	}
+  	leaf reason {
+  		type string {
+        length "1..128";
+      }
+      description "Cause of the link exception of the remote unit.";
+  	}
+  }
+  
+  notification port-down {
+  	description "The port on the remote unit goes down.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the remote unit's interface.";
+  	}
+  	leaf admin-status {
+  		type port-status; 
+      description "Admin status of the port on the remote unit.";
+  	}
+  	leaf oper-status {
+  		type port-status;
+      description "Operation status of the port on the remote unit.";
+  	}
+  }
+  
+  notification port-up {
+  	description "The port on the remote unit goes up.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the remote unit's interface.";
+  	}
+  	leaf admin-status {
+  		type port-status; 
+      description "Admin status of the port on the remote unit.";
+  	}
+  	leaf oper-status {
+  		type port-status; 
+      description "Operation status of the port on the remote unit.";
+  	}
+  }
+  
+  notification port-input-discard-exceed-threshold {
+  	description "The remote unit interface input discard exceed the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the remote unit's interface.";
+  	}
+  	leaf discard-pkt {
+  		type uint64; 
+      description "Number of discarded packets within a measurement period.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "Packet discard threshold during the configured interval.";
+  	}
+  	leaf interval {
+  		type uint32; 
+        units s;
+      description "The detection interval of the discard packet.";
+  	}
+  }
+  
+  notification port-output-discard-exceed-threshold {
+  	description "The remote unit interface output discard exceed the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the remote unit's interface.";
+  	}
+  	leaf discard-pkt {
+  		type uint64; 
+      description "Number of discarded packets within a measurement period.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "Packet discard threshold during the configured interval.";
+  	}
+  	leaf interval {
+  		type uint32; 
+        units s;
+      description "The detection interval of the discard packet.";
+  	}
+  }
+
+  notification port-crc-error-exceed-threshold {
+  	description "The remote unit port CRC error exceed the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf crc-pkt {
+  		type uint64; 
+      description "The number of crc packets on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "Crc Packet threshold during the configured interval.";
+  	}
+  	leaf interval {
+  		type uint32;
+        units s;  
+      description "The detection interval of the crc packet.";
+  	}
+  }
+  
+  notification port-crc-error-exceed-threshold-resume {
+  	description "The remote unit port CRC error resume.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf crc-pkt {
+  		type uint64; 
+      description "The number of crc packets on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "Crc Packet threshold during the configured interval.";
+  	}
+  	leaf interval {
+  		type uint32;
+        units s;  
+      description "The detection interval of the crc packet.";
+  	}
+  }
+  
+  notification port-input-rate-exceed-threshold {
+  	description "The remote unit interface input flow bandwidth usage exceeded the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf bandwith-usage {
+  		type uint32; 
+      description "The bandwidth usage on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "The bandwidth usage threshold during the configured interval.";
+  	}
+  }
+  
+  notification port-input-rate-exceed-threshold-resume {
+  	description "The remote unit interface input flow bandwidth usage was restored to the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf bandwith-usage {
+  		type uint32; 
+      description "The bandwidth usage on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "The bandwidth usage threshold during the configured interval.";
+  	}
+  }
+  
+  notification port-output-rate-exceed-threshold {
+  	description "The remote unit interface input flow bandwidth usage exceeded the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf bandwith-usage {
+  		type uint32; 
+      description "The bandwidth usage on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "The bandwidth usage threshold during the configured interval.";
+  	}
+  }
+  
+  notification port-output-rate-exceed-threshold-resume {
+  	description "The remote unit interface input flow bandwidth usage was restored to the trap threshold.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf bandwith-usage {
+  		type uint32; 
+      description "The bandwidth usage on the remote unit port.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "The bandwidth usage threshold during the configured interval.";
+  	}
+  }
+
+  notification optical-module-power-abnormal {
+  	description "The remote unit interface optical module power is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf reason {
+  		type string {
+        length "1..128";
+      }
+      description "The reason of remote unit port optical module exception.";
+  	}
+  }
+  
+  notification optical-module-power-resume {
+  	description "The remote unit interface recovered from power abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The name of the interface.";
+  	}
+  	leaf reason {
+  		type string {
+        length "1..128";
+      }
+      description "The reason of remote unit port optical module exception.";
+  	}
+  }
+  
+  notification remote-unit-full {
+  	description "The number of remote unit is overspec.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf spec {
+  		type uint32; 
+      description "The max number of the remote unit.";
+  	}
+  }
+  
+  notification firmware-update-fail {
+  	description "The remote unit firmware upgrade failed.";
+  	leaf esn {
+  		type string {
+        length "1..128";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf connect-interface {
+  		type string {
+  			length "1..128";	
+  		} 
+      description "The name of the interface.";
+  	}
+  	leaf firmware {
+  		type string {
+  			length "1..128";	
+  		} 
+      description "The firmware type of remote-unit.";
+  	}
+  	leaf reason {
+  		type string {
+  			length "1..128";	
+  		} 
+      description "The Reason for the remote unit upgrade failure.";
+  	}
+  }
+  notification port-remote-unit-full {
+  	description "The number of remote units connected to ETH-Trunk exceeds the upper limit.";
+  	leaf connect-interface {
+  		type string {
+  			length "1..64";	
+  		} 
+      description "The name of the interface.";
+  	}
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf spec {
+  		type uint32; 
+      description "The maximum number of remote units supported on a port.";
+  	}
+  }  
+  
+  notification remote-unit-online {
+  	description "The remote unit goes online.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf connect-interface {
+  		type string {
+  			length "1..64";	
+  		} 
+      description "The name of the interface.";
+  	}
+  }
+  
+  notification remote-unit-offline {
+  	description "The remote unit goes offline.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf connect-interface {
+  		type string {
+  			length "1..64";	
+  		} 
+      description "The name of the interface.";
+  	}
+  	leaf reason {
+  		type string {
+  			length "1..128";	
+  		} 
+      description "The Reason for the remote offline.";
+  	}
+  }
+  
+  notification pse-v33-abnormal {
+  	description "The remote unit pse v33 is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf reason {
+  		type string {
+  			length "1..128";	
+  		} 
+      description "The Reason for the remote unit PSE V33 abnormal.";
+  	}
+  } 
+  
+  notification pse-v33-resume {
+  	description "The remote unit pse v33 is normal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }
+  
+  notification pse-power-abnormal {
+  	description "The remote unit pse power supply is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }             
+  notification pse-power-resume {
+  	description "The remote unit pse power supply is normal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }
+  
+  notification temperature-abnormal {
+  	description "The remote unit temperature is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf temperature {
+  		type int32;
+        units "°C";  
+      description "The temperature of the remote unit.";
+  	}
+  }
+  
+  notification temperature-resume {
+  	description "The remote unit temperature is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf temperature {
+  		type int32;
+        units "°C";
+      description "The temperature of the remote unit.";
+  	}
+  }
+  
+  notification phy-status-abnormal {
+  	description "The remote unit phy status is abnormal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }             
+  notification phy-status-resume {
+  	description "The remote unit phy status supply is normal.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }
+  
+  notification iic-fault {
+  	description "The remote unit IIC fault.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf iic-id {
+  		type int32;
+      description "The fault IIC id of the remote unit.";
+  	}
+  	leaf iic-name {
+  		type string {
+        length "1..128";
+      }
+      description "The fault IIC name of the remote unit.";
+  	}
+  }
+  
+  notification auth-fail {
+  	description "The authentication to the remote unit failed.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }             
+  notification auth-success {
+  	description "The authentication to the remote unit succeeded.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  }
+  
+  notification port-congest {
+  	description "The remote unit interface is congested.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The port of remote unit.";
+  	}
+  }
+  
+  notification port-congest-resume {
+  	description "The congestion on the remote unit interface is cleared.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf port-name {
+  		type string {
+        length "1..64";
+      }
+      description "The port of remote unit.";
+  	}
+  }
+  
+  notification mac-usage-exceed-threshold {
+  	description "The MAC address table capacity of the remote unit exceeds the threshold.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf mac-usage {
+  		type uint32; 
+      description "MAC address usage.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "MAC address usage alarm threshold.";
+  	}
+  }
+  
+  notification mac-usage-exceed-threshold-resume {
+  	description "The MAC address table capacity of the remote unit resume.";
+  	leaf esn {
+  		type string {
+        length "1..32";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf mac-usage {
+  		type uint32; 
+      description "MAC address usage.";
+  	}
+  	leaf threshold {
+  		type uint32; 
+      description "MAC address usage alarm threshold.";
+  	}
+  }
+
+  notification backup-master-port-unavailable {
+  	description "The RU's master port is unavailable and backup port is in forwarding state.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf master-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The master port of remote unit.";
+  	}
+    leaf backup-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The backup port of remote unit.";
+  	}
+  }
+
+  notification backup-master-port-available {
+  	description "The RU's master port is available and backup port is in blocking state.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf master-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The master port of remote unit.";
+  	}
+    leaf backup-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The backup port of remote unit.";
+  	}
+  }
+
+  notification backup-port-misconfigured {
+  	description "The RU's port directly connected to the central device is misconfigured as a backup port.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf dev-interface-name {
+  		type string {
+        length "1..32";
+      }
+      description "The connection interface of central device.";
+  	}
+    leaf ru-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The port of remote unit.";
+  	}
+  }
+
+  notification backup-port-misconfigured-resume {
+  	description "The RU's port directly connected to the central device is deconfigured as a backup port.";
+  	leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+  	leaf dev-interface-name {
+  		type string {
+        length "1..32";
+      }
+      description "The connection interface of central device.";
+  	}
+    leaf ru-port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The port of remote unit.";
+  	}
+  }
+  notification lldp-neighbor-changed {
+    description
+      "Neighbor information of the interface was changed.";
+    leaf esn {
+  		type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+  	}
+    leaf connect-interface {
+  		type string {
+        length "1..64";
+      }
+      description "The connection interface of central device.";
+  	}
+    leaf port-name {
+  		type string {
+        length "1..32";
+      }
+      description "The port of remote unit.";
+  	}
+    leaf remote-index {
+      type uint32;
+      description
+        "Remote index.";
+    }
+    leaf event-type {
+      type lldp-remote-change-type;
+      description
+        "Whether interface neighbors are added or deleted.";
+    }
+    leaf chassis-id-sub-type {
+      type rumng:chassis-id-sub-type;
+      description
+        "Remote chassis type.";
+    }
+    leaf chassis-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Remote chassis ID.";
+    }
+    leaf port-id-sub-type {
+      type rumng:port-id-sub-type;
+      description
+        "Remote port ID type.";
+    }
+    leaf port-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Remote port ID.";
+    }
+    leaf system-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Remote system name.";
+    }
+    leaf system-description {
+      type string {
+        length "1..256";
+      }
+      description
+        "Remote system description.";
+    }
+  }
+  notification optical-module-life-warning {
+    description "Pre-warning for the optical module life of the remote unit.";
+    leaf esn {
+      type string {
+        length "1..64";
+      }
+      description "The ESN of remote unit.";
+    }
+    leaf connect-interface {
+      type string {
+        length "1..32";
+      }
+      description "The connection interface of central device.";
+    }
+    leaf port-name {
+      type string {
+        length "1..32";
+      }
+      description "The port of remote unit.";
+    }
+  }
+}

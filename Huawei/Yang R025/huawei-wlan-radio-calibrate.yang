@@ -1,0 +1,1304 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-radio-calibrate {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-radio-calibrate";
+  prefix hw-radio-clbt;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-time-range {
+    prefix timerange;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Wlan radio calibrate service package.";
+
+  revision 2025-08-13 {
+    description
+      "Modify leaf reference-ftm-data default value.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-08-11 {
+    description
+      "Add leaf reference-ftm-data.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-06-24 {
+    description
+      "Fix spelling errors.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-05-26 {
+    description
+      "Modify 5 radio.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-04-12 {
+    description
+      "Add topology calibrate.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-03-27 {
+    description
+      "Fix spelling errors.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-01-10 {
+    description
+      "Add big-data calibrate rpc.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-27 {
+    description
+      "Add leaf reference-data-analysis.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-16 {
+    description
+      "Add leaf channel-inherit.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-25 {
+    description
+      "Fix triger-flexible-radio description spelling mistake.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add radio environment get rpc.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-08 {
+    description
+      "Add self calibrate.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-11 {
+    description
+      "Change schedule-mode-para time-range type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-02 {
+    description
+      "Add mandatory to schedule-mode-para and custom-percent.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-04 {
+    description
+      "Add generated-by system and operation-exclude to list sensitivity.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add sensitivity and spectrum info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-06 {
+    description
+      "Add the maximum number of APs for calibration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-24 {
+    description
+      "Modify the calibrate process node position.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-10-08 {
+    description
+      "Modify rogue-ap-interference default value and calibrate-manual output string length.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-08-06 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  container wlan-radio-calibrate {
+    description
+      "Configure global radio paras.";
+    container dynamic-cca {
+      description
+        "Configure the upper and lower dynamic CCA thresholds.
+         By default, the upper and lower dynamic CCA thresholds are -70 dBm and -82 dBm, respectively.";
+      leaf upper-threshold {
+        type int8 {
+          range "-75..-60";
+        }
+        units "dBm";
+        default "-70";
+        description
+          "Configure the upper dynamic CCA thresholds.
+           By default, the upper are -70 dBm.";
+      }
+      leaf lower-threshold {
+        type int8 {
+          range "-90..-75";
+        }
+        units "dBm";
+        default "-82";
+        description
+          "Configure the lower dynamic CCA thresholds.
+           By default, the lower dynamic CCA thresholds are -82 dBm.";
+      }
+    }
+    container edge-sta {
+      description
+        "Configure the threshold for determining an edge STA.
+         By default, the threshold for determining an edge STA based on the SNR is 22 dB, and that based on the RSSI is -70 dBm.";
+      leaf snr-threshold {
+        type int8 {
+          range "10..40";
+        }
+        units "dB";
+        default "22";
+        description
+          "Configure the threshold for determining an edge STA based on the SNR.
+           By default, the threshold for determining an edge STA based on the SNR is 22 dB.";
+      }
+      leaf rssi-threshold {
+        type int8 {
+          range "-80..-40";
+        }
+        units "dBm";
+        default "-70";
+        description
+          "Configure the threshold for determining an edge STA based on the RSSI.
+           By default, the threshold for determining an edge STA based on the RSSI is -70 dB.";
+      }
+    }
+    container calibrate {
+      leaf calibrate-mode {
+        type enumeration {
+          enum "auto" {
+            value 0;
+            description
+              "Configure calibrate-mode to be auto.";
+          }
+          enum "disable" {
+            value 1;
+            description
+              "Configure calibrate-mode to be disable.";
+          }
+          enum "manual" {
+            value 2;
+            description
+              "Configure calibrate-mode to be manual.";
+          }
+          enum "schedule" {
+            value 3;
+            description
+              "Configure calibrate-mode to be schedule.";
+          }
+        }
+        default "auto";
+        description
+              "Configure calibrate-mode.";
+      }
+      container auto-mode-para {
+        when "../calibrate-mode = 'auto'";
+        leaf auto-interval {
+          type int32 {
+            range "30..1440";
+          }
+          default "1440";
+
+          description
+            "Specifies the radio calibration interval in auto mode.";
+        }
+        leaf auto-start-time {
+          type pub-type:time;
+          default "03:00:00";
+          description
+            "Specifies the start time for radio calibration in automatic mode.
+                The value is in the format of hh:mm:ss.
+                hh: indicates the hour. The value is an integer that ranges from 0 to 23.
+                mm: indicates the minute. The value is an integer that ranges from 0 to 59.
+                ss: indicates the second. The value is an integer that ranges from 0 to 59.";
+        }
+        description
+            "Configure auto-mode-para.";
+      }
+      container schedule-mode-para {
+        when "../calibrate-mode = 'schedule'";
+        presence "Set detailed information about scheduled calibrate.";
+        leaf time-mode {
+          type enumeration {
+            enum "schedule-time-range" {
+                value 0;
+                description
+                "Configure schedule-time-range.";
+            }
+            enum "schedule-specific-time" {
+                value 1;
+                description
+                "Configure schedule-specific-time.";
+            }
+          }
+          mandatory true;
+          description
+            "Configure schedule-mode-para.";
+        }
+        leaf time-range {
+            when "../time-mode = 'schedule-time-range'";
+            type leafref {
+              path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+            }
+            mandatory true;
+            description
+            "Specifies the name of a time range for scheduled radio calibration.";
+        }
+        leaf specific-time {
+            when "../time-mode = 'schedule-specific-time'";
+            type pub-type:time;
+            mandatory true;
+            description
+            "Configure schedule-specific-time.";
+        }
+        description
+            "Configure schedule-mode-para.";
+      }
+
+
+      container calibrate-policy {
+        description
+          "Configure calibrate policy.";
+        leaf rogue-ap {
+          type empty;
+          description
+            "Configure rogue-ap calibrate policy.";
+        }
+        leaf non-wifi {
+          type empty;
+          description
+            "Configure non-wifi calibrate policy.";
+        }
+      }
+      container flexible-radio {
+        leaf radio-mode {
+          type enumeration {
+            enum "auto-switch" {
+              value 0;
+              description
+                "Recognise redundancy 2g radio and auto switch switch to 5g/monitor.";
+            }
+            enum "auto-off" {
+              value 1;
+              description
+                "Recognise redundancy 2g radio and auto shut down.";
+            }
+          }
+          description
+            "Recognise redundancy 2g radio and auto switch frequency to 5g/monitor or shut down.";
+        }
+        leaf recognize-time {
+          type uint32;
+          config false;
+          description
+            "Get flexible radio recognize time.";
+        }
+        description
+          "Configure flexible-radio.";
+      }
+      leaf process {
+          type uint32;
+          config false;
+          description
+            "Get calibrate process.";
+      }
+
+      leaf rogue-ap-interference {
+        type enumeration {
+          enum "enable" {
+            value 0;
+            description
+              "Configure calibrate reference rogue-ap-interference enable.";
+          }
+          enum "disable" {
+            value 1;
+            description
+              "Configure calibrate reference rogue-ap-interference disable.";
+          }
+        }
+        default "enable";
+        description
+          "Configure calibrate reference rogue-ap-interference switch.";
+      }
+      container sensitivitys {
+        description "List of calibrate sensitivity.";
+        list sensitivity {
+          ext:generated-by system {
+            description
+              "The records of 2.4g, 5g and 6g calibrate sensitivities are generated by system.";
+          }
+          ext:operation-exclude delete|create;
+          key "freq";
+          leaf freq {
+            type enumeration {
+              enum "2.4g" {
+                value 0;
+                description
+                  "Freq of 2.4g.";
+              }
+              enum "5g" {
+                value 1;
+                description
+                  "Freq of 5g.";
+              }
+              enum "6g" {
+                value 2;
+                description
+                  "Freq of 6g.";
+              }
+            }
+            description "Configure Frequency.";
+          }
+          leaf sensitivity-type {
+            type enumeration {
+              enum "high" {
+                value 0;
+                description
+                  "Configure calibrate sensitivity type to high.";
+              }
+              enum "medium" {
+                value 1;
+                description
+                  "Configure calibrate sensitivity type to medium.";
+              }
+              enum "low" {
+                value 2;
+                description
+                  "Configure calibrate sensitivity type to low.";
+              }
+              enum "insensitivity" {
+                value 3;
+                description
+                  "Configure calibrate sensitivity type to insensitivity.";
+              }
+              enum "custom-percent" {
+                value 4;
+                description
+                  "Configure calibrate sensitivity type to custom-percent.";
+              }
+            }
+            default "medium";
+            description
+              "Configure calibrate sensitivity.";
+          }
+          leaf custom-percent {
+            when "../sensitivity-type = 'custom-percent'";
+            type uint32 {
+              range "0..100";
+            }
+            mandatory true;
+            description
+              "Configure calibrate sensitivity percent.";
+          }
+          description "Configure calibrate sensitivity.";
+        }
+      }
+      leaf self-calibrate {
+          type boolean;
+          default "false";
+          description "Enable/disable self calibrate.";
+      }
+      leaf channel-inherit {
+        type enumeration {
+          enum "enable" {
+            value 0;
+            description
+              "Configure calibrate channel inherit enable.";
+          }
+          enum "disable" {
+            value 1;
+            description
+              "Configure calibrate channel inherit disable.";
+          }
+        }
+        default "disable";
+        description
+          "Configure calibrate channel inherit switch.";
+      }
+      leaf reference-data-analysis {
+        type boolean;
+        default true;
+        description "Enable/disable reference-data-analysis function.";
+      }
+      leaf reference-ftm-data {
+        type boolean;
+        default false;
+        description "Enable/disable reference-ftm-data function.";
+      }
+      description
+        "Configure calibrate para.";
+    }
+    container anti-interference {
+      description
+        "Configure anti-interference.";
+      leaf anti-interference-switch {
+        type enumeration {
+          enum "disable" {
+            value 0;
+            description
+              "Disable the anti-interference algorithm.";
+          }
+          enum "enable" {
+            value 1;
+            description
+              "Enable the anti-interference algorithm.";
+          }
+        }
+        default "enable";
+        description
+          "Enable or disable the anti-interference algorithm.
+           By default, the anti-interference algorithm is enabled.";
+      }
+      leaf per-packet-tpc {
+        type enumeration {
+          enum "disable" {
+            value 0;
+            description
+              "Disable the per-packet power adjustment function.";
+          }
+          enum "enable" {
+            value 1;
+            description
+              "Enable the per-packet power adjustment function.";
+          }
+        }
+        default "enable";
+        description
+          "Disable or enable the per-packet power adjustment function.";
+      }
+      leaf agc-check {
+        type enumeration {
+          enum "disable" {
+            value 0;
+            description
+              "Disable the agc-check function.";
+          }
+          enum "enable" {
+            value 1;
+            description
+              "Enable the agc-check function.";
+          }
+        }
+        default "enable";
+        description
+          "Disable or enable the agc-check function.";
+      }
+    }
+    container spctrun-src {
+      presence "Configure spctrun-src";
+      leaf version {
+        type inet:ip-version;
+        mandatory true;
+        description "Configure CAPWAP source ip version.";
+      }
+      leaf ip-address {
+        type inet:ip-address;
+        mandatory true;
+        description  "Configure spectrum analysis source ip.";
+      }
+      description  "Configure spctrun-src.";
+    }
+
+    container cloudrrm-request {
+      config false;
+      description "Request cloudrrm1.0 result.";
+      leaf type {
+        type enumeration {
+          enum ac {
+            value 0;
+            description "AC.";
+          }
+          enum cloudap {
+            value 1;
+            description "Cloud AP.";
+          }
+        }
+        description "The type of device.";
+      }
+      leaf leader-mac {
+        type pub-type:mac-address;
+        description "Leader MAC.";
+      }
+      leaf time {
+        type uint32;
+        description "Time.";
+      }
+      leaf-list device{
+        type pub-type:mac-address;
+        description "Device list of calibrate.";
+      }
+      leaf end-flag{
+        type endflag-type;
+        description "End flag.";
+      }
+    }
+
+    container calibrate-result {
+      config false;
+      description "Calibrate result.";
+      leaf scope {
+        type enumeration {
+          enum global {
+            value 0;
+            description "Global calibrate.";
+          }
+          enum part {
+            value 1;
+            description "Part calibrate.";
+          }
+        }
+        description "The scope of calibrate.";
+      }
+      leaf id {
+        type string;
+        description "The ID of calibrate.";
+      }
+      leaf time {
+        type uint32;
+        description "Time of calibrate.";
+      }
+      leaf reason {
+        type string;
+        description "Reason of calibrate.";
+      }
+      leaf end-flag{
+        type endflag-type;
+        description "End flag.";
+      }
+      container calibrate-result-infos {
+        description "List of calibrate-result-info.";
+        list calibrate-result-info {
+          key "ap-mac ap-radio";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "AP MAC.";
+          }
+          leaf ap-radio {
+            type uint8;
+            description "AP radio ID.";
+          }
+          leaf ap-group {
+            type string;
+            description "The group of AP.";
+          }
+          leaf mode {
+            type enumeration {
+              enum cloudrrm {
+                value 0;
+                description "Cloudrrm calibrate.";
+              }
+              enum local {
+                value 1;
+                description "Local calibrate.";
+              }
+            }
+            description "The mode of calibrate.";
+          }
+          leaf change-type {
+            type enumeration {
+              enum unchange {
+                value 0;
+                description "Unchange.";
+              }
+              enum channel {
+                value 1;
+                description "Channel.";
+              }
+              enum bandwidth {
+                value 2;
+                description "Bandwidth.";
+              }
+              enum eirp {
+                value 3;
+                description "Eirp.";
+              }
+              enum freq {
+                value 4;
+                description "Freq.";
+              }
+              enum work-mode {
+                value 5;
+                description "Work mode.";
+              }
+              enum radio-switch {
+                value 6;
+                description "Radio switch.";
+              }
+            }
+            description "Change type of calibrate.";
+          }
+          leaf before {
+            type int32;
+            description "State before calibrate.";
+          }
+          leaf after {
+            type int32;
+            description "State after calibrate.";
+          }
+          description "List of calibrate-result-info.";
+        }
+      }
+    }
+
+    container radio-config {
+      config false;
+      description "Radio config.";
+      container radio-config-infos {
+        description "List of radio-config-info.";
+        list radio-config-info {
+          key "ap-mac ap-radio";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "AP MAC.";
+          }
+          leaf ap-radio {
+            type uint8;
+            description "AP radio ID.";
+          }
+          leaf max-eirp {
+            type uint8;
+            description "Max eirp.";
+          }
+          leaf min-eirp {
+            type uint8;
+            description "Min eirp.";
+          }
+          leaf-list channel-set {
+            type uint32;
+            description "channel set.";
+          }
+          leaf max-bandwidth {
+            type uint8;
+            description "Max bandwidth.";
+          }
+          description "List of radio-config-info.";
+        }
+      }
+    }
+  }
+  rpc calibrate-manual {
+    description
+      "Calibrate with manual mode.";
+    input  {
+      choice type {
+        case ap-list {
+          container ap-lists {
+            list ap-list {
+              key "ap-id";
+              max-elements 50;
+              leaf ap-id {
+                type uint32;
+                description
+                  "Set AP list to calibrate.";
+              }
+              description
+                "Set AP list to calibrate.";
+            }
+            description
+              "List of AP.";
+          }
+          description
+            "List of AP.";
+        }
+        case ap-group-list {
+          container ap-group-lists {
+            list ap-group-list {
+              key "ap-group";
+              max-elements 4;
+              leaf ap-group {
+                type string {
+                  length "1..35";
+                }
+                description
+                  "Set AP-groups list to calibrate.";
+              }
+              description
+                "Set AP-groups list to calibrate.";
+            }
+            description
+              "List of ap-group.";
+          }
+          description
+            "Set AP-groups list to calibrate.";
+        }
+        description
+          "Set calibrate-manual type.";
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..128";
+        }
+        description
+          "Calibrate operation result.";
+      }
+    }
+  }
+  rpc triger-flexible-radio {
+    description
+      "The network administrator can run this command to manually trigger identification of redundant radios, and can enable DFA if discovering that redundant radios exist on the network.";
+
+    output  {
+      leaf result {
+        type string {
+          length "1..32";
+        }
+        description
+          "Flexible radio recognition operation result.";
+      }
+    }
+  }
+
+  rpc spectrum-report-add {
+	description "Add spectrum report.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description "Configure apid.";
+      }
+      leaf radio-id {
+        type uint8;
+        mandatory true;
+        description "Configure radio-id.";
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..32";
+        }
+        description
+          "Spectrum report add result.";
+      }
+    }
+
+  }
+  rpc spectrum-report-delete {
+	description "Delete spectrum report.";
+    input {
+      leaf oper {
+        type enumeration {
+          enum "apid-radioid" {
+            value 0;
+            description
+             "Point apid and radioid.";
+          }
+          enum "all" {
+            value 1;
+            description
+              "All ap and radio.";
+          }
+        }
+        description
+             "Configure oper.";
+      }
+      leaf ap-id {
+        when "../oper = 'apid-radioid'";
+        type uint32;
+        mandatory true;
+        description "Configure apid.";
+      }
+      leaf radio-id {
+        when "../oper = 'apid-radioid'";
+        type uint8;
+        mandatory true;
+        description "Configure radio-id.";
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..32";
+        }
+        description
+          "Spectrum report delete result.";
+      }
+    }
+
+  }
+  rpc radio-environment {
+    description
+      "Get radio environment.";
+    input {
+      leaf ap-esn {
+        type string{
+          length "1..31";
+        }
+        description "Configure AP instance sn.";
+      }
+
+      leaf radio {
+        type uint8 {
+            range 0..4;
+        }
+        description "Configure the radio index.";
+      }
+
+      leaf test-name{
+        type string{
+          length "1..64";
+        }
+        mandatory true;
+        description "Configure the test case name.";
+      }
+    }
+  }
+  typedef endflag-type {
+    type enumeration {
+      enum "process" {
+        value 0;
+        description "Process.";
+      }
+      enum "end" {
+        value 1;
+        description "End.";
+      }
+    }
+    description "Process or end.";
+  }
+  rpc send-radio-load-info {
+    description "CampusInsight send radio load info to device.";
+    input {
+      container radio-load-infos {
+        description
+          "List of radio-load-infos.";
+        list radio-load-info {
+          key "ap-mac ap-radio-id";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "The AP mac.";
+          }
+          leaf ap-radio-id {
+            type uint8;
+            description "The AP radio ID.";
+          }
+          leaf load {
+            type int32;
+            description "Load of radio.";
+          }
+          leaf bandwidth {
+            type enumeration {
+              enum "20mhz" {
+                value 0;
+                description "20mhz.";
+              }
+              enum "40mhz" {
+                value 1;
+                description "40mhz.";
+              }
+              enum "80mhz" {
+                value 2;
+                description "80mhz.";
+              }
+              enum "160mhz" {
+                value 3;
+                description "160mhz.";
+              }
+              enum "320mhz" {
+                value 4;
+                description "320mhz.";
+              }
+            }
+            description "Bandwidth of radio.";
+          }
+          leaf end-flag{
+            type endflag-type;
+            description "End flag.";
+          }
+          description "Radio load info.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc send-edge-ap-info {
+    description "CampusInsight send edge ap info to device.";
+    input {
+      container edge-ap-infos {
+        description
+          "List of edge-ap-infos.";
+        list edge-ap-info {
+          key "ap-mac ap-radio-id";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "The AP mac.";
+          }
+          leaf ap-radio-id {
+            type uint8;
+            description "The AP radio ID.";
+          }
+          leaf active-state {
+            type enumeration {
+              enum "history" {
+                value 0;
+                description "History edge ap.";
+              }
+              enum "active" {
+                value 1;
+                description "Active edge ap.";
+              }
+            }
+            description "The active state of edge ap.";
+          }
+          leaf detection-power {
+            type uint8 {
+              range "1..127";
+            }
+            description "The detection power of edge ap.";
+          }
+          leaf recommend-power {
+            type uint8;
+            description "The recommend power of edge ap.";
+          }
+          leaf nomadic-sta-num {
+            type uint32;
+            description "The nomadic sta num of edge ap.";
+          }
+          leaf end-flag{
+            type endflag-type;
+            description "End flag.";
+          }
+          description "Rogue interference info.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc send-interference-pair-info {
+    description "CampusInsight send interference pair info to device.";
+    input {
+      container interference-pair-infos {
+        description
+          "List of interference-pair-infos.";
+        list interference-pair-info {
+          key "ap-mac-1 ap-radio-id-1 ap-mac-2 ap-radio-id-2";
+          leaf ap-mac-1 {
+            type pub-type:mac-address;
+            description "The AP1 mac.";
+          }
+          leaf ap-radio-id-1 {
+            type uint8;
+            description "The AP1 radio ID.";
+          }
+          leaf ap-mac-2 {
+            type pub-type:mac-address;
+            description "The AP2 mac.";
+          }
+          leaf ap-radio-id-2 {
+            type uint8;
+            description "The AP2 radio ID.";
+          }
+          leaf average-interference {
+            type int32;
+            description "The average interference.";
+          }
+          leaf interference-count {
+            type uint32;
+            description "The interference count.";
+          }
+          leaf interference-type {
+            type enumeration {
+              enum "control" {
+                value 0;
+                description "Interference from control ap.";
+              }
+              enum "uncontrol" {
+                value 1;
+                description "Interference from uncontrol ap.";
+              }
+            }
+            description "The active state of edge ap.";
+          }
+          leaf interference-degree {
+            type uint32;
+            description "The interference degree.";
+          }
+          leaf interference-channel {
+            type uint8;
+            description "The interference channel.";
+          }
+          leaf history-interference {
+            type enumeration {
+              enum "active" {
+                value 0;
+                description "Interference active.";
+              }
+              enum "history" {
+                value 1;
+                description "Interference history.";
+              }
+            }
+            description "The history state of interference.";
+          }
+          leaf end-flag{
+            type endflag-type;
+            description "End flag.";
+          }
+          description "Rogue interference info.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc send-calibrate-ap-info {
+    description "CampusInsight send calibrate ap info to device.";
+    input {
+      container calibrate-ap-infos {
+        description
+          "List of calibrate-ap-infos.";
+        list calibrate-ap-info {
+          key "ap-mac ap-radio-id";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "The AP mac.";
+          }
+          leaf ap-radio-id {
+            type uint8;
+            description "The AP radio ID.";
+          }
+          leaf calibrate-type {
+            type enumeration {
+              enum "high-interference" {
+                value 0;
+                description "High interference.";
+              }
+              enum "poor-quality" {
+                value 1;
+                description "Poor quality.";
+              }
+            }
+            description "The calibrate type.";
+          }
+          leaf id {
+            type string {
+              pattern '[a-zA-Z0-9:-]+';
+            }
+            description "The calibrate id.";
+          }
+          leaf modify-type {
+            type enumeration {
+              enum "channel" {
+                value 0;
+                description "Channel.";
+              }
+              enum "agc-threshold" {
+                value 1;
+                description "Agc threshold.";
+              }
+              enum "rate-limit" {
+                value 2;
+                description "Rate limit.";
+              }
+            }
+            description "The modify type.";
+          }
+          leaf modify-value {
+            type int32;
+            description "The modify value.";
+          }
+          leaf end-flag{
+            type endflag-type;
+            description "End flag.";
+          }
+          description "Rogue interference info.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc send-topology-calibrate-flag {
+    description "CampusInsight send topology calibrate flag to device.";
+    input {
+      container topology-calibrate-flags {
+        description
+          "List of topology-calibrate-flag.";
+        list topology-calibrate-flag {
+          key "ap-mac ap-radio-id";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "The AP mac.";
+          }
+          leaf ap-radio-id {
+            type uint8;
+            description "The AP radio ID.";
+          }
+          leaf flag {
+            type enumeration {
+                enum "disable" {
+                    value 0;
+                    description "Disable the topology calibrate.";
+                }
+                enum "enable" {
+                    value 1;
+                    description "Enable the topology calibrate.";
+                }
+            }
+            description "Topology calibrate flag.";
+          }
+          description "Topology calibrate info.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc send-topology-calibrate-result {
+    description "CampusInsight send topology calibrate flag to device.";
+    input {
+      container topology-calibrate-results {
+        description
+          "List of topology-calibrate-flag.";
+        list topology-calibrate-result {
+          key "ap-mac ap-radio-id";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description "The AP mac.";
+          }
+          leaf ap-radio-id {
+            type uint8;
+            description "The AP radio ID.";
+          }
+          leaf channel {
+            type uint32;
+            description "The channel of calibrate result.";
+          }
+          leaf eirp {
+            type uint8{
+              range "1..127";
+            }
+            description "The eirp of calibrate result.";
+          }
+          leaf bandwidth {
+            type enumeration {
+              enum "20mhz" {
+                value 0;
+                description "20mhz.";
+              }
+              enum "40mhz" {
+                value 1;
+                description "40mhz.";
+              }
+              enum "80mhz" {
+                value 2;
+                description "80mhz.";
+              }
+              enum "160mhz" {
+                value 3;
+                description "160mhz.";
+              }
+              enum "320mhz" {
+                value 4;
+                description "320mhz.";
+              }
+            }
+            description "The bandwidth of calibrate result.";
+          }
+          description "Topology calibrate result.";
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+  ext:task-name "wm";
+}

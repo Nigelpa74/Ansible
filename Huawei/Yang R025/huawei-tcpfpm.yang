@@ -1,0 +1,149 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+module: huawei-tcpfpm
+   +--rw tcpfpm
+      +--ro statistics
+         +--ro statistic* [src-tnp-id dest-tnp-id dest-site-id app-id]
+            +--ro src-tnp-id              uint32
+            +--ro dest-tnp-id             uint32
+            +--ro dest-site-id            uint32
+            +--ro app-id                  uint32
+            +--ro app-name?               string
+            +--ro vpn-id?                 uint32
+            +--ro vpn-name?               string
+            +--ro server-network-delay?   uint32
+            +--ro client-network-delay?   uint32
+            +--ro router-response-time?   uint32
+            +--ro receive-packets?        uint64
+            +--ro lost-packets?           uint64
+augment /ifm:ifm/ifm:interfaces/ifm:interface:
+   +--rw tcpfpm
+      +--rw enable?   boolean
+*/
+module huawei-tcpfpm {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-tcpfpm";
+  prefix tcpfpm;
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";  
+  description
+    "This module contains a collection of YANG definitions for
+    smart application control.";
+  revision 2025-09-12 {
+    description
+      "Modify tcpfpm interface type constraint.";
+      reference "";
+  } 
+  revision 2020-11-09 {
+    description
+      "Initial revision.";
+      reference "";
+  }
+  ext:task-name "sdwan";
+  container tcpfpm {
+    description
+      "Tcp application performance statistic.";
+    container statistics {
+      config false;
+      description
+        "List of tcp FPM statistics.";
+      list statistic {         
+        key "src-tnp-id dest-tnp-id dest-site-id app-id vpn-id";
+        description
+          "Statistics of TCP performance data can be uniquely identified through src-tnp-id dest-tnp-id dest-site-id app-id.";
+	    leaf src-tnp-id {
+          type uint32;
+          description
+            "Source Tnp ID.";
+        }
+        leaf dest-tnp-id {
+          type uint32;
+          description
+            "Destination Tnp ID.";
+        }
+        leaf dest-site-id {
+          type uint32;
+          description
+            "Destination Site ID.";
+        }
+        leaf app-id {
+          type uint32;
+          description
+            "ApplicationID number.";
+        }
+        leaf vpn-id {
+          type uint32;
+          description
+            "Interface vpn id.";
+        }
+        leaf app-name {
+          type string {
+            length "1..127";
+          }
+          description
+            "Application name.";
+        }        
+        leaf vpn-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Interface vpn name.";
+        }
+        leaf server-network-delay {
+          type uint32;
+          description
+            "Server network delay.";
+        }
+        leaf client-network-delay {
+          type uint32;
+          description
+            "Client network delay.";
+        }
+        leaf router-response-time {
+          type uint32;
+          description
+            "Response time on the router.";
+        }
+        leaf receive-packets {
+          type uint64;
+          description
+            "Total number of received messages.";
+        }
+        leaf lost-packets {
+          type uint64;
+          description
+            "Total number of lost packets.";
+        }
+      }
+    }	
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    when "ifm:type = 'Tunnel'";
+    description
+        "Interface where the configuration command resides.";
+    container tcpfpm {
+	  description 
+	    "Configure TCP FPM enabling/disabling.";
+	  leaf enable {            
+	    type boolean;
+		default "false";
+		description
+          "Enable/disable tcp performance data detection.";
+	  }
+	} 
+  }
+}

@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ftpc-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ftpc-deviations-ar5710s";
+  prefix ftpc-devs-ar5710s;
+
+  import huawei-ftpc {
+    prefix ftpc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ftpc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ftpc:ftpc/ftpc:client/ftpc:enabled" {
+    deviate not-supported;
+  }
+  deviation "/ftpc:ftpc-cancel-transfer-task/ftpc:output" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,62 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dsvpn-nhrp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dsvpn-nhrp-deviations-ar5710s";
+  prefix dsvpn-nhrp-devs-ar5710s;
+
+  import huawei-dsvpn-nhrp {
+    prefix dsvpn-nhrp;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-gre {
+    prefix gre;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dsvpn-nhrp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:entrys/dsvpn-nhrp:entry/dsvpn-nhrp:sys-name" {
+    deviate not-supported;
+  }
+  deviation "/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:entrys/dsvpn-nhrp:entry/dsvpn-nhrp:sys-esn" {
+    deviate not-supported;
+  }
+  deviation "/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:entrys/dsvpn-nhrp:entry/dsvpn-nhrp:peers/dsvpn-nhrp:peer/dsvpn-nhrp:sys-name" {
+    deviate not-supported;
+  }
+  deviation "/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:entrys/dsvpn-nhrp:entry/dsvpn-nhrp:peers/dsvpn-nhrp:peer/dsvpn-nhrp:sys-esn" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:p2mp-gre/gre:mgre-tunnel/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:identity-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:p2mp-gre/gre:mgre-tunnel/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:identity-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:p2mp-gre/gre:mgre-tunnel/dsvpn-nhrp:dsvpn-nhrp/dsvpn-nhrp:registration-interval" {
+    deviate replace {
+      default "1800";
+    }
+  }
+}

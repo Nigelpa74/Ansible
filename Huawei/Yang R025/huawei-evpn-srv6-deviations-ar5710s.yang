@@ -1,0 +1,165 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-evpn-srv6-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-evpn-srv6-deviations-ar5710s";
+  prefix evpn-srv6-devs-ar5710s;
+
+  import huawei-evpn-srv6 {
+    prefix evpn-srv6;
+  }
+  import huawei-evpn {
+    prefix evpn;
+  }
+  import huawei-evpl {
+    prefix evpl;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-bgp-srv6 {
+    prefix bgp-srv6;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-bgp-evpn {
+    prefix bgp-evpn;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-evpn-srv6 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef apply-sid-mode-deviations {
+    type enumeration {
+      enum per-instance {
+        value 0;
+        description
+          "Set apply sid per instance mode.";
+      }
+    }
+    description
+      "Apply SID for segment-routing IPv6 in EVPN.";
+  }
+
+  typedef sid-compress-type-deviations {
+    type enumeration {
+      enum common {
+        value 0;
+        description
+          "Not Support sid compress.";
+      }
+    }
+    description
+      "Sid mode type.";
+  }
+
+  deviation "/evpn-srv6:evpn-srv6" {
+    deviate not-supported;
+  }
+  deviation "/evpl:evpl/evpl:instances/evpl:instance/evpn:evpn/evpn-srv6:locators" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:advertise-sbfd-discriminator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:apply-sid-flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:apply-sid-mode/evpn-srv6:specify-nexthops" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:advertise-sbfd-discriminator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:apply-sid-flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:apply-sid-mode/evpn-srv6:specify-nexthops" {
+    deviate not-supported;
+  }
+  deviation "/evpn:evpn/evpn:instances/evpn:instance/evpn:bd-evpn/evpn-srv6:locator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-evpn:l2vpn-evpn/evpn-srv6:locators" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-evpn:l2vpn-evpn/evpn-srv6:apply-sid-import-vpn-ribs" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/evpn:evpn/evpn-srv6:srv6-static-macs" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/evpn:evpn/evpn-srv6:srv6-static-imets" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator" {
+    deviate delete {
+      must 'not (../../../../../../bgp-srv6:locator/bgp-srv6:name)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:apply-sid-compress-type" {
+    deviate delete {
+      must "(.='common' and not(../apply-sid-flavor)) or .='compress'";
+    }
+    deviate delete {
+      must ".='common' or /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../name]/srv6:compress-16";
+    }
+    deviate delete {
+      must "not(../apply-sid-flavor) or (../apply-sid-flavor and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode and ((../apply-sid-flavor='coc-next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or ../apply-sid-flavor!='coc-next'))";
+    }
+    deviate replace {
+      type evpn-srv6-devs-ar5710s:sid-compress-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-evpn:evpn/evpn-srv6:apply-sid-mode/evpn-srv6:mode" {
+    deviate replace {
+      type evpn-srv6-devs-ar5710s:apply-sid-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator" {
+    deviate delete {
+      must 'not (../../../../../../bgp-srv6:locator/bgp-srv6:name)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:locators/evpn-srv6:locator/evpn-srv6:apply-sid-compress-type" {
+    deviate delete {
+      must "(.='common' and not(../apply-sid-flavor)) or .='compress'";
+    }
+    deviate delete {
+      must ".='common' or /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../name]/srv6:compress-16";
+    }
+    deviate delete {
+      must "not(../apply-sid-flavor) or (../apply-sid-flavor and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode and ((../apply-sid-flavor='coc-next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or ../apply-sid-flavor!='coc-next'))";
+    }
+    deviate replace {
+      type evpn-srv6-devs-ar5710s:sid-compress-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-evpn:evpn/evpn-srv6:apply-sid-mode/evpn-srv6:mode" {
+    deviate replace {
+      type evpn-srv6-devs-ar5710s:apply-sid-mode-deviations;
+    }
+  }
+}

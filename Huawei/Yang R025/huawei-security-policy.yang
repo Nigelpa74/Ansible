@@ -1,0 +1,723 @@
+/******************************************************
+ * Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+ ***************************************************/
+module huawei-security-policy {
+  namespace "urn:huawei:yang:huawei-security-policy";
+  prefix "hw-security-policy";
+
+  import huawei-security-zone {
+    prefix hw-security-zone;
+  }
+
+  import huawei-policy-common {
+    prefix hw-policy-common;
+  }
+
+  import huawei-time-range {
+    prefix hw-time-range;
+  }
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a set of YANG definitions for Huawei security policy.
+     Security policy is used to check the data flows that pass through network appliance such as firewall.
+     It consists of a rule list, and a rule consists of matching conditions (such as quintuples, applications, etc.)
+     and actions. There is always a default rule.";
+  revision 2025-09-13 {
+    description
+      "Modify the prefix of huawei-security-zone.";
+    reference
+      "";
+  }
+
+  revision 2025-05-22 {
+    description
+       "Add description of special parameter values for session-aging-time.";
+    reference "";
+  }
+
+  revision 2025-04-18 {
+    description
+       "Add url-category.";
+    reference "";
+  }
+
+  revision 2025-03-19 {
+    description
+       "Add default value to traffic-log-enable.";
+    reference "";
+  }
+
+  revision 2025-03-12 {
+    description
+       "Add expserver.";
+    reference "";
+  }
+
+  revision 2025-02-12 {
+    description
+       "Add dlp-profile.";
+    reference "";
+  }
+
+  revision 2025-01-11 {
+    description
+       "Add global long-link agingtime and clear counters rpc node.";
+    reference "";
+  }
+
+  revision 2024-10-18 {
+    description
+       "Add uuid.";
+    reference "";
+  }
+
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+  revision 2024-05-30 {
+    description
+       "Add must to start-rule, end-rule.";
+    reference "";
+  }
+  revision 2024-05-28 {
+    description
+       "Add operation-exclude delete for security-policy-rule-action.";
+    reference "";
+  }
+  revision 2024-05-14 {
+    description
+       "Add first-hit-time and last-hit-time of security-policy rule.";
+    reference "";
+  }
+  revision 2024-05-10 {
+    description
+       "Add dns-profile.";
+    reference "";
+  }
+  revision 2024-05-09 {
+    description
+       "Modify rule description length.";
+    reference "";
+  }
+  revision 2024-04-11 {
+    description
+       "Add traffic meta data.";
+    reference "";
+  }
+  revision 2024-03-18 {
+    description
+       "Add fb-profile.";
+    reference "";
+  }
+  revision 2024-01-09 {
+    description
+       "Add threat feed address.";
+    reference "";
+  }
+  revision 2023-10-11 {
+    description
+       "Delete traffic log default value.";
+    reference "";
+  }
+  revision 2023-09-26 {
+    description
+       "Add traffic log.";
+    reference "";
+  }
+  revision 2023-09-25 {
+    description
+       "Add asset tag.";
+    reference "";
+  }
+  revision 2023-08-16 {
+    description
+      "Add bc-profile.";
+    reference "";
+  }
+  revision 2023-02-16 {
+    description
+      "Add vserver.";
+    reference "";
+  }
+  revision 2022-12-14 {
+    description
+      "Add range and default.";
+    reference "";
+  }
+  revision 2022-11-30 {
+    description
+      "Modify task name.";
+    reference "";
+  }
+  revision 2022-08-25 {
+    description
+      "Add user configuration.";
+    reference "";
+  }
+  revision 2020-11-12 {
+    description
+       "Initial revision.";
+    reference "";
+  }
+
+  typedef response-packet-type {
+    type bits {
+      bit tcp-reset-to-client {
+        description
+          "Response a TCP RST to client when the traffic was blocked by security policy.
+           On receiving the reset, the client aborts the connection and it gets to know that
+           the connection has failed after just one round-trip time.
+           This allows the application on client attempting the connection to notify the user straight away.";
+      }
+
+      bit tcp-reset-to-server {
+        description
+          "Similar to tcp-reset-to-client, the only difference is that RST is sent to server.";
+      }
+
+      bit icmp-destination-unreachable {
+        description
+          "Response an ICMP error message to sender when the traffic was blocked by security policy.
+          This has the same effect as TCP reset, except that the method is primarily used for UDP applications.";
+      }
+    }
+    description
+      "The type of packet response to sender and/or receiver when traffic was blocked by security policy.";
+  }
+
+  typedef traffic-log-state {
+    type enumeration {
+      enum controlled-by-global {
+        value 0;
+        description
+          "The traffic log function controlled by global switch.";
+      }
+      enum enable {
+        value 1;
+        description
+          "Enable the traffic log function.";
+      }
+      enum disable {
+        value 2;
+        description
+          "Disable the traffic log function.";
+      }
+    }
+    description
+      "Enable/disable/controlled-by-global the traffic log function.";
+  }
+
+  ext:task-name "security-plcy";
+
+  container security-policy {
+    description
+      "Configure the elements of a policy rule.";
+
+    container rules {
+      description
+        "List of security policy rules.";
+      list rule {
+        key "name";
+        ordered-by user;
+        description "Configure a rule.";
+        leaf name {
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          description
+            "Name of the rule.";
+        }
+
+        leaf description {
+          type string {
+            length "1..1024";
+            pattern '[^?]+';
+          }
+          description
+            "Description of the rule.";
+        }
+
+        leaf uuid {
+          type yang:uuid;
+          description
+            "Configure the uuid of the security-policy. UUID is a hexadecimal string consisting of 32 alphanumeric
+             characters and four hyphens (-). The format is 8-4-4-4-12.
+             For example, 4f21bb39-8ad2-5565-9f0e-59dd7b971d27 is a valid UUID.";
+        }
+
+        leaf parent-group {
+            type leafref {
+                path "../../../security-policy-groups/security-policy-group/name";
+            }
+            description
+              "Name of the group.";
+        }
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the rule.";
+        }
+
+        leaf action {
+          ext:operation-exclude delete;
+          type enumeration {
+            enum permit {
+              value 0;
+              description
+                "Specify that the traffic that matches the rule is permitted.";
+            }
+            enum deny {
+              value 1;
+              description
+                "Specify that the traffic that matches the rule is denied.";
+            }
+          }
+          description
+            "Security policy action.";
+        }
+
+        leaf hit-count {
+          type uint32;
+          config false;
+          description
+            "The hit count of the rule.";
+        }
+
+        leaf first-hit-time {
+          type yang:date-and-time;
+          config false;
+          description
+            "The first-hit-time of the rule.";
+        }
+
+        leaf last-hit-time {
+          type yang:date-and-time;
+          config false;
+          description
+            "The last-hit-time of the rule.";
+        }
+
+        leaf policy-log-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the policy matching log function.";
+        }
+
+        leaf traffic-log-enable {
+          type traffic-log-state;
+          default "controlled-by-global";
+          description
+            "Enable/disable/controlled-by-global the traffic log function.";
+        }
+
+        leaf session-log-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the session log function.";
+        }
+
+        leaf session-aging-time {
+          type uint16 {
+            range "0..65535";
+          }
+          units s;
+          default "0";
+          description
+            "Configure the aging time of the flow that matches the rule, in seconds.
+            When the aging time is set to 0, the function of session aging is disabled.";
+        }
+
+        leaf traffic-metadata-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the traffic metadata function.";
+        }
+
+        container long-connection {
+          description
+            "Configure the long connection. A long aging time can be specified for some connections
+             that need to be persistently alive. Compared with session aging-time that takes effect
+             on all packets and provides only second-level session keepalive duration, long connection
+             function provides more refined management and longer session keepalive duration.";
+
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the long connection keepalive function.";
+          }
+          leaf during {
+            when "../enable = 'true'";
+            type uint16 {
+              range "0..24000";
+            }
+            units h;
+            default "168";
+            description
+              "Configure the aging time for long connection, in hours. If the flow matching the security policy
+               does not transmit data within the aging time interval, the session is deleted.";
+          }
+        }
+
+        leaf send-deny-packet {
+          type response-packet-type;
+          description
+            "Response RST or ICMP-unreachable when traffic was blocked by security policy.";
+        }
+
+        leaf-list source-zone {
+          type hw-security-zone:security-zone-name-ref;
+          description
+            "Configure the name of source security zone referenced by policy.";
+        }
+
+        leaf-list destination-zone {
+          type hw-security-zone:security-zone-name-ref;
+          description
+            "Configure the name of destination security zone referenced by policy.";
+        }
+
+        container source-address {
+          uses hw-policy-common:address-item;
+          leaf-list threat-feed {
+            type string{
+              length "1..64";
+            }
+            description "Configure the name of source threat feed referenced by policy.";
+          }
+          description
+            "Configure the source address items referenced by policy.";
+        }
+
+        container destination-address {
+          uses hw-policy-common:address-item;
+          leaf-list threat-feed {
+            type string{
+              length "1..64";
+            }
+            description "Configure the name of destination threat feed referenced by policy.";
+          }
+          description
+            "Configure the destination address items referenced by policy.";
+        }
+
+        container service {
+          uses hw-policy-common:service-item;
+          description
+            "Configure the service items referenced by policy.";
+        }
+
+        container application {
+          uses hw-policy-common:application-item;
+          description
+            "Configure the applications referenced by policy.";
+        }
+
+        container profile {
+          description
+            "Configure the content security profile.";
+          leaf ips-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the ips profile.";
+          }
+
+          leaf av-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the av profile.";
+          }
+
+          leaf url-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the url profile.";
+          }
+
+          leaf bc-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the bc profile.";
+          }
+
+          leaf fb-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the file block profile.";
+          }
+
+          leaf dns-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the dns filter profile.";
+          }
+
+          leaf dlp-profile {
+            type string {
+              length "1..32";
+            }
+            description
+              "Name of the data-filtering profile.";
+          }
+        }
+
+        leaf time-range {
+          type leafref {
+            path "/hw-time-range:time-range/hw-time-range:time-range-instances/hw-time-range:time-range-instance/hw-time-range:name";
+          }
+          description
+            "Configure the time range referenced by policy.";
+        }
+
+        leaf vlan-id {
+          type uint16 {
+              range "1..4094";
+          }
+          description
+            "Configure the VLAN ID referenced by policy.";
+        }
+
+        container user {
+          uses hw-policy-common:user-item;
+            description
+              "Configure the user items referenced by policy.";
+        }
+
+        container source-asset {
+          uses hw-policy-common:asset-item;
+            description
+              "Configure the source asset items referenced by policy.";
+        }
+
+        container destination-asset {
+          uses hw-policy-common:asset-item;
+            description
+              "Configure the destination asset items referenced by policy.";
+        }
+
+        leaf-list vserver {
+          type string {
+            length "1..32";
+          }
+          description
+            "Configure the name of vserver referenced by policy.";
+        }
+
+        leaf-list expserver {
+          type string {
+            length "1..32";
+          }
+          max-elements 64;
+          description
+            "Configure the name of explicit proxy server referenced by policy.";
+        }
+
+        container url-category {
+          uses hw-policy-common:url-category-item;
+          description
+            "Configure the url category items referenced by policy.";
+        }
+      }
+    }
+
+    container default-rule {
+      description
+        "Configure the elements of the default rule.";
+
+      leaf action {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the traffic to be forwarded when matches the default rule.";
+      }
+
+      leaf policy-log-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the policy matching log function.";
+      }
+
+      leaf traffic-log-enable {
+        type traffic-log-state;
+        description
+          "Enable/disable/controlled-by-global the traffic log function.";
+      }
+
+      leaf session-log-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the session log function.";
+      }
+
+      leaf traffic-metadata-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the traffic metadata function.";
+      }
+
+      leaf dst-match-using-public-ip {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the public IP address matching function in NAT Server scenarios.
+           For example, the original server IP address is 10.1.1.1. After NAT Server is configured,
+           the private IP address is mapped to the public IP address 1.1.1.1. By default, the security
+           policy uses private IP address 10.1.1.1 to match the destination IP address. After the public
+           IP address matching function is enabled, the public IP address 1.1.1.1 will be used to match
+           the destination IP address.";
+      }
+
+      leaf hit-count {
+        type uint32;
+        config false;
+        description
+          "The hit count of the default rule.";
+      }
+
+      leaf first-hit-time {
+        type yang:date-and-time;
+        config false;
+        description
+          "The first-hit-time of the rule.";
+      }
+
+      leaf last-hit-time {
+        type yang:date-and-time;
+        config false;
+        description
+          "The last-hit-time of the rule.";
+      }
+    }
+
+    container security-policy-groups {
+      description
+        "List of security policy groups.";
+      list security-policy-group {
+        key "name";
+        description "Configure a security group.";
+        leaf name {
+          type string {
+            length "1..32";
+          }
+          description
+            "Name of the group.";
+        }
+        leaf description {
+          type string {
+            length "1..128";
+          }
+          description
+            "Description of the group.";
+        }
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+          "Enable/disable the security group.";
+        }
+        leaf start-rule {
+          type leafref {
+            path "../../../rules/rule/name";
+          }
+          must "../end-rule";
+          description
+            "Name of the rule.";
+        }
+        leaf end-rule {
+          type leafref {
+            path "../../../rules/rule/name";
+          }
+          must "../start-rule";
+          description
+            "Name of the rule.";
+        }
+      }
+    }
+
+    container global-config {
+      description
+        "Configure global configuration of the policy.";
+
+      leaf basic-proto-filter-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable security policy basic protocol packet filter.";
+      }
+
+      leaf long-link-aging-time {
+        type uint16 {
+          range "0..24000";
+        }
+        units h;
+        description
+          "Configure the global aging time for long connection, in hours. If the flow matching the security policy
+           does not transmit data within the aging time interval, the session is deleted.";
+      }
+    }
+  }
+
+  rpc clear-counters-all {
+    description
+      "Clear all the rule counters, include the default rule.";
+    ext:node-ref "/security-policy/rules/rule/hit-count";
+    ext:node-ref "/security-policy/default-rule/hit-count";
+  }
+
+  rpc clear-counters-by-rule {
+    description
+      "Clear specified rule counters.";
+    ext:node-ref "/security-policy/rules/rule/hit-count";
+    ext:node-ref "/security-policy/default-rule/hit-count";
+    input {
+      leaf name {
+        type leafref {
+          path "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:name";
+        }
+        mandatory true;
+        description
+          "Specify the rule name.";
+      }
+    }
+  }
+}

@@ -1,0 +1,1751 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-portal {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-portal";
+  prefix hw-nac-portal;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-ssl {
+    prefix ssl;
+  }
+  import huawei-aaa-service {
+    prefix aaa-service;
+  }
+  import huawei-nac-group {
+    prefix hw-nac-group;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+    configuring NAC implementations.
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject
+    to the license terms contained in, the Simplified BSD License
+    set forth in Section 4.c of the IETF Trust's Legal Provisions
+    Relating to IETF Documents.";
+  revision 2025-06-19 {
+    description
+        "Add when condition for port-mode-layer3 Add must condition for redirect-init-url-enable.";
+    reference
+        "Huawei private.";
+  }
+  revision 2025-03-26 {
+    description
+      "Modify session-timeout range and default.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-21 {
+    description
+      "Add dns-pass-enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-07 {
+    description
+      "Modify load-all-page and file-name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-13 {
+    description
+      "Modify web-redirection IPv6 disable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-03 {
+    description
+      "Add authorize last-authorization and web-redirection IPv6 disable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-19 {
+    description
+      "Add when condition for server-source-ip.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-16 {
+    description
+      "Modify the properties of local portal server.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-19 {
+    description
+      "Add IPv6 url for portal server.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-27 {
+    description
+      "Add must condition for version node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-24 {
+    description
+      "Add portal local server feature.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-26 {
+    description
+      "Add default value for offline-detect.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-26 {
+    description
+      "Modify default value for redirect-init-url-enable and redirect-login-url-enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-19 {
+    description
+      "Add mandatory for urls and url-ssids.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-06 {
+    description
+      "Add leaf IPv6-address for https-source-ip.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-22 {
+    description
+      "Add default https-packet-speed-limit.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-11 {
+    description
+      "Add several nodes for Wired Portal.";
+    reference
+      "Huawei private.";
+  }    
+  revision 2023-12-27 {
+    description
+      "Add several nodes for NAC.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-16 {
+    description
+      "Add case ucl-group.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-13 {
+    description
+      "Change task-name to nas-portal.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-11 {
+    description
+      "Add leaf-list portal-server-IPv6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-29 {
+    description
+      "Add VPN instance.
+       Add url-parameter set IPv6 device IP.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-16 {
+    description
+      "Delete unused nodes and modify some nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-05 {
+    description
+      "Add leaf tunnel-forward-ip, server-source-ip, allow-origin, container portal-version, https-source-ip, redirect-global, set-parameter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-15 {
+    description
+      "Add container https-redirect, leaf https-redirect-ssl-policy. Change leaf redirect-302-enable into redirect-mode, enumeration type. Change leaf redirect-http-port into leaf-list.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "nas-portal";
+  grouping url-configuration {
+    description
+      "Configure a redirect URL or pushed URL.";
+    leaf url-type {
+      type enumeration {
+        enum "push-only" {
+          value 0;
+          description
+            "Specifies the URL only as a pushed URL.";
+        }
+        enum "redirect-only" {
+          value 1;
+          description
+            "Specifies the URL only as a redirect URL.";
+        }
+        enum "normal" {
+          value 2;
+          description
+            "Push-only and redirect-only parameters are not specified.";
+        }
+      }
+      description
+        "Url type.";
+    }
+    leaf url {
+      type string {
+        length "1..247";
+      }
+      mandatory true;
+      description
+        "Specifies a redirect URL or pushed URL.";
+    }
+  }
+  grouping http-parameters {
+    description
+      "Enables the Portal interconnection function of the HTTP or HTTPS protocol.";
+    choice protocol {
+      description
+        "Protocol choice.";
+      case http {
+        description
+          "Uses http case.";
+        leaf http-enable {
+          type boolean;
+          description
+            "Enable/disable the HTTP protocol for Portal authentication.";
+        }
+      }
+      case https {
+        description
+          "Uses https case.";
+        leaf ssl-policy {
+          type leafref {
+            path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+          }
+          description
+            "Specifies the name of an SSL policy.";
+        }
+      }
+    }
+    leaf port {
+      type inet:port-number;
+      description
+        "Specifies a port number.";
+    }
+  }
+  container nac-portal {
+    description
+      "Configuration and state data of portal access parameters.";
+    container global {
+      description
+        "Configure global portal access.";
+      leaf all-interface {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the IPv4 address to 0.0.0.0. That is, the device can receive and respond to all packets from the terminal.";
+      }
+      leaf reply-message-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable the device to transparently transmit users' authentication responses sent by the authentication server to the Portal server.";
+      }
+      leaf tunnel-forward-ip {
+        type inet:ip-address-no-zone;
+        description
+          "Specifies the IP address in the AC login URL as the IP address encapsulated in tunnel forwarding.";
+      }
+      leaf logout-different-server-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable a device to process user logout requests sent by a Portal server other than the one from which users log in.";
+      }
+      leaf listening-port {
+        type inet:port-number;
+        default "2000";
+        description
+          "Sets the number of the port through which a device listens on Portal protocol packets.";
+      }
+      container version {
+        description
+          "Configure the Portal protocol version supported by the device.";
+          leaf v1 {
+            type boolean;
+            must "../v3='true' and ../v2='true'";
+            default "true";
+            description
+              "Enable/disable that the device supports the Portal protocol version V1.0.";
+          }
+          leaf v2 {
+            type boolean;
+            must "../v3='true'";
+            default "true";
+            description
+              "Enable/disable that the device supports the Portal protocol version V2.0.";
+          }
+          leaf v3 {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable that the device supports the Portal protocol version V3.0.";
+          }
+      }
+      leaf https-packet-speed-limit {
+        type uint32 {
+          range "1..2000";
+        }
+        units "pps";
+        default "50";
+        description
+          "Specifies the limit speed of https packet (packet per second).";
+      }      
+      container https-source-ip {
+        description
+          "Configure the source IP address for the device to communicate with the Portal server.";
+        choice https-source-ip {
+          description
+            "Configure the source IP address for the device to communicate with the Portal server.";
+          case ip {
+            description
+              "Case ip address.";
+            leaf ip-address {
+              type inet:ip-address-no-zone;
+              description
+                "Specifies the source IP address for the device to communicate with the Portal server.";
+            }
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "Specifies the source IPv6 address for the device to communicate with the Portal server.";
+            }
+          }
+          case all {
+            description
+              "Case all interface.";
+            leaf all-interface {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the IPv4 address to 0.0.0.0. That is, the device can receive and respond to all packets from the terminal.";
+            }
+          }
+        }
+      }
+      leaf user-roam-reply-enable {
+        type boolean;
+        default true;
+        description
+          "Enable/disable the device to respond to the Portal server with the IP address of the new central AP after a wireless user roams to the new central AP.";
+      }
+      container redirect-global {
+        description
+          "Configure portal redirect.";
+        leaf-list redirect-http-port {
+          type inet:port-number;
+          description
+            "Specify a user-defined destination port number of HTTP packets that trigger Portal redirection.";
+        }
+        leaf url-encode-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable URL encoding and decoding.";
+        }
+        leaf dns-pass-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable Portal dns pass.";
+        }
+        leaf captive-option {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable the Captive Network Assistant (CNA) bypass or adaptive function for iOS terminals.";
+            }
+            enum "adaptive" {
+              value 1;
+              description
+                "Enable the CNA adaptive function for iOS terminals.";
+            }
+          }
+          default "disable";
+          description
+            "Enable/disable the Captive Network Assistant (CNA) adaptive function for iOS terminals.";
+        }
+        leaf redirect-mode {
+          type enumeration {
+            enum "redirect-200" {
+              value 0;
+              description
+                "Specifies the redirect mode as 200-OK.";
+            }
+            enum "redirect-302" {
+              value 1;
+              description
+                "Specifies the redirect mode as 302.";
+            }
+            enum "redirect-js" {
+              value 2;
+              description
+                "Specifies the redirect mode as js.";
+            }
+          }
+          default "redirect-200";
+          description
+            "Specifies the redirect mode of Portal.";
+        }
+      }
+      container https-redirect {
+        description
+          "Configure local portal server page parameters.";
+          leaf https-redirect-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable HTTPS redirection of Portal authentication.";
+          }
+          leaf https-redirect-ssl-policy {
+            when "../https-redirect-enable='true'";
+            type leafref {
+              path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+            }
+            description
+              "Specifies the name of an SSL policy.";
+          }
+      }
+      container logout-resend-function {
+        description
+          "Configure the re-transmission times and interval for the Portal authentication user logout packet.";
+        leaf times {
+          type uint8 {
+            range "0..15";
+          }
+          default "3";
+          description
+            "Specifies the number of re-transmission times for the Portal authentication user logout packet.";
+        }
+        leaf interval {
+          type uint16 {
+            range "1..300";
+          }
+          units "s";
+          default "5";
+          description
+            "Specifies the re-transmission interval of the Portal authentication user logout packet.";
+        }
+      }
+      container web-authen-server-protocol {
+        description
+          "Configure the Portal interconnection function of the HTTP or HTTPS protocol.";
+        uses http-parameters;
+      }
+      container quiet-function {
+        description
+          "Configure quiet function parameters.";
+        leaf quiet-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the quiet timer for Portal authentication.";
+        }
+        leaf quiet-period {
+          type uint16 {
+            range "10..3600";
+          }
+          units "s";
+          default "60";
+          description
+            "Sets the quiet period for Portal authentication users who fail to be authenticated.";
+        }
+        leaf quiet-times {
+          type uint8 {
+            range "1..10";
+          }
+          default "10";
+          description
+            "Specifies the maximum number of authentication failures before a Portal authentication user enters the quiet state.";
+        }
+      }
+      container local-portal-server {
+        description
+          "Configure parameters of local Portal server.";
+        leaf local-server-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Specifies an IP address for the built-in Portal server.";
+        }
+        leaf all-interface {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the IPv4 address to 0.0.0.0. That is, the device can receive and respond to all packets from the terminal.";
+        }
+        leaf local-server-url {
+          type string {
+            length "1..64";
+          }
+          description
+            "Specifies the URL address of the built-in Portal server.";
+        }
+        leaf redirect-url-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable display the original page that the user requests to access when the built-in Portal authentication is successful.";
+        }
+        leaf authenticate-method {
+          type enumeration {
+            enum "pap" {
+              value 0;
+              description
+                "Specifies WEB termination authentication using the Password Authentication Protocol (PAP).";
+            }
+            enum "chap" {
+              value 1;
+              description
+                "Specifies WEB termination authentication using the Challenge Handshake Authentication Protocol (CHAP).";
+            }
+          }
+          default "chap";
+          description
+            "Specifies WEB termination authentication using the Challenge Handshake Authentication Protocol by default.";
+        }
+        leaf session-timeout {
+          type uint16 {
+            range "0..720";
+          }
+          units "h";
+          default "0";
+          description
+            "Specifies the session timeout interval for built-in Portal authentication users.";
+        }
+        leaf max-user-number {
+          type uint32 {
+            range "1..1024";
+          }
+          default "1024";
+          description
+            "Specifies the maximum number of users allowed on the built-in Portal server.";
+        }
+        leaf background-color {
+          type string {
+            length "7";
+            pattern '#([A-Fa-f0-9]{6})';
+          }
+          description
+            "Specifies the background color of the built-in Portal server.";
+        }
+        leaf language {
+          type enumeration {
+            enum "chinese" {
+              value 0;
+              description
+                "Specifies web page language in Chinese.";
+            }
+            enum "english" {
+              value 1;
+              description
+                "Specifies web page language in English.";
+            }
+          }
+          default "english";
+          description
+            "Specifies web page language in English by default.";
+        }
+        leaf syslog-limit-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable authentication log-restrain function.";
+        }
+        leaf syslog-limit-period {
+          type uint32 {
+            range "60..604800";
+          }
+          units "s";
+          default "300";
+          description
+            "The timeout period of log-restrain.";
+        }
+        leaf load-all-page {
+          type string {
+            length "1..64";
+            pattern "[^\\*\"?<>|]+";
+          }
+          description
+            "User-defined page package.";
+        }
+        container local-portal-server-protocol {
+          description
+            "Configure the built-in Portal server function.";
+          choice protocol {
+            description
+              "Protocol choice.";
+            case http {
+              description
+                "Uses http case.";
+              leaf http-enable {
+                type empty;
+                must "../../local-server-ip";
+                description
+                  "Enable/disable the HTTP protocol for Portal authentication.";
+              }
+            }
+            case https {
+              description
+                "Uses https case.";
+              leaf ssl-policy {
+                type leafref {
+                  path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+                }
+                must "../../local-server-ip";
+                description
+                  "Specifies the name of an SSL policy.";
+              }
+            }
+          }
+          leaf port {
+            when "../http-enable or ../ssl-policy != ''";
+            type inet:port-number{
+              range "1025..55535";
+            }
+            description
+              "Specifies a port number.";
+          }
+        }
+      }
+      container portal-page-functions {
+        description
+          "List of local Portal server page parameters.";
+        list portal-page-function {
+          key "page-type content";
+          description
+            "Configure local Portal server page parameters.";
+          leaf page-type {
+            type enumeration {
+              enum "phone" {
+                value 0;
+                description
+                  "Mobile phone.";
+              }
+              enum "pc" {
+                value 1;
+                description
+                  "Computer.";
+              }
+            }
+            description
+              "Specifies a terminal type.";
+          }
+          leaf content {
+            type enumeration {
+              enum "logo" {
+              value 0;
+              description
+                "Value of logo.";
+              }
+              enum "background-image" {
+                value 1;
+                description
+                  "Value of background-image.";
+              }
+              enum "ad-image" {
+                value 2;
+                description
+                  "Value of ad-image.";
+              }
+              enum "page-text" {
+                value 3;
+                description
+                  "Value of page-text.";
+              }
+              enum "policy-text" {
+                value 4;
+                description
+                  "Value of policy-text.";
+              }
+            }
+            description
+              "Page content.";
+          }
+          choice file-type {
+            description
+              "File type choice, input filename or default.";
+            case file-name {
+              description
+                "Uses filename case.";
+              leaf file-name {
+                type string {
+                  length "5..64";
+                  pattern "[^\\*\"?<>|]+";
+                }
+                description
+                  "Specifies the name of the file to be loaded to the built-in Portal server login page, Advertisement image file (type:jpg/png, size (px):670*405);Background image (type:jpg/png, size (px):1366*768); Logo file (type:jpg/png, size (px):591*80).";
+              }
+            }
+            case default {
+              description
+                "Uses default case.";
+              leaf default-image1 {
+                when "../content = 'background-image'";
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable the default image1 for background image.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container url-templates {
+      description
+        "List of url template related configuration and state data.";
+      list url-template {
+        key "name";
+        description
+          "Configure url template.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of a URL template.";
+        }
+        container urls {
+          description
+            "List of a redirect URL or pushed URL.";
+          list url {
+            key "url-type";
+            description
+              "Configure a redirect URL or pushed URL list.";
+            uses url-configuration;
+          }
+        }
+        container ipv6-urls {
+          description
+            "List of a redirect IPv6 URL or pushed IPv6 URL.";
+          list ipv6-url {
+            key "url-type";
+            description
+              "Configure a redirect IPv6 URL or pushed IPv6 URL list.";
+            uses url-configuration;
+          }
+        }
+        container url-ssids {
+          description
+            "List of a redirect URL or pushed URL based by ssid.";
+          list url-ssid {
+            key "ssid url-type";
+            description
+              "Configure a redirect URL or pushed URL based by ssid list.";
+            leaf ssid {
+              type string {
+                length "1..32";
+              }
+              description
+                "Specifies the SSID that users associate with.";
+            }
+            uses url-configuration;
+          }
+        }
+        container url-parameter {
+          description
+            "Configure parameters in a URL.";
+          leaf device-ip {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the IP address of the device carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf device-mac {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the MAC address of the device carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf ap-ip {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the AP IP address carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf ap-mac {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the AP MAC address carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf redirect-url {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the original URL that a user accesses carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf ssid {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the users' associated SSID carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf sysname {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the user MAC address carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf user-ipaddress {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the user IP address carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf user-mac {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the user MAC address carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf user-vlan {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the user VLAN carried in the URL and sets the parameter name displayed in the URL.";
+          }          
+          leaf ap-group-name {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the AP group name carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf ap-name {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the AP name carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          leaf ap-location {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the AP location carried in the URL and sets the parameter name displayed in the URL.";
+          }
+          container login-url {
+            description
+              "Configure the login URL of an access device.";
+            leaf key {
+              type string {
+                length "1..16";
+              }
+              description
+                "Specifies the identification keyword for the login URL sent to the Portal server during redirection.";
+            }
+            leaf value {
+              type string {
+                length "1..247";
+              }
+              description
+                "Specified URL on the access device.";
+            }
+          }
+          container mac-address-format {
+            description
+              "Configure the MAC address format in URL.";
+            leaf delimiter {
+              type string {
+                length "1";
+              }
+              description
+                "Specifies the delimiter in MAC address.";
+            }
+            leaf format {
+              type enumeration {
+                enum "compact" {
+                  value 0;
+                  description
+                    "Sets the MAC address format to XXXX-XXXX-XXXX.";
+                }
+                enum "normal" {
+                  value 1;
+                  description
+                    "Sets the MAC address format to XX-XX-XX-XX-XX-XX.";
+                }
+              }
+              description
+                "MAC address format.";
+            }
+          }
+          container set-parameter-value {
+            description
+              "Configure redirection parameter values.";
+            choice device-ip {
+              description
+                "Source type of IP address choice.";
+              case ip {
+                description
+                  "IP address case.";
+                leaf dev-ip-address {
+                  type inet:ipv4-address-no-zone;
+                  description
+                    "Sets the value of a redirection parameter to a specified IP address.";
+                }
+              }
+              case ipv6 {
+                description
+                  "IPv6 address case.";
+                leaf dev-ipv6-address {
+                  type inet:ipv6-address-no-zone;
+                  description
+                    "Sets the value of a redirection parameter to a specified IPv6 address.";
+                }
+              }
+              case interface {
+                description
+                  "Interface case.";
+                leaf dev-interface {
+                  type leafref {
+                    path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                  }
+                  description
+                    "Sets the value of a redirection parameter to the IP address of an interface.";
+                }
+              }
+              case interface-ipv6 {
+                description
+                  "Interface IPv6 case.";
+                leaf dev-interface-ipv6 {
+                  type leafref {
+                    path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                  }
+                  description
+                    "Sets the value of a redirection parameter to the IPv6 address of an interface.";
+                }
+              }
+            }
+            leaf device-mac {
+              type pub-type:mac-address;
+              description
+                "Configure the value of the redirection parameter device-mac.";
+            }
+            leaf sysname {
+              type string {
+                length "1..246";
+              }
+              description
+                "Configure the value of the redirection parameter sysname.";
+            }
+          }
+        }
+        container mark-parameter {
+          description
+            "Configure the characters used in URL.";
+          leaf start-mark {
+            type string {
+              length "1";
+            }
+            description
+              "Changes the specified start character to question mark.";
+          }
+          leaf assignment-mark {
+            type string {
+              length "1";
+            }
+            description
+              "Specifies the assignment character of the URL parameters.";
+          }
+          leaf isolate-mark {
+            type string {
+              length "1";
+            }
+            description
+              "Specifies the delimiter between URL parameters.";
+          }
+        }
+      }
+    }
+    container portal-servers {
+      description
+        "List of portal client related configuration and state data.";
+      list portal-server {
+        key "name";
+        description
+          "Configure portal client.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of a Portal server.";
+        }
+        leaf protocol {
+          type enumeration {
+            enum "haca" {
+              value 0;
+              description
+                "Sets the protocol used in Portal authentication to HACA.";
+            }
+            enum "portal" {
+              value 1;
+              description
+                "Sets the protocol used in Portal authentication to Portal.";
+            }
+            enum "http" {
+              value 2;
+              description
+                "Sets the protocol used in Portal authentication to HTTP or HTTPS.";
+            }
+            enum "http-uam" {
+              value 3;
+              description
+                "Specifies the password encryption mode. The password is encrypted using the ASCII character mode.";
+            }
+          }
+          default "portal";
+          description
+            "Configure the protocol used in Portal authentication.";
+        }
+        leaf shared-key {
+          type pub-type:password-extend {
+            length "1..428";
+          }
+          description
+            "Specifies the shared key that the device uses to exchange information with a Portal server.";
+        }
+        leaf server-url {
+          type string {
+            length "1..247";
+          }
+          description
+            "Specifies a URL for a Portal server.";
+        }
+        leaf detect-type {
+          type enumeration {
+            enum "http" {
+              value 0;
+              description
+                "Specifies the HTTP-based Portal server detection mode.";
+            }
+            enum "portal" {
+              value 1;
+              description
+                "Specifies the Portal-based Portal server detection mode.";
+            }
+          }
+          default "portal";
+          description
+            "Configure the mode in which a device detects Portal server status.";
+        }
+        leaf web-redirection-disable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the Portal authentication redirection function.";
+        }
+        leaf web-redirection-ipv6-disable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the IPv6 Portal authentication redirection function.";
+        }
+        leaf-list portal-server-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Configure an IPv4 address of a Portal server.";
+        }
+        leaf-list portal-server-ipv6 {
+          type inet:ipv6-address-no-zone;
+          description
+            "Configure an IPv6 address of a Portal server.";
+        }
+        leaf server-source-ip {
+          when "../../../global/all-interface='false'";
+          type inet:ip-address-no-zone;
+          description
+            "Configure the local gateway address for the device to receive and respond to packets from the Portal server.";
+        }
+        leaf vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+          description
+            "Set VPN instance.";
+        }
+        leaf server-url-ipv6 {
+          type string {
+            length "1..247";
+          }
+          description
+            "Specifies a IPv6 URL for a Portal server.";
+        }
+        choice source-ip-address {
+          description
+            "Configure the source IP address for the device to communicate with a Portal server.";
+          case ip {
+            description 
+              "Case ip address.";
+            leaf ip-address {
+              type inet:ip-address-no-zone;
+              description
+                "Specifies the source IP address for communication with a Portal server.";
+            }
+          }
+          case interface {
+            description 
+              "Case interface name.";
+            leaf interface-name {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description
+                "Configure an IP address of a specified interface as the source IP address used by the device to communicate with the Portal server.";
+            }
+          }
+        }
+        container destination-port {
+          description
+            "Configure the port number that a Portal server uses to receive notification packets from the device.";
+          leaf port {
+            type inet:port-number;
+            default "50100";
+            description
+              "Specifies the port number that the Portal server uses to receive and encapsulate UDP packets from the device.";
+          }
+          leaf always {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable that the device always uses the destination port number specified by port-number to encapsulate UDP packets.";
+          }
+        }
+        container url-template {
+          description
+            "Configure Binding a URL template to a Portal server template.";
+          leaf name {
+            type leafref {
+              path "../../../../url-templates/url-template/name";
+            }
+            description
+              "Specifies the name of a URL template.";
+          }
+          leaf ciphered-parameter-name {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the name of the encrypted URL template parameter.";
+          }
+          leaf iv-parameter-name {
+            type string {
+              length "1..16";
+            }
+            description
+              "Specifies the encryption vector name of the URL template parameter.";
+          }
+          leaf key {
+            type pub-type:password {
+              length "1..128";
+            }
+            description
+              "Specifies the shared key for encrypting the URL template parameter.";
+          }
+        }
+        container user-sync-function {
+          description
+            "Configure portal authentication user information synchronization.";
+          leaf user-sync-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable Portal authentication user information synchronization.";
+          }
+          leaf interval {
+            type uint16 {
+              range "30..65535";
+            }
+            units "s";
+            must "../user-sync-enable='true'";
+            default "300";
+            description
+              "Specifies the user information synchronization interval.";
+          }
+          leaf max-times {
+            type uint8 {
+              range "2..255";
+            }
+            must "../user-sync-enable='true'";
+            default "3";
+            description
+              "Specifies the maximum number of user information synchronization failures.";
+          }
+        }
+        container server-detect-function {
+          description
+            "Configure the Portal server detection function.";
+          leaf server-detect-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the Portal server detection function.";
+          }
+          leaf interval {
+            type uint16 {
+              range "30..65535";
+            }
+            units "s";
+            must "../server-detect-enable='true'";
+            default "60";
+            description
+              "Specifies the detection interval of the Portal server.";
+          }
+          leaf max-times {
+            type uint8 {
+              range "1..255";
+            }
+            must "../server-detect-enable='true'";
+            default "3";
+            description
+              "Specifies the maximum number of times that the detection fails.";
+          }
+          leaf critical-server-num {
+            type uint8 {
+              range "0..128";
+            }
+            must "../server-detect-enable='true'";
+            default "0";
+            description
+              "Specifies the minimum number of Portal servers in Up state.";
+          }
+          leaf-list action {
+            type enumeration {
+              enum "log" {
+                value 0;
+                description
+                  "Indicates that the device sends a log after the number of detection failures exceeds the maximum.";
+              }
+              enum "trap" {
+                value 1;
+                description
+                  "Indicates that the device sends a trap after the number of detection failures exceeds the maximum.";
+              }
+            }
+            must "../server-detect-enable='true'";
+            description
+              "Configure the action to be taken after the number of detection failures exceeds the maximum.";
+          }
+        }
+        container http-method-parameters {
+          description
+            "Configure the http method parameters.";
+          leaf get-method-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the device to allow users to submit user name and password information to the device in GET mode during Portal authentication.";
+          }
+          container post-parameters {
+            description
+              "Configure http post parameters.";
+            leaf cmd-key {
+              type string {
+                length "1..16";
+              }
+              default "cmd";
+              description
+                "Specifies the command identification keyword.";
+            }
+            leaf login-key {
+              type string {
+                length "1..15";
+              }
+              default "login";
+              description
+                "Specifies the user login identification keyword.";
+            }
+            leaf logout-key {
+              type string {
+                length "1..15";
+              }
+              default "logout";
+              description
+                "Specifies the user logout identification keyword.";
+            }
+            leaf password-key {
+              type string {
+                length "1..16";
+              }
+              default "password";
+              description
+                "Specifies the password identification keyword.";
+            }
+            leaf init-url-key {
+              type string {
+                length "1..16";
+              }
+              default "initurl";
+              description
+                "Specifies the identification keyword for the user initial login URL.";
+            }
+            leaf user-ip-key {
+              type string {
+                length "1..16";
+              }
+              default "ipaddress";
+              description
+                "Specifies the identification keyword for the user IP address.";
+            }
+            leaf user-mac-key {
+              type string {
+                length "1..16";
+              }
+              default "macaddress";
+              description
+                "Specifies the identification keyword for the user MAC address.";
+            }
+            leaf user-name-key {
+              type string {
+                length "1..16";
+              }
+              default "username";
+              description
+                "Specifies the user name identification keyword.";
+            }
+            container login-fail {
+              description
+                "Configure the response message upon a user login failure.";
+              choice response {
+                description
+                  "Methods of login failed response.";
+                case err-msg {
+                  description
+                    "Use defined message.";
+                  choice type {
+                    description
+                      "Message parameters.";
+                    case authenserve-reply-message {
+                      description 
+                        "Authenserve reply message case.";
+                      leaf authenserver-reply-enable {
+                        type boolean;
+                        default "false";
+                        description
+                          "Enable/disable the response message returned by the authentication server is displayed upon a user login failure.";
+                      }
+                    }
+                    case message {
+                      description
+                        "Message case.";
+                      leaf message {
+                        type string {
+                          length "1..200";
+                        }
+                        description
+                          "A specified message is displayed upon a user login failure.";
+                      }
+                    }
+                  }
+                }
+                case redirect-login-url {
+                  description
+                    "Use redirect login url.";
+                  leaf redirect-login-url-enable {
+                    type boolean;
+                    default "true";
+                    description
+                      "Enable/disable a user is redirected to the login URL upon a login failure.";
+                  }
+                }
+                case redirect-url {
+                  description
+                    "Use redirect url.";
+                  leaf redirect-url {
+                    type string {
+                      length "1..247";
+                    }
+                    description
+                      "A user is redirected to a specified URL upon a login failure.";
+                  }
+                  leaf append-reply-message {
+                    type string {
+                      length "1..16";
+                    }
+                    description
+                      "The redirect URL carries the identification keyword for the response message returned by the authentication server.";
+                  }
+                }
+              }
+              leaf allow-origin-url {
+                type string {
+                  length "1..247";
+                }
+                description
+                  "Specifies the URL that can be accessed across domains when a user fail to log in.";
+              }
+            }
+            container login-success {
+              description
+                "Configure the response message upon successful user login.";
+              choice response {
+                description
+                  "Methods of login success response.";
+                case message {
+                  description
+                    "Use defined message.";
+                  leaf message {
+                    type string {
+                      length "1..200";
+                    }
+                    description
+                      "A specified message is displayed upon successful user login.";
+                  }
+                }
+                case redirect-init-url {
+                  description
+                    "Use redirect initial url.";
+                  leaf redirect-init-url-enable {
+                    type boolean;
+                    must "../redirect-init-url-enable='true'";
+                    default "true";
+                    description
+                      "Enable/disable a user is redirected to the initial login URL upon successful login.";
+                  }
+                }
+                case redirect-url {
+                  description
+                    "Use redirect url.";
+                  leaf redirect-url {
+                    type string {
+                      length "1..247";
+                    }
+                    description
+                      "A user is redirected to a specified URL upon successful login.";
+                  }
+                }
+              }
+              leaf allow-origin-url {
+                type string {
+                  length "1..247";
+                }
+                description
+                  "Specifies the URL that can be accessed across domains when a user success to log in.";
+              }
+            }
+            container logout-fail {
+              description
+                "Configure the response message upon a user logout failure.";
+              choice response {
+                description
+                  "Methods of logout fail response.";
+                case message {
+                  description
+                    "Use defined message.";
+                  leaf message {
+                    type string {
+                      length "1..200";
+                    }
+                    default "LogoutFail!";
+                    description
+                      "A specified message is displayed upon a user logout failure.";
+                  }
+                }
+                case redirect-url {
+                  description
+                    "Use redirect url.";
+                  leaf redirect-url {
+                    type string {
+                      length "1..247";
+                    }
+                    description
+                      "A user is redirected to a specified URL upon a logout failure.";
+                  }
+                }
+              }
+            }
+            container logout-success {
+              description
+                "Configure the response message upon successful user logout.";
+              choice response {
+                description
+                  "Methods of logout success response.";
+                case message {
+                  description
+                    "Use defined message.";
+                  leaf message {
+                    type string {
+                      length "1..200";
+                    }
+                    default "LogoutSuccess!";
+                    description
+                      "A specified message is displayed upon successful user logout.";
+                  }
+                }
+                case redirect-url {
+                  description
+                    "Use redirect url.";
+                  leaf redirect-url {
+                    type string {
+                      length "1..247";
+                    }
+                    description
+                      "A user is redirected to a specified URL upon successful logout.";
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    container portal-access-profiles {
+      description
+        "List of portal access profile related configuration and state data.";
+      list portal-access-profile {
+        key "name";
+        description
+          "Configure portal access profile.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of a Portal access profile.";
+        }
+        leaf portal-server-up-re-authen {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to re-authenticate users when the Portal server changes from Down to Up.";
+        }
+        container portal-server-down {
+          description
+            "Configure network access rights for users when the Portal server is Down.";
+          choice authorize-parameters {
+            description
+              "Authorize parameters.";
+            case service-scheme {
+              description
+                "Service scheme case.";
+              leaf service-scheme {
+                type leafref {
+                  path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+                }
+                description
+                  "Specifies the name of the service scheme based on which network access rights are assigned to users.";
+              }
+            }
+            case ucl-group {
+              description
+                "Ucl group case.";
+              leaf ucl-group {
+                type leafref {
+                  path "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:name";
+                }
+              description
+                "Specifies the name of the UCL group based on which network access rights are assigned to users.";
+              }
+            }
+          }
+          leaf last-authorization {
+            type boolean;
+            default false;
+            description
+              "Enable/disable authorize last authorization.";
+          }
+        }
+        container authentication-networks {
+          description
+            "List of the source subnet for Portal authentication.";
+          list authentication-network {
+            key "ip";
+            description
+              "Configure the source subnet for Portal authentication list.";
+            leaf ip {
+              type inet:ipv4-address-no-zone;
+              description
+                "Specifies a Portal authentication subnet.";
+            }
+            choice subnet {
+              description
+                "Specifies the mask length or mask of the Portal authentication subnet.";
+              case mask-length {
+                description
+                  "Mask length case.";
+                leaf prefix-length {
+                  type uint8 {
+                    range "0..32";
+                  }
+                  description
+                    "Specifies the mask length.";
+                }
+              }
+              case mask-address {
+                description
+                  "Mask address case.";
+                leaf netmask {
+                  type yang:dotted-quad;
+                  description
+                    "Specifies the mask.";
+                }
+              }
+            }
+          }
+        }
+        container portal-authentication-timer {
+          description "Configure the portal authentication timer in system.";
+          leaf offline-detect {
+            type uint16;
+            units "s";
+            default "300";
+            description "Specifies the timer of offline detect.";
+          }
+        }        
+        container portal-server {
+          description
+            "Configure the Portal server template used by a Portal access profile.";
+          leaf server-name {
+            type leafref {
+              path "../../../../portal-servers/portal-server/name";
+            }
+            description
+              "Specifies the name of a Portal server template.";
+          }
+          leaf bak-server-name {
+            type leafref {
+              path "../../../../portal-servers/portal-server/name";
+            }
+            description
+              "Specifies the name of a backup Portal server template.";
+          }
+          leaf portal-mode-layer3 {
+            when "../server-name";
+            type boolean;
+            default "false";
+            description "Enable/disable the layer3 access mode of portal.";
+          }          
+        }
+        container local-portal-function {
+          description
+            "Configure some parameters when uses local Portal server.";
+          leaf local-server-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the built-in Portal server function in a Portal access profile.";
+          }
+          choice access-type {
+            description
+              "Configuring the user access authentication type.";
+            case access-code {
+              description
+                "Access code login function for users authenticated through the built-in Portal server.";
+              leaf access-code-enable {
+                type empty;
+                description
+                  "Enable/disable the access code login function for users authenticated through the built-in Portal server.";
+              }
+            }
+            case anonymous {
+              description
+                "Anonymous login function for users authenticated through the built-in Portal server.";
+              leaf anonymous-enable {
+                type empty;
+                description
+                  "Enable/disable the anonymous login function for users authenticated through the built-in Portal server.";
+              }
+              leaf anonymous-redirect-url {
+                when "../anonymous-enable";
+                type string {
+                  length "1..200";
+                }
+                description
+                  "Specifies the redirection URL.The URL is generally used to push advertisement information to anonymous authentication users.";
+              }
+            }
+          }
+          leaf login-success-redirect-url {
+            type string {
+              length "1..200";
+            }
+            description
+              "Specifies the redirection URL.The URL is generally used to push advertisement information to authenticated users.";
+          }
+        }
+        container http-proxy-redirect-function {
+          description
+            "Configure http proxy redirect function parameters.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the HTTP proxy function.";
+          }
+          leaf proxy-port {
+            type inet:port-number;
+            description
+              "Specifies the port number for the HTTP proxy function. If this parameter is not specified, ports 8080 and 3128 are used.";
+          }
+        }
+      }
+    }
+  }
+}

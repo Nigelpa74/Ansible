@@ -1,0 +1,214 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-urpf {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-urpf";
+  prefix urpf;
+  import huawei-extension {
+    prefix ext;
+  }  
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "IP URPF check.";
+
+  revision 2025-08-07 {
+    description
+      "Add the Cellular and GEBrief interfaces for the IPv6 URPF and URPF functions, respectively.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-03-12 {
+    description
+      "Add Vbdif to urpf.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-03-07 {
+    description
+      "Add IpTrunk and Pos to IPv4/IPv6 urpf.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-02-29 {
+    description
+      "Add Serial to IPv6 urpf.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-01-27 {
+    description
+      "Add 800GE to urpf.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-12-11 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-28 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-16 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-24 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-14 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-30 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-12 {
+    description
+      "Modify when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Modify node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-02 {
+    description
+      "Modify node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-18 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef urpf-check-mode {
+    type enumeration {
+      enum "loose" {
+        value 1;
+        description
+          "URPF losse mode.";
+      }
+      enum "strict" {
+        value 2;
+        description
+          "URPF strict mode.";
+      }
+    }
+    description
+      "URPF check mode type.";
+  }
+  ext:task-name "forwarding";
+  container urpf {
+    description
+      "IP URPF check.";
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "IP URPF check configuration to the ifm module.";
+    container urpf {
+      description
+        "Configure IP URPF.";
+      container ip-urpf {
+        when "../../ifm:type='GigabitEthernet' or ../../ifm:type='100GE' or ../../ifm:type='10GE' or ../../ifm:type='200GE' or ../../ifm:type='25GE' or ../../ifm:type='400GE' or ../../ifm:type='800GE' or ../../ifm:type='40GE' or ../../ifm:type='50GE' or ../../ifm:type='Ethernet' or ../../ifm:type='Eth-Trunk' or ../../ifm:type='MultiGE' or ../../ifm:type='Tunnel' or ../../ifm:type='Vlanif' or ../../ifm:type='Cellular' or ../../ifm:type='Dialer' or ../../ifm:type='Serial' or ../../ifm:type='Mp-group' or ../../ifm:type='Pos' or ../../ifm:type='Ip-Trunk' or ../../ifm:type='Vbdif' or ../../ifm:type='GEBrief'";
+        must "not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute)";
+        presence "Enable ip urpf.";
+        description
+          "Configure IPv4 URPF check mode.";
+        leaf check-mode {
+          type urpf-check-mode;
+          must "(not(../../../ifm:type='Vbdif') and (../check-mode='strict')) or (../check-mode='loose')";
+          description
+            "Check mode.";
+        }
+        leaf allow-default-route {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable default route.";
+        }
+        leaf acl-number {
+          type leafref {
+            path "/acl:acl/acl:groups/acl:group/acl:identity";
+          }
+          must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+          description
+            "ACL number for IPv4 protocol.";
+        }
+      }
+      container ipv6-urpf {
+        when "../../ifm:type='GigabitEthernet' or ../../ifm:type='100GE' or ../../ifm:type='10GE' or ../../ifm:type='40GE' or ../../ifm:type='400GE' or ../../ifm:type='25GE' or ../../ifm:type='50GE' or ../../ifm:type='200GE' or ../../ifm:type='Ethernet' or ../../ifm:type='Eth-Trunk' or ../../ifm:type='Tunnel' or ../../ifm:type='Vlanif' or ../../ifm:type='Dialer' or ../../ifm:type='Serial' or ../../ifm:type='Pos' or ../../ifm:type='Ip-Trunk' or ../../ifm:type='Cellular' or ../../ifm:type='GEBrief'";
+        must "not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute)";
+        must "../../ip:ipv6";
+        presence "Enable ipv6 urpf.";
+        description
+          "Configure IPv6 URPF check mode.";
+        leaf check-mode {
+          type urpf-check-mode;
+          mandatory true;
+          description
+            "Check mode.";
+        }
+        leaf allow-default-route {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable default route.";
+        }
+        leaf acl6-number {
+          type leafref {
+            path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+          }
+          must "/acl:acl/acl:group6s/acl:group6[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:group6s/acl:group6[acl:identity=current()]/acl:type='advance'";
+          description
+            "ACL number for IPv6 protocol.";
+        }
+      }
+    }
+  }
+}

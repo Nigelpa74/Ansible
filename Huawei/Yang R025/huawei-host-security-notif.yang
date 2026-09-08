@@ -1,0 +1,418 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-host-security-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-host-security-notif";
+  prefix host-security-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of host security.";
+  revision 2025-08-07 {
+    description
+      "Change the line ending format to Unix-style.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-04 {
+    description
+      "Add reason-description in linkupcar-drop-packet and linkupcar-drop-packet-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-30 {
+    description
+      "Add reason-description in cpcar-auto-port-defend and cpcar-auto-port-defend-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-01 {
+    description
+      "Add cbs and cir unit in cpcar-drop-packet and cpcar-drop-packet-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-24 {
+    description
+      "Add packet unit in total-packets.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-07 {
+    description
+      "Modify task-name to cpu-defend.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-10-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "cpu-defend";
+  notification strack-error-down {
+    description
+      "An interface transitions to error-down state because an attack is detected on the interface.";
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that receives attack packets.";
+    }
+  }
+  notification strack-if-vlan {
+    description
+      "The system detected attacks on an interface.";
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of the interface.";
+    }
+    leaf cvlan {
+      type uint32;
+      description
+        "Inner VLAN tag of an attack packet sent by a user.";
+    }
+    leaf pvlan {
+      type uint32;
+      description
+        "Outer VLAN tag of an attack packet sent by a user.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "Time when the last attack packet is received.";
+    }
+    leaf total-packets {
+      type uint32;
+      units "packet";
+      description
+        "Number of received attack packets.";
+    }
+  }
+  notification strack-deny-packet {
+    description
+      "The switch discards some packets because it detects an attack.";
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that receives attack packets.";
+    }
+    leaf source-mac {
+      type pub-type:mac-address;
+      description
+        "Indicates the source MAC address of attack packets.";
+    }
+    leaf source-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Indicates the source IP address of attack packets.";
+    }
+    leaf cvlan {
+      type uint32;
+      description
+        "Indicates the inner VLAN ID of attack packets.";
+    }
+    leaf pvlan {
+      type uint32;
+      description
+        "Indicates the outer VLAN ID of attack packets.";
+    }
+    leaf source-ipv6 {
+      type inet:ipv6-address-no-zone;
+      description
+        "Indicates the source IPv6 address of attack packets.";
+    }
+  }
+  notification strack-ip {
+    description
+      "The system detected attacks from a user with a specified source IP address.";
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of the interface.";
+    }
+    leaf source-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Source IP address.";
+    }
+    leaf cvlan {
+      type uint32;
+      description
+        "Inner VLAN tag of an attack packet sent by a user.";
+    }
+    leaf pvlan {
+      type uint32;
+      description
+        "Outer VLAN tag of an attack packet sent by a user.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "Time when the last attack packet is received.";
+    }
+    leaf total-packets {
+      type uint32;
+      units "packet";
+      description
+        "Number of received attack packets.";
+    }
+    leaf source-ipv6 {
+      type inet:ipv6-address-no-zone;
+      description
+        "Source IPv6 address.";
+    }
+  }
+  notification cpcar-drop-packet{
+    description
+      "Rate of packets to cpu exceeded the CPCAR limit in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Protocol type.";
+    }
+    leaf cir {
+      type uint32;
+      units "pps";
+      description
+        "Committed information rate.";
+    }
+    leaf cbs {
+      type uint32;
+      units "pps";
+      description
+        "Committed burst size.";
+    }
+    leaf drop-packet-num {
+      type string{
+        length "1..63";
+      }
+      description
+        "Number of dropped packets.";
+    }
+  }
+  notification cpcar-drop-packet-resume {
+    description
+      "Rate of packets to cpu lowered the CPCAR limit in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Protocol type.";
+    }
+    leaf cir {
+      type uint32;
+      units "pps";
+      description
+        "Committed information rate.";
+    }
+    leaf cbs {
+      type uint32;
+      units "pps";
+      description
+        "Committed burst size.";
+    }
+    leaf drop-packet-num {
+      type string{
+        length "1..63";
+      }
+      description
+        "Number of dropped packets.";
+    }
+  }
+  notification cpcar-auto-port-defend {
+    description
+      "Auto port defend detected in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Indicates the protocol type.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of the interface.";
+    }
+    leaf reason-description {
+      type string{
+        length "1..63";
+      }
+      description
+        "Reason Description.";
+    }
+  }
+  notification cpcar-auto-port-defend-resume {
+    description
+      "Auto port defend detection recovered in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Indicates the slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Indicates the protocol type.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of the interface.";
+    }
+    leaf reason-description {
+      type string{
+        length "1..63";
+      }
+      description
+        "Reason Description.";
+    }
+  }
+  notification strack-user-mac {
+    description
+      "The system detected attacks from a user with a specified source MAC address.";
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of the interface.";
+    }
+    leaf source-mac {
+      type pub-type:mac-address;
+      description
+        "Source MAC address.";
+    }
+    leaf cvlan {
+      type uint32;
+      description
+        "Inner VLAN tag of an attack packet sent by a user.";
+    }
+    leaf pvlan {
+      type uint32;
+      description
+        "Outer VLAN tag of an attack packet sent by a user.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "Time when the last attack packet is received.";
+    }
+    leaf total-packets {
+      type uint32;
+      units "packet";
+      description
+        "Number of received attack packets.";
+    }
+  }
+  notification linkupcar-drop-packet{
+    description
+      "Rate of packets to cpu exceeded the LINKUP CAR limit in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Protocol type.";
+    }
+    leaf cir {
+      type uint32;
+      units "pps";
+      description
+        "Committed information rate.";
+    }
+    leaf drop-packet-num {
+      type string{
+        length "1..63";
+      }
+      description
+        "Number of dropped packets.";
+    }
+  }
+  notification linkupcar-drop-packet-resume {
+    description
+      "Rate of packets to cpu lowered the LINKUP CAR limit in slot [SlotId].";
+    leaf slot-id {
+      type string{
+        length "1..63";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf protocol {
+      type string{
+        length "1..63";
+      }
+      description
+        "Protocol type.";
+    }
+    leaf cir {
+      type uint32;
+      units "pps";
+      description
+        "Committed information rate.";
+    }
+    leaf drop-packet-num {
+      type string{
+        length "1..63";
+      }
+      description
+        "Number of dropped packets.";
+    }
+  }
+}

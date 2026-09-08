@@ -1,0 +1,104 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-vty-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-vty-deviations-ar5710s";
+  prefix vty-devs-ar5710s;
+
+  import huawei-vty {
+    prefix vty;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-vty module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef vty-authmode-type-deviations {
+    type enumeration {
+      enum password {
+        value 2;
+        description
+          "VTY authentication mode password.";
+      }
+      enum aaa {
+        value 3;
+        description
+          "VTY authentication mode aaa.";
+      }
+      enum init {
+        value 4;
+        description
+          "Undo authentication mode.";
+      }
+    }
+    description
+      "Vty and tty authentication mode type.";
+  }
+
+  deviation "/vty:vty/vty:lines/vty:line/vty:auth-mode" {
+    deviate replace {
+      type vty-devs-ar5710s:vty-authmode-type-deviations;
+    }
+  }
+  deviation "/vty:vty/vty:lines/vty:line/vty:privilege-level" {
+    deviate replace {
+      type uint8 {
+        range "0..3";
+      }
+    }
+  }
+  deviation "/vty:vty/vty:lines/vty:line/vty:acl4-inbound" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/vty:vty/vty:lines/vty:line/vty:acl4-outbound" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/vty:vty/vty:lines/vty:line/vty:acl4-inbound-num" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/vty:vty/vty:lines/vty:line/vty:acl4-outbound-num" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/vty:vty/vty:line-global/vty:available-threshold-alarm" {
+    deviate replace {
+      default "1";
+    }
+  }
+}

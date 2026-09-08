@@ -1,0 +1,168 @@
+/*
+Copyright (C) 2020-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+/* 
+module: huawei-security-signature-notif
+notifications:
+   +---n signature-update-result
+      +--ro type?                 identityref
+      +--ro result?               enumeration
+      +--ro result-description?   string
+      +--ro result-code?          uint32
+*/
+module huawei-security-signature-notif {
+    namespace "urn:huawei:yang:huawei-security-signature-notif";
+    prefix signature-notification;
+    
+    import huawei-security-signature {
+        prefix signature;
+    }
+    
+    import huawei-extension {
+      prefix ext;
+    }
+    
+    organization
+        "Huawei Technologies Co., Ltd.";
+
+    contact
+        "Huawei Industrial Base
+        Bantian, Longgang
+        Shenzhen 518129
+        People's Republic of China
+        Website: http://www.huawei.com
+        Email: support@huawei.com";
+
+    description
+        "This module contains a collection of YANG definitions for security signature notification.";
+
+    revision 2023-04-20 {
+        description
+        "Add compile state notification.";
+        reference
+        "Huawei private.";
+    }
+
+    revision 2022-09-22 {
+        description
+        "Add signature version notification.";
+        reference
+        "Huawei private.";
+    }
+    revision 2020-06-23 {
+        description
+        "Initial revision.";
+        reference
+        "Huawei private.";
+    }
+    ext:task-name "security-signature";
+    notification signature-update-result {
+        uses signature:result-information;
+        description "Signature update result.";
+    }
+
+    notification signature-update-version {
+        description "Signature update version.";
+        leaf slot {
+            type string {
+                length "1..24";
+            }
+            description
+                "Indicate the slot id to which the update version belongs.";
+        }
+        leaf cpu {
+            type string {
+                length "1..24";
+            }
+            description
+                "Indicate the cpu id to which the update version belongs.";
+        }
+        uses signature:version-information;
+    }
+
+    notification signature-update-fail-alarm {
+        description
+           "Signature update fail alarm.";
+        leaf type {
+            type identityref {
+                base signature:type;
+            }
+            description
+                "The type of signature database.";
+        }
+        leaf pre-update-version {
+            type string {
+                length "1..64";
+            }
+            description
+                "Indicate the pre update version.";
+        }
+        leaf update-version {
+            type string {
+                length "1..64";
+            }
+            description
+                "Indicate the update version.";
+        }
+            
+        leaf result-description {
+            type string {
+            length "1..256";
+            }
+            description
+                "Update operation result description.";
+        }
+
+        leaf result-code {
+            type uint32;
+            description
+                "Update operation result code.";
+        }
+    }
+
+    notification signature-update-fail-alarm-resume {
+        description
+           "Signature update fail alarm resume.";
+        leaf type {
+            type identityref {
+                base signature:type;
+            }
+            description
+                "The type of signature database.";
+        }
+        leaf pre-update-version {
+            type string {
+                length "1..64";
+            }
+            description
+                "Indicate the pre update version.";
+        }
+        leaf update-version {
+            type string {
+                length "1..64";
+            }
+            description
+                "Indicate the update version.";
+        }
+            
+        leaf result-description {
+            type string {
+            length "1..256";
+            }
+            description
+                "Update operation result description.";
+        }
+
+        leaf result-code {
+            type uint32;
+            description
+                "Update operation result code.";
+        }
+    }
+
+    notification configuration-compile-result {
+        description
+            "Configuration compile result.";
+        uses signature:compile-states;
+    }
+}

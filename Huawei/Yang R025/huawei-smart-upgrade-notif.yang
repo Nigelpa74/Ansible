@@ -1,0 +1,108 @@
+/*
+Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-upgrade-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-smart-upgrade-notif";
+  prefix smart-upgrade-notif;
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of smart upgrade.";
+  revision 2024-12-14 {
+    description
+      "Add packages of operate-finish.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-30 {
+    description
+      "Add smart-upgrade-user-data-retention-period-expired.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-14 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "rpm";
+  typedef operate-type {
+    type enumeration {
+      enum "upgrade" {
+        value 0;
+        description
+          "Upgrade operate.";
+      }
+      enum "download" {
+        value 1;
+        description
+          "Download operate.";
+      }
+    }
+    description
+      "Operate type.";  
+  }
+  typedef operate-result {
+    type enumeration {
+      enum "success" {
+        value 0;
+        description
+          "Success.";
+      }
+      enum "fail" {
+        value 1;
+        description
+          "Fail.";
+      }
+    }
+    description
+      "Operate result.";  
+  }
+
+  notification version-need-upgrade {
+    description
+      "New version is found.";
+  }
+  notification operate-finish {
+    description
+      "The operate finish.";
+    leaf operate {
+      type operate-type;
+      description
+        "Operate type.";
+    }
+    leaf result {
+      type operate-result;
+      description
+        "Operate result.";
+    }
+    leaf packages {
+      type string {
+        length "1..2047";
+      }
+      description
+        "Operate packages.";
+    }
+  }
+  notification smart-upgrade-user-data-retention-period-expired {
+    description
+      "The smart-upgrade user data retention period has expired.";
+  }
+  notification smart-upgrade-user-data-retention-period-expired-resume {
+    description
+      "The smart-upgrade user data is updated.";
+  }
+}

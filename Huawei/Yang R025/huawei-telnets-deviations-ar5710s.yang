@@ -1,0 +1,58 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-telnets-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-telnets-deviations-ar5710s";
+  prefix telnets-devs-ar5710s;
+
+  import huawei-telnets {
+    prefix telnets;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-telnets module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/telnets:telnets/telnets:ipv4-isolate-server-sources" {
+    deviate not-supported;
+  }
+  deviation "/telnets:telnets/telnets:ipv6-isolate-server-sources" {
+    deviate not-supported;
+  }
+  deviation "/telnets:telnets/telnets:session-car" {
+    deviate not-supported;
+  }
+  deviation "/telnets:telnets/telnets:telnet/telnets:acl4-name" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/telnets:telnets/telnets:telnet/telnets:acl4-num" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+}

@@ -1,0 +1,97 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-loadbalance-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-loadbalance-deviations-ar5710s";
+  prefix loadbalance-devs-ar5710s;
+
+  import huawei-loadbalance {
+    prefix loadbalance;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-loadbalance module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/loadbalance:loadbalance/loadbalance:global-attribute" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-ecmp-profile" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:dynamic-load-balance-profile" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:avoid-degradations" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:hash-key-ip" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:hash-key-ip-slots" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:hash-instructions" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:ecmp-stateful" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:ecmp-stateful-distribution" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-ecmp-enable" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:dlb-enables" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-ecmp-stateful-enhanced" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-vxlan-overlay-ecmp-stateful" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:ip-load-balance-reverse-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:ipv6-load-balance-reverse-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-ecmp-rocev2-per-packet" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:ecmp-per-packet" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/loadbalance:loadbalance" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/loadbalance:loadbalance" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/loadbalance:loadbalance" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,102 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-sshc-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-sshc-deviations-ar5710s";
+  prefix sshc-devs-ar5710s;
+
+  import huawei-sshc {
+    prefix sshc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-sshc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef sshc-pubkey-type-deviations {
+    type enumeration {
+      enum RSA {
+        value 1;
+        description
+          "RSA client public key.";
+      }
+      enum DSA {
+        value 2;
+        description
+          "DSA client public key.";
+      }
+      enum ECC {
+        value 3;
+        description
+          "ECC client public key.";
+      }
+      enum SM2 {
+        value 5;
+        description
+          "SM2 client public key.";
+      }
+    }
+    description
+      "SSH client public key encryption type list.";
+  }
+
+  deviation "/sshc:sshc/sshc:cipher-alg/sshc:chacha20-poly1305" {
+    deviate not-supported;
+  }
+  deviation "/sshc:sshc/sshc:kex-alg/sshc:dh-group18-sha512" {
+    deviate not-supported;
+  }
+  deviation "/sshc:sshc/sshc:pubkey-alg/sshc:ed25519" {
+    deviate not-supported;
+  }
+  deviation "/sshc:sshc/sshc:transfer-tasks" {
+    deviate not-supported;
+  }
+  deviation "/sshc:sshc/sshc:session-car" {
+    deviate not-supported;
+  }
+  deviation "/sshc:ssh-transfer-file/sshc:output" {
+    deviate not-supported;
+  }
+  deviation "/sshc:tcp-port-forwarding/sshc:input/sshc:authentication-type/sshc:password" {
+    deviate not-supported;
+  }
+  deviation "/sshc:ssh-cancel-transfer-task" {
+    deviate not-supported;
+  }
+  deviation "/sshc:sshc/sshc:server-authentications/sshc:server-authentication/sshc:pubkey-type" {
+    deviate replace {
+      type sshc-devs-ar5710s:sshc-pubkey-type-deviations;
+    }
+  }
+  deviation "/sshc:sshc/sshc:kex-alg" {
+    deviate delete {
+      must "../kex-alg/dh-group-exchange-sha-256 = 'true' or ../kex-alg/dh-group-exchange-sha1 = 'true' or ../kex-alg/dh-group1-sha1 = 'true' or ../kex-alg/ecdh-sha2-nistp-256 = 'true' or ../kex-alg/ecdh-sha2-nistp-384 = 'true' or ../kex-alg/ecdh-sha2-nistp-521 = 'true' or ../kex-alg/sm2-kep = 'true' or ../kex-alg/dh-group14-sha1 = 'true' or ../kex-alg/dh-group16-sha512 = 'true' or ../kex-alg/dh-group18-sha512 = 'true' or ../kex-alg/curve25519-sha256 = 'true' or ../kex-alg/sm2-sm3 = 'true'";
+    }
+    deviate add {
+      must "../kex-alg/dh-group-exchange-sha-256 = 'true' or ../kex-alg/dh-group-exchange-sha1 = 'true' or ../kex-alg/dh-group1-sha1 = 'true' or ../kex-alg/ecdh-sha2-nistp-256 = 'true' or ../kex-alg/ecdh-sha2-nistp-384 = 'true' or ../kex-alg/ecdh-sha2-nistp-521 = 'true' or ../kex-alg/sm2-kep = 'true' or ../kex-alg/dh-group14-sha1 = 'true' or ../kex-alg/dh-group16-sha512 = 'true' or ../kex-alg/curve25519-sha256 = 'true' or ../kex-alg/sm2-sm3 = 'true'";
+    }
+  }
+  deviation "/sshc:tcp-port-forwarding/sshc:input/sshc:remote-host-name" {
+    deviate replace {
+      type string {
+        length "1..32";
+        pattern '127\.0\.0\.1';
+      }
+    }
+  }
+}

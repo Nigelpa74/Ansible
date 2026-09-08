@@ -1,0 +1,205 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+module: huawei-traffic-distribution
+*/
+module huawei-traffic-distribution {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-traffic-distribution";
+  prefix td;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for traffic distribution.";
+  
+  revision 2025-03-04 {
+    description
+      "Del forward-encrypted-packets-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-20 {
+    description
+      "Add auto-switch to deliver.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-17 {
+    description
+      "Add hardware-route-forwarding.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-06 {
+    description
+      "Add forward-encrypted-packets-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-16 {
+    description
+      "Del fast-forwarding.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-18 {
+    description
+      "Change the value of security-enhance and compatible enumeration type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-27 {
+    description
+      "Add deliver-mode-type auto, add performance-mode-type security-enhance and compatible.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-16 {
+    description
+      "Change hardware-routing to hardware fast-forwarding.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add hardware-routing.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-19 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "fwm-td";
+  typedef deliver-mode-type {
+    type enumeration {
+      enum flow {
+        value 0;
+        description "Flow core pinning mode.";
+      }
+      enum packet {
+        value 1;
+        description "Per-packet forwarding mode.";
+      }
+      enum port {
+        value 2;
+        description "Port core pinning mode.";
+      }      
+      enum auto {
+        value 3;
+        description "Auto forwarding mode.";
+      }
+    }
+    description
+      "Deliver mode type.";
+  }
+  typedef performance-mode-type {
+    type enumeration {
+      enum routing {
+        value 0;
+        description "Routing forwarding mode.";
+      }
+      enum security {
+        value 1;
+        description "Secure forwarding mode.";
+      }
+      enum security-enhance {
+        value 3;
+        description "Secure enhance forwarding mode.";
+      }
+      enum compatible {
+        value 4;
+        description "Compatible forwarding mode.";
+      }
+    }
+    description
+      "Performance mode type. The value 2 is reserved for the user defined security mode.";
+  }
+
+  container traffic-distribution {
+    description "Querying or setting the traffic distribution function.";
+    container deliver {
+      description
+      "Configure a traffic distribution mode.";
+      leaf mode {
+        type deliver-mode-type;
+        description
+          "Forwarding traffic distribution mode.";
+      }
+      container auto-switch {
+        description "Configure auto switch of deliver mode.";
+        leaf suppression-time {
+          type uint32{
+            range "10..3600";
+          }
+          units s;
+          default "300";
+          description
+            "Deliver mode auto switch suppression time.";
+        }
+      }
+      container status {
+        config false;
+        description "Statistics of deliver mode.";
+        leaf current-mode {
+          type deliver-mode-type ;
+          description
+            "Current deliver mode.";
+        }
+        leaf next-startup-mode {
+          type deliver-mode-type ;
+          description
+            "Next startup deliver mode.";
+        }
+      }
+    }
+    container performance {
+      description
+      "Configure a service performance mode.";
+      leaf mode {
+        type performance-mode-type;
+        description
+          "Service performance mode.";
+      }
+      container status {
+        config false;
+        description "Statistics of performance mode.";
+        leaf current-mode {
+          type performance-mode-type ;
+          description
+            "Current performance mode.";
+        }
+        leaf next-startup-mode {
+          type performance-mode-type ;
+          description
+            "Next startup performance mode.";
+        }
+      }
+    }
+    container hardware-route-forwarding {
+      description "Configure hardware route-forwarding function.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description "Enable/disable basic hardward route-forwarding function.";
+      }
+      leaf qos {
+        when "../enable='true'";
+        type boolean;
+        default "false";
+        description "Enable/disable qos hardward route-forwarding function.";
+      }
+    }
+  }
+}

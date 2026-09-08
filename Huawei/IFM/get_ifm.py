@@ -5,7 +5,7 @@ from ncclient import manager
 
 FILTER = """
 <filter type="subtree">
-  <ifm xmlns="urn:huawei:yang:huawei-ifm"/>
+  <devm xmlns="urn:huawei:yang:huawei-devm"/>
 </filter>
 """
 
@@ -19,7 +19,7 @@ def huawei_connect(router):
         device_params={'name': "huaweiyang"},
         allow_agent=False,
         look_for_keys=False,
-        timeout=15
+        timeout=100
     )
 
 def get_ifm(router):
@@ -28,7 +28,7 @@ def get_ifm(router):
         with huawei_connect(router) as m:
             print(f"[{nombre}] Sesion ID: {m._session.id}")
 
-            reply = m.get_config(source="running", filter=FILTER)
+            reply = m.get()
 
             xml_bonito = xml.dom.minidom.parseString(
                 str(reply)
@@ -48,7 +48,7 @@ def get_ifm(router):
     except Exception as e:
         print(f"[{nombre}] ❌ Error: {e}")
 
-def cargar_inventario(archivo="inventario-m.yml"):
+def cargar_inventario(archivo="inventario-c.yml"):
     with open(archivo) as f:
         data = yaml.safe_load(f)
     return data["routers"]

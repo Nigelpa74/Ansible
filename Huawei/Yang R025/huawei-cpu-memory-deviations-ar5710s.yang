@@ -1,0 +1,39 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cpu-memory-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-cpu-memory-deviations-ar5710s";
+  prefix cpu-memory-devs-ar5710s;
+
+  import huawei-cpu-memory {
+    prefix cpu-memory;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-cpu-memory module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/cpu-memory:cpu-memory/cpu-memory:board-cpu-service-infos" {
+    deviate not-supported;
+  }
+  deviation "/cpu-memory:cpu-memory/cpu-memory:board-memory-top-infos" {
+    deviate not-supported;
+  }
+  deviation "/cpu-memory:cpu-memory/cpu-memory:board-cpu-top-infos" {
+    deviate not-supported;
+  }
+}

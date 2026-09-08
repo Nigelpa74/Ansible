@@ -1,0 +1,1175 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-rrm-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-rrm-profile";
+  prefix hw-wrrmp;
+  import huawei-wlan-radio-2g-profile {
+    prefix radio-2g-prof;
+  }
+  import huawei-wlan-radio-5g-profile {
+    prefix radio-5g-prof;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "WLAN rrm profile package.";
+  revision 2025-09-09 {
+    description
+      "Modify sta-start-threshold and sta-gap-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-02 {
+    description
+      "Update bss-color-switch and spatial-reuse-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-26 {
+    description
+      "Added higher-band and modified the value range of deny-thrd.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-19 {
+    description
+      "Add rate-limit-dynamic-interval.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-04 {
+    description
+      "Modify multimedia-air-optimize para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-26 {
+    description
+      "Update quick-kickoff-snr-pn-qualify-time default value.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2025-02-24 {
+    description
+      "Add quick-kickoff-snr-pn-observe-time and quick-kickoff-snr-pn-qualify-time.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2025-02-12 {
+    description
+      "Add ai-mode.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2025-01-24 {
+    description
+      "Add quick-prefer-6g.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2024-12-28 {
+    description
+      "Modify co-sr switch.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2024-08-20 {
+    description
+      "Add smart-roam sticky-force-steer-threshold switch.";
+    reference
+      "Huawei private.";
+  }	 
+  revision 2024-06-21 {
+    description
+      "Add airtime fair schedule switch.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2024-06-20 {
+    description
+      "Add DFS smart-selection switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-17 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-19 {
+    description
+      "Update profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-01 {
+    description
+      "Modify uac-client-number number-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-25 {
+    description
+      "Add validation for maximum and minimum values of calibrate power.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-07 {
+    description
+      "Add amc-policy para.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-08-28 {
+    description
+      "Fix number-threshold constraint condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add multimedia uplink-delay-guarantee para.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-05-18 {
+    description
+      "Add mandatory to voice-slice-ratio-value and video-slice-ratio-value.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2023-02-25 {
+    description
+      "Modify high-level-margin and low-level-margin default value.";
+    reference
+      "Huawei private.";
+  }
+    
+  revision 2023-02-20 {
+    description
+      "Modify antenna-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-07 {
+    description
+      "Modify spatial-reuse.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-06 {
+    description
+      "Add number-threshold constraint condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-13 {
+    description
+      "Modify spatial-reuse, bss-color, co-sr para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-09 {
+    description
+      "Modify calibrate para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-27 {
+    description
+      "Modify multimedia-air-optimize para, add spatial-reuse, bss-color, co-sr.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add smart roam para and band-steer para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-05 {
+    description
+      "Add the default bound profile name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-23 {
+    description
+      "Add calibrate grouping interference-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef guarantee-level {
+type enumeration {
+  enum "low" {
+        value 0;
+        description
+          "Configure the guaranteed delay for services to low.";
+  }
+  enum "medium" {
+        value 1;
+        description
+          "Configure the guaranteed delay for services to medium.";
+  }
+  enum "high" {
+        value 2;
+        description
+          "Configure the guaranteed delay for services to high.";
+  }
+  enum "off" {
+        value 3;
+        description
+          "Configure no delay guarantee for services.";
+  }
+}
+    description
+      "Guarantee level.";
+  }
+  grouping radio-2g-binding-rrm-profile {
+    description
+      "Configure rrm profile to radio 2g profile.";
+    container radio-2g-binding-rrm {
+      leaf binding-rrm-profile {
+        type leafref {
+          path "/hw-wrrmp:wlan-rrm-profile/hw-wrrmp:rrm-profiles/hw-wrrmp:rrm-profile/hw-wrrmp:profile-name";
+        }
+        default "default";
+        description
+          "Binding rrm profile to radio 2g profile.";
+      }
+      description
+        "Configure rrm profile to radio 2g profile.";
+    }
+  }
+  grouping radio-5g-binding-rrm-profile {
+    description
+      "Configure rrm profile to radio 5g profile.";
+    container radio-5g-binding-rrm {
+      leaf binding-rrm-profile {
+        type leafref {
+          path "/hw-wrrmp:wlan-rrm-profile/hw-wrrmp:rrm-profiles/hw-wrrmp:rrm-profile/hw-wrrmp:profile-name";
+        }
+        default "default";
+        description
+          "Binding rrm profile to radio 5g profile.";
+      }
+      description
+        "Configure rrm profile to radio 5g profile.";
+    }
+  }
+  container wlan-rrm-profile {
+    container rrm-profiles {
+      list rrm-profile {
+        ext:generated-by "system" {
+          description
+            "The default profile is generated by system.";
+          ext:filter "profile-name='default'";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        key "profile-name";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "Rrm profile name.";
+        }
+        leaf high-density-amc-optimize {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable the adaptive modulation and coding (AMC) optimization function in high-density scenarios.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Enable the adaptive modulation and coding (AMC) optimization function in high-density scenarios.";
+            }
+          }
+          default "disable";
+          description
+            "Disable or enable the adaptive modulation and coding (AMC) optimization function in high-density scenarios. By default, the AMC optimization function is disabled in high-density scenarios.";
+        }
+        container dynamic-edca {
+          leaf dynamic-edca {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable dynamic EDCA parameter adjustment.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable dynamic EDCA parameter adjustment.";
+              }
+            }
+            default "disable";
+            description
+              "Disable or enable dynamic EDCA parameter adjustment. By default, dynamic EDCA parameter adjustment is disabled.";
+          }
+          leaf dynamic-edca-threshold {
+            type uint16 {
+              range "1..1000";
+            }
+            default "6";
+            description
+              "Configures the threshold for the dynamic EDCA Best-Effort service. The default threshold for the dynamic EDCA Best-Effort service is 6 pps.";
+          }
+          description
+            "Configure dynamic-edca-config.";
+        }
+        leaf antenna-mode {
+          type enumeration {
+            enum "omnidirection" {
+              value 0;
+              description
+                "Indicates the omnidirectional antenna mode.";
+            }
+            enum "direction" {
+              value 1;
+              description
+                "Indicates the directional antenna mode.";
+            }
+            enum "auto" {
+              value 2;
+              description
+                "Indicates the automatic antenna mode.";
+            }
+          }
+          default "auto";
+          description
+            "Configure the antenna mode for an AP. By default, the automatic antenna mode is used on an AP.";
+        }
+        leaf multimedia-air-optimize {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable the intelligent multimedia scheduling algorithm.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Enable the intelligent multimedia scheduling algorithm.";
+            }
+          }
+          description
+            "Disable or enable the intelligent multimedia scheduling algorithm. By default, the intelligent multimedia scheduling algorithm is disable.";
+        }
+        leaf multimedia-tcp-window-tuning {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable the TCP window adjustment function for voice and video services.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Enable the TCP window adjustment function for voice and video services.";
+            }
+          }
+          default "enable";
+          description
+            "Disable or enable the TCP window adjustment function for voice and video services. By default, the TCP window adjustment function for voice and video services is enabled.";
+        }
+        leaf multimedia-uplink-delay-guarantee {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable the delay guarantee function for uplink services.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Enable the delay guarantee function for uplink services.";
+            }
+          }
+          default "enable";
+          description
+            "Disable or enable the delay guarantee function for uplink services. By default, the delay guarantee function for uplink services is enabled.";
+        }
+        container downlink-delay-guarantee {
+          description
+            "Configure the guaranteed delay for voice/video/best-effort/background services. The default guaranteed delay is medium.";
+          leaf voice-guarantee-level {
+            type guarantee-level;
+            default "medium";
+            description
+              "Configure the guaranteed delay for voice services.";
+          }
+          leaf video-guarantee-level {
+            type guarantee-level;
+            default "medium";
+            description
+              "Configure the guaranteed delay for video services.";
+          }
+          leaf best-effort-guarantee-level {
+            type guarantee-level;
+            default "medium";
+            description
+              "Configure the guaranteed delay for best-effort services.";
+          }
+          leaf background-guarantee-level {
+            type guarantee-level;
+            default "medium";
+            description
+              "Configure the guaranteed delay for background services.";
+          }
+        }
+        container downlink-slice-ratio {
+          description
+            "Configure the slicing ratio for voice and video services. The default slicing ratio for voice and video services is medium.";
+          leaf voice-slice-ratio-level {
+            type enumeration {
+              enum "low" {
+                value 0;
+                description
+                  "Configure the slicing ratio for voice services to low.";
+              }
+              enum "medium" {
+                value 1;
+                description
+                  "Configure the slicing ratio for voice services to medium.";
+              }
+              enum "high" {
+                value 2;
+                description
+                  "Configure the slicing ratio for voice services to high.";
+              }
+              enum "off" {
+                value 3;
+                description
+                  "Configure no slicing ratio for voice services.";
+              }
+              enum "user-defined" {
+                value 4;
+                description
+                  "Configure the slicing ratio for voice services to a user-defined value.";
+              }
+            }
+            default "medium";
+            description
+              "Configure the slicing ratio for voice services.";
+          }
+          leaf video-slice-ratio-level {
+            type enumeration {
+              enum "low" {
+                value 0;
+                description
+                  "Configure the slicing ratio for video services to low.";
+              }
+              enum "medium" {
+                value 1;
+                description
+                  "Configure the slicing ratio for video services to medium.";
+              }
+              enum "high" {
+                value 2;
+                description
+                  "Configure the slicing ratio for video services to high.";
+              }
+              enum "off" {
+                value 3;
+                description
+                  "Configure no slicing ratio for video services.";
+              }
+              enum "user-defined" {
+                value 4;
+                description
+                  "Configure the slicing ratio for video services to a user-defined value.";
+              }
+            }
+            default "medium";
+            description
+              "Configure the slicing ratio for video services.";
+          }
+          leaf voice-slice-ratio-value {
+            when "../voice-slice-ratio-level = 'user-defined'";
+            type uint8 {
+              range "0..100";
+            }
+            mandatory true;
+            description
+              "Configure a customized slicing ratio for voice services.";
+          }
+          leaf video-slice-ratio-value {
+            when "../video-slice-ratio-level = 'user-defined'";
+            type uint8 {
+              range "0..100";
+            }
+            mandatory true;
+            description
+              "Configure a customized slicing ratio for video services.";
+          }
+        }
+        container multimedia-air-optimize-threshold {
+          description
+            "Configure a user packet density threshold for multimedia air interface optimization. By default, the video user packet density threshold is 100 per second, and the default voice user packet density threshold is 30 per second.";
+          leaf video-threshold {
+            type uint16 {
+              range "10..1000";
+            }
+            default "100";
+            description
+              "Configure video-threshold.";
+          }
+          leaf voice-threshold {
+            type uint16 {
+              range "10..1000";
+            }
+            default "30";
+            description
+              "Configure voice-threshold.";
+          }
+        }
+        container smart-roam {
+          leaf smart-roam-switch {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable smart roaming.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable smart roaming.";
+              }
+            }
+            default "enable";
+            description
+              "Disable or enable smart roaming. By default, it is enabled.";
+          }
+          leaf snr-smart-roam-threshold {
+            type uint8 {
+              range "15..45" {
+                description
+                  "The value is an integer that ranges from 15 to 45, in dB.";
+              }
+            }
+            default "20";
+            description
+              "Configure the SNR threshold for smart roaming.";
+          }
+          leaf quick-kickoff-threshold {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable the function of quickly disconnecting STAs.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable the function of quickly disconnecting STAs.";
+              }
+            }
+            default "enable";
+            description
+              "Disable or enable the function of quickly disconnecting STAs. By default, the function of quickly disconnecting STAs is enabled.";
+          }
+          leaf snr-quick-kickoff-threshold {
+            type uint8 {
+              range "5..45" {
+                description
+                  "The value is an integer that ranges from 5 to 45, in dB.";
+              }
+            }
+            default "15";
+            description
+              "Configure the SNR-based threshold for quickly disconnecting STAs.";
+          }
+          leaf high-level-margin {
+            type uint16 {
+              range "10..20";
+            }
+            default "12";
+            description
+                  "Configure high-level-margin.";
+          }
+          leaf low-level-margin {
+            type uint16 {
+              range "3..15";
+            }
+            default "10";
+            description
+                  "Configure low-level-margin.";
+          }
+          leaf unable-roam-exp-time {
+            type uint16 {
+              range "30..2880";
+            }
+            units "m";
+            default "30";
+            description
+                  "Configure unable-roam-exp-time.";
+          }
+          leaf sticky-force-steer-threshold {
+            type uint8 {
+                range "0..10" {
+                    description
+                    "The value is an integer that ranges from 0 to 10.";
+                }
+            }
+            default "3";
+            description
+            "Specifies the threshold for smart roam sticky force steer.";
+          }
+          leaf ai-mode {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable smart-roam ai-mode.";
+          }
+          container quick-kickoff-snr-pn-criteria {
+            must "./quick-kickoff-snr-pn-qualify-time <= ./quick-kickoff-snr-pn-observe-time";
+            leaf quick-kickoff-snr-pn-observe-time {
+                type uint8 {
+                    range "1..10" {
+                        description
+                        "The value is an integer that ranges from 1 to 10.";
+                    }
+                }
+                default "6";
+                description
+                "Specifies the threshold for smart roam quick-kickoff-snr criteria observe time.";
+            }
+            leaf quick-kickoff-snr-pn-qualify-time {
+                type uint8 {
+                    range "1..10" {
+                        description
+                        "The value is an integer that ranges from 1 to 10.";
+                    }
+                }
+                default "4";
+                description
+                "Specifies the threshold for smart roam quick-kickoff-snr criteria qualify time.";
+            }
+            description
+              "Configure smart-roam quick-kickoff-snr p-n criteria.";
+          }
+          description
+            "Configure smart-roam parameter.";
+        }
+        container calibrate-retransmission-rate-check {
+          description
+            "Configure the interval and traffic threshold for checking the retransmission rate. The default interval and traffic threshold for checking the retransmission rate are 1 minute and 1250 kbit/s, respectively.";
+          leaf interval {
+            type uint8 {
+              range "1..10";
+            }
+            default "1";
+            description
+              "Configure the interval for checking the retransmission rate.";
+          }
+          leaf traffic-threshold {
+            type uint16 {
+              range "1..20000";
+            }
+            default "1250";
+            description
+              "Configure the traffic threshold for checking the retransmission rate.";
+          }
+        }
+        leaf dfs-recover-delay {
+          type uint16 {
+            range "0..2880";
+          }
+          default "0";
+          description
+            "Set the delay in switching back the DFS channel. By default, the delay in switching back the DFS channel is 0 minutes. That is, the channel is switched back to the manually planned channel when the legitimate aging time (30 minutes) expires.";
+        }
+        container uac {
+          leaf uac-client-snr {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable the user CAC threshold based on terminal SNR.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable the user CAC threshold based on terminal SNR.";
+              }
+            }
+            default "disable";
+            description
+              "Disable or enable the user CAC threshold based on terminal SNR.";
+          }
+          leaf uac-client-number {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable the user CAC threshold based on the number of users.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable the user CAC threshold based on the number of users.";
+              }
+            }
+            default "disable";
+            description
+              "Disable or enable the user CAC threshold based on the number of users.";
+          }
+          leaf snr-threshold {
+            type uint8 {
+              range "5..45";
+            }
+            default "15";
+            description
+              "Configure the user CAC threshold based on terminal SNR. By default, the user CAC threshold based on terminal SNR is 15 dB.";
+          }
+          container number-threshold {
+            must "./access <= ./roam";
+            description
+              "Configure the user CAC threshold based on the number of users. By default, the user CAC access and roaming thresholds based on the number of users are both 64.";
+            leaf access {
+              type uint16 {
+                range "1..1024";
+              }
+              default "64";
+              description
+                "Configure the user CAC access threshold based on the number of users.";
+            }
+            leaf roam {
+              type uint16 {
+                range "1..1024";
+              }
+              default "64";
+              description
+                "Configure the user CAC roaming threshold based on the number of users. This threshold is the total number of users who can be associate with the AP, including all local and reassociated roaming users.";
+            }
+          }
+          leaf reach-access-threshold {
+            type enumeration {
+              enum "hide-ssid" {
+                value 0;
+                description
+                  "Indicates SSID hiding.";
+              }
+              enum "priority-replace" {
+                value 1;
+                description
+                  "Indicates priority-based user replacement.";
+              }
+            }
+            description
+              "Configure the user CAC function and Configure the action to take when the number of access users reaches the user CAC threshold.";
+          }
+          description
+            "Configure uac para.";
+        }
+        container load-balance {
+          leaf load-balance-switch {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description
+                  "Disable load-balance.";
+              }
+              enum "enable" {
+                value 1;
+                description
+                  "Enable load-balance.";
+              }
+            }
+            default "enable";
+            description
+              "Disable or enable load-balance. By default, it is enabled.";
+          }
+          leaf probe-report-intvl {
+            type uint16 {
+              range "30..300";
+            }
+            units "S";  
+            default "120";           
+            description
+              "Configure probe-report-intvl.";        
+          }
+          
+          leaf sta-start-threshold {
+            type uint16 {
+              range "1..255";
+            }
+            description
+              "Configure sta-start-threshold, the default is 20.";                
+          }
+          
+          container sta-gap-threshold {
+            leaf gap-type {
+              type enumeration {
+                enum "number" {
+                  value 0;
+                  description
+                    "Configure number type.";
+                }
+                enum "percentage" {
+                  value 1;
+                  description
+                      "Configure percentage type.";
+                }
+              }
+              default "number";
+              description
+                    "Configure gap-type.";          
+            }
+            leaf number {
+              when "../gap-type = 'number'"; 
+              type uint16 {
+                range "1..255";
+              }
+              description "Configure gap-number, the default is 6.";                                    
+            }
+            leaf percentage {
+              when "../gap-type = 'percentage'"; 
+              type uint16 {
+                range "1..100";
+              }
+              mandatory true;
+              description "Configure gap-percentage.";
+            }
+            description
+              "Configure sta-gap-threshold.";
+          }
+          leaf rssi-threshold {
+            type int16 {
+              range "-75..-55";
+            }
+            units "dBm";
+            default -65;           
+            description
+              "Configure rssi-threshold.";        
+          }
+          leaf rssi-diff-gap {
+            type uint16 {
+              range "0..15";
+            }
+            units "dBm";
+            default 5;           
+            description
+              "Configure rssi-diff-gap.";        
+          }
+          leaf deauth-fail-times {
+            type uint16 {
+              range "0..5";
+            }
+            default 0;
+            description
+              "Configure deauth-fail-times.";        
+          }   
+          leaf prefer-6g {
+            type boolean;
+            default false;
+            description "Enable/disable sta-load-balance dynamic prefer 6G.";
+          }               
+          description
+            "Configure load-balance para.";
+        }
+        container calibrate-para {
+          must "./min-tx-power-2g <= ./max-tx-power-2g and ./min-tx-power-5g <= ./max-tx-power-5g and ./min-tx-power-6g <= ./max-tx-power-6g";
+          description
+              "Configure calibrate-para.";
+          leaf min-tx-power-2g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 9;
+            description
+              "Configure min-tx-power-2g.";
+          }
+          leaf max-tx-power-2g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 127;
+            description
+              "Configure max-tx-power-2g.";
+          }
+          leaf min-tx-power-5g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 12;
+            description
+              "Configure min-tx-power-5g.";
+          }
+          leaf max-tx-power-5g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 127;
+            description
+              "Configure max-tx-power-5g.";
+          }
+          leaf min-tx-power-6g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 12;
+            description
+              "Configure tx-power-6g.";
+          }
+          leaf max-tx-power-6g {
+            type uint16 {
+              range "1..127";
+            }
+            units "dBm";
+            default 127;
+            description
+              "Configure max-tx-power-6g.";
+          }
+          leaf clb-noise-flr-thrd {
+            type int32 {
+              range "-95..0";
+            }
+            units "dBm";
+            default -75;
+            description
+              "Configure clb-noise-flr-thrd.";        
+          }
+          leaf clbt-tpc-thrd {
+            type int32 {
+              range "-85..-35";
+            }
+            units "dBm";
+            default -60;
+            description
+              "Configure calibrate tpc threshold.";          
+          }
+          leaf clbt-restran-rate-thrd {
+            type int16 {
+              range "20..100";
+            }        
+            units "%";
+            default 60;
+            description
+              "Configure clbt-restran-rate-thrd.";          
+          }          
+        }
+
+        leaf clb-grp-itf-thrld{
+          type int32 {
+            range "-127..-1";
+          }
+          units "dBm";
+          default -127;
+          description
+            "Configure calibrate grouping interference-threshold.";
+        }
+
+        container spatial-reuse {
+          must "(spatial-reuse-switch = 'false') or (spatial-reuse-switch = 'true' and bss-color-switch='true')";
+          description
+            "Configure spatial reuse configuration.";
+          leaf bss-color-switch {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable bss-color.";
+          }
+          leaf spatial-reuse-switch {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable spatial reuse.";
+          }
+
+          leaf co-sr {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable coordinated spatial reuse.";
+          }
+        }
+
+        container band-steer {
+          description
+            "Configure band-steer.";
+          leaf start-thrd {
+            type uint16 {
+              range "0..100";
+            }
+            default 100;
+            description
+               "Configure start-thrd.";        
+          }
+          leaf gap-thrd {
+            type uint16 {
+              range "1..100";
+            }
+            default 90;
+            description
+               "Configure gap-thrd.";        
+          }
+          leaf snr-thrd {
+            type uint16 {
+              range "10..35";
+            }
+            default 20;
+            description
+               "Configure snr-thrd.";
+          }
+          leaf deny-thrd {
+            type uint16 {
+              range "0..10 | 65535";
+            }
+            default 0;
+            description
+               "Configure deny-thrd.";
+          }
+          leaf client-band-expire {
+            type uint32 {
+              range "10..65535";
+            }
+            default 35;
+            description
+               "Configure client-band-expire.";
+          }
+          leaf quick-prefer-6g {
+            type boolean;
+            default false;
+            description "Enable/disable band steer quick prefer 6g.";
+          }
+          leaf higher-band {
+            type boolean;
+            default false;
+            description "Enable/disable low-band association suppression.";
+          }
+        }
+
+        leaf amc-policy {
+          type enumeration {
+            enum "auto-balance" {
+              value 0;
+              description
+                "Indicates the auto-balance algorithm.";
+            }
+            enum "high-stability" {
+              value 1;
+              description
+                "Indicates the high-stability algorithm.";
+            }
+            enum "high-throughput" {
+              value 2;
+              description
+                "Indicates the high-throughput algorithm.";
+            }
+          }
+          default "auto-balance";
+          description
+            "Configure an adaptive modulation and coding (AMC) algorithm for a radio. By default, a radio uses the AMC algorithm auto-balance.";
+        }
+        leaf smart-selection-switch {
+          type boolean;
+          default "true";
+          description "Enable/disable dfs smart-selection.";
+        }
+        leaf airtime-fair-schedule {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disables airtime fair scheduling.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Enables airtime fair scheduling.";
+              }
+            enum "auto" {
+              value 2;
+              description
+                "Configures airtime fair scheduling in auto mode.";
+            }
+          }
+          default "auto";
+          description
+            "By default, the auto mode is used for airtime fair scheduling.";
+        }
+        container rate-limit-dynamic-interval {
+          description
+            "Configure the interval and threshold for dynamic rate limit.";
+          leaf interval {
+            type uint32 {
+              range "1..30";
+            }
+            default 5;
+            description
+              "Dynamic rate limit detection interval.";
+          }
+          leaf threshold {
+            type uint32 {
+              range "1..100";
+            }
+            default 80;
+            description
+              "Threshold value.";
+          }
+        }
+        description
+          "Configure rrm profiles.";
+      }
+      description
+        "List of rrm profile.";
+    }
+    description
+      "Configure wlan-rrm-profile.";
+  }
+  augment "/radio-2g-prof:wlan-radio-2g-profile/radio-2g-prof:radio-2g-profiles/radio-2g-prof:radio-2g-profile" {
+    description
+      "Bind rrm-profile to radio-2g-profile.";
+    uses hw-wrrmp:radio-2g-binding-rrm-profile;
+  }
+  augment "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile" {
+    description
+      "Bind rrm-profile to radio-5g-profile.";
+    uses hw-wrrmp:radio-5g-binding-rrm-profile;
+  }
+  ext:task-name "pcm";
+}

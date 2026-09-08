@@ -77,14 +77,32 @@ routers:
   #   user: admingf
   #   password: L3l1tv.20!9
 
-  - nombre: rAcH1_San_Pedro_1
-    host: 172.18.6.36
+  # - nombre: rAcH1_San_Pedro_1
+  #   host: 172.18.6.36
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
+  # - nombre: rAcH1_Bellavista_1
+  #   host: 172.18.6.35
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
+  # - nombre: rAcH1_Loreto_12 (Victoria)
+  #   host: 172.18.6.34
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
+  - nombre: rAcH1_Juancito_1
+    host: 172.18.6.33
     port: 830
     user: admingf
     password: L3l1tv.20!9
 
-  # - nombre: rAcH1_Loreto_12 (Victoria)
-  #   host: 172.18.6.34
+  # - nombre: rAcH1_Saman_1
+  #   host: 172.18.6.32
   #   port: 830
   #   user: admingf
   #   password: L3l1tv.20!9
@@ -95,14 +113,38 @@ routers:
   #   user: admingf
   #   password: L3l1tv.20!9
 
+  # - nombre: rAcH1_Ipuanuo_1
+  #   host: 172.18.6.29
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
   # - nombre: rAcH1_Loreto_14 (Contamana)
   #   host: 172.18.6.28
   #   port: 830
   #   user: admingf
   #   password: L3l1tv.20!9
 
+  # - nombre: rAcH1_NvaGalilela_1
+  #   host: 172.18.6.27
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
   # - nombre: rAcH1_Tirutan_1
   #   host: 172.18.6.26
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
+  # - nombre: rAcH1_NvaSanta_Rosa_1
+  #   host: 172.18.6.20
+  #   port: 830
+  #   user: admingf
+  #   password: L3l1tv.20!9
+
+  # - nombre: rAcH1_StaRosa_Lagarto_1
+  #   host: 172.18.6.19
   #   port: 830
   #   user: admingf
   #   password: L3l1tv.20!9

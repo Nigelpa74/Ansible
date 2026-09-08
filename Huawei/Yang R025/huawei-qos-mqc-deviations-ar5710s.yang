@@ -1,0 +1,89 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-qos-mqc-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-qos-mqc-deviations-ar5710s";
+  prefix mqc-devs-ar5710s;
+
+  import huawei-qos-mqc {
+    prefix mqc;
+  }
+  import huawei-nac-group {
+    prefix nacgroup;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+  import huawei-security-app-group {
+    prefix hw-app-group;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-qos-mqc module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mqc:behavior/mqc:set-multicast-nat" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mqc:behavior/mqc:network-slice-instance" {
+    deviate not-supported;
+  }
+  deviation "/nacgroup:nac-group/mqc:nac-group" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:global-config/mqc:mqc-effective-only-one" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-classifiers/qos:traffic-classifier/mqc:classifier/mqc:rule-srv6-acls" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-classifiers/qos:traffic-classifier/mqc:classifier/mqc:rule-srv6-ipv6acls" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-classifiers/qos:traffic-classifier/mqc:classifier/mqc:rule-apps/mqc:rule-app/mqc:app-name" {
+    deviate replace {
+      type string {
+        length "1..32";
+      }
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-classifiers/qos:traffic-classifier/mqc:classifier/mqc:rule-app-groups/mqc:rule-app-group/mqc:app-group-name" {
+    deviate replace {
+      type leafref {
+        path "/hw-app-group:security-app-group/hw-app-group:application-groups/hw-app-group:application-group/hw-app-group:name";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mqc:sa-enable" {
+    deviate not-supported;
+  }
+  deviation "/mqc:qos-mqc" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mqc:filter-apply" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:global-config/mqc:global-filter-apply" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:global-config/mqc:traffic-policy-mode" {
+    deviate not-supported;
+  }
+}

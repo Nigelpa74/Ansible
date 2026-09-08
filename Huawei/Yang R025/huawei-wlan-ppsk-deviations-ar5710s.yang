@@ -1,0 +1,43 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ppsk-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ppsk-deviations-ar5710s";
+  prefix wlan-ppsk-devs-ar5710s;
+
+  import huawei-wlan-ppsk {
+    prefix wlan-ppsk;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ppsk module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-ppsk:wlan-ppsk/wlan-ppsk:wlan-ppsk-accounts/wlan-ppsk:wlan-ppsk-account/wlan-ppsk:user-name" {
+    deviate not-supported;
+  }
+  deviation "/wlan-ppsk:wlan-ppsk/wlan-ppsk:wlan-ppsk-accounts/wlan-ppsk:wlan-ppsk-account/wlan-ppsk:vlan-id" {
+    deviate not-supported;
+  }
+  deviation "/wlan-ppsk:wlan-ppsk/wlan-ppsk:wlan-ppsk-accounts/wlan-ppsk:wlan-ppsk-account/wlan-ppsk:service-scheme" {
+    deviate not-supported;
+  }
+  deviation "/wlan-ppsk:wlan-ppsk/wlan-ppsk:wlan-ppsk-accounts/wlan-ppsk:wlan-ppsk-account/wlan-ppsk:branch-group" {
+    deviate not-supported;
+  }
+}

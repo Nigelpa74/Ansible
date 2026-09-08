@@ -1,0 +1,87 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-redundancy-protocol-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-redundancy-protocol-deviations-ar5710s";
+  prefix hrp-devs-ar5710s;
+
+  import huawei-redundancy-protocol {
+    prefix hrp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-redundancy-protocol module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hrp:redundancy-protocol/hrp:preempt-delay" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:session-fast-backup" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:work-mode" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:standby-config-enable" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:configuration-sync-enable" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:data-sync-enable" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:mirror" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:track-vlan" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:track-bridge-domain" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:track-healthcheck" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:track-dynamic-bfd-sessions" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:state" {
+    deviate not-supported;
+  }
+  deviation "/hrp:batch-sync-config" {
+    deviate not-supported;
+  }
+  deviation "/hrp:manual-switch" {
+    deviate not-supported;
+  }
+  deviation "/hrp:redundancy-protocol/hrp:cost-adjust/hrp:bgp/hrp:enable" {
+    deviate replace {
+      default "false";
+    }
+  }
+  deviation "/hrp:redundancy-protocol/hrp:cost-adjust/hrp:ospf/hrp:enable" {
+    deviate replace {
+      default "false";
+    }
+  }
+  deviation "/hrp:redundancy-protocol/hrp:cost-adjust/hrp:ospfv3/hrp:enable" {
+    deviate replace {
+      default "false";
+    }
+  }
+}

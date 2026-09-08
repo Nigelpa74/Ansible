@@ -1,0 +1,401 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-cellular-type {
+  belongs-to huawei-cellular {
+    prefix cellular;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "Description of cellular type submodule.";
+  revision 2025-08-15 {
+    description "Add signal strength.";
+    reference "";
+  }
+  revision 2025-03-10 {
+    description "Add lte supported band band66.";
+    reference "";
+  }
+  revision 2024-02-05 {
+    description "Add lte and nr band supported by RU201 device.";
+    reference "";
+  }
+  revision 2022-03-11 {
+    description "Add lte band4.";
+    reference "";
+  }
+
+  revision 2021-12-06 {
+    description "Stabilize revision.";
+    reference "";
+  }
+
+  revision 2020-05-21 {
+    description "Initial revision.";
+    reference "";
+  }
+
+  typedef authentication-mode-type {
+    type enumeration {
+      enum auto {
+        value 0;
+        description "Auto select.";
+      }
+      enum pap {
+         value 1;
+        description "Password Authentication Protocol.";
+      }
+      enum chap {
+        value 2;
+        description "Challenge-Handshake Authentication Protocol.";
+      }
+    }
+    description
+      "Authentication mode type.";
+  }
+
+  typedef connection-mode-type {
+    type enumeration {
+      enum auto {
+        value 0;
+        description "Auto mode.";
+      }
+      enum wcdma-only {
+        value 1;
+        description "Wcdma-only mode.";
+      }
+      enum lte-only {
+        value 2;
+        description "LTE-only mode.";
+      }
+      enum lte-wcdma {
+        value 3;
+        description "LTE-wcdma mode.";
+      }
+      enum nr-only {
+        value 4;
+        description "NR-only mode.";
+      }
+      enum nr-lte {
+        value 5;
+        description "NR-LTE mode.";
+      }
+    }
+    description
+      "Connection mode type.";
+  }
+
+  typedef wcdma-frequency-type {
+    type enumeration {
+      enum wcdma2100 {
+        value 1;
+        description "Indicates that the WCDMA network that 3G cellular interfaces are connected to works at the 2100 MHz frequency.";
+      }
+      enum wcdma1900 {
+        value 2;
+        description "Indicates that the WCDMA network that 3G cellular interfaces are connected to works at the 1900 MHz frequency.";
+      }
+      enum wcdma850 {
+        value 5;
+        description "Indicates that the WCDMA network that 3G cellular interfaces are connected to works at the 850 MHz frequency.";
+      }
+      enum wcdma900 {
+        value 8;
+        description "Indicates that the WCDMA network that 3G cellular interfaces are connected to works at the 900 MHz frequency.";
+      }
+    }
+    description
+      "Wcdma frequency type.";
+  }
+
+  typedef lte-frequency-type {
+    type enumeration {
+      enum band1 {
+        value 1;
+        description "Indicates that the frequency band of the LTE network is Band 1 (transmit: 1920 MHz to 1980 MHz; receive: 2110 MHz to 2170 MHz).";
+      }
+      enum band2 {
+        value 2;
+        description "Indicates that the frequency band of the LTE network is Band 2 (transmit: 1850 MHz to 1910 MHz; receive: 1930 MHz to 1990 MHz).";
+      }
+      enum band3 {
+        value 3;
+        description "Indicates that the frequency band of the LTE network is Band 3 (transmit: 1710 MHz to 1785 MHz; receive: 1805 MHz to 1880 MHz).";
+      }
+      enum band4 {
+        value 4;
+        description "Indicates that the frequency band of the LTE network is Band 4 (transmit: 1710 MHz to 1755 MHz; receive: 2110 MHz to 2155 MHz).";
+      }
+      enum band5 {
+        value 5;
+        description "Indicates that the frequency band of the LTE network is Band 5 (transmit: 824 MHz to 849 MHz; receive: 869 MHz to 894 MHz).";
+      }
+      enum band7 {
+        value 7;
+        description "Indicates that the frequency band of the LTE network is Band 7 (transmit: 2500 MHz to 2570 MHz; receive: 2620 MHz to 2690 MHz).";
+      }
+      enum band8 {
+        value 8;
+        description "Indicates that the frequency band of the LTE network is Band 8 (transmit: 880 MHz to 915 MHz; receive: 925 MHz to 960 MHz).";
+      }
+      enum band18 {
+        value 18;
+        description "Indicates that the frequency band of the LTE network is Band 18 (transmit: 815 MHz to 830 MHz; receive: 860 MHz to 875 MHz).";
+      }
+      enum band19 {
+        value 19;
+        description "Indicates that the frequency band of the LTE network is Band 19 (transmit: 830 MHz to 845 MHz; receive: 875 MHz to 890 MHz).";
+      }
+      enum band20 {
+        value 20;
+        description "Indicates that the frequency band of the LTE network is Band 20 (transmit: 832 MHz to 862 MHz; receive: 791 MHz to 821 MHz).";
+      }
+      enum band26 {
+        value 26;
+        description "Indicates that the frequency band of the LTE network is Band 26 (transmit: 814 MHz to 849 MHz; receive: 859 MHz to 894 MHz).";
+      }
+      enum band28 {
+        value 28;
+        description "Indicates that the frequency band of the LTE network is Band 28 (transmit: 703 MHz to 748 MHz; receive: 758 MHz to 803 MHz).";
+      }
+      enum band32 {
+        value 32;
+        description "Indicates that the frequency band of the LTE network ranges from 2010 MHz to 2025 MHz.";
+      }
+      enum band34 {
+        value 34;
+        description "Indicates that the frequency band of the LTE network ranges from 2010 MHz to 2025 MHz.";
+      }
+      enum band38 {
+        value 38;
+        description "Indicates that the frequency band of the LTE network ranges from 2570 MHz to 2620 MHz.";
+      }
+      enum band39 {
+        value 39;
+        description "Indicates that the frequency band of the LTE network ranges from 1880 MHz to 1920 MHz.";
+      }
+      enum band40 {
+        value 40;
+        description "Indicates that the frequency band of the LTE network ranges from 2300 MHz to 2400 MHz.";
+      }
+      enum band41 {
+        value 41;
+        description "Indicates that the frequency band of the LTE network ranges from 2496 MHz to 2690 MHz.";
+      }
+      enum band42 {
+        value 42;
+        description "Indicates that the frequency band of the LTE network ranges from 3400 MHz to 3600 MHz.";
+      }
+      enum band43 {
+        value 43;
+        description "Indicates that the frequency band of the LTE network ranges from 3600 MHz to 3800 MHz.";
+      }
+      enum band66 {
+        value 66;
+        description "Indicates that the frequency band of the LTE network is Band 66 (transmit: 1710 MHz to 1780 MHz; receive: 2110 MHz to 2200 MHz).";
+      }
+    }
+    description
+      "Lte frequency type.";
+  }
+
+  typedef nr-frequency-type {
+    type enumeration {
+      enum n1 {
+        value 1;
+        description "Indicates that the frequency band of the NR network (UE transmit: 1920 MHz to 1980 MHz, BS transmit: 2110 MHz to 2170 MHz).";
+      }
+      enum n3 {
+        value 3;
+        description "Indicates that the frequency band of the NR network (UE transmit: 1710 MHz to 1785 MHz, BS transmit: 1805 MHz to 1880 MHz).";
+      }
+      enum n5 {
+        value 5;
+        description "Indicates that the frequency band of the NR network (UE transmit: 824 MHz to 849 MHz, BS transmit: 869 MHz to 894 MHz).";
+      }
+      enum n7 {
+        value 7;
+        description "Indicates that the frequency band of the NR network (UE transmit: 2500 MHz to 2570 MHz, BS transmit: 2620 MHz to 2690 MHz).";
+      }
+      enum n8 {
+        value 8;
+        description "Indicates that the frequency band of the NR network (UE transmit: 880 MHz to 915 MHz, BS transmit: 925 MHz to 960 MHz).";
+      }
+      enum n20 {
+        value 20;
+        description "Indicates that the frequency band of the NR network (UE transmit: 832 MHz to 862 MHz, BS transmit: 791 MHz to 821 MHz).";
+      }
+      enum n28 {
+        value 28;
+        description "Indicates that the frequency band of the NR network (UE transmit: 703 MHz to 748 MHz, BS transmit: 758 MHz to 803 MHz).";
+      }
+      enum n38 {
+        value 38;
+        description "Indicates that the frequency band of the NR network ranges from 2570 MHz to 2620 MHz.";
+      }
+      enum n40 {
+        value 40;
+        description "Indicates that the frequency band of the NR network ranges from 2300 MHz to 2400 MHz.";
+      }
+      enum n41 {
+        value 41;
+        description "Indicates that the frequency band of the NR network ranges from 2496 MHz to 2690 MHz.";
+      }
+      enum n77 {
+        value 77;
+        description "Indicates that the frequency band of the NR network ranges from 3300 MHz to 4200 MHz.";
+      }
+      enum n78 {
+        value 78;
+        description "Indicates that the frequency band of the NR network ranges from 3300 MHz to 3800 MHz.";
+      }
+      enum n79 {
+        value 79;
+        description "Indicates that the frequency band of the NR network ranges from 4400 MHz to 5000 MHz.";
+      }
+    }
+    description
+      "NR frequency type.";
+  }
+
+  typedef modem-status-type {
+    type enumeration {
+      enum online {
+        value 1;
+        description "Modem online.";
+      }
+      enum offline {
+        value 2;
+        description "Modem offline.";
+      }
+      enum invalid {
+        value 3;
+        description "Invalid status.";
+      }
+    }
+    description "Modem status type.";
+  }
+
+  typedef service-status-type {
+    type enumeration {
+      enum service-available {
+        value 1;
+        description "Service available.";
+      }
+      enum no-service {
+        value 2;
+        description "No service.";
+      }
+      enum emergency {
+        value 3;
+        description "Emergency.";
+      }
+      enum region-emergency {
+        value 4;
+        description "Region emergency.";
+      }
+      enum saving-status {
+        value 5;
+        description "Saving status.";
+      }
+    }
+    description "Service status type.";
+  }
+
+  typedef network-mode-type {
+    type enumeration {
+      enum wcdma {
+        value 1;
+        description "The mode of network service is WCDMA.";
+      }
+      enum lte {
+        value 2;
+        description "The mode of network service is LTE.";
+      }
+      enum 5g-nsa {
+        value 3;
+        description "The mode of network service is 5G-NSA.";
+      }
+      enum 5g-sa {
+        value 4;
+        description "The mode of network service is 5G-SA.";
+      }
+      enum invalid {
+        value 5;
+        description "Invalid network mode.";
+      }
+    }
+    description "Network mode type.";
+  }
+
+  typedef sim-status-type {
+    type enumeration {
+      enum normal {
+        value 1;
+        description "The status of sim is normal.";
+      }
+      enum invalid {
+        value 2;
+        description "Invalid status.";
+      }
+      enum not-insert {
+        value 3;
+        description "The status of sim is not inserted.";
+      }
+      enum lock-enable {
+        value 4;
+        description "The status of sim is lock enable.";
+      }
+      enum lock-auto-verify {
+        value 5;
+        description "The status of sim is lock auto-verify.";
+      }
+      enum inactive {
+        value 6;
+        description "The status of sim is inactive.";
+      }
+    }
+    description "Sim status type.";
+  }
+
+  typedef signal-strength-type {
+    type enumeration {
+      enum strong {
+        value 1;
+        description "The signal strength is strong.";
+      }
+      enum good {
+        value 2;
+        description "The signal strength is good.";
+      }
+      enum normal {
+        value 3;
+        description "The signal strength is normal.";
+      }
+      enum slow {
+        value 4;
+        description "The signal strength is slow.";
+      }
+      enum weak {
+        value 5;
+        description "The signal strength is weak.";
+      }
+      enum no-signal {
+        value 6;
+        description "The signal strength is no signal.";
+      }
+    }
+    description "Signal strength.";
+  }
+}

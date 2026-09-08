@@ -1,0 +1,45 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-upgrade-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-smart-upgrade-deviations-ar5710s";
+  prefix smart-upgrade-devs-ar5710s;
+
+  import huawei-smart-upgrade {
+    prefix smart-upgrade;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-smart-upgrade module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/smart-upgrade:smart-upgrade/smart-upgrade:global/smart-upgrade:transport/smart-upgrade:http/smart-upgrade:verify-server-disable" {
+    deviate not-supported;
+  }
+  deviation "/smart-upgrade:smart-upgrade/smart-upgrade:global/smart-upgrade:user-info" {
+    deviate not-supported;
+  }
+  deviation "/smart-upgrade:smart-upgrade/smart-upgrade:global/smart-upgrade:upgrade-time" {
+    deviate not-supported;
+  }
+  deviation "/smart-upgrade:download-software-specify-server" {
+    deviate not-supported;
+  }
+  deviation "/smart-upgrade:create-scheduled-upgrade/smart-upgrade:input/smart-upgrade:type/smart-upgrade:specify-software" {
+    deviate not-supported;
+  }
+}

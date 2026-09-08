@@ -1,0 +1,87 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-routing-nqa-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-routing-nqa-deviations-ar5710s";
+  prefix rt-nqa-devs-ar5710s;
+
+  import huawei-routing-nqa {
+    prefix rt-nqa;
+  }
+  import huawei-routing {
+    prefix rt;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-routing-nqa module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-routes/rt:unicast-route/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-onlys/rt:nexthop-vrf-only/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-onlys/rt:nexthop-vrf-only/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv4-routes/rt:ipv4-route/rt-nqa:nqa-group-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-routes/rt:ipv6-route/rt-nqa:nqa-group-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-interface-addresses/rt:v4-via-v6-interface-address/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-interface-addresses/rt:v4-via-v6-interface-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-addresses/rt:v4-via-v6-address/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-addresses/rt:v4-via-v6-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-vrf-addresses/rt:v4-via-v6-vrf-address/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-vrf-addresses/rt:v4-via-v6-vrf-address/rt:track-setting/rt-nqa:nqa-group" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-vxlans/rt:nexthop-vrf-vxlan/rt:track-setting/rt-nqa:nqa" {
+    deviate not-supported;
+  }
+}

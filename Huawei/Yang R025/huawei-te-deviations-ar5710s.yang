@@ -1,0 +1,33 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-te-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-te-deviations-ar5710s";
+  prefix te-devs-ar5710s;
+
+  import huawei-te {
+    prefix te;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-te module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/te:te/te:explicit-paths" {
+    deviate not-supported;
+  }
+}

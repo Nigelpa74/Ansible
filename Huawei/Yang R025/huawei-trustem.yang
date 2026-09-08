@@ -1,0 +1,887 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-trustem {
+  namespace "urn:huawei:yang:huawei-trustem";
+  prefix trustem;
+  import huawei-extension {
+    prefix ext;
+  } 
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-pki {
+    prefix pki;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Indicate HTM (Hardware Trust Module) environment management.";
+  revision 2025-08-22 {
+    description
+      "Add kernel-signature-enabled and location-owner-infos and tee-infos and compilation-options-feature enums and status2s and modify compnent.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-14 {
+    description
+      "Add audit-log-infos and security-boot-infos.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-11 {
+    description
+      "Add system-security-statuses node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-28 {
+    description
+      "Add security-recover node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-01 {
+    description
+      "Add dynamic-integrity-measurement-results node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-07 {
+    description
+      "Add dynamic-integrity-measurement-mode node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-18 {
+    description
+      "Add remote-attestation node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-04 {
+    description
+      "Add dynamic-integrity-measurement and start-dynamic-integrity-measurement-right-now.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-07-30 {
+    description
+      "Modify TPM to HTM.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-05-08 {
+    description
+      "Fix description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-23 {
+    description
+      "Add trust-startup-softwares.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-04-02 {
+    description
+      "YANG check.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-05-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  ext:task-name "tpm";
+  
+  typedef status-type {
+    type enumeration {
+      enum "active" {
+        value 1;
+        description
+          "Status active.";
+      }
+    }
+    description
+      "HTM status.";
+  }
+
+  typedef object-type {
+    type enumeration {
+      enum "slot" {
+        value 0;
+        description
+          "Specify a board.";
+      }
+      enum "all" {
+        value 1;
+        description
+          "All boards that support htm.";
+      }
+    }
+    description
+      "Object type for which LAK certificates need to be updated.";
+  }
+  typedef work-mode-type {
+    type enumeration {
+      enum "normal" {
+        value 0;
+        description
+          "Work in normal mode.";
+      }
+      enum "tee" {
+        value 1;
+        description
+          "Work in trusted execution environment mode.";
+      }
+    }
+    description
+      "Working mode type of dynamic integrity measurement.";
+  }
+  typedef operation-status {
+    type enumeration {
+      enum "operating" {
+        value 0;
+        description
+          "The current status of dynamic integrity measurement operation is operating.";
+      }
+      enum "succeed" {
+        value 1;
+        description
+          "The current status of dynamic integrity measurement operation is successful.";
+      }
+      enum "failed" {
+        value 2;
+        description
+          "The current status of dynamic integrity measurement operation is failed.";
+      }
+    }
+    description
+      "Specify dynamic integrity measurement operation status.";
+  }
+  typedef selinux-status {
+    type enumeration {
+      enum "enforcing" {
+        value 0;
+        description
+          "SELinux status is enforcing.";
+      }
+      enum "permissive" {
+        value 1;
+        description
+          "SELinux status is permissive.";
+      }
+      enum "disabled" {
+        value 2;
+        description
+          "SELinux status is disabled.";
+      }
+      enum "unknown" {
+        value 3;
+        description
+          "SELinux status is unknown.";
+      }
+    }
+    description
+      "SELinux status.";
+  }
+  typedef compilation-options-status {
+    type enumeration {
+      enum "enable" {
+        value 0;
+        description
+          "Vulnerability exploitation prevention status is enable.";
+      }
+      enum "disable" {
+        value 1;
+        description
+          "Vulnerability exploitation prevention status is disable.";
+      }
+      enum "unknown" {
+        value 2;
+        description
+          "Vulnerability exploitation prevention status is unknown.";
+      }
+    }
+    description
+      "Vulnerability exploitation prevention status.";
+  }
+  typedef compilation-options-class {
+    type enumeration {
+      enum "runtime-def-userspace" {
+        value 0;
+        description
+          "Vulnerability exploitation prevention features of user space.";
+      }
+      enum "runtime-def-kernelspace" {
+        value 1;
+        description
+          "Vulnerability exploitation prevention features of kernel space.";
+      }
+    }
+    description
+      "Secure compilation options class.";
+  }
+  typedef compilation-options-feature {
+    type enumeration {
+      enum "ASLR" {
+        value 0;
+        description
+          "The feature address space layout randomization.";
+      }
+      enum "PIC" {
+        value 1;
+        description
+          "The feature position independent code.";
+      }
+      enum "PIE" {
+        value 2;
+        description
+          "The feature position independent executables.";
+      }
+      enum "stack-protector" {
+        value 3;
+        description
+          "The feature stack protect.";
+      }
+      enum "RELRO" {
+        value 4;
+        description
+          "The feature read-Only relocation.";
+      }
+      enum "BIND_NOW" {
+        value 5;
+        description
+          "The feature BIND_NOW.";
+      }
+      enum "NX" {
+        value 6;
+        description
+          "The feature non-executable memory.";
+      }
+      enum "strip" {
+        value 7;
+        description
+          "The feature strip.";
+      }
+      enum "KASLR" {
+        value 8;
+        description
+          "The feature kernal address space layout randomization.";
+      }
+      enum "HCFI" {
+        value 9;
+        description
+          "The feature huawei control flow integrity.";
+      }
+      enum "PAN" {
+        value 10;
+        description
+          "The feature privilege access never.";
+      }
+      enum "SP" {
+        value 11;
+        description
+          "The feature stack protector.";
+      }
+      enum "SWXN" {
+        value 12;
+        description
+          "The feature software write execute never.";
+      }
+      enum "MODULE-SIG" {
+        value 13;
+        description
+          "The feature kernel object signature.";
+      }
+      enum "SCS" {
+        value 14;
+        description
+          "The feature shadow call stack.";
+      }
+    }
+    description
+      "Secure compilation options feature.";
+  }
+  typedef secure-support-status {
+    type enumeration {
+      enum "enable" {
+        value 0;
+        description
+          "Secure boot status is enable.";
+      }
+      enum "disable" {
+        value 1;
+        description
+          "Secure boot status is disable.";
+      }
+      enum "unsupported" {
+        value 2;
+        description
+          "Secure boot status is unsupported.";
+      }
+      enum "unknown" {
+        value 3;
+        description
+          "Secure boot status is unknown.";
+      }
+    }
+    description
+      "Secure boot status.";
+  }
+  typedef secure-support-component {
+    type enumeration {
+      enum "BOOTROM" {
+        value 0;
+        description
+          "Secure boot component BOOTROM.";
+      }
+      enum "BIOS" {
+        value 1;
+        description
+          "Secure boot component BIOS.";
+      }
+      enum "OS" {
+        value 2;
+        description
+          "Secure boot component OS.";
+      }
+    }
+    description
+      "Secure boot component.";
+  }
+  typedef measure-support-status {
+    type enumeration {
+      enum "supported" {
+        value 0;
+        description
+          "Measure support status is supported.";
+      }
+      enum "unsupported" {
+        value 1;
+        description
+          "Measure support status is unsupported.";
+      }
+      enum "unknown" {
+        value 2;
+        description
+          "Measure support status is unknown.";
+      }
+    }
+    description
+      "Measure support status.";
+  }
+  typedef measure-support-component {
+    type enumeration {
+      enum "package" {
+        value 0;
+        description
+          "Measure support component package measure.";
+      }
+      enum "DIM" {
+        value 1;
+        description
+          "Measure support component dynamic integrity measurement.";
+      }
+      enum "IMA" {
+        value 2;
+        description
+          "Measure support component integrity measurement architecture.";
+      }
+    }
+    description
+      "Measure boot component.";
+  }
+
+  container trustem {
+    description
+      "Indicate trust environment management.";
+    leaf enable {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable trust environment.";
+    }
+    leaf cmp-session-name {
+      when "../enable='true'";
+      type leafref {
+        path "/pki:pki/pki:cmp-sessions/pki:cmp-session/pki:name";
+      }
+      description
+        "Cmp session name.";
+    }
+    leaf dynamic-integrity-measurement-mode {
+      when "../enable='true'";
+      type work-mode-type;
+      default "normal";
+      description
+        "Configure the working mode of dynamic integrity measurement.";
+    }
+    container statuss {
+      config false;
+      description
+        "List of operational state of HTM status information.";
+      list status {
+        key "slot-id";
+        description
+          "Operational state of HTM status information.";
+        leaf slot-id {
+          type string {
+            length "1..32";
+          }
+          description
+            "Slot ID of a board.";
+        }
+        leaf version {
+          type string {
+            length "1..127";
+          }
+          description
+            "HTM version.";
+        }
+        leaf manufacturer {
+          type string {
+            length "1..127";
+          }
+          description
+            "HTM manufacturer.";
+        }
+        leaf status {
+          type status-type;
+          description
+            "HTM status.";
+        }
+      }
+    }
+    container status2s {
+      config false;
+      description
+        "List of operational state of HTM status information.";
+      list status2 {
+        key "slot-id cpu-id";
+        description
+          "Operational state of HTM status information.";
+        leaf slot-id {
+          type string {
+            length "1..32";
+          }
+          description
+            "Slot ID of a board.";
+        }
+        leaf cpu-id {
+          type string {
+            length "1..32";
+          }
+          description
+            "CPU ID of the board.";
+        }
+        leaf version {
+          type string {
+            length "1..127";
+          }
+          description
+            "HTM version.";
+        }
+        leaf manufacturer {
+          type string {
+            length "1..127";
+          }
+          description
+            "HTM manufacturer.";
+        }
+        leaf status {
+          type status-type;
+          description
+            "HTM status.";
+        }
+      }
+    }
+    container trust-startup-softwares {
+      config false;
+      description
+        "List of software files information measured by HTM.";
+      list trust-startup-software {
+        key "name version file";
+        description
+          "Operational data of software file information measured by HTM.";
+        leaf name {
+          type string {
+            length "1..63";
+          }
+          description
+            "Software file description information.";
+        }
+        leaf version {
+          type string {
+            length "1..63";
+          }
+          description
+            "Software file version.";
+        }
+        leaf file {
+          type string {
+            length "1..255";
+          }
+          description
+            "Software file name on device.";
+        }
+        leaf checksum {
+          type string {
+            length "1..127";
+          }
+          description
+            "Hash value of the file.";
+        }
+      }
+    }
+    container dynamic-integrity-measurement {
+      presence "Enable the periodic dynamic-integrity-measurement.";
+      description
+        "Configure dynamic integrity measurement.";
+      leaf daily-time {
+        when "../../enable='true'";
+        type pub-type:time-hhmm;
+        mandatory true;
+        description
+          "Configure the start time of dynamic integrity measurement.";
+      }
+    }
+    container dynamic-integrity-measurement-rpc-results {
+      config false;
+      description
+        "List of the latest operation on the start-dynamic-integrity-measurement-right-now rpc node.";
+      list dynamic-integrity-measurement-rpc-result {
+        key "slot cpu";
+        description
+          "Operational state of the latest operation on the start-dynamic-integrity-measurement-right-now rpc node.";
+        leaf slot {
+          type string {
+            length "1..50";
+          }
+          description
+            "Slot.";
+        }
+        leaf cpu {
+          type string {
+            length "1..50";
+          }
+          description
+            "CPU.";
+        }
+        leaf operation-result {
+          type operation-status;
+          description
+            "The operation result of dynamic integrity measurement.";
+        }
+        leaf failed-reason {
+          type string {
+            length "1..128";
+          }
+          description
+            "The failed reason of dynamic integrity measurement.";
+        }
+      }
+    }
+    container system-security-statuses {
+      config false;
+      description
+        "List of system security state.";
+      list system-security-status {
+        key "slot";
+        description
+          "System security state.";
+        leaf slot {
+          type string {
+            length "1..32";
+          }
+          description
+            "Slot id of board.";
+        }
+        leaf selinux-status {
+          type selinux-status;
+          description
+            "Status of SELinux.";
+        }
+        leaf kernel-signature-enabled {
+          type boolean;
+          description
+            "Whether kernel signature is enabled or not.";
+        }
+        container vulnerability-exploitation-preventions {
+          config false;
+          description
+            "List of Vulnerability exploitation prevention state.";
+          list vulnerability-exploitation-prevention {
+            key "class feature";
+            description
+              "Vulnerability exploitation prevention state.";
+            leaf class {
+              type compilation-options-class;
+              description
+                "Secure compilation options class.";
+            }
+            leaf feature {
+              type compilation-options-feature;
+              description
+                "Secure compilation options feature.";
+            }
+            leaf status {
+              type compilation-options-status;
+              description
+                "The status of secure compilation options feature.";
+            }
+          }
+        }
+        container secure-boot-infos {
+          config false;
+          description
+            "List of secure boot state.";
+          list secure-boot-info {
+            key "compnent";
+            description
+              "List of secure boot state.";
+            leaf compnent{
+              type secure-support-component;
+              description
+                "Secure boot component.";
+            }
+            leaf status {
+              type secure-support-status;
+              description
+                "The status.";
+            }
+          }
+        }
+        container measure-boot-infos {
+          config false;
+          description
+            "List of secure boot state.";
+          list measure-boot-info {
+            key "compnent";
+            description
+              "List of secure boot state.";
+            leaf compnent{
+              type measure-support-component;
+              description
+                "Measure boot component.";
+            }
+            leaf status {
+              type measure-support-status;
+              description
+                "The status.";
+            }
+          }
+        }
+      }
+    }
+    container audit-log-infos {
+      config false;
+      description
+        "List of audit log information.";
+      list audit-log-info {
+        key "slot selinux-log";
+        description
+          "Statistics of audit log information.";
+        leaf slot {
+          type string {
+            length "1..32";
+          }
+          description
+            "Slot id of board.";
+        }
+        leaf selinux-log {
+          type string {
+            length "1..8560";
+          }
+          description
+            "Selinux log.";
+        }
+      }
+    }
+    container security-boot-infos {
+      config false;
+      description
+        "List of security boot information.";
+      list security-boot-info {
+        key "slot verified-name";
+        description
+          "Statistics of security boot information.";
+        leaf slot {
+          type string {
+            length "1..32";
+          }
+          description
+            "Slot id of board.";
+        }
+        leaf verified-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "Verified name.";
+        }
+        leaf hash-algorithm {
+          type string {
+            length "1..32";
+          }
+          description
+            "Hash algorithm.";
+        }
+        leaf signature-algorithm {
+          type string {
+            length "1..32";
+          }
+          description
+            "Signature algorithm.";
+        }
+        leaf verifier-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "Verifier name.";
+        }
+      }
+    }
+    container location-owner-infos {
+      config false;
+      description
+        "List of location owner information.";
+      list location-owner-info {
+        key "position location-id location-name";
+        description
+          "Statistics of location owner information.";
+        leaf position {
+          type string {
+            length "1..32";
+          }
+          description
+            "Position of board.";
+        }
+        leaf location-id {
+          type uint32;
+          description
+            "Location ID.";
+        }
+        leaf location-name{
+          type string {
+            length "1..32";
+          }
+          description
+            "Location name.";
+        }
+        leaf location-owner {
+          type string {
+            length "1..32";
+          }
+          description
+            "Location owner.";
+        }
+      }
+    }
+    container tee-infos {
+      config false;
+      description
+      "List of tee information.";
+      list tee-info {
+      key "position cpu-id";
+      description
+        "Statistics of tee information.";
+      leaf position {
+        type string {
+        length "1..32";
+        }
+        description
+        "Position of board.";
+      }
+      leaf cpu-id {
+        type string {
+        length "1..50";
+        }
+        description
+        "CPU ID.";
+      }
+      leaf supported {
+        type boolean;
+        description
+            "Whether system support tee or not.";
+      }
+      leaf-list supported-tas {
+        type string {
+        length "1..255";
+          }
+        description
+        "Statistics of supported tas in tee.";
+        }
+      }
+    }
+  }
+  rpc start-dynamic-integrity-measurement-right-now {
+    description
+      "Trigger once immediately.";
+  }
+  rpc update-remote-attestation-lak {
+    description
+      "Update the LAK certificate.";
+    input  {
+      leaf object {
+        type object-type;
+        description 
+         "Specify the board to update the LAK certificate.";
+      }
+      leaf slot {
+        when "../object='slot'";
+        type string {
+          length "1..64";
+        }
+        description
+          "Slot id.";
+      }
+    }
+  }
+  rpc security-recover {
+    description
+      "Security recovery event.";
+    input {
+      choice recover-type {
+        mandatory true;
+        description
+          "Type of the security recovery event.";
+        case reset-process {
+          description
+            "Reset process of the security event.";
+          leaf process-position {
+            type string {
+              length "1..32";
+            }
+            description
+              "Security recovery event position.";
+          }
+          leaf process-name {
+            type string {
+              length "1..32";
+            }
+            description
+              "Security recovery event process name.";
+          }
+          leaf process-id {
+            type uint32;
+            description
+              "Security recovery event process ID.";
+          }
+        }
+      }
+    }
+  }
+}

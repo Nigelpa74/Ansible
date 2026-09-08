@@ -1,0 +1,328 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-pki-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-pki-profile";
+  prefix pkiprof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-ap {
+    prefix apinst;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix apgroup;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+     configuring WLAN implementations.
+     Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).";
+  revision 2025-01-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef cert-format {
+    type enumeration {
+      enum "der" {
+        value 0;
+        description
+          "Format by der.";
+      }
+      enum "pkcs12" {
+        value 1;
+        description
+          "Format by pkcs12.";
+      }
+      enum "pem" {
+        value 2;
+        description
+          "Format by pem.";
+      }
+    }
+    description
+      "The format of certificate file.";
+  }
+  grouping binding-pki-profile {
+    description
+      "Binding ap-pki-profile.";
+    container binding-pki-profile {
+      description
+        "Configure binding ap pki profile.";
+      leaf binding-pki-profile {
+        type leafref {
+          path "/wlan-pki-profile/pki-profiles/pki-profile/profile-name";
+        }
+        description
+          "Binding ap pki profile.";
+      }
+    }
+  }
+  container wlan-pki-profile {
+    description
+      "Configure global pki configurations for an AP.";
+    container pki-profiles {
+      description
+        "List of ap-pki-profile.";
+      list pki-profile {
+        key "profile-name";
+        description
+          "Configure global pki configurations for an AP.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+          }
+          description
+            "AP pki profile name.";
+        }
+        container realms {
+          description
+            "List of realm in pki profile.";
+          list realm {
+            must "./ca or ./local or ./crl-filename";
+            key "realm-name";
+            description
+              "Configure realm configurations for pki profile.";
+            leaf realm-name {
+              type string {
+                length "1..50";
+              }
+              description
+                "The name of realm.";
+            }
+            container ca {
+              presence
+                "Ca configration";
+              description
+                "Configure ca configurations for ca.";
+              leaf format {
+                type cert-format;
+                mandatory true;
+                description
+                  "The file format.";
+              }
+              leaf file-name {
+                type string {
+                  length "1..50";
+                }
+                mandatory true;
+                description
+                  "The file name.";
+              }
+            }
+            container local {
+              presence
+                "Local configration";
+              description
+                "Configure ca configurations for local.";
+              leaf format {
+                type cert-format;
+                mandatory true;
+                description
+                  "The file format.";
+              }
+              leaf file-name {
+                type string {
+                  length "1..50";
+                }
+                mandatory true;
+                description
+                  "The file name.";
+              }
+              container private-key {
+                presence
+                  "Private key configration";
+                description
+                  "Configure ca configurations for private key.";
+                leaf format {
+                  type cert-format;
+                  mandatory true;
+                  description
+                    "The file format.";
+                }
+                leaf file-name {
+                  type string {
+                    length "1..50";
+                  }
+                  mandatory true;
+                  description
+                    "The file name.";
+                }
+                leaf password {
+                  type pub-type:password-extend {
+                    length "6..148";
+                  }
+                  mandatory true;
+                  description
+                    "The password for private key.";
+                }
+              }
+            }
+            leaf crl-filename {
+              type string {
+                length "1..50";
+              }
+              description
+                "AP CRL file name.";
+            }
+            container auto-enroll {
+              leaf common-name {
+                type string {
+                  length "1..64";
+                }
+                description
+                  "Specify the common name of entity.";
+              }
+              leaf url {
+                type string {
+                  length "1..128";
+                }
+                description
+                  "Specify the URL address of the CA server.";
+              }
+              leaf ca-id {
+                type string {
+                  length "1..64";
+                }
+                description
+                  "Specify the certification authority issuer identifier.";
+              }
+              leaf percent {
+                type uint32 {
+                  range "10..100";
+                }
+                description
+                  "Specify the percentage of the validity of the certificate.";
+              }
+              leaf reference-value {
+                type string {
+                  length "1..128";
+                }
+                description
+                  "Specify the reference value of the message authentication code.";
+              }
+              leaf secret-value {
+                type pub-type:password-extend {
+                  length "1..268";
+                }
+                description
+                  "Specify the secret value of the message authentication code.";
+              }
+              container ca-fingerprint {
+                description
+                  "Configure ca certificate fingerprint parameters.";
+                leaf finger-hash-algorithm {
+                  type enumeration {
+                    enum "md5" {
+                      value 0;
+                      description
+                        "The algorithm is md5.";
+                    }
+                    enum "sha1" {
+                      value 1;
+                      description
+                        "The algorithm is sha1.";
+                    }
+                    enum "sha256" {
+                      value 2;
+                      description
+                        "The algorithm is sha-256.";
+                    }
+                  }
+                  description
+                    "Finger hash algorithm.";
+                }
+                leaf finger-print {
+                  type string {
+                    length "32| 40 | 64";
+                  }
+                  description
+                    "Ca certificate fingerprint.";
+                }
+              }
+              container rsa-key-pair {
+                description
+                  "Configure rsa key pair of realm.";
+                leaf modulus {
+                  type uint16 {
+                    range "3072 | 4096";
+                  }
+                  description
+                    "The modulus for creating rsa key pair.";
+                }
+              }
+              container ecc-key-pair {
+                description
+                  "Configure ecc key pair of realm.";
+                leaf modulus {
+                  type uint16 {
+                    range "256 | 384 | 521";
+                  }
+                  description
+                    "The modulus for creating ecc key pair.";
+                }
+              }
+              leaf password {
+                type pub-type:password-extend {
+                    length "1..48 | 64..188";
+                }
+               description
+                "Specify the challenge password.";
+        }
+              leaf protocol {
+                type enumeration {
+                  enum "cmpv2" {
+                    value 0;
+                    description
+                      "Auto update by cmpv2.";
+                  }
+                  enum "scep" {
+                    value 1;
+                    description
+                      "Auto update by scep.";
+                  }
+                }
+                default "cmpv2";
+                description
+                  "Auto update protocol.";
+              }
+              description
+                  "Configure auto update function.";
+            }
+          }
+        }
+      }
+    }
+  }
+  augment /apinst:wlan-ap/apinst:ap-instances/apinst:ap-instance {
+    description
+      "Applying the AP pki profile configuration to an AP instance.";
+    uses pkiprof:binding-pki-profile;
+  }
+  augment "/apgroup:wlan-ap-group-profile/apgroup:ap-group-profiles/apgroup:ap-group-profile" {
+    description
+      "Applying the AP pki profile configuration to an AP group.";
+    uses pkiprof:binding-pki-profile;
+  }
+  ext:task-name "pkiprof";
+}

@@ -1,0 +1,39 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-service-set-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-service-set-deviations-ar5710s";
+  prefix service-set-devs-ar5710s;
+
+  import huawei-service-set {
+    prefix hw-service-set;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-service-set module.";
+
+  revision 2024-05-11 {
+    description
+      "Rename prefix.";
+    reference "Huawei private.";
+  }
+  revision 2021-05-11 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-service-set:service-set" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,85 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ssid-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ssid-profile-deviations-ar5710s";
+  prefix ssid-prof-devs-ar5710s;
+
+  import huawei-wlan-ssid-profile {
+    prefix ssid-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ssid-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:qbss-load" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11r/ssid-prof:reassociate-timeout" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11r/ssid-prof:proprietary" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:wmm-edca-client-acvo" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:wmm-edca-client-acvi" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:wmm-edca-client-acbe" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:wmm-edca-client-acbk" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:excessive-retry-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:active-dull-client" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:pmk-cache-roam" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:phy-protection" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11a-basic-rate-lists" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11a-support-rate-lists" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11bg-basic-rate-lists" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:dot11bg-support-rate-lists" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:single-txchain-switch" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:ht-mcs-map" {
+    deviate not-supported;
+  }
+  deviation "/ssid-prof:wlan-ssid-profile/ssid-prof:ssid-profiles/ssid-prof:ssid-profile/ssid-prof:er-su-switch" {
+    deviate not-supported;
+  }
+}

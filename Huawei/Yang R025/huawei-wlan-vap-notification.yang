@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-vap-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-vap-notification";
+  prefix hw-wvpntf;
+
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "WLAN VAP notification package.";
+
+  revision 2024-12-28 {
+    description
+      "Added vap-num-exceed.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-01-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+ 
+  notification vap-create-failed {
+    description "VAP create failed notification.";
+    leaf reason {
+      type string{
+        length "1..256";
+      }
+      description "VAP create create failed notification.";
+    } 
+  }
+  notification vap-create-failed-restore {
+    description "VAP create failed restore notification.";
+    leaf reason {
+      type string{
+        length "1..256";
+      }
+      description "VAP create create failed restore notification.";
+    } 
+  }
+  notification vap-num-exceed {
+    description
+      "The number of VAP instances has exceeded the maximum notification.";
+    leaf vap-max-num {
+      type int32;
+      description
+        "Maximum number of VAPs allowed.";
+    }
+  }
+  
+  ext:task-name "pcm";
+}

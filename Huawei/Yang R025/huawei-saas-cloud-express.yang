@@ -1,0 +1,524 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-saas-cloud-express {
+  namespace "urn:huawei:yang:huawei-saas-cloud-express";
+  prefix "saas-cloud-express";
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-nqa {
+    prefix nqa;
+  }
+  import huawei-security-app-group {
+    prefix app-group;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for SaaS cloud express.";
+  revision 2025-07-17 {
+    description "Add dns bypass for saas.";
+    reference "Huawei private.";
+  }
+  revision 2023-11-23 {
+    description "Add local path list.";
+    reference "Huawei private.";
+  }
+  revision 2023-11-11 {
+    description "Move load balance parameters into policy list.";
+    reference "Huawei private.";
+  }
+  revision 2023-10-07 {
+    description "Add path-name as key of SaaS path changed report.";
+    reference "Huawei private.";
+  }
+  revision 2023-08-17 {
+    description "Add next-hop-address for DIA path configuration.";
+    reference "Huawei private.";
+  }
+  revision 2023-08-16 {
+    description "Add mandatory tag for sig-tunnel-number.";
+    reference "Huawei private.";
+  }
+  revision 2023-08-04 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+
+  container saas-cloud-express {
+    presence "Create saas-cloud-express.";
+    description "Configure SaaS cloud express.";
+    container network-assessment {
+      description "Configure SaaS path QoE calculation parameters.";
+      leaf loss-baseline {
+        type uint8 {
+          range "0..100";
+        }
+        units %;
+        default 1;
+        description "Configure loss baseline value.";
+      }
+      leaf delay-baseline {
+        type uint16 {
+          range "1..1000";
+        }
+        units ms;
+        default 100;
+        description "Configure delay baseline value.";
+      }
+      leaf loss-factor {
+        type uint8 {
+          range "0..100";
+        }
+        units %;
+        default 50;
+        description "Configure loss weight value for path QoE calculation.";
+      }
+      leaf dns-bypass {
+        type boolean;
+        default "false";
+        description "Enable/disable SaaS traffic steering for DNS packets.";
+      }
+    }
+    container dia-paths {
+      description "List of SaaS DIA paths.";
+      list dia-path {
+        must "(./nqa-admin-name and ./nqa-test-name) or (not (./nqa-admin-name) and not (./nqa-test-name))";
+        key "index";
+        max-elements 10;
+        description "Specify the SaaS DIA path.";
+        leaf index {
+          type uint8 {
+            range "1..10";
+          }
+          description "Specify path index of SaaS path list.";
+        }
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          mandatory true;
+          description "Configure direct internet access for SaaS application.";
+        }
+        leaf next-hop-address {
+          type inet:ipv4-address-no-zone;
+          description "The next hop IPv4 address of out interface.";
+        }
+        leaf nqa-admin-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+          }
+          description "Specify the administrator name of an NQA instance.";
+        }
+        leaf nqa-test-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+          }
+          description "Specify the test name of an NQA instance.";
+        }
+      }
+    }
+    container local-paths {
+      description "List of SaaS local paths.";
+      list local-path {
+        key "path-index inter-tunnel-number";
+        description "Specify the SaaS local path.";
+        leaf path-index {
+          type uint8 {
+            range "1..10";
+          }
+          description "Specify the path index of SaaS local path.";
+        }
+        leaf inter-tunnel-number {
+          type uint16 {
+            range "0..4095";
+          }
+          description "Specify the number of internal Tunnel for DIA path.";
+        }
+      }
+    }
+    container sig-paths {
+      description "List of SaaS SIG paths.";
+      list sig-path {
+        must "((./nqa-admin-name and ./nqa-test-name) or (not (./nqa-admin-name) and not (./nqa-test-name)))
+          and ((./backup-nqa-admin-name and ./backup-nqa-test-name) or (not (./backup-nqa-admin-name) and not (./backup-nqa-test-name)))";
+        key "index";
+        max-elements 10;
+        description "Specify the SaaS SIG path.";
+        leaf index {
+          type uint8 {
+            range "11..20";
+          }
+          description "Specify path index of SaaS SIG-Tunnel path list.";
+        }
+        leaf sig-tunnel-number {
+          type uint16 {
+            range "0..4095";
+          }
+          mandatory true;
+          description "Configure the number of SIG Tunnel for SaaS application.";
+        }
+        leaf nqa-admin-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+          }
+          description "Specify the administrator name of an NQA instance.";
+        }
+        leaf nqa-test-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+          }
+          description "Specify the test name of an NQA instance.";
+        }
+        leaf backup-tunnel-number {
+          type uint16 {
+            range "0..4095";
+          }
+          description "Configure the number of backup Tunnel for SaaS SIG-Tunnel interface.";
+        }
+        leaf backup-nqa-admin-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+          }
+          description "Specify the administrator name of an NQA instance.";
+        }
+        leaf backup-nqa-test-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+          }
+          description "Specify the test name of an NQA instance.";
+        }
+      }
+    }
+    container path-profiles {
+      description "List of SaaS path profiles.";
+      list path-profile {
+        key "name";
+        max-elements 8;
+        description "Configure a SaaS path profile.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description "Specify the name of SaaS path.";
+        }
+        container path-indexs {
+          description "List of paths.";
+          list path-index {
+            key "index";
+            max-elements 10;
+            description "Configure a path index.";
+            leaf index {
+              type uint8 {
+                range "1..20";
+              }
+              description "Specify the path index.";
+            }
+          }
+        }
+        container peer-path-indexs {
+          description "List of peer paths for dual-gateway.";
+          list peer-path-index {
+            key "index";
+            max-elements 10;
+            description "Configure a peer path index for dual-gateway.";
+            leaf index {
+              type uint8 {
+                range "1..20";
+              }
+              description "Specify the peer path index for dual-gateway.";
+            }
+          }
+        }
+      }
+    }
+    container saas-policys {
+      description "List of SaaS policies.";
+      list saas-policy {
+        key "node-index";
+        description "Configure a SaaS policy.";
+        leaf node-index {
+          type uint16 {
+            range "1..255";
+          }
+          description "Specify a SaaS policy ID.";
+        }
+        leaf application-group-name {
+          type leafref {
+            path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+          }
+          description "Specify an application group name.";
+        }
+        leaf best-path-only {
+          type boolean;
+          default "false";
+          description "Enable/disable the best path selection function in the SaaS policy.";
+        }
+        container load-balance {
+            description "Configure SaaS policy load balance parameters.";
+            leaf loss-differ {
+                type uint8 {
+                range "1..100";
+                }
+                units %;
+                default 10;
+                description "Configure loss differ value from best path.";
+            }
+            leaf delay-differ {
+                type uint16 {
+                range "1..1000";
+                }
+                units ms;
+                default 50;
+                description "Configure delay differ value from best path.";
+            }
+            leaf source-ip-based {
+                type boolean;
+                default false;
+                description "Enable/disable SaaS load balance based user source IP.";
+            }
+        }
+        leaf loss-baseline {
+          type uint8 {
+            range "0..100";
+          }
+          units %;
+          description "Configure loss baseline value.";
+        }
+        leaf delay-baseline {
+          type uint16 {
+            range "1..1000";
+          }
+          units ms;
+          description "Configure delay baseline value.";
+        }
+        leaf loss-factor {
+          type uint8 {
+            range "0..100";
+          }
+          units %;
+          description "Configure loss weight value for path QoE calculation.";
+        }
+        container track-nqas {
+          description "List of track NQA instances.";
+          list track-nqa {
+            key "nqa-admin-name nqa-test-name";
+            max-elements 6;
+            description "Configure a track NQA instance.";
+            leaf nqa-admin-name {
+              type leafref {
+                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+              }
+              description "Specify the administrator name of an NQA instance.";
+            }
+            leaf nqa-test-name {
+              type leafref {
+                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+              }
+              description "Specify the test name of an NQA instance.";
+            }
+          }
+        }
+        leaf path-profile {
+          type leafref {
+            path "../../../path-profiles/path-profile/name";
+          }
+          description "Specify a SaaS path profile name.";
+        }
+        container apply-to-vpn-instances {
+          description "List of VPN instances.";
+          list apply-to-vpn-instance {
+              key "vpn-instance";
+              max-elements 8;
+              description "Configure a VPN instance.";
+              leaf vpn-instance {
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                description "Specify the name of a VPN instance.";
+              }
+          }
+        }
+      }
+    }
+    container sla-result-reports {
+      config false;
+      description "List of SaaS detect instance reported.";
+      list sla-result-report {
+        key "nqa-admin-name nqa-test-name path-name";
+        description "Operational data of SaaS detect instance reported.";
+        leaf nqa-admin-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+          }
+          description "Administrator name of the NQA instance.";
+        }
+        leaf nqa-test-name {
+          type leafref {
+            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+          }
+          description "Test name of the NQA instance.";
+        }
+        leaf path-name {
+          type string {
+            length "1..64";
+          }
+          description "Name of the SaaS Path.";
+        }
+        leaf loss {
+          type uint8;
+          units "%";
+          description "Packet loss rate of the path.";
+        }
+        leaf delay {
+          type uint16;
+          units "ms";
+          description "Delay value of the path.";
+        }
+        leaf qoe {
+          type uint8;
+          description "Comprehensive metric value of the path.";
+        }
+        leaf path-status {
+          type string {
+            length "1..16";
+          }
+          description "The status of the path.";
+        }
+      }
+    }
+    container path-switchs {
+      config false;
+      description "List of SaaS best path switched.";
+      list path-switch {
+        key "policy-node-index";
+        description "Operational state of SaaS best path switched.";
+        leaf policy-node-index {
+            type leafref {
+              path "../../../saas-policys/saas-policy/node-index";
+            }
+          description "SaaS policy ID.";
+        }
+        leaf application-group-name {
+            type leafref {
+              path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+            }
+          description "Application group name.";
+        }
+        leaf previous-path {
+          type string {
+            length "1..64";
+          }
+          description "Name of the path selected by the SaaS policy before the path switchover.";
+        }
+        leaf previous-path-loss {
+          type uint8;
+          units "%";
+          description "Packet loss rate of the path selected by the SaaS policy before the path switchover.";
+        }
+        leaf previous-path-delay {
+          type uint16;
+          units "ms";
+          description "Delay value of the path selected by the SaaS policy before the path switchover.";
+        }
+        leaf previous-path-qoe {
+          type uint8;
+          description "Comprehensive metric value of the path selected by the SaaS policy before the path switchover.";
+        }
+        leaf current-path {
+          type string {
+            length "1..64";
+          }
+          description "Name of the path selected by the SaaS policy after the path switchover.";
+        }
+        leaf current-path-loss {
+          type uint8;
+          units "%";
+          description "Packet loss rate of the path selected by the SaaS policy after the path switchover.";
+        }
+        leaf current-path-delay {
+          type uint16;
+          units "ms";
+          description "Delay value of the path selected by the SaaS policy after the path switchover.";
+        }
+        leaf current-path-qoe {
+          type uint8;
+          description "Comprehensive metric value of the path selected by the SaaS policy after the path switchover.";
+        }
+        leaf switched-reason {
+          type string {
+            length "1..64";
+          }
+          description "Cause of the path switchover.";
+        }
+      }
+    }
+    container path-changeds {
+      config false;
+      description "List of SaaS path changed.";
+      list path-changed {
+        key "policy-node-index path-name";
+        description "Operational state of SaaS path changed.";
+        leaf policy-node-index {
+            type leafref {
+              path "../../../saas-policys/saas-policy/node-index";
+            }
+          description "SaaS policy ID.";
+        }
+        leaf path-name {
+          type string {
+            length "1..64";
+          }
+          description "Name of the SaaS path.";
+        }
+        leaf application-group-name {
+            type leafref {
+              path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+            }
+          description "Application group name.";
+        }
+        leaf path-loss {
+          type uint8;
+          units "%";
+          description "Packet loss rate of the SaaS path.";
+        }
+        leaf path-delay {
+          type uint16;
+          units "ms";
+          description "Delay value of the SaaS path.";
+        }
+        leaf path-qoe {
+          type uint8;
+          description "Comprehensive metric value of the SaaS path.";
+        }
+        leaf change-type {
+          type string {
+            length "1..16";
+          }
+          description "Type of the path changed.";
+        }
+      }
+    }
+  }
+}

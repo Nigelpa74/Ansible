@@ -1,0 +1,233 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifm-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ifm-deviations-ar5710s";
+  prefix ifm-devs-ar5710s;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ifm module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef router-type-deviations {
+    type enumeration {
+      enum PtoP {
+        value 0;
+        description
+          "Point to point.";
+      }
+      enum broadcast {
+        value 2;
+        description
+          "Broadcast.";
+      }
+    }
+    description
+      "Interface router type.";
+  }
+
+  typedef link-protocol-deviations {
+    type enumeration {
+      enum ethernet {
+        value 0;
+        description
+          "The link protocol of the interface is Ethernet.";
+      }
+      enum ppp {
+        value 1;
+        description
+          "The link protocol of the interface is PPP.";
+      }
+      enum hdlc {
+        value 2;
+        description
+          "The link protocol of the interface is HDLC.";
+      }
+    }
+    description
+      "Interface link protocol type.";
+  }
+
+  deviation "/ifm:ifm/ifm:global/ifm:ipv4-conflict-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:global/ifm:ipv6-conflict-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:damp" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:statistic-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:statistic-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:bandwidth-type/ifm:bandwidth-kbps" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:spread-mtu-flag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:l2-mode-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:down-delay-time" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:vs-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:encapsulation-type" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:bandwidth-config-effect-service" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mac-address-system" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:damping" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:damp-state" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:dynamic/ifm:link-quality-grade" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:dynamic/ifm:sub-if-counts" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:dynamic/ifm:license-active-status" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/ifm:in-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/ifm:in-packet-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/ifm:out-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/ifm:out-packet-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-unicast-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-unicast-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-multicast-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-multicast-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-broad-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-broad-bit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-unicast-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-unicast-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-multicast-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-multicast-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:send-broad-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:common-statistics/ifm:receive-broad-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:virtual-position" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mode-flexe" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mode-channelize" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:crc-error-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:fec-error-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:static-dimension-ranges" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:remote-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:if-group-policys" {
+    deviate not-supported;
+  }
+  deviation "/ifm:reset-remote-if-counters" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:auto-recovery-times/ifm:auto-recovery-time/ifm:error-down-type" {
+    deviate add {
+      must "../error-down-type != 'monitor-link' and ../error-down-type != 'traffic-manager-buffer-failed'";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:link-protocol" {
+    deviate replace {
+      type ifm-devs-ar5710s:link-protocol-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:router-type" {
+    deviate replace {
+      type ifm-devs-ar5710s:router-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:trap-threshold/ifm:input-rising-rate" {
+    deviate replace {
+      default "90";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:trap-threshold/ifm:input-resume-rate" {
+    deviate replace {
+      default "90";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:trap-threshold/ifm:output-rising-rate" {
+    deviate replace {
+      default "90";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:trap-threshold/ifm:output-resume-rate" {
+    deviate replace {
+      default "90";
+    }
+  }
+}

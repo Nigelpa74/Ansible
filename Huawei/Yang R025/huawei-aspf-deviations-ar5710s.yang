@@ -1,0 +1,77 @@
+/*
+Copyright (C) 2021 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-aspf-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-aspf-deviations-ar5710s";
+  prefix hw-aspf-devs-ar5710s;
+
+  import huawei-aspf {
+    prefix hw-aspf;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-aspf-deviations module.";
+
+  revision 2021-03-16 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+
+  deviation "/hw-aspf:aspf/hw-aspf:protocol" {
+    deviate replace {
+      type enumeration {
+        enum dns {
+          value 0;
+          description
+            "Indicate domain name service.";
+        }
+        enum ftp {
+          value 1;
+          description
+            "Indicate file transfer protocol.";
+        }
+        enum pptp {
+          value 5;
+          description
+            "Indicate point-to-point tunnel protocol.";
+        }
+        enum rtsp {
+          value 8;
+          description
+            "Indicate real time streaming protocol.";
+        }
+        enum sip {
+          value 9;
+          description
+            "Indicate session initiation protocol.";
+        }
+        enum ipv6-ftp {
+          value 11;
+          description
+            "Indicate IPv6 file transfer protocol.";
+        }
+        enum ipv6-rtsp {
+          value 12;
+          description
+            "Indicate IPv6 real time streaming protocol.";
+        }
+        enum ipv6-sip {
+          value 13;
+          description
+            "Indicate IPv6 session initiation protocol.";
+        }
+      }
+    }
+  }
+}

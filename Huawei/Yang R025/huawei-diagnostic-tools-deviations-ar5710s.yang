@@ -1,0 +1,584 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-diagnostic-tools-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-diagnostic-tools-deviations-ar5710s";
+  prefix diagnostic-tools-devs-ar5710s;
+
+  import huawei-diagnostic-tools {
+    prefix diagnostic-tools;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-diagnostic-tools module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/diagnostic-tools:start-lb-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:stop-lb-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:delete-lb-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lt-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:stop-lt-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:delete-lt-test" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-ip-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-ip-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-ip-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-mac-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-mac-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:arp-mac-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-start-ipv6-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-stop-ipv6-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-delete-ipv6-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-start-ipv6-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-stop-ipv6-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:bier-delete-ipv6-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ce-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ce-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ce-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:lblt" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:arp" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:bier" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ce" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:evpn" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:gmac" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ipv4/diagnostic-tools:ping-results/diagnostic-tools:ping-result/diagnostic-tools:details/diagnostic-tools:detail/diagnostic-tools:response-vrf-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ipv4/diagnostic-tools:trace-results/diagnostic-tools:trace-result/diagnostic-tools:hops/diagnostic-tools:hop/diagnostic-tools:probes/diagnostic-tools:probe/diagnostic-tools:as-num" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ipv4/diagnostic-tools:trace-results/diagnostic-tools:trace-result/diagnostic-tools:hops/diagnostic-tools:hop/diagnostic-tools:probes/diagnostic-tools:probe/diagnostic-tools:response-vrf-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ipv4-multipath" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:ipv6-multipath" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:lsp/diagnostic-tools:ping-results/diagnostic-tools:ping-result/diagnostic-tools:srte-policy-results" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:lsp/diagnostic-tools:trace-results/diagnostic-tools:trace-result/diagnostic-tools:srte-policy-results" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:p2mp" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:pwe3" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:srv6/diagnostic-tools:ping-results/diagnostic-tools:ping-result/diagnostic-tools:probes/diagnostic-tools:probe/diagnostic-tools:incoming-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:srv6/diagnostic-tools:ping-results/diagnostic-tools:ping-result/diagnostic-tools:probes/diagnostic-tools:probe/diagnostic-tools:incoming-phy-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:srv6/diagnostic-tools:trace-results/diagnostic-tools:trace-result/diagnostic-tools:is-new-version" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:srv6/diagnostic-tools:trace-multiprobe-results" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:vpls" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:diagnostic-tools/diagnostic-tools:vxlan" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-start-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-stop-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-delete-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-start-mac-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-stop-mac-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-delete-mac-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-start-vpws-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-stop-vpws-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-delete-vpws-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-start-vpws-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-stop-vpws-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:evpn-delete-vpws-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:gmac-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:gmac-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:gmac-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:bypass-source-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:peer-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:routing-mode/diagnostic-tools:outbound/diagnostic-tools:inbound-reply-fast" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:routing-mode/diagnostic-tools:inbound" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:service-class" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:debug-option" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:response-vrf" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:source-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:peer-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:show-as-num" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:service-class" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:next-hop" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:pass-route" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:response-vrf" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:board-select-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-multipath-trace-showpath" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-stop-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-delete-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:peer-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:inbound-reply-fast" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:source-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:apn-ipv6-inst-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:service-class" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:evc-sub-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:board-select-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:peer-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:fixed-port-flag" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:source-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:apn-ipv6-inst-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:service-class" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:ignore-mtu" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:board-select-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-start-multipath-trace-showpath" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-stop-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv6-delete-multipath-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:lsp-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:ldp/diagnostic-tools:ldp-remote-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:bgp" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:te" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srte" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:auto-srte" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srbe" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srte-policy" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:auto-te" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-ping/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:general" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:lsp-start-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:ldp/diagnostic-tools:ldp-ddmap" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:bgp" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:te" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srte" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:auto-srte" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srbe" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:srte-policy" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:auto-te" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:start-lsp-trace/diagnostic-tools:input/diagnostic-tools:lsp-protocol/diagnostic-tools:general" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-start-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-stop-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:p2mp-delete-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-start-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-stop-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:pwe3-delete-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:priority/diagnostic-tools:dscp-value" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:ignore-mtu" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:nexthop-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:pattern" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:show-incoming-if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:network-slice-id" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-ping/diagnostic-tools:input/diagnostic-tools:no-bypass" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:fixed-port-flag" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:priority/diagnostic-tools:dscp-value" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:if-name" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:nexthop-address" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:ignore-mtu" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:network-slice-id" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:count" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:srv6-te-start-trace/diagnostic-tools:input/diagnostic-tools:no-bypass" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-start-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-stop-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-delete-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-start-vsi-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-stop-vsi-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-delete-vsi-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-start-vsi-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-stop-vsi-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vpls-delete-vsi-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-start-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-stop-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-delete-ping" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-start-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-stop-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:vxlan-delete-trace" {
+    deviate not-supported;
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-ping/diagnostic-tools:input/diagnostic-tools:sd-wan-connectid" {
+    deviate delete {
+      must 'not(../bypass-source-if-name) and not(../peer-address) and not(../if-name) and not(../next-hop) and not(../inbound-reply-fast) and not(../inbound-if-name) and not(../evc-sub-if-name) and not(../service-class) and not(../record-route) and not(../show-incoming-if-name) and not(../priority-8021p) and not(../show-host-name) and not(../show-detail) and not(../ip-forwarding) and not(../te-class) and not(../response-vrf-name) and not(../ignore-vrf)';
+    }
+    deviate add {
+      must 'not(../if-name) and not(../next-hop) and not(../record-route) and not(../show-incoming-if-name) and not(../priority-8021p) and not(../show-host-name) and not(../show-detail) and not(../ip-forwarding) and not(../te-class)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv4-start-ip-trace/diagnostic-tools:input/diagnostic-tools:sd-wan-connectid" {
+    deviate delete {
+      must 'not(../if-name) and not(../source-if-name) and not(../peer-address) and not(../show-as-num) and not(../service-class) and not(../te-class) and not(../next-hop) and not(../ttl-mode) and not(../show-host-name) and not(../pass-route) and not(../response-vrf-name) and not(../ignore-vrf)';
+    }
+    deviate add {
+      must 'not(../if-name) and not(../show-host-name) and not(../te-class)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:if-name" {
+    deviate add {
+      must 'not(../if-name and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:nexthop-address" {
+    deviate add {
+      must 'not(../nexthop-address and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:ignore-mtu" {
+    deviate add {
+      must 'not(../ignore-mtu and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:show-incoming-if-name" {
+    deviate add {
+      must 'not(../show-incoming-if-name and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:priority/diagnostic-tools:dscp-value/diagnostic-tools:dscp" {
+    deviate add {
+      must 'not(../dscp and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:pattern" {
+    deviate add {
+      must 'not(../pattern and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-ping/diagnostic-tools:input/diagnostic-tools:sd-wan-connectid" {
+    deviate delete {
+      must 'not(../peer-address) and not(../if-name) and not(../inbound-reply-fast) and not(../source-if-name) and not(../apn-ipv6-inst-name) and not(../segment-by-segment) and not(../show-incoming-if-name) and not(../show-host-name) and not(../nexthop-address) and not(../show-system-time) and not(../show-detail) and not(../ipv6-forwarding) and not(../te-class) and not(../evc-sub-if-name) and not(../service-class) and not(../network-slice-id) and not(../force-match-slice) and not(../sid1) and not(../sid2) and not(../sid3) and not(../sid4) and not(../sid5) and not(../sid6) and not(../sid7) and not(../sid8) and not(../sid9) and not(../sid10) and not(../sid11)';
+    }
+    deviate add {
+      must 'not(../if-name) and not(../segment-by-segment) and not(../show-incoming-if-name) and not(../show-host-name) and not(../nexthop-address) and not(../show-system-time) and not(../show-detail) and not(../ipv6-forwarding) and not(../te-class) and not(../network-slice-id) and not(../force-match-slice) and not(../sid1) and not(../sid2) and not(../sid3) and not(../sid4) and not(../sid5) and not(../sid6) and not(../sid7) and not(../sid8) and not(../sid9) and not(../sid10) and not(../sid11)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:nexthop-address" {
+    deviate add {
+      must 'not(../nexthop-address and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:if-name" {
+    deviate add {
+      must 'not(../if-name and ../sid1)';
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:priority/diagnostic-tools:dscp-value/diagnostic-tools:dscp" {
+    deviate add {
+      must "not(../dscp and ((../overlay='true') or ../sid1 or ../network-slice-id or ../force-match-slice))";
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:priority/diagnostic-tools:tc-value/diagnostic-tools:tc" {
+    deviate add {
+      must "not(../tc and ((../overlay='true') or ../sid1 or ../network-slice-id or ../force-match-slice))";
+    }
+  }
+  deviation "/diagnostic-tools:ipv6-start-trace/diagnostic-tools:input/diagnostic-tools:sd-wan-connectid" {
+    deviate delete {
+      must 'not(../peer-address) and not(../overlay) and not(../source-if-name) and not(../nexthop-address) and not(../pass-route) and not(../ttl-mode) and not(../if-name) and not(../te-class) and not(../apn-ipv6-inst-name) and not(../network-slice-id) and not(../force-match-slice) and not(../service-class) and not(../show-host-name) and not(../sid1) and not(../sid2) and not(../sid3) and not(../sid4) and not(../sid5) and not(../sid6) and not(../sid7) and not(../sid8) and not(../sid9) and not(../sid10) and not(../sid11)';
+    }
+    deviate add {
+      must 'not(../overlay) and not(../nexthop-address) and not(../pass-route) and not(../if-name) and not(../te-class) and not(../network-slice-id) and not(../force-match-slice) and not(../show-host-name) and not(../sid1) and not(../sid2) and not(../sid3) and not(../sid4) and not(../sid5) and not(../sid6) and not(../sid7) and not(../sid8) and not(../sid9) and not(../sid10) and not(../sid11)';
+    }
+  }
+}

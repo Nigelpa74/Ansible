@@ -1,0 +1,44 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-address-set-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-address-set-deviations-ar5710s";
+  prefix address-set-devs-ar5710s;
+
+  import huawei-address-set {
+    prefix hw-address-set;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-address-set module.";
+
+  revision 2025-05-08 {
+    description
+      "Add MAC leaf trim.";
+    reference "Huawei private.";
+  }
+  revision 2021-05-11 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-address-set:address-set/hw-address-set:address-objects/hw-address-set:address-object/hw-address-set:elements/hw-address-set:element" {
+    deviate delete {
+      unique "object-items/mac/mac-address";
+    }
+  }
+  deviation "/hw-address-set:address-set/hw-address-set:address-objects/hw-address-set:address-object/hw-address-set:elements/hw-address-set:element/hw-address-set:object-items/hw-address-set:mac" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,70 @@
+/*
+Copyright (C) 2021-2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-sac-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-sac-notification";
+  prefix sac-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of sac-notification.";
+
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2021-01-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+  notification aggregation-session-max-exceed {
+    description
+      "The size of the aggregation session based on the connection application statistics reaches 100% of the maximum value.";
+    leaf aggregation-session-maximum-number {
+      type uint32;
+      description
+        "The maximum value of the aggregation session.";
+    }
+  }
+  notification aggregation-session-max-clear {
+    description
+      "The size of the aggregation session based on the connection application statistics is restored to less than 95% of the maximum value.";
+    leaf aggregation-session-maximum-number {
+      type uint32;
+      description
+        "The maximum value of the aggregation session.";
+    }
+  }
+  notification origin-session-max-exceed {
+    description
+      "The size of the original session based on the connection application statistics reaches 100% of the maximum value.";
+    leaf origin-session-maximum-number {
+      type uint32;
+      description
+        "The maximum value of the original session.";
+    }
+  }
+  notification origin-session-max-clear {
+    description
+      "The size of the original session based on the connection application statistics is restored to less than 95% of the maximum value.";
+    leaf origin-session-maximum-number {
+      type uint32;
+      description
+        "The maximum value of the original session.";
+    }
+  }
+}

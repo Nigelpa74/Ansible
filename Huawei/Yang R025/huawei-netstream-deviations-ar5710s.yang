@@ -1,0 +1,436 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-netstream-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-netstream-deviations-ar5710s";
+  prefix netstream-devs-ar5710s;
+
+  import huawei-netstream {
+    prefix netstream;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-netstream module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef nsm-origin-version-deviations {
+    type enumeration {
+      enum 5 {
+        value 5;
+        description
+          "Version 5.";
+      }
+      enum 9 {
+        value 9;
+        description
+          "Version 9.";
+      }
+    }
+    description
+      "Description of origin version type.";
+  }
+
+  typedef nsm-flow-type-deviations {
+    type enumeration {
+      enum ip-flow {
+        value 0;
+        description
+          "IPv4.";
+      }
+      enum ipv6-flow {
+        value 1;
+        description
+          "IPv6.";
+      }
+    }
+    description
+      "Description of flow type.";
+  }
+
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:source-ipv4-port" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:source-ipv6-port" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:as-type" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:bgp-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:option-template-timeout-rate" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:option-template-refresh-rate" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:option-data-timeout-rate" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:agg-active-age" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:agg-inactive-age-seconds" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:origin-active-age/netstream:minutes" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:as-mode" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:tcpflag-enable" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:vxlan-aware-enable" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:interface-option-enable" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:record-name" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:ttl-flag" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:sequence-number-fix" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:srv6-aware" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:rd-flag" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:option-info" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:sampler-rates" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:service-type-sampler-rates" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:sampler-rate-all-flows" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:option-application-labels" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:aggregations" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:monitors" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:source-mac" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:source-as" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:source-mask" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:source-vlan" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:destination-mac" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:destination-as" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:destination-mask" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:destination-vlan" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:tcp-flag" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:direction" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:nexthop" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:bgp-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:mpls-label" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:mpls-label-pos1" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:mpls-label-pos2" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:mpls-label-pos3" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:first-time" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:last-time" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:flow-end-reason" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:ethernet-type" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:pvlan" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:cvlan" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:sample-info" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:template-export-statistics" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:nsid-usages" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:pkt-ipv4-count" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:pkt-ipv6-count" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:pkt-mpls-count" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:pkt-vll-count" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:pkt-count" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:cache-usages" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:if-sampler-statistics" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:sampler-rate-lower-limits" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:stream-infos" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:stream-log-infos" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:ifindex-maps" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/netstream:netstream" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/netstream:netstream" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:mpls-exclude" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rates/netstream:sampler-rate/netstream:sampler-type/netstream:fix-time" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rates/netstream:sampler-rate/netstream:sampler-type/netstream:random-packets" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:statistics-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rate-all-flows" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:statistic-enables" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:apply-flexflow-record-directs" {
+    deviate not-supported;
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:export-version" {
+    deviate delete {
+      must "(../flow-type='ipv6-flow' and ../export-version='9') or ((not(../flow-type='ipv6-flow') and (../export-version='5' or ../export-version='9') ))";
+    }
+    deviate add {
+      default "9";
+    }
+    deviate add {
+      must "(../flow-type='ip-flow' and ((../export-version='5' and ../index-switch='16') or (../export-version='9' and (../index-switch='16' or ../index-switch='32'))))";
+    }
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-origin-version-deviations;
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:template-timeout-rate" {
+    deviate replace {
+      default "1";
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:origin-active-age" {
+    deviate replace {
+      default "seconds";
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:origin-active-age/netstream:seconds/netstream:origin-active-age-seconds" {
+    deviate add {
+      default "1800";
+    }
+    deviate replace {
+      type uint32 {
+        range "60..3600";
+      }
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:origin-inactive-seconds" {
+    deviate replace {
+      type uint32 {
+        range "5..600";
+      }
+    }
+    deviate replace {
+      default "15";
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:index-switch" {
+    deviate add {
+      must "((../flow-type='ip-flow' and ((../export-version='5' and ../index-switch='16') or (../export-version='9' and (../index-switch='16' or ../index-switch='32')))) or (not(../flow-type='ip-flow') and (../index-switch='16' or ../index-switch='32')))";
+    }
+    deviate replace {
+      default "32";
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:export-ipv4-hosts/netstream:export-ipv4-host/netstream:dscp-value" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/netstream:netstream/netstream:flow-instances/netstream:flow-instance/netstream:export-ipv6-hosts/netstream:export-ipv6-host/netstream:dscp-value" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:bytes-value" {
+    deviate delete {
+      must '(../bytes-value=16 or ../bytes-value=32 or ../bytes-value=64)';
+    }
+    deviate add {
+      must '(../bytes-value=32)';
+    }
+  }
+  deviation "/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record/netstream:packets-value" {
+    deviate delete {
+      must '(../packets-value=16 or ../packets-value=32 or ../packets-value=64)';
+    }
+    deviate add {
+      must '(../packets-value=32)';
+    }
+  }
+  deviation "/netstream:netstream/netstream:slot-sampler-statistics/netstream:slot-sampler-statistic/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/netstream:clear-cache/netstream:input/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-enables" {
+    deviate add {
+      must '(/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rates)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-enables/netstream:sampler-enable/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:apply-flexflow-records/netstream:apply-flexflow-record/netstream:flow-type" {
+    deviate add {
+      must '/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()][netstream:record-name=current()/../record-name]/netstream:flow-type';
+    }
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:apply-flexflow-records/netstream:apply-flexflow-record/netstream:record-name" {
+    deviate add {
+      must "(/netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:destination-address!='false' or /netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:destination-port!='false' or /netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:tos!='false' or /netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:protocol!='false' or /netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:source-address!='false' or /netstream:netstream/netstream:flexflow-records/netstream:flexflow-record[netstream:flow-type=current()/../flow-type][record-name=current()]/netstream:source-port!='false')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rates/netstream:sampler-rate/netstream:flow-type" {
+    deviate replace {
+      type netstream-devs-ar5710s:nsm-flow-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/netstream:netstream/netstream:sampler-rates/netstream:sampler-rate/netstream:sampler-type/netstream:fix-packets/netstream:fix-packets-value" {
+    deviate replace {
+      type uint32 {
+        range "1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 | 4096 | 8192 | 16384 | 32768";
+      }
+    }
+  }
+  ext:deviation-ext "/netstream:netstream/netstream:flow-instances/netstream:flow-instance" {
+    ext:deviate-ext "delete" {
+      ext:operation-exclude "create" {
+        description
+          "The all instances cannot be created or deleted.";
+      }
+    }
+    ext:deviate-ext "delete" {
+      ext:generated-by "system" {
+        description
+          "The all instances are generated by system automatically.";
+      }
+    }
+  }
+}

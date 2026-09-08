@@ -1,0 +1,339 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-nac-deviations-ar5710s";
+  prefix hw-nac-devs-ar5710s;
+
+  import huawei-nac {
+    prefix hw-nac;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-nac-portal {
+    prefix hw-nac-portal;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nac module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:send-dhcp-release" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:mlag-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:mlag-traffic-sync-interval" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:dual-syn-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:dual-syn-intval" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:band-width" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:speed-limit" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:access-context" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:access-author" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:last-author-age" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:vip-mac-users" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:mac-move" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:access-user-manage" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:traffic-control" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:device-sensor" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:statistics-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:wlan-max-user-num" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:dual-stack-separate" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:iconnect-access-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:force-mac-authen-first" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:single-stack-control" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:mac-move-detect" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize-of-devices" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize-of-authentication-events/hw-nac:authorize-of-authentication-event/hw-nac:last-authorization" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize-of-authentication-events/hw-nac:authorize-of-authentication-event/hw-nac:authorize/hw-nac:ucl-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:domain-name" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:assigned-ip-address/hw-nac:arp-delay" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:realtime-accounting-trigger/hw-nac:update-info-accounting" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:realtime-accounting-trigger/hw-nac:update-session-mode" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:permit-domain-list" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:force-push" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-acl/hw-nac:ipv6-acl" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-acl/hw-nac:ipv4-acl" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:description" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:source/hw-nac:source/hw-nac:source-params/hw-nac:mac-address" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:access-context-profiles" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:access-author-policys" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:user-roams" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:arp-detect/hw-nac:delay" {
+    deviate replace {
+      type uint8 {
+        range "10..120";
+      }
+    }
+    deviate replace {
+      default "10";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:arp-detect/hw-nac:detect-source-items/hw-nac:detect-source-item" {
+    deviate add {
+      must './vlan and ./ip and ./mac';
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:arp-detect/hw-nac:detect-source-items/hw-nac:detect-source-item/hw-nac:mac" {
+    deviate replace {
+      type string {
+        length "0..255";
+        pattern '[0-9a-f]{1}[02468ace]{1}[0-9a-f]{2}(-[0-9a-f]{4}){2}';
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:global/hw-nac:access-user-car-mode/hw-nac:mode" {
+    deviate replace {
+      type enumeration {
+        enum default {
+          value 0;
+          description
+            "Default CAR mode, without authorization and accounting.";
+        }
+        enum dtls {
+          value 4;
+          description
+            "CAR mode for the RADIUS over DTLS scenario.";
+        }
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:name" {
+    deviate add {
+      must "../name != '-' and ../name != '--'";
+    }
+    deviate replace {
+      type string {
+        length "1..31";
+        pattern "([^/\\*\":?<>|%'@]{1,31})";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:portal-access-profile" {
+    deviate delete {
+      must '/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile[hw-nac-portal:name=current()]/hw-nac-portal:portal-server/hw-nac-portal:server-name or /hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile[hw-nac-portal:name=current()]/hw-nac-portal:local-portal-function/hw-nac-portal:local-server-enable';
+    }
+    deviate add {
+      must '/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile[hw-nac-portal:name=current()]/hw-nac-portal:portal-server/hw-nac-portal:server-name';
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:timer/hw-nac:aging-period/hw-nac:pre-authen" {
+    deviate replace {
+      type uint32 {
+        range "0 | 60..4294860";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:timer/hw-nac:aging-period/hw-nac:authen-fail" {
+    deviate replace {
+      type uint32 {
+        range "0 | 60..4294860";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:timer/hw-nac:aging-period/hw-nac:authorize-keep" {
+    deviate replace {
+      type uint32 {
+        range "0 | 60..4294860";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authentication-mode/hw-nac:default-max-user-num" {
+    deviate replace {
+      type uint32 {
+        range "1..500";
+      }
+    }
+    deviate replace {
+      default "500";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authentication-mode/hw-nac:user-nums/hw-nac:user-num/hw-nac:max-user-num" {
+    deviate replace {
+      type uint32 {
+        range "1..500";
+      }
+    }
+    deviate replace {
+      default "500";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize-of-authentication-events/hw-nac:authorize-of-authentication-event/hw-nac:event" {
+    deviate add {
+      must '../vlan-id or ../service-scheme';
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:authorize-of-authentication-events/hw-nac:authorize-of-authentication-event/hw-nac:response-fail" {
+    deviate add {
+      must "../event = 'pre-authen' and ../response-fail = 'false'";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:link-down-offline/hw-nac:off-line" {
+    deviate add {
+      default "delay-time";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:link-down-offline/hw-nac:off-line/hw-nac:unlimited/hw-nac:unlimited" {
+    deviate delete {
+      default "false";
+    }
+    deviate add {
+      must "../unlimited = 'true'";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile" {
+    deviate add {
+      max-elements 1;
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:name" {
+    deviate add {
+      must "../name = 'default_free_rule'";
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule" {
+    deviate add {
+      must 'source or destination';
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:rule-id" {
+    deviate replace {
+      type uint16 {
+        range "0..511";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:source/hw-nac:source/hw-nac:source-params/hw-nac:subnet/hw-nac:prefix-length/hw-nac:prefix-length" {
+    deviate replace {
+      type uint8 {
+        range "1..32";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:destination/hw-nac:destination/hw-nac:destination-ip/hw-nac:subnet/hw-nac:prefix-length/hw-nac:prefix-length" {
+    deviate replace {
+      type uint8 {
+        range "1..32";
+      }
+    }
+  }
+  deviation "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:free-rules/hw-nac:free-rule/hw-nac:destination/hw-nac:destination-port" {
+    deviate add {
+      must './protocol and ./destination-port';
+    }
+  }
+  ext:deviation-ext "/hw-nac:nac/hw-nac:global/hw-nac:arp-detect/hw-nac:detect-source-items/hw-nac:detect-source-item/hw-nac:mac" {
+    ext:deviate-ext "add" {
+      ext:case-sensitivity "lower-only";
+    }
+  }
+  ext:deviation-ext "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete" {
+        ext:filter "name='default_free_rule'";
+        description
+          "The default free_rule profile cannot be deleted.";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:generated-by "system" {
+        ext:filter "name='default_free_rule'";
+        description
+          "The default free-rule profile is generated by system.";
+      }
+    }
+  }
+}

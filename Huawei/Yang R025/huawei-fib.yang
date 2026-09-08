@@ -1,0 +1,806 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fib {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-fib";
+  prefix fib;
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-arp-fwd {
+    prefix arp-fwd;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Forwarding information base.";
+  revision 2024-08-29 {
+    description
+      "Add deliver-FIB-entriesEnable node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-05 {
+    description
+      "Add units of leaf nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-19 {
+    description
+      "Add Node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-22 {
+    description
+      "Modify must condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-28 {
+    description
+      "Modify ifName length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-23 {
+    description
+      "Modify Node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-07 {
+    description
+      "Add must condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-24 {
+    description
+      "Add nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-06-27 {
+    description
+      "Update node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-06-22 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-04-16 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-06 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-04-01 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef af-type {
+    type enumeration {
+      enum "ipv4unicast" {
+        value 1;
+        description
+          "IPv4 address family type.";
+      }
+      enum "ipv6unicast" {
+        value 2;
+        description
+          "IPv6 address family type.";
+      }
+    }
+    description
+      "Af type.";
+  }
+  typedef fib-cfg-type {
+    type enumeration {
+      enum "ipv4-fib" {
+        value 1;
+        description
+          "IPv4 FIB type.";
+      }
+      enum "ipv6-fib" {
+        value 2;
+        description
+          "IPv6 FIB type.";
+      }
+    }
+    description
+      "FIB type.";
+  }
+  typedef fib-check-retult-type {
+    type enumeration {
+      enum "ok" {
+        value 0;
+        description
+          "OK mode.";
+      }
+      enum "soft-not-exist" {
+        value 1;
+        description
+          "Soft not exist mode.";
+      }
+      enum "hard-not-exist" {
+        value 2;
+        description
+          "Hard not exist mode.";
+      }
+      enum "nhp-diff" {
+        value 3;
+        description
+          "Nhp diff mode.";
+      }
+      enum "outif-diff" {
+        value 4;
+        description
+          "Outif diff mode.";
+      }
+      enum "not-support" {
+        value 5;
+        description
+          "Not support mode.";
+      }
+    }
+    description
+      "Fib check retult type.";
+  }
+  
+  grouping group-aging-mode {
+    description
+        "Configure aging mode.";
+    choice aging-mode {
+      description
+        "Configure aging mode.";
+      case idle {
+        description "Aging when no flow exists.";	  
+        container aging-mode-idle {
+          presence
+            "Enable aging when no flow exists.";
+          description
+            "Configure an aging interval when no flow exists.";
+          leaf age-interval{
+            type uint32 {
+              range "30..600";
+            }
+            units "s";
+            default "60";
+            description
+              "Aging interval when no flow exists, in seconds.";
+          }
+        }
+      }
+      case fixed {
+        description
+          "Scheduled aging.";	  
+        container aging-mode-fixed {
+          presence
+            "Enable scheduled aging.";
+          description
+            "Configure a scheduled aging interval and FIB hold time.";
+          leaf age-interval{
+            type uint32 {
+              range "1..24";
+            }
+            units "h";
+            default "12";
+            description
+              "Scheduled aging interval, in hours.";
+          }
+          leaf hold-time{
+            type uint32 {
+              range "1..30";
+            }
+            units "min";
+            default "10";
+            description
+              "FIB hold time, in minutes.";
+          }
+        }
+      }
+    }
+  }
+
+  ext:task-name "forwarding";
+  container fib {
+    description
+      "Forwarding information base.";
+    container unicast-afs {
+      config false;
+      description
+        "List of forwarding information base.";
+      list unicast-af {
+        key "vrf-name af-type position";
+        description
+          "Operational state of forwarding information base.";
+        leaf vrf-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "Virtual private network.";
+        }
+        leaf af-type {
+          type af-type;
+          description
+            "Address type.";
+        }
+        leaf position {
+          type string {
+            length "0..16";
+          }
+          description
+            "Slot number.";
+        }
+        container routes {
+          description
+            "List of FIB entry.";
+          list route {
+            key "destination mask nexthop if-name tunnel-id";
+            description
+              "Operational state of FIB entry.";
+            leaf destination {
+              type inet:ip-address-no-zone;
+              description
+                "Destination address.";
+            }
+            leaf mask {
+              type uint32 {
+                range "0..128";
+              }
+              description
+                "The length of mask address.";
+            }
+            leaf nexthop {
+              type inet:ip-address-no-zone;
+              description
+                "Next hop address.";
+            }
+            leaf if-name {
+              type string {
+                length "1..255";
+              }
+              description
+                "Interface name.";
+            }
+            leaf tunnel-id {
+              type string {
+                length "0..49";
+              }
+              description
+                "Tunnel ID.";
+            }
+            leaf vlan-id {
+              type uint32;
+              description
+                "VLAN ID.";
+            }
+            leaf inner-label {
+              type pub-type:hex-binary;
+              description
+                "Inner label.";
+            }
+            leaf lsp-token {
+              type pub-type:hex-binary;
+              description
+                "The token of label switch path.";
+            }
+            leaf bak-nexthop {
+              type inet:ip-address-no-zone;
+              description
+                "Backup next hop address.";
+            }
+            leaf bak-if-name {
+              type string {
+                length "1..255";
+              }
+              description
+                "Backup interface name.";
+            }
+            leaf bak-inner-lable {
+              type pub-type:hex-binary;
+              description
+                "Backup inner label.";
+            }
+            leaf bak-lsp-token {
+              type pub-type:hex-binary;
+              description
+                "Backup LSP token.";
+            }
+            leaf bgp-nexthop {
+              type inet:ip-address-no-zone;
+              description
+                "Bgp next hop address.";
+            }
+          }
+        }
+        container statistics {
+          description
+            "FIB total number statistics.";
+          leaf total-num {
+            type uint32;
+            description
+              "FIB total number.";
+          }
+        }
+      }
+    }
+    container route-statistics {
+      config false;
+      description
+        "Statistics of route-entry.";
+      container ip-route-resources {
+        config false;
+        description
+          "List of IPv4 route-entry total num.";
+        list ip-route-resource {
+          key "slot";
+          description
+            "Statistics of IPv4 route-entry total num.";
+          leaf slot {
+            type string {
+              length "0..16";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf total {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "IPv4 route-entry total num.";
+          }
+          leaf used {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "IPv4 route-entry used total num.";
+          }
+        }
+      }
+      container ip-route-entry-counts {
+        config false;
+        description
+          "List of IPv4 route-Entry used num in vpn.";
+        list ip-route-entry-count {
+          key "slot vpn-name";
+          description
+            "Statistics of IPv4 route-entry used num in vpn.";
+          leaf slot {
+            type string {
+              length "0..16";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf vpn-name {
+            type string {
+              length "0..32";
+            }
+            description
+              "VPN instance name.";
+          }
+          leaf entrycount {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "IPv4 route-entry used num.";
+          }
+        }
+      }
+      container ipv6-route-resources {
+        config false;
+        description
+          "List of IPv6 route-entry total num.";
+        list ipv6-route-resource {
+          key "slot";
+          description
+            "Statistics of IPv6 route-entry total num.";
+          leaf slot {
+            type string {
+              length "0..16";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf total {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "The max number of IPv6 routes.";
+          }
+          leaf used {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "IPv6 route-entry used total num.";
+          }
+        }
+      }
+      container ipv6-route-entry-counts {
+        config false;
+        description
+          "List of IPv6 route-entry used num in vpn.";
+        list ipv6-route-entry-count {
+          key "slot vpn-name";
+          description
+            "Statistics of IPv6 route-entry used num in vpn.";
+          leaf slot {
+            type string {
+              length "0..24";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf vpn-name {
+            type string {
+              length "0..32";
+            }
+            description
+              "VPN instance name.";
+          }
+          leaf entry-count {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "IPv6 route-entry used num.";
+          }
+        }
+      }
+    }
+    
+    container m-lag-route-convergence-enhanced {
+      must "/arp-fwd:arp-fwd/arp-fwd:m-lag-l3-enhanced/arp-fwd:enable = 'true' or enable = 'false'";
+      description
+        "Configure enhanced M-LAG route convergence in IPv4 and IPv6 scenarios.";
+      leaf enable{
+          type boolean;
+          default "false";
+          description
+            "Enable/disable enhanced M-LAG route convergence in IPv4 and IPv6 scenarios.";
+      }
+    }
+
+    container ipv4-fib-checks {
+      config false;
+      description
+        "List of fib4 check results.";
+      list ipv4-fib-check {
+        key "slot-id vpn-name ipaddr";
+        description
+          "Statistics of fib4 check results.";
+        leaf slot-id {
+          type string {
+            length "0..16"; 
+          }
+          description
+            "Slot ID.";
+        }
+        leaf vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "Specifies a VPN instance name. Public network vpn-name value is '_public_'.";
+        }
+        leaf ipaddr {
+          type inet:ipv4-address-no-zone ;
+          description
+            "IPv4 address.";
+        }
+        leaf check-result {
+          type fib-check-retult-type;
+          description
+            "Check result.";
+        }
+        leaf nexthop-num {
+          type uint8 {
+            range "0..16";
+          }
+          description
+            "Nexthop num.";
+        }
+        leaf-list nexthop4 {
+          type inet:ipv4-address-no-zone ;
+          max-elements  "16";
+          description "Statistics of nexthop4 address.";
+        }
+		leaf-list nexthop6 {
+          type inet:ipv6-address-no-zone ;
+          max-elements  "16";
+          description "Statistics of nexthop6 address.";
+        }
+      }
+    }
+
+    container ipv6-fib-checks {
+      config false;
+      description
+        "List of fib6 check results.";
+      list ipv6-fib-check {
+        key "slot-id vpn-name ip6addr";
+        description
+          "Statistics of fib6 check results.";
+        leaf slot-id {
+          type string {
+            length "0..16"; 
+          }
+          description
+            "Slot ID.";
+        }
+        leaf vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "Specifies a VPN instance name. Public network vpn-name value is '_public_'.";
+        }
+        leaf ip6addr {
+          type inet:ipv6-address-no-zone ;
+          description
+            "IPv6 address.";
+        }
+        leaf check-result {
+          type fib-check-retult-type;
+          description
+            "Check result.";
+        }
+        leaf nexthop-num {
+          type uint8 {
+            range "0..16";
+          }
+          description
+            "Nexthop num.";
+        }
+        leaf-list nexthop6 {
+          type inet:ipv6-address-no-zone ;
+          max-elements  "16";
+          description "Statistics of nexthop6 address.";
+        }
+      }
+    }
+	
+    container fib-ipv4-on-demand {
+      presence
+        "Enable FIB download on demand.";
+      description
+        "Configure FIB download on demand.";
+      container destinations {
+        description
+          "List of rules for FIB download on demand.";
+        list destination {
+          key "ip-address mask-length vpn-name";
+          max-elements 4000;
+          description "Configure rules for FIB download on demand.";
+          leaf ip-address {
+            type inet:ipv4-address;
+            description
+              "IPv4 address.";
+          }
+          leaf mask-length {
+            type uint32 {
+              range "0..32";
+            }
+            description
+              "IP address mask length.";
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description "Specify the name of a VPN instance.";
+          }
+        }
+      }
+	  uses group-aging-mode;
+    }
+
+    container fib-ipv6-on-demand {
+      presence
+        "Enable IPv6 FIB download on demand.";
+      description
+        "Configure IPv6 FIB download on demand.";
+      container destinations {
+        description
+          "List of rules for IPv6 FIB download on demand.";
+        list destination {
+          key "ip-address mask-length vpn-name";
+          max-elements 4000;
+          description "Configure rules for IPv6 FIB download on demand.";
+          leaf ip-address {
+            type inet:ipv6-address;
+            description
+              "IPv6 address.";
+          }
+          leaf mask-length {
+            type uint32 {
+              range "0..128";
+            }
+            description
+              "IPv6 address mask length.";
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description "Specify the name of a VPN instance.";
+          }
+        }
+      }
+      uses group-aging-mode;
+    }
+
+  }
+  augment "/devm:devm/devm:lpu-boards/devm:lpu-board" {
+    description
+      "Configure FIB to the devm module.";
+    container fib {
+      description
+        "Configure FIB.";
+      container fib-alarm-thresholds {
+        description
+          "List of user-defined FIB alarm threshold.";
+        list fib-alarm-threshold {
+          must "upper-limit>lower-limit";
+          key "fib-type";
+          description
+            "Configure user-defined FIB alarm threshold.";
+          leaf fib-type {
+            type fib-cfg-type;
+            description
+              "FIB type.";
+          }
+          leaf lower-limit {
+            type uint32 {
+              range "1..99";
+            }
+            mandatory true;
+            description
+              "User-defined lower-limit of FIB alarm threshold.";
+          }
+          leaf upper-limit {
+            type uint32 {
+              range "2..100";
+            }
+            mandatory true;
+            description
+              "User-defined upper-limit of FIB alarm threshold.";
+          }
+        }
+      }
+      container fib-capacity-limits {
+        description
+          "List of user-defined FIB capacity limit.";
+        list fib-capacity-limit {
+          key "fib-type";
+          description
+            "Configure user-defined FIB capacity limit.";
+          leaf fib-type {
+            type fib-cfg-type;
+            description
+              "FIB type.";
+          }
+          leaf capacity-limit {
+            type uint32 {
+              range "1..4294967295";
+            }
+            mandatory true;
+            description
+              "User-defined FIB capacity-limit. The configured FIB capacity must be less than or equal to the FIB capacity of the board and greater than or equal to the number of used FIB entries on the board.";
+          }
+        }
+      }
+      container nexthop-type {
+        description
+          "Configure the board to deliver FIB entries in VXLAN scenarios.";
+        leaf vxlan-permit {
+          type empty;
+          description
+            "Enable/disable the board to deliver FIB entries in VXLAN scenarios.";
+        }
+      }
+    }
+  }
+  augment "/devm:devm/devm:mpu-boards/devm:mpu-board" {
+    description
+      "Configure FIB to the devm module.";
+    container fib {
+      description
+        "Configure FIB.";
+      container fib-alarm-thresholds {
+        description
+          "List of user-defined FIB alarm threshold.";
+        list fib-alarm-threshold {
+          must "upper-limit>lower-limit";
+          key "fib-type";
+          description
+            "Configure user-defined FIB alarm threshold.";
+          leaf fib-type {
+            type fib-cfg-type;
+            description
+              "FIB type.";
+          }
+          leaf lower-limit {
+            type uint32 {
+              range "1..99";
+            }
+            mandatory true;
+            description
+              "User-defined lower-limit of FIB alarm threshold.";
+          }
+          leaf upper-limit {
+            type uint32 {
+              range "2..100";
+            }
+            mandatory true;
+            description
+              "User-defined upper-limit of FIB alarm threshold.";
+          }
+        }
+      }
+      container fib-capacity-limits {
+        description
+          "List of user-defined FIB capacity limit.";
+        list fib-capacity-limit {
+          key "fib-type";
+          description
+            "Configure user-defined FIB capacity limit.";
+          leaf fib-type {
+            type fib-cfg-type;
+            description
+              "FIB type.";
+          }
+          leaf capacity-limit {
+            type uint32 {
+              range "1..4294967295";
+            }
+            mandatory true;
+            description
+              "User-defined FIB capacity-limit. The configured FIB capacity must be less than or equal to the FIB capacity of the board and greater than or equal to the number of used FIB entries on the board.";
+          }
+        }
+      }
+    }
+  }
+}

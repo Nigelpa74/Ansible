@@ -1,0 +1,487 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cellular-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-cellular-notification";
+  prefix cellular-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of cellular module.";
+  revision 2025-08-22 {
+    description "Modify the type of upgrade-result.";
+    reference "";
+  }
+  revision 2025-08-21 {
+    description "Fix descrition of domain.";
+    reference "";
+  }
+  revision 2025-08-04 {
+    description "Add modem upgrade result.";
+    reference "";
+  }
+  revision 2025-07-14 {
+    description "Add pre-verify-failed node.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-09-02 {
+    description
+      "Added IoT alarm items.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-06-29 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  ext:task-name  "wwan";
+  notification cell-id-change {
+    description
+      "The cell id is changed.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf origin-cell-id {
+      type uint64;
+      description
+        "ID of the cell before a handover.";
+    }
+    leaf new-cell-id {
+      type uint64;
+      description
+        "ID of the cell after a handover.";
+    }
+  }
+  notification modem-reboot {
+    description
+      "Modem reboot.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf reboot-reason {
+      type string {
+        length "1..128";
+      }
+      description
+        "Modem reboot reason.";
+    }
+  }
+  notification modem-reboot-completed {
+    description
+      "Modem reboot completed.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+  }
+  notification net-reject {
+    description
+      "The Cellular network connection is rejected.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf reject-code {
+      type string {
+        length "1..32";
+      }
+      description
+        "Network reject code.";
+    }
+  }
+  notification net-reject-resume {
+    description
+      "Cellular network connection recovery.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+  }
+  notification service-emergency {
+    description
+      "The cellular interface has no service for a long time and works in the emergency service state.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf service-status {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service status.";
+    }
+    leaf domain {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service domain.";
+    }
+    leaf network-mode {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current network connection mode.";
+    }
+    leaf operator {
+      type string {
+        length "1..32";
+      }
+      description
+        "Mobile Operator Information.";
+    }
+    leaf cell-id {
+      type uint64;
+      description
+        "Cell ID.";
+    }
+    leaf rssi {
+      type string {
+        length "1..32";
+      }
+      description
+        "Received signal strength indicator.";
+    }
+    leaf rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (LTE signal).";
+    }
+    leaf sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (LTE signal).";
+    }
+    leaf nr-rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (5G signal).";
+    }
+    leaf nr-sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (5G signal).";
+    }
+  }
+  notification service-emergency-resume {
+    description
+      "The cellular interface recovers services.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf service-status {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service status.";
+    }
+    leaf domain {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service domain.";
+    }
+    leaf network-mode {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current network connection mode.";
+    }
+    leaf operator {
+      type string {
+        length "1..32";
+      }
+      description
+        "Mobile Operator Information.";
+    }
+    leaf cell-id {
+      type uint64;
+      description
+        "Cell ID.";
+    }
+    leaf rssi {
+      type string {
+        length "1..32";
+      }
+      description
+        "Received signal strength indicator.";
+    }
+    leaf rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (LTE signal).";
+    }
+    leaf sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (LTE signal).";
+    }
+    leaf nr-rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (5G signal).";
+    }
+    leaf nr-sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (5G signal).";
+    }
+  }
+  notification signal-weak {
+    description
+      "Signals received by the cellular interface are weak.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf service-status {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service status.";
+    }
+    leaf domain {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service domain.";
+    }
+    leaf network-mode {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current network connection mode.";
+    }
+    leaf operator {
+      type string {
+        length "1..32";
+      }
+      description
+        "Mobile Operator Information.";
+    }
+    leaf cell-id {
+      type uint64;
+      description
+        "Cell ID.";
+    }
+    leaf rssi {
+      type string {
+        length "1..32";
+      }
+      description
+        "Received signal strength indicator.";
+    }
+    leaf rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (LTE signal).";
+    }
+    leaf sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (LTE signal).";
+    }
+    leaf nr-rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (5G signal).";
+    }
+    leaf nr-sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (5G signal).";
+    }
+  }
+  notification signal-weak-resume {
+    description
+      "Signals received on the cellular interface recovered.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf service-status {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service status.";
+    }
+    leaf domain {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current service domain.";
+    }
+    leaf network-mode {
+      type string {
+        length "1..32";
+      }
+      description
+        "Current network connection mode.";
+    }
+    leaf operator {
+      type string {
+        length "1..32";
+      }
+      description
+        "Mobile Operator Information.";
+    }
+    leaf cell-id {
+      type uint64;
+      description
+        "Cell ID.";
+    }
+    leaf rssi {
+      type string {
+        length "1..32";
+      }
+      description
+        "Received signal strength indicator.";
+    }
+    leaf rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (LTE signal).";
+    }
+    leaf sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (LTE signal).";
+    }
+    leaf nr-rsrp {
+      type string {
+        length "1..32";
+      }
+      description
+        "Reference signal received power (5G signal).";
+    }
+    leaf nr-sinr {
+      type string {
+        length "1..32";
+      }
+      description
+        "Signal to Interference plus Noise Ratio (5G signal).";
+    }
+  }
+  notification pre-verify-failed {
+    description
+      "Pin verify failed on the cellular interface.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cellular interface name.";
+    }
+    leaf sim-id {
+      type uint8{
+        range "1..2";
+      }
+      description
+        "SIM ID.";
+    }
+  }
+  notification modem-upgrade-result {
+    description
+      "Notificate modem upgrade result.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf upgrade-result {
+      type string {
+        length "1..64";
+      }
+      description
+        "Modem upgrade result.";
+    }
+  }
+}

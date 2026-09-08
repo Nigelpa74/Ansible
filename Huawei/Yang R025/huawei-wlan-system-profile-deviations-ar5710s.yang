@@ -1,0 +1,129 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-system-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-system-profile-deviations-ar5710s";
+  prefix wlan-sys-prof-devs-ar5710s;
+
+  import huawei-wlan-system-profile {
+    prefix wlan-sys-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-system-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:tunnel-devices" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:service-tunnel-profiles" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:igmp-group-bandwidths" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:cpu-defends" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:packet-auto-detect" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:sea-monitor-interval" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:sta-arp-nd-proxy" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:dtls/wlan-sys-prof:ctrl-dtls-switch" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:ssh-first-time" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:alarm-restriction" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:distribute-mode" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:primary-access" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:backup-access" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:link-switch-mode" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:link-switch-packet-loss-echo-probe-time" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:link-switch-gap-threshold" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:link-switch-start-threshold" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:dynamic-blacklist-aging-time" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:switchover-network-off-period" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:service-tunnel-profile-lists" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:distribute-ap" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:iflow-learning" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:application-experience-optimize" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:dot1x-client-pki-realm" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:ap-keep-online" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:container-vlanid" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:camera-detection" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:iot-integration-servers" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:ftm-iot-server-id" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:camera-detection-iot-server-id" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:antenna-output" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile" {
+    deviate delete {
+      must './link-switch-gap-threshold <= ./link-switch-start-threshold';
+    }
+  }
+}

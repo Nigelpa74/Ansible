@@ -1,0 +1,248 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-vap-inst {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-vap-inst";
+  prefix vap-inst;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-ap-radio {
+    prefix ap-radio;
+  }
+  import huawei-wlan-ap {
+    prefix wlan-ap;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix wlan-apg;
+  }
+  import huawei-wlan-group-radio {
+    prefix wlan-gr;
+  }
+  import huawei-wlan-vap-profile {
+    prefix vap-prof;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Vap instance service package.";
+  revision 2025-06-01 {
+    description
+      "Update vap info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-17 {
+    description
+      "Add radio policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-01 {
+    description
+      "Add vap info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-07 {
+    description
+      "Update VLAN presentation.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-09 {
+    description
+      "Fix VLAN pool name length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add VLAN pool configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Fix path.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping vap-instances {
+    description
+      "Vap instances.";
+    container vap-instances {
+      description
+        "List of vap instances.";
+      list vap-instance {
+        key "wlan-id";
+        description
+          "Configure vap instance.";
+        leaf wlan-id {
+          type uint8 {
+            range "1..16";
+          }
+          description
+            "WLAN ID.";
+        }
+        leaf binding-vap-profile {
+          type leafref {
+            path "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:profile-name";
+          }
+          mandatory true;
+          description
+            "Binding a vap profile.";
+        }
+        container service-vlan {
+          description
+            "Configure a service VLAN.";
+          choice vlan-mode {
+            description
+              "Configure a service VLAN mode.";
+            case id {
+              description
+                "Configure a service VLAN id.";
+              leaf service-vlan-id {
+                type uint16 {
+                  range "0..4094";
+                }
+                description
+                  "Specifies a VLAN ID. 0 is invalid.";
+              }
+            }
+
+            case pool {
+              description
+                "Configure a service VLAN pool.";
+              leaf service-vlan-pool {
+                type string {
+                  length "1..31";
+                }
+                description
+                  "Specifies a VLAN Pool.";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping vap-instances-by-policy {
+    description
+      "Configure vap instance on radio policy.";
+    container vap-instances {
+      description "List of vap instances.";
+      list vap-instance {
+        key "wlan-id radio-policy";
+        description
+          "Configure vap instance.";
+        leaf wlan-id {
+          type uint8 {
+            range "1..16";
+          }
+          description
+            "WLAN ID.";
+        }
+        leaf radio-policy {
+          type enumeration {
+            enum "2G" {
+              value 0;
+              description
+                "Frequency is 2.4G.";
+            }
+            enum "5G" {
+              value 1;
+              description
+                "Frequency is 5G.";
+            }
+            enum "6G" {
+              value 2;
+              description
+              "Frequency is 6G.";
+            }
+          } 
+          description "Radio policy.";
+        }
+        leaf binding-vap-profile {
+          type leafref {
+            path "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:profile-name";
+          }
+          mandatory true;
+          description
+            "Binding a vap profile.";
+        }
+      }
+    }
+  }
+
+  augment "/wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance/ap-radio:radio-instances/ap-radio:radio-instance" {
+    description
+      "Configure vap instance on radio.";
+    uses vap-inst:vap-instances;
+    container vap-infos {
+      config false;
+      description
+        "List of vap infos.";
+      list vap-info {
+        key "wlan-id";
+        config false;
+        description
+          "Operational state of the vap info.";
+        leaf wlan-id {
+          type uint8 {
+            range "1..16";
+          }
+          description
+            "WLAN ID.";
+        }
+        leaf ssid {
+          type string {
+            length "1..32";
+          }
+          description
+            "Ssid.";
+        }
+      }
+    }
+  }
+  augment "/wlan-apg:wlan-ap-group-profile/wlan-apg:ap-group-profiles/wlan-apg:ap-group-profile/wlan-gr:radio-instances/wlan-gr:radio-instance" {
+    description
+      "Configure vap instance on radio.";
+    uses vap-inst:vap-instances;
+  }
+
+  augment "/wlan-apg:wlan-ap-group-profile/wlan-apg:ap-group-profiles/wlan-apg:ap-group-profile" {
+    description
+      "Configure vap instance on ap group by radio policy.";
+    uses vap-inst:vap-instances-by-policy;
+  }
+
+  augment "/wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance" {
+    description
+      "Configure vap instance on ap id by radio policy.";
+    uses vap-inst:vap-instances-by-policy;
+  }
+
+  ext:task-name "lcm";
+}

@@ -1,0 +1,183 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-deviations-ar5710s";
+  prefix hw-wlan-ap-devs-ar5710s;
+
+  import huawei-wlan-ap {
+    prefix hw-wlan-ap;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ap module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:site-code" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:longitude" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:latitude" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:ap-provision/hw-wlan-ap:management-vlan" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:ap-provision/hw-wlan-ap:ap-mode" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:ap-provision/hw-wlan-ap:server-auth-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:ap-provision/hw-wlan-ap:server-auth-cn-lists" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:license-control/hw-wlan-ap:experience-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:license-control/hw-wlan-ap:security-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:license-control/hw-wlan-ap:url-filter-state" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:ap-zone" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:app-auto-downgrade-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:camera-detection" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance/hw-wlan-ap:iot-mcx-instances" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-s-ipfpm-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-application-statistics-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-emdi-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-mesh-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:roam-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-security-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-iflow-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-flow-learning" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-ftm-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-gnss-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:wmi-server-infos/hw-wlan-ap:wmi-server-info/hw-wlan-ap:collect-camera-detection-data" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-provision/hw-wlan-ap:management-vlan" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:register-tunnel-aps" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:port-statistics/hw-wlan-ap:port-statistic/hw-wlan-ap:port-auth-state" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:port-statistics/hw-wlan-ap:port-statistic/hw-wlan-ap:port-macsec-state" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:replace-ap" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:uplink-port" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:leader-ap-work-mode" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:tunnel-aps" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ac-protect" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:reset-ap-with-factory-configuration" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:register-tunnel-apstatus-ack" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:get-ap-connect-fail-reason" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:reset-ap-connect-fail-reason" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:set-auth-svr-down-vap" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:set-ap-power-save-mode" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:set-psmap-para-collection" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:trigger-ftm" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:set-gnss" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:load-file" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:set-camera-quick-detection" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:update-au-status" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:get-ap-ftm-distance" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:get-ap-radio-binging-profile-name" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:container-cpu" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-ap:wlan-ap/hw-wlan-ap:ap-instances/hw-wlan-ap:ap-instance" {
+    deviate delete {
+      must 'not(./ap-provision/ap-mode)';
+    }
+  }
+}

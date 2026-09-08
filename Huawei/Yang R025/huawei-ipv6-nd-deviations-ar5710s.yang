@@ -1,0 +1,143 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ipv6-nd-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ipv6-nd-deviations-ar5710s";
+  prefix ipv6-nd-devs-ar5710s;
+
+  import huawei-ipv6-nd {
+    prefix ipv6-nd;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ipv6-nd module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:m-lag-global" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:work-dyn-if-name" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:nickname" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:bd-id" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:vni" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:source-addr" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbors/ipv6-nd:ipv6-neighbor/ipv6-nd:peer-addr" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:nd-pkt-stats/ipv6-nd:proxy-packet-stats" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:evpn-global" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:hot-backup-global" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:ipv6-neighbor-stats/ipv6-nd:free-resource-stats" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:multicast-suppress-info" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:ipv6-nd/ipv6-nd:nd-dual-stats" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:nd-dual-pkt-clear" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:dynamic-proxy-nd-clear" {
+    deviate not-supported;
+  }
+  deviation "/ipv6-nd:nd-proxy-stat-clear" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/ipv6-nd:nd-bd-property" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:if-property/ipv6-nd:ns-mcast-flag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:if-property/ipv6-nd:dad-timeout" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:if-property/ipv6-nd:collect-host-flag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:if-property/ipv6-nd:generate-rd-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:proxys" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:static-neighbor/ipv6-nd:vbd-ifs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:evpn-property" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:hot-backup-property" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:una-property" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:packet-policys" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/ipv6-nd:nd-collection/ipv6-nd:if-property/ipv6-nd:max-dyn-nb-num" {
+    deviate replace {
+      type uint64 {
+        range "0..262144";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ipv6-nd:nd-dyn-nb-limit/ipv6-nd:vlan-limits/ipv6-nd:vlan-limit" {
+    deviate add {
+      must '../../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ipv6-nd:nd-dyn-nb-limit/ipv6-nd:vlan-limits/ipv6-nd:vlan-limit/ipv6-nd:max-dyn-nb-num" {
+    deviate replace {
+      type uint32 {
+        range "0..262144";
+      }
+    }
+  }
+}

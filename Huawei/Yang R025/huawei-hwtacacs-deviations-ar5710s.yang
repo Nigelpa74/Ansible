@@ -1,0 +1,164 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-hwtacacs-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-hwtacacs-deviations-ar5710s";
+  prefix hwtacacs-devs-ar5710s;
+
+  import huawei-hwtacacs {
+    prefix hwtacacs;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-hwtacacs module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef hwtacacs-server-type-deviations {
+    type enumeration {
+      enum authentication {
+        value 0;
+        description
+          "The server is an authentication server.";
+      }
+      enum authorization {
+        value 1;
+        description
+          "The server is an authorization server.";
+      }
+      enum accounting {
+        value 2;
+        description
+          "The server is an accounting server.";
+      }
+    }
+    description
+      "The type of hwtacacs server.";
+  }
+
+  deviation "/hwtacacs:hwtacacs/hwtacacs:global/hwtacacs:is-enable" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:global/hwtacacs:service-name" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:global/hwtacacs:default-remote-address" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:source-ipv6-address" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:servers" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host/hwtacacs:host-name" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host/hwtacacs:ipv6-address" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-ipv6-hosts" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:hwtacacs-servers" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:ipv4-servers" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:ipv6-servers" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:status" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs-change-user-password" {
+    deviate not-supported;
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:global/hwtacacs:acct-stop-packet-resend-times" {
+    deviate replace {
+      default "3";
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template" {
+    deviate replace {
+      max-elements 16;
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:name" {
+    deviate replace {
+      type string {
+        length "1..32";
+        pattern '([A-Za-z0-9._-]{3,32})|([A-Za-z0-9._]-)|(-[A-Za-z0-9._])|[A-Za-z0-9._]{1,2}';
+      }
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:shared-key" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..428";
+      }
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:source-address/hwtacacs:interface/hwtacacs:interface-name" {
+    deviate replace {
+      type string {
+        length "1..63";
+        pattern '((Vlanif([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-3][0-9][0-9][0-9]|40[0-8][0-9]|409[0-4]))|(LoopBack([0-9]|[1-9][0-9]|[1-9][0-9][0-9]|10[0-1][0-9]|102[0-3])))';
+      }
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:domain-mode" {
+    deviate replace {
+      default "original";
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:traffic-unit" {
+    deviate add {
+      default "byte";
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host" {
+    deviate add {
+      must './ip-address';
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host/hwtacacs:type" {
+    deviate replace {
+      type hwtacacs-devs-ar5710s:hwtacacs-server-type-deviations;
+    }
+  }
+  deviation "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host/hwtacacs:ip-address" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  ext:deviation-ext "/hwtacacs:hwtacacs/hwtacacs:templates/hwtacacs:template/hwtacacs:server-hosts/hwtacacs:server-host/hwtacacs:ip-address" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+}

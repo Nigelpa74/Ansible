@@ -1,0 +1,112 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cellular-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-cellular-deviations-ar5710s";
+  prefix cellular-devs-ar5710s;
+
+  import huawei-cellular {
+    prefix cellular;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-cellular module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef apn-profile-password-extend-deviations {
+    type pub-type:password-extend {
+      length "1..32 | 128..168";
+    }
+    description
+      "The value is a string of 1 to 32 case-sensitive characters in plain text or a string of 128 to 168 case-sensitive characters in cipher text, spaces not supported.";
+  }
+
+  typedef cellular-profile-password-extend-deviations {
+    type pub-type:password-extend {
+      length "1..64 | 128..188";
+    }
+    description
+      "The value is a string of 1 to 64 case-sensitive characters in non-cipher text or 128 to 188 case-sensitive characters in cipher text. If the string is enclosed in double quotation marks (\"), spaces are allowed in the string.";
+  }
+
+  deviation "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:modem-event/cellular:icmpv6-unreachable" {
+    deviate not-supported;
+  }
+  deviation "/cellular:module-upgrade/cellular:input/cellular:slot-id" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular/cellular:modem-event/cellular:detect-event/cellular:ipv6-addresses" {
+    deviate not-supported;
+  }
+  deviation "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:pin-pre-verifications" {
+    deviate not-supported;
+  }
+  deviation "/cellular:modify-sim-pin" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular-state/cellular:current-apns" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular-state/cellular:sims/cellular:sim/cellular:network/cellular:band" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular-state/cellular:sims/cellular:sim/cellular:network/cellular:ber" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular-state/cellular:sims/cellular:sim/cellular:network/cellular:arfcn" {
+    deviate not-supported;
+  }
+  deviation "/cellular:cellular/cellular:apn-profiles/cellular:apn-profile/cellular:authentication-method/cellular:password" {
+    deviate replace {
+      type cellular-devs-ar5710s:apn-profile-password-extend-deviations;
+    }
+  }
+  deviation "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:apn-default-bearers/cellular:apn-default-bearer/cellular:authentication/cellular:password" {
+    deviate replace {
+      type cellular-devs-ar5710s:cellular-profile-password-extend-deviations;
+    }
+  }
+  deviation "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:dialer-timer/cellular:interval" {
+    deviate add {
+      default "seconds";
+    }
+  }
+  deviation "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:band" {
+    deviate add {
+      default "band-auto";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/cellular:cellular/cellular:modem-event/cellular:dial-failed/cellular:fail-times" {
+    deviate replace {
+      default "30";
+    }
+  }
+  ext:deviation-ext "/cellular:cellular/cellular:log" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete";
+    }
+  }
+}

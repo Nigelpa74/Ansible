@@ -1,0 +1,4273 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap";
+  prefix hw-wlan-ap;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-pki {
+    prefix pki;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Ap instance service package.";
+  revision 2025-09-16 {
+    description
+      "Add rpc container-cpu.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-12 {
+    description
+      "Add leaf local-security-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-11 {
+    description
+      "Modify camera detection mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-12 {
+    description
+      "Modify csi distance-range and add presence-re-enter-delay.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-07 {
+    description
+      "Add get-ap-radio-binging-profile-name and collect-camera-detection-data.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-05 {
+    description
+      "Add IoT mcx configurations.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-26 {
+    description
+      "Add csi reporting and detection configurations.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-19 {
+    description
+      "Add get-ap-ftm-distance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-18 {
+    description
+      "Add app-auto-downgrade-switch, camera detection mode and sensitivity-level, camera-quick-detection.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-03 {
+    description
+      "Add mandatory true to ap-sn of tunnel ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-01 {
+    description
+      "Modify the type of floor-height and altitude.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-26 {
+    description
+      "Modify choice tunnel-dtls-type and add case-sensitivity to ap-sn of tunnel ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-14 {
+    description
+      "Modify the ap-type range.";
+    reference
+      "Huawei private.";
+  }
+    revision 2025-05-09 {
+    description
+      "Modify gnss floor id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-08 {
+    description
+      "Collect ap module information.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-06 {
+    description
+      "Add au shutdown state and pair-ap-mac.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-22 {
+    description
+      "Modify power save mode.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-04-21 {
+    description
+      "Modify enumeration of tunnel ap state.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-03 {
+    description
+      "Add ap-lldp and rpc load-file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-15 {
+    description
+      "Add csi configuration of ap instance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-05 {
+    description
+      "Add asfn-id, altitude, cross-room-cov, status of an-instance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-04 {
+    description
+      "Add pair-ap-mac.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-16 {
+    description
+      "Change collect security interval.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-11 {
+    description
+      "Add dual-link.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-07 {
+    description
+      "Add au.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-21 {
+    description
+      "Add trigger-ftm and set-gnss.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-14 {
+    description
+      "Add spectrum analysis source IP.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-13 {
+    description
+      "Add port auth-state, macsec-state and url-filter-state.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-25 {
+    description
+      "Add power save mode for ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-20 {
+    description
+      "Add tunnel-ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-18 {
+    description
+      "Add collect-iflow-data and collect-flow-learning.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-04 {
+    description
+      "Add security license.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-22 {
+    description
+      "Add update-success value for update-status.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-08 {
+    description
+      "Add the rpc of set-remote-ap-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-28 {
+    description
+      "Add security-switch in register-aps.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-18 {
+    description
+      "Add data collection configuration for the security.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-14 {
+    description
+      "Add leader ap configurations.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-10 {
+    description
+      "Fix ap-name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-09 {
+    description
+      "Add public key.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-30 {
+    description
+      "Add uplink for leader ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-23 {
+    description
+      "Add container information and leaf longitude latitude.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-14 {
+    description
+      "Remove operation-exclude delete of temp-mgmt-psk.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-23 {
+    description
+      "Add license control switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add data collection configuration for the csi, spectrum analysis, and mesh.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-08 {
+    description
+      "Add IPv6 address.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-06-21 {
+    description
+      "Add timeout status of the get-ap-ping-result node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-19 {
+    description
+      "Add replace-ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-14 {
+    description
+      "Add a license pool.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-09 {
+    description
+      "Add temp-mgmt-psk leaf operation exclude.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-30 {
+    description
+      "Modify port range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-17 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-16 {
+    description
+      "Reset-ap-with-factory-configuration leaf add mandatory.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-23 {
+    description
+      "Add ap collect roam data info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-01 {
+    description
+      "Add ap diagnostic information.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add site code.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-03 {
+    description
+      "Add reset-ap-connect-fail-reason.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-02 {
+    description
+      "Modify ap-provision.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-23 {
+    description
+      "Modify ap-ping.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-25 {
+    description
+      "Add reset-ap-with-factory-configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-22 {
+    description
+      "Add the rpc of ap-ping and get-ap-ping-result.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-20 {
+    description
+      "Add the rpc of active or inactive auth-svr-down-vap.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-06-15 {
+    description
+      "Add the constraints of ap-instance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-25 {
+    description
+      "Delete the relation of ap-instance and ap-auth-mode; modify the ap-license type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-06 {
+    description
+      "Modify collect location data interval and sub module.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-25 {
+    description
+      "Modify vendor version and patch version length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-13 {
+    description
+      "Modify cloud ac info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-31 {
+    description
+      "Modify keepalive para default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-11 {
+    description
+      "Add pki ream, Modify log-report.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-06 {
+    description
+      "Add license info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-05 {
+    description
+      "Add scene node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-30 {
+    description
+      "Add ap performance node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add wmi collect info.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-11-23 {
+    description
+      "Remove led blink cancel.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-10-06 {
+    description
+      "Add blink time.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add ap provision and wmi server info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Delete ap username and password and remove it to huawei-wlan-management file.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-07-05 {
+    description
+      "Fix ap-group length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef switch-type {
+    type enumeration {
+      enum "enable" {
+        value 0;
+        description
+          "Enable.";
+      }
+      enum "disable" {
+        value 1;
+        description
+          "Disable.";
+      }
+    }
+    description
+      "Enable or disable.";
+  }
+
+  typedef power-save-mode {
+    type enumeration {
+      enum "normal" {
+        value 0;
+        description
+          "Normal energy mode.";
+      }
+      enum "sleep" {
+        value 1;
+        description
+          "Sleep energy mode.";
+      }
+      enum "idle" {
+        value 2;
+        description
+          "Idle energy mode.";
+      }
+    }
+    description
+      "Power save mode.";
+  }
+
+  grouping ap-run-info {
+    description
+      "AP run info.";
+    leaf ip-address {
+      type inet:ip-address;
+      config false;
+      description
+        "AP ip address.";
+    }
+    leaf vendor {
+      type string {
+        length "1..63";
+      }
+      config false;
+      description
+        "The ap-vendor.";
+    }
+    leaf version {
+      type string {
+        length "1..63";
+      }
+      config false;
+      description
+        "The ap-file-version.";
+    }
+    leaf patch-version {
+      type string {
+        length "1..63";
+      }
+      config false;
+      description
+        "The ap-patch-version.";
+    }
+    leaf run-state {
+      type enumeration {
+        enum normal {
+          value 1;
+          description
+            "Normal state.";
+        }
+        enum fault {
+          value 2;
+          description
+            "Fault state.";
+        }
+        enum downloading {
+          value 3;
+          description
+            "Downloading state.";
+        }
+        enum version-mismatch {
+          value 4;
+          description
+            "Version-mismatch state.";
+        }
+        enum standby {
+          value 5;
+          description
+            "Standby state.";
+        }
+        enum countrycode-mismatch {
+          value 6;
+          description
+            "Countrycode-mismatch state.";
+        }
+        enum type-mismatch {
+          value 7;
+          description
+            "Type-mismatch state.";
+        }
+        enum idle {
+          value 8;
+          description
+            "Idle state.";
+        }
+      }
+      config false;
+      description
+        "The ap's running state.";
+    }
+    leaf ap-group {
+      type string {
+        length "1..35";
+      }
+      config false;
+      description
+        "The AP Group.";
+    }
+    leaf central-ap-id {
+      type uint32;
+      config false;
+      description
+        "The Central AP ID.";
+    }
+    leaf central-ap-mac {
+      type pub-type:mac-address;
+      config false;
+      description
+        "The Central AP MAC.";
+    }
+    leaf central-ap-name {
+      type string {
+        length "1..63";
+      }
+      config false;
+      description
+        "The Central AP name.";
+    }
+  }
+
+  grouping ap-provision {
+    description
+      "Configure ap provision para.";
+    container ap-provision {
+      description
+        "Configure ap provision para.";
+      leaf address-mode {
+        type enumeration {
+          enum "dhcp" {
+            value 0;
+            description
+              "DHCP mode.";
+          }
+          enum "static" {
+            value 1;
+            description
+              "Static mode.";
+          }
+          enum "slaac" {
+            value 2;
+            description
+              "SLAAC mode.";
+          }
+        }
+        description
+          "Set AP ip address mode.";
+      }
+      container ip-address-info {
+        presence
+          "Configure AP address and AC list.";
+        description
+          "Configure AP address and AC list.";
+        choice address-type {
+          description
+            "Configure AP address.";
+          case ipv4 {
+            container ap-ip-address {
+              when "../../address-mode = 'static'";
+              leaf ap-ip-address {
+                type inet:ip-address;
+                mandatory true;
+                description
+                  "Config AP ip address.";
+              }
+              leaf sub-net-mask {
+                type uint8 {
+                  range "0..32";
+                }
+                mandatory true;
+                description
+                  "Config AP ip sub net mask.";
+              }
+              leaf gate-way {
+                type inet:ip-address;
+                description
+                  "Config gateway ip-address.";
+              }
+              description
+                "Configure ap-address.";
+            }
+            container ap-ipv4-list {
+              leaf ac-ipv4-list {
+                type string {
+                  length "1..128";
+                }
+                description
+                  "List of AC IP addresses.";
+              }
+              description
+                "Configure the list of AC IP addresses.";
+            }
+            description
+              "Configure AP IPv4 address and AC list.";
+          }
+          case ipv6 {
+            container ap-ipv6-address {
+              when "../../address-mode = 'static'";
+              leaf ap-ip-v6-address {
+                type inet:ip-address;
+                mandatory true;
+                description
+                  "Config AP IPv6 address.";
+              }
+              leaf prefix-length {
+                type uint32 {
+                  range "1..128";
+                }
+                mandatory true;
+                description
+                  "Config AP IPv6 prefix length.";
+              }
+              leaf gate-way {
+                type inet:ip-address;
+                description
+                  "Config gateway ip-address.";
+              }
+              description
+                "Configure AP IPv6 address.";
+            }
+            container ap-ipv6-list {
+              leaf ac-ipv6-list {
+                type string {
+                  length "1..256";
+                }
+                description
+                  "List of AC IPv6 addresses.";
+              }
+              description
+                "Configure the list of AC IPv6 addresses.";
+            }
+            description
+              "Configure AP IPv6 address and AC list.";
+          }
+        }
+      }
+      leaf management-vlan {
+        type uint32 {
+          range "1..4094";
+        }
+        description
+          "Config management VLAN.";
+      }
+      leaf ap-mode {
+        type enumeration {
+          enum "fit" {
+            value 0;
+            description
+              "Fit Mode.";
+          }
+          enum "fat" {
+            value 1;
+            description
+              "Fat Mode.";
+          }
+          enum "cloud" {
+            value 2;
+            description
+              "Cloud Mode.";
+          }
+        }
+        description
+          "Configure ap-mode.";
+      }
+      leaf server-auth-switch {
+        type switch-type;
+        description
+          "Configure server-auth-switch.";
+      }
+      container server-auth-cn-lists {
+        description
+          "List of server-auth-cn.";
+        list server-auth-cn-list {
+          key "cn";
+          max-elements 5;
+          description
+            "Configure server-auth-cn-list.";
+          leaf cn {
+            type string {
+              length "1..64";
+            }
+            description
+              "Configure server-auth-cn.";
+          }
+        }
+      }
+    }
+  }
+
+  container wlan-ap {
+    description
+      "The AP instances.";
+    leaf ap-auth-mode {
+      type enumeration {
+        enum "mac" {
+          value 0;
+          description
+            "Mac mode.";
+        }
+        enum "sn" {
+          value 1;
+          description
+            "Sn mode.";
+        }
+        enum "no-auth" {
+          value 2;
+          description
+            "No auth mode.";
+        }
+      }
+      default "mac";
+      description
+        "The AP auth mode.";
+    }
+    container ap-mac-whitelists {
+      description
+        "List of AP mac whitelist.";
+      list ap-mac-whitelist {
+        key "ap-mac";
+        description
+          "Configure AP mac whitelist.";
+        leaf ap-mac {
+          type pub-type:mac-address;
+          description
+            "The AP mac whitelist.";
+        }
+      }
+    }
+    container ap-sn-whitelists {
+      description
+        "List of AP sn whitelist.";
+      list ap-sn-whitelist {
+        key "ap-sn";
+        description
+          "Configure AP sn whitelist.";
+        leaf ap-sn {
+          type string {
+            length "1..31";
+          }
+          description
+            "The AP sn whitelist.";
+        }
+      }
+    }
+    container ap-mac-blacklists {
+      description
+        "List of AP mac blacklist.";
+      list ap-mac-blacklist {
+        key "ap-mac";
+        description
+          "Configure AP mac blacklist.";
+        leaf ap-mac {
+          type pub-type:mac-address;
+          description
+            "The AP mac blacklist.";
+        }
+      }
+    }
+    container ap-types {
+      description
+        "List of AP type.";
+      list ap-type {
+        ext:generated-by "system" {
+          description
+            "The default ap-type is generated by system.";
+          ext:filter "state='default'";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "state='default'";
+          description
+            "The default ap-type cannot be deleted.";
+        }
+
+        key "type-name";
+        unique "type-id";
+        description
+          "Configure AP type.";
+        leaf type-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "The AP type description.";
+        }
+        leaf type-id {
+          type uint32 {
+            range "0..1023";
+          }
+          mandatory true;
+          description
+            "The AP type ID.";
+        }
+        leaf state {
+          type enumeration {
+            enum "default" {
+              value 0;
+              description
+                "The default ap-type.";
+            }
+            enum "configured" {
+              value 1;
+              description
+                "The configured ap-type.";
+            }
+          }
+          config false;
+          description
+            "The ap-type state which can be configured or default.";
+        }
+      }
+    }
+    leaf temp-mgmt-psk {
+      type pub-type:password-extend {
+        length "8..188";
+      }
+      description
+        "Temporary management psk.";
+    }
+    leaf ap-lldp {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable AP LLDP function.";
+    }
+    container ap-instances {
+      description
+        "List of the AP instances.";
+      list ap-instance {
+        must "not(./ap-provision/ap-mode)";
+        must "(./ap-mac) or (./ap-sn)";
+        key "ap-id";
+        unique "ap-mac";
+        unique "ap-sn";
+        description
+          "Configure the AP instances.";
+        leaf ap-id {
+          type uint32;
+          description
+            "The AP ID.";
+        }
+        leaf ap-mac {
+          type pub-type:mac-address;
+          description
+            "The AP MAC.";
+        }
+        leaf ap-sn {
+          type string {
+            length "1..31";
+            pattern
+              '[0-9a-zA-Z]+';
+          }
+          description
+            "The AP SN.";
+        }
+        leaf ap-type {
+          type leafref {
+            path "/wlan-ap/ap-types/ap-type/type-name";
+          }
+          description
+            "Config the ap-type.";
+        }
+        leaf ap-name {
+          type string {
+            length "1..63";
+            pattern
+              '[ \S]+';
+            pattern
+              '[^?]+';
+            pattern
+              '([^ ]|[^ ].*[^ ])';
+          }
+          description
+            "The AP name.";
+        }
+        leaf location {
+          type string {
+            length "1..63";
+          }
+          description
+            "Config ap location.";
+        }
+        leaf scene {
+          type enumeration {
+            enum "cross-room" {
+              value 0;
+              description
+                "Cross room.";
+            }
+            enum "cross-room-cov" {
+              value 1;
+              description
+                "Cross room cov.";
+            }
+          }
+          description
+            "Configure scene.";
+        }
+        leaf site-code {
+          type string {
+            length "14";
+          }
+          description
+            "Configure site-code.";
+        }
+        leaf longitude {
+          type decimal64 {
+            fraction-digits 16;
+          }
+          description
+            "Configure longitude.";
+        }
+        leaf latitude {
+          type decimal64 {
+            fraction-digits 16;
+          }
+          description
+            "Configure latitude.";
+        }
+        leaf pair-ap-mac {
+          type pub-type:mac-address;
+          description
+            "The other AP MAC of DAP.";
+        }
+        uses hw-wlan-ap:ap-provision;
+        uses hw-wlan-ap:ap-run-info;
+        leaf update-status {
+          type enumeration {
+            enum "none" {
+              value 0;
+              description
+                "AP is not updating.";
+            }
+            enum "updating" {
+              value 1;
+              description
+                "AP is updating.";
+            }
+            enum "update-fail" {
+              value 2;
+              description
+                "AP update fail.";
+            }
+            enum "update-success" {
+              value 3;
+              description
+                "AP update success.";
+            }
+          }
+          config false;
+          description
+            "AP update status.";
+        }
+        container license-control {
+          description
+            "Configure license control switch.";
+          leaf experience-switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable experience license switch.";
+          }
+          leaf security-switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable security license switch.";
+          }
+          leaf local-security-switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable local-security license switch.";
+          }
+          leaf url-filter-state {
+            type enumeration {
+              enum "off" {
+                value 0;
+                description
+                  "Disable url filter category.";
+              }
+              enum "on" {
+                value 1;
+                description
+                  "Enable url filter category.";
+              }
+              enum "limited" {
+                value 2;
+                description
+                  "Remote query is not supported.";
+              }
+            }
+            default "off";
+            description
+              "License status for url filter function.";
+          }
+        }
+        leaf ap-zone {
+          type string {
+            length "1..35";
+            pattern
+              '[^\s?]+';
+            pattern
+              '([^"]|[^"].*[^"])';
+          }
+          default "default";
+          description
+            "Configure ap-zone name.";
+        }
+        container au-instances {
+          description
+            "List of AUs.";
+          list au-instance {
+            key "au-id";
+            description
+              "Configure the AU instances.";
+            leaf au-id {
+              type uint8 {
+                range 0..7;
+              }
+              description
+                "The AU ID.";
+            }
+            leaf name {
+              type string {
+                length "1..31";
+                pattern
+                  '[ \S]+';
+                pattern
+                  '[^?-]+';
+                pattern
+                  '([^ ]|[^ ].*[^ ])';
+                pattern
+                  '([^"]|[^"].*[^"])';
+              }
+              description
+                "The name of AU.";
+            }
+            leaf switch {
+              type boolean;
+              default true;
+              description
+                "Enable/disable AU.";
+            }
+            leaf status {
+              type enumeration {
+                enum "absent" {
+                  value 0;
+                  description
+                    "The AU is not in position.";
+                }
+                enum "normal" {
+                  value 1;
+                  description
+                    "The AU is in position.";
+                }
+                enum "normaliot" {
+                  value 2;
+                  description
+                    "The AU is in position and carries IoT.";
+                }
+                enum "unknown" {
+                  value 3;
+                  description
+                    "Unknown state.";
+                }
+                enum "shutdown" {
+                  value 4;
+                  description
+                    "The AU is shutdown.";
+                }
+              }
+              default "absent";
+              description
+                "AU status.";
+            }
+          }
+        }
+        leaf asfn-id {
+          type uint32 {
+            range "0..255";
+          }
+          description
+            "The ASFN ID.";
+        }
+        leaf altitude {
+          type string {
+            length "1..31";
+            pattern
+              '\d{1,22}(\.\d{1,8})?';
+          }
+          units "m";
+          description
+            "Configure altitude.";
+        }
+        leaf floor-id {
+          type int32 {
+            range "-32768..32767";
+          }
+          description
+            "The floor ID.";
+        }
+        leaf floor-height {
+          type string {
+            length "1..31";
+            pattern
+              '\d{1,22}(\.\d{1,8})?';
+
+          }
+          units "m";
+          description
+            "The Floor height above the ground.";
+        }
+        container csi {
+          description
+            "Configure channel state information measurement.";
+          leaf enable {
+            type boolean;
+            description
+              "Enable/disable channel state information measurement.";
+          }
+          leaf sensitivity-level {
+            type uint8 {
+              range "0..100";
+            }
+            description "Configure distance sensitivity level of channel state information measurement.";
+          }
+          leaf action-sensitivity-level {
+            type enumeration {
+              enum "high" {
+                value 0;
+                description "Breathe detection is enabled.";
+              }
+              enum "low" {
+                value 1;
+                description "Breathe detection is disabled.";
+              }
+            }
+            description "Configure action sensitivity level of channel state information measurement.";
+          }
+          container distance-range {
+            presence "Configure csi detection distance.";
+            description 
+              "Configure csi detection distance.";
+            leaf presence-enter-range {
+              type uint8 {
+                range "0..100";
+              }
+              units "10 cm";
+              mandatory true;
+              description "Configure the detection distance of the status changing from absence to presence.
+                If the configured detection distance exceeds the maximum capability of an AP, the AP capability prevails.";
+            }
+            leaf presence-leave-range {
+              type uint8 {
+                range "0..100";
+              }
+              units "10 cm";
+              mandatory true;
+              description "Configure the detection distance of the status changing from presence to absence.
+                If the configured detection distance exceeds the maximum capability of an AP, the AP capability prevails.";
+            }
+          }
+          leaf motion-detection-threshold {
+            type uint8 {
+              range "0..100";
+            }
+            description "Configure motion amplitude detection threshold. If the detected value is less than the threshold, the motion is ignored. It can be used to eliminate misidentification caused by interference.";
+          }
+          leaf presence-aging-time {
+            type uint16 {
+              range "1..65535";
+            }
+            units "s";
+            description "Configure the aging time after the lasttime that the person is detected. When breathe detection is enabled, the minimum aging time takes effect is 45s.";
+          }
+          leaf presence-re-enter-delay {
+            type uint16 {
+              range "0..600";
+            }
+            units "s";
+            description "Configure the delay time of the status re-entering to presence after the status is aged to absence.";
+          }
+          leaf report-to-container-switch {
+            type boolean;
+            default "false";
+            description "Enable/disable report csi result to container.";
+          }
+          container report-to-server {
+            presence "Configure csi result report server information.";
+            description 
+              "Configure csi result report server information.";
+            leaf server-ip {
+              type inet:host;
+              mandatory true;
+              description "Configure csi server ip address or domain.";
+            }
+            leaf server-port {
+              type uint16 {
+                range "1..65535";
+              }
+              mandatory true;
+              description "Configure csi server UDP port.";
+            }
+          }
+        }
+        leaf app-auto-downgrade-switch {
+            type boolean;
+            description
+              "Enable/disable automatic downgrade of applications.";
+        }
+        container camera-detection {
+          description
+            "Configure camera detection.";
+          leaf mode {
+            type enumeration {
+              enum "normal-mode" {
+                value 0;
+                description
+                  "Enables camera detection in normal mode.";
+              }
+              enum "quick-mode" {
+                value 1;
+                description
+                  "Enables camera detection in quick mode.";
+              }
+              enum "disable" {
+                value 2;
+                description
+                  "Disables camera detection.";
+              }
+            }
+            description
+              "Enable/disable camera detection.";
+          }
+          leaf sensitivity-level {
+            type uint8 {
+              range "1..14";
+            }
+            description "Configure camera detection sensitivity level.";
+          }
+        }
+        container iot-mcx-instances {
+          description
+            "List of IoT mcx.";
+          list iot-mcx-instance {
+            key "iot-mcx-id";
+            description
+              "Configure the IoT mcx instances.";
+            leaf iot-mcx-id {
+              type uint8 {
+                range 0..1;
+              }
+              description
+                "The IoT mcx ID.";
+            }
+            leaf switch {
+              type enumeration {
+                enum "auto" {
+                  value 0;
+                  description
+                    "Auto detect IoT mcx status.";
+                }
+                enum "enable" {
+                  value 1;
+                  description
+                    "Enable IoT mcx switch.";
+                }
+                enum "disable" {
+                  value 2;
+                  description
+                    "Disable IoT mcx switch.";
+                }
+              }
+              default "auto";
+              description
+                "Enable/disable IoT mcx.";
+            }
+            leaf status {
+              type enumeration {
+                enum "absent" {
+                  value 0;
+                  description
+                    "The IoT mcx is not in position.";
+                }
+                enum "normal" {
+                  value 1;
+                  description
+                    "The IoT mcx is in position.";
+                }
+              }
+              default "absent";
+              description
+                "IoT mcx status.";
+            }
+          }
+        }
+      }
+    }
+    container wmi-server-infos {
+      description
+        "List of wmi-server-info.";
+      list wmi-server-info {
+        key "wmi-server-name";
+        leaf wmi-server-name {
+          type string {
+            length "1..35";
+          }
+          description
+            "Config wmi server name.";
+        }
+        leaf max-packet-size {
+          type uint32 {
+            range "4..256";
+          }
+          units "K";
+          default "5";
+          description
+            "Config wmi max packet size.";
+        }
+        container ip-port-info {
+          presence
+            "Configure wmi server ip-address and port.";
+          description
+            "Configure wmi server ip-address and port.";
+          leaf ip-address {
+            type inet:ip-address;
+            mandatory true;
+            description
+              "Config wmi server ip.";
+          }
+          leaf port {
+            type uint16 {
+              range "1..65535";
+            }
+            mandatory true;
+            description
+              "Config wmi server port.";
+          }
+        }
+        container backup-ip-port-info {
+          presence
+            "Configure backup wmi server ip-address and port.";
+          description
+            "Configure backup wmi server ip-address and port.";
+          leaf ip-address {
+            type inet:ip-address;
+            mandatory true;
+            description
+              "Config backup wmi server ip.";
+          }
+          leaf port {
+            type uint16 {
+              range "1..65535";
+            }
+            mandatory true;
+            description
+              "Config backup wmi server port.";
+          }
+        }
+        leaf report-interval {
+          type uint16 {
+            range "10..300";
+          }
+          units "s";
+          default "60";
+          description
+            "Config wmi server report interval.";
+        }
+        container log-report-modules {
+          description
+            "List of log-report-module.";
+          list log-report-module {
+            key "mid";
+            max-elements 64;
+            description
+              "Configure log-report-module.";
+            leaf mid {
+              type string {
+                length "1..32";
+              }
+              description
+                "Config the mid.";
+            }
+            leaf sub-module {
+              type string {
+                length "1..24";
+              }
+              description
+                "Config the sub module name.";
+            }
+          }
+        }
+        container keepalive-para {
+          leaf interval {
+            type uint16 {
+              range "1..60";
+            }
+            units "m";
+            default "3";
+            description
+              "Config the keepalive interval.";
+          }
+          leaf retry-interval {
+            type uint16 {
+              range "5..60";
+            }
+            units "m";
+            default "5";
+            description
+              "Config the keepalive retry-interval.";
+          }
+          leaf retry-number {
+            type uint32;
+            default "0";
+            description
+              "Config the keepalive retry-number.";
+          }
+          description
+            "Configure the keepalive-para.";
+        }
+        container collect-interface-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the interface data interval.";
+          }
+          description
+            "Configure the collect-interface-data.";
+        }
+        container collect-neighbor-device-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the neighbor device interval.";
+          }
+          description
+            "Configure the collect-neighbor-device-data.";
+        }
+        container collect-ssid-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the ssid data interval.";
+          }
+          description
+            "Configure the collect-ssid-data.";
+        }
+        container collect-radio-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "10";
+            description
+              "Config the radio data interval.";
+          }
+          description
+            "Configure the collect-radio-data.";
+        }
+        container collect-device-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "10";
+            description
+              "Config the device data interval.";
+          }
+          description
+            "Configure the collect-device-data.";
+        }
+        container collect-cpcar-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the cpcar data interval.";
+          }
+          description
+            "Configure the collect-cpcar-data.";
+        }
+        container collect-terminal-dhcp-option-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the terminal dhcp option data interval.";
+          }
+          description
+            "Configure the collect-terminal-dhcp-option-data.";
+        }
+        container collect-terminal-http-ua-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the terminal http ua data interval.";
+          }
+          description
+            "Configure the collect-terminal-http-ua-data.";
+        }
+        container collect-terminal-mdns-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the terminal mdns data interval.";
+          }
+          description
+            "Configure the collect-terminal-mdns-data.";
+        }
+        container collect-log-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the log data interval.";
+          }
+          description
+            "Configure the collect-log-data.";
+        }
+        container collect-terminal-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "10";
+            description
+              "Config the terminal data interval.";
+          }
+          description
+            "Configure the collect-terminal-data.";
+        }
+        container collect-lldp-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Configure the item collect switch.";
+          }
+          description
+            "Configure collect-lldp-data.";
+        }
+        container collect-s-ipfpm-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Configure the item collect switch.";
+          }
+          description
+            "Configure collect-s-ipfpm-data.";
+        }
+        container collect-application-statistics-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the application statistics data interval.";
+          }
+          description
+            "Configure the collect-application-statistics-data.";
+        }
+        container collect-emdi-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "10";
+            description
+              "Config the emdi data interval.";
+          }
+          description
+            "Configure the collect-emdi-data.";
+        }
+        container collect-location-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "1..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the location data interval.";
+          }
+          description
+            "Configure the collect-location-data.";
+        }
+        container collect-ai-roam-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the ai roam data interval.";
+          }
+          description
+            "Configure the collect-ai-roam-data.";
+        }
+        container collect-dns-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the dns data interval.";
+          }
+          description
+            "Configure the collect-dns-data.";
+        }
+        container collect-non-wifi-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "60";
+            description
+              "Config the non wifi data interval.";
+          }
+          description
+            "Configure the collect-non-wifi-data.";
+        }
+        container collect-spectrum-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          description
+            "Configure the collect-spectrum-data.";
+        }
+        container collect-csi-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          description
+            "Configure the collect-csi-data.";
+        }
+        container collect-mesh-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the mesh data interval.";
+          }
+          description
+            "Configure the collect-mesh-data.";
+        }
+        container roam-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Enables or disables the data collection function.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Configures the interval for collecting roaming data.";
+          }
+          description
+            "Configure the device to collect roaming data.";
+        }
+        container collect-security-data {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "5..30";
+            }
+            units "s";
+            default "15";
+            description
+              "Config the security data interval.";
+          }
+          description
+            "Configure the collect-security-data.";
+        }
+        leaf pki-realm {
+          type string {
+            length "1..64";
+          }
+          default "default";
+          description
+            "Config pki realm.";
+        }
+        container collect-iflow-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "300..1800";
+            }
+            units "s";
+            default "300";
+            description
+              "Config the collect interval.";
+          }
+          description
+            "Configure the collect-iflow-data.";
+        }
+        container collect-flow-learning {
+          leaf switch {
+            type switch-type;
+            default "enable";
+            description
+              "Configure the item collect switch.";
+          }
+          description
+            "Configure the collect-flow-learning.";
+        }
+        container collect-ftm-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          description
+            "Configure the collect-ftm-data.";
+        }
+        container collect-gnss-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          leaf interval {
+            type uint32 {
+              range "60..86400";
+            }
+            units "s";
+            default "3600";
+            description
+              "Config the gnss data interval.";
+          }
+          description
+            "Configure the collect-gnss-data.";
+        }
+        container collect-camera-detection-data {
+          leaf switch {
+            type switch-type;
+            default "disable";
+            description
+              "Config the item collect switch.";
+          }
+          description
+            "Configure the collect-camera-detection-data.";
+        }
+        description
+          "Configure wmi-server-info.";
+      }
+    }
+    uses hw-wlan-ap:ap-provision;
+    container license-managements {
+      description
+        "Configure license management.";
+      leaf license-centralized {
+        type boolean;
+        default false;
+        description
+          "Enable/disable centralized license control.";
+      }
+      leaf license-client-source {
+        when "../license-centralized = 'true'";
+        type inet:ip-address;
+        description
+          "Configure the source address for license client.";
+      }
+      leaf license-server {
+        when "../license-centralized = 'true'";
+        type inet:ip-address;
+        description
+          "Configure an IP address for the license server.";
+      }
+    }
+
+    container unauthed-aps {
+      config false;
+      description
+        "List of unauthed-aps.";
+      list unauthed-ap {
+        key "ap-sn";
+        description
+          "Statistics of unauthed-aps.";
+        leaf ap-sn {
+          type string {
+            length "1..31";
+          }
+          config false;
+          description
+            "Configure the AP SN.";
+        }
+        leaf ap-mac {
+          type pub-type:mac-address;
+          config false;
+          description
+            "Configure the AP MAC.";
+        }
+        leaf ap-type {
+          type string {
+            length "1..31";
+          }
+          config false;
+          description
+            "Configure the ap-type.";
+        }
+        leaf site-code {
+          type string {
+            length "1..16";
+          }
+          config false;
+          description
+            "Configure the site-code.";
+        }
+      }
+    }
+
+    container register-aps {
+      config false;
+      description
+        "List of register-aps.";
+      list register-ap {
+        key "ap-id";
+
+        leaf ap-id {
+          type uint32;
+          config false;
+          description
+            "The AP ID.";
+        }
+        leaf ap-mac {
+          type pub-type:mac-address;
+          config false;
+          description
+            "The AP MAC.";
+        }
+        leaf ap-sn {
+          type string {
+            length "1..31";
+          }
+          config false;
+          description
+            "The AP SN.";
+        }
+        leaf ap-type {
+          type string {
+            length "1..31";
+          }
+          config false;
+          description
+            "The ap-type.";
+        }
+        leaf ap-name {
+          type string {
+            length "1..63";
+          }
+          config false;
+          description
+            "The AP name.";
+        }
+        leaf site-code {
+          type string {
+            length "1..16";
+          }
+          config false;
+          description
+            "Configure the site-code.";
+        }
+        uses hw-wlan-ap:ap-run-info;
+        leaf security-switch {
+          type boolean;
+          config false;
+          description
+            "The security license switch.";
+        }
+        leaf pair-ap-mac {
+          type pub-type:mac-address;
+          config false;
+          description
+            "The Other Distribute AP MAC.";
+        }
+        description
+          "Statistics of register-aps.";
+      }
+    }
+    container register-tunnel-aps {
+      config false;
+      description
+        "List of register-tunnel-aps.";
+      list register-tunnel-ap {
+        key "ap-id";
+
+        leaf ap-id {
+          type uint32;
+          config false;
+          description
+            "The tunnel AP ID.";
+        }
+        leaf ap-sn {
+          type string {
+            length "1..31";
+          }
+          config false;
+          description
+            "The AP SN.";
+        }
+
+        leaf state {
+          type enumeration {
+            enum "idle" {
+              value 0;
+              description
+                "The state is idle.";
+            }
+            enum "normal" {
+              value 1;
+              description
+                "The state is normal.";
+            }
+            enum "backup" {
+              value 2;
+              description
+                "The state is backup.";
+            }
+            enum "fault" {
+              value 3;
+              description
+                "The state is fault.";
+            }
+          }
+          description
+            "Tunnel AP mode.";
+        }
+        description
+          "Statistics of register-tunnel-aps.";
+      }
+    }
+    container port-lldp-statistics {
+      config false;
+      description
+        "List of port-lldp-statistic.";
+      list port-lldp-statistic {
+
+        key "local-ap-id rem-index local-port-num";
+        leaf local-ap-id {
+          type uint32;
+          config false;
+          description
+            "APID.";
+        }
+        leaf rem-index {
+          type uint32;
+          config false;
+          description
+            "Rem-index.";
+        }
+        leaf local-port-num {
+          type uint32;
+          config false;
+          description
+            "Local port num.";
+        }
+        leaf rem-chassis-id {
+          type string {
+            length "1..255";
+          }
+          config false;
+          description
+            "Rem-chassis-id.";
+        }
+        leaf rem-port-id {
+          type string {
+            length "1..255";
+          }
+          config false;
+          description
+            "Rem-port-id.";
+        }
+        description
+          "Statistics of port-lldp.";
+      }
+    }
+
+    container port-statistics {
+      config false;
+      description
+        "List of port-statistics.";
+      list port-statistic {
+
+        key "ap-id port-index";
+        leaf ap-id {
+          type uint32;
+          config false;
+          description
+            "APID.";
+        }
+        leaf port-index {
+          type uint16;
+          config false;
+          description
+            "Port-index.";
+        }
+        leaf port-type {
+          type enumeration {
+            enum fe {
+              value 1;
+              description
+                "FE.";
+            }
+            enum ge {
+              value 2;
+              description
+                "GE.";
+            }
+            enum gpon {
+              value 3;
+              description
+                "Gpon.";
+            }
+            enum epon {
+              value 4;
+              description
+                "Epon.";
+            }
+            enum adsl2plus {
+              value 5;
+              description
+                "Adsl2plus.";
+            }
+            enum trunk {
+              value 6;
+              description
+                "Trunk.";
+            }
+            enum multige {
+              value 7;
+              description
+                "Multige.";
+            }
+            enum xge {
+              value 8;
+              description
+                "Xge.";
+            }
+          }
+          config false;
+          description
+            "Port-type.";
+        }
+
+        leaf port-mode {
+          type enumeration {
+            enum root {
+              value 1;
+              description
+                "Root.";
+            }
+            enum endpoint {
+              value 2;
+              description
+                "Endpoint.";
+            }
+            enum middle {
+              value 3;
+              description
+                "Middle.";
+            }
+            enum null {
+              value 4;
+              description
+                "Null.";
+            }
+          }
+          config false;
+          description
+            "Port-mode.";
+        }
+
+        leaf port-negot {
+          type enumeration {
+            enum auto {
+              value 1;
+              description
+                "Auto.";
+            }
+            enum forced {
+              value 2;
+              description
+                "Forced.";
+            }
+            enum unknown {
+              value 3;
+              description
+                "Unknown.";
+            }
+          }
+          config false;
+          description
+            "Port-negot.";
+        }
+
+        leaf port-duplex {
+          type enumeration {
+            enum half {
+              value 1;
+              description
+                "Half.";
+            }
+            enum full {
+              value 2;
+              description
+                "Full.";
+            }
+            enum unknown {
+              value 3;
+              description
+                "Unknown.";
+            }
+          }
+          config false;
+          description
+            "Port-duplex.";
+        }
+        leaf port-speed {
+          type uint32;
+          config false;
+          description
+            "Port-speed.";
+        }
+        leaf port-state {
+          type enumeration {
+            enum down {
+              value 1;
+              description
+                "Down.";
+            }
+            enum up {
+              value 2;
+              description
+                "Up.";
+            }
+            enum unknown {
+              value 3;
+              description
+                "Unknown.";
+            }
+          }
+          config false;
+          description
+            "Port-state.";
+        }
+        leaf port-auth-state {
+          type enumeration {
+            enum init {
+              value 1;
+              description
+                "Initial.";
+            }
+            enum authenticating {
+              value 2;
+              description
+                "Authenticating.";
+            }
+            enum success {
+              value 3;
+              description
+                "Success.";
+            }
+            enum fail {
+              value 4;
+              description
+                "Fail.";
+            }
+          }
+          config false;
+          description
+            "Port dot1x authentication status.";
+        }
+        leaf port-macsec-state {
+          type enumeration {
+            enum idle {
+              value 1;
+              description
+                "Idle.";
+            }
+            enum abnormal {
+              value 2;
+              description
+                "Abnormal.";
+            }
+            enum initiated {
+              value 3;
+              description
+                "Initiated.";
+            }
+            enum potential-peer-established {
+              value 4;
+              description
+                "Potential peer established.";
+            }
+            enum sak-ready {
+              value 5;
+              description
+                "Sak ready.";
+            }
+            enum sak-expected {
+              value 6;
+              description
+                "Sak expected.";
+            }
+            enum succeeded {
+              value 7;
+              description
+                "Succeeded.";
+            }
+          }
+          config false;
+          description
+            "Port MACsec MKA session status.";
+        }
+        description
+          "Statistics of port.";
+      }
+    }
+    container replace-ap {
+      description
+        "Configure replace AP.";
+      leaf ap-id {
+        type uint32;
+        description
+          "The AP ID.";
+      }
+      leaf new-ap-mac {
+        type pub-type:mac-address;
+        description
+          "New AP-MAC.";
+      }
+      leaf replace-flag {
+        type boolean;
+        description
+          "Enable/disable replace.";
+      }
+    }
+    container uplink-port {
+      presence
+        "Configure Uplink port for leader ap.";
+      description
+        "Configure uplink port for leader ap.";
+      leaf port-type {
+        type enumeration {
+          enum "ge" {
+            value 0;
+            description
+              "Specify GE port.";
+          }
+          enum "multige" {
+            value 1;
+            description
+              "Specify MultiGE port.";
+          }
+          enum "xge" {
+            value 2;
+            description
+              "Specify 10GE port.";
+          }
+        }
+        mandatory true;
+        description
+          "Specify the port type of the uplink port.";
+      }
+      leaf port-index {
+        type uint8 {
+          range 0..27;
+        }
+        mandatory true;
+        description
+          "Specify the port index of the uplink port.";
+      }
+      leaf vlan-replace {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the VLAN replacement function of the uplink port.";
+      }
+    }
+
+    leaf leader-ap-work-mode {
+      type enumeration {
+        enum "gateway" {
+          value 0;
+          description
+            "Inner gateway mode.";
+        }
+        enum "bridge" {
+          value 1;
+          description
+            "Bridge mode.";
+        }
+      }
+      default "bridge";
+      description
+        "The LeaderAP work mode.";
+    }
+    container tunnel-aps {
+      description
+        "Configure of the tunnel-aps.";
+      container tunnel-ap-groups {
+        description
+          "List of the tunnel-ap-groups.";
+        list tunnel-ap-group {
+          ext:generated-by system {
+            ext:filter "profile-name='default'";
+            description
+              "The default profile is generated by system.";
+          }
+          ext:operation-exclude "delete" {
+            ext:filter "profile-name='default'";
+            description
+              "The default profile cannot be deleted.";
+          }
+          key "profile-name";
+          description
+            "Configure of the tunnel-ap-group.";
+          leaf profile-name {
+            type string {
+              length "1..35";
+              pattern
+                '[^\s?]+';
+              pattern
+                '[!-~]+';
+            }
+            description
+              "Tunnel-ap-group profile-name.";
+          }
+          choice tunnel-dtls-type {
+            default "cert";
+            description
+              "Choice tunnel device DTLS type.";
+            case disable {
+              description
+                "Case DTLS disable.";
+              leaf dtls-disable {
+                type empty;
+                description
+                  "Tunnel device DTLS disable.";
+              }
+            }
+            case psk {
+              description
+                "Case DTLS psk.";
+              leaf dtls-psk {
+                type pub-type:password-extend {
+                  length "8..148";
+                }
+                description
+                  "Tunnel device DTLS psk.";
+              }
+            }
+            case cert {
+              description
+                "Case DTLS cert.";
+              leaf dtls-pki-realm {
+                type leafref {
+                  path "/pki:pki/pki:domains/pki:domain/pki:name";
+                }
+                default "default";
+                description
+                  "Tunnel device DTLS cert pki-realm.";
+              }
+            }
+          }
+        }
+      }
+      container tunnel-ap-instances {
+        description
+          "List of the tunnel-ap-instances.";
+        list tunnel-ap-instance {
+          key "ap-id";
+          unique "ap-sn";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+          leaf tunnel-ap-group {
+            type leafref {
+              path "../../../tunnel-ap-groups/tunnel-ap-group/profile-name";
+            }
+            default "default";
+            description
+              "Tunnel ap group.";
+          }
+          leaf ap-sn {
+            ext:case-sensitivity "lower2upper";
+            type string {
+              length "1..31";
+              pattern
+                '[0-9a-zA-Z]+';
+            }
+            mandatory true;
+            description
+              "The AP SN.";
+          }
+          description
+            "Configure of the tunnel-ap-instance.";
+        }
+      }
+      leaf user-isolate {
+        type enumeration {
+          enum "disable" {
+            value 0;
+            description
+              "Disable.";
+          }
+          enum "l2" {
+            value 1;
+            description
+              "Layer 2 isolate.";
+          }
+        }
+        default "l2";
+        description
+          "Config user-isolate.";
+      }
+    }
+    leaf spectrum-analysis-source {
+      type inet:ip-address;
+      description
+        "Configure the source IP address for the AC to send packets to the spectrum server.
+         By default, the IP address of the outbound interface of a route is used as the source IP address.";
+    }
+    container ac-protect {
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the AC protect.";
+      }
+      leaf alarm-restrain {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the AC protect alarm restrain.";
+      }
+      leaf cold-backup-kickoff-station {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the AC protect cold backup kickoff station.";
+      }
+      leaf restore {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable the AC protect restore.";
+      }
+      leaf fast-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the AC fast switch.";
+      }
+      description
+        "Configure the AC protect.";
+    }
+  }
+  rpc reset-ap {
+    description
+      "Reset AP operation.";
+    input  {
+      choice reset-info {
+        description
+          "Reset info, choose one from AP-MAC and AP-ID and AP-GROUP and AP type.";
+        case ap-mac-info {
+          description
+            "AP-MAC.";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "AP-MAC.";
+          }
+        }
+        case ap-id-info {
+          description
+            "The AP ID.";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+        }
+        case ap-group-info {
+          description
+            "The AP Group.";
+          leaf ap-group {
+            type string {
+              length "1..35";
+            }
+            description
+              "The AP Group.";
+          }
+        }
+        case ap-type-info {
+          description
+            "The AP-TYPE.";
+          leaf ap-type {
+            type string {
+              length "1..31";
+            }
+            description
+              "The AP-TYPE.";
+          }
+        }
+        case wait-rtu-validate {
+          description
+            "Wait rtu validate.";
+          leaf wait-rtu-validate {
+            type empty;
+            description
+              "Wait rtu validate.";
+          }
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "The ap-result output.";
+        leaf result {
+          type string {
+            length "1..300";
+          }
+          description
+            "The ap-result output.";
+        }
+      }
+    }
+  }
+  rpc reset-ap-with-factory-configuration {
+    description
+      "Reset AP with factory configuration operation.";
+    input  {
+      choice reset-info {
+        mandatory true;
+        description
+          "Reset info, choose one from AP-MAC and AP-ID.";
+        case ap-mac-info {
+          description
+            "AP-MAC.";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "AP-MAC.";
+          }
+        }
+        case ap-id-info {
+          description
+            "The AP ID.";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "The ap-result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "The ap-result output.";
+        }
+      }
+    }
+  }
+  rpc led-blink-time {
+    description
+      "Set the AP led blinking function.";
+    input  {
+      leaf oper-type {
+        type enumeration {
+          enum "blink" {
+            value 0;
+            description
+              "Blink AP.";
+          }
+          enum "cancel" {
+            value 1;
+            description
+              "Cancel blink AP.";
+          }
+        }
+        mandatory true;
+        description
+          "Config blink oper-type.";
+      }
+      leaf time {
+        when "../oper-type = 'blink'";
+        type uint32 {
+          range "1..86400";
+        }
+        mandatory true;
+        description
+          "Config led blink time.";
+      }
+      choice ap-info {
+        mandatory true;
+        description
+          "The AP info.";
+        case ap-id {
+          description
+            "The AP ID.";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+        }
+        case ap-mac {
+          description
+            "The AP MAC.";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The AP MAC.";
+          }
+        }
+        case all {
+          description
+            "Blink all ap.";
+          leaf ap-all {
+            when "../oper-type = 'cancel'";
+            type empty;
+            description
+              "Blink all ap.";
+          }
+        }
+      }
+    }
+    output  {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "The result output.";
+      }
+    }
+  }
+
+  rpc ap-provision-commit {
+    description
+      "Commit ap provision config.";
+    input  {
+      choice commit-type {
+        case ap-id-type {
+          leaf ap-id {
+            type uint32;
+            description
+              "Commit specific ap.";
+          }
+          description
+            "Commit specific ap.";
+        }
+        case ap-group-type {
+          leaf ap-group {
+            type string {
+              length "1..35";
+            }
+            description
+              "Commit aps which are in the specific ap-group.";
+          }
+          description
+            "Commit aps which are in the specific ap-group.";
+        }
+        case all-type {
+          leaf all {
+            type empty;
+            description
+              "Commit all aps.";
+          }
+          description
+            "Commit all aps.";
+        }
+        description
+          "Config commit-type.";
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "The ap commit result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "The ap commit result output.";
+        }
+      }
+    }
+  }
+  rpc ap-license-notify {
+    description
+      "Controller notify AC the license information.";
+    input  {
+      container license-infos {
+        list license-info {
+          key "license-type";
+          leaf license-type {
+            type enumeration {
+              enum "indoor-ap" {
+                value 0;
+                description
+                  "License type is indoor-ap.";
+              }
+              enum "outdoor-ap" {
+                value 1;
+                description
+                  "License type is outdoor-ap.";
+              }
+              enum "indoor-ap-s" {
+                value 2;
+                description
+                  "License type is indoor-ap-s.";
+              }
+              enum "outdoor-ap-s" {
+                value 3;
+                description
+                  "License type is outdoor-ap-s.";
+              }
+              enum "indoor-ap-ec" {
+                value 4;
+                description
+                  "License type is indoor-ap-ec.";
+              }
+              enum "outdoor-ap-ec" {
+                value 5;
+                description
+                  "License type is outdoor-ap-ec.";
+              }
+              enum "common" {
+                value 6;
+                description
+                  "License type is common.";
+              }
+              enum "wifi6-indoor-ap" {
+                value 7;
+                description
+                  "License type is wifi6-indoor-ap.";
+              }
+              enum "wifi6-outdoor-ap" {
+                value 8;
+                description
+                  "License type is wifi6-outdoor-ap.";
+              }
+              enum "agile-distribute-ap" {
+                value 9;
+                description
+                  "License type is agile-distribute-ap.";
+              }
+              enum "wifi7-ap" {
+                value 10;
+                description
+                  "License type is wifi7-ap.";
+              }
+              enum "security" {
+                value 11;
+                description
+                  "License type is security.";
+              }
+            }
+            description
+              "Config license info of WLAN AC device, controlling AP access and wireless services.";
+          }
+          leaf expire-time {
+            type yang:date-and-time;
+            mandatory true;
+            description
+              "Config expire-time YYYY/MM/DD HH:MM:SS.";
+          }
+
+          description
+            "List of AC the license information.";
+        }
+        description
+          "List of AC the license information.";
+      }
+    }
+  }
+  rpc notify-ap-report-lldp-data {
+    description
+      "Controller notify fit central-ap full report lldp info.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-sn";
+          description
+            "Notify specific ap-list to report lldp info.";
+          leaf ap-sn {
+            type string {
+              length "1..31";
+            }
+            description
+              "Notify specific ap to report lldp info.";
+          }
+        }
+      }
+    }
+  }
+
+  rpc notify-ap-report-state {
+    description
+      "Controller notify ac to report ap state info.";
+    input  {
+      choice type {
+        description
+          "Controller notify ac to report ap state info.";
+        case all-ap {
+          description
+            "All-AP info.";
+          leaf all-ap {
+            type empty;
+            description
+              "All-ap.";
+          }
+        }
+        case ap-id-info {
+          description
+            "Specific AP.";
+          container ap-instances {
+            description
+              "List of ap-instance.";
+            list ap-instance {
+              key "ap-id";
+              description
+                "Notify specific ap-list to report state info.";
+              leaf ap-id {
+                type uint32;
+                description
+                  "Notify specific ap to report state info.";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  rpc register-tunnel-apstatus-ack {
+    description
+      "Controller response remote tunnel ap register information.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-sn";
+          description
+            "Query the registration status of the AP.";
+          leaf ap-sn {
+            type string {
+              length "1..31";
+            }
+            description
+              "AP SN.";
+          }
+          leaf ap-id {
+            type uint32;
+            description
+              "The tunnel ap ID.";
+          }
+        }
+      }
+    }
+  }
+  rpc register-status-ack {
+    description
+      "Controller response remote ap register information.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-sn";
+          description
+            "Query the registration status of the AP.";
+          leaf ap-sn {
+            type string {
+              length "1..31";
+            }
+            description
+              "AP SN.";
+          }
+          leaf register-result {
+            type boolean;
+            description
+              "True means succeed else means failed.";
+          }
+          leaf register-fail-reason {
+            when "../register-result = 'false'";
+            type uint32;
+            description
+              "AP register fail reason.";
+          }
+          leaf status {
+            type string {
+              length "1..32";
+            }
+            description
+              "AP register status.";
+          }
+        }
+      }
+    }
+  }
+  rpc get-ap-connect-fail-reason {
+    description
+      "Controller get ap connect fail reason.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The AP mac.";
+          }
+          description
+            "Config of ap-instance.";
+        }
+      }
+    }
+    output  {
+      container reason-lists {
+        list reason-list {
+          key "time";
+          description
+            "List of the AP connected failed reasons.";
+          leaf time {
+            type yang:date-and-time;
+            description
+              "When the ap connect failed.";
+          }
+          leaf reason {
+            type string {
+              length "1..256";
+            }
+            description
+              "The reason of ap connected failed.";
+          }
+          leaf mac {
+            type pub-type:mac-address;
+            description
+              "The AP mac.";
+          }
+        }
+        description
+          "List of the history of AP connected failed.";
+      }
+    }
+  }
+  rpc reset-ap-connect-fail-reason {
+    description
+      "Reset ap connect fail reason.";
+    input  {
+      leaf ap-mac {
+        type pub-type:mac-address;
+        description
+          "The AP mac.";
+      }
+    }
+  }
+
+  rpc set-auth-svr-down-vap {
+    description
+      "Active or inactive auth-server-down vap.";
+    input {
+      leaf oper-type {
+        type enumeration {
+          enum "active" {
+            value 0;
+            description
+              "Active.";
+          }
+          enum "inactive" {
+            value 1;
+            description
+              "Inactive.";
+          }
+        }
+        mandatory true;
+        description
+          "Active or inactive auth server down vap.";
+      }
+      leaf vap-profile {
+        type string {
+          length "1..35";
+        }
+        description
+          "Configure vap-profile.";
+      }
+    }
+
+    output  {
+      container result-info {
+        description
+          "The result of setting auth-server-down vap.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "The result output.";
+        }
+      }
+    }
+  }
+
+  rpc ap-ping {
+    description
+      "Ping a network device from a specified AP.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description
+          "The AP ID used to ping other network devices.";
+      }
+      leaf host {
+        type string {
+          length "1..20";
+        }
+        mandatory true;
+        description
+          "The domain name or IP address of the destination host.";
+      }
+      leaf packet-count {
+        type uint32 {
+          range "1..10";
+        }
+        default 4;
+        description
+          "The number of ICMP Echo Request packets to be sent.";
+      }
+      leaf packet-size {
+        type uint32 {
+          range "20..8100";
+        }
+        default 56;
+        description
+          "The length of an Echo Request packet excluding the IP header and ICMP header.";
+      }
+      leaf interval {
+        type uint32 {
+          range "1..5000";
+        }
+        units "ms";
+        default "2000";
+        description
+          "The time to wait before sending the next ICMP Request packet.";
+      }
+      leaf timeout {
+        type uint32 {
+          range "0..10000";
+        }
+        units "ms";
+        default "2000";
+        description
+          "The time to wait before sending the next ICMP Request packet.";
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "The ap-ping output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "The ap-ping output.";
+        }
+      }
+    }
+  }
+  rpc get-ap-ping-result {
+    description
+      "Get ap ping result.";
+    output {
+      container result-info {
+        description
+          "The ap-ping result output.";
+        leaf status {
+          type enumeration {
+            enum "idle" {
+              value 0;
+              description
+                "AP ping is not started.";
+            }
+            enum "ongoing" {
+              value 1;
+              description
+                "The AP ping operation is in progress.";
+            }
+            enum "finished" {
+              value 2;
+              description
+                "The AP ping operation is complete.";
+            }
+            enum "timeout" {
+              value 3;
+              description
+                "The AP ping operation is timeout.";
+            }
+          }
+          description
+            "The status of the AP ping operation.";
+        }
+        leaf ap-id {
+          type uint32;
+          description
+            "The AP ID used to ping other network devices.";
+        }
+        leaf host {
+          type string {
+            length "1..20";
+          }
+          description
+            "The domain name or IP address of the destination host.";
+        }
+        leaf success-packet-count {
+          type uint32;
+          description
+            "Number of successful ping packets.";
+        }
+        leaf fail-packet-count {
+          type uint32;
+          description
+            "Number of failed ping packets.";
+        }
+        leaf average-response-time {
+          type uint32;
+          units "ms";
+          description
+            "Average response time.";
+        }
+        leaf min-response-time {
+          type uint32;
+          units "ms";
+          description
+            "Minimum response time.";
+        }
+        leaf max-response-time {
+          type uint32;
+          units "ms";
+          description
+            "Maximum response time.";
+        }
+      }
+    }
+  }
+  rpc ap-diagnostic-information {
+    description
+      "Collects AP diagnostic information.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description
+          "Specifies an AP ID.";
+      }
+    }
+    output {
+      leaf result {
+        type string {
+          length "1..100";
+        }
+        description
+          "Displays the collection result.";
+      }
+    }
+  }
+  rpc ap-public-key {
+    description
+      "Collects AP public key.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description
+          "Specifies an AP ID.";
+      }
+    }
+    output {
+      leaf name {
+        type string {
+          length "1..127";
+        }
+        description
+          "Displays the collection result.";
+      }
+    }
+  }
+  rpc ap-container-information {
+    description
+      "Collects AP container information.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description
+          "Specifies an AP ID.";
+      }
+    }
+    output {
+      container container-infos {
+        list container-info {
+          key "name";
+          leaf name {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container name.";
+          }
+          leaf type {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container type.";
+          }
+
+          leaf version {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container version.";
+          }
+
+          leaf vendor-name {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container vendor name.";
+          }
+          leaf status {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container status.";
+          }
+
+          leaf cpu-usage {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container cpu usage.";
+          }
+          leaf max-mem {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container max memory.";
+          }
+          leaf used-mem {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container used memory.";
+          }
+          leaf mem-usage {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container memory usage.";
+          }
+          leaf mem-usage-of-host {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container memory usage of host.";
+          }
+          leaf disk-size {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container disk size.";
+          }
+          leaf disk-usage {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container disk usage.";
+          }
+          leaf app-status {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container app state.";
+          }
+          leaf start-time {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container start time.";
+          }
+          leaf last-start-time {
+            type string {
+              length "1..255";
+            }
+            description
+              "Container last start time.";
+          }
+          leaf architecture {
+            type string {
+              length "1..31";
+            }
+            description
+              "System architecture of the image software package.";
+          }
+          container device-lists {
+            list device-list {
+              key "device-index";
+              leaf device-index {
+                type string {
+                  length "1..255";
+                }
+                description
+                  "Device index.";
+              }
+              leaf device-name {
+                type string {
+                  length "1..255";
+                }
+                description
+                  "Device name.";
+              }
+              description
+                "Device list.";
+            }
+            description
+              "List of device.";
+          }
+          description
+            "Container information.";
+        }
+        description
+          "List of Container information.";
+      }
+    }
+  }
+  rpc ap-module {
+    description
+      "Collects AP module.";
+    input {
+      leaf ap-id {
+        type uint32;
+        mandatory true;
+        description
+          "Specifies an AP ID.";
+      }
+    }
+    output {
+      leaf module-name {
+        type string {
+          length "1..255";
+        }
+        description
+          "Displays the ap module name.";
+      }
+    }
+  }
+  rpc set-remote-ap-mode {
+    description
+      "Set the remote AP mode.";
+    input  {
+      container ap-instances {
+        description
+          "List of AP instances.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "AP MAC address.";
+          }
+          leaf ap-mode {
+            type enumeration {
+              enum "fit" {
+                value 0;
+                description
+                  "Set the remote AP mode to Fit.";
+              }
+            }
+            description
+              "AP mode.";
+          }
+          description
+            "Configure the AP instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc set-ap-power-save-mode {
+    description
+      "Set AP power save mode.";
+    input  {
+      container ap-instances {
+        description
+          "List of AP instances.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "AP MAC address.";
+          }
+          leaf ap-power-save-mode {
+            type power-save-mode;
+            description
+              "AP power save workmode.";
+          }
+          leaf latest-wakeuptime {
+            type yang:date-and-time;
+            mandatory true;
+            description
+              "Config latest wakeuptime YYYY/MM/DD HH:MM:SS.";
+          }
+          description
+            "Configure the AP instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc set-psmap-para-collection {
+    description
+      "Set AP power save mode parameter collection flag.";
+    input  {
+      container ap-instances {
+        description
+          "List of AP instances.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "AP MAC address.";
+          }
+          leaf ap-green-para-flag {
+            type enumeration {
+              enum "turn-off" {
+                value 0;
+                description
+                  "Set the remote AP not to report green para.";
+              }
+              enum "turn-on" {
+                value 1;
+                description
+                  "Set the remote AP to report green para.";
+              }
+            }
+            description
+              "AP green para report flag.";
+          }
+          description
+            "Configure the AP instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+
+  rpc ap-psm-keepalive {
+    description
+      "AP power save mode keepalive msg.";
+    input {
+      container psm-keepalive {
+        description
+          "Keepalive msg.";
+        leaf psm-keepalive-msg {
+          type string {
+            length "1..100";
+          }
+          description
+            "Keepalive msg.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Keepalive reply.";
+        }
+      }
+    }
+  }
+  rpc trigger-ftm {
+    description
+      "Trigger FTM Measurement.";
+    input  {
+      container ap-instances {
+        description
+          "List of AP instances.";
+        list ap-instance {
+          key "ap-id";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+          description
+            "Configure the AP instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc set-gnss {
+    description
+      "Set Location Infomation.";
+    input  {
+      container ap-instances {
+        description
+          "List of AP instances.";
+        list ap-instance {
+          key "ap-id";
+          leaf ap-id {
+            type uint32;
+            description
+              "The AP ID.";
+          }
+          leaf longitude {
+            type decimal64 {
+              fraction-digits 10;
+            }
+            units "°";
+            description
+              "Longitude.";
+          }
+          leaf latitude {
+            type decimal64 {
+              fraction-digits 10;
+            }
+            units "°";
+            description
+              "Latitude.";
+          }
+          leaf altitude {
+            type decimal64 {
+              fraction-digits 10;
+            }
+            units "m";
+            description
+              "Altitude.";
+          }
+          leaf altitude-type {
+            type int8;
+            description
+              "Altitude type.";
+          }
+          leaf floor-id {
+            type int16;
+            description
+              "Floor Id.";
+          }
+          leaf device-height {
+            type decimal64 {
+              fraction-digits 10;
+            }
+            units "m";
+            description
+              "Device Height.";
+          }
+          description
+            "Configure the AP instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc load-file {
+    description
+      "Load file to AP.";
+    input  {
+      choice type {
+        description
+          "Specifying a file load object.";
+        case all-ap {
+          description
+            "Specified all APs.";
+          leaf all-ap {
+            type empty;
+            description
+              "All APs.";
+          }
+        }
+        case ap-id {
+          description
+            "Specified AP ID.";
+          leaf ap-id {
+            type uint32;
+            description
+              "Specified AP ID.";
+          }
+        }
+        case ap-group {
+          description
+            "Specified AP group.";
+          leaf ap-group {
+            type string {
+              length "1..35";
+            }
+            description
+              "Specified AP group name.";
+          }
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc set-camera-quick-detection {
+    description
+      "Enable the ap for quick camera detection.";
+    input  {
+      choice type {
+        description
+          "Specifying camera quickly detects object.";
+        case all-ap {
+          description
+            "Specified all APs.";
+          leaf all-ap {
+            type empty;
+            description
+              "All APs.";
+          }
+        }
+        case ap-id {
+          description
+            "Specified AP ID.";
+          leaf ap-id {
+            type uint32;
+            description
+              "Specified AP ID.";
+          }
+        }
+        case ap-group {
+          description
+            "Specified AP group.";
+          leaf ap-group {
+            type string {
+              length "1..35";
+            }
+            description
+              "Specified AP group name.";
+          }
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  rpc update-au-status {
+    description
+      "Trigger update au status.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The AP mac.";
+          }
+          description
+            "Config of ap-instance.";
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+
+  rpc get-ap-ftm-distance {
+    description
+      "Controller get ap ftm distance.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The AP mac.";
+          }
+          description
+            "Config of ap-instance.";
+        }
+      }
+    }
+    output {
+      container ftm-infos {
+        list ftm-info {
+          key "ap-mac";
+          description
+            "List of the AP connected failed reasons.";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The ap terminal mac.";
+          }
+          leaf terminal-mac {
+            type pub-type:mac-address;
+            description
+              "The terminal mac.";
+          }
+          leaf distance {
+            type decimal64 {
+              fraction-digits 5;
+            }
+            units "m";
+            description "The distance between AP and terminal.";
+          }
+        }
+        description
+          "List of the distance between AP and terminal.";
+      }
+    }
+  }
+  rpc get-ap-radio-binging-profile-name {
+    description
+      "Get profile name for ap radio binding.";
+    input  {
+      container ap-instances {
+        description
+          "List of ap-instance.";
+        list ap-instance {
+          key "ap-mac";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The AP mac.";
+          }
+          leaf radio-id {
+            type uint32;
+            description
+              "Specified AP ID.";
+          }
+          leaf profile-type {
+            type enumeration {
+              enum "rrm-profile" {
+                value 0;
+                description
+                  "Rrm-profile type.";
+              }
+            }
+            description
+              "Specified profile type.";
+          }
+          description
+            "Config of ap-instance.";
+        }
+      }
+    }
+    output {
+      container profile-infos {
+        list profile-info {
+          key "ap-mac";
+          description
+            "List of the AP connected failed reasons.";
+          leaf ap-mac {
+            type pub-type:mac-address;
+            description
+              "The ap mac.";
+          }
+          leaf radio-id {
+            type uint32;
+            description
+              "Specified AP ID.";
+          }
+          leaf profile-name {
+            type string {
+              length "1..35";
+            }
+            description
+              "Profile name.";
+          }
+        }
+        description
+          "List of the profile information.";
+      }
+    }
+  }
+  rpc container-cpu {
+    description
+      "Set container cpu resource.";
+    input  {
+      choice type {
+        description
+          "Specifying container cpu resource.";
+        case set-cpu-num {
+          description "Set CPU num.";
+          leaf set-cpu-num {
+            type uint32 {
+              range "0 | 10";
+            }
+            description
+              "Set CPU num.";
+            }
+        }
+        case show-cpu-num {
+          description "Show CPU num.";
+          leaf show-cpu-num {
+            type empty;
+            description "Show CPU num.";
+          }
+        }
+      }
+    }
+    output  {
+      container result-info {
+        description
+          "Result output.";
+        leaf result {
+          type string {
+            length "1..100";
+          }
+          description
+            "Result output.";
+        }
+      }
+    }
+  }
+  ext:task-name "pcm";
+}

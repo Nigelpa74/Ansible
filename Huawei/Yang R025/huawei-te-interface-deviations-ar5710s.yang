@@ -1,0 +1,108 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-te-interface-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-te-interface-deviations-ar5710s";
+  prefix te-interface-devs-ar5710s;
+
+  import huawei-te-interface {
+    prefix te-interface;
+  }
+  import huawei-te {
+    prefix te;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-mpls-te {
+    prefix mpls-te;
+  }
+  import huawei-mpls {
+    prefix mpls;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-te-interface module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:p2mp-te-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc1" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc2" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc3" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc4" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc5" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:bc7" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:change-threshold-down" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:change-threshold-up" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:dyn-base-remain-bw" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:status/te-interface:used-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:status/te-interface:static-reserved-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:mpls-te-attribute" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:attribute-applications" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:mpls-te-enable" {
+    deviate delete {
+      must "(../mpls-te-enable='true' and /ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls:common/mpls:mpls-interfaces/mpls:mpls-interface[mpls:name=current()/../name] and /te:te/te:global/te:te-attribute-enable='false') or /te:te/te:global/te:te-attribute-enable='true'";
+    }
+    deviate add {
+      must "/te:te/te:global/te:te-attribute-enable='true'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth" {
+    deviate delete {
+      must "/mpls:mpls/mpls-te:te/mpls-te:global/mpls-te:ds-te-mode='non-ietf' or (/mpls:mpls/mpls-te:te/mpls-te:global/mpls-te:bcm-model/mpls-te:bcm-mode='mam' and max-reserved>=(bc0+bc1+bc2+bc3+bc4+bc5+bc6+bc7)) or /mpls:mpls/mpls-te:te/mpls-te:global/mpls-te:bcm-model/mpls-te:bcm-mode='rdm' or (not(/mpls:mpls/mpls-te:te/mpls-te:global/mpls-te:ds-te-mode) and /te:te/te:global/te:te-attribute-enable='true')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/te:te/te-interface:interfaces/te-interface:interface/te-interface:attribute/te-interface:bandwidth/te-interface:max-reserved" {
+    deviate add {
+      must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name = current()/../../../te-interface:name]/ifm:type!='Tunnel') or ((/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name = current()/../../../te-interface:name]/ifm:type='Tunnel') and ((/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name = current()/../../../te-interface:name]/ifm:bandwidth and /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name = current()/../../../te-interface:name]/ifm:bandwidth*1000>=../max-reserved) or (not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name = current()/../../../te-interface:name]/ifm:bandwidth) and (65536>=../max-reserved*1000))))";
+    }
+  }
+}

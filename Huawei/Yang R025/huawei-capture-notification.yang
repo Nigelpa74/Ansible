@@ -1,0 +1,80 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-capture-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-capture-notification";
+  prefix capture-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of capture.";
+  revision 2022-03-26 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+ ext:task-name "cpu-defend";
+ typedef result {
+   type enumeration {
+      enum "success" {
+        value 0;
+        description
+          "The packet capture result is successful.";
+      }
+      enum "fail" {
+        value 1;
+        description
+          "The packet capture result is fail.";
+      }
+    }
+    description
+      "Packet capture result.";
+  }
+  notification capture-end {
+    description
+      "This notification is used to report the event of the end of captureing and get the captureing file from the device to controller.";
+    leaf capture-index {
+      type uint32 {
+        range "1..8";
+      }
+      description
+        "Index of the packet capture instance.";
+    }
+    leaf esn {
+      type string {
+        length "1..256";
+      }
+      description
+        "The device name.";
+    }
+    leaf file-name {
+      type string {
+        length "1..60";
+      }
+      description
+        "Name of the file for saving captured packets.";
+    }
+    leaf result {
+      type result;
+      description
+        "Packet capture result.";
+    }
+    leaf error-code {
+      type uint32;
+      description
+        "Error code of the packet capture result.";
+    }
+  }
+}

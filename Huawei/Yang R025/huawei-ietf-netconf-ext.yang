@@ -1,0 +1,177 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+/*
+module: huawei-ietf-netconf-ext
+augment /nc:commit/nc:input:
+   +---- description?   string
+rpcs:
+   +---x cancel-query
+      +---w input
+         +---w set-id    uint32
+notifications:
+   +---n netconf-rpc-keepalive
+      +--ro session-id?   uint32
+      +--ro message-id?    string
+*/
+module huawei-ietf-netconf-ext {
+  namespace "urn:huawei:yang:huawei-ietf-netconf-ext";
+  prefix nc-ext;
+
+  import ietf-netconf {
+    prefix nc;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Extension of NETCONF protocol standard operations that were used privately for Huawei device.";
+  revision 2024-03-25 {
+    description
+      "The commit-description node is added to describe the edit-config operation on the running database.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-28 {
+    description
+      "Add running-config-query-mode to control the output of system generated configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-11 {
+    description
+      "Add combine-operation-policy node.";
+    reference
+      "Huawei private.";	  
+  }
+  revision 2021-11-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";	  
+  }
+  ext:task-name "netconf";
+  typedef flow-id-type {
+    type uint32;
+    description
+        "This type used for the attribute 'flow-id';
+         The rpc-reply of the sync-full/edit-config operation will contain the 'flow-id' XML attribute.";
+  }
+
+  typedef running-config-query-mode-type {
+    type enumeration {
+      enum include-system {
+        value 0;
+        description
+          "The system generated configuration is included in the reply result.";
+      }
+      enum exclude-system {
+        value 1;
+        description
+          "The system generated configuration is excluded in the reply result.";
+      }
+    }
+    description
+      "This type used for stripping the system generated configuration when query datastore.";
+  }
+
+  notification netconf-rpc-keepalive {
+    description
+      "This notification will be generated every 20 seconds if the operation takes more time,
+       Client must use filter to subscribe this notification for a specific session,
+       and it can report error if this notification is not enabled without the filter.";
+
+    leaf session-id {
+      type uint32;
+      description
+        "Session in which client want to receive this notitification; 
+         Unique identifier for the session. This value is the NETCONF session identifier, as defined in [RFC4741].Refer to RFC 6022 section 2.1.4.";
+    }
+    
+    leaf message-id {
+      type string {
+        length "0..4095";
+      }
+      description
+        "Message id of the rpc operation that is taking long time to execute.";
+    }
+  }
+  augment /nc:commit/nc:input {
+    description
+         "Adds the <description> parameter to
+          the input of the NETCONF <commit> operation.";
+    leaf description {
+      type string {
+        length "1..60";
+      }
+      description
+        "This is used for commit comments to identify specific commit operation.";
+    }
+  }
+  augment /nc:delete-config/nc:input/nc:target/nc:config-target {
+    description
+         "Adds the <candidate> target to
+          the input of the NETCONF <delete-config> operation.";
+    leaf candidate {
+      type empty;
+      description
+        "The candidate configuration is the config target.";
+    }
+  }
+  augment /nc:edit-config/nc:input {
+    description
+         "Adds the <combine-operation-policy> and <commit-description>
+          parameter to the input of the NETCONF <edit-config> operation.";
+    leaf combine-operation-policy {
+      type bits {
+        bit create-merge-noseqto-create {
+          position 0;
+          description
+          "Create and merge operation combine to create.";
+          }
+        }
+      description
+        "If the <edit-config> operation contains multiple sub-operations
+        that apply to the same conceptual node in the underlying data
+        model use this policy. Otherwise default policy is used.";
+    }
+    leaf commit-description {
+      when "../nc:target/nc:running";
+      type string {
+        length 1..60;
+      }
+      description 
+        "Specify the commit description when the target of edit-config is 'running'.";
+    }
+  }
+  augment /nc:get-config/nc:input {
+    description
+         "Adds the <running-config-query-mode> parameter to
+          the input of the NETCONF <get-config> operation.";
+    leaf running-config-query-mode {
+      type running-config-query-mode-type;
+      description
+        "Specify whether the system generated configuration should be included or excluded.";
+    }
+  }
+  augment /nc:copy-config/nc:input {
+    when "nc:target/nc:url";
+    description
+         "Adds the <running-config-query-mode> parameter to
+          the input of the NETCONF <copy-config> operation.";
+    leaf running-config-query-mode {
+      type running-config-query-mode-type;
+      description
+        "Specify whether the system generated configuration should be included or excluded inside the file of url.";
+    }
+  }
+}

@@ -1,0 +1,46 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-traffic-distribution-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-traffic-distribution-deviations-ar5710s";
+  prefix td-devs-ar5710s;
+
+  import huawei-traffic-distribution {
+    prefix td;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-traffic-distribution module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/td:traffic-distribution/td:deliver/td:status/td:next-startup-mode" {
+    deviate not-supported;
+  }
+  deviation "/td:traffic-distribution/td:performance/td:status/td:next-startup-mode" {
+    deviate not-supported;
+  }
+  deviation "/td:traffic-distribution/td:deliver/td:mode" {
+    deviate add {
+      default "port";
+    }
+  }
+  deviation "/td:traffic-distribution/td:performance/td:mode" {
+    deviate add {
+      default "security";
+    }
+  }
+}

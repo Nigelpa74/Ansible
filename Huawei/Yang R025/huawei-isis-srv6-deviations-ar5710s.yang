@@ -1,0 +1,66 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-isis-srv6-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-isis-srv6-deviations-ar5710s";
+  prefix isis-srv6-devs-ar5710s;
+
+  import huawei-isis-srv6 {
+    prefix isis-srv6;
+  }
+  import huawei-isis {
+    prefix isis;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-isis-srv6 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:locators/isis-srv6:locator/isis-srv6:auto-end-x-protected" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:locators/isis-srv6:locator/isis-srv6:auto-end-x-parallel-protected" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:encapsulation-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:auto-sid-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:parallel-sid-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:strict-msd-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:slice-source-prefixs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:afs/isis:af/isis-srv6:srv6/isis-srv6:compress-flex-algo-excludes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/isis:isis/isis:sites/isis:site/isis:circuits/isis:circuit/isis:afs/isis:af/isis-srv6:srv6" {
+    deviate not-supported;
+  }
+}

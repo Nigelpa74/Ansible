@@ -1,0 +1,221 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fec-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-fec-notification";
+  prefix fec-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of forward error correction.";
+
+  revision 2025-09-22 {
+    description
+      "Modify fec instance extend alarm node to fec enhance alarm node.";
+    reference
+      "Huawei private.";
+  }	
+  revision 2025-07-16 {
+    description
+      "Add fec instance extend alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-18 {
+    description
+      "Add multi cpu fec alarm node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "wanop-fec";
+
+  notification fec-performance-limit-exceed {
+    description
+      "The fec engine has reached performance limit.";
+    leaf maximum-performance {
+      type uint32;
+      units "Mbit/s";
+      description
+        "The maximum performance of fec engine.";
+    }
+  }
+  notification fec-performance-limit-resume {
+    description
+      "The fec engine performance has resumed.";
+    leaf maximum-performance {
+      type uint32;
+      units "Mbit/s";
+      description
+        "The maximum performance of fec engine.";
+    }
+  }
+  notification fec-instance-limit-exceed {
+    description
+      "The fec instance has reached 100% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of fec instance.";
+    }
+  }
+  notification fec-instance-limit-resume {
+    description
+      "The fec instance number has decreased to 95% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of fec instance.";
+    }
+  }
+  notification multi-cpu-fec-performance-limit-exceed {
+    description
+      "The fec engine on current slot and CPU has reached performance limit.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf maximum-performance {
+      type uint32;
+      units "Mbit/s";
+      description
+        "The maximum performance of fec engine.";
+    }
+  }
+  notification multi-cpu-fec-performance-limit-resume {
+    description
+      "The fec engine performance on current slot and CPU has resumed.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf maximum-performance {
+      type uint32;
+      units "Mbit/s";
+      description
+        "The maximum performance of fec engine.";
+    }
+  }
+  notification multi-cpu-fec-instance-limit-exceed {
+    description
+      "The fec instance on current slot and CPU has reached 100% of the maximum number.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of fec instance.";
+    }
+  }
+  notification multi-cpu-fec-instance-limit-resume {
+    description
+      "The fec instance number on current slot and CPU has decreased to 95% of the maximum number.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of fec instance.";
+    }
+  }
+  notification fec-enhance-inconsistent {
+    description
+      "The configuration of the fec enhance function is inconsistent with the actual effective state.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf config-state {
+      type string {
+        length "1..64";
+      }
+      description
+        "The configuration of fec enhance function.";
+    }
+    leaf current-state {
+      type string {
+        length "1..64";
+      }
+      description
+        "The current state of fec enhance function.";
+    }
+  }
+  notification fec-enhance-inconsistent-resume {
+    description
+      "The configuration of the fec enhance function is consistent with the actual effective state.";
+    leaf slot-id {
+      type uint32;
+      description
+        "Indicates slot id.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates cpu id.";
+    }
+    leaf config-state {
+      type string {
+        length "1..64";
+      }
+      description
+        "The configuration of fec enhance function.";
+    }
+    leaf current-state {
+      type string {
+        length "1..64";
+      }
+      description
+        "The current state of fec enhance function.";
+    }
+  }
+}

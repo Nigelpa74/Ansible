@@ -1,0 +1,2214 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-system-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-system-profile";
+  prefix wlan-sys-prof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-ap {
+    prefix wlan-ap;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix wlan-apg;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+
+  import huawei-pki {
+    prefix pki;
+  }
+
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-wlan-mqtt-server-profile {
+    prefix mqtt-server-prof;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Wlan ap system configuration service package.";
+  revision 2025-09-22 {
+    description
+      "Add ip-address and ip-version check.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-18 {
+    description
+      "Add card-connect-type default value.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-09-05 {
+    description
+      "Modify presence-aging-time default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-03 {
+    description
+      "Modify keep-service default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-12 {
+    description
+      "Modify csi distance-range and add presence-re-enter-delay.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-09 {
+    description
+      "Add camera-detection-iot-server-id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-01 {
+    description
+      "Add csi reporting and detection configurations.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-31 {
+    description
+      "Modify antenna-output and cwp-pkt-inner-fragment position.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-28 {
+    description
+      "Add cwp-pkt-inner-fragment.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-26 {
+    description
+      "Add isolation mode backup.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-25 {
+    description
+      "Add antenna-output.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-21 {
+    description
+      "Add iot-integration-servers.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-19 {
+    description
+      "Add camera-detection.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-10 {
+    description
+      "Modified container VLAN id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-07 {
+    description
+      "Add container VLAN id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-15 {
+    description
+      "Modify power-supply-mode and add distribute-ap isolation logic VLAN node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-24 {
+    description
+      "Delete distribute-ap iot node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-14 {
+    description
+      "Add 4radio, 4radio-independent-scan and 5radio mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-10 {
+    description
+      "Modify cloud-desktop-applications and add bind-iflow-groups.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-03 {
+    description
+      "Add iot-VLAN, power-supply-mode and dc-power-mode for distribute-ap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-13 {
+    description
+      "Add csi action sensitivity level configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-11 {
+    description
+      "Add dual-link.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-06 {
+    description
+      "Remove Gnss period.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-20 {
+    description
+      "Add iflow-learning, application-experience-optimize, dot1x-client-pki-realm and ap-keep-online.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-14 {
+    description
+      "Add FTM and DAP function.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-04 {
+    description
+      "Modify pre warning.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-24 {
+    description
+      "Add certificate check.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-24 {
+    description
+      "Add init mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-13 {
+    description
+      "Add usb 9W.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-21 {
+    description
+      "Add spectrum-server ac-port and csi sensitivity level configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-20 {
+    description
+      "Add DTLS configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-26 {
+    description
+      "Add tunnel device configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add csi configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-08 {
+    description
+      "Add ble-workmode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-27 {
+    description
+      "Add profile-name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add dynamic-blacklist aging-time.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-19 {
+    description
+      "Add primary-access, backup-access.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-14 {
+    description
+      "Add distribute AP.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-13 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-03-01 {
+    description
+      "Add card-connect-type.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-12-29 {
+    description
+      "Modify the data type of ssh-first-time/alarm-restriction node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-04 {
+    description
+      "Modify the data type of local-management node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-20 {
+    description
+      "Change range of igmp-threshold and mdns-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-19 {
+    description
+      "Add must condition of console and ble-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-16 {
+    description
+      "Add when condition of turn-off-by-time.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-07 {
+    description
+      "Delete default value of data-dtls-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-25 {
+    description
+      "Delete radio-work-mode default value;Modify local-management ip-address and mask.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-21 {
+    description
+      "Fix power work mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-16 {
+    description
+      "Add power work mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-26 {
+    description
+      "Add user-interface vty screen-length and idle-timeout.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-12-25 {
+    description
+      "Add sta arp-nd-proxy before-assoc.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-12-22 {
+    description
+      "Add lldp-report/sea-monitor-interval/flow-learning-max-user-flow.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-09-28 {
+    description
+      "Fix management VLAN range.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-09-02 {
+    description
+      "Delete power-threshold default value and add temperature-type.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-08-19 {
+    description
+      "Add configuration of V6R22C10.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Fix path bug.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping ap-binding-system-profile {
+    description
+      "Binding ap-system-profile.";
+    container binding-system-profile {
+      description
+        "Configure binding ap system profile.";
+      leaf binding-system-profile {
+        type leafref {
+          path "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:profile-name";
+        }
+        description
+          "Binding ap system profile.";
+      }
+    }
+  }
+  grouping group-binding-system-profile {
+    description
+      "Binding ap-system-profile.";
+    container binding-system-profile {
+      description
+        "Configure binding ap system profile.";
+      leaf binding-system-profile {
+        type leafref {
+          path "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:profile-name";
+        }
+        default "default";
+        description
+          "Binding ap system profile.";
+      }
+    }
+  }
+
+  grouping acl-vtys-class {
+    description
+	    "Configure acl-vtys-class.";
+    list acl-vty {
+      key "vty-number direction";
+      description
+	    "Configure user interface acl.";
+      leaf vty-number {
+        type uint8 {
+          range "0..4";
+        }
+        description
+		  "User interface ui number.";
+      }
+      leaf direction {
+        type enumeration {
+          enum "inbound" {
+            value 0;
+            description
+	      "Inbound direction.";
+          }
+          enum "outbound" {
+            value 1;
+            description
+	      "Outbound direction.";
+          }
+        }
+        description
+		  "Configure the ACL direction.";
+      }
+      leaf acl-number {
+        type uint32 {
+		  range "3000..3031";
+        }
+        mandatory true;
+       description
+		  "ACL number.";
+      }
+    }
+  }
+
+  container wlan-system-profile {
+    description
+      "Configure global system configurations for an AP.";
+    container tunnel-devices {
+    description
+        "List of tunnel-devices.";
+        list tunnel-device {
+            key "id";
+            leaf id {
+                type uint32 {
+                range "0..15";
+                }
+                description "Tunnel device ID.";
+            }
+            leaf ip {
+                type inet:ip-address;
+                description "Tunnel device IP address.";
+            }
+            choice tunnel-dtls-type {
+                description
+                "Choice tunnel device DTLS type.";
+                case disable {
+                    description
+                        "Case DTLS disable.";
+                    leaf dtls-disable {
+                        type empty;
+                        description "Tunnel device DTLS disable.";
+                    }
+                }
+                case psk {
+                    description
+                        "Case DTLS psk.";
+                    leaf dtls-psk {
+                        type pub-type:password-extend {
+                        length "8..148";
+                        }
+                        mandatory true;
+                        description "Tunnel device DTLS psk.";
+                    }
+                }
+                case cert {
+                    description
+                        "Case DTLS cert.";
+                    leaf dtls-pki-realm {
+                        type leafref {
+                            path "/pki:pki/pki:domains/pki:domain/pki:name";
+                        }
+                        description "Tunnel device DTLS cert pki-realm.";
+                    }
+                }
+            }
+            description
+            "Configure list of tunnel-devices.";
+        }
+    }
+    container service-tunnel-profiles {
+      description "List of service-tunnel-profiles.";
+
+      list service-tunnel-profile {
+        key name;
+        description "Configure list of the service tunnel profile.";
+        leaf name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description "Service tunnel profile name.";
+        }
+        leaf master-device-id {
+          type leafref {
+            path "../../../tunnel-devices/tunnel-device/id";
+          }
+          description "Master device ID.";
+        }
+        leaf backup-device-id {
+          type leafref {
+            path "../../../tunnel-devices/tunnel-device/id";
+          }
+          description "Backup device ID.";
+        }
+        leaf restore-switch {
+          type boolean;
+          default "true";
+          description "Enable/disable restore switch.";
+        }
+        leaf restore-delay {
+          type uint32 {
+            range "60..600";
+          }
+          default "300";
+          description "Restore delay time.";
+        }
+      }
+    }
+    container system-profiles {
+      description
+        "List of ap-system-profile.";
+      list system-profile {
+        ext:generated-by system {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        must "./console = 'true' or (./console = 'false' and ./ble-mode = 'disable')";
+        must "./link-switch-gap-threshold <= ./link-switch-start-threshold";
+        key "profile-name";
+        description
+          "Configure global system configurations for an AP.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "AP system profile name.";
+        }
+        leaf management-vlan {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Management VLAN of the AP.";
+        }
+        leaf connectivity-detect {
+          type boolean;
+          default true;
+          description
+            "Enable/disable detect connectivity.";
+        }
+        container wmi-servers {
+          description
+            "List of wmi-server.";
+          list wmi-server {
+            key "index";
+            leaf index {
+              type uint8 {
+                range "1..2";
+              }
+              description
+                "Config wmi server index.";
+            }
+            leaf wmi-server-name {
+              ext:operation-exclude update;
+              type leafref {
+                path "/wlan-ap:wlan-ap/wlan-ap:wmi-server-infos/wlan-ap:wmi-server-info/wlan-ap:wmi-server-name";
+              }
+              mandatory true;
+              description
+                "Configure wmi server name.";
+            }
+            description
+              "Configure wmi-server.";
+          }
+        }
+        leaf mtu {
+          type uint32 {
+            range "1000..1700";
+          }
+          default "1500";
+          description
+            "Configure MTU.";
+        }
+        leaf memory-usage-threshold {
+          type uint32 {
+            range "30..100";
+          }
+          default "80";
+          description
+            "Config memory usage threshold.";
+        }
+        leaf disk-usage-threshold {
+          type uint32 {
+            range "6..100";
+          }
+          default "95";
+          description
+            "Config disk usage threshold.";
+        }
+        leaf cpu-usage-threshold {
+          type uint8 {
+            range "50..100";
+          }
+          default "90";
+          description
+            "Configure the threshold of CPU usage.";
+        }
+        leaf dhcp-client-option12 {
+          type enumeration {
+            enum "ap-name" {
+              value 0;
+              description
+                "AP name.";
+            }
+            enum "ap-type-mac" {
+              value 1;
+              description
+                "AP type and AP mac.";
+            }
+            enum "disable" {
+              value 2;
+              description
+                "Carry none.";
+            }
+          }
+          default "ap-type-mac";
+          description
+            "Configure DHCP packets carry Option12.";
+        }
+        leaf console {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of console.";
+        }
+        leaf stelnet-server {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of STelnet server.";
+        }
+        leaf telnet {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of Telnet.";
+        }
+        leaf usb {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Disable USB.";
+            }
+            enum "enable-2point5w" {
+              value 1;
+              description
+                "Enable USB 2.5w.";
+            }
+            enum "enable-5w" {
+              value 2;
+              description
+                "Enable USB 5w.";
+            }
+            enum "enable-9w" {
+              value 3;
+              description
+                "Enable USB 9w.";
+            }
+          }
+          default "disable";
+          description
+            "Enable/disable USB.";
+        }
+        container led {
+          description
+            "Configure turn on/off the AP LED.";
+          leaf led-switch {
+            type enumeration {
+              enum "turn-on" {
+                value 0;
+                description
+                  "Turn on the led.";
+              }
+              enum "turn-off" {
+                value 1;
+                description
+                  "Turn off the led.";
+              }
+            }
+            default "turn-on";
+            description
+              "Configure turn on/off the AP LED.";
+          }
+          leaf turn-off-by-time {
+            when "../led-switch = 'turn-off'";
+            type string {
+              length "1..32";
+            }
+            must "../turn-off-by-time != 'all'";
+            description
+              "Scheduled off the led.";
+          }
+        }
+
+        container acl-vtys {
+          description
+              "Configure acl-vtys-v4.";
+          uses wlan-sys-prof:acl-vtys-class;
+
+        }
+        container acl-vtys-v6 {
+          description
+              "Configure acl-vtys-v6.";
+	     container acl-vtys {
+           description
+              "Configure acl-vtys-v6.";
+	       uses wlan-sys-prof:acl-vtys-class;
+	       }
+
+        }
+        container poe {
+          description
+            "Configure AP PoE Management.";
+          leaf max-power {
+            type uint32 {
+              range "15400..750000";
+            }
+            units "mW";
+            default "750000";
+            description
+              "Configure max power.";
+          }
+          leaf power-threshold {
+            type uint8 {
+              range "0..100";
+            }
+            units "%";
+            description
+              "Configure threshold power percentage.";
+          }
+          leaf high-inrush {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the function of high inrush.";
+          }
+          leaf af-inrush {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable IEEE 802.3af Power Supply Standard.";
+          }
+          leaf power-reserved {
+            type uint8 {
+              range "0..100";
+            }
+            description
+              "Configure power reserved Percentage.";
+          }
+        }
+        container local-management {
+          description
+            "Configure the function of AP local management.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable AP local management.";
+          }
+
+          leaf ipv4-address {
+            type inet:ipv4-address;
+            default "192.168.254.254";
+            description
+                "IPv4 address of local management.";
+          }
+          leaf sub-net-mask {
+            type inet:ipv4-address;
+            default "255.255.255.255";
+            description
+                "Config sub net mask of local-management.";
+          }
+
+        }
+        container traffic-optimize {
+          description
+            "Configure the function of traffic optimize.";
+          leaf arp-threshold {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "ARP rate threshold.";
+          }
+          leaf igmp-threshold {
+            type uint32 {
+              range "0..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "IGMP rate threshold.";
+          }
+          leaf nd-threshold {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "ND rate threshold.";
+          }
+          leaf dhcp-threshold {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "DHCP rate threshold.";
+          }
+          leaf dhcpv6-threshold {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "DHCPv6 rate threshold.";
+          }
+          leaf mdns-threshold {
+            type uint32 {
+              range "0..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "MDNS rate threshold.";
+          }
+          leaf other-broadcast-threshold {
+            type uint32 {
+              range "0..1024";
+            }
+            units "pps";
+            default "16";
+            description
+              "Other broadcast rate threshold.";
+          }
+          leaf other-multicast-threshold {
+            type uint32 {
+              range "0..1024";
+            }
+            units "pps";
+            default "16";
+            description
+              "Other multicast rate threshold.";
+          }
+          leaf arp {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for ARP broadcast packets.";
+          }
+          leaf igmp {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for IGMP broadcast packets.";
+          }
+          leaf nd {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for ND broadcast packets.";
+          }
+          leaf dhcp {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for DHCP broadcast packets.";
+          }
+          leaf dhcpv6 {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for DHCPv6 broadcast packets.";
+          }
+          leaf mdns {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for MDNS broadcast packets.";
+          }
+          leaf other-broadcast {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for other broadcast packets.";
+          }
+          leaf other-multicast {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable rate limiting for other multicast broadcast packets.";
+          }
+        }
+        container igmp-group-bandwidths {
+          description
+            "List of IGMP snooping group bandwidth.";
+          list igmp-group-bandwidth {
+            key "start-group-address end-group-address";
+            max-elements 32;
+            description
+              "Configure IGMP snooping group bandwidth, multicast group address segments cannot overlap each other.";
+            leaf start-group-address {
+              type inet:ip-address;
+              description
+                "Configure start address of multicast group.";
+            }
+            leaf end-group-address {
+              type inet:ip-address;
+              description
+                "Configure end address of multicast group.";
+            }
+            leaf bandwidth {
+              type uint32 {
+                range "1..100000";
+              }
+              units "kbit/s";
+              mandatory true;
+              description
+                "Configure bandwidth of multicast group.";
+            }
+          }
+        }
+        container cpu-defends {
+          description
+            "List of cpu defend.";
+          list cpu-defend {
+            key "packet-protocol-type packet-type";
+            description
+              "Configure the rate limit of packet.";
+            leaf packet-protocol-type {
+              type string {
+                length "1..36";
+              }
+              description
+                "Packet protocol type.";
+            }
+            leaf packet-type {
+              type enumeration {
+                enum "wired" {
+                  value 0;
+                  description
+                    "Wired packet.";
+                }
+                enum "wireless" {
+                  value 1;
+                  description
+                    "Wireless packet.";
+                }
+              }
+              description
+                "Packet type.";
+            }
+            leaf rate-limit {
+              type uint32 {
+                range "0..4294967295";
+              }
+              units "pps";
+              mandatory true;
+              description
+                "Configure rate limit.";
+            }
+          }
+        }
+        container packet-auto-detect {
+          description
+            "Configure the rate limit for packets.";
+          leaf broadcast-packet {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "The rate limit for broadcast packets.";
+          }
+          leaf multicast-packet {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "256";
+            description
+              "The rate limit for multicast packets.";
+          }
+          leaf unicast-switch {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable the function of unicast auto detect.";
+          }
+          leaf unicast-packet {
+            type uint32 {
+              range "64..1024";
+            }
+            units "pps";
+            default "128";
+            description
+              "The rate limit for unicast packets.";
+          }
+        }
+        container temperature-thresholds {
+          description
+            "List of temperature threshold.";
+          list temperature-threshold {
+            key "temperature-level temperature-type";
+            description
+              "Configure temperature threshold.";
+            leaf temperature-level {
+              type enumeration {
+                enum "high" {
+                  value 0;
+                  description
+                    "High temperature.";
+                }
+                enum "low" {
+                  value 1;
+                  description
+                    "Low temperature.";
+                }
+              }
+              description
+                "Config temperature level.";
+            }
+            leaf temperature-type {
+              type enumeration {
+                enum "environment" {
+                  value 0;
+                  description
+                    "AP environment temperature.";
+                }
+                enum "cpu" {
+                  value 1;
+                  description
+                    "CPU temperature.";
+                }
+                enum "np" {
+                  value 2;
+                  description
+                    "NP temperature.";
+                }
+                enum "device" {
+                  value 3;
+                  description
+                    "AP device temperature.";
+                }
+              }
+              description
+                "Config temperature type.";
+            }
+            leaf low-threshold {
+              when "../temperature-level='low'";
+              type int8 {
+                range "-70..10";
+              }
+              description
+                "Low temperature threshold.";
+            }
+            leaf high-threshold {
+              when "../temperature-level='high'";
+              type uint8 {
+                range "20..110";
+              }
+              description
+                "High temperature threshold.";
+            }
+          }
+        }
+        leaf lldp-report {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable LLDP report switch.";
+        }
+        leaf sea-monitor-interval {
+          type uint32 {
+            range "2..30";
+          }
+          units "s";
+          default "10";
+          description
+            "Config the sampling interval for SEA-based application monitoring.";
+        }
+        leaf flow-learning-max-user-flow {
+          type uint32 {
+            range "100..400";
+          }
+          description
+            "Config the maximum number of Native-IFIT flows for each user.";
+        }
+        leaf sta-arp-nd-proxy {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable sta-arp-nd-proxy.";
+        }
+        container log-server {
+          presence "Configure log server info.";
+          leaf ip-version {
+            type inet:ip-version;
+            mandatory true;
+            description "Configure log-server ip version.";
+          }
+          leaf ip-address {
+            type inet:ip-address;
+            mandatory true;
+            description
+              "Configure log server ip-address.";
+          }
+          leaf port {
+            type uint16 {
+              range "1..65535";
+            }
+            default "514";
+            description
+              "Configure log server port.";
+          }
+          description
+              "Configure log server info.";
+        }
+        container spectrum-info {
+          leaf non-wifi-age-time {
+            type uint16 {
+              range "1..30";
+            }
+            units "m";
+            default "3";
+            description
+              "Configure non-wifi-age-time.";
+          }
+          container spectrum-server {
+            must "(./ip-version = 'ipv6' and contains(./ip-address,':')) or (./ip-version = 'ipv4' and not(contains(./ip-address,':')))";
+            presence "Configure spectrum-server info.";
+            leaf ip-version {
+              type inet:ip-version;
+              mandatory true;
+              description "Configure spectrum-server ip version.";
+            }
+
+            leaf ip-address {
+              type inet:ip-address;
+              mandatory true;
+              description
+                "Configure spectrum-server ip-address.";
+            }
+            leaf port {
+              type uint16 {
+                range "1..65535";
+              }
+              mandatory true;
+              description
+                 "Configure spectrum-server port.";
+            }
+            leaf via-ac-flag {
+              type empty;
+              description
+                 "Enable/disable spectrum report via-ac.";
+            }
+            leaf ac-port {
+              when "../via-ac-flag";
+              type uint16 {
+                range "5000..65535";
+              }
+              mandatory true;
+              description
+                "Configure spectrum via-ac port.";
+            }
+            description
+              "Configure spectrum-server.";
+          }
+          description
+              "Configure spectrum-info.";
+        }
+        container keep-service {
+          description "Configure keep-service.";
+          leaf switch {
+            type boolean;
+            default true;
+            description "Enable/disable keep-service switch.";
+          }
+          leaf allow-new-access {
+            when "../switch = 'true'";
+            type boolean;
+            default false;
+            description "Enable/disable keep-service allow-new-access.";
+          }
+          leaf no-auth {
+            when "../allow-new-access = 'true'";
+            type boolean;
+            default false;
+            description "Enable/disable keep-service no-auth.";
+          }
+        }
+        container dtls {
+          leaf data-dtls-switch {
+            type boolean;
+            description
+              "Enable/disable CAPWAP data DTLS.";
+         }
+         leaf ctrl-dtls-switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable CAPWAP control DTLS.";
+         }
+         container cert-cn {
+            presence "Configure cert-cn.";
+            leaf type {
+              type enumeration {
+                enum "by-sn" {
+                  value 0;
+                  description
+                     "By sn.";
+                }
+                enum "cn-string" {
+                  value 1;
+                  description
+                     "By cn-string.";
+                }
+              }
+              mandatory true;
+              description
+                  "Configure cert-cn type.";
+            }
+            leaf cn-string {
+              when "../type = 'cn-string'";
+                type string {
+                  length "1..64";
+              }
+              description
+                  "Configure cn-string.";
+            }
+            description
+                  "Configure cn-info.";
+          }
+          description
+                  "Configure dtls info.";
+        }
+        leaf log-record-level {
+          type enumeration {
+	    enum "emergency" {
+	      value 0;
+	      description
+	         "By emergency.";
+	    }
+	    enum "alert" {
+	      value 1;
+	      description
+	         "By alert.";
+	    }
+	    enum "critical" {
+	      value 2;
+	      description
+	         "By critical.";
+	    }
+	    enum "error" {
+	      value 3;
+	      description
+	         "By error.";
+	    }
+	    enum "warning" {
+	      value 4;
+	      description
+	         "By warning.";
+   	    }
+	    enum "notice" {
+	      value 5;
+	      description
+	         "By notice.";
+	    }
+	    enum "info" {
+	      value 6;
+	      description
+	       "By info.";
+	   }
+	   enum "debug" {
+	     value 7;
+	     description
+	        "By debug.";
+	   }
+         }
+         default "info";
+         description
+                  "Configure log-record-level.";
+       }
+       leaf ble-mode {
+         type enumeration {
+           enum "dynamic" {
+             value 0;
+             description
+               "Dynamic mode.";
+           }
+           enum "persistent" {
+             value 1;
+             description
+                "Persistent mode.";
+           }
+           enum "disable" {
+             value 2;
+             description
+                   "Disable mode.";
+           }
+         }
+         default "dynamic";
+         description
+           "Configure the Bluetooth mode.";
+       }
+       leaf ble-workmode {
+         type enumeration {
+           enum "console" {
+             value 0;
+             description
+               "Console mode.";
+           }
+           enum "iot" {
+             value 1;
+             description
+                "IoT mode.";
+           }
+           enum "init" {
+             value 2;
+             description
+                "Init mode.";
+           }
+         }
+         default "init";
+         description
+           "Configure the Bluetooth working mode.";
+       }
+       leaf sftp-server {
+         type boolean;
+         default "true";
+         description
+                  "Enable/disable sftp-server.";
+       }
+       container temp-mngt {
+          leaf switch {
+            type boolean;
+            default "true";
+            description
+                  "Enable/disable sftp-server.";
+          }
+          leaf temp-mgmt-psk {
+            type pub-type:password-extend {
+              length "8..188";
+            }
+            description
+             "Temporary management psk.";
+          }
+          description
+             "Configure temp-mngt info.";
+       }
+
+       leaf radio-mode {
+         type enumeration {
+           enum "2radio-standard" {
+             value 0;
+             description
+              "2radio-standard.";
+           }
+           enum "2radio-2g-enhanced" {
+             value 1;
+             description
+              "2radio-2g-enhanced.";
+           }
+           enum "2radio-5g-enhanced" {
+             value 2;
+             description
+              "Disable mode.";
+           }
+           enum "2radio-independent-scan" {
+             value 3;
+             description
+              "2radio-independent-scan.";
+           }
+           enum "3radio" {
+             value 4;
+             description
+              "3radio.";
+           }
+           enum "4radio" {
+             value 5;
+             description
+              "4radio.";
+           }
+           enum "4radio-independent-scan" {
+             value 6;
+             description
+              "4radio-independent-scan.";
+           }
+           enum "5radio" {
+             value 7;
+             description
+              "5radio.";
+           }
+	     }
+
+         description
+             "Configure radio-mode.";
+        }
+	    container vtys {
+		  description
+			"List of user interface parameters.";
+
+			 list vty {
+                ext:generated-by system {
+                    ext:filter "vty-number='0' or vty-number='1' or vty-number='2' or vty-number='3' or vty-number='4'";
+                    description
+                        "The default vty generated by system.";
+                }
+                ext:operation-exclude "delete" {
+                    ext:filter "vty-number='0' or vty-number='1' or vty-number='2' or vty-number='3' or vty-number='4'";
+                    description
+                        "The default vty cannot be deleted.";
+                }
+			   key "vty-number";
+				 description
+					"Configure user interface parameters.";
+				leaf vty-number {
+				  type uint8 {
+				  range "0..4";
+				}
+				description
+				  "User interface ui number.";
+				}
+				leaf idle-timeout-min {
+				  type uint32 {
+					range "0..35791";
+				}
+				default "5";
+				description
+				  "User connection timeout interval minutes.";
+				}
+				leaf idle-timeout-sec {
+				  type uint32 {
+					range "0..59";
+				}
+				default "0";
+				  description
+				    "User connection timeout interval seconds.";
+				}
+				leaf screen-length {
+				  type uint16 {
+					range "0..512";
+				}
+				default "24";
+				description
+				  "Number of lines displayed on each terminal screen.";
+			}
+		  }
+		}
+        leaf power-work-mode {
+          type enumeration {
+            enum "af" {
+              value 0;
+              description
+                "802.3af.";
+            }
+            enum "at" {
+              value 1;
+              description
+                "802.3at.";
+            }
+            enum "bt60" {
+              value 2;
+              description
+                "802.3bt class 6.";
+            }
+            enum "bt90" {
+              value 3;
+              description
+                "802.3bt class 8.";
+            }
+            enum "none" {
+              value 4;
+              description
+                "None.";
+            }
+          }
+          default "none";
+          description
+            "Power supply mode of the AP.";
+        }
+        leaf ssh-first-time {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the first authentication function on the SSH client.";
+        }
+       container alarm-restriction {
+          leaf switch {
+            type boolean;
+            default "true";
+            description
+                  "Enable/disable alarm suppression.";
+          }
+          leaf period {
+            type uint16 {
+              range "10..300";
+            }
+			units "s";
+            default "60";
+            description
+              "Configure the period of alarm suppression.";
+          }
+          description
+             "Configure alarm suppression information.";
+       }
+        leaf card-connect-type {
+         type enumeration {
+           enum "serial" {
+		    value 0;
+			description "Iot card type with device.";
+		  }
+          enum "ethernet" {
+		    value 1;
+			description "Iot card type with device.";
+	      }
+	      enum "container" {
+		    value 2;
+			description "Iot card type with device.";
+		  }
+        }
+        default "serial";
+        description
+          "Iot card interface type with device.";
+    }
+       leaf distribute-mode {
+            type boolean;
+            default false;
+            description
+              "Enable/disable distribute-mode.";
+        }
+        container primary-access {
+            must "(./ip-version = 'ipv6' and contains(./ip-address,':')) or (./ip-version = 'ipv4' and not(contains(./ip-address,':')))";
+            presence "Configure primary access address.";
+            leaf ip-version {
+                type inet:ip-version;
+                mandatory true;
+                description "Configure primary access ip version.";
+            }
+            leaf ip-address {
+                type inet:ip-address;
+                mandatory true;
+                description "Configure primary access ip-address.";
+            }
+            description "Configure primary access address.";
+        }
+        container backup-access {
+            must "(./ip-version = 'ipv6' and contains(./ip-address,':')) or (./ip-version = 'ipv4' and not(contains(./ip-address,':')))";
+            presence "Configure backup access address.";
+            leaf ip-version {
+                type inet:ip-version;
+                mandatory true;
+                description "Configure backup access ip version.";
+            }
+            leaf ip-address {
+                type inet:ip-address;
+                mandatory true;
+                description "Configure backup access ip-address.";
+            }
+            description "Configure backup access address.";
+        }
+        leaf link-switch-mode {
+          type enumeration {
+            enum "network-stabilization" {
+              value 0;
+              description
+                "Network-stabilization mode.";
+            }
+            enum "priority" {
+              value 1;
+              description
+                "Priority mode.";
+            }
+          }
+          default "priority";
+          description
+            "Configure link switch mode.";
+        }
+        leaf link-switch-packet-loss-echo-probe-time {
+          type uint32 {
+            range "6..100";
+          }
+          default "20";
+          description
+            "Configure link switch packet loss echo probe time.";
+        }
+        leaf link-switch-gap-threshold {
+          type uint32 {
+            range "5..60";
+          }
+          default "15";
+          description
+            "Configure link switch gap-threshold.";
+        }
+        leaf link-switch-start-threshold {
+          type uint32 {
+            range "5..60";
+          }
+          default "20";
+          description
+            "Configure link switch start threshold.";
+        }
+        leaf dynamic-blacklist-aging-time {
+          type uint32 {
+            range "180..3600";
+          }
+          units "s";
+          default "300";
+          description "Configure dynamic-blacklist aging-time.";
+        }
+        container csi {
+          description
+            "Configure channel state information measurement.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable channel state information measurement.";
+          }
+          leaf sensitivity-level {
+            type uint8 {
+              range "0..100";
+            }
+            default "100";
+            description "Configure distance sensitivity level of channel state information measurement.";
+          }
+          leaf action-sensitivity-level {
+            type enumeration {
+              enum "high" {
+                value 0;
+                description "Breathe detection is enabled.";
+              }
+              enum "low" {
+                value 1;
+                description "Breathe detection is disabled.";
+              }
+            }
+            default "high";
+            description "Configure action sensitivity level of channel state information measurement.";
+          }
+          container distance-range {
+            description 
+              "Configure csi detection distance.";
+            leaf presence-enter-range {
+              type uint8 {
+                range "0..100";
+              }
+              units "10 cm";
+              default "100";
+              description "Configure the detection distance of the status changing from absence to presence.
+                If the configured detection distance exceeds the maximum capability of an AP, the AP capability prevails.";
+            }
+            leaf presence-leave-range {
+              type uint8 {
+                range "0..100";
+              }
+              units "10 cm";
+              default "100";
+              description "Configure the detection distance of the status changing from presence to absence.
+                If the configured detection distance exceeds the maximum capability of an AP, the AP capability prevails.";
+            }
+          }
+          leaf motion-detection-threshold {
+            type uint8 {
+              range "0..100";
+            }
+            default "0";
+            description "Configure motion amplitude detection threshold. If the detected value is less than the threshold, the motion is ignored. It can be used to eliminate misidentification caused by interference.";
+          }
+          leaf presence-aging-time {
+            type uint16 {
+              range "1..65535";
+            }
+            units "s";
+            default "600";
+            description "Configure the aging time after the lasttime that the person is detected. When breathe detection is enabled, the minimum aging time takes effect is 45s.";
+          }
+          leaf presence-re-enter-delay {
+            type uint16 {
+              range "0..600";
+            }
+            units "s";
+            default "0";
+            description "Configure the delay time of the status re-entering to presence after the status is aged to absence.";
+          }
+          leaf report-to-container-switch {
+            type boolean;
+            default "false";
+            description "Enable/disable report csi result to container.";
+          }
+          container report-to-server {
+            presence "Configure csi result report server information.";
+            description 
+              "Configure csi result report server information.";
+            leaf server-ip {
+              type inet:host;
+              mandatory true;
+              description "Configure csi server ip address or domain.";
+            }
+            leaf server-port {
+              type uint16 {
+                range "1..65535";
+              }
+              mandatory true;
+              description "Configure csi server UDP port.";
+            }
+          }
+        }
+        leaf switchover-network-off-period {
+          type uint32 {
+            range "0..120";
+          }
+          default 0;
+          description "Switchover network-off period.";
+        }
+        container service-tunnel-profile-lists {
+            description
+              "List of service tunnel profiles.";
+            list service-tunnel-profile-list {
+
+            key service-tunnel-profile-name;
+            leaf service-tunnel-profile-name {
+                type leafref {
+                path "/wlan-system-profile/service-tunnel-profiles/service-tunnel-profile/name";
+                }
+                description "Configure service tunnel profile.";
+            }
+            leaf vlans {
+                type pub-type:vlan-range;
+                description "Configure VLANs of service tunnel profile.";
+            }
+            description
+              "Configure lists of service tunnel profile.";
+            }
+        }
+        container certificate-check {
+          description
+            "Configure the expiration check attributes for the certificate.";
+          leaf expiration-check-interval {
+            type uint16 {
+              range "1..24";
+            }
+            units "h";
+            default "24";
+            description
+              "Specify the expiration check interval in hours.";
+          }
+          leaf expiration-prewarning-day {
+            type uint16 {
+              range "7..180";
+            }
+            units "d";
+            default "90";
+            description
+              "Specify the amount of days before expiration for pre-warning.";
+          }
+        }
+        container crl-check {
+          description
+            "Configure the check attributes for CRLs.";
+          container expiration-check {
+            description
+              "Configure the expiration check attributes for CRLs.";
+            leaf enable {
+              type boolean;
+              default "true";
+              description
+              "Enable/disable the expiration check for CRLs.";
+            }
+            leaf interval {
+              type uint16 {
+                range "1..24";
+              }
+              units "h";
+              default "24";
+              description
+                "Specify the expiration check interval in hours.";
+            }
+          }
+        }
+        container gnss {
+          description
+            "Configure the GNSS for AP.";
+          container report {
+            description
+              "Configure the report of GNSS.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the report of GNSS.";
+            }
+          }
+        }
+        container distribute-ap {
+          description
+            "Configure the DAP function.";
+          leaf isolation {
+            type enumeration {
+              enum "physical" {
+                value 0;
+                description
+	              "Physical isolation for DAP.";
+              }
+              enum "logical" {
+                value 1;
+                description
+	              "Logical isolation for DAP.";
+              }
+              enum "backup" {
+                value 2;
+                description
+	              "Backup isolation for DAP.";
+              }
+            }
+            default "physical";
+            description
+	          "Configure the isolation mode.";
+          }
+          leaf isolation-logical-vlan {
+            when "../isolation = 'logical'";
+            type pub-type:vlan-range;
+            description
+              "Configure the VLANs used in logical isolation mode.";
+          }
+          leaf iot-uplink {
+            type enumeration {
+              enum "iot-wan" {
+                value 0;
+                description
+	              "Iot uplink by iot-wan.";
+              }
+              enum "internal" {
+                value 1;
+                description
+	              "Iot uplink by internal.";
+              }
+              enum "external" {
+                value 2;
+                description
+	              "Iot uplink by external.";
+              }
+            }
+			must "((../isolation = 'physical') or (../isolation = 'logical' and ../iot-uplink != 'external') or (../isolation = 'backup' and ../iot-uplink != 'internal'))";
+            default "iot-wan";
+            description
+	          "Configure the iot-uplink mode.";
+          }
+          leaf iot-vlan {
+            type vlan:vlan-id;
+            default "1";
+            description
+              "VLAN ID for IoT base station.";
+          }
+          leaf power-supply-mode {
+            type enumeration {
+              enum "auto" {
+                value 0;
+                description
+	                "Automatic power supply mode.";
+              }
+              enum "independent" {
+                value 1;
+                description
+	                "Independent power supply mode.";
+              }
+            }
+            default "auto";
+            description
+	            "Configure the power supply mode.";
+          }
+          leaf dc-power-mode {
+            type enumeration {
+              enum "60w" {
+                value 0;
+                description
+	                "DC 60W.";
+              }
+              enum "150w" {
+                value 1;
+                description
+	                "DC 150W.";
+              }
+            }
+            default "60w";
+            description
+	            "Configure the DC power mode.";
+          }
+        }
+        container iflow-learning {
+          description
+            "Configure iFlow learning function.";
+          container application-enable {
+            description
+              "Configure iFlow learning application enable switch.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable all application iFlow learning.";
+            }
+          }
+          container bind-iflow-groups {
+            description
+              "List of group name for iFLow learning.";
+            list bind-iflow-group {
+              key "group-name";
+              description
+                "Configure the specified group name of iFLow.";
+              leaf group-name {
+                type string {
+                  length "1..31";
+                }
+                description
+                  "Group name to which the iFLow learning binds.";
+              }
+            }
+          }
+        }
+        container application-experience-optimize {
+          description
+            "Configure applications experience optimize function.";
+          container cloud-desktop-applications {
+            description
+              "Configure cloud desktop applications.";
+            container cloud-desktop-predefined-apps {
+              description
+                  "List of predefined cloud desktop application.";
+              list cloud-desktop-predefined-app {
+                key "app-name";
+                description
+                  "Configure predefined cloud desktop application name.";
+                leaf app-name {
+                  type string {
+                    length "1..128";
+                  }
+                  description
+                    "Predefined cloud desktop application name.";
+                }
+              }
+            }
+            container cloud-desktop-user-defined-apps {
+              description
+                "List of user defined cloud desktop application name.";
+              list cloud-desktop-user-defined-app {
+                key "app-name";
+                description
+                  "Configure user defined cloud desktop application name.";
+                leaf app-name {
+                  type string {
+                    length "1..128";
+                  }
+                  description
+                    "User-defined cloud desktop application name.";
+                }
+              }
+            }
+          }
+          leaf office-application-switch {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable office application switch.";
+          }
+        }
+        container dot1x-client-pki-realm {
+          presence
+            "Pki-realm user-define configuration for AP dot1x client function";
+          description
+            "Configure pki realm information for AP dot1x client function.";
+          leaf file-format {
+            type enumeration {
+              enum "pkcs12" {
+                value 0;
+                description
+                  "Format by pkcs12.";
+              }
+              enum "pem" {
+                value 1;
+                description
+                  "Format by pem.";
+              }
+            }
+            mandatory true;
+            description
+              "The format of certificate file.";
+          }
+          leaf file-name {
+            type string {
+              length "1..63";
+            }
+            mandatory true;
+            description
+              "The file name.";
+          }
+          leaf password {
+            type pub-type:password-extend {
+              length "6..32 | 48 | 68 | 128 | 148";
+            }
+            mandatory true;
+            description
+              "The password for private key.";
+          }
+        }
+        container ap-keep-online {
+          description
+            "Configure AP keep-online function.";
+          leaf switch {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable the AP keep-online function.";
+          }
+          leaf self-healing-reset-time {
+            type uint8 {
+              range "0..24";
+            }
+            units "h";
+            default "24";
+            description
+              "Specifies the AP reset time for self-healing.";
+          }
+        }
+        leaf container-vlanid {
+           type vlan:vlan-id {
+               range "1..4094";
+            }
+            description
+               "Container VLAN ID.";
+        }
+       	container camera-detection {
+          description
+            "Configure camera detection.";
+          leaf mode {
+            type enumeration {
+              enum "normal-mode" {
+                value 0;
+                description
+                  "Enables camera detection in normal mode.";
+              }
+              enum "quick-mode" {
+                value 1;
+                description
+                  "Enables camera detection in quick mode.";
+              }
+              enum "disable" {
+                value 2;
+                description
+                  "Disables camera detection.";
+              }
+            }
+            default "disable";
+            description
+              "Enable/disable camera detection.";
+          }
+          leaf sensitivity-level {
+            type uint8 {
+              range "1..14";
+            }
+            default "14";
+            description "Configure camera detection sensitivity level.";
+          }
+        } 
+        container iot-integration-servers {
+          description
+            "List of iot-integration-servers.";
+          list iot-integration-server {
+            key "server-id";
+            leaf server-id {
+              type uint16 {
+                range "1..32";
+              }
+              description
+                "Config mqtt server id.";
+            }
+            leaf mqtt-server-name {
+              ext:operation-exclude update;
+              type leafref {
+                path "/mqtt-server-prof:wlan-mqtt-server-profile/mqtt-server-prof:mqtt-server-profiles/mqtt-server-prof:mqtt-server-profile/mqtt-server-prof:profile-name";
+              }
+              mandatory true;
+              description
+                "Configure mqtt server name.";
+            }
+            description
+              "Configure mqtt-server.";
+          }
+        }
+        leaf ftm-iot-server-id {
+           type leafref {
+              path "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:iot-integration-servers/wlan-sys-prof:iot-integration-server/wlan-sys-prof:server-id";
+            }
+            description
+              "Config ftm iot server id.";
+        }
+        leaf camera-detection-iot-server-id {
+           type leafref {
+              path "/wlan-sys-prof:wlan-system-profile/wlan-sys-prof:system-profiles/wlan-sys-prof:system-profile/wlan-sys-prof:iot-integration-servers/wlan-sys-prof:iot-integration-server/wlan-sys-prof:server-id";
+            }
+            description
+              "Config camera detection iot server id.";
+        }
+        leaf antenna-output {
+          type enumeration {
+            enum "split" {
+              value 0;
+              description "The antenna output mode is split.";
+            } 
+            enum "combine" {
+              value 1;
+              description "The antenna output mode is combine.";
+            }
+          }
+          default "split";
+          description "Configure the 2.4G/5G antenna output mode.";
+        }
+        leaf cwp-pkt-inner-fragment {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable CAPWAP packet inner fragmentation.";
+        }
+      }
+    }
+  }
+
+  augment /wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance {
+    description
+      "Applying the AP system profile configuration to an AP instance.";
+    uses wlan-sys-prof:ap-binding-system-profile;
+  }
+  augment "/wlan-apg:wlan-ap-group-profile/wlan-apg:ap-group-profiles/wlan-apg:ap-group-profile" {
+    description
+      "Applying the AP system profile configuration to an AP group.";
+    uses wlan-sys-prof:group-binding-system-profile;
+  }
+  ext:task-name "pcm";
+}

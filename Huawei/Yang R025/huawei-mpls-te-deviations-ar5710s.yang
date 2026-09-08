@@ -1,0 +1,167 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-te-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mpls-te-deviations-ar5710s";
+  prefix mpls-te-devs-ar5710s;
+
+  import huawei-mpls-te {
+    prefix mpls-te;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-mpls {
+    prefix mpls;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls-te module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mpls-te:cspf-pre-calculate" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:cspf-srte-pre-calculate" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:set-sr-te-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:delete-sr-te-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:set-sr-te-stitch-label" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:delete-sr-te-stitch-label" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-rsvp-te" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-rsvp-p2mp-te-statistics" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-mpls-te-last-error" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-rsvp-te-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reoptimize-rsvp-te-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-auto-p2mp-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:reset-auto-primary-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:rsvp-te-hotstandby-switch" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:sr-te-hotstandby-switch" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:manual-flooding" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:tunnel-protect-switch" {
+    deviate not-supported;
+  }
+  deviation "/mpls-te:upgrade-bypass" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:global" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:tunnel-locks" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:rsvp" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:cspf" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:p2mp-leaf-lists" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:p2mp-templates" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:p2p-templates" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:ip-prefixs" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:te-class-mapping" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:associate-groups" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:tunnel-statistic" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:stitch-label-stacks" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:segment-crc-errors" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:te-tunnels" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:te-egress-lsps" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:te-crlsp-infos" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls-te:te" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/mpls-te:mpls-te" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:session-car/mpls-te:rsvp-te" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:session-car/mpls-te:self-ping" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:micro-isolation-car/mpls-te:rsvp-te" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-te:te/mpls-te:enable" {
+    deviate add {
+      must "../enable='false'";
+    }
+  }
+}

@@ -1,0 +1,116 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fim-ifm-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-fim-ifm-deviations-ar5710s";
+  prefix fim-ifm-devs-ar5710s;
+
+  import huawei-fim-ifm {
+    prefix fim-ifm;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-fim-ifm module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/fim-ifm:rst-macmtu-intf" {
+    deviate not-supported;
+  }
+  deviation "/fim-ifm:rst-macmtu-slot" {
+    deviate not-supported;
+  }
+  deviation "/fim-ifm:rst-mru-discard" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim-ifm-mru" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim-ifm-bdifint" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim-ifm-veint" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:ve-group" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:mode-channel" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:mru-discard-statistic" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:macmtu-discard-stat" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:slice-main" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:eai-fault-detection" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:trunk-link-map" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:ve-channel-info" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:global/fim-ifm:fim-ifm-global" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:global/fim-ifm:fim-trunk-localfwd" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:global/fim-ifm:ve-groups" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim-tcp-mss/fim-ifm:tcp-mss" {
+    deviate delete {
+      must '(not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute) and not(../../fim-ifm:fim-ifm-mru/fim-ifm:mru))';
+    }
+    deviate add {
+      must '(not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))';
+    }
+    deviate replace {
+      type uint16 {
+        range "128..9500";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/fim-ifm:fim-tcp6-mss/fim-ifm:tcp6-mss" {
+    deviate delete {
+      must '(not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute) and not(../../fim-ifm:fim-ifm-mru/fim-ifm:mru))';
+    }
+    deviate add {
+      must '(not(../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))';
+    }
+    deviate replace {
+      type uint16 {
+        range "128..9500";
+      }
+    }
+  }
+}

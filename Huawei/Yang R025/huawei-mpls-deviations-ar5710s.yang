@@ -1,0 +1,93 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mpls-deviations-ar5710s";
+  prefix mpls-devs-ar5710s;
+
+  import huawei-mpls {
+    prefix mpls;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:sr-exp-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:te-ttl-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:sr-ttl-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:sr-adjacency-ttl-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:mpls-mtu-independent" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:entropy-label-capability" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls:traffic-statistic-enable" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:threshold-alarm/mpls:autobypass-tunnel-number" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:threshold-alarm/mpls:autoprimary-tunnel-number" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:threshold-alarm/mpls:mldp-tree-number" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:threshold-alarm/mpls:mldp-branch-number" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:threshold-alarm/mpls:rsvp-lsp-number" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:bit-err-levels" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:cross-connects/mpls:cross-connect/mpls:xc-outgoing-tunnel-id" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:cross-connects/mpls:cross-connect/mpls:xc-outgoing-tunnel-type" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:session-car" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:micro-isolation-car" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls:common/mpls:mpls-interfaces/mpls:mpls-interface/mpls:te-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls:common/mpls:mpls-interfaces/mpls:mpls-interface/mpls:rsvp-te-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls:mpls/mpls:common/mpls:mpls-interfaces/mpls:mpls-interface/mpls:statistics" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,42 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-sd-wan-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-sd-wan-notification-deviations-ar5710s";
+  prefix sd-wan-notification-devs-ar5710s;
+
+  import huawei-sd-wan-notification {
+    prefix sd-wan-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-sd-wan-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/sd-wan-notification:site-disconnect" {
+    deviate not-supported;
+  }
+  deviation "/sd-wan-notification:site-connect" {
+    deviate not-supported;
+  }
+  deviation "/sd-wan-notification:connection-policy-fail" {
+    deviate not-supported;
+  }
+  deviation "/sd-wan-notification:connection-policy-success" {
+    deviate not-supported;
+  }
+}

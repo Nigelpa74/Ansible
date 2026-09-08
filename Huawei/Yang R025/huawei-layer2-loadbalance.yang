@@ -1,0 +1,1018 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-layer2-loadbalance {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-layer2-loadbalance";
+  prefix layer2-loadbalance;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ifm-trunk {
+    prefix ifm-trunk;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Layer2 loadbalance configuration.";
+  revision 2024-11-08 {
+    description
+      "Update file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-01 {
+    description
+      "Update file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-04 {
+    description
+      "Mode symmetry.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-23 {
+    description
+      "Update MPLS hash.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-16 {
+    description
+      "Update file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-26 {
+    description
+      "Enable loadbalance ecmp network Eth-Trunk.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-11 {
+    description
+      "Enable loadbalance gtp teid.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-09 {
+    description
+      "Enable loadbalance profile for P5 devices.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-12-10 {
+    description
+      "Enable truk-loadbalance for P5 devices.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef hashtype {
+    type enumeration {
+      enum "dst-ip" {
+        value 0;
+        description
+          "Indicates load balancing based on dst-ip mode.";
+      }
+      enum "dst-mac" {
+        value 1;
+        description
+          "Indicates load balancing based on dst-mac mode.";
+      }
+      enum "enhanced" {
+        value 2;
+        description
+          "Indicates load balancing based on enhanced mode.";
+      }
+      enum "src-dst-ip" {
+        value 3;
+        description
+          "Indicates load balancing based on src-dst-ip mode.";
+      }
+      enum "src-dst-mac" {
+        value 4;
+        description
+          "Indicates load balancing based on src-dst-mac mode.";
+      }
+      enum "src-ip" {
+        value 5;
+        description
+          "Indicates load balancing based on src-ip mode.";
+      }
+      enum "src-mac" {
+        value 6;
+        description
+          "Indicates load balancing based on src-mac mode.";
+      }
+      enum "resilient" {
+        value 7;
+        description
+          "Resilient profile name.";
+      }
+    }
+    description
+      "Hash type.";
+  }
+  typedef header-type {
+    type enumeration {
+      enum "inner-header" {
+        value 1;
+        description
+          "Specifies load balancing based on the inner header.";
+      }
+      enum "outer-header" {
+        value 2;
+        description
+          "Specifies load balancing based on the outer header.";
+      }
+    }
+    description
+      "Tunnel and Mac-in-Mac header type.";
+  }
+  typedef loadbalance-type {
+    type enumeration {
+      enum "enhanced" {
+        value 1;
+        description
+          "Indicates load balancing based on enhanced mode.";
+      }
+      enum "ordinary" {
+        value 2;
+        description
+          "Ordinary hash.";
+      }
+    }
+    description
+      "Load-balance type.";
+  }
+  typedef enable-type {
+    type enumeration {
+      enum "disable" {
+        value 0;
+        description
+          "Disable function.";
+      }
+      enum "enable" {
+        value 1;
+        description
+          "Enable function.";
+      }
+    }
+    description
+      "Enable type.";
+  }
+  container layer2-loadbalance {
+    description
+      "Configure layer2 loadbalance.";
+    container hashcalces {
+      description
+        "List of loadbalance hash calculate.";
+      list hashcalc {
+        key "dstlagif-name src-phyif-name dst-mac src-mac vlan eth-type src-ip dst-ip protocol l4-src-port l4-dst-port slot";
+        description
+          "Configure Eth-trunk loadbalance hash calculate.";
+        leaf dstlagif-name {
+          type pub-type:if-name;
+          description
+            "Specifies the ID of an Eth-Trunk.";
+        }
+        leaf src-phyif-name {
+          type pub-type:if-name;
+          description
+            "Specifies the source interface of packets.";
+        }
+        leaf dst-mac {
+          type pub-type:mac-address;
+          description
+            "Specifies the destination MAC address.";
+        }
+        leaf src-mac {
+          type pub-type:mac-address;
+          description
+            "Specifies the source MAC address.";
+        }
+        leaf vlan {
+          type uint32 {
+            range "1..4094";
+          }
+          description
+            "Specifies the ID of a VLAN.";
+        }
+        leaf eth-type {
+          type string {
+            length "3..6";
+            pattern "0[xX][0-9abcdefABCDEF]{1,4}";
+          }
+          description
+            "Specifies the Ethernet frame type.";
+        }
+        leaf src-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Specifies the source IPv4/IPv6 address.";
+        }
+        leaf dst-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Specifies the destination IPv4/IPv6 address.";
+        }
+        leaf protocol {
+          type uint8 {
+            range "0..255";
+          }
+          description
+            "Specifies the protocol number or type.";
+        }
+        leaf l4-src-port {
+          type uint16 {
+            range "0..65535";
+          }
+          description
+            "Specifies the source port number.";
+        }
+        leaf l4-dst-port {
+          type uint16 {
+            range "0..65535";
+          }
+          description
+            "Specifies the destination port number.";
+        }
+        leaf slot {
+          type pub-type:slot-path;
+          description
+            "Specifies the slot ID in which the source interface of packets resides.";
+        }
+        leaf out-interface {
+          type pub-type:if-name;
+          description
+            "Specifies the destination interface of packets.";
+        }
+      }
+    }
+    container loadbalance-profile {
+      description
+        "Configure loadbalance-profile.";
+      container ip {
+        description
+          "Configure load Balancing Details of IP Packets.";
+        leaf dst-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination IP hash arithmetic.";
+        }
+        leaf l4-dst-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination L4 port hash arithmetic.";
+        }
+        leaf l4-src-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source L4 port hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable protocol hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source IP hash arithmetic.";
+        }
+        leaf none {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable none hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable src-interface hash arithmetic.";
+        }
+        leaf vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable VLAN hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable src-mac hash arithmetic.";
+        }
+        leaf dst-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable dst-mac hash arithmetic.";
+        }
+        leaf flowlabel {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable flowlabel hash arithmetic.";
+        }
+        leaf dest-qp {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable dest-qp hash arithmetic.";
+        }
+        leaf session-id {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable session-id hash arithmetic.";
+        }
+        leaf eth-type {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable eth-type hash arithmetic.";
+        }
+        leaf outervlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable OUTERVLAN hash arithmetic.";
+        }
+        leaf innervlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable INNERVLAN hash arithmetic.";
+        }
+        leaf dpcf {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable dpcf hash arithmetic.";
+        }
+      }
+      container ipv6 {
+        description
+          "Configure load Balancing Details of IPv6 Packets.";
+        leaf dst-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination IP hash arithmetic.";
+        }
+        leaf l4-dst-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination L4 port hash arithmetic.";
+        }
+        leaf l4-src-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source L4 port hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable protocol hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source IP hash arithmetic.";
+        }
+        leaf flowlabel {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable flowlabel hash arithmetic.";
+        }
+        leaf next-header {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable next-header hash arithmetic.";
+        }
+        leaf none {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable none hash arithmetic.";
+        }
+      }
+      container l2 {
+        description
+          "Configure load Balancing Details of L2 Packets.";
+        leaf dst-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination MAC hash arithmetic.";
+        }
+        leaf eth-type {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable eth-type hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source physical port hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source MAC hash arithmetic.";
+        }
+        leaf vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable VLAN hash arithmetic.";
+        }
+        leaf none {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable none hash arithmetic.";
+        }
+      }
+      container mpls {
+        description
+          "Configure load Balancing Details of MPLS Packets.";
+        leaf second-label {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable second label hash arithmetic.";
+        }
+        leaf dst-ip {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable destination IP hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source IP hash arithmetic.";
+        }
+        leaf top-label {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable top label hash arithmetic.";
+        }
+        leaf third-label {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable third label hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source interface hash arithmetic.";
+        }
+        leaf l4-src-port {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable L4 source port hash arithmetic.";
+        }
+        leaf l4-dst-port {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable L4 destination port hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable IP protocol hash arithmetic.";
+        }
+        leaf vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable VLAN hash arithmetic.";
+        }
+        leaf all-label {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable all label hash arithmetic.";
+        }
+        leaf none {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable none hash arithmetic.";
+        }
+        leaf dst-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable dst-mac hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable src-mac hash arithmetic.";
+        }
+        leaf fourth-label {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable fourth-label hash arithmetic.";
+        }
+        leaf fifth-label {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable fifth-label hash arithmetic.";
+        }
+      }
+      container tunnel {
+        description
+          "Configure load Balancing Details of tunnel.";
+        leaf inner-header {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable inner header flag.";
+        }
+        leaf outer-header {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable outer header flag.";
+        }
+      }
+      container universal {
+        description
+          "Configure load Balancing Details of Eth-Trunk hash.";
+        leaf universal-id {
+          type uint32 {
+            range "1..16";
+          }
+          default "1";
+          description
+            "The universal ID of Eth-Trunk.";
+        }
+      }
+      container ecmp {
+        description
+          "Configure load Balancing Details of ECMP Packets.";
+        leaf hash-mode1 {
+          type uint32 {
+            range "1..8";
+          }
+          default "1";
+          description
+            "Enable/disable hash-mode1 hash arithmetic.";
+        }
+        leaf hash-mode2 {
+          type uint32 {
+            range "1..8";
+          }
+          default "2";
+          description
+            "Enable/disable hash-mode2 hash arithmetic.";
+        }
+        leaf hash-mode3 {
+          type uint32 {
+            range "1..8";
+          }
+          default "3";
+          description
+            "Enable/disable hash-mode3 hash arithmetic.";
+        }
+        leaf seed {
+          type uint32 {
+            range "1..65535";
+          }
+          default "1";
+          description
+            "Enable/disable seed hash arithmetic.";
+        }
+      }
+      container eth-trunk {
+        description
+          "Configure load Balancing Details of Eth-Trunk Packets.";
+        leaf hash-mode {
+          type uint32 {
+            range "1..8";
+          }
+          default "1";
+          description
+            "Enable/disable hash-mode hash arithmetic.";
+        }
+        leaf seed {
+          type uint32 {
+            range "1..65535";
+          }
+          default "1";
+          description
+            "Enable/disable seed hash arithmetic.";
+        }
+      }
+      container network {
+        description
+          "Configure load Balancing Details of Network Packets.";
+        leaf hash-mode {
+          type uint32 {
+            range "1..8";
+          }
+          default "2";
+          description
+            "Enable/disable hash-mode hash arithmetic.";
+        }
+        leaf seed {
+          type uint32 {
+            range "1..65535";
+          }
+          default "1";
+          description
+            "Enable/disable seed hash arithmetic.";
+        }
+      }
+      container symmetry {
+        description
+          "Configure load balancing details of symmetry.";
+        leaf symmetry {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable hash symmetry.";
+        }
+      }
+    }
+    container loadbalance-inner {
+      description
+        "Configure inner connect for loadbalance.";
+      container l2 {
+        description
+          "Configure the hash algorithm for L2 Packets.";
+        leaf sbsp {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable sbsp hash arithmetic.";
+        }
+        leaf outer-vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable outer-VLAN hash arithmetic.";
+        }
+        leaf inner-vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable inner-VLAN hash arithmetic.";
+        }
+        leaf eth-type {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable eth-type hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable src-mac hash arithmetic.";
+        }
+        leaf dst-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable dst-mac hash arithmetic.";
+        }
+      }
+      container l3 {
+        description
+          "Configure the hash algorithm for L3 Packets.";
+        leaf sbsp {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable sbsp hash arithmetic.";
+        }
+        leaf outer-vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable outer-VLAN hash arithmetic.";
+        }
+        leaf inner-vlan {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable inner-VLAN hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable src-ip hash arithmetic.";
+        }
+        leaf dst-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable dst-ip hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable protocol hash arithmetic.";
+        }
+        leaf src-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable src-port hash arithmetic.";
+        }
+        leaf dst-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable dst-port hash arithmetic.";
+        }
+      }
+    }
+    container loadbalance-global {
+      description
+        "Configure load Balancing Details of TEID Packets.";
+      leaf teid {
+        type enable-type;
+        default "disable";
+        description
+          "Enable/disable teId hash arithmetic.";
+        }
+    }
+  }
+
+  augment /ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk {
+    description
+      "Local preferential forwarding and loadbalances configuration to the interface management module.";
+    container local-preference {
+      description
+        "Configure local preferential forwarding attributes.";
+      leaf enable {
+            type enable-type;
+            default "enable";
+            description
+              "Enable/disable local preferential forwarding.";
+          }
+      leaf enhanced {
+            type enable-type;
+            default "disable";
+            description
+              "Enable/disable preferentially forward traffic by the local chip.";
+          }
+      leaf least-active-linknumber {
+          type uint32 {
+            range "1..64";
+          }
+          description
+            "Specify least active link number.";
+        }
+    }
+    container trunk-loadbalance {
+      description
+        "Configure Eth-trunk loadbalance.";
+      container hash-mode {
+        description
+          "Configure the hash mode for L2 Packets.";
+        leaf hash-mode {
+          type uint32 {
+            range "1..9";
+          }
+          default "1";
+          description
+            "Configure the hash mode for L2 Packets.";
+        }
+      }
+      container mpls {
+        description
+          "Configure the hash algorithm for MPLS Packets.";
+        leaf top-label {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable top label hash arithmetic.";
+        }
+        leaf second-label {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable second label hash arithmetic.";
+        }
+        leaf third-label {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable third label hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source ip hash arithmetic.";
+        }
+        leaf dst-ip {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable destination ip hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source interface hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source MAC hash arithmetic.";
+        }
+        leaf dst-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable destination MAC hash arithmetic.";
+        }
+        leaf l4-src-port {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable l4 source port hash arithmetic.";
+        }
+        leaf l4-dst-port {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable l4 destination port hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable IP protocol hash arithmetic.";
+        }
+      }
+      container ip {
+        description
+          "Configure the hash algorithm for IP Packets.";
+        leaf dst-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination ip hash arithmetic.";
+        }
+        leaf src-ip {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source ip hash arithmetic.";
+        }
+        leaf l4-dst-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable IP destination port hash arithmetic.";
+        }
+        leaf l4-src-port {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable IP source port hash arithmetic.";
+        }
+        leaf protocol {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable IP protocol hash arithmetic.";
+        }
+        leaf dst-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable destination MAC hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source MAC hash arithmetic.";
+        }
+        leaf flow-label {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable flowlabel hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source interface hash arithmetic.";
+        }
+        leaf dst-qp {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination qp hash arithmetic.";
+        }
+        leaf session-id {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable session id hash arithmetic.";
+        }
+      }
+      container l2 {
+        description
+          "Configure the hash algorithm for L2 Packets.";
+        leaf dst-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable destination MAC hash arithmetic.";
+        }
+        leaf src-mac {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable source MAC hash arithmetic.";
+        }
+        leaf eth-type {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable Ethernet type hash arithmetic.";
+        }
+        leaf src-interface {
+          type enable-type;
+          default "disable";
+          description
+            "Enable/disable source interface hash arithmetic.";
+        }
+        leaf vlan {
+          type enable-type;
+          default "enable";
+          description
+            "Enable/disable VLAN hash arithmetic.";
+        }
+      }
+    }
+  }
+  ext:task-name "layer2-loadbalance";
+}

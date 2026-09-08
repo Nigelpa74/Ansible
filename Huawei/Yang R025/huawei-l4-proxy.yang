@@ -1,0 +1,102 @@
+/*
+Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l4-proxy {
+  namespace "urn:huawei:yang:huawei-l4-proxy";
+  prefix l4-proxy;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "High performance proxy stack function management.";
+  revision 2024-09-10 {
+    description
+      "Update task-name to forwarding.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-11 {
+    description
+      "Delete deafult version 1.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-05 {
+    description
+      "Add container config-gro.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-22 {
+    description
+      "Add container packet-policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-07 {
+    description
+      "Add container tcp-reorder.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-24 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  container l4-proxy {
+    description
+      "High performance proxy stack function management.";
+    container fast-open {
+	  description
+		"Configure TCP fast-open option.";
+	  leaf set-bypass-enable {
+		type boolean;
+		  default "false";
+		description
+		  "Enable/disable bypass of TCP fast-open option.";
+		}
+	}
+    container tcp-reorder {
+      description
+        "Configure TCP reorder.";
+      leaf set-enable {
+        type boolean;
+          default "true";
+        description
+          "Enable/disable TCP reorder function.";
+      }
+    }
+    container packet-policy {
+      description
+        "Configure proxy stack packet process policy.";
+      leaf batch-receive {
+        type boolean;
+          default "false";
+        description
+          "Enable/disable TCP batch receive function.";
+      }
+    }
+    container config-gro {
+      description
+        "Configure gro.";
+      leaf astk-gro {
+        type boolean;
+          default "false";
+        description
+          "Enable/disable TCP astk gro function.";
+      }
+    }
+  }
+  ext:task-name "forwarding";
+}

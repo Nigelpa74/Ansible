@@ -1,0 +1,381 @@
+/******************************************************
+ * Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+ * Module description & tree structure:
+ ***************************************************/
+
+module huawei-nat-policy {
+  namespace "urn:huawei:yang:huawei-nat-policy";
+  prefix "hw-nat-policy";
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import huawei-security-zone {
+    prefix hw-security-zone;
+  }
+
+  import huawei-policy-common {
+    prefix hw-policy-common;
+  }
+
+  import huawei-nat-address-group {
+    prefix nat-addgrp;
+  }
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a set of YANG definitions for Huawei nat policy.
+     A nat policy consists of the translated address (address pool address
+     or outbound interface address), matching condition, and action.
+     If multiple nat policies are created, the policies are matched top down.
+     If the traffic matches a nat policy, the remaining policies are ignored.
+     There is always a default rule, which is the rule with the lowest priority.
+     If other rules are not matched, the rule is matched. The action of this
+     rule is no-nat.";
+  revision 2025-09-13 {
+    description
+      "Modify the prefix of huawei-security-zone.";
+    reference
+      "";
+  }
+  revision 2025-02-27 {
+    description
+       "Modification: grouping destination-nat-address add must condition.";
+    reference "";
+  }
+
+  revision 2024-12-18 {
+    description
+       "Exchange src and destination action.";
+    reference "";
+  }
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+  revision 2024-04-26 {
+    description
+       "Modification: address-group-name's type and must condition.";
+    reference "";
+  }
+  revision 2023-02-07 {
+    description
+       "Add nat-type enum nat66.";
+    reference "";
+  }
+  revision 2022-09-26 {
+    description
+       "Add destination nat action.";
+    reference "";
+  }
+  revision 2020-11-18 {
+    description
+       "Initial revision.";
+    reference "";
+  }
+
+  grouping destination-nat-address {
+    description "Group of destination nat address.";
+    choice address-type {
+      mandatory true;
+      description "Specify address type.";
+      case address {
+        leaf address {
+          type inet:ipv4-address-no-zone;
+          must "/hw-nat-policy:nat-policy/rules/rule/destination-address";
+          description "Specify the destination NAT address.";
+        }
+        description "Specify the address.";
+      }
+      case address-group {
+        leaf address-group {
+          type leafref {
+            path "/nat-addgrp:nat-address-group/nat-addgrp:dnat-address-groups/nat-addgrp:dnat-address-group/nat-addgrp:name";
+          }
+          must "/hw-nat-policy:nat-policy/rules/rule/destination-address";
+          description "Specify the destination NAT address group.";
+        }
+        description "Specify the address group.";
+      }
+    }
+  }
+
+  ext:task-name "nat-policy";
+  container nat-policy {
+    description
+      "Configure the elements of a policy rule.";
+
+    container rules {
+      description
+        "List of nat policy rules.";
+      list rule {
+        key "name";
+        ordered-by user;
+        description "Configure a rule.";
+        leaf name {
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          description
+            "Name of the rule.";
+        }
+
+        leaf hit-count {
+          type uint32;
+          config false;
+          description
+            "The hit count of the rule.";
+        }
+
+        leaf description {
+          type string {
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description
+            "Description of the rule.";
+        }
+
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the rule.";
+        }
+
+        leaf nat-type {
+          type enumeration {
+            enum nat {
+              value 0;
+              description "Indicate network address translation.";
+            }
+            enum nat64 {
+              value 1;
+              description "Indicate nat64.";
+            }
+            enum nat66 {
+              value 2;
+              description "Indicate nat66.";
+            }
+          }
+          default "nat";
+          description "Configure the nat type.";
+        }
+
+        container action {
+          description "Configure the action of nat policy rule.";
+          choice action {
+            description "Nat policy action.";
+            case no-nat {
+              leaf no-nat {
+                type empty;
+                description "Indicate no-nat.";
+              }
+              description "Specify that nat translation is not performed on the traffic matching the nat policy.";
+            }
+            case do-nat {
+              container destination-nat {
+                description "Configure the destination nat action of nat policy rule.";
+                choice mode {
+                  case dynamic-nat {
+                    container dynamic-nat {
+                      presence "Configure dynamic-nat.";
+                      description "Configure dynamic nat action.";
+                      uses destination-nat-address;
+                      leaf port {
+                        type uint16 {
+                          range "1..65535";
+                        }
+                        must "../../../../destination-address";
+                        description "Specify the port number after conversion.";
+                      }
+                    }
+
+                    description "Specify the nat mode as dynamic address translation.";
+                  }
+                  case static-addr-to-addr {
+                    container static-addr-to-addr {
+                      presence "Configure static-addr-to-addr.";
+                      description "Configure one-to-one mapping between a public address and a private address.";
+                      uses destination-nat-address;
+                      leaf port {
+                        type uint16 {
+                          range "1..65535";
+                        }
+                        must "../../../../destination-address";
+                        description "Specify the port number after conversion.";
+                      }
+                    }
+
+                    description "Specify a one-to-one mapping between a public address and a private address.";
+                  }
+                  case static-addr-to-port {
+                    container static-addr-to-port {
+                      presence "Configure static-addr-to-port.";
+                      description "Configure that multiple public IP addresses are mapped to multiple private ports in one-to-one mode.";
+                      uses destination-nat-address;
+                      leaf port {
+                        type hw-policy-common:port-range;
+                        must "../../../../destination-address";
+                        mandatory true;
+                        description "Specify the port number after conversion.";
+                      }
+                    }
+
+                    description "Specify that multiple public IP addresses are mapped to multiple private ports in one-to-one mode.";
+                  }
+                  case static-port-to-port {
+                    container static-port-to-port {
+                      presence "Configure multi-egress.";
+                      description "Configure the one-to-one mapping between a public network port and a private network port.";
+                      uses destination-nat-address;
+                      leaf port {
+                        type hw-policy-common:port-range;
+                        must "../../../../destination-address";
+                        mandatory true;
+                        description "Specify the port number after conversion.";
+                      }
+                    }
+
+                    description "Specify the one-to-one mapping between a public network port and a private network port.";
+                  }
+                  case static-port-to-addr {
+                    container static-port-to-addr {
+                      presence "Configure multi-egress.";
+                      description "Configure that multiple public IP addresses are mapped to multiple private ports in one-to-one mode.";
+                      uses destination-nat-address;
+                      leaf port {
+                        type uint16 {
+                          range "1..65535";
+                        }
+                        must "../../../../destination-address";
+                        mandatory true;
+                        description "Specify the port number after conversion.";
+                      }
+                    }
+
+                    description "Specify that multiple public IP addresses are mapped to multiple private ports in one-to-one mode.";
+                  }
+                  description
+                    "Configure the mode of destination nat.";
+                }
+              }
+              container source-nat {
+                description "Configure the source nat action of nat policy rule.";
+                choice mode {
+                  case address-group {
+                    leaf address-group-name {
+                      type leafref {
+                          path "/nat-addgrp:nat-address-group/nat-addgrp:snat-address-groups/nat-addgrp:snat-address-group/nat-addgrp:name";
+                      }
+                      description "Name of address group.";
+                    }
+                    description "Specify the nat mode as address-group translation.";
+                  }
+                  case easy-ip {
+                    leaf easy-ip {
+                      type empty;
+                      description "Easy IP mode.";
+                    }
+                    description
+                      "Specify the nat mode as easy-ip translation. Easy IP uses the public IP
+                      address of the outbound interface as the post-NAT address and translates
+                      both the IP address and port.";
+                  }
+                  description
+                    "Configure the mode of source nat.";
+                }
+              }
+              description "Specify that nat is performed on the traffic matching the rule.";
+            }
+          }
+        }
+
+        leaf-list source-zone {
+          type hw-security-zone:security-zone-name-ref;
+          description
+            "Configure the name of source security zone referenced by policy.";
+        }
+
+        choice egress {
+          description
+            "Either destination security zones or interfaces can be specified
+             as the matching condition of the egress.";
+          case zones {
+            leaf-list destination-zone {
+              type hw-security-zone:security-zone-name-ref;
+              description "Specify the name of the zone.";
+            }
+            description
+              "Configure the name of destination security zone referenced by policy.";
+          }
+          case interfaces {
+            leaf-list egress-interface {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description "Specify the name of the interface.";
+            }
+            description
+              "Configure the name of the egress interface referenced by policy.";
+          }
+        }
+
+        container source-address {
+          uses hw-policy-common:address-item;
+          description
+            "Configure the source address items referenced by policy.";
+        }
+
+        container destination-address {
+          uses hw-policy-common:address-item;
+          description
+            "Configure the destination address items referenced by policy.";
+        }
+
+        container service {
+          uses hw-policy-common:service-item;
+          description
+            "Configure the service items referenced by policy.";
+        }
+      }
+    }
+
+    container default-rule {
+      config false;
+      description "Operational data of the default rule.";
+      container action {
+        description "Operational data of the rule action.";
+        leaf no-nat {
+          type empty;
+          description "The action of the default rule is no-nat and cannot be modified.";
+        }
+      }
+      leaf hit-count {
+        type uint32;
+        description
+          "The hit count of the default rule.";
+      }
+    }
+  }
+}

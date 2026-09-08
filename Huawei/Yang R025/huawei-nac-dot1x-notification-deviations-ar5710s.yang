@@ -1,0 +1,40 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-dot1x-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-dot1x-notification-deviations-ar5710s";
+  prefix nac-dot1x-notification-devs-ar5710s;
+
+  import huawei-nac-dot1x-notification {
+    prefix nac-dot1x-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nac-dot1x-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/nac-dot1x-notification:eap-max-user" {
+    deviate not-supported;
+  }
+  deviation "/nac-dot1x-notification:quiet-user-max" {
+    deviate not-supported;
+  }
+  deviation "/nac-dot1x-notification:quiet-user-clear" {
+    deviate not-supported;
+  }
+}

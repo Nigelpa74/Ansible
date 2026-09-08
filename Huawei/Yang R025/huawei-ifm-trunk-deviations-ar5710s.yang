@@ -1,0 +1,173 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifm-trunk-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ifm-trunk-deviations-ar5710s";
+  prefix ifm-trunk-devs-ar5710s;
+
+  import huawei-ifm-trunk {
+    prefix ifm-trunk;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ifm-trunk module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef trunk-hash-type-deviations {
+    type enumeration {
+      enum ip {
+        value 1;
+        description
+          "Specify the IP-address-based per-destination load balancing mode. In this mode, data flows are differentiated based on IP addresses of packets to ensure that the packets of the same data flow are transmitted over the same member link.";
+      }
+      enum mac {
+        value 2;
+        description
+          "Specify the MAC-address-based per-destination load balancing mode. In this mode, data flows are differentiated based on MAC addresses of packets to ensure that the packets of the same data flow are transmitted over the same member link.";
+      }
+      enum des-ip {
+        value 4;
+        description
+          "Load balancing based on the destination IP address. In this mode, the system obtains the specified three bits from each of the destination IP address and the TCP or UDP port number in outgoing packets to perform the Exclusive-OR calculation, and then selects the outbound interface from the Eth-Trunk table based on the calculation result.";
+      }
+      enum des-mac {
+        value 5;
+        description
+          "Load balancing based on the destination MAC address. In this mode, the system obtains the specified three bits from each of the destination MAC address, VLAN ID, Ethernet type, and inbound interface information to perform the Exclusive-OR calculation, and then selects the outbound interface from the Eth-Trunk table based on the calculation result.";
+      }
+      enum src-ip {
+        value 6;
+        description
+          "Load balancing based on the source IP address. In this mode, the system obtains the specified three bits from each of the source IP address and the TCP or UDP port number in incoming packets to perform the Exclusive-OR calculation, and then selects the outbound interface from the Eth-Trunk table based on the calculation result.";
+      }
+      enum src-mac {
+        value 7;
+        description
+          "Load balancing based on the source MAC address. In this mode, the system obtains the specified three bits from each of the source MAC address, VLAN ID, Ethernet type, and inbound interface information to perform the Exclusive-OR calculation, and then selects the outbound interface from the Eth-Trunk table based on the calculation result.";
+      }
+      enum enhanced {
+        value 8;
+        description
+          "Load balancing mode based on the enhanced profile.";
+      }
+      enum round-robin {
+        value 13;
+        description
+          "Load balancing mode based on round-robin selects the outbound interface from the Eth-Trunk.";
+      }
+    }
+    description
+      "Trunk hash type.";
+  }
+
+  deviation "/ifm-trunk:trunk-switch" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:min-up-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:smart-link-flush-vlan" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:inactive-port-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:preempt-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:preempt-delay-minutes" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:preempt-delay-seconds" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:preempt-delay-milliseconds" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:members/ifm-trunk:member/ifm-trunk:is-master" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:members/ifm-trunk:member/ifm-trunk:role" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:members/ifm-trunk:member/ifm-trunk:lacp-negotiation-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:forwardings" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:min-up-num" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:max-up-num" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:hash-type" {
+    deviate replace {
+      type ifm-trunk-devs-ar5710s:trunk-hash-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:work-mode" {
+    deviate add {
+      must "(../../ifm:type='Eth-Trunk' and (../work-mode='manual' or ../work-mode='static' or ../work-mode='dynamic')) or (../../ifm:type='Ip-Trunk' and ../work-mode='manual') or (../../ifm:type!='Eth-Trunk' and ../../ifm:type!='Ip-Trunk') or (not (../../ifm:type))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:up-member-num" {
+    deviate replace {
+      type uint32 {
+        range "0..128";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:online-member-num" {
+    deviate replace {
+      type uint32 {
+        range "0..128";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:member-num" {
+    deviate replace {
+      type uint32 {
+        range "0..128";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:members/ifm-trunk:member" {
+    deviate replace {
+      max-elements 128;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/ifm-trunk:members/ifm-trunk:member/ifm-trunk:weight" {
+    deviate replace {
+      type uint32 {
+        range "1..128";
+      }
+    }
+  }
+}

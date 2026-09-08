@@ -1,0 +1,205 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dns-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dns-deviations-ar5710s";
+  prefix dns-devs-ar5710s;
+
+  import huawei-dns {
+    prefix dns;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dns module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/dns:dns/dns:ipv4-servers/dns:ipv4-server/dns:tls-policy-name" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:ipv4-servers/dns:ipv4-server/dns:source-type" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:ipv6-servers/dns:ipv6-server/dns:tls-policy-name" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:dns-pkt-stats" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:query-dynamic-hosts" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:device-domain" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:dns-proxy/dns:packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:dns-proxy/dns:nat-sessions" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:proxy-client-src-ips" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:passthrough-domains" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:ddns-policys" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:query-ddns-update-results" {
+    deviate not-supported;
+  }
+  deviation "/dns:clear-ipv4-entry" {
+    deviate not-supported;
+  }
+  deviation "/dns:clear-ipv6-entry" {
+    deviate not-supported;
+  }
+  deviation "/dns:resolve-host-name" {
+    deviate not-supported;
+  }
+  deviation "/dns:refresh-ddns" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dns:ddns-if" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:global/dns:server-vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast'] or /ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:src-ips/dns:src-ip/dns:vrf-name" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:ipv6-sources/dns:ipv6-source/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:timeout/dns:interval-time" {
+    deviate replace {
+      default "3";
+    }
+  }
+  deviation "/dns:dns/dns:domains/dns:domain/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast'] or /ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:domains/dns:domain/dns:name" {
+    deviate replace {
+      type string {
+        length "1..63";
+        pattern '[a-z0-9_.-]*';
+      }
+    }
+  }
+  deviation "/dns:dns/dns:ipv4-hosts/dns:ipv4-host/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:ipv4-hosts/dns:ipv4-host/dns:host" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '([\w_.-]{1,255})';
+      }
+    }
+  }
+  deviation "/dns:dns/dns:ipv6-hosts/dns:ipv6-host/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:ipv6-hosts/dns:ipv6-host/dns:host" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '([\w_.-]{1,255})';
+      }
+    }
+  }
+  deviation "/dns:dns/dns:ipv4-servers/dns:ipv4-server/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:ipv6-servers/dns:ipv6-server/dns:vpn" {
+    deviate delete {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+    }
+  }
+  deviation "/dns:dns/dns:unnumbered-interfaces/dns:unnumbered-interface/dns:address-type" {
+    deviate replace {
+      type enumeration {
+        enum ipv4 {
+          value 1;
+          description
+            "IPv4 address.";
+        }
+      }
+    }
+  }
+  deviation "/dns:dns/dns:dns-resolve-policy/dns:rules/dns:rule/dns:domain-name" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '[a-z0-9\*_.-]*';
+      }
+    }
+  }
+  deviation "/dns:dns/dns:dns-resolve-policy/dns:rules/dns:rule/dns:action-format/dns:spoofing-format/dns:ipv4-addresses" {
+    deviate replace {
+      type inet:ipv4-address-no-zone;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dns:dns-snooping-if" {
+    deviate not-supported;
+  }
+  deviation "/dns:dns/dns:dns-snooping" {
+    deviate not-supported;
+  }
+  ext:deviation-ext "/dns:dns/dns:ipv6-sources/dns:ipv6-source/dns:ipv6-source-addr" {
+    ext:deviate-ext "add" {
+      ext:case-sensitivity "lower2upper";
+    }
+  }
+  ext:deviation-ext "/dns:dns/dns:ipv6-servers/dns:ipv6-server/dns:ipv6-address" {
+    ext:deviate-ext "add" {
+      ext:case-sensitivity "lower2upper";
+    }
+  }
+}

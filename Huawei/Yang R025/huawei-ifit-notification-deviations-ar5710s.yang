@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifit-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ifit-notification-deviations-ar5710s";
+  prefix ifit-notification-devs-ar5710s;
+
+  import huawei-ifit-notification {
+    prefix ifit-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ifit-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ifit-notification:measurement-flow-threshold-exceed" {
+    deviate not-supported;
+  }
+  deviation "/ifit-notification:measurement-flow-threshold-exceed-resume" {
+    deviate not-supported;
+  }
+}

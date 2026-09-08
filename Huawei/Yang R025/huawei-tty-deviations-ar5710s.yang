@@ -1,0 +1,74 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-tty-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-tty-deviations-ar5710s";
+  prefix tty-devs-ar5710s;
+
+  import huawei-tty {
+    prefix tty;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-tty module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef tty-authmode-type-deviations {
+    type enumeration {
+      enum password {
+        value 2;
+        description
+          "Authentication mode password.";
+      }
+      enum aaa {
+        value 3;
+        description
+          "Authentication mode aaa.";
+      }
+      enum init {
+        value 4;
+        description
+          "Undo authentication mode.";
+      }
+    }
+    description
+      "TTY authentication mode type list.";
+  }
+
+  deviation "/tty:tty/tty:aux" {
+    deviate not-supported;
+  }
+  deviation "/tty:tty/tty:console/tty:auth-mode" {
+    deviate replace {
+      type tty-devs-ar5710s:tty-authmode-type-deviations;
+    }
+  }
+  deviation "/tty:tty/tty:console/tty:privilege-level" {
+    deviate replace {
+      type uint8 {
+        range "0..3";
+      }
+    }
+  }
+  deviation "/tty:tty/tty:console/tty:speed" {
+    deviate replace {
+      type uint64 {
+        range "1200 | 2400 | 4800 | 9600 | 19200 | 38400 | 57600 | 115200";
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-system-notification-deviations-ar5710s";
+  prefix system-notification-devs-ar5710s;
+
+  import huawei-system-notification {
+    prefix system-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-system-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/system-notification:security-risk" {
+    deviate not-supported;
+  }
+  deviation "/system-notification:security-risk-clear" {
+    deviate not-supported;
+  }
+}

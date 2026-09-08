@@ -1,0 +1,60 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nvo3-statistics-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-nvo3-statistics-deviations-ar5710s";
+  prefix nvo3-statistics-devs-ar5710s;
+
+  import huawei-nvo3-statistics {
+    prefix nvo3-statistics;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-nvo3 {
+    prefix nvo3;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nvo3-statistics module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/nvo3-statistics:reset-vni-label-statistics" {
+    deviate not-supported;
+  }
+  deviation "/nvo3-statistics:reset-vtep-statistics" {
+    deviate not-supported;
+  }
+  deviation "/nvo3-statistics:reset-ipv6-vtep-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3-statistics:nvo3-vtep-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3-statistics:nvo3-ipv6-vtep-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3-statistics:nvo3-tunnel-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/nvo3-statistics:nvo3-ipv6-tunnel-statistics" {
+    deviate not-supported;
+  }
+  deviation "/nvo3:nvo3/nvo3:vni-labels/nvo3:vni-label/nvo3-statistics:statistics" {
+    deviate not-supported;
+  }
+}

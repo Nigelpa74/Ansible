@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-driver-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-driver-notification-deviations-ar5710s";
+  prefix driver-notification-devs-ar5710s;
+
+  import huawei-driver-notification {
+    prefix driver-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-driver-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/driver-notification:cold-start" {
+    deviate not-supported;
+  }
+  deviation "/driver-notification:warm-start" {
+    deviate not-supported;
+  }
+}

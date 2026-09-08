@@ -1,0 +1,57 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-secure-boot-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-secure-boot-notification";
+  prefix secure-boot-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of secure-boot.";
+  revision 2024-02-27 {
+    description
+      "Changed the slot field to the position field.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "rpm";
+  notification startup-secure-version-need-refresh {
+    description
+      "The startup secure version on the board needs to be updated.";
+	leaf position {
+	  type string {
+		length "1..63";
+	  }
+	  description
+		"Slot ID/Cpu ID.";
+	}
+  }
+  notification startup-secure-version-need-refresh-resume {
+    description
+      "The startup secure version on the board is successfully updated.";
+	leaf position {
+	  type string {
+		length "1..63";
+	  }
+	  description
+		"Slot ID/Cpu ID.";
+	}
+  }
+}

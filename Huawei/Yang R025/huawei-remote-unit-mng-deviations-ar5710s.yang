@@ -1,0 +1,103 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-remote-unit-mng-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-remote-unit-mng-deviations-ar5710s";
+  prefix rumng-devs-ar5710s;
+
+  import huawei-remote-unit-mng {
+    prefix rumng;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-remote-unit-mng module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef poe-power-mode-type-deviations {
+    type enumeration {
+      enum at-inrush {
+        value 1;
+        description
+          "POE+.";
+      }
+      enum af-inrush {
+        value 2;
+        description
+          "802.3.";
+      }
+    }
+    description
+      "The poe power mode.";
+  }
+
+  deviation "/rumng:remote-unit-mng/rumng:global/rumng:backup-groups" {
+    deviate not-supported;
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:backup-port" {
+    deviate not-supported;
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:interfaces/rumng:interface/rumng:duplex" {
+    deviate not-supported;
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:interfaces/rumng:interface/rumng:poe-power-on-delay" {
+    deviate not-supported;
+  }
+  deviation "/rumng:restart-remote-unit-port" {
+    deviate not-supported;
+  }
+  deviation "/rumng:upgrade-force" {
+    deviate not-supported;
+  }
+  deviation "/rumng:upgrade-right-now" {
+    deviate not-supported;
+  }
+  deviation "/rumng:remote-unit-mng/rumng:global/rumng:isolate" {
+    deviate add {
+      default "false";
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:global/rumng:vlan-mode" {
+    deviate add {
+      default "transparent";
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:isolate" {
+    deviate add {
+      default "false";
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:vlan-mode" {
+    deviate add {
+      default "transparent";
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:interfaces/rumng:interface/rumng:poe-power-mode" {
+    deviate replace {
+      type rumng-devs-ar5710s:poe-power-mode-type-deviations;
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:interfaces/rumng:interface/rumng:port-default-vlan" {
+    deviate add {
+      default "1";
+    }
+  }
+  deviation "/rumng:remote-unit-mng/rumng:remote-units/rumng:remote-unit/rumng:interfaces/rumng:interface/rumng:untagged-vlans" {
+    deviate add {
+      default "1";
+    }
+  }
+}

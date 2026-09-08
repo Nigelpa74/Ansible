@@ -1,0 +1,40 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-routing-policy-acl-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-routing-policy-acl-deviations-ar5710s";
+  prefix rtp-acl-devs-ar5710s;
+
+  import huawei-routing-policy-acl {
+    prefix rtp-acl;
+  }
+  import huawei-routing-policy {
+    prefix rtp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-routing-policy-acl module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-route-originator/rtp-acl:acl" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-group-address/rtp-acl:acl" {
+    deviate not-supported;
+  }
+}

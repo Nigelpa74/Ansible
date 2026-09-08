@@ -1,0 +1,469 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-dot1x {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-nac-dot1x";
+  prefix hw-nac-dot1x;
+  import huawei-aaa-service {
+    prefix aaa-service;
+  }
+  import huawei-nac-group {
+    prefix hw-nac-group;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+    configuring NAC implementations.
+    Redistribution and use in source and binary forms, with or
+    without modification, is permitted pursuant to, and subject
+    to the license terms contained in, the Simplified BSD License
+    set forth in Section 4.c of the IETF Trust's Legal Provisions
+    Relating to IETF Documents.";
+  revision 2024-03-15 {
+    description
+      "Modify default trigger-packet.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-21 {
+    description
+      "Modify default unicast-trigger.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-01 {
+    description
+      "Modify default server-down-no-response-enable and add send-packet-untagged node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-08 {
+    description
+      "Add default trigger-packet.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-08 {
+    description
+      "Add enum dhcpv6 and nd.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-28 {
+    description
+      "Add leaf node mac-bypass-delay and abnormal-track-cache-record-num and identity-packet-speed-limit.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  container nac-dot1x {
+    description
+      "Configuration and state data of dot1x access parameters.";
+    container global {
+      description
+        "Configure global dot1x access.";
+      leaf quiet-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable the quiet function for 802.1X authentication users.";
+      }
+      leaf quiet-period {
+        type uint16 {
+          range "1..3600";
+        }
+        units "s";
+        default "60";
+        description
+          "Sets the quiet period for 802.1X users who fail to be authenticated.";
+      }
+      leaf quiet-times {
+        type uint8 {
+          range "1..10";
+        }
+        default "10";
+        description
+          "Specifies the maximum number of authentication failures before the 802.1X user enters the quiet state.";
+      }
+      leaf tx-period {
+        type uint16 {
+          range "1..120";
+        }
+        units "s";
+        default "30";
+        description
+          "Specifies the interval for sending authentication requests.";
+      }
+      leaf url {
+        type string {
+          length "1..247";
+        }
+        description
+          "Specifies a redirect URL.";
+      }
+      leaf mac-bypass-delay {
+        type uint16 {
+          range "1..300";
+        }
+        units "s";
+        default "30";
+        description
+          "Specifies the start delay time of bypass MAC authentication after dot1x authentication failure.";
+      }
+      leaf abnormal-track-cache-record-num {
+        type uint8 {
+          range "0..30";
+        }
+        default "20";
+        description
+          "Specifies the maximum record number of abnormal EAP packets in dot1x authentication.";
+      }
+      leaf identity-packet-speed-limit {
+        type uint32 {
+          range "5..2000";
+        }
+        default "300";
+        description
+          "Specifies the limit speed of dot1x-identity packet.";
+      }
+      container multicast-trigger-function {
+        description
+          "Configure multicast trigger function.";
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable multicast-triggered 802.1X authentication.";
+        }
+        leaf port-up-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of triggering 802.1X authentication through multicast packets immediately after an interface goes Up.";
+        }
+      }
+    }
+    container dot1x-access-profiles {
+      description
+        "List of dot1x access profile related configuration and state data.";
+      list dot1x-access-profile {
+        key "name";
+        max-elements "128";
+        ext:generated-by "system" {
+          ext:filter "name = 'dot1x_access_profile'";
+          description
+            "The default dot1x access profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "name = 'dot1x_access_profile'";
+          description
+            "The default dot1x access profile cannot be deleted.";
+        }
+        description
+          "Configure dot1x access profile.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of an 802.1X access profile.";
+        }
+        leaf authentication-method {
+          type enumeration {
+            enum "pap" {
+              value 0;
+              description
+                "Specifies EAP termination authentication using the Password Authentication Protocol (PAP).";
+              reference
+                "IETF RFC1334";
+            }
+            enum "chap" {
+              value 1;
+              description
+                "Specifies EAP termination authentication using the Challenge Handshake Authentication Protocol (CHAP).";
+              reference
+                "IETF RFC1994";
+            }
+            enum "eap" {
+              value 2;
+              description
+                "Specifies Extensible Authentication Protocol (EAP) relay authentication.";
+              reference
+                "IETF RFC3748";
+            }
+          }
+          default "eap";
+          description
+            "Configure an 802.1X authentication mode.";
+        }
+        leaf unicast-trigger {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable 802.1X authentication triggered by unicast packets.";
+        }
+        leaf dhcp-binding {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to automatically generate the DHCP snooping binding table after static IP users pass 802.1X authentication or when the users are at the pre-connection phase.";
+        }
+        leaf server-down-no-response-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of not responding to the EAPoL-Start packets sent by clients when the AAA server is Down.";
+        }
+        leaf send-packet-untagged {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable an access device to remove VLAN tags from 802.1X packets to be sent to terminals.";
+        }
+        leaf-list trigger-packet {
+          type enumeration {
+            enum "dhcp" {
+              value 0;
+              description
+                "Triggers 802.1X authentication through DHCP packets.";
+            }
+            enum "arp" {
+              value 1;
+              description
+                "Triggers 802.1X authentication through ARP packets.";
+            }
+            enum "any-l2-packet" {
+              value 2;
+              description
+                "Triggers 802.1X authentication through any packets.";
+            }
+            enum "dhcpv6" {
+              value 3;
+              description
+                "Triggers dhcpv6 authentication through any packets.";
+            }
+            enum "nd" {
+              value 4;
+              description
+                "Triggers nd authentication through any packets.";
+            }
+          }
+          default "dhcp";
+          default "arp";
+          default "dhcpv6";
+          default "nd";
+          description
+            "Configure the packet types that can trigger 802.1X authentication.";
+        }
+        container re-authenticate-function {
+          description
+            "Configure re-authentication for online 802.1X authentication users.";
+          leaf re-authenticate-enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable re-authentication for online 802.1X authentication users.";
+          }
+          leaf re-authenticate-period {
+            type uint16 {
+              range "1..65535";
+            }
+            units "s";
+            default "3600";
+            description
+              "Specifies the periodic re-authentication period for online 802.1X users.";
+          }
+        }
+        container authorize-of-authentication-events {
+          description
+            "List of network access rights for users when the 802.1X client does not respond.";
+          list authorize-of-authentication-event {
+            key "authentication-event";
+            description
+              "Configure network access rights for users when the 802.1X client does not respond list.";
+            leaf authentication-event {
+              type enumeration {
+                enum "client-no-response" {
+                  value 0;
+                  description
+                    "Value of client-no-response.";
+                }
+              }
+              description
+                "Authentication event.";
+            }
+            choice authorize-parameters {
+              mandatory true;
+              description
+                "Authorize parameters choice.";
+              case vlan {
+                description
+                  "VLAN case.";
+                leaf vlan-id {
+                  type leafref {
+                    path "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:id";
+                  }
+                  description
+                    "Specifies a VLAN ID. When this parameter is specified, users can access only the resources in the VLAN.";
+                }
+              }
+              case service-scheme {
+                description
+                  "Service scheme case.";
+                leaf service-scheme {
+                  type leafref {
+                    path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+                  }
+                  description
+                    "Specifies the name of a service scheme based on which network access rights are assigned.";
+                }
+              }
+              case ucl-group {
+                description
+                  "Ucl group case.";
+                leaf ucl-group {
+                  type leafref {
+                    path "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:name";
+                  }
+                  description
+                    "Specifies the name of a UCL group based on which network access rights are assigned.";
+                }
+              }
+            }
+          }
+        }
+        container handshake {
+          description
+            "Configure handshake function.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the device to send handshake packets to online 802.1X users.";
+          }
+          leaf period-eth-trunk {
+            type uint16 {
+              range "30..7200";
+            }
+            units "s";
+            default "120";
+            description
+              "Specifies the interval at which the device handshakes with an 802.1X client on an Eth-Trunk.";
+          }
+          leaf period-non-eth-trunk {
+            type uint16 {
+              range "5..7200";
+            }
+            units "s";
+            description
+              "Specifies the interval at which the device handshakes with an 802.1X client on a non-Eth-Trunk interface.";
+          }
+          leaf packet-type {
+            type enumeration {
+              enum "request-identity" {
+                value 0;
+                description
+                  "Indicates that the type of 802.1X authentication handshake packets is request-identity.";
+              }
+              enum "srp-sha1-part2" {
+                value 1;
+                description
+                  "Indicates that the type of 802.1X authentication handshake packets is srp-sha1-part2.";
+              }
+            }
+            description
+              "Sets the type of 802.1X authentication handshake packets.";
+          }
+        }
+        container retry-function {
+          description
+            "Configure retry authentication packet function.";
+          leaf max-retry {
+            type uint8 {
+              range "1..10";
+            }
+            default "2";
+            description
+              "Specifies the number of times an authentication request or handshake packet is retransmitted to an 802.1X user.";
+          }
+          leaf client-time-out {
+            type uint16 {
+              range "1..120";
+            }
+            units "s";
+            default "5";
+            description
+              "Specifies the client authentication timeout interval.";
+          }
+        }
+        container eap-notify-packet {
+          description
+            "Configure the device to send EAP packets with a code number to 802.1X users.";
+          leaf eap-code {
+            type uint8 {
+              range "5..255";
+            }
+            default "255";
+            description
+              "Specifies the code number in EAP packets sent by the device.";
+          }
+          leaf data-type {
+            type uint8 {
+              range "1..255";
+            }
+            default "255";
+            description
+              "Specifies the data type in EAP packets sent by the device.";
+          }
+        }
+        container port-control-function {
+          description
+            "Configure the authorization state of an interface.";
+          leaf mode {
+            type enumeration {
+              enum "auto" {
+                value 0;
+                description
+                  "Indicates the auto identification mode.";
+              }
+              enum "authorized-force" {
+                value 1;
+                description
+                  "Indicates the forcible authorization mode.";
+              }
+              enum "unauthorized-force" {
+                value 2;
+                description
+                  "Indicates the forcible unauthorized mode.";
+              }
+            }
+            default "auto";
+            description
+              "Authorization state.";
+          }
+        }
+      }
+    }
+  }
+  ext:task-name "nac-dot1x";
+}

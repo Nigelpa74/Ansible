@@ -1,0 +1,280 @@
+/********************************************
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+module: huawei-stun-client
+   +--rw stun-client!
+      +--rw server-port?             uint16
+      +--rw source-ports
+      |  +--rw source-port* [source-port]
+      |     +--rw port    uint16
+      +--rw server-ipv4-addresses
+      |  +--rw server-ipv4-address* [ipv4-address vpn-instance]
+      |     +--rw ipv4-address    inet:ipv4-address-no-zone
+      |     +--rw vpn-instance    leafref
+      +--rw authentication!
+         +--rw username         string
+         +--rw password         pub-type:password-extend
+
+
+*/
+module huawei-stun-client {
+
+  namespace "urn:huawei:yang:huawei-stun-client";
+  prefix stun-client;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  } 
+  import huawei-network-instance {
+    prefix ni;
+  }   
+  import huawei-pub-type {
+    prefix pub-type;
+  }  
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for stun client.";
+  revision 2024-02-18 {
+    description "Modify source-port quote.";
+    reference "";
+  }
+  revision 2023-10-23 {
+    description "Add container statistics.";
+    reference "";
+  }
+  revision 2023-02-21 {
+    description "Add hole punching retry record.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-10-18 {
+    description "Add system source-port record.";
+    reference "";
+  }
+
+  revision 2020-02-13 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "stun";
+
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+  grouping stun-statistic {
+    description
+      "The information of STUN statistic.";
+    leaf initiate-times {
+      type uint32;
+      description
+        "Number of times that STUN is initiated.";
+    }
+    leaf timeout-times {
+      type uint32;
+      description
+        "Number of times that STUN times out.";
+    }
+    leaf request-packets-send-success {
+      type uint32;
+      description
+        "Number of STUN request packets that are sent successfully.";
+    }
+    leaf request-packets-send-fail {
+      type uint32;
+      description
+        "Number of STUN request packets that fail to be sent.";
+    }
+    leaf request-packets-resend-success {
+      type uint32;
+      description
+        "Number of STUN request packets that are successfully retransmitted.";
+    }
+    leaf request-packets-resend-fail {
+      type uint32;
+      description
+        "Number of STUN request packets that are fail to be retransmitted.";
+    }
+    leaf response-packets-correct-receive {
+      type uint32;
+      description
+        "Number of STUN response packets that are received successfully.";
+    }
+    leaf response-packets-error-receive {
+      type uint32;
+      description
+        "Number of STUN response packets that fail to be received.";
+    }
+    leaf request-packets-correct-receive {
+      type uint32;
+      description
+        "Number of STUN request packets that are received successfully.";
+    }
+    leaf request-packets-error-receive {
+      type uint32;
+      description
+        "Number of STUN request packets that fail to be received.";
+    }
+    leaf response-packets-send-success {
+      type uint32;
+      description
+        "Number of STUN response packets that are sent successfully.";
+    }
+    leaf response-packets-send-fail {
+      type uint32;
+      description
+        "Number of STUN response packets that fail to be sent.";
+    }
+  }
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+
+  container stun-client {
+    presence "create stun-client";
+    description "Configure stun client.";
+    leaf server-port {
+      type uint16 {
+        range "1024..65535";
+      }
+      default "3478";
+      description "Specify the server port of the stun server.";
+    }
+    container source-ports {
+     description "List of stun client source ports.";
+     list source-port {
+       key "port";
+       description "Configure a stun client source port.";
+       ext:generated-by system {
+               ext:filter "port = 4500";
+               description "The instances whose port is '4500' are generated automatically.";
+        }
+        leaf port {
+        type uint16 {
+          range "4500..65535";
+        }
+        description "Specify the source port of the stun client.";
+      }
+     }
+    }
+    container server-ipv4-addresses {
+        description
+          "List of server addresses.";
+          
+          list server-ipv4-address {
+            key "ipv4-address vpn-instance";
+            description "Configure a stun server address.";
+            
+            leaf ipv4-address {
+              type inet:ipv4-address-no-zone;
+              description "Configure the STUN server address.";
+            }
+
+            leaf vpn-instance{
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+              }
+              description "Configure the STUN server address vpn-instance.";
+            }
+          }
+      }
+    
+    container authentication {
+      presence "create authentication";
+      description
+        "Configure the authentication user name and password for the STUN client.";
+        leaf username {
+          type string {
+            length "6..64";
+          }
+          mandatory true;
+          description "Specifies the user name for STUN client.";
+        }
+       leaf password {
+          type pub-type:password-extend {
+            length "8..428";
+          }
+          mandatory true;
+          description "Specifies the user password for STUN client.";
+        }
+    }
+
+    container hole-punching {
+      description
+        "Configure hole punching retry times and retry interval for the STUN client.";
+        leaf retry-times {
+          type uint16 {
+            range "1..10";
+          }
+          default 8;
+          description "Specifies the number of hole punching retries for the STUN client.";
+        }
+
+        leaf retry-interval {
+          type uint16 {
+            range "1..10";
+          }
+          units s;
+          default 5;
+          description "Specifies the hole punching retry interval for the STUN client, in seconds.";
+        }
+    }
+    container statistics {
+      config false;
+      description
+        "Statistics of STUN information.";
+      leaf discarded-packets {
+        type uint32;
+        description
+          "Number of discarded STUN packets.";
+      }
+      container detect {
+        description
+          "Statistics of STUN in the detection phase.";
+        uses stun-statistic;
+      }
+      container hole-punching {
+        description
+          "Statistics of STUN in the hole punching phase.";
+        uses stun-statistic;
+      }
+    }
+  }
+  /***************************************************************
+  * notification
+  ***************************************************************/
+  
+  /*************************************************************
+  * rpc 
+  **************************************************************/
+  rpc reset-stun-statistics {
+    ext:node-ref "/stun-client:stun-client/stun-client:statistics";
+    description
+      "Reset STUN statistics.";
+  }
+}

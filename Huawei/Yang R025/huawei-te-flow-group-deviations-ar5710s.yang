@@ -1,0 +1,119 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-te-flow-group-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-te-flow-group-deviations-ar5710s";
+  prefix teflowgroup-devs-ar5710s;
+
+  import huawei-te-flow-group {
+    prefix teflowgroup;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-te-flow-group module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:mapping-policys/teflowgroup:mapping-policy/teflowgroup:dscp-maps" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:mapping-policys/teflowgroup:mapping-policy/teflowgroup:service-class-maps" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:mapping-policys/teflowgroup:mapping-policy/teflowgroup:apn-id-ipv6-maps" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:locators" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:te-flow-groups" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:interface-index" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:interface-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:usd-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:binding-sids" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:flow-maps/teflowgroup:flow-map/teflowgroup:dscp-value" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:flow-maps/teflowgroup:flow-map/teflowgroup:service-class" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:flow-maps/teflowgroup:flow-map/teflowgroup:apn6-instance-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:running-flow-groups/teflowgroup:running-flow-group/teflowgroup:flow-maps/teflowgroup:flow-map/teflowgroup:policy-endpoint" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-down-reasons/teflowgroup:flow-group-down-reason/teflowgroup:binding-sids" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-down-reasons/teflowgroup:flow-group-down-reason/teflowgroup:flow-maps/teflowgroup:flow-map/teflowgroup:policy-endpoint" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:dscp-map-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:dscp-map-up-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:service-class-map-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:service-class-map-up-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:apn-id-ipv6-map-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:flow-group-statistic/teflowgroup:apn-id-ipv6-map-up-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/teflowgroup:teflowgroup/teflowgroup:mapping-policys/teflowgroup:mapping-policy/teflowgroup:match-type" {
+    deviate delete {
+      must "(../match-type='service-class') or (../match-type='dscp') or (../match-type='te-class') or (../match-type='apn-id-ipv6')";
+    }
+    deviate add {
+      must "../match-type='te-class'";
+    }
+    deviate replace {
+      type bits {
+        bit te-class {
+          position 2;
+          description
+            "TE class.";
+        }
+      }
+    }
+  }
+}

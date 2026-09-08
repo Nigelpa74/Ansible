@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-srpolicy-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-srpolicy-notification-deviations-ar5710s";
+  prefix srpolicy-notification-devs-ar5710s;
+
+  import huawei-srpolicy-notification {
+    prefix srpolicy-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-srpolicy-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/srpolicy-notification:srpolicy-path-mtu-too-large" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy-notification:srpolicy-path-mtu-too-large-resume" {
+    deviate not-supported;
+  }
+}

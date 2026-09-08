@@ -1,0 +1,1725 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-management {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-wlan-management";
+  prefix hw-wmng;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "WLAN management package."; 
+  revision 2025-09-09 {
+    description
+      "Add ftp-server-infov4 sftp-server-infov4 ft-server-infov6 sftp-server-v6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-06 {
+    description
+      "Modify ap-update-sftp-server ap-update-ftp-server ap-update-ftp-server-v6 ap-update-sftp-server-v6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-21 {
+    description
+      "Add the url pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-14 {
+    description
+      "Modify the ap-type range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-27 {
+    description
+      "Modify radio-id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-25 {
+    description
+      "Modify ftp sftp port default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-21 {
+    description
+      "Add ftp sftp server info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-20 {
+    description
+      "Delete enum signature-file.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-11-14 {
+    description
+      "Add patch synchronous update.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-09 {
+    description
+      "Add ap leaf ingerprint-key.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-29 {
+    description
+      "Add ap file transfer info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-14 {
+    description
+      "Remove operation-exclude delete of ap-user-password.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-19 {
+    description
+      "Add ac protect nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-11 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-09 {
+    description
+      "Add ap-user-password leaf operation exclude.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-30 {
+    description
+      "Modify value range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-11 {
+    description
+      "Delete the AP running mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-30 {
+    description
+      "Configures the AP update web-mode and URLs.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-29 {
+    description
+      "Configures the AP running mode.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2023-06-19 {
+    description
+      "Modify start-time start-day stop-time and stop-day description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-06 {
+    description
+      "Add leaf node for checking ap update file configuration info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-18 {
+    description
+      "Fix ftp server password length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add ftp sftp server IPv6 info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-23 {
+    description
+      "Add detail result-info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add ap update configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef transfer-file-type {
+    type enumeration {
+      enum "application-software" {
+        value 0;
+        description
+          "Container application software file.";
+      }
+      enum "public-key" {
+        value 1;
+        description
+          "Public key file.";
+      }
+      enum "module" {
+        value 3;
+        description
+          "Module file.";
+      }
+    }
+    description
+      " Configure ap file transfer type.";
+  }
+
+  grouping sever-info {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ip-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping sever-infov4 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv4-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      ext:dynamic-default {
+        ext:default-value "21" {
+          when "../protocol = 'ftp'";
+        description
+          "The default value is 21 when protocol is ftp.";
+        }
+        ext:default-value "22" {
+          when "../protocol = 'sftp'";
+          description
+            "The default value is 22 when protocol is sftp.";
+        }
+      }
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping sever-infov6 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv6-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      ext:dynamic-default {
+        ext:default-value "21" {
+          when "../protocol = 'ftp'";
+        description
+          "The default value is 21 when protocol is ftp.";
+        }
+        ext:default-value "22" {
+          when "../protocol = 'sftp'";
+          description
+            "The default value is 22 when protocol is sftp.";
+        }
+      }
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping ftp-sever-infov4 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv4-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      default "21";
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping ftp-sever-infov6 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv6-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      default "21";
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping sftp-sever-infov4 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv4-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      default "22";
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  grouping sftp-sever-infov6 {
+    description
+      "Configure sever-info.";
+    leaf ip-address {
+      type inet:ipv6-address;
+      mandatory true;
+      description
+        "Config server ip-address.";
+    }
+    leaf port {
+      type uint32 {
+          range "1..65535";
+      }
+      default "22";
+      description
+        "Config server port.";
+    }
+    leaf user-name {
+      type string {
+        length "1..31";
+      }
+      mandatory true;
+      description
+        "Config server user name.";
+    }
+    leaf password {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+      mandatory true;
+      description
+        "Config server password.";
+    }
+    leaf max-connect-number {
+      type uint32 {
+        range "1..64";
+      }
+      default "50";
+      description
+        "Config server max connect number.";
+    }
+  }
+
+  container wlan-management {
+    description
+      "Configure wlan-management.";
+    container ap-user-password {
+      presence
+        "Configure AP username and password.";
+      description
+        "Configure AP username and password.";
+      leaf user-name {
+        type string {
+          length "4..31";
+        }
+        mandatory true;
+        description
+          "The AP user name.";
+      }
+      leaf password {
+        type pub-type:password-extend {
+          length "8..268";
+        }
+        mandatory true;
+        description
+          "The AP password.";
+      }
+    }
+    container ap-password-policy {
+      presence
+        "Configure ap password policy.";
+      description
+        "Configure ap password policy.";
+      leaf pwd-expire-time {
+        type uint32 {
+          range "0..999";
+        }
+        default "90";
+        description
+          "Configure password expire time.";
+      }
+      leaf pwd-alert-before-expire {
+        type uint32 {
+          range "0..999";
+        }
+        default "30";
+        description
+          "Configure password alert before expire.";
+      }
+      leaf pwd-history-record-num {
+        type uint8 {
+          range "0..12";
+        }
+        default "5";
+        description
+          "Configure password history record number.";
+      }
+      leaf pwd-alert-original {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable password alert original.";
+      }
+    }
+
+    container ap-update-mode {
+      description
+        "Configure AP update mode.";
+      leaf update-mode {
+        type enumeration {
+          enum "ac-mode" {
+            value 0;
+            description
+              "AP file fragments transmit by capwap-control packet.";
+          }
+          enum "ftp-mode" {
+            value 1;
+            description
+              "AP file fragments transmit by ftp protocol.";
+          }
+          enum "sftp-mode" {
+            value 2;
+            description
+              "AP file fragments transmit by sftp protocol.";
+          }
+          enum "web-mode" {
+            value 3;
+            description
+              "AP file fragments transmit by http protocol from HOUP.";
+          }
+        }
+        default "ac-mode";
+        description
+          "Configure ap update mode.";
+      }
+    }
+    container ap-type-update-files {
+      description
+        "List of the update file for ap-type.";
+      list ap-type-update-file {
+        key "ap-type";
+        description
+          "Configure update file for ap-type.";
+        leaf ap-type {
+          type uint32 {
+            range "0..1023";
+          }
+          description
+            "Config the ap-type of update file.";
+        }
+        leaf file-name {
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Config the update file for ap-type.";
+        }
+        leaf url {
+          when "../../../ap-update-mode/update-mode = 'web-mode'";
+          type string {
+            length "1..255";
+            pattern '[^@]+';
+          }
+          description
+            "Config the file URL for ap-type.";
+        }
+        leaf info {
+          type string {
+            length "1..1023";
+          }
+          config false;
+          description
+            "Get ap update file configuration info.";
+        }
+      }
+    }
+    container ap-type-group-update-files {
+      description
+        "List of update file for ap-type and ap-group.";
+      list ap-type-group-update-file {
+        key "ap-type ap-group";
+        description
+          "Configure update file for ap-type and ap-group.";
+        leaf ap-type {
+          type uint32 {
+            range "0..1023";
+          }
+          description
+            "Config the ap-type of update file.";
+        }
+        leaf ap-group {
+          type string {
+            length "1..35";
+          }
+          description
+            "Config the ap-group of update file.";
+        }
+        leaf file-name {
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Config the update file for ap-type and ap-group.";
+        }
+        leaf info {
+          type string {
+            length "1..1023";
+          }
+          config false;
+          description
+            "Get ap update file configuration info.";
+        }
+      }
+    }
+    container ap-type-update-patchs {
+      description
+        "List of the update patch for ap-type.";
+      list ap-type-update-patch {
+        key "ap-type";
+        description
+          "Configure the update patch for ap-type.";
+        leaf ap-type {
+          type uint32 {
+            range "0..1023";
+          }
+          description
+            "Config the ap-type of update patch.";
+        }
+        leaf patch-name {
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Config the update patch for ap-type.";
+        }
+        leaf url {
+          when "../../../ap-update-mode/update-mode = 'web-mode'";
+          type string {
+            length "1..255";
+            pattern '[^@]+';
+          }
+          description
+            "Config the patch URL for ap-type.";
+        }
+        leaf info {
+          type string {
+            length "1..1023";
+          }
+          config false;
+          description
+            "Get ap update file configuration info.";
+        }
+      }
+    }
+    container ap-type-group-update-patchs {
+      description
+        "List of the update patch for ap-type and ap-group.";
+      list ap-type-group-update-patch {
+        key "ap-type ap-group";
+        description
+          "Configure the update patch for ap-type and ap-group.";
+        leaf ap-type {
+          type uint32 {
+            range "0..1023";
+          }
+          description
+            "Config the ap-type of update patch.";
+        }
+        leaf ap-group {
+          type string {
+            length "1..35";
+          }
+          description
+            "Config the ap-group of update patch.";
+        }
+        leaf patch-name {
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Config the update patch for ap-type.";
+        }
+        leaf info {
+          type string {
+            length "1..1023";
+          }
+          config false;
+          description
+            "Get ap update file configuration info.";
+        }
+      }
+    }
+    	
+    container ap-update-ftp-server {
+      presence
+        "Configure ap update ftp server.";
+      uses hw-wmng:ftp-sever-infov4;
+      description
+        "Configure ap update ftp server.";
+    }
+    container ap-update-sftp-server {
+      presence
+        "Configure ap update sftp server.";
+      uses hw-wmng:sftp-sever-infov4;
+      description
+        "Configure ap update sftp server.";
+    }
+    container ap-update-ftp-server-v6 {
+      presence
+        "Configure ap update ftp server.";
+      uses hw-wmng:ftp-sever-infov6;
+      description
+        "Configure ap update ftp server.";
+    }
+    container ap-update-sftp-server-v6 {
+      presence
+        "Configure ap update sftp server.";
+      uses hw-wmng:sftp-sever-infov6;
+      description
+        "Configure ap update sftp server.";
+    }
+    container ap-update-schedule-tasks {
+      description
+        "List of AP update schedule task.";
+      list ap-update-schedule-task {
+        key "task-id";
+        leaf task-id {
+          type uint8 {
+            range "0..31";
+          }
+          description
+            "Config task id.";
+        }
+        choice mode {
+          mandatory true;
+          description
+            "Config task mode.";
+          case ap-type-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type of update file.";
+            }
+            leaf ap-type-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-type-group of update file.";
+            }
+            leaf ap-list {
+              type string {
+                length "1..128";
+              }
+              description
+                "Configure ap-list.";
+            }
+            description
+              "Config the ap-type-group and ap-list.";
+          }
+          case ap-group {
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              mandatory true;
+              description
+                "Config the ap-group of update file.";
+            }
+            description
+              "Config the ap-group of update file.";
+          }
+        }
+        leaf start-time {
+          type pub-type:time;
+          mandatory true;
+          description
+            "Config start time which format is hh:mm:ss. The value ranges from 00:00:00 to 23:59:59.";
+        }
+        leaf start-day {
+          type pub-type:date;
+          mandatory true;
+          description
+            "The start date which format is yyyy-mm-dd. The value ranges from 2000-01-01 to 2050-12-31.";
+        }
+        leaf stop-time {
+          type pub-type:time;
+          mandatory true;
+          description
+            "Config stop time which format is hh:mm:ss. The value ranges from 00:00:00 to 23:59:59.";
+        }
+        leaf stop-day {
+          type pub-type:date;
+          mandatory true;
+          description
+            "The stop date which format is yyyy-mm-dd. The value ranges from 2000-01-01 to 2050-12-31.";
+        }
+        leaf task-state {
+          type enumeration {
+            enum "done" {
+              value 0;
+              description
+                "Done.";
+            }
+            enum "idle" {
+              value 1;
+              description
+                "Idle.";
+            }
+            enum "overtime" {
+              value 2;
+              description
+                "Overtime.";
+            }
+            enum "running" {
+              value 3;
+              description
+                "Running.";
+            }
+            enum "waiting" {
+              value 4;
+              description
+                "Waiting.";
+            }
+            enum "dead" {
+              value 5;
+              description
+                "Dead.";
+            }
+          }
+          config false;
+          description
+            "Get the update schedule task state.";
+        }
+        description
+          "Configure AP update schedule task.";
+      }
+    }
+    container ap-update-capability {
+      config false;
+      description
+        "Operational state of AP update capabilities.";
+      action query-is-support-update-url {
+        description
+          "Query if all the APs online support update URL.";
+        output {
+          leaf is-support-update-url {
+            type boolean;
+            description
+              "Get if all the APs online support update URL.";
+          }
+        }
+      }
+    }
+    container ac-protect {
+        leaf restore-switch {
+          type boolean;
+          default "true";
+          description "Enable/disable the function of ac protect restore.";
+        }
+        leaf alarm-restrain {
+          type boolean;
+          default "false";
+          description "Enable/disable the function of ac protect alarm-restrain.";
+        }
+        leaf cold-backup-kickoff-station {
+          type boolean;
+          default "false";
+          description "Enable/disable the function of ac protect cold-bakcup kickoff-station.";
+        }
+        description "Configure ac protect.";
+    }
+    container ap-file-transfer-server-infov4 {
+      presence
+        "Configure ap file transfer info.";
+      leaf protocol {
+        type enumeration {
+          enum "ftp" {
+            value 1;
+            description
+              "AP file transfer by ftp protocol.";
+          }
+          enum "sftp" {
+            value 2;
+            description
+              "AP file transfer by sftp protocol.";
+          }
+        }
+        mandatory true;
+        description
+          "Configure ap file transfer mode.";
+      }
+      uses hw-wmng:sever-infov4;
+      description
+        "Configure ap file transfer server.";
+    }
+    container ap-file-transfer-server-infov6 {
+      presence
+        "Configure ap file transfer info.";
+      leaf protocol {
+        type enumeration {
+          enum "ftp" {
+            value 1;
+            description
+              "AP file transfer by ftp protocol.";
+          }
+          enum "sftp" {
+            value 2;
+            description
+              "AP file transfer by sftp protocol.";
+          }
+        }
+        mandatory true;
+        description
+          "Configure ap file transfer mode.";
+      }
+      uses hw-wmng:sever-infov6;
+      description
+        "Configure ap file transfer server.";
+    }
+  }
+  rpc load-ap {
+    description
+      "Load single ap.";
+    input  {
+      container oper-info {
+        leaf mode {
+          type enumeration {
+            enum "load" {
+              value 0;
+              description
+                "Start to load file.";
+            }
+            enum "cancel" {
+              value 1;
+              description
+                "Cancel loading file.";
+            }
+          }
+          mandatory true;
+          description
+            "Set the loading mode.";
+        }
+        leaf type {
+          type enumeration {
+            enum "file" {
+              value 0;
+              description
+                "Start to load patch.";
+            }
+            enum "patch" {
+              value 1;
+              description
+                "Cancel loading patch.";
+            }
+          }
+          mandatory true;
+          description
+            "Set the loading type which can be file or patch.";
+        }
+        leaf ap-id {
+          type uint32;
+          mandatory true;
+          description
+            "Set the loading ap-id.";
+        }
+
+        leaf file-name {
+          when "../mode = 'load'";
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Set the loading file-name.";
+        }
+        leaf next-startup {
+          when "(../mode = 'load') and (../type = 'patch')";
+          type empty;
+          description
+            "Set patch active after next startup.";
+        }
+        leaf synchronous {
+          when "(../mode = 'load') and (../type = 'patch')";
+          type empty;
+          description
+            "Load patch synchronously.";
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output  {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get result.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  rpc batch-load-ap {
+    description
+      "Batch-load aps.";
+    input {
+      container oper-info {
+        leaf mode {
+          type enumeration {
+            enum "load" {
+              value 0;
+              description
+                "Start to load file.";
+            }
+            enum "cancel" {
+              value 1;
+              description
+                "Cancel loading file.";
+            }
+          }
+          mandatory true;
+          description
+            "Set the loading mode.";
+        }
+        leaf type {
+          type enumeration {
+            enum "file" {
+              value 0;
+              description
+                "Start to load patch.";
+            }
+            enum "patch" {
+              value 1;
+              description
+                "Cancel loading patch.";
+            }
+          }
+          mandatory true;
+          description
+            "Set the loading type which can be file or patch.";
+        }
+        choice type-or-group {
+          description
+            "Configure type-or-group.";
+          case ap-type-and-ap-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type.";
+            }
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-type and ap-group.";
+          }
+          case only-ap-group {
+            leaf only-ap-group {
+              type string {
+                length "1..35";
+              }
+              mandatory true;
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-group.";
+          }
+        }
+        leaf next-startup {
+          when "(../mode = 'load') and (../type = 'patch')";
+          type empty;
+          description
+            "Set patch active after next startup.";
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get the result.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  rpc batch-update-reset-ap {
+    description
+      "Batch-reset aps.";
+    input {
+      container oper-info {
+        choice type-or-group {
+          description
+            "Configure type-or-group.";
+          case ap-type-and-ap-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type.";
+            }
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Configure ap-type and ap-group.";
+          }
+          case only-ap-group {
+            leaf only-ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Configure ap-group.";
+          }
+          case ap-partition-reset {
+            choice partition-type {
+              case all {
+                leaf all {
+                  type empty;
+                  description
+                    "Batch-reset all the partition.";
+                }
+                description
+                  "Configure all partition.";
+              }
+              case partition-id {
+                leaf id {
+                  type uint16;
+                  description
+                    "Batch-reset the specified partition.";
+                }
+                description
+                  "Batch-reset the specified partition.";
+              }
+              description
+                "Set partition-type.";
+            }
+            description
+              "Set partition-type.";
+          }
+          case cancel-ap-partition-reset {
+            leaf cancel-ap-partition-reset {
+              type empty;
+              description
+                "Configure cancel-ap-partition-reset.";
+            }
+            description
+              "Configure cancel-ap-partition-reset.";
+          }
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get result.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  rpc delete-ap-patch {
+    description
+      "Delete ap patch.";
+    input {
+      container oper-info {
+        choice type-or-group {
+          description
+            "Configure type-or-group.";
+          case ap-type-and-ap-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type.";
+            }
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-type and ap-group.";
+          }
+          case only-ap-group {
+            leaf only-ap-group {
+              type string {
+                length "1..35";
+              }
+              mandatory true;
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-group.";
+          }
+          case ap-id {
+            leaf ap-id {
+              type string {
+                length "1..255";    
+              }
+              mandatory true;
+              description
+                "Set the loading ap-id.";
+            }
+            leaf synchronous {
+                type empty;
+                description
+                    "Delete patch synchronously.";
+            }
+            description
+              "Config the ap-id.";
+          }
+        }
+        leaf next-startup {
+          type empty;
+          description
+            "Set patch active after next startup.";
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get the result info.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  rpc ap-rtu-load {
+    description
+      "Load RTU license and automatically deliver to the AP.";
+    input {
+      leaf filename {
+        type string {
+          length "1..64";
+        }
+        mandatory true;
+        description
+          "Set the rtu file.";
+      }
+    }
+    output {
+      leaf result {
+        type string {
+          length "1..1000";
+        }
+        description
+          "The load RTU license result output.";
+      }
+    }
+  }
+  rpc sta-steering {
+    description
+      "Manually steering station.";
+    input {
+      leaf mac-address {
+        type pub-type:mac-address;
+        mandatory true;
+        description
+          "Set the sta mac.";
+      }
+      leaf dev-id {
+        type uint32;
+        description
+          "Set the dev id.";
+      }
+      leaf radio-id {
+        type uint8 {
+          range "0..4";
+        }
+        description
+          "Set the radio id.";
+      }
+      leaf mode {
+        type enumeration {
+          enum "bandsteer-dot11v" {
+            value 1;
+            description
+              "Bandsteer 802.11v mode.";
+          }
+          enum "bandsteer-deauth" {
+            value 2;
+            description
+              "Bandsteer deauth mode.";
+          }
+          enum "smartroam-dot11v" {
+            value 3;
+            description
+              "Smartroam 802.11v mode.";
+          }
+          enum "smartroam-deauth" {
+            value 4;
+            description
+              "Smartroam deauth mode.";
+          }
+          enum "loadbalance-dot11v" {
+            value 5;
+            description
+              "Loadbalance 802.11v mode.";
+          }
+          enum "loadbalance-deauth" {
+            value 6;
+            description
+              "Loadbalance deauth mode.";
+          }
+          enum "advanced-dot11v" {
+            value 7;
+            description
+              "Advanced 802.11v mode.";
+          }
+          enum "advanced-deauth" {
+            value 8;
+            description
+              "Advanced deauth mode.";
+          }
+        }
+        mandatory true;
+        description
+          "Set steering mode.";
+      }
+    }
+  }
+  rpc install-ap {
+    description
+      "Batch-load aps.";
+    input {
+      container oper-info {
+        leaf mode {
+          type enumeration {
+            enum "install" {
+              value 0;
+              description
+                "Start to install file.";
+            }
+            enum "cancel" {
+              value 1;
+              description
+                "Cancel installing file.";
+            }
+          }
+          mandatory true;
+          description
+            "Set the installing mode.";
+        }
+        leaf file-name {
+          when "../mode = 'install'";
+          type string {
+            length "1..255";
+          }
+          mandatory true;
+          description
+            "Set the installing filename.";
+        }
+        leaf type {
+          type transfer-file-type;
+          mandatory true;
+          description
+            "Set the installing type which can be file or patch.";
+        }
+        leaf fingerprint-key {
+          when "../type = 'public-key'";
+          type string {
+            length "1..63";
+          }
+          mandatory true;
+          description
+            "Public key fingerprint.";
+        }
+        choice type-or-group-or-apid {
+          description
+            "Configure type-or-group.";
+          case ap-type-and-ap-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type.";
+            }
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-type and ap-group.";
+          }
+          case only-ap-group {
+            leaf only-ap-group {
+              type string {
+                length "1..35";
+              }
+              mandatory true;
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-group.";
+          }
+          case ap-id {
+            leaf ap-id {
+              type string {
+                length "1..255";
+              }
+              mandatory true;
+              description
+                "Set the installing ap-id.";
+            }
+            description
+              "Config the ap-id.";
+          }
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get the result.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  rpc uninstall-ap {
+    description
+      "Uninstall ap file.";
+    input {
+      container oper-info {
+        leaf type {
+          type transfer-file-type;
+          mandatory true;
+          description
+            "Set the uninstalling type.";
+        }
+        choice type-or-group-or-apid {
+          description
+            "Configure type-or-group.";
+          case ap-type-and-ap-group {
+            leaf ap-type {
+              type uint32 {
+                range "0..1023";
+              }
+              mandatory true;
+              description
+                "Config the ap-type.";
+            }
+            leaf ap-group {
+              type string {
+                length "1..35";
+              }
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-type and ap-group.";
+          }
+          case only-ap-group {
+            leaf only-ap-group {
+              type string {
+                length "1..35";
+              }
+              mandatory true;
+              description
+                "Config the ap-group.";
+            }
+            description
+              "Config the ap-group.";
+          }
+          case ap-id {
+            leaf ap-id {
+              type string {
+                length "1..255";
+              }
+              mandatory true;
+              description
+                "Set the loading ap-id.";
+            }
+            description
+              "Config the ap-id.";
+          }
+        }
+        description
+          "Configure oper-info.";
+      }
+    }
+    output {
+      leaf result {
+        type enumeration {
+          enum "succeed" {
+            value 0;
+            description
+              "Operation is succeed.";
+          }
+          enum "failed" {
+            value 1;
+            description
+              "Operation is failed.";
+          }
+        }
+        description
+          "Get the result info.";
+      }
+      leaf info {
+        type string {
+          length "1..1023";
+        }
+        description
+          "Get detailed result-info.";
+      }
+    }
+  }
+  ext:task-name "mng";
+}

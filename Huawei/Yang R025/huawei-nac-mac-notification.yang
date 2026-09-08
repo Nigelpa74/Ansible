@@ -1,0 +1,120 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-mac-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-mac-notification";
+  prefix nac-mac-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of NAC MAC.";
+  revision 2025-08-11 {
+    description
+      "1.Modify the task-name of the nac-mac node to eap.";
+    reference
+      "Huawei private";
+  }
+  revision 2022-01-04 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "eap";
+  notification mac-authen-max-user {
+  description
+      "The number of MAC address authentication users reaches the upper limit.";
+    leaf ifindex {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf port-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "Port name.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+  notification mac-quiet-user-clear {
+  description
+      "The alarm indicating that the number of MAC address authentication users in quiet state reached the maximum value is cleared.";
+    leaf spec-of-usernum {
+      type uint32;
+      description
+        "Indicates the spec of user num.";
+    }
+    leaf current-threshold {
+      type uint32;
+      description
+        "Indicates the current threshold.";
+    }
+    leaf lower-threshold {
+      type uint32;
+      description
+        "Indicates the lower alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf upper-threshold {
+      type uint32;
+      description
+        "Indicates the upper alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+  notification mac-quiet-max-user {
+  description
+      "The number of MAC address authentication users in quiet state reached the maximum value.";
+    leaf spec-of-usernum {
+      type uint32;
+      description
+        "Indicates the spec of user num.";
+    }
+    leaf current-threshold {
+      type uint32;
+      description
+        "Indicates the current threshold.";
+    }
+    leaf lower-threshold {
+      type uint32;
+      description
+        "Indicates the lower alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf upper-threshold {
+      type uint32;
+      description
+        "Indicates the upper alarm threshold for the percentage of users in quiet state.";
+    }
+    leaf process-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Process name.";
+    }
+  }
+}

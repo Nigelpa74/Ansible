@@ -1,0 +1,87 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-wired-port-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-wired-port-profile-deviations-ar5710s";
+  prefix wired-port-prof-devs-ar5710s;
+
+  import huawei-wlan-wired-port-profile {
+    prefix wired-port-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-wired-port-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:learn-client-address-ipv4" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:learn-client-address-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:dai" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:ipsg" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:igmp-snooping" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:dhcp-trust-port" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:stp" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:port-security" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:traffic-optimize" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:traffic-filters" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:traffic-filter-statistics-switch" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:traffic-remarks" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:poe" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:macsec" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:voice-vlan" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:forward-mode" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:binding-dot1x-client-profile" {
+    deviate not-supported;
+  }
+  deviation "/wired-port-prof:wlan-wired-port-profile/wired-port-prof:wiredport-profiles/wired-port-prof:wiredport-profile/wired-port-prof:user-isolate" {
+    deviate add {
+      must "((../user-isolate = 'disable') or (../mode = 'endpoint' ) or (../mode = 'middle'))";
+    }
+  }
+}

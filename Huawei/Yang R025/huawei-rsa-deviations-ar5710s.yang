@@ -1,0 +1,44 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-rsa-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-rsa-deviations-ar5710s";
+  prefix rsa-devs-ar5710s;
+
+  import huawei-rsa {
+    prefix rsa;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-rsa module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/rsa:rsa/rsa:local-key/rsa:key-size" {
+    deviate replace {
+      type uint32 {
+        range "2048 | 3072 | 4096";
+      }
+    }
+  }
+  deviation "/rsa:rsa/rsa:key-pairs/rsa:key-pair/rsa:key-size" {
+    deviate replace {
+      type uint32 {
+        range "2048 | 3072 | 4096";
+      }
+    }
+  }
+}

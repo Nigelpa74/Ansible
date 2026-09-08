@@ -1,0 +1,1500 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dns {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-dns";
+  prefix dns;
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-ssl {
+    prefix ssl;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "DNS management.";
+  revision 2025-07-25 {
+    description
+      "Add llt-delay-time, dns-snooping-servers, snooping-enable nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-26 {
+    description
+      "Add dns-group. Add query-ddns-updates node and DNS-Snooping nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-31 {
+    description
+      "Modify dns/try-number/probe-count range to 0...15.
+       Modify dns/timeout/interval-time range to 1...15.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-04 {
+    description
+      "Add query-dynamic-hosts and resolve-host-name node.
+       Update node description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-29 {
+    description
+      "Add the node of dns server type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-19 {
+    description
+      "Modify the node of source-if.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add the node of dns server and ddns.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-27 {
+    description
+      "Add dns passthrough domain.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-14 {
+    description
+      "Add dns IPv6 proxy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-07 {
+    description
+      "Add dns relay listen ip.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-04 {
+    description
+      "Add unnumbered-interfaces.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-25 {
+    description
+      "Add forward-any-response nodes in dns-proxy container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-08 {
+    description
+      "Modify must restriction to domain node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-01 {
+    description
+      "Add proxy packet-statistics and nat-session nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-25 {
+    description
+      "Add query-host-IPv6s.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-23 {
+    description
+      "ADD the dns-proxy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-29 {
+    description
+      "Change must condition of IPv6-address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-10-16 {
+    description
+      "Add the clear-IPv4-entry and clear-IPv6-entry.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-09-03 {
+    description
+      "Add tls-policy-name node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-08-27 {
+    description
+      "Modify the if-name of IPv6-servers.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-08-17 {
+    description
+      "Add tls-policy-name node of IPv4-servers and IPv6-servers.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-05-13 {
+    description
+      "Add device-domain.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-19 {
+    description
+      "Add DNS relay enable.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2020-11-03 {
+    description
+      "Add IPv6-sources IPv4-hosts IPv6-hosts and modify IPv6-servers.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-30 {
+    description
+      "Add query-host-ips and IPv6-servers.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-04-24 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "dns";
+  typedef direction-type {
+    type enumeration {
+      enum "inbound" {
+        value 1;
+        description
+          "Inbound direction.";
+      }
+      enum "outbound" {
+        value 2;
+        description
+          "Outbound direction.";
+      }
+    }
+    description
+      "The type of packet direction.";
+  }
+  typedef ddns-server-url-type {
+    type enumeration {
+      enum "oray-http" {
+        value 0;
+        description
+          "Use http to communicate with the ddns server provided by oray peanut shell.";
+      }
+      enum "oray-https" {
+        value 1;
+        description
+          "Use https to communicate with the ddns server provided by oray peanut shell.";
+      }
+    }
+    description
+      "The type of ddns server url.";
+  }
+  typedef source-type {
+    type enumeration {
+      enum "user" {
+          value 0;
+          description
+          "Configured by user.";
+      }
+      enum "dhcp" {
+          value 1;
+          description
+          "Configured by dhcp.";
+      }
+      enum "pppoe" {
+          value 2;
+          description
+          "Configured by pppoe.";
+      }
+    }
+    description
+      "DNS server source type.";
+  }
+  container dns {
+    description
+      "DNS management.";
+    container global {
+      description
+        "Configure determine whether to enable DNS.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DNS enable flag.";
+      }
+      leaf server-vpn {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast'] or /ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+        description
+          "Specifies a VPN instance name for DNS server.";
+      }
+      leaf server-algorithm {
+        type enumeration {
+          enum "auto" {
+            value 0;
+            description
+              "Send DNS queries to all servers at the same time.";
+          }
+          enum "fixed" {
+            value 1;
+            description
+              "Send DNS queries to the first server. If the server has no response after some retries, send queries to the next one.";
+          }
+        }
+        default "auto";
+        description
+          "The algorithm of selecting DNS servers when sending DNS queries.";
+      }
+    }
+    container src-interfaces {
+      description
+        "List of interface source server.";
+      list src-interface {
+        key "source-if";
+        max-elements 1;
+        description
+          "Configure interface source server.";
+        leaf source-if {
+          type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+          description
+            "Specifies the source interface for forwarding DNS requests.";
+        }
+      }
+    }
+    container src-ips {
+      description
+        "List of IPv4 Source Server.";
+      list src-ip {
+        key "vrf-name source-ipv4-addr";
+        description
+          "Configure IPv4 Source Server.";
+        leaf vrf-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf source-ipv4-addr {
+          type inet:ipv4-address-no-zone;
+          description
+            "IPv4 address of source server.";
+        }
+      }
+    }
+    container ipv6-sources {
+      description
+        "List of IPv6 Source Server.";
+      list ipv6-source {
+        key "vpn ipv6-source-addr";
+        description
+          "Configure IPv6 Source Server.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf ipv6-source-addr {
+          type inet:ipv6-address-no-zone;
+          description
+            "IPv6 address of source server.";
+        }
+      }
+    }
+    container timeout {
+      description
+        "Configure specifies the amount of time to wait for a response to a DNS query. If the ip domain timeout command is not configured, system will wait 3 seconds for a response to a DNS query.";
+      leaf interval-time {
+        type uint32 {
+          range "1..15";
+        }
+        units "s";
+        default "5";
+        description
+          "The amount of time to wait for a response to a DNS query (s).";
+      }
+    }
+    container try-number {
+      description
+        "Configure specifies the number of times to retry sending DNS queries. If the ip domain retry command is not configured, system will retry DNS queries twice.";
+      leaf probe-count {
+        type uint32 {
+          range "0..15";
+        }
+        default "2";
+        description
+          "Specifies the number of times to retry sending DNS queries.";
+      }
+    }
+    container domains {
+      description
+        "List of domain.";
+      list domain {
+        key "vpn name";
+        description
+          "Configure domain name.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast'] or /ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf name {
+          type string {
+            length "1..63";
+          }
+          ext:case-sensitivity lower-or-upper;
+          description
+            "Domain name.";
+        }
+      }
+    }
+    container ipv4-hosts {
+      description
+        "List of IPv4 host.";
+      list ipv4-host {
+        key "vpn host";
+        description
+          "Configure IPv4 host.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf host {
+          type string {
+            length "1..255";
+          }
+          description
+            "Host name.";
+        }
+        leaf address {
+          type inet:ipv4-address-no-zone;
+          mandatory true;
+          description
+            "Address of IPv4 host.";
+        }
+      }
+    }
+    container ipv6-hosts {
+      description
+        "List of IPv6 host.";
+      list ipv6-host {
+        key "vpn host ipv6-address";
+        description
+          "Configure IPv6 host.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf host {
+          type string {
+            length "1..255";
+          }
+          description
+            "Host name.";
+        }
+        leaf ipv6-address {
+          type inet:ipv6-address-no-zone;
+          description
+            "Address of IPv6 host.";
+        }
+      }
+    }
+    container ipv4-servers {
+      description
+        "List of DNS IPv4 server.";
+      list ipv4-server {
+        key "vpn address";
+        description
+          "Configure DNS IPv4 server.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf address {
+          type inet:ipv4-address-no-zone;
+          description
+            "Address of IPv4 server.";
+        }
+	    leaf tls-policy-name {
+          type leafref {
+            path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+          }
+          description
+            "SSL policy name of IPv4 server.";
+        }
+        leaf source-type {
+          type source-type;
+          config false;
+          description
+            "The source type of DNS server.";
+        }
+      }
+    }
+    container ipv6-servers {
+      description
+        "List of DNS IPv6 server.";
+      list ipv6-server {
+        key "vpn ipv6-address if-name";
+        description
+          "Configure DNS IPv6 server.";
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf ipv6-address {
+          type inet:ipv6-address-no-zone;
+          must "((starts-with(translate(., 'FEABab9', 'fe88888'), 'fe8')) and (../if-name != '')) or (not(starts-with(translate(., 'FEABab9', 'fe88888'), 'fe8')) and (../if-name = ''))";
+          description
+            "IPv6 address of the DNS server, which can be a global unicast or link-local address.";
+        }
+        leaf if-name {
+          type string {
+            length "0..63";
+          }
+          description
+            "Interface Name. If the IPv6 address of the DNS server is a global unicast address, no interface needs to be specified. Otherwise, specify the interface name.";
+        }
+	    leaf tls-policy-name {
+          type leafref {
+            path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+          }
+          description
+            "SSL policy name of IPv6 server.";
+        }
+      }
+    }
+    container dns-relay {
+      description
+        "Configure DNS relay.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description "Enable/disable the function of IPv4 dns relay. When dns relay is enabled,
+                    the device act as a dns relayer, eg, as a dns server for the client,
+                    and as a client for the real dns server."; 
+      }
+ 
+      leaf ipv6-enable {
+        type boolean;
+        default "false";
+        description "Enable/disable the function of IPv6 dns relay. When dns relay is enabled,
+                    the device act as a dns relayer, eg, as a dns server for the client, 
+                    and as a client for the real dns server.";
+      }
+      container local-ips {
+        description
+          "List of IPv4 Local Address.";
+        list local-ip {
+          key "ip-address vpn-name";
+          max-elements "10";
+          description
+            "Configure IPv4 Local Address.";
+          leaf ip-address {
+            type inet:ipv4-address-no-zone;
+            description
+              "IPv4 address of local address.";
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+              "VPN name.";
+          }
+        }
+      }
+      container local-ipv6s {
+        description
+          "List of IPv6 Local Address.";
+        list local-ipv6 {
+          key "ipv6-address vpn-name";
+          max-elements "10";
+          description
+            "Configure IPv4 Local Address.";
+          leaf ipv6-address {
+            type inet:ipv6-address-no-zone;
+            description
+              "IPv6 address of local address.";
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+              "VPN name.";
+          }
+        }
+      }
+    }
+    container dns-pkt-stats {
+      config false;
+      description
+        "Statistics of DNS packets.";
+        leaf input-total {
+          type uint32;
+          config false;
+          description
+            "Total count of received packets.";
+        }
+        leaf output-total {
+          type uint32;
+          config false;
+          description
+            "Total count of sent packets.";
+        }
+        leaf drop-total {
+          type uint32;
+          config false;
+          description
+            "Total count of discarded packets.";
+        }
+        leaf rr-a {
+          type uint32;
+          config false;
+          description
+            "Count of received 'A' resource record types.";
+        }
+        leaf rr-aaaa {
+          type uint32;
+          config false;
+          description
+            "Count of received 'AAAA' resource record types.";
+        }
+        leaf rr-ptr {
+          type uint32;
+          config false;
+          description
+            "Count of received 'PTR' resource record types.";
+        }
+        leaf rr-cname {
+          type uint32;
+          config false;
+          description
+            "Count of received 'CNAME' resource record types.";
+        }
+        leaf rr-unknown {
+          type uint32;
+          config false;
+          description
+            "Count of received unknown resource record types.";
+        }
+        leaf standard {
+          type uint32;
+          config false;
+          description
+            "Count of sent standard query packets.";
+        }
+        leaf question-a {
+          type uint32;
+          config false;
+          description
+            "Count of sent 'A' query types.";
+        }
+        leaf question-aaaa {
+          type uint32;
+          config false;
+          description
+            "Count of sent 'AAAA' query types.";
+        }
+        leaf question-ptr {
+          type uint32;
+          config false;
+          description
+            "Count of sent 'PTR' query types.";
+        }
+        leaf rcv-tcp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of received TCP packets.";
+        }
+        leaf rcv-udp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of received UDP packets.";
+        }
+        leaf drop-tcp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of discarded TCP packets.";
+        }
+        leaf drop-udp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of discarded UDP packets.";
+        }
+        leaf drop-len {
+          type uint32;
+          config false;
+          description
+            "Count of discarded length error packets.";
+        }
+        leaf drop-id {
+          type uint32;
+          config false;
+          description
+            "Count of discarded ID error packets.";
+        }
+        leaf drop-server {
+          type uint32;
+          config false;
+          description
+            "Count of discarded server error packets.";
+        }
+        leaf drop-code {
+          type uint32;
+          config false;
+          description
+            "Count of discarded code error packets.";
+        }
+        leaf drop-tc {
+          type uint32;
+          config false;
+          description
+            "Count of discarded truncated error packets.";
+        }
+        leaf drop-query-cnt {
+          type uint32;
+          config false;
+          description
+            "Count of discarded query count error packets.";
+        }
+        leaf drop-answer-cnt {
+          type uint32;
+          config false;
+          description
+            "Count of discarded answer count error packets.";
+        }
+        leaf drop-expand-name {
+          type uint32;
+          config false;
+          description
+            "Count of discarded expand name error packets.";
+        }
+        leaf drop-class {
+          type uint32;
+          config false;
+          description
+            "Count of discarded class error packets.";
+        }
+        leaf drop-other {
+          type uint32;
+          config false;
+          description
+            "Count of discarded other error packets.";
+        }
+        leaf sent-udp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of sent UDP packets.";
+        }
+        leaf sent-tcp-total {
+          type uint32;
+          config false;
+          description
+            "Total count of sent TCP packets.";
+        }
+    }
+    container query-host-ips {
+      config false;
+      description
+        "List of querying ip address of host name.";
+      list query-host-ip {
+        key "host-name";
+        description
+          "Operational state of querying ip address of host name.";
+        leaf host-name {
+          type string {
+            length "1..255";
+          }
+          description
+            "The host name.";
+        }
+        leaf ip-address {
+          type inet:ipv4-address-no-zone;
+          description
+            "IPv4 address.";
+        }
+      }
+    }
+    container query-host-ipv6s {
+      config false;
+      description
+        "List of querying IPv6 address.";
+      list query-host-ipv6 {
+        key "host-name vpn";
+        description
+          "Operational state of querying IPv6 address.";
+        leaf host-name {
+          type string {
+            length "1..255";
+          }
+          description
+            "The host name.";
+        }
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "VPN name.";
+        }
+        leaf-list ipv6-address {
+          type inet:ipv6-address-no-zone;
+          description
+            "Statistics of IPv6 address.";
+        }
+      }
+    }
+    container query-dynamic-hosts {
+      config false;
+      description
+        "List of querying dynamic host.";
+      list query-dynamic-host {
+        key "host-name vpn";
+        description
+          "Operational state of querying dynamic host.";
+        leaf host-name {
+          type string {
+            length "1..255";
+          }
+          description
+            "The host name.";
+        }
+        leaf vpn {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "VPN name.";
+        }
+        leaf-list ipv4-address {
+          type inet:ipv4-address-no-zone;
+          description
+            "Statistics of IPv4 address.";
+        }
+        leaf-list ipv6-address {
+          type inet:ipv6-address-no-zone;
+          description
+            "Statistics of IPv6 address.";
+        }
+      }
+    }
+    container device-domain {
+      description
+        "Configure the domain-name of device.";
+        leaf domain-name {
+          type string {
+            length "1..255";
+          }
+          description
+            "The domain-name of device.";
+        }
+    }
+    container dns-proxy {
+      description
+        "Configure DNS proxy.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of IPv4 dns proxy. When dns proxy is enabled, the device act as a dns proxyer, eg, as a dns server for the client, and as a client for the real dns server.";
+      }
+      leaf forward-any-response {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the DNS proxy to forward or from forwarding all response packets from the DNS server to the DNS client.";
+      }
+      container packet-statistics {
+        config false;
+        description
+          "Statistics of dns proxy.";
+        leaf receive-client-packets {
+          type uint32;
+          description
+            "Number of packets received from clients.";
+        }
+        leaf sent-client-packets {
+          type uint32;
+          description
+            "Number of packets sent to clients.";
+        }
+        leaf drop-client-packets {
+          type uint32;
+          description
+            "Number of packets received and dropped from clients.";
+        }
+        leaf receive-server-packets {
+          type uint32;
+          description
+            "Number of packets received from servers.";
+        }
+        leaf sent-server-packets {
+          type uint32;
+          description
+            "Number of packets sent to servers.";
+        }
+        leaf drop-server-packets {
+          type uint32;
+          description
+            "Number of packets received and dropped from servers.";
+        }
+      }
+      container nat-sessions {
+        config false;
+        description
+          "List of proxy NAT session entries.";
+        list nat-session {
+          key "direction vrf-name source-port destination-port source-addr destination-addr";
+          description
+            "Operational state of proxy NAT session entrie.";
+          leaf direction {
+            type direction-type;
+            description
+              "The nat session direction.";
+          }
+          leaf vrf-name {
+            type string {
+              length "1..31";
+            }
+            description
+              "VPN instance name.";
+          }
+          leaf source-port {
+            type inet:port-number;
+            description
+              "The source port.";
+          }
+          leaf destination-port {
+            type inet:port-number;
+            description
+              "The destination port.";
+          }
+          leaf source-addr {
+            type inet:ip-address-no-zone;
+            description
+              "IPv4 source address.";
+          }
+          leaf destination-addr {
+            type inet:ip-address-no-zone;
+            description
+              "IPv4 destination address.";
+          }
+          leaf nat-vrf-name {
+            type string {
+              length "1..31";
+            }
+            description
+              "The translated VPN instance name.";
+          }
+          leaf nat-source-port {
+            type inet:port-number;
+            description
+              "The tanslated source port.";
+          }
+          leaf nat-destination-port {
+            type inet:port-number;
+            description
+              "The tanslated destination port.";
+          }
+          leaf nat-source-addr {
+            type inet:ip-address-no-zone;
+            description
+              "The tanslated IPv4 source address.";
+          }
+          leaf nat-destination-addr {
+            type inet:ip-address-no-zone;
+            description
+              "The tanslated IPv4 destination address.";
+          }
+          leaf total-matched-packets {
+            type uint32;
+            description
+              "The count of matched packets.";
+          }
+        }
+      }
+    }
+    container dnsv6-proxy {
+      description
+        "Configure DNSv6 proxy.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the DNSv6 proxy function. When this function is enabled, the device acts as a DNS proxy, for example, as a DNS server for the client or a client for the DNS server.";
+      }
+      leaf forward-any-response {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the DNSv6 proxy to forward or disable it from forwarding all response packets from the DNS server to the DNS client.";
+      }
+    }
+    container proxy-client-src-ips {
+      description
+        "List of the source IPv4 address.";
+      list proxy-client-src-ip {
+        key "vrf-name source-ipv4-addr";
+        description
+          "Configure the source IPv4 address used by the DNS proxy for communicating with IPv4 DNS clients.";
+        leaf vrf-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+          description
+            "VPN name.";
+        }
+        leaf source-ipv4-addr {
+          type inet:ipv4-address-no-zone;
+          description
+            "The source IPv4 address.";
+        }
+      }
+    }
+    container unnumbered-interfaces {
+      description
+        "List of the unnumbered interfaces of dynamic server.";
+      list unnumbered-interface {
+        key "address-type interface-name";
+        description
+          "Configure the unnumbered interfaces of dynamic server.";
+        leaf address-type {
+          type enumeration {
+            enum "ipv4" {
+              value 1;
+              description
+                "IPv4 address.";
+            }
+            enum "ipv6" {
+              value 2;
+              description
+                "IPv6 address.";
+            }
+          }
+          description
+            "The type of address.";
+        }
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+      }
+    }
+    container passthrough-domains {
+      description
+        "List of the passthrough domains.";
+      list passthrough-domain {
+        key "id";
+        description
+          "Configure passthrough domain.";
+        leaf id {
+          type uint16 {
+            range "0..127";
+          }
+          description
+            "Domain ID.";
+        }
+        leaf name {
+          type string {
+            length "3..127";
+          }
+          mandatory true;
+          description
+            "Domain name.";
+        }
+      }
+    }
+    container cache-ttl {
+      must "maximum >= minimum";
+      description
+        "Configure specifies the maximum and minimum of the TTL of the cache of application domain name resolution.";
+      leaf maximum {
+        type uint32 {
+          range "60..4294967295";
+        }
+        units "s";
+        default "86400";
+        description
+          "Specify the maximum of the TTL of the cache of application domain name resolution.";
+      }
+      leaf minimum {
+        type uint32 {
+          range "60..4294967295";
+        }
+        units "s";
+        default "600";
+        description
+          "Specify the minimum of the TTL of the cache of application domain name resolution.";
+      }
+    }
+    container dns-resolve-policy {
+      description
+        "Configure dns resolve policy.";
+      leaf a-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the dns resolution policy function for class a query requests.";
+      }
+      leaf aaaa-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the dns resolution policy function for class aaaa query requests.";
+      }
+      container rules {
+        description
+          "List of DNS resolution rule.";
+        list rule {
+          key "rule-id";
+          max-elements "128";
+          description
+            "Configure DNS resolution rule.";
+          leaf rule-id {
+            type uint16 {
+              range "0..127";
+            }
+            description
+              "Specifies the DNS resolution rule ID. A smaller value indicates a higher rule priority.";
+          }
+          leaf domain-name {
+            type string {
+              length "1..255";
+            }
+            description
+              "Specifies the domain name matching the DNS resolution rule.";
+          }
+          choice action-format {
+            mandatory true;
+            description
+              "Specifies the action format after rule matching.";
+            case deny-format {
+              description
+                "Rejects the domain name resolution request matching the DNS resolution rule.";
+              leaf deny {
+                type empty;
+                description
+                  "Rejects the domain name resolution request matching the DNS resolution rule.";
+              }
+            }
+            case permit-format {
+              description
+                "Allows the domain name resolution request matching the DNS resolution rule.";
+              leaf permit {
+                type empty;
+                description
+                  "Allows the domain name resolution request matching the DNS resolution rule.";
+              }
+            }
+            case spoofing-format {
+              description
+                "Specifies the IP address of the spoofing response to the domain name resolution request matching the DNS resolution rule.";
+              leaf ipv4-addresses  {
+                type inet:ip-address-no-zone;
+                description
+                  "IP address.";
+              }
+              leaf ipv6-addresses  {
+                type inet:ipv6-address-no-zone;
+                description
+                  "IPv6 address.";
+              }
+            }
+            case use-dns-group-format {
+              description
+                "Specifies the dns group used to resolve the domain name.";
+              leaf group-name {
+                type leafref {
+                  path "/dns:dns/dns:dns-groups/dns:dns-group/dns:group-name";
+                }
+                description
+                 "Specifies the dns group used to resolve the domain name.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container ddns-policys {
+      description
+        "List of ddns policy.";
+      list ddns-policy {
+        must "(./request-url and ./user-name and ./password) or (not (./request-url) and not (./user-name) and not (./password))";
+        key "policy-name";
+        description
+          "Configure ddns policy.";
+        leaf policy-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "The policy-name of DDNS.";
+        }
+        leaf interval-time {
+          type uint32 {
+            range "60..31536000";
+          }
+          units "s";
+          default "3600";
+          description
+            "Configure interval for sending DDNS update requests.";
+        }
+        leaf ssl-policy {
+           type leafref {
+              path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+            }
+            description
+              "Configure the name of SSL policy.";
+        }
+        leaf request-url {
+          type ddns-server-url-type;
+          description
+            "Configure the URL in DDNS update requests.";
+        }
+        leaf user-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "Configure the user name for logging in to the DDNS server.";
+        }
+        leaf password {
+          type pub-type:password-extend {
+            length "1..148";
+          }
+          description
+            "Configure the password for logging in to the DDNS server.";
+        }
+      }
+    }
+    container query-ddns-update-results {
+      config false;
+      description
+        "List of result of ddns-update.";
+      list query-ddns-update-result {
+        key "if-name policy-name";
+        description
+          "Operational state of ddns-update.";
+        leaf if-name {
+          type string {
+            length "0..63";
+          }
+          description
+            "Interface name.";
+        }
+        leaf policy-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "The policy-name of DDNS.";
+        }
+        leaf update-result {
+          type string {
+            length "1..64";
+          }
+          description
+            "Last update result. The result could be as follows:
+            1) Not yet update; 2) Updating; 3) Resolve ddns server domain name failed;
+            4) SSL connection failed; 5) Update failed; 6) Update success.";
+        }
+        leaf client-fqdn {
+            type string {
+              length "1..255";
+            }
+            description
+              "Domain name updated by the DDNS.";
+        }
+        leaf client-ip {
+            type inet:ipv4-address-no-zone;
+            description
+              "IP address updated by the DDNS. If no IP address is updated, this item is displayed as 0.0.0.0.";
+        }
+        leaf server-ip {
+            type inet:ipv4-address-no-zone;
+            description
+              "IP address of the DDNS server. If there is no server IP address, this item is displayed as 0.0.0.0.";
+        }
+       leaf update-time { 
+          type string {
+            length "1..32";
+          }
+          description
+            "The update time, which is in the format yyyy-MM-dd HH:mm:ss.";
+        }
+      }
+    }
+    container dns-snooping {
+      description
+        "Configure DNS Snooping.";
+      leaf packet-flow-log-enable {
+        type empty;
+        description
+          "Enable/disable the function of recording logs when DNS messages are exchanged.";
+      }
+      leaf llt-delay-time {
+        type uint32 {
+          range "0..43200";
+        }
+        units "min";
+        default "5760";
+        description
+          "DNS snooping cache LLT delay time.";
+      }
+      container dns-snooping-servers {
+        description
+          "List of dns snooping server.";
+        list dns-snooping-server {
+          key "server-address";
+          max-elements 12;
+          description
+            "Configure an IP address for dns snooping server.";
+          leaf server-address {
+            type inet:ipv4-address-no-zone;
+            description
+              "Dns snooping server IP address.";
+          }
+        }
+      }
+    }
+    container dns-groups {
+      description
+        "List of dns group.";
+      list dns-group {
+        key "group-name";
+        description
+          "Configure dns group.";
+        leaf group-name {
+          type string {
+            length "1..32";
+          }
+          description
+            "The name of dns group.";
+        }
+        container server-addresses {
+          description
+            "List of configuring IP addresses for servers in a dns group.";
+          list server-address {
+            key "server-address";
+            description
+              "Configure an IP address for a server in a dns group.";
+            leaf server-address {
+              type inet:ipv4-address-no-zone;
+              description
+                "Server IP address.";
+            }
+            leaf source-interface {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description
+                "Specifies the source interface for forwarding DNS requests.";
+            }
+          }
+        }
+      }
+    }
+  }
+  rpc clear-ipv4-entry {
+    description
+      "To clear IPv4 dynamic entry.";
+    input  {
+      leaf vpn {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        description
+          "VPN name.";
+      }
+      leaf host {
+        type string {
+          length "1..255";
+        }
+        description
+          "Host name.";
+      }
+    }
+  }
+  rpc clear-ipv6-entry {
+    description
+      "To clear IPv6 dynamic entry.";
+    input  {
+      leaf vpn {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        description
+          "VPN name.";
+      }
+      leaf host {
+        type string {
+          length "1..255";
+        }
+        description
+          "Host name.";
+      }
+    }
+  }
+  rpc resolve-host-name {
+    description
+      "To resolve host name asynchronous.";
+    input  {
+      leaf host-name {
+        type string {
+          length "1..255";
+        }
+        description
+          "The host name.";
+      }
+      leaf vpn {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        description
+          "VPN name.";
+      }
+    }
+  }
+  rpc refresh-ddns {
+    description
+      "Trigger the DDNS client to send a request to the DDNS server for updating the mapping between domain names and IP addresses.";
+    input  {
+      leaf if-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        mandatory true;
+        description
+          "Interface name.";
+      }
+      leaf policy-name {
+        type leafref {
+          path "/dns:dns/dns:ddns-policys/dns:ddns-policy/dns:policy-name";
+        }
+        description
+          "The policy-name of DDNS.";
+      }
+    }
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "Extend interface attribute.";
+    container ddns-if {
+      description
+        "Configure DDNS attributes on an interface.";
+      container apply-policys {
+        description
+          "List of apply policy.";
+        list apply-policy {
+          key "policy-name";
+          description
+            "Configure ddns policy on the interface.";
+          leaf policy-name {
+            type leafref {
+              path "/dns:dns/dns:ddns-policys/dns:ddns-policy/dns:policy-name";
+            }
+            description
+              "The policy-name of ddns.";
+          }
+          leaf fqdn {
+            type string {
+              length "1..255";
+            }
+            description
+              "Domain name updated by the DDNS.";
+          }
+        }
+      }
+    }
+    container dns-snooping-if {
+      description
+        "Configure DNS Snooping attributes on an interface.";
+      leaf packet-flow-log-enable {
+        type empty;
+        description
+          "Enable/disable the function of recording logs when DNS messages are exchanged.";
+      }
+      leaf snooping-enable {
+        type empty;
+        description
+          "Enable the dns snooping.";
+      }
+    }
+  }
+}

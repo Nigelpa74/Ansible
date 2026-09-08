@@ -1,0 +1,160 @@
+/*
+* Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-wlan-softgre {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-softgre";
+  prefix wlan-softgre;
+
+  import huawei-extension {
+      prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "SoftGRE profile configuration service package.";
+  revision 2024-06-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  container wlan-softgre {
+    description
+      "SoftGRE forwarding mode configuration.";
+
+    container profiles {
+      description
+        "List of SoftGRE profiles.";
+
+      list profile {
+        key "profile-name";
+        description
+          "Configure SoftGRE profile.";
+
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "SoftGRE profile name.";
+        }
+        leaf destination-ip {
+          type inet:ip-address-no-zone;
+          mandatory true;
+          description
+            "Configure destination IP address.";
+        }
+        container keepalive {
+          description
+            "Configure keepalive for the softgre tunnel.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable keepalive function.";
+          }
+          leaf period {
+            when "../enable = 'true'";
+            type uint16 {
+              range "1..32767";
+            }
+            units "s";
+            default "5";
+            description
+              "Config period for sending Keepalive packets.";
+          }
+          leaf retry-times {
+            when "../enable = 'true'";
+            type uint16 {
+              range "1..255";
+            }
+            default "3";
+            description
+              "Config retry times for sending Keepalive packets.";
+          }
+        }
+        leaf untagged-vlan {
+          type uint16 {
+              range "1..4094";
+          }
+          description
+            "Untagged VLAN for the SoftGRE tunnel.";
+        }
+      }
+    }
+
+    container softgre-tunnel-statuss {
+      config false;
+      description
+        "List of SoftGRE tunnel status information.";
+      list softgre-tunnel-status {
+        key "destination-ip";
+        max-elements 48;
+        description
+          "Operational state of SoftGRE tunnel status information.";
+        
+        leaf destination-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Destination IP address for the softgre tunnel.";
+        }
+        leaf source-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Source IP address for the softgre tunnel.";
+        }
+        leaf status {
+          type enumeration {
+            enum "down" {
+              value 0;
+              description
+                "SoftGRE tunnel down status.";
+            }
+            enum "up" {
+              value 1;
+              description
+                "SoftGRE tunnel up status.";
+            }
+          }
+          description
+            "Status for the SoftGRE tunnel.";
+        }
+        leaf keepalive {
+          type boolean;
+          description
+            "Keepalive enabling status for the SoftGRE tunnel.";
+        }
+        leaf keepalive-request-number {
+          type uint64;
+          description
+            "Number of keepalive request packets.";
+        }
+        leaf keepalive-response-number {
+          type uint64;
+          description
+            "Number of keepalive response packets.";
+        }
+      }
+    }
+  }
+
+  ext:task-name "lcm";
+}

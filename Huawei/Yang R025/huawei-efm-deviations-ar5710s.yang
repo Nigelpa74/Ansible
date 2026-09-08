@@ -1,0 +1,51 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-efm-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-efm-deviations-ar5710s";
+  prefix efm-devs-ar5710s;
+
+  import huawei-efm {
+    prefix efm;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-efm module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/efm:efm" {
+    deviate not-supported;
+  }
+  deviation "/efm:efm-loopback-start" {
+    deviate not-supported;
+  }
+  deviation "/efm:efm-loopback-stop" {
+    deviate not-supported;
+  }
+  deviation "/efm:efm-recover-efm-down" {
+    deviate not-supported;
+  }
+  deviation "/efm:efm-test-packet" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/efm:efm" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,222 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pbr-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-pbr-deviations-ar5710s";
+  prefix pbr-devs-ar5710s;
+
+  import huawei-pbr {
+    prefix pbr;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pbr module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:redirect-to-cpu" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:redirect-vpn-instance" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:redirect-to-interface" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:remote" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:load-balance" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:exact" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:low-precedence" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:src-vpn-instance" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:per-packet" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:local" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:reaction-probe-failtimes" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-redirect-public-network" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-redirect-to-interface" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:remote" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:load-balance" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:exact" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:low-precedence" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:per-packet" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:src-vpn-instance" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:local" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:reaction-probe-failtimes" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:vpn-instance" {
+    deviate add {
+      default "_public_";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:deny" {
+    deviate add {
+      default "false";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address" {
+    deviate replace {
+      min-elements 0;
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track" {
+    deviate delete {
+      default "ip-route";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:nqa/pbr:nqa/pbr:nqa-admin-name" {
+    deviate add {
+      must '../nqa-instance';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:nqa/pbr:nqa/pbr:nqa-instance" {
+    deviate add {
+      must '../nqa-admin-name';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:bfd" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:vpn-instance" {
+    deviate add {
+      default "_public_";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:deny" {
+    deviate add {
+      default "false";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address" {
+    deviate replace {
+      min-elements 0;
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track" {
+    deviate delete {
+      default "nqa";
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:nqa/pbr:nqa/pbr:nqa-admin-name" {
+    deviate add {
+      must '../nqa-instance';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:nqa/pbr:nqa/pbr:nqa-instance" {
+    deviate add {
+      must '../nqa-admin-name';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:bfd" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:interface" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:multi-vpn-nexthop-addresss" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:multi-vpn-nexthop-addresss" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:multi-vpn" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops/pbr:multi-vpn" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops/pbr:nexthop-addresss/pbr:nexthop-address/pbr:track/pbr:track-vrrp/pbr:track-vrrp/pbr:vrid" {
+    deviate replace {
+      type uint32 {
+        range "1..255";
+      }
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:redirect-to-site/pbr:site-id" {
+    deviate replace {
+      type uint32 {
+        range "1.. 65535";
+      }
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:redirect-to-site/pbr:backup-site-id" {
+    deviate replace {
+      type uint32 {
+        range "1.. 65535";
+      }
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv4/pbr:pbr-ipv4/pbr:ipv4-nexthops/pbr:ipv4-nexthops" {
+    deviate add {
+      must 'nexthop-addresss/nexthop-address/ip-address';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:pbr-ipv6/pbr:pbr-ipv6/pbr:ipv6-nexthops/pbr:ipv6-nexthops" {
+    deviate add {
+      must 'nexthop-addresss/nexthop-address/ipv6-address';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/pbr:pbr/pbr:redirect-backup-nexthop" {
+    deviate delete {
+      must '(../pbr-ipv4/ipv4-nexthop)';
+    }
+    deviate add {
+      must '(../pbr-ipv4/ipv4-nexthops)';
+    }
+  }
+}

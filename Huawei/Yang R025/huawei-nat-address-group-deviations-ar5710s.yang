@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nat-address-group-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nat-address-group-deviations-ar5710s";
+  prefix nat-address-group-devs-ar5710s;
+
+  import huawei-nat-address-group {
+    prefix hw-nat-addrgroup;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nat-address-group module.";
+
+  revision 2024-09-13 {
+    description
+      "The no-pat node is released.";
+    reference "";
+  }
+  revision 2021-03-16 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:vrid" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:port-block" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:statistics-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:exclude-ips" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:exclude-ports" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:dnat-address-groups" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:sections/hw-nat-addrgroup:section/hw-nat-addrgroup:end-ip" {
+    deviate replace {
+      mandatory false;
+    }
+  }
+  ext:deviation-ext "/hw-nat-addrgroup:nat-address-group/hw-nat-addrgroup:snat-address-groups/hw-nat-addrgroup:snat-address-group/hw-nat-addrgroup:sections/hw-nat-addrgroup:section/hw-nat-addrgroup:end-ip" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+}

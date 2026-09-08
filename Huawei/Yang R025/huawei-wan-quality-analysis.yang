@@ -1,0 +1,264 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-wan-quality-analysis {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wan-quality-analysis";
+  prefix wan-quality-analysis;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+    
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+     
+
+  description
+    "This module contains a collection of YANG definitions for
+    wan-quality-analysis implementations.";
+
+  revision 2024-01-08 {
+    description "Add detect-enhance.";
+    reference "";
+  }
+  revision 2023-10-30 {
+    description "Modify detect-interval max value.";
+    reference "";
+  }
+  revision 2023-08-11 {
+    description "Add reset traffic statistics.";
+    reference "";
+  }
+  revision 2023-07-27 {
+    description "Add traffic statistics.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }     
+  revision 2020-12-10 {
+    description "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+
+  grouping direction-type {
+    description
+      "Specify traffic statistic direction type.";
+    leaf direction {
+      type enumeration {
+        enum "inbound" {
+          value 1;
+          description
+            "Specify inbound traffic statistic.";
+        }
+        enum "outbound" {
+          value 2;
+          description
+            "Specify outbound traffic statistic.";
+        }
+      }
+      description
+        "Specify traffic statistic direction.";
+    }
+  }
+
+  container wan-quality-analysis {
+    must "detect-interval <= (calculate-interval * 1000)";  
+    description
+      "Service Level Agreement performance indicators.";
+
+    leaf calculate-interval {
+      type uint16 {
+        range "1..3600";
+      }
+      units s;
+      default "5";
+      description "Specifies the calculate interval on second. The calculation interval cannot be less than the detection interval.";
+    }      
+
+    leaf detect-interval {
+      type uint16 {
+        range "10..10000";
+      }
+      units ms;
+      must "(. mod 10) = 0";
+      default "1000";
+      description "Specifies detect interval on millisecond. The detection interval must be a multiple of 10. The detection interval cannot be greater than the calculation interval.";
+    }
+
+    leaf fail-count {
+      type uint8{
+        range "3..10";
+      }
+      default "6";
+      description "Specifies detect counts.";
+    }
+
+    leaf ip-precedence {
+      type uint8 {
+        range "0..7";
+      }
+      default "7";
+      description "Set detect ip precedence.";
+    }
+
+    leaf detect-enhance {
+      type boolean;
+      default "true";
+      description "Enable/disable detection enhance.";
+    }
+
+    container traffic-statistics {
+      config false;
+      description
+        "List of traffic statistics.";
+      list traffic-statistic {
+        key "interface-name direction packets-type match-rule";
+        description
+          "Statistics of traffic.";
+        leaf interface-name {
+          type string {
+            length "1..64";
+          }
+          description
+            "Name of the interface.";
+        }
+        uses direction-type;
+        leaf packets-type {
+          type inet:ip-version;
+          description
+            "Match packets ip version.";
+        }
+        leaf match-rule {
+          type uint32;
+          description
+            "Match packets rule.";
+        }
+        leaf match-packets {
+          type uint64;
+          description
+            "Match packets statitics.";
+        }
+      }
+    }
+  }
+
+  rpc reset-if-traffic-statistics {
+    description
+      "Clear traffic statistics of interfaces.";
+    ext:node-ref "/wan-quality-analysis:wan-quality-analysis/wan-quality-analysis:traffic-statistics";
+    input {
+      leaf if-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        mandatory true;
+        description
+          "Clear traffic statistics based on the interface name. For example, GE0/0/0.";
+      }
+      uses direction-type;
+    }
+  }
+
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    when "ifm:type = 'Tunnel'";
+    description
+      "Extend interface attribute.";
+    container traffic-statistics {
+      description
+        "Configure the traffic statistics.";
+      leaf decap-process-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable traffic statistics decap process.";
+      }
+    }
+  }
+  
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Traffic statistics is applied on interface.";
+    container traffic-statistics-apply {
+      description
+        "Configure traffic statistics on interface.";
+      container match-rules {
+        description 
+          "List of traffic statistics match rules.";
+        list match-rule {
+          key "direction";
+          description 
+            "Apply traffic statistics match rule policy.";
+          uses direction-type;
+          leaf decap-process {
+            when "../direction = 'inbound'";
+            type boolean;
+            default "false";
+            description 
+              "Enable/disable traffic statistics decap process.";
+          }
+          leaf acl {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            mandatory true;
+            description 
+              "Specify an ACL number or name.";
+          }
+        }
+      }
+
+      container ipv6-match-rules {
+        description 
+          "List of traffic statistics IPv6 match rules.";
+        list ipv6-match-rule {
+          key "direction";
+          description 
+            "Apply traffic statistics IPv6 match rule policy.";
+          uses direction-type;
+          leaf decap-flag {
+            when "../direction = 'inbound'";
+            type boolean;
+            default "false";
+            description 
+              "Enable/disable traffic statistics decap process.";
+          }
+          leaf acl6 {
+            type leafref {
+              path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+            }
+            mandatory true;
+            description 
+              "Specify an IPv6 ACL number or name.";
+          }
+        }
+      }
+    }
+  }
+}

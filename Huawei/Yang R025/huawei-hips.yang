@@ -1,0 +1,324 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-hips {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-hips";
+  prefix hw-hips;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection definitions for configuring HIPS.";
+  revision 2025-06-06 {
+    description
+      "Add rpc process-abnormal-file-detection and leaf nodes of state.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-13 {
+    description
+      "Add mandatory label.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-19 {
+    description
+      "Add resolve-file-privilege-escalation-event, resolve-rootkit-attack-event and resolve-unauthorized-root-user-event rpc node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-03 {
+    description
+      "Add abnormal-shell-invoke leaf node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-07-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef policy-state-enum {
+    type enumeration {
+      enum "success" {
+        value 0;
+        description
+          "The policy activated successfully.";
+      }
+      enum "activating" {
+        value 1;
+        description
+          "The policy is being activated.";
+      }
+      enum "failure" {
+        value 2;
+        description
+          "The policy activated unsuccessful.";
+      }
+    }
+    default "success";
+    description
+      "The state of action policy.";
+  }
+  container hips {
+    description
+      "The container of hips.";
+    container global {
+      description
+        "Configure hips enable.";
+      leaf enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable hips.";
+      }
+    }
+    container state {
+      config false;
+      description
+        "Hips running state.";
+      leaf file-privilege-escalation {
+        type boolean;
+        description
+          "Whether file-privilege-escalation detection is enabled.";
+      }
+      leaf shell-file-tampering {
+        type boolean;
+        description
+          "Whether shell-file-tampering detection is enabled.";
+      }
+      leaf rootkit-attack {
+        type boolean;
+        description
+          "Whether rootkit-attack detection is enabled.";
+      }
+      leaf key-file-tampering {
+        type boolean;
+        description
+          "Whether key-file-tampering detection is enabled.";
+      }
+      leaf unauthorized-root-user {
+        type boolean;
+        description
+          "Whether unauthorized-root-user detection is enabled.";
+      }
+      leaf abnormal-shell-invoke {
+        type boolean;
+        description
+          "Whether abnormal-shell-invoke detection is enabled.";
+      }
+      leaf detect-malicious-file {
+        type boolean;
+        description
+          "Whether detect-malicious-file detection is enabled.";
+      }
+      leaf memory-integrity-attack {
+        type boolean;
+        description
+          "Whether memory-integrity-attack detection is enabled.";
+      }
+      leaf process-privilege-escalation {
+        type boolean;
+        description
+          "Whether process-privilege-escalation detection is enabled.";
+      }
+      leaf kernel-mode-rootkit {
+        type boolean;
+        description
+          "Whether kernel-mode-rootkit detection is enabled.";
+      }
+      leaf side-channel-attack {
+        type boolean;
+        description
+          "Whether side-channel-attack detection is enabled.";
+      }
+      leaf key-process-stopped-abnormally {
+        type boolean;
+        description
+          "Whether key-process-stopped-abnormally detection is enabled.";
+      }
+      leaf unauthorized-mac {
+        type boolean;
+        description
+          "Whether unauthorized-mac detection is enabled.";
+      }
+    }
+    container policy {
+      description
+        "Configure policy file.";
+      leaf policy-file-name {
+        type string {
+          length "1..255";
+        }
+        description
+          "The policy file name.";
+      }
+      leaf policy-file-hash {
+        type string {
+          length "1..128";
+        }
+        description
+          "The policy file hash.";
+      }
+      leaf task-id {
+        type string {
+          length "1..40";
+        }
+        description
+          "The task id of activation policy.";
+      }
+    }
+    container policy-states {
+      config false;
+      description
+        "List of history activation policy state information.";
+      list policy-state {
+        key "task-id";
+        max-elements 10;
+        description
+          "History activation policy state.";
+        leaf task-id {
+          type string {
+            length "1..40";
+          }
+          description
+            "The task id of history activation policy.";
+        }
+        leaf state {
+          type policy-state-enum;
+          description
+            "The state of history activation policy.";
+        }
+      }
+    }
+  }
+  ext:task-name "hips";
+  rpc resolve-file-privilege-escalation-event {
+    description
+      "Resolve security event of file-privilege-escalation.";
+    input {
+      leaf slot-id {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Slot ID.";
+      }
+      leaf cpu-id {
+        type string {
+          length "1..63";
+        }
+        description
+          "CPU ID.";
+      }
+      leaf method {
+        type string {
+          length "1..31";
+        }
+        mandatory true;
+        description
+          "File privilege escalation method.";
+      }
+      leaf filename {
+        type string {
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Name of the privilege escalation file.";
+      }
+    }
+  }
+  rpc resolve-rootkit-attack-event {
+    description
+      "Resolve security event of rootkit-attack.";
+    input {
+      leaf slot-id {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Slot ID.";
+      }
+      leaf cpu-id {
+        type string {
+          length "1..63";
+        }
+        description
+          "CPU ID.";
+      }
+      leaf detection-type {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Detection type.";
+      }
+      leaf detection-source {
+        type string {
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Detection source.";
+      }
+    }
+  }
+  rpc resolve-unauthorized-root-user-event {
+    description
+      "Resolve security event of unauthorized-root-user.";
+    input {
+      leaf slot-id {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Slot ID.";
+      }
+      leaf cpu-id {
+        type string {
+          length "1..63";
+        }
+        description
+          "CPU ID.";
+      }
+      leaf user-name {
+        type string {
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Name of the unauthorized root user.";
+      }
+    }
+  }
+  rpc process-abnormal-file-detection {
+    description
+      "Process the abnormal file detection policy.";
+    input {
+      leaf policy {
+        type string {
+          length "1..5120";
+        }
+        mandatory true;
+        description
+          "The abnormal file process policy, such as type and scope of detected files.";
+      }
+    }
+  }
+}

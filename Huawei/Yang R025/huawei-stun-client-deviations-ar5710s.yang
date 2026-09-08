@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-stun-client-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-stun-client-deviations-ar5710s";
+  prefix stun-client-devs-ar5710s;
+
+  import huawei-stun-client {
+    prefix stun-client;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-stun-client module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/stun-client:stun-client/stun-client:statistics" {
+    deviate not-supported;
+  }
+  deviation "/stun-client:reset-stun-statistics" {
+    deviate not-supported;
+  }
+}

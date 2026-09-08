@@ -1,0 +1,209 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-epe-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-epe-deviations-ar5710s";
+  prefix bgp-epe-devs-ar5710s;
+
+  import huawei-bgp-epe {
+    prefix bgp-epe;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-epe module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef sid-type-deviations {
+    type enumeration {
+      enum psp-usp-usd-sid {
+        value 2;
+        description
+          "Static End.X SID (PSP, USP, USD) of a BGP peer.";
+      }
+    }
+    description
+      "SRv6 static SID type.";
+  }
+
+  typedef sid-type-ext-deviations {
+    type enumeration {
+      enum no-psp {
+        value 0;
+        description
+          "Static End.X SID of a BGP peer.";
+      }
+      enum psp-sid {
+        value 1;
+        description
+          "Static End.X SID (PSP) of a BGP peer.";
+      }
+      enum psp-usp-usd-sid {
+        value 2;
+        description
+          "Static End.X SID (PSP, USP, USD) of a BGP peer.";
+      }
+    }
+    description
+      "SRv6 static SID type.";
+  }
+
+  typedef sid-mode-type-deviations {
+    type enumeration {
+      enum common {
+        value 0;
+        description
+          "Common mode of SRv6 static SID type.";
+      }
+    }
+    description
+      "Sid mode type.";
+  }
+
+  typedef sid-type-bit-deviations {
+    type bits {
+      bit no-flavor {
+        description
+          "SRv6 SID flavor (no-flavor).";
+      }
+      bit psp {
+        description
+          "SRv6 SID flavor (PSP).";
+      }
+      bit usp {
+        description
+          "SRv6 SID flavor (USP).";
+      }
+      bit usd {
+        description
+          "SRv6 SID flavor (USD).";
+      }
+    }
+    description
+      "SRv6 SID flavor.";
+  }
+
+  deviation "/bgp-epe:reset-bgp-epe-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-srv6-option/bgp-epe:sid-flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-state/bgp-epe:peer-nodes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-state/bgp-epe:adjs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-state/bgp-epe:srv6-peer-sets" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:egress-engineer-srv6-peer-sets" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:psp-sid-type/bgp-epe:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:no-flavor-sid-type/bgp-epe:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe/bgp-epe:virtual-link" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe/bgp-epe:srv6/bgp-epe:parameter" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-epe:egress-engineer-global" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-state/bgp-epe:srv6-peer-nodes/bgp-epe:srv6-peer-node/bgp-epe:sids/bgp-epe:sid/bgp-epe:type" {
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-type-ext-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-state/bgp-epe:srv6-adjs/bgp-epe:srv6-adj/bgp-epe:sids/bgp-epe:sid/bgp-epe:type" {
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-type-ext-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:psp-sid-type/bgp-epe:uncompress/bgp-epe:psp-sid" {
+    deviate delete {
+      must 'not(../no-flavor-sid-compress) or (.!=../no-flavor-sid-compress)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:no-flavor-sid-type/bgp-epe:uncompress/bgp-epe:no-flavor-sid" {
+    deviate delete {
+      must 'not(../psp-sid-compress) or (.!=../psp-sid-compress)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:ext-static-sids/bgp-epe:ext-static-sid/bgp-epe:type" {
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe-srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:ext-static-sids/bgp-epe:ext-static-sid/bgp-epe:sid-mode" {
+    deviate delete {
+      must "../type='psp-usp-usd-sid' or (((../type='psp-usp-usd-coc-sid' or ../type='coc-sid' or ../type='psp-coc-sid') or ((/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-16 and /ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-static-length and ../../../../../../../../srv6:srv6/srv6:compress-16-mode) and ((../type='psp-usp-usd-coc-next-sid' and ../../../../../../../../srv6:srv6/srv6:compress-16-mode='default') or ../type='psp-usd-next-sid'))) and .!='common')";
+    }
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-mode-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe/bgp-epe:srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:static-sids/bgp-epe:static-sid/bgp-epe:type" {
+    deviate delete {
+      must "((.='coc' or .='psp coc' or .= 'psp usp usd coc') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='coc' and .!='psp coc' and .!='psp usp usd coc')";
+    }
+    deviate delete {
+      must "((.='psp usp usd coc next' or .='psp usd next') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-16 and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='psp usp usd coc next' and .!='psp usd next')";
+    }
+    deviate delete {
+      must "(.='psp usp usd coc next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or .!='psp usp usd coc next'";
+    }
+    deviate delete {
+      must ".='psp' or .='no-flavor' or .='psp usp usd' or .='psp usp usd coc' or .='coc' or .='psp coc' or .='psp usp usd coc next' or .='psp usd next' or .='usp usd'";
+    }
+    deviate add {
+      must ".='psp' or .='no-flavor' or .='psp usp usd'";
+    }
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-type-bit-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp-epe:epe/bgp-epe:srv6/bgp-epe:sid-option/bgp-epe:static-sid/bgp-epe:static-sids/bgp-epe:static-sid/bgp-epe:sid-mode" {
+    deviate delete {
+      must "((../type='psp' or ../type='no-flavor' or ../type='psp usp usd' or ../type='usp usd') and .='common' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:static-length != 0) or (.='compress' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length)";
+    }
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:static-length != 0";
+    }
+    deviate replace {
+      type bgp-epe-devs-ar5710s:sid-mode-type-deviations;
+    }
+  }
+}

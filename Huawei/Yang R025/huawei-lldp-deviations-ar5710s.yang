@@ -1,0 +1,112 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-lldp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-lldp-deviations-ar5710s";
+  prefix lldp-devs-ar5710s;
+
+  import huawei-lldp {
+    prefix lldp;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-lldp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/lldp:lldp/lldp:global-attribute/lldp:sensor-ap" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:port-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:tlv-enable/lldp:ddp" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:tlv-enable/lldp:port-direction" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:tlv-enable/lldp:port-groupid" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:tlv-enable/lldp:legacy-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:local-info/lldp:linkdirection-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:local-info/lldp:linkid-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:neighbors/lldp:neighbor/lldp:ddp-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:neighbors/lldp:neighbor/lldp:med-tlv/lldp:inventory" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:neighbors/lldp:neighbor/lldp:linkdirection-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:neighbors/lldp:neighbor/lldp:linkid-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:neighbors/lldp:neighbor/lldp:device-infos" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:transmitted-esn-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:received-esn-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:received-inof-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:received-link-direction-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:transmitted-link-direction-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:received-link-id-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:transmitted-link-id-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:statistics/lldp:med-sub-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:sub-interface-lldp" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:lldp/lldp:session/lldp:tlv-enable/lldp:med-tlv/lldp:capability" {
+    deviate delete {
+      must "(current()='false') or (../../mac-physic = 'true')";
+    }
+  }
+  ext:deviation-ext "/lldp:clear-lldp-neighbor" {
+    ext:deviate-ext "delete" {
+      ext:node-ref "/ifm:ifm/ifm:interfaces/ifm:interface/lldp:sub-interface-lldp/lldp:session/lldp:neighbors/lldp:neighbor";
+    }
+  }
+}

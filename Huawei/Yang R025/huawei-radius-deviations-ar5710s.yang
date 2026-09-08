@@ -1,0 +1,4108 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-radius-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-radius-deviations-ar5710s";
+  prefix radius-devs-ar5710s;
+
+  import huawei-radius {
+    prefix radius;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-radius module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/radius:radius/radius:global-service/radius:radius-enable" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:dead-time" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:fail-rate" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:server-recovery-on-response" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:authen-client-identifier" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:source-interface" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:nat-switch-send-realtime" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:server-shared-keys" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:authorize-command-bounce-port" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:authorize-command-down-port" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:retransmission-interval" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:auth-retransmission-count" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:auth-retransmission-interval" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:acct-retransmission-count" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:acct-retransmission-interval" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:group-mode" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:nas-ipv6-address" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:source-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:source-ipv6-address" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:ap-location-info" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:service-type" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:alarm-enable" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:source-ip/radius:interface/radius:virtual-ip-flag" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:server-current-state" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:is-current-server" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:ip-account-packet-statistic" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:server-domains" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:force-account-stop-packet" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-hw-dhcp-options" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:hw-dhcpv6-options" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:accounting-include-hw-dhcp-option" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:version-type" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:packet-control/radius:interim-accout-resend-count" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:packet-control/radius:start-accout-resend-count" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:packet-control/radius:packet-priority" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:packet-control/radius:vas-account-packed-max-length" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:common-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:user-defined" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-calling-station-id/radius:include-type" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-calling-station-id-lns-default" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-vendor-id" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:nas-port-id-format" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-include-nas" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-packet-format" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-tunnel-password" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-connect" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-sub-slot" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-nas-port" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-access-policy" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-user-name" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-action-hw-mng-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-apply" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-disable-account" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:translate-attribute/radius:translate-type" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:disable-attribute/radius:disable-packet" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:disable-attribute/radius:disable-value" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:extend-attributes" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:vendor-specifics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-algorithm/radius:master-backup-rule" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:rollover-on-reject" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:llid-fail-disable-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:decode-hw-user-password-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:assign-hw-pcp-server" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:vendor-attribute-multiple" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:calling-station-id-format" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:authen-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:lns-authen-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:accounting-on-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:accounting-off-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:coa-nak-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:daa-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:edsg-authen-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:edsg-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:accounting-request-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:bod-account-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:coa-query-ack-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:access-request-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:coa-logon-ack-attribute" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-action-class" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:chargeable-user-identity" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:nas-port-id" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:lns-nas-ip-address" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:dpsk" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-test-groups" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-server-authorizations" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:packet-max-length" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-cache-retransmit" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-cache-warning-threshold" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-cache-memory-threshold" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-cache-max-packet" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:access-line-id-length-extend" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-stop-packet-optimize" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:send-packet-optimize" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:extended-source-port-number" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-pending-limit" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:server-pending-limits" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:server-speed-limits" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:server-interim-update-speed-limits" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:dscp-priority" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:packet-statistics-algorithm" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:author-error-reply-method" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-local-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:radius-local-ip-all/radius:ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:domain-authorization-servers" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-ipv6-servers" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-ipv6-server-vpns" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authorization-server-port/radius:ipv6-server-port" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authorization-server-port/radius:dtls-ipv6-server-port" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:attribute-global" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:session-car-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authen-detect-recorver" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-detect-recorver" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:aaa-route-download-server" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-packet-cache" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:admin-user" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:coa" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:packet-control" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-server-up-forevers" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authentication-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:author-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:packet-attribute-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:accounting-server-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:auth-server-statistics" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:auth-client" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:accounting-client" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:server-ports" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:cu-server-ports" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:server-parameters" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:cu-server-parameters" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authen-packet-statistics-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:authen-packet-statistics-ipv6-by-vpns" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-packet-statistics-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:account-packet-statistics-ipv6-by-vpns" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:aaa-route-download-status" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:aaa-static-routes" {
+    deviate not-supported;
+  }
+  deviation "/radius:force-synchronize-route" {
+    deviate not-supported;
+  }
+  deviation "/radius:clear-ip-routes" {
+    deviate not-supported;
+  }
+  deviation "/radius:clear-accounting-packet" {
+    deviate not-supported;
+  }
+  deviation "/radius:radius/radius:global-service/radius:dead-count" {
+    deviate replace {
+      default "2";
+    }
+  }
+  deviation "/radius:radius/radius:global-service/radius:dead-interval" {
+    deviate replace {
+      type uint32 {
+        range "1..300";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group" {
+    deviate delete {
+      must '(acct-retransmission-count and acct-retransmission-interval) or (not(acct-retransmission-count) and not(acct-retransmission-interval))';
+    }
+    deviate delete {
+      must '(auth-retransmission-count and auth-retransmission-interval) or (not(auth-retransmission-count) and not(auth-retransmission-interval))';
+    }
+    deviate replace {
+      max-elements 16;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:shared-key" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:domain-mode" {
+    deviate replace {
+      default "original";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:ap-info-format" {
+    deviate add {
+      default "exclude-ap-ip";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:dhcp-option-format" {
+    deviate add {
+      default "old";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:cut-key-words" {
+    deviate replace {
+      type string {
+        length "3..64";
+        pattern '&[^ ]+=';
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:cut-end-mark" {
+    deviate replace {
+      type string {
+        length "1";
+        pattern '&';
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s" {
+    deviate delete {
+      must 'count(../radius-server-ipv6s/radius-server-ipv6)+count(../radius-server-ipv4s/radius-server-ipv4)<=32';
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4" {
+    deviate replace {
+      max-elements 4;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:source-ip/radius:ip/radius:source-ip-address" {
+    deviate replace {
+      type inet:ipv4-address-no-zone;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-ipv4s/radius:radius-server-ipv4/radius:weight" {
+    deviate replace {
+      default "80";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:packet-control/radius:stop-accout-resend-count" {
+    deviate add {
+      default "3";
+    }
+    deviate replace {
+      type uint16 {
+        range "0..300";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id" {
+    deviate delete {
+      must "(include-type!='ap-mac' and not(user-defined)) or (include-type='ap-mac' and user-defined)";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:include-type" {
+    deviate add {
+      default "ap-mac";
+    }
+    deviate replace {
+      type enumeration {
+        enum ap-mac {
+          value 1;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the AP's MAC address.";
+        }
+        enum ac-mac {
+          value 2;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the AC's MAC address.";
+        }
+        enum ac-ip {
+          value 3;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the AC's IP address.";
+        }
+        enum ap-name {
+          value 4;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the AP name.";
+        }
+        enum ap-group-name {
+          value 5;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the name of the AP group to which the AP belongs.";
+        }
+        enum vlan-id {
+          value 6;
+          description
+            "Indicates that the encapsulation content of the Called-station-id (30) attribute is the outer VLAN through which the user goes online.";
+        }
+      }
+    }
+    deviate replace {
+      mandatory false;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:common-type/radius:include-ssid" {
+    deviate add {
+      default "true";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:common-type/radius:delimiter" {
+    deviate add {
+      default ":";
+    }
+    deviate replace {
+      type string {
+        length "1";
+        pattern "[\\\\/|@%':<>*+&#!^~-]";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:mac-format/radius:mac-address-format" {
+    deviate add {
+      default "hyphen-split";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:mac-format/radius:mode" {
+    deviate add {
+      default "mode2";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-called-station-id/radius:mac-format/radius:case-format" {
+    deviate add {
+      default "upper";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-calling-station-id/radius:mac-format/radius:mac-address-format" {
+    deviate add {
+      default "hyphen-split";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-calling-station-id/radius:mac-format/radius:mode" {
+    deviate add {
+      default "mode1";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:attribute-format-calling-station-id/radius:mac-format/radius:case-format" {
+    deviate add {
+      default "lowercase";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes" {
+    deviate delete {
+      must "not((count(../extend-attributes/extend-attribute[operation-type='disable'])>0) and (count(standard-attribute[operation-type='disable'])>0))";
+    }
+    deviate delete {
+      must "not((count(../extend-attributes/extend-attribute[operation-type='translate'])>0) and (count(standard-attribute[operation-type='translate'])>0))";
+    }
+    deviate delete {
+      must "not((count(../vendor-specifics/vendor-specific[operation-type='disable'])>0) and (count(standard-attribute[operation-type='disable'])>0))";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:attribute-name" {
+    deviate replace {
+      type enumeration {
+        enum user-name {
+          value 1;
+          description
+            "User name. The attribute type is STRING.";
+        }
+        enum user-password {
+          value 2;
+          description
+            "User password. The attribute type is password.";
+        }
+        enum chap-password {
+          value 3;
+          description
+            "Only valid for the CHAP authentication. The attribute type is password.";
+        }
+        enum nas-ip-address {
+          value 4;
+          description
+            "Device address. The attribute type is IPv4 address.";
+        }
+        enum nas-port {
+          value 5;
+          description
+            "Physical port for user access. The attribute type is UINT32.";
+        }
+        enum service-type {
+          value 6;
+          description
+            "Service type. The attribute type is UINT32.";
+        }
+        enum framed-protocol {
+          value 7;
+          description
+            "The value of Framed-Protocol is set to 1 for non-administrator users, indicating the PPP type. The value of Framed-Protocol is set to 6 for the administrator. The attribute type is UINT32.";
+        }
+        enum framed-ip-address {
+          value 8;
+          description
+            "IP address of the user. The attribute type is IPv4 address.";
+        }
+        enum framed-ip-netmask {
+          value 9;
+          description
+            "Subnet mask delivered by the RADIUS server to PPP users. The attribute type is IPv4 address.";
+        }
+        enum filter-id {
+          value 11;
+          description
+            "This attribute is used to carry a user group name. The attribute type is STRING.";
+        }
+        enum framed-mtu {
+          value 12;
+          description
+            "It indicates the maximum transmission unit delivered by the RADIUS server. The attribute type is UINT32.";
+        }
+        enum login-ip-host {
+          value 13;
+          description
+            "It indicates the IP address of an administrator. The attribute type is IPv4 address.";
+        }
+        enum login-service {
+          value 14;
+          description
+            "The type of the service used by the login user. The attribute type is UINT32.";
+        }
+        enum reply-message {
+          value 15;
+          description
+            "This attribute can be carried in RADIUS Access-Accept packets to indicate an authentication success or RADIUS Access-Reject packets to indicate an authentication failure. The attribute type is STRING.";
+        }
+        enum callback-number {
+          value 16;
+          description
+            "The information delivered from the authentication server can be displayed to users, such as the mobile numbers. The attribute type is STRING.";
+        }
+        enum framed-route {
+          value 17;
+          description
+            "Routing information provided by the RADIUS server to users through the NAS. The attribute type is STRING.";
+        }
+        enum class {
+          value 19;
+          description
+            "If the RADIUS Access-Accept packet sent by the RADIUS server to the NAS carries the Class attribute, the Class attribute must also be carried in the subsequent RADIUS Accounting-Request packets sent from the NAS to the RADIUS server. A RADIUS Access-Accept packet can carry zero to eight Class attributes. The attribute type is STRING.";
+        }
+        enum vendor-specific {
+          value 20;
+          description
+            "The attribute specified by a vendor. The attribute type is STRING.";
+        }
+        enum session-timeout {
+          value 21;
+          description
+            "In Access-Accept packets, the attribute indicates the remaining online time of users, in seconds. The attribute type is UINT32.";
+        }
+        enum idle-timeout {
+          value 22;
+          description
+            "Idle-cut time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum termination-action {
+          value 23;
+          description
+            "The specified mode for terminating the NAS service, such as re-authentication or forcing a user to log out. The attribute type is UINT32.";
+        }
+        enum called-station-id {
+          value 24;
+          description
+            "The attribute is valid only for LNS users. The attribute type is STRING.";
+        }
+        enum calling-station-id {
+          value 25;
+          description
+            "The attribute is used by the NAS to carry user information. The attribute type is STRING.";
+        }
+        enum nas-identifier {
+          value 26;
+          description
+            "Name of the NAS or the sysname (host name). The attribute type is STRING.";
+        }
+        enum acct-status-type {
+          value 28;
+          description
+            "Type of the Accounting-Request packet. The attribute type is UINT32.";
+        }
+        enum acct-delay-time {
+          value 29;
+          description
+            "Time spent to send an Accounting Request packet, excluding the network transmission duration, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-octets {
+          value 30;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-octets {
+          value 31;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-session-id {
+          value 32;
+          description
+            "Session id of the Accounting-Request packet. The attribute type is STRING.";
+        }
+        enum acct-authentic {
+          value 33;
+          description
+            "The attribute indicates the authentication type. The attribute type is UINT32.";
+        }
+        enum acct-session-time {
+          value 34;
+          description
+            "Online time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-packets {
+          value 35;
+          description
+            "Number of upstream packets. The attribute type is UINT32.";
+        }
+        enum acct-output-packets {
+          value 36;
+          description
+            "Number of downstream packets. The attribute type is UINT32.";
+        }
+        enum acct-terminate-cause {
+          value 37;
+          description
+            "Reason for session interruption. The attribute type is UINT32.";
+        }
+        enum acct-multi-session-id {
+          value 38;
+          description
+            "If tunnel users are configured in the system, the attribute indicates the accounting ID of an L2TP tunnel user. The attribute type is STRING.";
+        }
+        enum acct-input-gigawords {
+          value 39;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-gigawords {
+          value 40;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum event-timestamp {
+          value 41;
+          description
+            "Time when an Accounting-Request packet was generated. The attribute type is UINT32.";
+        }
+        enum chap-challenge {
+          value 42;
+          description
+            "Indicates the value of Challenge. Only valid for the CHAP authentication. The attribute type is BIN.";
+        }
+        enum nas-port-type {
+          value 43;
+          description
+            "NAS port type, which can be configured in the BAS interface. The attribute type is UINT32.";
+        }
+        enum tunnel-type {
+          value 45;
+          description
+            "Tunnel protocol type. The attribute type is UINT32.";
+        }
+        enum tunnel-medium-type {
+          value 46;
+          description
+            "Type of the tunnel bearer medium. The attribute type is UINT32.";
+        }
+        enum tunnel-client-endpoint {
+          value 47;
+          description
+            "IP address of the local end of the tunnel. The attribute type is STRING.";
+        }
+        enum tunnel-server-endpoint {
+          value 48;
+          description
+            "IP address of the tunnel server. The attribute type is STRING.";
+        }
+        enum acct-tunnel-connection {
+          value 49;
+          description
+            "Accounting ID of the tunnel server. The attribute type is STRING.";
+        }
+        enum tunnel-password {
+          value 50;
+          description
+            "Authentication password of the tunnel. The attribute type is BIN.";
+        }
+        enum eap-message {
+          value 52;
+          description
+            "Used to carry the EAP packet. The attribute type is BIN.";
+        }
+        enum message-authenticator {
+          value 53;
+          description
+            "Encryption information about EAP packets in EAPoR authentication. The attribute type is BIN.";
+        }
+        enum remanent-volume {
+          value 54;
+          description
+            "Remaining traffic (in KB) available to a user. The attribute type is UINT32.";
+        }
+        enum tariff-switch-interval {
+          value 55;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum tunnel-assignment-id {
+          value 56;
+          description
+            "Tunnel ID. The attribute type is STRING.";
+        }
+        enum tunnel-preference {
+          value 57;
+          description
+            "Tunnel preference. The attribute type is UINT32.";
+        }
+        enum acct-interim-interval {
+          value 58;
+          description
+            "Real-time accounting interval, in seconds. The attribute type is UINT32.";
+        }
+        enum nas-port-id {
+          value 60;
+          description
+            "Slot ID, subslot ID, port number, and VLAN ID of the user access interface. The attribute type is STRING.";
+        }
+        enum framed-pool {
+          value 61;
+          description
+            "Address pool delivered to PPP and DHCP users. The attribute type is STRING.";
+        }
+        enum chargeable-user-identity {
+          value 62;
+          description
+            "The attribute is used to identify a user. The attribute type is STRING.";
+        }
+        enum tunnel-client-auth-id {
+          value 63;
+          description
+            "Name of the local end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum tunnel-server-auth-id {
+          value 64;
+          description
+            "Name of the remote end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum nas-ipv6-address {
+          value 65;
+          description
+            "IPv6 address of the NAS. The attribute type is IPv6 address.";
+        }
+        enum framed-interface-id {
+          value 66;
+          description
+            "Interface ID assigned to a user. The attribute type is BIN.";
+        }
+        enum framed-ipv6-prefix {
+          value 67;
+          description
+            "IPv6 prefix assigned to a user in NDRA mode. The attribute type is IPv6 address.";
+        }
+        enum input-peak-rate {
+          value 80;
+          description
+            "Upstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum input-average-rate {
+          value 81;
+          description
+            "Upstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-peak-rate {
+          value 83;
+          description
+            "Downstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-average-rate {
+          value 84;
+          description
+            "Downstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum ascend-client-primary-dns {
+          value 87;
+          description
+            "IP address of the primary DNS server delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum ascend-client-secondary-dns {
+          value 88;
+          description
+            "IP address of the secondary DNS delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum hw-input-committed-burst-size {
+          value 90;
+          description
+            "Upstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-input-committed-information-rate {
+          value 91;
+          description
+            "Upstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-information-rate {
+          value 92;
+          description
+            "Upstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-burst-size {
+          value 93;
+          description
+            "Downstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-information-rate {
+          value 94;
+          description
+            "Downstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-information-rate {
+          value 95;
+          description
+            "Downstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-before-tariff-switch {
+          value 96;
+          description
+            "Number of bytes sent by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-before-tariff-switch {
+          value 97;
+          description
+            "Number of bytes received by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-before-tariff-switch {
+          value 98;
+          description
+            "Number of packets sent by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-before-tariff-switch {
+          value 99;
+          description
+            "Number of packets received by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-after-tariff-switch {
+          value 100;
+          description
+            "Number of bytes sent by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-after-tariff-switch {
+          value 101;
+          description
+            "Number of bytes received by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-after-tariff-switch {
+          value 102;
+          description
+            "Number of packets sent by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-after-tariff-switch {
+          value 103;
+          description
+            "Number of packets received by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-remanent-volume {
+          value 104;
+          description
+            "In Access-Accept packet, the attribute indicates the remaining traffic volume available to a user, in KB. The attribute type is UINT32.";
+        }
+        enum hw-tariff-switch-interval {
+          value 105;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum hw-subscriber-qos-profile {
+          value 106;
+          description
+            "Home QoS profile. The attribute type is STRING.";
+        }
+        enum hw-command {
+          value 107;
+          description
+            "Currently, the attribute value can only be Terminate-Request (value=2), indicating user logoff. The attribute type is UINT32.";
+        }
+        enum hw-priority {
+          value 108;
+          description
+            "Service priority of a user. The attribute type is UINT32.";
+        }
+        enum hw-result-code {
+          value 110;
+          description
+            "Attribute hw-result-code.";
+        }
+        enum hw-connect-id {
+          value 111;
+          description
+            "Connection index of a user. The attribute type is UINT32.";
+        }
+        enum hw-portal-url {
+          value 112;
+          description
+            "URL to which user is redirected after being authenticated. The attribute type is STRING.";
+        }
+        enum hw-ftp-directory {
+          value 113;
+          description
+            "Initial directory of an FTP user. The attribute type is STRING.";
+        }
+        enum hw-exec-privilege {
+          value 114;
+          description
+            "Authorized level of administrative users, such as Telnet users. The attribute type is UINT32.";
+        }
+        enum hw-nas-startup-time-stamp {
+          value 122;
+          description
+            "Time when the device was started. The attribute type is UINT32.";
+        }
+        enum hw-ip-host-address {
+          value 123;
+          description
+            "User IP address and MAC address carried in the authentication request packet and accounting request packet. The attribute type is STRING.";
+        }
+        enum hw-up-priority {
+          value 124;
+          description
+            "Priority of upstream services. The attribute type is UINT32.";
+        }
+        enum hw-down-priority {
+          value 125;
+          description
+            "Priority of downstream services. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-burst-size {
+          value 134;
+          description
+            "Upstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-burst-size {
+          value 135;
+          description
+            "Downstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-data-filter {
+          value 137;
+          description
+            "Dynamically delivered ACL rule. The attribute type is STRING.";
+        }
+        enum hw-vpn-instance {
+          value 145;
+          description
+            "Name of a VPN instance to which a user belongs. The attribute type is STRING.";
+        }
+        enum hw-tunnel-group-name {
+          value 147;
+          description
+            "Name of an L2TP or GRE group. The attribute type is STRING.";
+        }
+        enum hw-client-primary-dns {
+          value 148;
+          description
+            "Primary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-client-secondary-dns {
+          value 149;
+          description
+            "Secondary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-domain-name {
+          value 150;
+          description
+            "Domain name used in user authentication. The attribute type is STRING.";
+        }
+        enum hw-http-redirect-url {
+          value 152;
+          description
+            "URL of a page where a user will be redirected if the user fails to be authenticated. The attribute type is STRING.";
+        }
+        enum hw-acct-ipv6-input-octets {
+          value 155;
+          description
+            "Volume of IPv6 upstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-octets {
+          value 156;
+          description
+            "Volume of IPv6 downstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-packets {
+          value 157;
+          description
+            "Number of IPv6 upstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-packets {
+          value 158;
+          description
+            "Number of IPv6 downstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-gigawords {
+          value 159;
+          description
+            "Number of IPv6 upstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-gigawords {
+          value 160;
+          description
+            "Number of IPv6 downstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-framed-ipv6-address {
+          value 168;
+          description
+            "Carries an address assigned by a DHCPv6 server using identity association for non-temporary addresses (IA_NA). The attribute type is IPv6 address.";
+        }
+        enum hw-avpair {
+          value 185;
+          description
+            "Attribute-value pair, which is the framework attribute of extensible sub-attributes. The attribute type is STRING.";
+        }
+        enum hw-dhcp-option {
+          value 186;
+          description
+            "DHCP options delivered by the RADIUS server after a user is being authenticated. The attribute type is BIN.";
+        }
+        enum hw-version {
+          value 193;
+          description
+            "Version of a device. The attribute type is STRING.";
+        }
+        enum hw-product-id {
+          value 194;
+          description
+            "Product ID of a device. The attribute type is STRING.";
+        }
+        enum ms-mppe-send-key {
+          value 200;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum ms-mppe-recv-key {
+          value 201;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum agent-circuit-id {
+          value 221;
+          description
+            "ID of the line from an online user to the access device. The attribute type is STRING.";
+        }
+        enum agent-remote-id {
+          value 222;
+          description
+            "Unique identifier for the association between an online user and the line. The attribute type is STRING.";
+        }
+        enum cisco-avpair {
+          value 241;
+          description
+            "Carrier-defined attribute, used to distinguish between a non-forwarding-control separation device and a forwarding-control separation device. The attribute type is STRING.";
+        }
+        enum tunnel-private-group-id {
+          value 244;
+          description
+            "Tunnel group ID. The attribute type is STRING.";
+        }
+        enum framed-ipv6-address {
+          value 247;
+          description
+            "IP address of the user. The attribute type is IPv6 address.";
+        }
+        enum hw-access-type {
+          value 248;
+          description
+            "Attribute name is HW-Access-Type.";
+        }
+        enum hw-user-policy {
+          value 249;
+          description
+            "Attribute name is HW-User-Policy.";
+        }
+        enum hw-lldp {
+          value 250;
+          description
+            "Attribute name is HW-LLDP.";
+        }
+        enum hw-mdn {
+          value 251;
+          description
+            "Attribute name is HW-MDN.";
+        }
+        enum hw-access-device-info {
+          value 252;
+          description
+            "Attribute name is HW-Access-Device-Info.";
+        }
+        enum hw-vip-level-id {
+          value 260;
+          description
+            "Attribute name is HW-VIP-Level-ID.";
+        }
+        enum hw-ipv6-redirect-acl {
+          value 261;
+          description
+            "Attribute name is HW-IPv6-Redirect-ACL.";
+        }
+        enum hw-attr-res {
+          value 262;
+          description
+            "Attribute name is HW-Attr-Res.";
+        }
+        enum harbour-downlink-bandwidth {
+          value 263;
+          description
+            "Attribute name is Harbour-Downlink-Bandwidth.";
+        }
+        enum harbour-dscp {
+          value 264;
+          description
+            "Attribute name is Harbour-Dscp.";
+        }
+        enum harbour-mac-limit {
+          value 265;
+          description
+            "Attribute name is Harbour-Mac-Limit.";
+        }
+        enum harbour-uplink-bandwidth {
+          value 266;
+          description
+            "Attribute name is Harbour-Uplink-Bandwidth.";
+        }
+        enum hw-ap-information {
+          value 267;
+          description
+            "Attribute name is HW-AP-Information.";
+        }
+        enum hw-auto-update-url {
+          value 268;
+          description
+            "Attribute name is HW-Auto-Update-URL.";
+        }
+        enum hw-control-identifier {
+          value 269;
+          description
+            "Attribute name is HW-Control-Identifier.";
+        }
+        enum hw-dns-domain-name {
+          value 270;
+          description
+            "Attribute name is HW-DNS-Domain-Name.";
+        }
+        enum hw-ext-specific {
+          value 271;
+          description
+            "Attribute name is HW-Ext-Specific.";
+        }
+        enum hw-forwarding-interface {
+          value 272;
+          description
+            "Attribute name is HW-Forwarding-Interface.";
+        }
+        enum hw-forwarding-vlan {
+          value 273;
+          description
+            "Attribute name is HW-Forwarding-VLAN.";
+        }
+        enum hw-http-ua {
+          value 274;
+          description
+            "Attribute name is HW-HTTP-UA.";
+        }
+        enum hw-ip-forwarding-name {
+          value 275;
+          description
+            "Attribute name is HW-IP-forwarding-name.";
+        }
+        enum hw-ipv6-filter-id {
+          value 276;
+          description
+            "Attribute name is HW-IPv6-Filter-ID.";
+        }
+        enum hw-mp-vt-number {
+          value 277;
+          description
+            "Attribute name is HW-Mp-VT-Number.";
+        }
+        enum hw-multicast-type {
+          value 278;
+          description
+            "Attribute name is HW-Multicast-Type.";
+        }
+        enum hw-port-forward-name {
+          value 279;
+          description
+            "Attribute name is HW-port-forward-name.";
+        }
+        enum hw-primary-wins {
+          value 280;
+          description
+            "Attribute name is HW-Primary-WINS.";
+        }
+        enum hw-proxyrdspkt {
+          value 281;
+          description
+            "Attribute name is HW-ProxyRdsPkt.";
+        }
+        enum hw-qos-data {
+          value 282;
+          description
+            "Attribute name is HW-Qos-Data.";
+        }
+        enum hw-reachable-detect {
+          value 283;
+          description
+            "Attribute name is HW-Reachable-Detect.";
+        }
+        enum hw-redirect-acl {
+          value 284;
+          description
+            "Attribute name is HW-Redirect-ACL.";
+        }
+        enum hw-second-wins {
+          value 285;
+          description
+            "Attribute name is HW-Second-WINS.";
+        }
+        enum hw-securitystr {
+          value 286;
+          description
+            "Attribute name is HW-SecurityStr.";
+        }
+        enum hw-tariff-input-gigawords {
+          value 287;
+          description
+            "Attribute name is HW-Tariff-Input-Gigawords.";
+        }
+        enum hw-tariff-input-octets {
+          value 288;
+          description
+            "Attribute name is HW-Tariff-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-input-gigawords {
+          value 289;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Gigawords.";
+        }
+        enum hw-tariff-ipv6-input-octets {
+          value 290;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-output-gigawords {
+          value 291;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Gigawords.";
+        }
+        enum hw-tariff-ipv6-output-octets {
+          value 292;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Octets.";
+        }
+        enum hw-tariff-output-gigawords {
+          value 293;
+          description
+            "Attribute name is HW-Tariff-Output-Gigawords.";
+        }
+        enum hw-tariff-output-octets {
+          value 294;
+          description
+            "Attribute name is HW-Tariff-Output-Octets.";
+        }
+        enum hw-terminal-type {
+          value 295;
+          description
+            "Attribute name is HW-Terminal-Type.";
+        }
+        enum hw-ucl-group {
+          value 296;
+          description
+            "Attribute name is HW-UCL-Group.";
+        }
+        enum hw-url-flag {
+          value 297;
+          description
+            "Attribute name is HW-URL-Flag.";
+        }
+        enum hw-user-access-info {
+          value 298;
+          description
+            "Attribute name is HW-User-Access-Info.";
+        }
+        enum hw-user-addr-network {
+          value 299;
+          description
+            "Attribute name is HW-User-Addr-Network.";
+        }
+        enum hw-user-extend-info {
+          value 300;
+          description
+            "Attribute name is HW-User-Extend-Info.";
+        }
+        enum hw-user-information {
+          value 301;
+          description
+            "Attribute name is HW-User-Information.";
+        }
+        enum hw-username-access-limit {
+          value 302;
+          description
+            "Attribute name is HW-UserName-Access-Limit.";
+        }
+        enum hw-voicevlan {
+          value 303;
+          description
+            "Attribute name is HW-VoiceVlan.";
+        }
+        enum hw-vt-number {
+          value 304;
+          description
+            "Attribute name is HW-Vt-Number.";
+        }
+        enum hw-web-authen-info {
+          value 305;
+          description
+            "Attribute name is HW-Web-Authen-Info.";
+        }
+        enum hw-web-proxy-name {
+          value 306;
+          description
+            "Attribute name is HW-web-proxy-name.";
+        }
+        enum input-basic-rate {
+          value 307;
+          description
+            "Attribute name is Input-Basic-Rate.";
+        }
+        enum ip-uclgroup-query {
+          value 308;
+          description
+            "Attribute name is IP-UclGroup-Query.";
+        }
+        enum login-ipv6-host {
+          value 309;
+          description
+            "Attribute name is Login-IPv6-Host.";
+        }
+        enum output-basic-rate {
+          value 310;
+          description
+            "Attribute name is Output-Basic-Rate.";
+        }
+        enum password-retry {
+          value 311;
+          description
+            "Attribute name is Password-Retry.";
+        }
+        enum remote-ip-host {
+          value 312;
+          description
+            "Attribute name is Remote-IP-Host.";
+        }
+        enum egress-vlanid {
+          value 313;
+          description
+            "Attribute name is Egress-VLANID.";
+        }
+        enum egress-vlan-name {
+          value 314;
+          description
+            "Attribute name is Egress-VLAN-Name.";
+        }
+        enum hw-dpsk-info {
+          value 315;
+          description
+            "Attribute name is HW-DPSK-Info.";
+        }
+        enum hw-epiv-info {
+          value 316;
+          description
+            "Attribute name is HW-EPIV-Info.";
+        }
+        enum hw-eptag-info {
+          value 317;
+          description
+            "Attribute name is HW-EPTAG-Info.";
+        }
+        enum hw-mud-url {
+          value 318;
+          description
+            "Attribute name is HW-Mud-Url.";
+        }
+        enum wlan-akm-suite {
+          value 319;
+          description
+            "Attribute name is WLAN-AKM-Suite.";
+        }
+        enum wlan-group-cipher {
+          value 320;
+          description
+            "Attribute name is WLAN-Group-Cipher.";
+        }
+        enum wlan-group-mgmt-cipher {
+          value 321;
+          description
+            "Attribute name is WLAN-Group-Mgmt-Cipher.";
+        }
+        enum wlan-pairwise-cipher {
+          value 322;
+          description
+            "Attribute name is WLAN-Pairwise-Cipher.";
+        }
+        enum wlan-reason-code {
+          value 323;
+          description
+            "Attribute name is WLAN-Reason-Code.";
+        }
+        enum eap-key-name {
+          value 324;
+          description
+            "Attribute name is EAP-Key-Name.";
+        }
+        enum eap-peer-id {
+          value 325;
+          description
+            "Attribute name is EAP-Peer-Id.";
+        }
+        enum hw-macsec-policy {
+          value 326;
+          description
+            "Attribute name is HW-MACsec-Policy.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:operation-type" {
+    deviate delete {
+      must "(../operation-type='translate' and ../translate-attribute and not(../disable-attribute)) or (../operation-type='disable' and (../disable-attribute/disable-packet or ../disable-attribute/disable-direction or ../disable-attribute/disable-value) and not(../translate-attribute))";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:disable-attribute/radius:disable-direction/radius:type" {
+    deviate delete {
+      must 'not(../../disable-packet/type) and not(../../disable-value/attribute-value)';
+    }
+    deviate add {
+      min-elements 1;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:radius-server-algorithm/radius:radius-arithmetic" {
+    deviate replace {
+      type enumeration {
+        enum master-backup {
+          value 1;
+          description
+            "Indicates the active/standby algorithm. Only the RADIUS authentication server or accounting server configured first is the active server.";
+        }
+        enum loading-share {
+          value 2;
+          description
+            "Indicates the load-sharing algorithm. The weight of the RADIUS authentication server or accounting server takes effect only after loading-share is used.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:server-detect-function" {
+    deviate add {
+      must '(./user-name and ./user-password) or not(./user-name or ./user-password)';
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:modify-attributes/radius:modify-attribute" {
+    deviate add {
+      must "( attribute-name != 'service-type' and service-type-option = 'normal' ) or attribute-name = 'service-type'";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:modify-attributes/radius:modify-attribute/radius:attribute-name" {
+    deviate add {
+      must '../attribute-value';
+    }
+    deviate replace {
+      type enumeration {
+        enum user-name {
+          value 1;
+          description
+            "User name. The attribute type is STRING.";
+        }
+        enum nas-port {
+          value 5;
+          description
+            "Physical port for user access. The attribute type is UINT32.";
+        }
+        enum service-type {
+          value 6;
+          description
+            "Service type. The attribute type is UINT32.";
+        }
+        enum framed-protocol {
+          value 7;
+          description
+            "The value of Framed-Protocol is set to 1 for non-administrator users, indicating the PPP type. The value of Framed-Protocol is set to 6 for the administrator. The attribute type is UINT32.";
+        }
+        enum framed-ip-address {
+          value 8;
+          description
+            "IP address of the user. The attribute type is IPv4 address.";
+        }
+        enum framed-mtu {
+          value 12;
+          description
+            "It indicates the maximum transmission unit delivered by the RADIUS server. The attribute type is UINT32.";
+        }
+        enum login-ip-host {
+          value 13;
+          description
+            "It indicates the IP address of an administrator. The attribute type is IPv4 address.";
+        }
+        enum state {
+          value 18;
+          description
+            "If the RADIUS Access-Challenge packet sent by the RADIUS server carries the State attribute, it must be carried in subsequent RADIUS Access-Request packets. The attribute type is STRING.";
+        }
+        enum class {
+          value 19;
+          description
+            "If the RADIUS Access-Accept packet sent by the RADIUS server to the NAS carries the Class attribute, the Class attribute must also be carried in the subsequent RADIUS Accounting-Request packets sent from the NAS to the RADIUS server. A RADIUS Access-Accept packet can carry zero to eight Class attributes. The attribute type is STRING.";
+        }
+        enum called-station-id {
+          value 24;
+          description
+            "The attribute is valid only for LNS users. The attribute type is STRING.";
+        }
+        enum calling-station-id {
+          value 25;
+          description
+            "The attribute is used by the NAS to carry user information. The attribute type is STRING.";
+        }
+        enum nas-identifier {
+          value 26;
+          description
+            "Name of the NAS or the sysname (host name). The attribute type is STRING.";
+        }
+        enum acct-status-type {
+          value 28;
+          description
+            "Type of the Accounting-Request packet. The attribute type is UINT32.";
+        }
+        enum acct-delay-time {
+          value 29;
+          description
+            "Time spent to send an Accounting Request packet, excluding the network transmission duration, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-octets {
+          value 30;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-octets {
+          value 31;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-session-id {
+          value 32;
+          description
+            "Session id of the Accounting-Request packet. The attribute type is STRING.";
+        }
+        enum acct-authentic {
+          value 33;
+          description
+            "The attribute indicates the authentication type. The attribute type is UINT32.";
+        }
+        enum acct-session-time {
+          value 34;
+          description
+            "Online time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-packets {
+          value 35;
+          description
+            "Number of upstream packets. The attribute type is UINT32.";
+        }
+        enum acct-output-packets {
+          value 36;
+          description
+            "Number of downstream packets. The attribute type is UINT32.";
+        }
+        enum acct-terminate-cause {
+          value 37;
+          description
+            "Reason for session interruption. The attribute type is UINT32.";
+        }
+        enum acct-multi-session-id {
+          value 38;
+          description
+            "If tunnel users are configured in the system, the attribute indicates the accounting ID of an L2TP tunnel user. The attribute type is STRING.";
+        }
+        enum acct-input-gigawords {
+          value 39;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-gigawords {
+          value 40;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum event-timestamp {
+          value 41;
+          description
+            "Time when an Accounting-Request packet was generated. The attribute type is UINT32.";
+        }
+        enum nas-port-type {
+          value 43;
+          description
+            "NAS port type, which can be configured in the BAS interface. The attribute type is UINT32.";
+        }
+        enum tunnel-type {
+          value 45;
+          description
+            "Tunnel protocol type. The attribute type is UINT32.";
+        }
+        enum tunnel-medium-type {
+          value 46;
+          description
+            "Type of the tunnel bearer medium. The attribute type is UINT32.";
+        }
+        enum tunnel-client-endpoint {
+          value 47;
+          description
+            "IP address of the local end of the tunnel. The attribute type is STRING.";
+        }
+        enum tunnel-server-endpoint {
+          value 48;
+          description
+            "IP address of the tunnel server. The attribute type is STRING.";
+        }
+        enum tunnel-assignment-id {
+          value 56;
+          description
+            "Tunnel ID. The attribute type is STRING.";
+        }
+        enum nas-port-id {
+          value 60;
+          description
+            "Slot ID, subslot ID, port number, and VLAN ID of the user access interface. The attribute type is STRING.";
+        }
+        enum chargeable-user-identity {
+          value 62;
+          description
+            "The attribute is used to identify a user. The attribute type is STRING.";
+        }
+        enum tunnel-client-auth-id {
+          value 63;
+          description
+            "Name of the local end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum tunnel-server-auth-id {
+          value 64;
+          description
+            "Name of the remote end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum hw-input-committed-information-rate {
+          value 91;
+          description
+            "Upstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-information-rate {
+          value 94;
+          description
+            "Downstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-connect-id {
+          value 111;
+          description
+            "Connection index of a user. The attribute type is UINT32.";
+        }
+        enum hw-nas-startup-time-stamp {
+          value 122;
+          description
+            "Time when the device was started. The attribute type is UINT32.";
+        }
+        enum hw-ip-host-address {
+          value 123;
+          description
+            "User IP address and MAC address carried in the authentication request packet and accounting request packet. The attribute type is STRING.";
+        }
+        enum hw-vpn-instance {
+          value 145;
+          description
+            "Name of a VPN instance to which a user belongs. The attribute type is STRING.";
+        }
+        enum hw-domain-name {
+          value 150;
+          description
+            "Domain name used in user authentication. The attribute type is STRING.";
+        }
+        enum hw-http-redirect-url {
+          value 152;
+          description
+            "URL of a page where a user will be redirected if the user fails to be authenticated. The attribute type is STRING.";
+        }
+        enum hw-acct-ipv6-input-octets {
+          value 155;
+          description
+            "Volume of IPv6 upstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-octets {
+          value 156;
+          description
+            "Volume of IPv6 downstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-packets {
+          value 157;
+          description
+            "Number of IPv6 upstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-packets {
+          value 158;
+          description
+            "Number of IPv6 downstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-gigawords {
+          value 159;
+          description
+            "Number of IPv6 upstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-gigawords {
+          value 160;
+          description
+            "Number of IPv6 downstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-framed-ipv6-address {
+          value 168;
+          description
+            "Carries an address assigned by a DHCPv6 server using identity association for non-temporary addresses (IA_NA). The attribute type is IPv6 address.";
+        }
+        enum hw-dhcp-option {
+          value 186;
+          description
+            "DHCP options delivered by the RADIUS server after a user is being authenticated. The attribute type is BIN.";
+        }
+        enum hw-version {
+          value 193;
+          description
+            "Version of a device. The attribute type is STRING.";
+        }
+        enum hw-product-id {
+          value 194;
+          description
+            "Product ID of a device. The attribute type is STRING.";
+        }
+        enum cisco-avpair {
+          value 241;
+          description
+            "Carrier-defined attribute, used to distinguish between a non-forwarding-control separation device and a forwarding-control separation device. The attribute type is STRING.";
+        }
+        enum framed-ipv6-address {
+          value 247;
+          description
+            "IP address of the user. The attribute type is IPv6 address.";
+        }
+        enum hw-access-type {
+          value 248;
+          description
+            "Attribute name is HW-Access-Type.";
+        }
+        enum hw-lldp {
+          value 250;
+          description
+            "Attribute name is HW-LLDP.";
+        }
+        enum hw-mdn {
+          value 251;
+          description
+            "Attribute name is HW-MDN.";
+        }
+        enum hw-access-device-info {
+          value 252;
+          description
+            "Attribute name is HW-Access-Device-Info.";
+        }
+        enum hw-vip-level-id {
+          value 260;
+          description
+            "Attribute name is HW-VIP-Level-ID.";
+        }
+        enum hw-ap-information {
+          value 267;
+          description
+            "Attribute name is HW-AP-Information.";
+        }
+        enum hw-http-ua {
+          value 274;
+          description
+            "Attribute name is HW-HTTP-UA.";
+        }
+        enum hw-securitystr {
+          value 286;
+          description
+            "Attribute name is HW-SecurityStr.";
+        }
+        enum hw-tariff-input-gigawords {
+          value 287;
+          description
+            "Attribute name is HW-Tariff-Input-Gigawords.";
+        }
+        enum hw-tariff-input-octets {
+          value 288;
+          description
+            "Attribute name is HW-Tariff-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-input-gigawords {
+          value 289;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Gigawords.";
+        }
+        enum hw-tariff-ipv6-input-octets {
+          value 290;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-output-gigawords {
+          value 291;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Gigawords.";
+        }
+        enum hw-tariff-ipv6-output-octets {
+          value 292;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Octets.";
+        }
+        enum hw-tariff-output-gigawords {
+          value 293;
+          description
+            "Attribute name is HW-Tariff-Output-Gigawords.";
+        }
+        enum hw-tariff-output-octets {
+          value 294;
+          description
+            "Attribute name is HW-Tariff-Output-Octets.";
+        }
+        enum hw-terminal-type {
+          value 295;
+          description
+            "Attribute name is HW-Terminal-Type.";
+        }
+        enum hw-user-access-info {
+          value 298;
+          description
+            "Attribute name is HW-User-Access-Info.";
+        }
+        enum hw-user-extend-info {
+          value 300;
+          description
+            "Attribute name is HW-User-Extend-Info.";
+        }
+        enum hw-web-authen-info {
+          value 305;
+          description
+            "Attribute name is HW-Web-Authen-Info.";
+        }
+        enum login-ipv6-host {
+          value 309;
+          description
+            "Attribute name is Login-IPv6-Host.";
+        }
+        enum remote-ip-host {
+          value 312;
+          description
+            "Attribute name is Remote-IP-Host.";
+        }
+        enum egress-vlanid {
+          value 313;
+          description
+            "Attribute name is Egress-VLANID.";
+        }
+        enum egress-vlan-name {
+          value 314;
+          description
+            "Attribute name is Egress-VLAN-Name.";
+        }
+        enum hw-mud-url {
+          value 318;
+          description
+            "Attribute name is HW-Mud-Url.";
+        }
+        enum wlan-akm-suite {
+          value 319;
+          description
+            "Attribute name is WLAN-AKM-Suite.";
+        }
+        enum wlan-group-cipher {
+          value 320;
+          description
+            "Attribute name is WLAN-Group-Cipher.";
+        }
+        enum wlan-group-mgmt-cipher {
+          value 321;
+          description
+            "Attribute name is WLAN-Group-Mgmt-Cipher.";
+        }
+        enum wlan-pairwise-cipher {
+          value 322;
+          description
+            "Attribute name is WLAN-Pairwise-Cipher.";
+        }
+        enum eap-key-name {
+          value 324;
+          description
+            "Attribute name is EAP-Key-Name.";
+        }
+        enum eap-peer-id {
+          value 325;
+          description
+            "Attribute name is EAP-Peer-Id.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:modify-attributes/radius:modify-attribute/radius:attribute-value" {
+    deviate replace {
+      type string {
+        length "1..253";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:check-attribute/radius:attribute-name" {
+    deviate replace {
+      type radius:radius-attribute-table;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:format-attribute" {
+    deviate add {
+      must "(nas-port-id-format!='vendor' and not(vendor-id)) or (nas-port-id-format='vendor' and vendor-id)";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:format-attribute/radius:nas-port-format" {
+    deviate add {
+      default "new";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:format-attribute/radius:nas-identifier-format" {
+    deviate add {
+      default "hostname";
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:format-attribute/radius:nas-port-id-format" {
+    deviate add {
+      default "new";
+    }
+    deviate replace {
+      type enumeration {
+        enum new {
+          value 0;
+          description
+            "Uses the new format of the NAS port ID.";
+        }
+        enum old {
+          value 1;
+          description
+            "Uses the old format of the NAS port ID.";
+        }
+        enum option82 {
+          value 2;
+          description
+            "Uses the new client-option82 format of the NAS port ID.";
+        }
+        enum vendor {
+          value 3;
+          description
+            "Uses the vendor format of the NAS port ID.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extends/radius:translate-extend" {
+    deviate add {
+      must 'destination-vendor-id and destination-sub-vendor-id and packet-type';
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extends/radius:translate-extend/radius:source-attribute-name" {
+    deviate replace {
+      type enumeration {
+        enum user-name {
+          value 1;
+          description
+            "User name. The attribute type is STRING.";
+        }
+        enum nas-port {
+          value 5;
+          description
+            "Physical port for user access. The attribute type is UINT32.";
+        }
+        enum service-type {
+          value 6;
+          description
+            "Service type. The attribute type is UINT32.";
+        }
+        enum framed-protocol {
+          value 7;
+          description
+            "The value of Framed-Protocol is set to 1 for non-administrator users, indicating the PPP type. The value of Framed-Protocol is set to 6 for the administrator. The attribute type is UINT32.";
+        }
+        enum framed-ip-address {
+          value 8;
+          description
+            "IP address of the user. The attribute type is IPv4 address.";
+        }
+        enum framed-ip-netmask {
+          value 9;
+          description
+            "Subnet mask delivered by the RADIUS server to PPP users. The attribute type is IPv4 address.";
+        }
+        enum filter-id {
+          value 11;
+          description
+            "This attribute is used to carry a user group name. The attribute type is STRING.";
+        }
+        enum framed-mtu {
+          value 12;
+          description
+            "It indicates the maximum transmission unit delivered by the RADIUS server. The attribute type is UINT32.";
+        }
+        enum login-ip-host {
+          value 13;
+          description
+            "It indicates the IP address of an administrator. The attribute type is IPv4 address.";
+        }
+        enum login-service {
+          value 14;
+          description
+            "The type of the service used by the login user. The attribute type is UINT32.";
+        }
+        enum reply-message {
+          value 15;
+          description
+            "This attribute can be carried in RADIUS Access-Accept packets to indicate an authentication success or RADIUS Access-Reject packets to indicate an authentication failure. The attribute type is STRING.";
+        }
+        enum callback-number {
+          value 16;
+          description
+            "The information delivered from the authentication server can be displayed to users, such as the mobile numbers. The attribute type is STRING.";
+        }
+        enum framed-route {
+          value 17;
+          description
+            "Routing information provided by the RADIUS server to users through the NAS. The attribute type is STRING.";
+        }
+        enum state {
+          value 18;
+          description
+            "If the RADIUS Access-Challenge packet sent by the RADIUS server carries the State attribute, it must be carried in subsequent RADIUS Access-Request packets. The attribute type is STRING.";
+        }
+        enum class {
+          value 19;
+          description
+            "If the RADIUS Access-Accept packet sent by the RADIUS server to the NAS carries the Class attribute, the Class attribute must also be carried in the subsequent RADIUS Accounting-Request packets sent from the NAS to the RADIUS server. A RADIUS Access-Accept packet can carry zero to eight Class attributes. The attribute type is STRING.";
+        }
+        enum vendor-specific {
+          value 20;
+          description
+            "The attribute specified by a vendor. The attribute type is STRING.";
+        }
+        enum session-timeout {
+          value 21;
+          description
+            "In Access-Accept packets, the attribute indicates the remaining online time of users, in seconds. The attribute type is UINT32.";
+        }
+        enum idle-timeout {
+          value 22;
+          description
+            "Idle-cut time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum termination-action {
+          value 23;
+          description
+            "The specified mode for terminating the NAS service, such as re-authentication or forcing a user to log out. The attribute type is UINT32.";
+        }
+        enum called-station-id {
+          value 24;
+          description
+            "The attribute is valid only for LNS users. The attribute type is STRING.";
+        }
+        enum calling-station-id {
+          value 25;
+          description
+            "The attribute is used by the NAS to carry user information. The attribute type is STRING.";
+        }
+        enum nas-identifier {
+          value 26;
+          description
+            "Name of the NAS or the sysname (host name). The attribute type is STRING.";
+        }
+        enum acct-status-type {
+          value 28;
+          description
+            "Type of the Accounting-Request packet. The attribute type is UINT32.";
+        }
+        enum acct-delay-time {
+          value 29;
+          description
+            "Time spent to send an Accounting Request packet, excluding the network transmission duration, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-octets {
+          value 30;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-octets {
+          value 31;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-session-id {
+          value 32;
+          description
+            "Session id of the Accounting-Request packet. The attribute type is STRING.";
+        }
+        enum acct-authentic {
+          value 33;
+          description
+            "The attribute indicates the authentication type. The attribute type is UINT32.";
+        }
+        enum acct-session-time {
+          value 34;
+          description
+            "Online time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-packets {
+          value 35;
+          description
+            "Number of upstream packets. The attribute type is UINT32.";
+        }
+        enum acct-output-packets {
+          value 36;
+          description
+            "Number of downstream packets. The attribute type is UINT32.";
+        }
+        enum acct-terminate-cause {
+          value 37;
+          description
+            "Reason for session interruption. The attribute type is UINT32.";
+        }
+        enum acct-multi-session-id {
+          value 38;
+          description
+            "If tunnel users are configured in the system, the attribute indicates the accounting ID of an L2TP tunnel user. The attribute type is STRING.";
+        }
+        enum acct-input-gigawords {
+          value 39;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-gigawords {
+          value 40;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum event-timestamp {
+          value 41;
+          description
+            "Time when an Accounting-Request packet was generated. The attribute type is UINT32.";
+        }
+        enum nas-port-type {
+          value 43;
+          description
+            "NAS port type, which can be configured in the BAS interface. The attribute type is UINT32.";
+        }
+        enum tunnel-client-endpoint {
+          value 47;
+          description
+            "IP address of the local end of the tunnel. The attribute type is STRING.";
+        }
+        enum acct-tunnel-connection {
+          value 49;
+          description
+            "Accounting ID of the tunnel server. The attribute type is STRING.";
+        }
+        enum remanent-volume {
+          value 54;
+          description
+            "Remaining traffic (in KB) available to a user. The attribute type is UINT32.";
+        }
+        enum tariff-switch-interval {
+          value 55;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-interim-interval {
+          value 58;
+          description
+            "Real-time accounting interval, in seconds. The attribute type is UINT32.";
+        }
+        enum nas-port-id {
+          value 60;
+          description
+            "Slot ID, subslot ID, port number, and VLAN ID of the user access interface. The attribute type is STRING.";
+        }
+        enum framed-pool {
+          value 61;
+          description
+            "Address pool delivered to PPP and DHCP users. The attribute type is STRING.";
+        }
+        enum chargeable-user-identity {
+          value 62;
+          description
+            "The attribute is used to identify a user. The attribute type is STRING.";
+        }
+        enum tunnel-client-auth-id {
+          value 63;
+          description
+            "Name of the local end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum framed-interface-id {
+          value 66;
+          description
+            "Interface ID assigned to a user. The attribute type is BIN.";
+        }
+        enum framed-ipv6-prefix {
+          value 67;
+          description
+            "IPv6 prefix assigned to a user in NDRA mode. The attribute type is IPv6 address.";
+        }
+        enum input-peak-rate {
+          value 80;
+          description
+            "Upstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum input-average-rate {
+          value 81;
+          description
+            "Upstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-peak-rate {
+          value 83;
+          description
+            "Downstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-average-rate {
+          value 84;
+          description
+            "Downstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum ascend-client-primary-dns {
+          value 87;
+          description
+            "IP address of the primary DNS server delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum ascend-client-secondary-dns {
+          value 88;
+          description
+            "IP address of the secondary DNS delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum hw-input-committed-burst-size {
+          value 90;
+          description
+            "Upstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-input-committed-information-rate {
+          value 91;
+          description
+            "Upstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-information-rate {
+          value 92;
+          description
+            "Upstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-burst-size {
+          value 93;
+          description
+            "Downstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-information-rate {
+          value 94;
+          description
+            "Downstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-information-rate {
+          value 95;
+          description
+            "Downstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-before-tariff-switch {
+          value 96;
+          description
+            "Number of bytes sent by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-before-tariff-switch {
+          value 97;
+          description
+            "Number of bytes received by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-before-tariff-switch {
+          value 98;
+          description
+            "Number of packets sent by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-before-tariff-switch {
+          value 99;
+          description
+            "Number of packets received by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-after-tariff-switch {
+          value 100;
+          description
+            "Number of bytes sent by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-after-tariff-switch {
+          value 101;
+          description
+            "Number of bytes received by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-after-tariff-switch {
+          value 102;
+          description
+            "Number of packets sent by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-after-tariff-switch {
+          value 103;
+          description
+            "Number of packets received by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-remanent-volume {
+          value 104;
+          description
+            "In Access-Accept packet, the attribute indicates the remaining traffic volume available to a user, in KB. The attribute type is UINT32.";
+        }
+        enum hw-tariff-switch-interval {
+          value 105;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum hw-subscriber-qos-profile {
+          value 106;
+          description
+            "Home QoS profile. The attribute type is STRING.";
+        }
+        enum hw-command {
+          value 107;
+          description
+            "Currently, the attribute value can only be Terminate-Request (value=2), indicating user logoff. The attribute type is UINT32.";
+        }
+        enum hw-priority {
+          value 108;
+          description
+            "Service priority of a user. The attribute type is UINT32.";
+        }
+        enum hw-result-code {
+          value 110;
+          description
+            "Attribute hw-result-code.";
+        }
+        enum hw-connect-id {
+          value 111;
+          description
+            "Connection index of a user. The attribute type is UINT32.";
+        }
+        enum hw-portal-url {
+          value 112;
+          description
+            "URL to which user is redirected after being authenticated. The attribute type is STRING.";
+        }
+        enum hw-ftp-directory {
+          value 113;
+          description
+            "Initial directory of an FTP user. The attribute type is STRING.";
+        }
+        enum hw-exec-privilege {
+          value 114;
+          description
+            "Authorized level of administrative users, such as Telnet users. The attribute type is UINT32.";
+        }
+        enum hw-nas-startup-time-stamp {
+          value 122;
+          description
+            "Time when the device was started. The attribute type is UINT32.";
+        }
+        enum hw-ip-host-address {
+          value 123;
+          description
+            "User IP address and MAC address carried in the authentication request packet and accounting request packet. The attribute type is STRING.";
+        }
+        enum hw-up-priority {
+          value 124;
+          description
+            "Priority of upstream services. The attribute type is UINT32.";
+        }
+        enum hw-down-priority {
+          value 125;
+          description
+            "Priority of downstream services. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-burst-size {
+          value 134;
+          description
+            "Upstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-burst-size {
+          value 135;
+          description
+            "Downstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-data-filter {
+          value 137;
+          description
+            "Dynamically delivered ACL rule. The attribute type is STRING.";
+        }
+        enum hw-vpn-instance {
+          value 145;
+          description
+            "Name of a VPN instance to which a user belongs. The attribute type is STRING.";
+        }
+        enum hw-tunnel-group-name {
+          value 147;
+          description
+            "Name of an L2TP or GRE group. The attribute type is STRING.";
+        }
+        enum hw-client-primary-dns {
+          value 148;
+          description
+            "Primary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-client-secondary-dns {
+          value 149;
+          description
+            "Secondary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-domain-name {
+          value 150;
+          description
+            "Domain name used in user authentication. The attribute type is STRING.";
+        }
+        enum hw-http-redirect-url {
+          value 152;
+          description
+            "URL of a page where a user will be redirected if the user fails to be authenticated. The attribute type is STRING.";
+        }
+        enum hw-acct-ipv6-input-octets {
+          value 155;
+          description
+            "Volume of IPv6 upstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-octets {
+          value 156;
+          description
+            "Volume of IPv6 downstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-packets {
+          value 157;
+          description
+            "Number of IPv6 upstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-packets {
+          value 158;
+          description
+            "Number of IPv6 downstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-gigawords {
+          value 159;
+          description
+            "Number of IPv6 upstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-gigawords {
+          value 160;
+          description
+            "Number of IPv6 downstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-framed-ipv6-address {
+          value 168;
+          description
+            "Carries an address assigned by a DHCPv6 server using identity association for non-temporary addresses (IA_NA). The attribute type is IPv6 address.";
+        }
+        enum hw-avpair {
+          value 185;
+          description
+            "Attribute-value pair, which is the framework attribute of extensible sub-attributes. The attribute type is STRING.";
+        }
+        enum hw-dhcp-option {
+          value 186;
+          description
+            "DHCP options delivered by the RADIUS server after a user is being authenticated. The attribute type is BIN.";
+        }
+        enum hw-version {
+          value 193;
+          description
+            "Version of a device. The attribute type is STRING.";
+        }
+        enum hw-product-id {
+          value 194;
+          description
+            "Product ID of a device. The attribute type is STRING.";
+        }
+        enum ms-mppe-send-key {
+          value 200;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum ms-mppe-recv-key {
+          value 201;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum agent-circuit-id {
+          value 221;
+          description
+            "ID of the line from an online user to the access device. The attribute type is STRING.";
+        }
+        enum agent-remote-id {
+          value 222;
+          description
+            "Unique identifier for the association between an online user and the line. The attribute type is STRING.";
+        }
+        enum cisco-avpair {
+          value 241;
+          description
+            "Carrier-defined attribute, used to distinguish between a non-forwarding-control separation device and a forwarding-control separation device. The attribute type is STRING.";
+        }
+        enum framed-ipv6-address {
+          value 247;
+          description
+            "IP address of the user. The attribute type is IPv6 address.";
+        }
+        enum hw-access-type {
+          value 248;
+          description
+            "Attribute name is HW-Access-Type.";
+        }
+        enum hw-user-policy {
+          value 249;
+          description
+            "Attribute name is HW-User-Policy.";
+        }
+        enum hw-lldp {
+          value 250;
+          description
+            "Attribute name is HW-LLDP.";
+        }
+        enum hw-mdn {
+          value 251;
+          description
+            "Attribute name is HW-MDN.";
+        }
+        enum hw-access-device-info {
+          value 252;
+          description
+            "Attribute name is HW-Access-Device-Info.";
+        }
+        enum hw-vip-level-id {
+          value 260;
+          description
+            "Attribute name is HW-VIP-Level-ID.";
+        }
+        enum hw-ipv6-redirect-acl {
+          value 261;
+          description
+            "Attribute name is HW-IPv6-Redirect-ACL.";
+        }
+        enum hw-attr-res {
+          value 262;
+          description
+            "Attribute name is HW-Attr-Res.";
+        }
+        enum harbour-downlink-bandwidth {
+          value 263;
+          description
+            "Attribute name is Harbour-Downlink-Bandwidth.";
+        }
+        enum harbour-dscp {
+          value 264;
+          description
+            "Attribute name is Harbour-Dscp.";
+        }
+        enum harbour-mac-limit {
+          value 265;
+          description
+            "Attribute name is Harbour-Mac-Limit.";
+        }
+        enum harbour-uplink-bandwidth {
+          value 266;
+          description
+            "Attribute name is Harbour-Uplink-Bandwidth.";
+        }
+        enum hw-ap-information {
+          value 267;
+          description
+            "Attribute name is HW-AP-Information.";
+        }
+        enum hw-auto-update-url {
+          value 268;
+          description
+            "Attribute name is HW-Auto-Update-URL.";
+        }
+        enum hw-control-identifier {
+          value 269;
+          description
+            "Attribute name is HW-Control-Identifier.";
+        }
+        enum hw-dns-domain-name {
+          value 270;
+          description
+            "Attribute name is HW-DNS-Domain-Name.";
+        }
+        enum hw-ext-specific {
+          value 271;
+          description
+            "Attribute name is HW-Ext-Specific.";
+        }
+        enum hw-forwarding-interface {
+          value 272;
+          description
+            "Attribute name is HW-Forwarding-Interface.";
+        }
+        enum hw-forwarding-vlan {
+          value 273;
+          description
+            "Attribute name is HW-Forwarding-VLAN.";
+        }
+        enum hw-http-ua {
+          value 274;
+          description
+            "Attribute name is HW-HTTP-UA.";
+        }
+        enum hw-ip-forwarding-name {
+          value 275;
+          description
+            "Attribute name is HW-IP-forwarding-name.";
+        }
+        enum hw-ipv6-filter-id {
+          value 276;
+          description
+            "Attribute name is HW-IPv6-Filter-ID.";
+        }
+        enum hw-mp-vt-number {
+          value 277;
+          description
+            "Attribute name is HW-Mp-VT-Number.";
+        }
+        enum hw-multicast-type {
+          value 278;
+          description
+            "Attribute name is HW-Multicast-Type.";
+        }
+        enum hw-port-forward-name {
+          value 279;
+          description
+            "Attribute name is HW-port-forward-name.";
+        }
+        enum hw-primary-wins {
+          value 280;
+          description
+            "Attribute name is HW-Primary-WINS.";
+        }
+        enum hw-proxyrdspkt {
+          value 281;
+          description
+            "Attribute name is HW-ProxyRdsPkt.";
+        }
+        enum hw-qos-data {
+          value 282;
+          description
+            "Attribute name is HW-Qos-Data.";
+        }
+        enum hw-reachable-detect {
+          value 283;
+          description
+            "Attribute name is HW-Reachable-Detect.";
+        }
+        enum hw-redirect-acl {
+          value 284;
+          description
+            "Attribute name is HW-Redirect-ACL.";
+        }
+        enum hw-second-wins {
+          value 285;
+          description
+            "Attribute name is HW-Second-WINS.";
+        }
+        enum hw-securitystr {
+          value 286;
+          description
+            "Attribute name is HW-SecurityStr.";
+        }
+        enum hw-tariff-input-gigawords {
+          value 287;
+          description
+            "Attribute name is HW-Tariff-Input-Gigawords.";
+        }
+        enum hw-tariff-input-octets {
+          value 288;
+          description
+            "Attribute name is HW-Tariff-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-input-gigawords {
+          value 289;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Gigawords.";
+        }
+        enum hw-tariff-ipv6-input-octets {
+          value 290;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-output-gigawords {
+          value 291;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Gigawords.";
+        }
+        enum hw-tariff-ipv6-output-octets {
+          value 292;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Octets.";
+        }
+        enum hw-tariff-output-gigawords {
+          value 293;
+          description
+            "Attribute name is HW-Tariff-Output-Gigawords.";
+        }
+        enum hw-tariff-output-octets {
+          value 294;
+          description
+            "Attribute name is HW-Tariff-Output-Octets.";
+        }
+        enum hw-terminal-type {
+          value 295;
+          description
+            "Attribute name is HW-Terminal-Type.";
+        }
+        enum hw-ucl-group {
+          value 296;
+          description
+            "Attribute name is HW-UCL-Group.";
+        }
+        enum hw-url-flag {
+          value 297;
+          description
+            "Attribute name is HW-URL-Flag.";
+        }
+        enum hw-user-access-info {
+          value 298;
+          description
+            "Attribute name is HW-User-Access-Info.";
+        }
+        enum hw-user-addr-network {
+          value 299;
+          description
+            "Attribute name is HW-User-Addr-Network.";
+        }
+        enum hw-user-extend-info {
+          value 300;
+          description
+            "Attribute name is HW-User-Extend-Info.";
+        }
+        enum hw-user-information {
+          value 301;
+          description
+            "Attribute name is HW-User-Information.";
+        }
+        enum hw-username-access-limit {
+          value 302;
+          description
+            "Attribute name is HW-UserName-Access-Limit.";
+        }
+        enum hw-voicevlan {
+          value 303;
+          description
+            "Attribute name is HW-VoiceVlan.";
+        }
+        enum hw-vt-number {
+          value 304;
+          description
+            "Attribute name is HW-Vt-Number.";
+        }
+        enum hw-web-authen-info {
+          value 305;
+          description
+            "Attribute name is HW-Web-Authen-Info.";
+        }
+        enum hw-web-proxy-name {
+          value 306;
+          description
+            "Attribute name is HW-web-proxy-name.";
+        }
+        enum input-basic-rate {
+          value 307;
+          description
+            "Attribute name is Input-Basic-Rate.";
+        }
+        enum ip-uclgroup-query {
+          value 308;
+          description
+            "Attribute name is IP-UclGroup-Query.";
+        }
+        enum login-ipv6-host {
+          value 309;
+          description
+            "Attribute name is Login-IPv6-Host.";
+        }
+        enum output-basic-rate {
+          value 310;
+          description
+            "Attribute name is Output-Basic-Rate.";
+        }
+        enum password-retry {
+          value 311;
+          description
+            "Attribute name is Password-Retry.";
+        }
+        enum remote-ip-host {
+          value 312;
+          description
+            "Attribute name is Remote-IP-Host.";
+        }
+        enum egress-vlanid {
+          value 313;
+          description
+            "Attribute name is Egress-VLANID.";
+        }
+        enum egress-vlan-name {
+          value 314;
+          description
+            "Attribute name is Egress-VLAN-Name.";
+        }
+        enum hw-dpsk-info {
+          value 315;
+          description
+            "Attribute name is HW-DPSK-Info.";
+        }
+        enum hw-epiv-info {
+          value 316;
+          description
+            "Attribute name is HW-EPIV-Info.";
+        }
+        enum hw-eptag-info {
+          value 317;
+          description
+            "Attribute name is HW-EPTAG-Info.";
+        }
+        enum hw-mud-url {
+          value 318;
+          description
+            "Attribute name is HW-Mud-Url.";
+        }
+        enum wlan-akm-suite {
+          value 319;
+          description
+            "Attribute name is WLAN-AKM-Suite.";
+        }
+        enum wlan-group-cipher {
+          value 320;
+          description
+            "Attribute name is WLAN-Group-Cipher.";
+        }
+        enum wlan-group-mgmt-cipher {
+          value 321;
+          description
+            "Attribute name is WLAN-Group-Mgmt-Cipher.";
+        }
+        enum wlan-pairwise-cipher {
+          value 322;
+          description
+            "Attribute name is WLAN-Pairwise-Cipher.";
+        }
+        enum wlan-reason-code {
+          value 323;
+          description
+            "Attribute name is WLAN-Reason-Code.";
+        }
+        enum eap-key-name {
+          value 324;
+          description
+            "Attribute name is EAP-Key-Name.";
+        }
+        enum eap-peer-id {
+          value 325;
+          description
+            "Attribute name is EAP-Peer-Id.";
+        }
+        enum hw-macsec-policy {
+          value 326;
+          description
+            "Attribute name is HW-MACsec-Policy.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extends/radius:translate-extend/radius:packet-type" {
+    deviate add {
+      min-elements 1;
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extend-vendors/radius:translate-extend-vendor" {
+    deviate add {
+      must 'destination-attribute-name and packet-type';
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extend-vendors/radius:translate-extend-vendor/radius:destination-attribute-name" {
+    deviate add {
+      mandatory true;
+    }
+    deviate replace {
+      type enumeration {
+        enum user-name {
+          value 1;
+          description
+            "User name. The attribute type is STRING.";
+        }
+        enum nas-port {
+          value 5;
+          description
+            "Physical port for user access. The attribute type is UINT32.";
+        }
+        enum service-type {
+          value 6;
+          description
+            "Service type. The attribute type is UINT32.";
+        }
+        enum framed-protocol {
+          value 7;
+          description
+            "The value of Framed-Protocol is set to 1 for non-administrator users, indicating the PPP type. The value of Framed-Protocol is set to 6 for the administrator. The attribute type is UINT32.";
+        }
+        enum framed-ip-address {
+          value 8;
+          description
+            "IP address of the user. The attribute type is IPv4 address.";
+        }
+        enum framed-ip-netmask {
+          value 9;
+          description
+            "Subnet mask delivered by the RADIUS server to PPP users. The attribute type is IPv4 address.";
+        }
+        enum filter-id {
+          value 11;
+          description
+            "This attribute is used to carry a user group name. The attribute type is STRING.";
+        }
+        enum framed-mtu {
+          value 12;
+          description
+            "It indicates the maximum transmission unit delivered by the RADIUS server. The attribute type is UINT32.";
+        }
+        enum login-ip-host {
+          value 13;
+          description
+            "It indicates the IP address of an administrator. The attribute type is IPv4 address.";
+        }
+        enum login-service {
+          value 14;
+          description
+            "The type of the service used by the login user. The attribute type is UINT32.";
+        }
+        enum reply-message {
+          value 15;
+          description
+            "This attribute can be carried in RADIUS Access-Accept packets to indicate an authentication success or RADIUS Access-Reject packets to indicate an authentication failure. The attribute type is STRING.";
+        }
+        enum callback-number {
+          value 16;
+          description
+            "The information delivered from the authentication server can be displayed to users, such as the mobile numbers. The attribute type is STRING.";
+        }
+        enum framed-route {
+          value 17;
+          description
+            "Routing information provided by the RADIUS server to users through the NAS. The attribute type is STRING.";
+        }
+        enum state {
+          value 18;
+          description
+            "If the RADIUS Access-Challenge packet sent by the RADIUS server carries the State attribute, it must be carried in subsequent RADIUS Access-Request packets. The attribute type is STRING.";
+        }
+        enum class {
+          value 19;
+          description
+            "If the RADIUS Access-Accept packet sent by the RADIUS server to the NAS carries the Class attribute, the Class attribute must also be carried in the subsequent RADIUS Accounting-Request packets sent from the NAS to the RADIUS server. A RADIUS Access-Accept packet can carry zero to eight Class attributes. The attribute type is STRING.";
+        }
+        enum vendor-specific {
+          value 20;
+          description
+            "The attribute specified by a vendor. The attribute type is STRING.";
+        }
+        enum session-timeout {
+          value 21;
+          description
+            "In Access-Accept packets, the attribute indicates the remaining online time of users, in seconds. The attribute type is UINT32.";
+        }
+        enum idle-timeout {
+          value 22;
+          description
+            "Idle-cut time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum termination-action {
+          value 23;
+          description
+            "The specified mode for terminating the NAS service, such as re-authentication or forcing a user to log out. The attribute type is UINT32.";
+        }
+        enum called-station-id {
+          value 24;
+          description
+            "The attribute is valid only for LNS users. The attribute type is STRING.";
+        }
+        enum calling-station-id {
+          value 25;
+          description
+            "The attribute is used by the NAS to carry user information. The attribute type is STRING.";
+        }
+        enum nas-identifier {
+          value 26;
+          description
+            "Name of the NAS or the sysname (host name). The attribute type is STRING.";
+        }
+        enum acct-status-type {
+          value 28;
+          description
+            "Type of the Accounting-Request packet. The attribute type is UINT32.";
+        }
+        enum acct-delay-time {
+          value 29;
+          description
+            "Time spent to send an Accounting Request packet, excluding the network transmission duration, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-octets {
+          value 30;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-octets {
+          value 31;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-session-id {
+          value 32;
+          description
+            "Session id of the Accounting-Request packet. The attribute type is STRING.";
+        }
+        enum acct-authentic {
+          value 33;
+          description
+            "The attribute indicates the authentication type. The attribute type is UINT32.";
+        }
+        enum acct-session-time {
+          value 34;
+          description
+            "Online time of a user, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-input-packets {
+          value 35;
+          description
+            "Number of upstream packets. The attribute type is UINT32.";
+        }
+        enum acct-output-packets {
+          value 36;
+          description
+            "Number of downstream packets. The attribute type is UINT32.";
+        }
+        enum acct-terminate-cause {
+          value 37;
+          description
+            "Reason for session interruption. The attribute type is UINT32.";
+        }
+        enum acct-multi-session-id {
+          value 38;
+          description
+            "If tunnel users are configured in the system, the attribute indicates the accounting ID of an L2TP tunnel user. The attribute type is STRING.";
+        }
+        enum acct-input-gigawords {
+          value 39;
+          description
+            "Number of upstream bytes. The attribute type is UINT32.";
+        }
+        enum acct-output-gigawords {
+          value 40;
+          description
+            "Number of downstream bytes. The attribute type is UINT32.";
+        }
+        enum event-timestamp {
+          value 41;
+          description
+            "Time when an Accounting-Request packet was generated. The attribute type is UINT32.";
+        }
+        enum nas-port-type {
+          value 43;
+          description
+            "NAS port type, which can be configured in the BAS interface. The attribute type is UINT32.";
+        }
+        enum tunnel-client-endpoint {
+          value 47;
+          description
+            "IP address of the local end of the tunnel. The attribute type is STRING.";
+        }
+        enum acct-tunnel-connection {
+          value 49;
+          description
+            "Accounting ID of the tunnel server. The attribute type is STRING.";
+        }
+        enum remanent-volume {
+          value 54;
+          description
+            "Remaining traffic (in KB) available to a user. The attribute type is UINT32.";
+        }
+        enum tariff-switch-interval {
+          value 55;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum acct-interim-interval {
+          value 58;
+          description
+            "Real-time accounting interval, in seconds. The attribute type is UINT32.";
+        }
+        enum nas-port-id {
+          value 60;
+          description
+            "Slot ID, subslot ID, port number, and VLAN ID of the user access interface. The attribute type is STRING.";
+        }
+        enum framed-pool {
+          value 61;
+          description
+            "Address pool delivered to PPP and DHCP users. The attribute type is STRING.";
+        }
+        enum chargeable-user-identity {
+          value 62;
+          description
+            "The attribute is used to identify a user. The attribute type is STRING.";
+        }
+        enum tunnel-client-auth-id {
+          value 63;
+          description
+            "Name of the local end of a tunnel delivered in tunnel authentication. The attribute type is STRING.";
+        }
+        enum framed-interface-id {
+          value 66;
+          description
+            "Interface ID assigned to a user. The attribute type is BIN.";
+        }
+        enum framed-ipv6-prefix {
+          value 67;
+          description
+            "IPv6 prefix assigned to a user in NDRA mode. The attribute type is IPv6 address.";
+        }
+        enum input-peak-rate {
+          value 80;
+          description
+            "Upstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum input-average-rate {
+          value 81;
+          description
+            "Upstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-peak-rate {
+          value 83;
+          description
+            "Downstream burst rate (PIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum output-average-rate {
+          value 84;
+          description
+            "Downstream average rate (CIR), in bit/s. The attribute type is UINT32.";
+        }
+        enum ascend-client-primary-dns {
+          value 87;
+          description
+            "IP address of the primary DNS server delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum ascend-client-secondary-dns {
+          value 88;
+          description
+            "IP address of the secondary DNS delivered after user authentication is successful. The attribute type is IPv4 address.";
+        }
+        enum hw-input-committed-burst-size {
+          value 90;
+          description
+            "Upstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-input-committed-information-rate {
+          value 91;
+          description
+            "Upstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-information-rate {
+          value 92;
+          description
+            "Upstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-burst-size {
+          value 93;
+          description
+            "Downstream CBS, in bits. The attribute type is UINT32.";
+        }
+        enum hw-output-committed-information-rate {
+          value 94;
+          description
+            "Downstream CIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-information-rate {
+          value 95;
+          description
+            "Downstream PIR, in bit/s. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-before-tariff-switch {
+          value 96;
+          description
+            "Number of bytes sent by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-before-tariff-switch {
+          value 97;
+          description
+            "Number of bytes received by a user before tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-before-tariff-switch {
+          value 98;
+          description
+            "Number of packets sent by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-before-tariff-switch {
+          value 99;
+          description
+            "Number of packets received by a user before tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-input-kilobytes-after-tariff-switch {
+          value 100;
+          description
+            "Number of bytes sent by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-output-kilobytes-after-tariff-switch {
+          value 101;
+          description
+            "Number of bytes received by a user after tariff switching, in KB. The attribute type is UINT32.";
+        }
+        enum hw-input-packets-after-tariff-switch {
+          value 102;
+          description
+            "Number of packets sent by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-output-packets-after-tariff-switch {
+          value 103;
+          description
+            "Number of packets received by a user after tariff switching. The attribute type is UINT32.";
+        }
+        enum hw-remanent-volume {
+          value 104;
+          description
+            "In Access-Accept packet, the attribute indicates the remaining traffic volume available to a user, in KB. The attribute type is UINT32.";
+        }
+        enum hw-tariff-switch-interval {
+          value 105;
+          description
+            "Interval between the latest tariff switching time and the current time, in seconds. The attribute type is UINT32.";
+        }
+        enum hw-subscriber-qos-profile {
+          value 106;
+          description
+            "Home QoS profile. The attribute type is STRING.";
+        }
+        enum hw-command {
+          value 107;
+          description
+            "Currently, the attribute value can only be Terminate-Request (value=2), indicating user logoff. The attribute type is UINT32.";
+        }
+        enum hw-priority {
+          value 108;
+          description
+            "Service priority of a user. The attribute type is UINT32.";
+        }
+        enum hw-result-code {
+          value 110;
+          description
+            "Attribute hw-result-code.";
+        }
+        enum hw-connect-id {
+          value 111;
+          description
+            "Connection index of a user. The attribute type is UINT32.";
+        }
+        enum hw-portal-url {
+          value 112;
+          description
+            "URL to which user is redirected after being authenticated. The attribute type is STRING.";
+        }
+        enum hw-ftp-directory {
+          value 113;
+          description
+            "Initial directory of an FTP user. The attribute type is STRING.";
+        }
+        enum hw-exec-privilege {
+          value 114;
+          description
+            "Authorized level of administrative users, such as Telnet users. The attribute type is UINT32.";
+        }
+        enum hw-nas-startup-time-stamp {
+          value 122;
+          description
+            "Time when the device was started. The attribute type is UINT32.";
+        }
+        enum hw-ip-host-address {
+          value 123;
+          description
+            "User IP address and MAC address carried in the authentication request packet and accounting request packet. The attribute type is STRING.";
+        }
+        enum hw-up-priority {
+          value 124;
+          description
+            "Priority of upstream services. The attribute type is UINT32.";
+        }
+        enum hw-down-priority {
+          value 125;
+          description
+            "Priority of downstream services. The attribute type is UINT32.";
+        }
+        enum hw-input-peak-burst-size {
+          value 134;
+          description
+            "Upstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-output-peak-burst-size {
+          value 135;
+          description
+            "Downstream PBS. The attribute type is UINT32.";
+        }
+        enum hw-data-filter {
+          value 137;
+          description
+            "Dynamically delivered ACL rule. The attribute type is STRING.";
+        }
+        enum hw-vpn-instance {
+          value 145;
+          description
+            "Name of a VPN instance to which a user belongs. The attribute type is STRING.";
+        }
+        enum hw-tunnel-group-name {
+          value 147;
+          description
+            "Name of an L2TP or GRE group. The attribute type is STRING.";
+        }
+        enum hw-client-primary-dns {
+          value 148;
+          description
+            "Primary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-client-secondary-dns {
+          value 149;
+          description
+            "Secondary DNS server's IP address delivered after a user is authenticated. The attribute type is IPv4 address.";
+        }
+        enum hw-domain-name {
+          value 150;
+          description
+            "Domain name used in user authentication. The attribute type is STRING.";
+        }
+        enum hw-http-redirect-url {
+          value 152;
+          description
+            "URL of a page where a user will be redirected if the user fails to be authenticated. The attribute type is STRING.";
+        }
+        enum hw-acct-ipv6-input-octets {
+          value 155;
+          description
+            "Volume of IPv6 upstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-octets {
+          value 156;
+          description
+            "Volume of IPv6 downstream traffic. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-packets {
+          value 157;
+          description
+            "Number of IPv6 upstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-packets {
+          value 158;
+          description
+            "Number of IPv6 downstream packets. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-input-gigawords {
+          value 159;
+          description
+            "Number of IPv6 upstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-acct-ipv6-output-gigawords {
+          value 160;
+          description
+            "Number of IPv6 downstream bytes. The attribute type is UINT32.";
+        }
+        enum hw-framed-ipv6-address {
+          value 168;
+          description
+            "Carries an address assigned by a DHCPv6 server using identity association for non-temporary addresses (IA_NA). The attribute type is IPv6 address.";
+        }
+        enum hw-avpair {
+          value 185;
+          description
+            "Attribute-value pair, which is the framework attribute of extensible sub-attributes. The attribute type is STRING.";
+        }
+        enum hw-dhcp-option {
+          value 186;
+          description
+            "DHCP options delivered by the RADIUS server after a user is being authenticated. The attribute type is BIN.";
+        }
+        enum hw-version {
+          value 193;
+          description
+            "Version of a device. The attribute type is STRING.";
+        }
+        enum hw-product-id {
+          value 194;
+          description
+            "Product ID of a device. The attribute type is STRING.";
+        }
+        enum ms-mppe-send-key {
+          value 200;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum ms-mppe-recv-key {
+          value 201;
+          description
+            "A RADIUS server delivers an Microsoft Point-to-Point Encryption (MPPE) key to a NAS. The attribute type is BIN.";
+        }
+        enum agent-circuit-id {
+          value 221;
+          description
+            "ID of the line from an online user to the access device. The attribute type is STRING.";
+        }
+        enum agent-remote-id {
+          value 222;
+          description
+            "Unique identifier for the association between an online user and the line. The attribute type is STRING.";
+        }
+        enum cisco-avpair {
+          value 241;
+          description
+            "Carrier-defined attribute, used to distinguish between a non-forwarding-control separation device and a forwarding-control separation device. The attribute type is STRING.";
+        }
+        enum framed-ipv6-address {
+          value 247;
+          description
+            "IP address of the user. The attribute type is IPv6 address.";
+        }
+        enum hw-access-type {
+          value 248;
+          description
+            "Attribute name is HW-Access-Type.";
+        }
+        enum hw-user-policy {
+          value 249;
+          description
+            "Attribute name is HW-User-Policy.";
+        }
+        enum hw-lldp {
+          value 250;
+          description
+            "Attribute name is HW-LLDP.";
+        }
+        enum hw-mdn {
+          value 251;
+          description
+            "Attribute name is HW-MDN.";
+        }
+        enum hw-access-device-info {
+          value 252;
+          description
+            "Attribute name is HW-Access-Device-Info.";
+        }
+        enum hw-vip-level-id {
+          value 260;
+          description
+            "Attribute name is HW-VIP-Level-ID.";
+        }
+        enum hw-ipv6-redirect-acl {
+          value 261;
+          description
+            "Attribute name is HW-IPv6-Redirect-ACL.";
+        }
+        enum hw-attr-res {
+          value 262;
+          description
+            "Attribute name is HW-Attr-Res.";
+        }
+        enum harbour-downlink-bandwidth {
+          value 263;
+          description
+            "Attribute name is Harbour-Downlink-Bandwidth.";
+        }
+        enum harbour-dscp {
+          value 264;
+          description
+            "Attribute name is Harbour-Dscp.";
+        }
+        enum harbour-mac-limit {
+          value 265;
+          description
+            "Attribute name is Harbour-Mac-Limit.";
+        }
+        enum harbour-uplink-bandwidth {
+          value 266;
+          description
+            "Attribute name is Harbour-Uplink-Bandwidth.";
+        }
+        enum hw-ap-information {
+          value 267;
+          description
+            "Attribute name is HW-AP-Information.";
+        }
+        enum hw-auto-update-url {
+          value 268;
+          description
+            "Attribute name is HW-Auto-Update-URL.";
+        }
+        enum hw-control-identifier {
+          value 269;
+          description
+            "Attribute name is HW-Control-Identifier.";
+        }
+        enum hw-dns-domain-name {
+          value 270;
+          description
+            "Attribute name is HW-DNS-Domain-Name.";
+        }
+        enum hw-ext-specific {
+          value 271;
+          description
+            "Attribute name is HW-Ext-Specific.";
+        }
+        enum hw-forwarding-interface {
+          value 272;
+          description
+            "Attribute name is HW-Forwarding-Interface.";
+        }
+        enum hw-forwarding-vlan {
+          value 273;
+          description
+            "Attribute name is HW-Forwarding-VLAN.";
+        }
+        enum hw-http-ua {
+          value 274;
+          description
+            "Attribute name is HW-HTTP-UA.";
+        }
+        enum hw-ip-forwarding-name {
+          value 275;
+          description
+            "Attribute name is HW-IP-forwarding-name.";
+        }
+        enum hw-ipv6-filter-id {
+          value 276;
+          description
+            "Attribute name is HW-IPv6-Filter-ID.";
+        }
+        enum hw-mp-vt-number {
+          value 277;
+          description
+            "Attribute name is HW-Mp-VT-Number.";
+        }
+        enum hw-multicast-type {
+          value 278;
+          description
+            "Attribute name is HW-Multicast-Type.";
+        }
+        enum hw-port-forward-name {
+          value 279;
+          description
+            "Attribute name is HW-port-forward-name.";
+        }
+        enum hw-primary-wins {
+          value 280;
+          description
+            "Attribute name is HW-Primary-WINS.";
+        }
+        enum hw-proxyrdspkt {
+          value 281;
+          description
+            "Attribute name is HW-ProxyRdsPkt.";
+        }
+        enum hw-qos-data {
+          value 282;
+          description
+            "Attribute name is HW-Qos-Data.";
+        }
+        enum hw-reachable-detect {
+          value 283;
+          description
+            "Attribute name is HW-Reachable-Detect.";
+        }
+        enum hw-redirect-acl {
+          value 284;
+          description
+            "Attribute name is HW-Redirect-ACL.";
+        }
+        enum hw-second-wins {
+          value 285;
+          description
+            "Attribute name is HW-Second-WINS.";
+        }
+        enum hw-securitystr {
+          value 286;
+          description
+            "Attribute name is HW-SecurityStr.";
+        }
+        enum hw-tariff-input-gigawords {
+          value 287;
+          description
+            "Attribute name is HW-Tariff-Input-Gigawords.";
+        }
+        enum hw-tariff-input-octets {
+          value 288;
+          description
+            "Attribute name is HW-Tariff-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-input-gigawords {
+          value 289;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Gigawords.";
+        }
+        enum hw-tariff-ipv6-input-octets {
+          value 290;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Input-Octets.";
+        }
+        enum hw-tariff-ipv6-output-gigawords {
+          value 291;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Gigawords.";
+        }
+        enum hw-tariff-ipv6-output-octets {
+          value 292;
+          description
+            "Attribute name is HW-Tariff-Ipv6-Output-Octets.";
+        }
+        enum hw-tariff-output-gigawords {
+          value 293;
+          description
+            "Attribute name is HW-Tariff-Output-Gigawords.";
+        }
+        enum hw-tariff-output-octets {
+          value 294;
+          description
+            "Attribute name is HW-Tariff-Output-Octets.";
+        }
+        enum hw-terminal-type {
+          value 295;
+          description
+            "Attribute name is HW-Terminal-Type.";
+        }
+        enum hw-ucl-group {
+          value 296;
+          description
+            "Attribute name is HW-UCL-Group.";
+        }
+        enum hw-url-flag {
+          value 297;
+          description
+            "Attribute name is HW-URL-Flag.";
+        }
+        enum hw-user-access-info {
+          value 298;
+          description
+            "Attribute name is HW-User-Access-Info.";
+        }
+        enum hw-user-addr-network {
+          value 299;
+          description
+            "Attribute name is HW-User-Addr-Network.";
+        }
+        enum hw-user-extend-info {
+          value 300;
+          description
+            "Attribute name is HW-User-Extend-Info.";
+        }
+        enum hw-user-information {
+          value 301;
+          description
+            "Attribute name is HW-User-Information.";
+        }
+        enum hw-username-access-limit {
+          value 302;
+          description
+            "Attribute name is HW-UserName-Access-Limit.";
+        }
+        enum hw-voicevlan {
+          value 303;
+          description
+            "Attribute name is HW-VoiceVlan.";
+        }
+        enum hw-vt-number {
+          value 304;
+          description
+            "Attribute name is HW-Vt-Number.";
+        }
+        enum hw-web-authen-info {
+          value 305;
+          description
+            "Attribute name is HW-Web-Authen-Info.";
+        }
+        enum hw-web-proxy-name {
+          value 306;
+          description
+            "Attribute name is HW-web-proxy-name.";
+        }
+        enum input-basic-rate {
+          value 307;
+          description
+            "Attribute name is Input-Basic-Rate.";
+        }
+        enum ip-uclgroup-query {
+          value 308;
+          description
+            "Attribute name is IP-UclGroup-Query.";
+        }
+        enum login-ipv6-host {
+          value 309;
+          description
+            "Attribute name is Login-IPv6-Host.";
+        }
+        enum output-basic-rate {
+          value 310;
+          description
+            "Attribute name is Output-Basic-Rate.";
+        }
+        enum password-retry {
+          value 311;
+          description
+            "Attribute name is Password-Retry.";
+        }
+        enum remote-ip-host {
+          value 312;
+          description
+            "Attribute name is Remote-IP-Host.";
+        }
+        enum egress-vlanid {
+          value 313;
+          description
+            "Attribute name is Egress-VLANID.";
+        }
+        enum egress-vlan-name {
+          value 314;
+          description
+            "Attribute name is Egress-VLAN-Name.";
+        }
+        enum hw-dpsk-info {
+          value 315;
+          description
+            "Attribute name is HW-DPSK-Info.";
+        }
+        enum hw-epiv-info {
+          value 316;
+          description
+            "Attribute name is HW-EPIV-Info.";
+        }
+        enum hw-eptag-info {
+          value 317;
+          description
+            "Attribute name is HW-EPTAG-Info.";
+        }
+        enum hw-mud-url {
+          value 318;
+          description
+            "Attribute name is HW-Mud-Url.";
+        }
+        enum wlan-akm-suite {
+          value 319;
+          description
+            "Attribute name is WLAN-AKM-Suite.";
+        }
+        enum wlan-group-cipher {
+          value 320;
+          description
+            "Attribute name is WLAN-Group-Cipher.";
+        }
+        enum wlan-group-mgmt-cipher {
+          value 321;
+          description
+            "Attribute name is WLAN-Group-Mgmt-Cipher.";
+        }
+        enum wlan-pairwise-cipher {
+          value 322;
+          description
+            "Attribute name is WLAN-Pairwise-Cipher.";
+        }
+        enum wlan-reason-code {
+          value 323;
+          description
+            "Attribute name is WLAN-Reason-Code.";
+        }
+        enum eap-key-name {
+          value 324;
+          description
+            "Attribute name is EAP-Key-Name.";
+        }
+        enum eap-peer-id {
+          value 325;
+          description
+            "Attribute name is EAP-Peer-Id.";
+        }
+        enum hw-macsec-policy {
+          value 326;
+          description
+            "Attribute name is HW-MACsec-Policy.";
+        }
+      }
+    }
+  }
+  deviation "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extend-vendors/radius:translate-extend-vendor/radius:packet-type" {
+    deviate add {
+      min-elements 1;
+    }
+  }
+  deviation "/radius:radius/radius:radius-local-ips/radius:radius-local-ip" {
+    deviate replace {
+      max-elements 10;
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-servers/radius:dynamic-authorization-server" {
+    deviate add {
+      must '(shared-key and not(dtls-policy-name)) or (not(shared-key) and dtls-policy-name)';
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-servers/radius:dynamic-authorization-server/radius:ip-address" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-servers/radius:dynamic-authorization-server/radius:shared-key" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-server-vpns/radius:dynamic-authorization-server-vpn" {
+    deviate add {
+      must '(shared-key and not(dtls-policy-name)) or (not(shared-key) and dtls-policy-name)';
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-server-vpns/radius:dynamic-authorization-server-vpn/radius:ip-address" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/radius:radius/radius:dynamic-authorization-server-vpns/radius:dynamic-authorization-server-vpn/radius:shared-key" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:session-manage-function/radius:client" {
+    deviate delete {
+      default "any";
+    }
+  }
+  deviation "/radius:radius/radius:session-manage-function/radius:client/radius:ip/radius:client-items/radius:client-item/radius:ip-address" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/radius:radius/radius:session-manage-function/radius:client/radius:ip/radius:client-items/radius:client-item/radius:shared-key" {
+    deviate add {
+      mandatory true;
+    }
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+    }
+  }
+  deviation "/radius:radius/radius:session-manage-function/radius:client/radius:ip/radius:client-item-vpns/radius:client-item-vpn/radius:ip-address" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/radius:radius/radius:session-manage-function/radius:client/radius:ip/radius:client-item-vpns/radius:client-item-vpn/radius:shared-key" {
+    deviate add {
+      mandatory true;
+    }
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+      }
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:disable-attribute" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:standard-attributes/radius:standard-attribute/radius:disable-attribute/radius:disable-direction" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:modify-attributes/radius:modify-attribute/radius:attribute-value" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extends/radius:translate-extend/radius:destination-vendor-id" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update";
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extends/radius:translate-extend/radius:destination-sub-vendor-id" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update";
+    }
+  }
+  ext:deviation-ext "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:translate-extend-vendors/radius:translate-extend-vendor/radius:destination-attribute-name" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update";
+    }
+  }
+}

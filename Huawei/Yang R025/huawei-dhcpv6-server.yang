@@ -1,0 +1,1206 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-dhcpv6-server {
+  yang-version 1;
+  belongs-to huawei-dhcpv6 {
+    prefix dhcpv6;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing DHCPv6 server.";
+  revision 2024-09-15 {
+    description
+      "Modify dhcpv6 server.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-15 {
+    description
+      "Modify model.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-18 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-03 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef address-type {
+    type enumeration {
+      enum "not-in-pool" {
+        value 0;
+        description
+          "The address not in the pool.";
+      }
+      enum "reserved-address" {
+        value 1;
+        description
+          "Reserved address.";
+      }
+      enum "leased-address" {
+        value 2;
+        description
+          "Leased address.";
+      }
+      enum "static-address" {
+        value 3;
+        description
+          "Static address.";
+      }
+      enum "conflict-address" {
+        value 4;
+        description
+          "Conflict address.";
+      }
+      enum "exclude-address" {
+        value 5;
+        description
+          "Exclude address.";
+      }
+      enum "idle-address" {
+        value 6;
+        description
+          "Idle address.";
+      }
+    }
+    description
+      "The IPv6 address type.";
+  }
+  grouping dhcpv6-server-type {
+    description
+      "DHCPv6 server.";
+    container server {
+      description
+        "Configure the DHCPv6 server or DHCPv6 PD server function in the system.";
+      leaf is-allow-hint {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the DHCPv6 server to allocate addresses, prefixes, and prefix lengths based on the DHCPv6 client requests.";
+      }
+      leaf preference {
+        type uint8 {
+          range "0..255";
+        }
+        default "0";
+        description
+          "Specify the server priority in the Advertise packet sent by the device.";
+      }
+      leaf is-rapid {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable that the device supports fast address or prefix assignment, that is, two-message exchange.";
+      }
+      leaf is-unicast {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable unicast communication between the client and server during the address lease renewal process.";
+      }
+    }
+    container server-storage {
+      description
+        "Configure DHCPv6 Server Database.";
+      leaf database-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable database.";
+      }
+      leaf database-recover-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable database recovery.";
+      }
+      leaf database-url {
+        type string {
+          length "1..63";
+        }
+        description
+          "Specify the path and name of the file that data is saved to.";
+      }
+      leaf write-delay {
+        type uint32 {
+          range "300..86400";
+        }
+        units "s";
+        default "86400";
+        description
+          "Write delay interval.";
+      }
+    }
+    container ipv6-pools {
+      description
+        "List of the DHCPv6 server address pools configuration.";
+      list ipv6-pool {
+        must "rebind-percent >= renew-percent + 10";
+        key "pool-name";
+        description
+          "Configure the DHCPv6 server address pool configuration.";
+        leaf pool-name {
+          type string {
+            length "1..31";
+            pattern "[0-9a-zA-Z_.]+";
+          }
+          description
+            "Pool name.";
+        }
+        leaf lock-flag {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable pool lock.";
+        }
+        leaf refresh-time {
+          type uint32 {
+            range "600..4294967295";
+          }
+          units "s";
+          default "86400";
+          description
+            "Pool information fresh time.";
+        }
+        leaf conflict-recovery-time {
+          type uint32 {
+            range "60..4294967295";
+          }
+          units "s";
+          default "172800";
+          description
+            "The recovery time of conflict address.";
+        }
+        leaf renew-percent {
+          type uint8 {
+            range "10..89";
+          }
+          units "s";
+          default "50";
+          description
+            "The proportion of renew time in lifetime.";
+        }
+        leaf rebind-percent {
+          type uint8 {
+            range "20..99";
+          }
+          units "s";
+          default "80";
+          description
+            "The proportion of rebind time in lifetime.";
+        }
+        leaf capwap-ac {
+          type inet:ipv6-address-no-zone;
+          description
+            "Configure the AC's IPv6 address in the IPv6 address pool.";
+        }
+        leaf vpn-instance {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "Bind an IPv6 address pool to a VPN instance.";
+        }
+        leaf vpn-match-disable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable vpn instance match.";
+        }
+        leaf-list logging {
+          type enumeration {
+            enum "allocation-address-success" {
+              value 1;
+              description
+                "Display a log when an IPv6 address is successfully allocated.";
+            }
+            enum "allocation-prefix-success" {
+              value 2;
+              description
+                "Display a log when an IPv6 prefix is successfully allocated.";
+            }
+            enum "detect-address-conflict" {
+              value 3;
+              description
+                "Display a log when an IPv6 address conflict is detected.";
+            }
+            enum "release-address-success" {
+              value 4;
+              description
+                "Display a log when an IPv6 address is released.";
+            }
+            enum "release-prefix-success" {
+              value 5;
+              description
+                "Display a log when an IPv6 prefix is released.";
+            }
+            enum "renew-address-success" {
+              value 6;
+              description
+                "Display a log when an IPv6 address is renewed.";
+            }
+            enum "renew-prefix-success" {
+              value 7;
+              description
+                "Display a log when an IPv6 prefix is renewed.";
+            }
+          }
+          description
+            "Configure the function of recording a log when the DHCPv6 or DHCPv6 PD server allocates an IPv6 address or prefix in the IPv6 address pool.";
+        }
+        leaf-list link-address {
+          type inet:ipv6-prefix;
+          max-elements 10;
+          description
+            "Configure the network prefix in the IPv6 address pool. Ranges of network prefixes cannot overlap.";
+        }
+        container address-prefixes {
+          description
+            "List of the address prefixes configuration.";
+          list address-prefix {
+            must "(valid-infinite) or (preferred-time and preferred-time <= valid-time)";
+            must "(eui-64='true' and prefix-length=64) or eui-64='false'";
+            key "prefix prefix-length eui-64";
+            max-elements 3;
+            description
+              "Configure the address prefix.";
+            leaf prefix {
+              type inet:ipv6-address-no-zone;
+              description
+                "Address prefix. Ranges of address prefixes cannot overlap.";
+            }
+            leaf prefix-length {
+              type uint8 {
+                range "16..128";
+              }
+              description
+                "Prefix length.";
+            }
+            leaf eui-64 {
+              type boolean;
+              description
+                "Enable/disable generating the interface ID based on the user MAC address according to the EUI-64 specifications.";
+            }
+            choice valid-life-type {
+              default "valid-finite-format";
+              description
+                "Specify valid lifetime type.";
+              case valid-finite-format {
+                description
+                  "Configure valid lifetime.";
+                leaf valid-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "172800";
+                  description
+                    "Valid lifetime.";
+                }
+              }
+              case valid-infinite-format {
+                description
+                  "Configure the valid lifetime to infinity.";
+                leaf valid-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the valid lifetime to infinity.";
+                }
+              }
+            }
+            choice preferred-life-type {
+              default "preferred-finite-format";
+              description
+                "Specify preferred lifetime type.";
+              case preferred-finite-format {
+                description
+                  "Configure preferred lifetime.";
+                leaf preferred-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "86400";
+                  description
+                    "Preferred lifetime.";
+                }
+              }
+              case preferred-infinite-format {
+                description
+                  "Configure the preferred lifetime to infinity.";
+                leaf preferred-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the preferred lifetime to infinity.";
+                }
+              }
+            }
+            leaf lock {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable locking the address prefix.";
+            }
+          }
+        }
+        container prefix-delegations {
+          description
+            "List of an agent prefix in the address pool.";
+          list prefix-delegation {
+            must "(valid-infinite) or (preferred-time and preferred-time <= valid-time)";
+            must "assign-prefix-length >= prefix-length and assign-prefix-length <= 16 + prefix-length";
+            key "prefix prefix-length";
+            max-elements 1;
+            description
+              "Configure an agent prefix in the address pool.";
+            leaf prefix {
+              type inet:ipv6-address-no-zone;
+              description
+                "Address prefix. Ranges of address prefixes cannot overlap.";
+            }
+            leaf prefix-length {
+              type uint8 {
+                range "1..128";
+              }
+              description
+                "Prefix length.";
+            }
+            leaf assign-prefix-length {
+              type uint8 {
+                range "1..128";
+              }
+              mandatory true;
+              description
+                "Specify the default prefix length.";
+            }
+            choice valid-life-type {
+              default "valid-finite-format";
+              description
+                "Specify valid lifetime type.";
+              case valid-finite-format {
+                description
+                  "Configure valid lifetime.";
+                leaf valid-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "172800";
+                  description
+                    "Valid lifetime.";
+                }
+              }
+              case valid-infinite-format {
+                description
+                  "Configure the valid lifetime to infinity.";
+                leaf valid-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the valid lifetime to infinity.";
+                }
+              }
+            }
+            choice preferred-life-type {
+              default "preferred-finite-format";
+              description
+                "Specify preferred lifetime type.";
+              case preferred-finite-format {
+                description
+                  "Configure preferred lifetime.";
+                leaf preferred-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "86400";
+                  description
+                    "Preferred lifetime.";
+                }
+              }
+              case preferred-infinite-format {
+                description
+                  "Configure the preferred lifetime to infinity.";
+                leaf preferred-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the preferred lifetime to infinity.";
+                }
+              }
+            }
+            leaf lock {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable locking the address prefix.";
+            }
+          }
+        }
+        container static-bind-addresses {
+          description
+            "List of the statically bound addresses.";
+          list static-bind-address {
+            must "(valid-infinite) or (preferred-time and preferred-time <= valid-time)";
+            must "count(../static-bind-address[client-duid=current()/client-duid][iaid=current()/iaid])<=3";
+            must "count(../static-bind-address[client-duid=current()/client-duid][iaid!=current()/iaid])<3";
+            key "ipv6-address";
+            description
+              "Configure the statically bound address.";
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              must "count(../../../address-prefixes/address-prefix[prefix=current()])=0";
+              description
+                "Statically bind an IPv6 address. The statically bound IPv6 address must be within the address prefix range.";
+            }
+            leaf client-duid {
+              type string {
+                length "2..260";
+                pattern "(([0-9A-F]{2}){1,130})";
+              }
+              mandatory true;
+              description
+                "Client DUID.";
+            }
+            leaf iaid {
+              type uint32 {
+                range "0..4294967295";
+              }
+              default "0";
+              description
+                "IAID. A DUID can be associated with a maximum of three IAIDs, including those statically configured and dynamically obtained from the client.";
+            }
+            choice valid-life-type {
+              default "valid-finite-format";
+              description
+                "Specify valid lifetime type.";
+              case valid-finite-format {
+                description
+                  "Configure valid lifetime.";
+                leaf valid-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "172800";
+                  description
+                    "Valid lifetime.";
+                }
+              }
+              case valid-infinite-format {
+                description
+                  "Configure the valid lifetime to infinity.";
+                leaf valid-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the valid lifetime to infinity.";
+                }
+              }
+            }
+            choice preferred-life-type {
+              default "preferred-finite-format";
+              description
+                "Specify preferred lifetime type.";
+              case preferred-finite-format {
+                description
+                  "Configure preferred lifetime.";
+                leaf preferred-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "86400";
+                  description
+                    "Preferred lifetime.";
+                }
+              }
+              case preferred-infinite-format {
+                description
+                  "Configure the preferred lifetime to infinity.";
+                leaf preferred-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the preferred lifetime to infinity.";
+                }
+              }
+            }
+          }
+        }
+        container static-bind-prefixs {
+          description
+            "List of binding an IPv6 address prefix to the DHCPv6 PD client in the DHCPv6 address pool.";
+          list static-bind-prefix {
+            must "(valid-infinite) or (preferred-time and preferred-time <= valid-time)";
+            must "count(../static-bind-prefix[client-duid=current()/client-duid][iaid=current()/iaid])<=1";
+            must "count(../static-bind-prefix[client-duid=current()/client-duid][iaid!=current()/iaid])<3";
+            key "prefix prefix-length";
+            description
+              "Configure binding an IPv6 address prefix to the DHCPv6 PD client in the DHCPv6 address pool.";
+            leaf prefix {
+              type inet:ipv6-address-no-zone;
+              description
+                "Address prefix. Ranges of address prefixes cannot overlap.";
+            }
+            leaf prefix-length {
+              type uint8 {
+                range "1..128";
+              }
+              description
+                "Prefix length.";
+            }
+            leaf client-duid {
+              type string {
+                length "2..260";
+                pattern '(([0-9A-F]{2}){1,130})';
+              }
+              mandatory true;
+              description
+                "Client DUID.";
+            }
+            leaf iaid {
+              type uint32 {
+                range "0..4294967295";
+              }
+              default "0";
+              description
+                "IAID. A DUID can be associated with a maximum of three IAIDs, including those statically configured and dynamically obtained from the client.";
+            }
+            choice valid-life-type {
+              default "valid-finite-format";
+              description
+                "Specify valid lifetime type.";
+              case valid-finite-format {
+                description
+                  "Configure valid lifetime.";
+                leaf valid-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "172800";
+                  description
+                    "Valid lifetime.";
+                }
+              }
+              case valid-infinite-format {
+                description
+                  "Configure the valid lifetime to infinity.";
+                leaf valid-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the valid lifetime to infinity.";
+                }
+              }
+            }
+            choice preferred-life-type {
+              default "preferred-finite-format";
+              description
+                "Specify preferred lifetime type.";
+              case preferred-finite-format {
+                description
+                  "Configure preferred lifetime.";
+                leaf preferred-time {
+                  type uint32 {
+                    range "60..172799999";
+                  }
+                  units "s";
+                  default "86400";
+                  description
+                    "Preferred lifetime.";
+                }
+              }
+              case preferred-infinite-format {
+                description
+                  "Configure the preferred lifetime to infinity.";
+                leaf preferred-infinite {
+                  type empty;
+                  description
+                  "Enable/disable the preferred lifetime to infinity.";
+                }
+              }
+            }
+          }
+        }
+        container excluded-addresses {
+          description
+            "List of the exclude addresses configuration.";
+          list excluded-address {
+            key "start-ipv6-address end-ipv6-address";
+            description
+              "Configure the exclude address configuration.";
+            leaf start-ipv6-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "Start IPv6 address.";
+            }
+            leaf end-ipv6-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "End IPv6 address.";
+            }
+          }
+        }
+        container capwap-acs {
+          description
+            "List of AC's IPv6 address.";
+          list capwap-ac {
+            key "capwap-ac-address";
+            ordered-by user;
+            description
+              "Configure the AC's IPv6 address in the IPv6 address pool.";
+            leaf capwap-ac-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "AC's IPv6 address in the IPv6 address pool.";
+            }
+          }
+        }
+        container dns-servers {
+          description
+            "List of DNS servers.";
+          list dns-server {
+            key "dns-server-address";
+            max-elements 2;
+            ordered-by user;
+            description
+              "Configure DNS server.";
+            leaf dns-server-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "DNS server IPv6 address.";
+            }
+          }
+        }
+        container sip-servers {
+          description
+            "List of SIP servers.";
+          list sip-server {
+            key "sip-server-address";
+            max-elements 2;
+            ordered-by user;
+            description
+              "Configure SIP server.";
+            leaf sip-server-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "SIP server IPv6 address.";
+            }
+          }
+        }
+        container nis-servers {
+          description
+            "List of NIS servers.";
+          list nis-server {
+            key "nis-server-address";
+            max-elements 2;
+            ordered-by user;
+            description
+              "Configure NIS server.";
+            leaf nis-server-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "NIS server IPv6 address.";
+            }
+          }
+        }
+        container nisp-servers {
+          description
+            "List of NISP servers.";
+          list nisp-server {
+            key "nisp-server-address";
+            max-elements 2;
+            ordered-by user;
+            description
+              "Configure NISP server.";
+            leaf nisp-server-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "NISP server IPv6 address.";
+            }
+          }
+        }
+        container sntp-servers {
+          description
+            "List of SNTP servers.";
+          list sntp-server {
+            key "sntp-server-address";
+            max-elements 2;
+            ordered-by user;
+            description
+              "Configure SNTP server.";
+            leaf sntp-server-address {
+              type inet:ipv6-address-no-zone;
+              description
+                "SNTP server IP Address.";
+            }
+          }
+        }
+        container sip-domains {
+          description
+            "List of SIP domains.";
+          list sip-domain {
+            key "domain-name";
+            max-elements 4;
+            ordered-by user;
+            description
+              "Configure SIP domain.";
+            leaf domain-name {
+              type string {
+                length "1..63";
+                pattern "([0-9a-z_.-]{3,63})|([0-9a-z_.]-)|(-[0-9a-z_.])|([0-9a-z_.]{1,2})";
+              }
+              description
+                "SIP domain name.";
+            }
+          }
+        }
+        container dns-domains {
+          description
+            "List of DNS domains.";
+          list dns-domain {
+            key "domain-name";
+            max-elements 4;
+            ordered-by user;
+            description
+              "Configure DNS domain.";
+            leaf domain-name {
+              type string {
+                length "1..63";
+                pattern "([0-9a-z_.-]{3,63})|([0-9a-z_.]-)|(-[0-9a-z_.])|([0-9a-z_.]{1,2})";
+              }
+              description
+                "DNS domain name.";
+            }
+          }
+        }
+        container nis-domains {
+          description
+            "List of NIS domains.";
+          list nis-domain {
+            key "domain-name";
+            max-elements 4;
+            ordered-by user;
+            description
+              "Configure NIS domain.";
+            leaf domain-name {
+              type string {
+                length "1..63";
+                pattern "([0-9a-z_.-]{3,63})|([0-9a-z_.]-)|(-[0-9a-z_.])|([0-9a-z_.]{1,2})";
+              }
+              description
+                "NIS domain name.";
+            }
+          }
+        }
+        container nisp-domains {
+          description
+            "List of NISP domains.";
+          list nisp-domain {
+            key "domain-name";
+            max-elements 4;
+            ordered-by user;
+            description
+              "Configure NISP domain.";
+            leaf domain-name {
+              type string {
+                length "1..63";
+                pattern "([0-9a-z_.-]{3,63})|([0-9a-z_.]-)|(-[0-9a-z_.])|([0-9a-z_.]{1,2})";
+              }
+              description
+                "NISP domain name.";
+            }
+          }
+        }
+        container vendor-specifics {
+          description
+            "List of vendor-defined options for the IPv6 address pool and enter the vendor-defined mode.";
+          list vendor-specific {
+            key "vendor-id";
+            max-elements 8;
+            description
+              "Configure vendor-defined options for the IPv6 address pool and enter the vendor-defined mode.";
+            leaf vendor-id {
+              type uint32 {
+                range "1..4294967295";
+              }
+              description
+                "Indicate the ID of the vendor, which is assigned by the IANA. 2011 is the identifier for Huawei.";
+            }
+            container suboptions {
+              description
+                "List of vendor-defined DHCPv6 sub-options.";
+              list suboption {
+                key "code";
+                max-elements 16;
+                description
+                  "Configure vendor-defined DHCPv6 sub-options.";
+                leaf code {
+                  type uint16 {
+                    range "1..65535";
+                  }
+                  description
+                    "Specify the code of the vendor-defined DHCPv6 sub-options.";
+                }
+                choice code-type {
+                  mandatory true;
+                  description
+                    "Choice of suboption code type.";
+                  case address {
+                    description
+                      "Case of address.";
+                    leaf-list ipv6-address {
+                      type inet:ipv6-address-no-zone;
+                      max-elements 4;
+                      description
+                        "Specify the vendor-defined option code as the IPv6 address type.";
+                    }
+                  }
+                  case ascii {
+                    description
+                      "Case of ascii.";
+                    leaf ascii-string {
+                      type string {
+                        length "1..255";
+                        pattern '[ -~]+';
+                      }
+                      description
+                        "Specify the vendor-defined option code as an ASCII character string.";
+                    }
+                  }
+                  case hex {
+                    description
+                      "Case of hex.";
+                    leaf hex-string {
+                      type string {
+                        length "2..128";
+                        pattern '(([0-9A-F]{2}){1,64})';
+                      }
+                      description
+                        "Specify the vendor-defined option code as a hexadecimal string.";
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        container address-allocate-infos {
+          config false;
+          description
+            "List of the allocated address information.";
+          list address-allocate-info {
+            key "ipv6-address";
+            config false;
+            max-elements 65536;
+            description
+              "Statistics of the allocated address information.";
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              config false;
+              description
+                "Allocated address.";
+            }
+            leaf valid-time {
+              type uint32;
+              units "s";
+              description
+                "Valid lifetime.";
+            }
+            leaf expire-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Expire time.";
+            }
+            leaf left-time {
+              type uint32;
+              config false;
+              description
+                "Left time.";
+            }
+          }
+        }
+        container user-bind-infos {
+          config false;
+          description
+            "List of the user bind information.";
+          list user-bind-info {
+            key "ipv6-address";
+            config false;
+            max-elements 4096;
+            description
+              "Statistics of the user bind information.";
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              config false;
+              description
+                "IPv6 address.";
+            }
+            leaf client-duid {
+              type string {
+                length "2..260";
+              }
+              config false;
+              description
+                "Client DUID.";
+            }
+            leaf client-address {
+              type inet:ipv6-address-no-zone;
+              config false;
+              description
+                "LLA Address.";
+            }
+            leaf iaid {
+              type uint32;
+              config false;
+              description
+                "IAID.";
+            }
+            leaf valid-time {
+              type uint32;
+              units "s";
+              description
+                "Valid lifetime.";
+            }
+            leaf preferred-time {
+              type uint32;
+              units "s";
+              description
+                "Preferred lifetime.";
+            }
+            leaf expire-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Expire time.";
+            }
+            leaf left-time {
+              type uint32;
+              config false;
+              description
+                "Left time.";
+            }
+          }
+        }
+        container address-conflict-infos {
+          config false;
+          description
+            "List of the conflict address information.";
+          list address-conflict-info {
+            key "ipv6-address";
+            config false;
+            max-elements 4096;
+            description
+              "Statistics of the conflict address information.";
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              config false;
+              description
+                "Conflict address.";
+            }
+            leaf detect-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Detect time.";
+            }
+          }
+        }
+        container address-status-infos {
+          config false;
+          description
+            "List of the address status information.";
+          list address-status-info {
+            key "ipv6-address";
+            config false;
+            max-elements 65536;
+            description
+              "Statistics of address status information.please query address status by filtering the address poolname and IPv6 address.";
+            leaf ipv6-address {
+              type inet:ipv6-address-no-zone;
+              config false;
+              description
+                "IPv6 address.";
+            }
+            leaf address-status {
+              type address-type;
+              config false;
+              description
+                "Address status.";
+            }
+            leaf client-duid {
+              type string {
+                length "2..260";
+              }
+              config false;
+              description
+                "Client DUID.";
+            }
+            leaf valid-time {
+              type uint32;
+              units "min";
+              config false;
+              description
+                "Valid Time.";
+            }
+            leaf preferred-time {
+              type uint32;
+              units "min";
+              config false;
+              description
+                "Prefer Time.";
+            }
+            leaf expire-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Expire Time.";
+            }
+            leaf left-time {
+              type uint32;
+              config false;
+              description
+                "Left Time.";
+            }
+            leaf iaid {
+              type uint32;
+              config false;
+              description
+                "IAID.";
+            }
+            leaf detect-time {
+              type yang:date-and-time;
+              config false;
+              description
+                "Detect Time.";
+            }
+          }
+        }
+      }
+    }
+    container global-packet-statistics {
+      config false;
+      description
+        "DHCPv6 server global packet statistics.";
+      leaf solicit-number {
+        type uint32;
+        config false;
+        description
+          "The count of solicit packet.";
+      }
+      leaf request-number {
+        type uint32;
+        config false;
+        description
+          "The count of request packet.";
+      }
+      leaf confirm-number {
+        type uint32;
+        config false;
+        description
+          "The count of confirm packet.";
+      }
+      leaf renew-number {
+        type uint32;
+        config false;
+        description
+          "The count of renew packet.";
+      }
+      leaf rebind-number {
+        type uint32;
+        config false;
+        description
+          "The count of rebind packet.";
+      }
+      leaf release-number {
+        type uint32;
+        config false;
+        description
+          "The count of release packet.";
+      }
+      leaf decline-number {
+        type uint32;
+        config false;
+        description
+          "The count of decline packet.";
+      }
+      leaf information-request-number {
+        type uint32;
+        config false;
+        description
+          "The count of information-request packet.";
+      }
+      leaf relay-forward-number {
+        type uint32;
+        config false;
+        description
+          "The count of relay-forward packet.";
+      }
+      leaf lease-query-number {
+        type uint32;
+        config false;
+        description
+          "The count of lease-query packet.";
+      }
+      leaf unknown-type-number {
+        type uint32;
+        config false;
+        description
+          "The count of unknown-type packet.";
+      }
+      leaf advertise-number {
+        type uint32;
+        config false;
+        description
+          "The count of advertise packet.";
+      }
+      leaf reply-number {
+        type uint32;
+        config false;
+        description
+          "The count of reply packet.";
+      }
+      leaf relay-reply-number {
+        type uint32;
+        config false;
+        description
+          "The count of relay-reply packet.";
+      }
+      leaf lease-reply-number {
+        type uint32;
+        config false;
+        description
+          "The count of lease-reply packet.";
+      }
+      leaf reconfigure-number {
+        type uint32;
+        config false;
+        description
+          "The count of reconfigure packet.";
+      }
+    }
+  }
+}

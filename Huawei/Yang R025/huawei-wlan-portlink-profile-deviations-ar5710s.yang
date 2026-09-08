@@ -1,0 +1,57 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-portlink-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-portlink-profile-deviations-ar5710s";
+  prefix portlinkprof-devs-ar5710s;
+
+  import huawei-wlan-portlink-profile {
+    prefix portlinkprof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-portlink-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:speed" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:auto-speed" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:shutdown" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:crc-alarm" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:lldp" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:poe/portlinkprof:priority" {
+    deviate not-supported;
+  }
+  deviation "/portlinkprof:wlan-portlink-profile/portlinkprof:portlink-profiles/portlinkprof:portlink-profile/portlinkprof:poe/portlinkprof:power-off-time-range" {
+    deviate replace {
+      type string {
+        length "1..32";
+        pattern '([a-zA-Z]([^\s]*))';
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l3vpn-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-l3vpn-deviations-ar5710s";
+  prefix l3vpn-devs-ar5710s;
+
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-l3vpn module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef xpl-filter-name-deviations {
+    type string {
+      length "1..200";
+      pattern '\s*(([0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200})|([0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200}[\(](($)?[0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200})(([,]($)?[0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200}){0,7})[\)]))\s*';
+    }
+    description
+      "XPL route-filter's name.";
+  }
+
+  deviation "/l3vpn:reset-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:traffic-statistic-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:parameter/l3vpn:identifier" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/l3vpn:effect-route-distinguisher" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/l3vpn:import-policy-type/l3vpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/l3vpn:static-label" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/l3vpn:default-color" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/l3vpn:export-policy-type/l3vpn:xpl-ref/l3vpn:export-filter/l3vpn:name" {
+    deviate replace {
+      type l3vpn-devs-ar5710s:xpl-filter-name-deviations;
+    }
+  }
+}

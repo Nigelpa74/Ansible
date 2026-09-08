@@ -20,7 +20,7 @@ def huawei_connect(router):
         device_params={'name': "huaweiyang"},
         allow_agent=False,
         look_for_keys=False,
-        timeout=60
+        timeout=20
     )
 
 def push_cli_batch(router):

@@ -1,0 +1,46 @@
+/*
+Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-controller-notif {
+  namespace "urn:huawei:yang:huawei-system-controller-notif";
+  prefix controller-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of System management of the communication between controller and device.";
+  revision 2024-12-18 {
+    description
+      "Add notification cfg-rollback.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-31 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  notification pnp-uplink-change {
+    description
+      "The PNP uplink interface is changed.";
+  }
+  notification pnp-ap-neighbor-change {
+    description
+      "The PNP downlink interfaces connected to the AP is changed.";
+  }
+  notification cfg-rollback {
+    description
+      "Rollback configuration when the device and controller are disconnected.";
+  }
+  ext:task-name "cmng";
+}

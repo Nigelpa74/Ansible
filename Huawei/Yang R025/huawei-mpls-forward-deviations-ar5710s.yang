@@ -1,0 +1,143 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-forward-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mpls-forward-deviations-ar5710s";
+  prefix mpls-forward-devs-ar5710s;
+
+  import huawei-mpls-forward {
+    prefix mpls-forward;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-loadbalance {
+    prefix loadbalance;
+  }
+  import huawei-mpls {
+    prefix mpls;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls-forward module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/loadbalance:loadbalance/mpls-forward:mpls-hashpacket" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/mpls-forward:mpls-intfmtu" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/mpls-forward:mpls-loadblc-elawords" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/mpls-forward:p2mp-load-balance-num" {
+    deviate not-supported;
+  }
+  deviation "/loadbalance:loadbalance/loadbalance:load-balance-ecmp-profile/mpls-forward:mpls-hash" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/mpls-forward:mpls-forward" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:ingress-pipe-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:service-class" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:color" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:egress-pipe-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:domain-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mpls-forward:deephashcfg" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mpls-forward:if-poison-reverse" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mpls-forward:if-p2mp-load-balance" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mpls-forward:bgp-localifnet-traffic" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:ds-enhance" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:p2mp-fastswitch" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:p2mp-forceload" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:p2mp-frrwtrtime" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:te-reverse-path-forwarding" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:bgp-separate" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:ldp-separate" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:te-multiprot" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:active-tnl" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls-forward:disp-convergence-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls-forward:exp-ttl-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/mpls-forward:entropy-label-mode" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls-forward:mpls-forward" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe" {
+    deviate add {
+      must "((pipe-mode='pipe' or pipe-mode='shortpipe') and exp-value) or (pipe-mode='uniform' and not(exp-value))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mpls-forward:vrfpipe/mpls-forward:split-mode" {
+    deviate delete {
+      must "((../split-mode='false' and ../pipe-mode and not(../ingress-pipe-mode) and not(../egress-pipe-mode)) or (../split-mode='true' and not(../pipe-mode) and ../ingress-pipe-mode and ../egress-pipe-mode))";
+    }
+    deviate add {
+      must "../split-mode='false'";
+    }
+  }
+}

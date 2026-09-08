@@ -1,0 +1,475 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-srv6-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-srv6-deviations-ar5710s";
+  prefix srv6-devs-ar5710s;
+
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-srv6 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef protocol-type-deviations {
+    type enumeration {
+      enum l3vpn {
+        value 0;
+        description
+          "L3VPN.";
+      }
+      enum evpn {
+        value 1;
+        description
+          "EVPN.";
+      }
+    }
+    description
+      "Protocol Type.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:te-frr-enable-downgrade" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:te-frr-verify-trusted-domain" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:proxy-peer-sid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-end-x-encapsulation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:compress-16-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:protected-end-x-delete-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:csid-proportion" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:bfd" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:encapsulation/srv6:hop-limit" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:trusted-domains" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:compress-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:compress-static-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:flex-algo" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:preference" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:ends/srv6:end/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psps/srv6:end-psp/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psp-usp-usds/srv6:end-psp-usp-usd/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psp-usp-usd-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psp-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-xs/srv6:end-x/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-xs/srv6:end-x/srv6:s-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-xs/srv6:end-x/srv6:protected" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psps/srv6:end-x-psp/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psps/srv6:end-x-psp/srv6:s-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psps/srv6:end-x-psp/srv6:protected" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:s-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:protected" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usd-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt2us" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt2uls" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt2ms" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dx2s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dx2ls" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt4s/srv6:end-dt4/srv6:behavior" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt4s/srv6:end-dt4/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt6s/srv6:end-dt6/srv6:behavior" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt6s/srv6:end-dt6/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt46s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-ms" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dx4s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dx6s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-ass" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-uncompressed-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-uncompressed-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:block" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:node-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:node-id-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-dynamic-sid-pool-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-dynamic-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-dynamic-sid-begin" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-dynamic-sid-end" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-static-sid-begin" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:compress-static-sid-end" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:global-id-block" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:attribute/srv6:local-id-block" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-psp-usp-usd-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-psp-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-xs/srv6:end-x/srv6:next-hops/srv6:next-hop/srv6:bak-if-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-xs/srv6:end-x/srv6:next-hops/srv6:next-hop/srv6:bak-next-hop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-xs/srv6:end-x/srv6:next-hops/srv6:next-hop/srv6:bak-update-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-xs/srv6:end-x/srv6:next-hops/srv6:next-hop/srv6:bak-compress-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-xs/srv6:end-x/srv6:next-hops/srv6:next-hop/srv6:bak-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psps/srv6:end-x-psp/srv6:next-hops/srv6:next-hop/srv6:bak-if-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psps/srv6:end-x-psp/srv6:next-hops/srv6:next-hop/srv6:bak-next-hop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psps/srv6:end-x-psp/srv6:next-hops/srv6:next-hop/srv6:bak-update-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psps/srv6:end-x-psp/srv6:next-hops/srv6:next-hop/srv6:bak-compress-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psps/srv6:end-x-psp/srv6:next-hops/srv6:next-hop/srv6:bak-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:next-hops/srv6:next-hop/srv6:bak-if-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:next-hops/srv6:next-hop/srv6:bak-next-hop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:next-hops/srv6:next-hop/srv6:bak-update-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:next-hops/srv6:next-hop/srv6:bak-compress-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:next-hops/srv6:next-hop/srv6:bak-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-usp-usd-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-psp-cocs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt2us" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt2uls" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt2ms" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dx2s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dx2ls" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt4s/srv6:end-dt4/srv6:behavior" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt4s/srv6:end-dt4/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt6s/srv6:end-dt6/srv6:behavior" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt6s/srv6:end-dt6/srv6:compress" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dt46s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-ms" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dx4s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-dx6s" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-uncompressed-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:end-x-uncompressed-extensions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:local-sids/srv6:xsids" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:ends/srv6:end" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psps/srv6:end-psp" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-psp-usp-usds/srv6:end-psp-usp-usd" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-xs/srv6:end-x" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate delete {
+      unique "if-name next-hop s-flag";
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+    deviate add {
+      unique "if-name next-hop";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-xs/srv6:end-x/srv6:value" {
+    deviate delete {
+      must "(../s-flag = 'false' and count(../../end-x[value=current()]) = 1) or (../s-flag='true' and not(../../end-x[value = current()][protected != current()/../protected]))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psps/srv6:end-x-psp" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate delete {
+      unique "if-name next-hop s-flag";
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+    deviate add {
+      unique "if-name next-hop";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psps/srv6:end-x-psp/srv6:value" {
+    deviate delete {
+      must "(../s-flag = 'false' and count(../../end-x-psp[value=current()]) = 1) or (../s-flag='true' and not(../../end-x-psp[value = current()][protected != current()/../protected]))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate delete {
+      unique "if-name next-hop s-flag";
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+    deviate add {
+      unique "if-name next-hop";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-x-psp-usp-usds/srv6:end-x-psp-usp-usd/srv6:value" {
+    deviate delete {
+      must "(../s-flag = 'false' and count(../../end-x-psp-usp-usd[value=current()]) = 1) or (../s-flag='true' and not(../../end-x-psp-usp-usd[value = current()][protected != current()/../protected]))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt4s/srv6:end-dt4" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate delete {
+      must "not(count(../end-dt4[protocol='evpn-l3vpn'][vpn-name=current()/vpn-name]) != 0 and count(../end-dt4[protocol!='evpn-l3vpn'][vpn-name=current()/vpn-name]) != 0)";
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt4s/srv6:end-dt4/srv6:protocol" {
+    deviate delete {
+      must "not(../vpn-name='_public_' and (../protocol='evpn' or ../protocol='evpn-l3vpn'))";
+    }
+    deviate add {
+      must "not(../vpn-name='_public_' and ../protocol='evpn')";
+    }
+    deviate replace {
+      type srv6-devs-ar5710s:protocol-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt6s/srv6:end-dt6" {
+    deviate delete {
+      must '../../../static-length>0 or ../../../compress-static-length>0';
+    }
+    deviate delete {
+      must "not(count(../end-dt6[protocol='evpn-l3vpn'][vpn-name=current()/vpn-name]) != 0 and count(../end-dt6[protocol!='evpn-l3vpn'][vpn-name=current()/vpn-name]) != 0)";
+    }
+    deviate add {
+      must '../../../static-length>0';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:opcodes/srv6:end-dt6s/srv6:end-dt6/srv6:protocol" {
+    deviate delete {
+      must "not(../vpn-name='_public_' and (../protocol='evpn' or ../protocol='evpn-l3vpn'))";
+    }
+    deviate add {
+      must "not(../vpn-name='_public_' and ../protocol='evpn')";
+    }
+    deviate replace {
+      type srv6-devs-ar5710s:protocol-type-deviations;
+    }
+  }
+}

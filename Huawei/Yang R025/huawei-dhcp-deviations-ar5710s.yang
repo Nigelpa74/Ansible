@@ -1,0 +1,1183 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dhcp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-dhcp-deviations-ar5710s";
+  prefix dhcp-devs-ar5710s;
+
+  import huawei-dhcp {
+    prefix dhcp;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dhcp module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef mac-address-deviations {
+    type pub-type:mac-address {
+      pattern '[0-9a-f][02468ace][0-9a-f]{2}(-[0-9a-f]{4}){2}';
+    }
+    description
+      "MAC address. Only support unicast MAC address.";
+  }
+
+  typedef mask-address-deviations {
+    type inet:ipv4-address-no-zone {
+      pattern '(255)\.0\.0\.0|255\.(254|252|248|240|224|192|128)\.0\.0|255\.255\.(254|252|248|240|224|192|128|0)\.0|255\.255\.255\.(254|252|248|240|224|192|128|0)';
+    }
+    description
+      "Mask address. Only support A/B/C mask.";
+  }
+
+  typedef option82-format-deviations {
+    type enumeration {
+      enum common {
+        value 1;
+        description
+          "DHCP option82 common format.";
+      }
+      enum extend {
+        value 2;
+        description
+          "DHCP option82 extend format.";
+      }
+      enum user-defined {
+        value 3;
+        description
+          "DHCP option82 user-defined format.";
+      }
+      enum default {
+        value 4;
+        description
+          "DHCP option82 default format.";
+      }
+    }
+    description
+      "The type of DHCP option82 format.";
+  }
+
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:undo-server-select" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:vlan-broadcast-flag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:reply-packet-policy" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:gateway-re-route" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:option82/dhcp:vendor-specific-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:option82/dhcp:subscriber-id-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:option82/dhcp:subscriber-id-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:option82/dhcp:subscriber-id-self-define-text" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:destination-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:server-addresses/dhcp:server-address" {
+    deviate delete {
+      must "(vendor='false' and vendor-class='-') or (vendor='true' and option-code=60)";
+    }
+    deviate add {
+      must "(./vendor='false') and (./vendor-class='-') and (./option-code=0)";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:gateway-ip-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:relay-source-address/dhcp:vpn-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:relay-source-option-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-if" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:arpbind" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:dns-list/dhcp:interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:dhcp-packet-setting" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:anti-attack-check" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:expected-lease" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:default-route-preference" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:default-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:bootp-alloc" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:client-track" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:gateway-detect" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:client-status" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:client-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-snooping-if" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/dhcp:dhcp-relay-vpn" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:recover-user-bind-table" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:ignore-hostname" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:rate-limit-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:rate-limit" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:aging-time" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:check-magic-cookie" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:check-udp-checksum" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:udp-checksum" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:broadcast-suppress" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:graceful-degradation" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global/dhcp:mlag-sync-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:session-car" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:chasten" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:ipsec-peers" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:openflow" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:anti-attack-option" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:global-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:user-detect-interval" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:user-autosave-flag" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:user-store-interval" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:distribute-flag" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:opt82-inner-vlan-insert-flag" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:option" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:source-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:route-isolation-vpns" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:relay-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:undo-gateway" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:server-group-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:client-records" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:relay-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:database-recover" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:option60-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:dest-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:lease-items-path" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:conflict-items-path" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:link-selection-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:server-id-override-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:request-packet-all-interface-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:file-authentication-mode" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:multi-sess-per-mac-file-auth-mode" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:port-client-number" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:locked-flag" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option-router-disable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:client-option60-string" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:warning-exhaust-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:warning-threshold" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:reply-packet-policy" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:next-server-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:profile-name" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:identifier-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:bootfile" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:sname" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:pool-index" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:subnet-mask" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:associate-lease-client-id" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:dns-interface" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:reserved-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:gateway" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:conflict-recycle" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:rebind-time" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:renew-time" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option125" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:sections/dhcp:section/dhcp:ip-pool-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:sections/dhcp:section/dhcp:ip-pool-address-statuses" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:network-bios-ip-addresses" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:static-binds/dhcp:static-bind/dhcp:description" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:user-options" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:client-options" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option33s" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:domain-lists" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option-force-replys" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-statistics/dhcp:start-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-statistics/dhcp:end-ip" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-address-statuses" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-usage" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-max-usage" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:next-server" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:network-bios-type" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:domain-name" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:bootfile" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:sname" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:nbns-list" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:force-insert-option" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:option121s" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:ip-pool-user-infos" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:snooping" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:client/dhcp:excluded-servers" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:client/dhcp:global" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:dhcp/dhcp:client/dhcp:client-querys/dhcp:client-query/dhcp:option15" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-address-state" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-pool-maxusage" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:start-force-renew" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:stop-force-renew" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:set-if-dynamic-bind-table" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:set-vlan-dynamic-bind-table" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-global-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-client-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-relay-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-server-statistics" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-snooping-alarm-statistics-by-interface" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-snooping-alarm-statistics-by-vlan-and-interface" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-snooping-alarm-statistics-by-bd" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-client-records" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-client-records-by-vlan-and-interface" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-client-records-by-mac" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-client-records-by-option-value" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-interface-pool-address-state" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-dhcp-proxy-user" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-dhcp-proxy-user-by-interface" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-dhcp-proxy-user-by-mac" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-dhcp-proxy-user-by-client-ip-address" {
+    deviate not-supported;
+  }
+  deviation "/dhcp:reset-dhcp-proxy-user-by-server-ip-address" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcp:dhcp-vlan/dhcp:interface-option82-formats" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcp:dhcp-vlan/dhcp:interface-option82-insert-settings/dhcp:interface-option82-insert-setting/dhcp:to-if-name" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcp:dhcp-vlan/dhcp:anti-attack-check" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcp:dhcp-snooping-vlan" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/dhcp:dhcp-bd" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/dhcp:dhcp-snooping-bd" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/dhcp:dhcp-snooping-vsi" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute" {
+    deviate add {
+      must "(../ifm:type != 'Tunnel') and (../ifm:type != 'NULL') and (not(../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:option82" {
+    deviate delete {
+      must "(subscriber-id-enable='true' and subscriber-id-mode='self-define' and subscriber-id-self-define-text) or (subscriber-id-enable='false')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:vpn-server-addresses/dhcp:vpn-server-address/dhcp:vpn-name" {
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:relay-source-address" {
+    deviate delete {
+      must 'not(../relay-source-option-addresses/relay-source-option-address)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:opt82-vendor-specifics" {
+    deviate delete {
+      must "(../../ifm:type='Vbdif') or (../../ifm:type='Global-VE' and ../../ifm:class='sub-interface') or (../../ifm:type='Virtual-Ethernet' and ../../ifm:class='sub-interface')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool" {
+    deviate add {
+      must "(../ifm:type != 'Tunnel') and (../ifm:type != 'NULL') and (not(../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:bootfile-type/dhcp:plain/dhcp:bootfile" {
+    deviate replace {
+      type string {
+        length "1..127";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:bootfile-type/dhcp:cipher/dhcp:bootfile-cipher" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..268";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:domain-name" {
+    deviate replace {
+      type string {
+        length "1..63";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:reserved-ip" {
+    deviate replace {
+      default "true";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:mask/dhcp:mask-type/dhcp:mask/dhcp:mask" {
+    deviate replace {
+      type dhcp-devs-ar5710s:mask-address-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:mask/dhcp:mask-type/dhcp:masklen/dhcp:masklen" {
+    deviate replace {
+      type uint8 {
+        range "8..30";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:lease" {
+    deviate add {
+      must 'not(./day=0 and ./hour=0 and ./minute=0)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:lease/dhcp:time-type" {
+    deviate add {
+      default "limited";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:lease/dhcp:time-type/dhcp:unlimited/dhcp:unlimited" {
+    deviate delete {
+      default "false";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:sip-server/dhcp:sip-server-format/dhcp:string-format/dhcp:sip-server-name2" {
+    deviate add {
+      must '(../sip-server-name1 != ../sip-server-name2)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:static-binds/dhcp:static-bind/dhcp:static-bind-mac" {
+    deviate replace {
+      type dhcp-devs-ar5710s:mac-address-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:static-binds/dhcp:static-bind/dhcp:description" {
+    deviate replace {
+      type string {
+        length "1..256";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option" {
+    deviate replace {
+      max-elements 235;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-code" {
+    deviate replace {
+      type uint32 {
+        range "2 | 4 | 5 | 7..14 | 16..43 | 45 | 47..49 | 56 | 60 | 62..81 | 83..119 | 122..183 | 185..254";
+      }
+    }
+    deviate add {
+      must '(../ip-addresses or ../ascii-string or ../hex-string or ../cipher-string or ../sub-options)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:ip-format/dhcp:ip-addresses" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:ascii-format/dhcp:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..254";
+        pattern '([A-F0-9][A-F0-9]){1,127}';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option" {
+    deviate replace {
+      max-elements 254;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:sub-option-code" {
+    deviate add {
+      must '(../ip-addresses or ../ascii-string or ../hex-string or ../cipher-string)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-ip-format/dhcp:ip-addresses" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-ascii-format/dhcp:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..253";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..252";
+        pattern '([A-F0-9][A-F0-9]){1,126}';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool/dhcp:select-type/dhcp:interface/dhcp:select-interface/dhcp:option184/dhcp:failover/dhcp:dial-string" {
+    deviate replace {
+      type string {
+        length "1..64";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:option82-formats/dhcp:option82-format/dhcp:option82-format" {
+    deviate replace {
+      type dhcp-devs-ar5710s:option82-format-deviations;
+    }
+    deviate delete {
+      must "(((../sub-option-type != 'circuit-remote') and ((../option82-format = 'self-define'  or ../option82-format = 'user-defined') and ../user-define-text)) or ((../sub-option-type = 'circuit-remote') and (../option82-format = 'type1' or ../option82-format = 'type2' or ../option82-format = 'cn-telecom' or ../option82-format = 'cn-telecom-inherit' or ((../option82-format = 'self-define'  or ../option82-format = 'user-defined') and ../user-define-text))))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:option82-formats/dhcp:option82-format/dhcp:user-define-text" {
+    deviate replace {
+      type string {
+        length "1..255";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:option82-vlan-formats/dhcp:option82-vlan-format" {
+    deviate add {
+      must 'not(./vlan-id=0 and ./cevlan-id=0)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:option82-vlan-formats/dhcp:option82-vlan-format/dhcp:option82-format" {
+    deviate replace {
+      type dhcp-devs-ar5710s:option82-format-deviations;
+    }
+    deviate delete {
+      must "(((../sub-option-type != 'circuit-remote') and (../option82-format = 'self-define' and ../user-define-text)) or ((../sub-option-type = 'circuit-remote') and (../option82-format = 'type1' or ../option82-format = 'type2' or ../option82-format = 'cn-telecom' or (../option82-format = 'self-define' and ../user-define-text))))";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:option82-vlan-formats/dhcp:option82-vlan-format/dhcp:user-define-text" {
+    deviate replace {
+      type string {
+        length "1..255";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:append-vendor-specific" {
+    deviate add {
+      must "(../../ifm:type != 'Tunnel') and (../../ifm:type != 'Vlanif') and (../../ifm:type != 'NULL') and (../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute)";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-if/dhcp:encapsulation/dhcp:suboption" {
+    deviate delete {
+      default "circuit-id remote-id subscriber-id vendor-specific-id";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if" {
+    deviate add {
+      must "(../ifm:type != 'Tunnel') and (../ifm:type != 'NULL') and (not(../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute))";
+    }
+    deviate add {
+      must 'not(./address-allocation and count(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/../ifm:name]/ip:ipv4/ip:addresses/ip:address)>0)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:option60" {
+    deviate replace {
+      type string {
+        length "1..64";
+        pattern '([^\t]{0,})';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:client-id" {
+    deviate replace {
+      type string {
+        length "2..64";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:host-name" {
+    deviate replace {
+      type string {
+        length "1..64";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-client-if/dhcp:vendor-specific/dhcp:sub-option-value" {
+    deviate replace {
+      type string {
+        length "1..128";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:global-formats/dhcp:global-format/dhcp:option82-format" {
+    deviate replace {
+      type dhcp-devs-ar5710s:option82-format-deviations;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:global-formats/dhcp:global-format/dhcp:user-defind-text" {
+    deviate replace {
+      type string {
+        length "1..255";
+      }
+    }
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:global-vlan-formats/dhcp:global-vlan-format" {
+    deviate add {
+      must 'not(./vlan-id=0 and ./cevlan-id=0)';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:global-vlan-formats/dhcp:global-vlan-format/dhcp:option82-format" {
+    deviate replace {
+      type dhcp-devs-ar5710s:option82-format-deviations;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:global-vlan-formats/dhcp:global-vlan-format/dhcp:user-defind-text" {
+    deviate replace {
+      type string {
+        length "1..255";
+      }
+    }
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:vendor-sub-options/dhcp:vendor-sub-option/dhcp:sub-option-format/dhcp:ascii-format/dhcp:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..128";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:vendor-sub-options/dhcp:vendor-sub-option/dhcp:sub-option-format/dhcp:hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..256";
+        pattern '([A-F0-9][A-F0-9]){1,128}';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:vendor-sub-options/dhcp:vendor-sub-option/dhcp:sub-option-format/dhcp:ip-format/dhcp:ip-addresses" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:subscriber-id/dhcp:subscriber-id-format/dhcp:ascii-format/dhcp:ascii-text" {
+    deviate replace {
+      type string {
+        length "1..128";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:common/dhcp:option82/dhcp:subscriber-id/dhcp:subscriber-id-format/dhcp:hex-format/dhcp:hex-text" {
+    deviate replace {
+      type string {
+        length "2..256";
+        pattern '([A-F0-9][A-F0-9]){1,128}';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:global/dhcp:set-ttl-type" {
+    deviate add {
+      must "(../set-ttl-type='ttl' and ../ttl-value) or (../set-ttl-type!='ttl')";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:server-group-name" {
+    deviate replace {
+      type string {
+        length "1..32";
+        pattern '([a-zA-Z0-9._-]{3,32})|([a-zA-Z0-9._]-)|(-[a-zA-Z0-9._])|([a-zA-Z0-9._]{1,2})';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:vpn-name" {
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:server-addresses/dhcp:server-address" {
+    deviate add {
+      unique "server-index";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:relay/dhcp:server-groups/dhcp:server-group/dhcp:server-addresses/dhcp:server-address/dhcp:server-index" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:bootp-enable" {
+    deviate replace {
+      default "true";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:bootp-auto-enable" {
+    deviate replace {
+      default "true";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:common/dhcp:write-delay-interval" {
+    deviate replace {
+      default "3600";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-name" {
+    deviate replace {
+      type string {
+        length "1..64";
+        pattern '([a-z0-9._-]{3,64})|([a-z0-9._]-)|(-[a-z0-9._])|([a-z0-9._]{1,2})';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:domain-name" {
+    deviate replace {
+      type string {
+        length "1..63";
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:lease-time" {
+    deviate delete {
+      must '(day=0 and hour=0 and minute=0) or (not (../rebind-time/day)) or (day>../rebind-time/day) or (day=../rebind-time/day and hour>../rebind-time/hour) or (day=../rebind-time/day and hour=../rebind-time/hour and minute>../rebind-time/minute)';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:lease-time/dhcp:day" {
+    deviate replace {
+      default "1";
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option184/dhcp:failover-ip" {
+    deviate add {
+      must '../dial-string';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:option184/dhcp:dial-string" {
+    deviate replace {
+      type string {
+        length "1..64";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:sections/dhcp:section" {
+    deviate delete {
+      must '(../../gateway and ../section)';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:sections/dhcp:section/dhcp:end-ip" {
+    deviate replace {
+      mandatory false;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:excluded-ip-addresses" {
+    deviate add {
+      must '(../network-ipv4-address and ../network-mask) or ../sections';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:static-binds" {
+    deviate add {
+      must '(../network-ipv4-address and ../network-mask) or ../sections';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:static-binds/dhcp:static-bind/dhcp:static-bind-mac" {
+    deviate replace {
+      type dhcp-devs-ar5710s:mac-address-deviations;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option" {
+    deviate replace {
+      max-elements 235;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-code" {
+    deviate replace {
+      type uint32 {
+        range "2 | 4 | 5 | 7..14 | 16..43 | 45 | 47..49 | 56 | 60 | 62..81 | 83..119 | 122..183 | 185..254";
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:ip-format/dhcp:ip-addresses" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:ascii-format/dhcp:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..255";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..254";
+        pattern '([A-F0-9][A-F0-9]){1,127}';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:cipher-format/dhcp:cipher-string" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..432";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option" {
+    deviate replace {
+      max-elements 254;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-ip-format/dhcp:ip-addresses" {
+    deviate replace {
+      type inet:ipv4-address;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-ascii-format/dhcp:ascii-string" {
+    deviate replace {
+      type string {
+        length "1..253";
+        pattern '[^?]+';
+        pattern '[ -~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..252";
+        pattern '([A-F0-9][A-F0-9]){1,126}';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-cipher-format/dhcp:cipher-string" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..432";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:alarm-ip-used/dhcp:alarm-percent" {
+    deviate add {
+      must '../alarm-percent>=../resum-percent';
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:name" {
+    deviate replace {
+      type string {
+        length "1..31";
+        pattern '([a-zA-Z0-9._-]{3,31})|([a-zA-Z0-9._]-)|(-[a-zA-Z0-9._])|([a-zA-Z0-9._]{1,2})';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option" {
+    deviate replace {
+      max-elements 254;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-code" {
+    deviate replace {
+      type uint32 {
+        range "2 | 4 | 5 | 7..14 | 16..43 | 45 | 47..49 | 56 | 60 | 62..81 | 83..119 | 122..183 | 185..254";
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-format/dhcp:hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..254";
+        pattern '([A-F0-9][A-F0-9]){1,127}';
+      }
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option" {
+    deviate replace {
+      max-elements 254;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/dhcp:dhcp/dhcp:server/dhcp:option-templates/dhcp:option-template/dhcp:options/dhcp:option/dhcp:option-format/dhcp:sub-options-format/dhcp:sub-options/dhcp:sub-option/dhcp:option-format/dhcp:sub-hex-format/dhcp:hex-string" {
+    deviate replace {
+      type string {
+        length "2..252";
+        pattern '([A-F0-9][A-F0-9]){1,126}';
+      }
+    }
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/dhcp:dhcp-vlan/dhcp:encapsulation/dhcp:suboption" {
+    deviate delete {
+      default "circuit-id remote-id subscriber-id vendor-specific-id";
+    }
+  }
+  ext:deviation-ext "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:dhcp-relay-attribute/dhcp:enable" {
+    ext:deviate-ext "add" {
+      ext:support-filter "true";
+    }
+  }
+  ext:deviation-ext "/ifm:ifm/ifm:interfaces/ifm:interface/dhcp:interface-ip-pool" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+}

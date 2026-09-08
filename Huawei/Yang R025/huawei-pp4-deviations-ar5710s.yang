@@ -1,0 +1,90 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pp4-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-pp4-deviations-ar5710s";
+  prefix pp4-devs-ar5710s;
+
+  import huawei-pp4 {
+    prefix pp4;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-mpls {
+    prefix mpls;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pp4 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef app-proto-type-deviations {
+    type enumeration {
+      enum default {
+        value 0;
+        description
+          "Default protocol.";
+      }
+    }
+    description
+      "Application protocol type.";
+  }
+
+  deviation "/pp4:pp4/pp4:global/pp4:blacklist-flag" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:global/pp4:te-pkt-ctrl-switch" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:global/pp4:udp-helper-switch" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:pkt-fast-reply-ctrl" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:pkt-fast-reply-snd" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:slot-ip-packet-rate-limits" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:host-proto-types" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:udp-helper-ports" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:udp-helper-info" {
+    deviate not-supported;
+  }
+  deviation "/pp4:reset-udp-helper-stats" {
+    deviate not-supported;
+  }
+  deviation "/mpls:mpls/mpls:common/mpls:global/pp4:ttl-expiration-pop" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/pp4:if-udp-helper-servers" {
+    deviate not-supported;
+  }
+  deviation "/pp4:pp4/pp4:ip-dscps/pp4:ip-dscp/pp4:proto-type" {
+    deviate replace {
+      type pp4-devs-ar5710s:app-proto-type-deviations;
+    }
+  }
+}

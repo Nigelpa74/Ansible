@@ -1,0 +1,336 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+module: huawei-fwd-session
+*/
+
+module huawei-fwd-session {
+
+  namespace "urn:huawei:yang:huawei-fwd-session";
+  prefix fwd-session;
+
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     forward session implementations.";
+
+  revision 2025-05-23 {
+    description
+      "Add IPv6 session white list container.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-04-28 {
+    description
+      "Change session whitelist.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-03-21 {
+    description
+      "Add hardware session filter.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-02-07 {
+    description
+      "Add session link-state check.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2025-01-17 {
+    description
+      "Add session backup limit enable.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-10-10 {
+    description
+      "Add IPv6 session usages.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-09-24 {
+    description
+      "Add session limit.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-08-21 {
+    description
+      "Add session create rate limit.";
+    reference
+      "Huawei private.";
+  }
+    
+  revision 2024-07-17 {
+    description
+      "Add session topn traffic statistics.";
+    reference
+      "Huawei private.";
+  }
+    
+  revision 2024-06-27 {
+    description
+      "Add session linkstate exclude vpn container.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-02-07 {
+    description
+      "Add session white list container.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-03-28 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "forwarding";
+
+    typedef session-limit-type {
+        type enumeration {
+            enum per-source-ip {
+                value 0;
+                description "Limits the number of sessions based on users' source IP addresses.";
+            }
+            enum per-destination-ip {
+                value 1;
+                description "Limits the number of sessions based on users' destination IP addresses.";
+            }
+            enum per-source-port {
+                value 2;
+                description "Limits the number of sessions based on users' source port numbers.";
+            }
+            enum per-destination-port {
+                value 3;
+                description "Limits the number of sessions based on users' destination port numbers.";
+            }
+        }
+        description "Session limit type.";
+    }
+
+  container fwd-session {
+    description "Forward session.";
+
+    container fwd-session-usages {
+        config false;
+        description "List of forward session usages.";
+        list fwd-session-usage {
+            key "slot-id";
+            description "Statistics of forward session.";
+            leaf slot-id {
+                type string {
+                    length "1..32";
+                }
+                description "Specify the slot ID.";
+            }
+            leaf fwd-session-limit {
+                type uint32;
+                description "Get forward session limit.";
+            }
+            leaf fwd-session-number {
+                type uint32;
+                description "Get forward session number.";
+            }
+            leaf fwd-ipv6-session-limit {
+                type uint32;
+                description "Get forward IPv6 session limit.";
+            }
+            leaf fwd-ipv6-session-number {
+                type uint32;
+                description "Get forward IPv6 session number.";
+            }
+        }
+    }
+    container session-whitelist {
+        must "(not (./acl)) or (./spr = 'true' or ./sac = 'true' or ./security-policy = 'true' or ./tcpfpm = 'true')";
+        description "Configure Session whitelist information.";
+        leaf acl {
+            type leafref {
+                path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            description
+                "Specify an ACL number or name.";
+        }
+
+        leaf spr {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Smart Policy Route.";
+        }
+
+        leaf sac {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Service Awareness.";
+        }
+
+        leaf security-policy {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Security policy.";
+        }
+
+        leaf tcpfpm {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable TCP FPM.";
+        }
+    }
+    container session-linkstate-exclude-vpn {
+        description "Configure the device not to check session states of the VPN.";
+        leaf-list vpn-name {
+            type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+                "Specify the VPN instance name.";
+        }
+    }
+    container session-create-rate-limit {
+        description "Configure the max creation rate of session.";
+        leaf rate-limit {
+            type uint32 {
+                range "1..500000";
+            }
+            description "Specify the max creation rate of session.";
+        }
+    }
+    container session-limit {
+        must "./limit-number and ./limit-type";
+        description "Configure the maximum number of sessions available for users.";
+        leaf limit-number {
+            type uint32 {
+                range "1..65535";
+            }
+            description "Specifies the maximum number of sessions that can be used by a user.";
+        }
+
+        leaf limit-type {
+            type session-limit-type;
+            description "Session limit type.";
+        }
+
+        leaf acl {
+            when "../limit-number and ../limit-type";
+            type leafref {
+                path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            description
+                "Specify an ACL number or name.";
+        }
+        leaf dual-gateway-backup-enable {
+            type boolean;
+            default "false";
+            description "Enable/disable a device to limit the number of available user sessions backed up by dual gateways.";
+        }
+    }
+    container session-link-state-check {
+        description "Configure the device to check session link state.";
+        leaf tcp-enable {
+            type boolean;
+            default "false";
+            description "Enable/disable the device to check TCP link state.";
+        }
+        leaf icmp-enable {
+            type boolean;
+            default "false";
+            description "Enable/disable the device to check ICMP link state.";
+        }
+    }
+    container hardware-session-filter {
+        description "Configure hardware session filter.";
+        leaf acl {
+            type leafref {
+                path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            description "Specify an ACL number or name.";
+        }
+    }
+    container ipv6-session-whitelist {
+        must "./spr = 'true' or ./sac = 'true' or ./security-policy = 'true'";
+        presence "create ipv6-session-whitelist";
+        description "Configure IPv6 Session whitelist information.";
+        leaf acl {
+            type leafref {
+                path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+            }
+            mandatory true;
+            description
+                "Specify an ACL number or name.";
+        }
+
+        leaf spr {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Smart Policy Route.";
+        }
+
+        leaf sac {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Service Awareness.";
+        }
+
+        leaf security-policy {
+            when "../acl";
+            type boolean;
+            default "false";
+            description "Enable/disable Security policy.";
+        }
+    }
+  }
+  rpc session-topn-traffic-statistics {
+    description "Config the session topn traffic statistics function.";
+    input  {
+      leaf enable {
+        type boolean;
+        description "Enable/disable the statistics.";
+      }
+      leaf timeout {
+        type uint32 {
+          range "60..86400";
+        }
+        units "s";
+        default "300";
+        description "Specify the timeout value of the statistics.";
+      }
+    }
+  }
+}

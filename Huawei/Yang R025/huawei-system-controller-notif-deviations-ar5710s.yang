@@ -1,0 +1,33 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-controller-notif-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-system-controller-notif-deviations-ar5710s";
+  prefix controller-notif-devs-ar5710s;
+
+  import huawei-system-controller-notif {
+    prefix controller-notif;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-system-controller-notif module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/controller-notif:pnp-uplink-change" {
+    deviate not-supported;
+  }
+}

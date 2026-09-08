@@ -1,0 +1,94 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-radio-calibrate-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-radio-calibrate-deviations-ar5710s";
+  prefix hw-radio-clbt-devs-ar5710s;
+
+  import huawei-wlan-radio-calibrate {
+    prefix hw-radio-clbt;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-radio-calibrate module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:dynamic-cca" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:edge-sta" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:calibrate/hw-radio-clbt:calibrate-policy/hw-radio-clbt:rogue-ap" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:calibrate/hw-radio-clbt:flexible-radio" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:calibrate/hw-radio-clbt:self-calibrate" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:calibrate/hw-radio-clbt:reference-data-analysis" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:anti-interference" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:spctrun-src" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:cloudrrm-request" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:calibrate-result" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:wlan-radio-calibrate/hw-radio-clbt:radio-config" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:triger-flexible-radio" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:spectrum-report-add" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:spectrum-report-delete" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:radio-environment" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-radio-load-info" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-edge-ap-info" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-interference-pair-info" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-calibrate-ap-info" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-topology-calibrate-flag" {
+    deviate not-supported;
+  }
+  deviation "/hw-radio-clbt:send-topology-calibrate-result" {
+    deviate not-supported;
+  }
+}

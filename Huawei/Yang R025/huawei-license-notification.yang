@@ -1,0 +1,318 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-license-notification {
+  namespace "urn:huawei:yang:huawei-license-notification";
+  prefix license-notification;
+
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of license.";
+  revision 2025-06-09 {
+    description
+      "Add license-resource-overused, license-resource-overused-resume, license-feature-function-inactive, license-feature-function-inactive-cleared.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-31 {
+    description
+      "Add license-resource-used-up, license-resource-used-up-cleared.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-01 {
+    description
+      "Add license-near-deadline, license-near-deadline-cleared, cloud-license-near-deadline, cloud-license-near-deadline-cleared, license-default-value, license-default-value-cleared.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-18 {
+    description
+      "Modify the contents of license-data-damaged, license-data-damaged-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-10 {
+    description
+      "Add license-data-damaged, license-data-damaged-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-20 {
+    description
+      "Add cloud-server-offline, cloud-server-offline-resume, cloud-server-offline-locked and cloud-server-offline-locked-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-10-18 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "license";
+  notification license-state-changed {
+    description
+      "The license status changed.";
+    leaf previous-state {
+      type string {
+        length "1..16";
+      }
+      description
+        "Original license status.";
+    }
+    leaf state {
+      type string {
+        length "1..16";
+      }
+      description
+        "Target license status.";
+    }
+  }
+  notification cloud-server-offline {
+    description
+      "The device is disconnected from the cloud license local server.";
+    leaf remaining-days {
+      type uint32 {
+        range "1..60";
+      }
+      description
+        "Remaining days of device offline locking.";
+    }
+  }
+  notification cloud-server-offline-resume {
+    description
+      "The connection between the device and the cloud license local server is restored.";
+  }
+  notification cloud-server-offline-locked {
+    description
+      "The device is locked because it has been disconnected from the cloud license local server for more than 60 days.";
+  }
+  notification cloud-server-offline-locked-resume {
+    description
+      "The device is unlocked because the connection between the device and the cloud license local server is restored.";
+  }
+  notification license-data-damaged {
+    description
+      "The license fails to be activated during system startup because the license data is damaged.";
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+  }
+  notification license-data-damaged-resume {
+    description
+      "The license data damage alarm has been cleared.";
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+  }
+  notification license-near-deadline {
+    description
+      "The license file is about to expire.";
+    leaf feature-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Feature name of the license feature.";
+    }
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days of the license deadline.";
+    }
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+  }
+  notification license-near-deadline-cleared {
+    description
+      "The license file to be expired alarm has been cleared.";
+    leaf feature-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Feature name of the license feature.";
+    }
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days of the license deadline.";
+    }
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+  }
+  notification cloud-license-near-deadline {
+    description
+      "The cloud-based license is about to expire.";
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days of the cloud license deadline.";
+    }
+  }
+  notification cloud-license-near-deadline-cleared {
+    description
+      "The cloud-based license to be expired alarm has been cleared.";
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days of the cloud license deadline.";
+    }
+  }
+  notification license-default-value {
+    description
+      "The license file has expired.";
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+    leaf reason {
+      type string {
+        length "1..63";
+      }
+      description
+        "Reason of expired license.";
+    }
+  }
+  notification license-default-value-cleared {
+    description
+      "The license file expired alarm has been cleared.";
+    leaf position {
+      type string {
+        length "1..31";
+      }
+      description
+        "Location of the license data.";
+    }
+    leaf reason {
+      type string {
+        length "1..63";
+      }
+      description
+        "Reason of expired license alarm cleared.";
+    }
+  }
+  notification license-feature-function-inactive {
+    description
+      "The control item is not activated.";
+    leaf item-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "License item name.";
+    }
+    leaf feature-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Feature name.";
+    }
+  }
+  notification license-feature-function-inactive-cleared {
+    description
+      "The control item is not activated alarm is cleared.";
+    leaf item-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "License item name.";
+    }
+    leaf feature-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Feature name.";
+    }
+  }
+  notification license-resource-used-up {
+    description
+      "Resource item is nearly used up.";
+    leaf resource-item {
+      type string {
+        length "1..31";
+      }
+      description
+        "Resource item name.";
+    }
+    leaf item-description {
+      type string {
+        length "1..255";
+      }
+      description
+        "Resource item description.";
+    }
+  }
+  notification license-resource-used-up-cleared {
+    description
+      "The alarm indicating that resources item are nearly exhausted was cleared.";
+    leaf resource-item {
+      type string {
+        length "1..31";
+      }
+      description
+        "Resource item name.";
+    }
+    leaf item-description {
+      type string {
+        length "1..255";
+      }
+      description
+        "Resource item description.";
+    }
+  }
+  notification license-resource-overused {
+    description
+      "The license resource on the device have been overused.";
+    leaf running-days {
+      type uint32;
+      description
+        "Running days before overused resource expires.";
+    }
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days before overused resource expires.";
+    }
+  }
+  notification license-resource-overused-resume {
+    description
+      "The license resource overuse alarm has been cleared.";
+  }
+}

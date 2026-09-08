@@ -1,0 +1,256 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mirror-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mirror-deviations-ar5710s";
+  prefix mirror-devs-ar5710s;
+
+  import huawei-mirror {
+    prefix mirror;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mirror module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef direction-type-deviations {
+    type enumeration {
+      enum inbound {
+        value 0;
+        description
+          "Inbound.";
+      }
+      enum outbound {
+        value 1;
+        description
+          "Outbound.";
+      }
+    }
+    description
+      "Direction.";
+  }
+
+  deviation "/mirror:mirror/mirror:statistic-enable" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:instances" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:observe-user-define-acls" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:query-ports" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:vlan-id" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:enhance-mode" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:erspan-type" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:cir" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:cir-unit" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:length" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:ecmp-enable" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:non-truncate" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observe-groups" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:observe-packet-length" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:query-traffic-policy-ports" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/mirror:mirror" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/mirror:mirror" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:global-config/mirror:mirror" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-enable" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-slice" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:without-header" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-car" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-to" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-to-observe/mirror:observe-parameters/mirror:observe-group" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-mirrors" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-mirror-slice" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:without-header" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-mirror-car" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-mirror-to" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:mirror-by-directions" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:mirror-to-multis" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:mirror-to-null0" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-fragments" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:integrateds" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:bas-port-mirrors" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:evc-l2-port-mirrors" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:port-observe" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:observe-groups" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mirror:mirror" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mirror:mirror" {
+    deviate not-supported;
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:observe-index" {
+    deviate replace {
+      type uint8 {
+        range "1";
+      }
+    }
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:interface-name" {
+    deviate add {
+      must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '800GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '400GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '200GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '100GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '40GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '25GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '10GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'MultiGE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GEBrief' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '3x40GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '4x25GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '10x10GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '4x10GE') and (/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:class = 'main-interface')";
+    }
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:dst-ip" {
+    deviate add {
+      must '../src-ip';
+    }
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:src-ip" {
+    deviate add {
+      must '../dst-ip';
+    }
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:dscp" {
+    deviate add {
+      must '../src-ip and ../dst-ip';
+    }
+  }
+  deviation "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:erspan-id" {
+    deviate add {
+      must '../src-ip and ../dst-ip';
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-to-observe/mirror:observe-parameters/mirror:observe-port/mirror:port-indexs/mirror:port-index" {
+    deviate replace {
+      max-elements 1;
+    }
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/mirror:mirror/mirror:mirror-to-observe/mirror:observe-parameters/mirror:observe-port/mirror:port-indexs/mirror:port-index/mirror:index" {
+    deviate replace {
+      type leafref {
+        path "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:observe-index";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:observe-ports/mirror:observe-port/mirror:observe-index" {
+    deviate replace {
+      type leafref {
+        path "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:observe-index";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/mirror:mirror/mirror:observe-ports/mirror:observe-port/mirror:direction" {
+    deviate replace {
+      type mirror-devs-ar5710s:direction-type-deviations;
+    }
+  }
+  ext:deviation-ext "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:interface-name" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+  ext:deviation-ext "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:dst-ip" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+  ext:deviation-ext "/mirror:mirror/mirror:global-observers/mirror:global-observer/mirror:src-ip" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete";
+    }
+  }
+}

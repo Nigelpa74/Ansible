@@ -1,0 +1,157 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-notification-deviations-ar5710s";
+  prefix hw-wapntf-devs-ar5710s;
+
+  import huawei-wlan-ap-notification {
+    prefix hw-wapntf;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ap-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wapntf:ap-power-insuff/hw-wapntf:impact" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-power-insuff-restore/hw-wapntf:impact" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-sac-session-overload" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-sac-session-overload-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-cold-boot" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-cold-boot-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-hot-boot" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-hot-boot-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ble-faulty" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ble-faulty-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-gnss-faulty" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-gnss-faulty-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-softgre-down" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-softgre-down-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ca-certificate-invalid" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ca-certificate-invalid-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ca-certificate-nearly-expired" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ca-certificate-nearly-expired-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-local-certificate-invalid" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-local-certificate-invalid-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-local-certificate-nearly-expired" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-local-certificate-nearly-expired-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crl-invalid" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crl-invalid-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crl-nearly-expired" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crl-nearly-expired-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-stp-auto-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-stp-auto-shutdown-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ipfpm-flow-overload" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-ipfpm-flow-overload-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crc-too-high" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-crc-too-high-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-detected-camera" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-detected-camera-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:tunnel-ap-fault" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:tunnel-ap-fault-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:tunnel-ap-online-fail" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:tunnel-ap-online-fail-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-camera-detection-not-available" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-camera-detection-not-available-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-port-traffic-limited" {
+    deviate not-supported;
+  }
+  deviation "/hw-wapntf:ap-port-traffic-limited-restore" {
+    deviate not-supported;
+  }
+}

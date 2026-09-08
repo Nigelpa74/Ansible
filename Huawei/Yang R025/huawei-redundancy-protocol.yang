@@ -1,0 +1,724 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-redundancy-protocol {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-redundancy-protocol";
+  prefix hrp;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-vlan {
+    prefix hw-vlan;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Huawei Redundancy Protocol (HRP) is a technology that improves network reliability by using two devices to jointly undertake business traffic.";
+  revision 2025-09-12 {
+    description
+      "Modify the must constraints.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-15 {
+    description
+      "Modify the adjustment of bgp cost from fixed-cost to add-cost.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-31 {
+    description
+      "Add cost adjustment nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-27 {
+    description
+      "Add node associations and restrict input conditions.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-04 {
+    description
+      "Clarified that the redundancy-protocol container cannot be created or deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-03 {
+    description
+      "Clarified that the default value of the is-heartbeat-only leaf is false.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-25 {
+    description
+      "Add bridge-domain track nodes into redundancy-protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-25 {
+    description
+      "Add dynamic bfd-session track nodes into redundancy-protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-09 {
+    description
+      "Modify the password type of authentication-key.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-11 {
+    description
+      "Modify the minimum value of hello-timer.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-09 {
+    description
+      "Add preempt-enable leaf and track-bfd-session leaf-list into redundancy-protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-01 {
+    description
+      "Add authentication-key leaf into redundancy-protocol.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-27 {
+    description
+      "Add active-standby into work-mode-type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-22 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+  typedef role-type {
+    type enumeration {
+      enum "initialize" {
+        value 0;
+        description
+          "NA state.";
+      }
+      enum "active" {
+        value 1;
+        description
+          "Active state.";
+      }
+      enum "standby" {
+        value 2;
+        description
+          "Standby state.";
+      }
+      enum "loadbalance" {
+        value 3;
+        description
+          "AA state.";
+      }
+    }
+    description
+      "HRP role state.";
+  }
+
+  typedef heart-if-state-type {
+    type enumeration {
+      enum "running" {
+        value 0;
+        description
+          "The state of heartbeat interface is running.";
+      }
+      enum "ready" {
+        value 1;
+        description
+          "The state of heartbeat interface is ready.";
+      }
+      enum "negotiation-failed" {
+        value 2;
+        description
+          "The state of heartbeat interface is negotiation-failed.";
+      }
+      enum "down" {
+        value 3;
+        description
+          "The state of heartbeat interface is down.";
+      }
+      enum "invalid" {
+        value 4;
+        description
+          "The state of heartbeat interface is invalid.";
+      }
+    }
+    description
+      "HRP heart-interface state.";
+  }
+
+  typedef work-mode-type {
+    type enumeration {
+      enum "standby-active" {
+        value 0;
+        description
+          "The specified work mode that using 'hrp device standby'.";
+      }
+      enum "active-active" {
+        value 1;
+        description
+          "The default work mode.";
+      }
+      enum "active-standby" {
+        value 2;
+        description
+          "The specified work mode that using 'hrp device active'.";
+      }
+    }
+    description
+      "HRP work mode.";
+  }
+
+  typedef switch-mode {
+    type enumeration {
+      enum "switch-active" {
+        value 0;
+        description
+          "The manual switch is active mode.";
+      }
+      enum "switch-standby" {
+        value 1;
+        description
+          "The manual switch is standby mode.";
+      }
+      enum "switch-auto" {
+        value 2;
+        description
+          "The manual switch is auto selected mode.";
+      }
+    }
+    description
+      "Switch HRP state manually.";
+  }
+
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+  grouping state-change-event {
+    description
+      "HRP state information.";
+    leaf time {
+      type yang:date-and-time;
+      description
+        "The current date&time.";
+    }
+
+    leaf local-status {
+      type role-type;
+      description
+        "The local state: active/standby/loadbalance.";
+    }
+
+    leaf peer-status {
+      type role-type;
+      description
+        "The peer state: active/standby/loadbalance.";
+    }
+
+    leaf heartbeat-status {
+      type heart-if-state-type;
+      description
+        "The current heart-interface state.";
+    }
+
+    leaf is-config-master {
+      type boolean;
+      description
+        "The config state is master.";
+    }
+
+    leaf local-esn {
+      type string {
+        length "1..256";
+      }
+      description
+        "The master device's esn.";
+    }
+
+    leaf peer-esn {
+      type string {
+        length "1..256";
+      }
+      description
+        "The peer device's esn.";
+    }
+  }
+
+  /*****************************************************************
+  * data
+  *****************************************************************/
+  ext:task-name "hrp";
+  container redundancy-protocol {
+    ext:operation-exclude create|delete;
+    description
+      "Hrp enable configuration.";
+    leaf enable {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable HRP function.";
+    }
+
+    leaf authentication-key {
+      type pub-type:password-extend {
+        length "8..16 | 128";
+      }
+      description
+        "The authentication key for packets transmitted between the heartbeat interfaces of the active and standby devices. The number of characters in the password must be between 8 and 16 or 128.";
+    }
+
+    leaf preempt-enable {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable HRP preempt function.";
+    }
+
+    leaf preempt-delay {
+      type uint16 {
+        range "0..1800";
+      }
+      units s;
+      default "60";
+      description
+        "The delay value for HRP preempt.";
+    }
+
+    leaf hello-timer {
+      type uint16 {
+        range "100..60000";
+      }
+      units ms;
+      default "1000";
+      description
+        "The timer of HRP hello packet.";
+    }
+
+    leaf session-fast-backup {
+      type boolean;
+      default false;
+      description
+        "Enable/disable session fast backup function.";
+    }
+
+    leaf work-mode {
+      ext:dynamic-default;
+      type work-mode-type;
+      description
+        "The device's work mode.";
+    }
+
+    leaf standby-config-enable {
+      type boolean;
+      default false;
+      description
+        "Enable/disable the function of inputting configuration commands on the standby device.";
+    }
+
+    leaf configuration-sync-enable {
+      type boolean;
+      default true;
+      description
+        "Enable/disable the function of configuration synchronization.";
+    }
+
+    leaf data-sync-enable {
+      type boolean;
+      default true;
+      description
+        "Enable/disable the function of data synchronization.";
+    }
+
+    container mirror {
+      description
+        "Configure mirror mode.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable mirror config mode.";
+      }
+
+      leaf-list interface {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        must "not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Virtual-if')";
+        description
+          "Configure the management interface.";
+      }
+    }
+
+    container heartbeat-interfaces {
+      description
+        "List of the heartbeat interface.";
+      list heartbeat-interface {
+        key "interface";
+        description
+          "Configure HRP heartbeat interface.";
+
+        leaf interface {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GigabitEthernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GEBrief' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'MultiGE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'XGigabitEthernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '10GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '25GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '40GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '100GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '400GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Eth-Trunk' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Pos' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Ip-Trunk' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Vlanif'";
+          description
+            "Interface name.";
+        }
+
+        leaf remote-ip {
+          type inet:ip-address;
+          mandatory true;
+          description
+            "The heart interface IP address of peer device.";
+        }
+
+        leaf is-heartbeat-only {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the heartbeat only function on the heartbeat interface. By default, this parameter is not selected. If this parameter is set, the heart interface just transfer negotiation packets.";
+        }
+      }
+    }
+
+    leaf-list track-interface {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+      description
+        "Configure the interface list tracked by HRP.";
+    }
+
+    leaf-list track-bfd-session {
+      type uint16 {
+        range "1..16384";
+      }
+      description
+        "Configure the bfd-session list tracked by HRP. The specified bfd-session must be created first.";
+    }
+
+    leaf-list track-vlan {
+      type leafref {
+        path "/hw-vlan:vlan/hw-vlan:vlans/hw-vlan:vlan/hw-vlan:id";
+      }
+      description
+        "Configure the VLAN list tracked by HRP.";
+    }
+
+    leaf-list track-bridge-domain {
+      type uint16 {
+        range "1..4094";
+      }
+      description
+        "Configure the bridge-domain list tracked by HRP. The specified bridge-domain must be created first.";
+    }
+
+    leaf-list track-healthcheck {
+      type string {
+        length "1..31";
+        pattern '([^\s?]+[\s]*[^?]*[^\s?]+|[^\s?]*)';
+      }
+      description
+        "Configure the healthcheck list tracked by HRP.";
+    }
+
+    container track-dynamic-bfd-sessions {
+      description
+        "Configure the dynamic bfd-sessions tracked by HRP.";
+      container interfaces {
+        description
+          "List of dynamic bfd-session tracked by HRP through interfaces.";
+        list interface {
+          key "interface";
+          description
+            "Configure the dynamic bfd-session tracked by HRP through the interface.";
+          leaf interface {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GigabitEthernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GEBrief' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'MultiGE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'XGigabitEthernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '10GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '25GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '40GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '100GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = '400GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Eth-Trunk' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'Vlanif'";
+            description
+              "Specify the interface of the dynamic bfd-session.";
+          }
+
+          leaf least-up-session {
+            type uint16 {
+              range "1..32";
+            }
+            default 1;
+            description
+              "Specify the minimum number of up sessions.";
+          }
+        }
+      }
+      container peers {
+        description
+          "List of dynamic bfd-session tracked by HRP through peer IP address.";
+        list peer {
+          key "peer-ip vpn-instance";
+          description
+            "Configure the dynamic bfd-session tracked by HRP through peer IP address.";
+          leaf peer-ip {
+            type inet:ip-address;
+            description
+              "Specify the peer IP address of the dynamic bfd-session.";
+          }
+
+          leaf vpn-instance {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+              "Specify the vpn-instance of the dynamic bfd-session.";
+          }
+
+          leaf least-up-session {
+            type uint16 {
+              range "1..32";
+            }
+            default 1;
+            description
+              "Specify the minimum number of up sessions.";
+          }
+        }
+      }
+    }
+
+    container cost-adjust {
+      description
+        "Configure the adjustment of OSPF/BGP cost for standby device.";
+      container bgp {
+        description
+          "Configure the adjustment of BGP cost.";
+        leaf enable {
+          type boolean;
+          default true;
+          description
+            "Enable/disable the adjustment of BGP cost.";
+        }
+        leaf add-cost {
+          when "../enable = 'true'";
+          type uint32 {
+            range "1..65535";
+          }
+          default "100";
+          description
+            "Specify the increased cost of BGP.";
+        }
+      }
+      container ospf {
+        description
+          "Configure the adjustment of OSPF cost.";
+        leaf enable {
+          type boolean;
+          default true;
+          description
+            "Enable/disable the adjustment of OSPF cost.";
+        }
+        choice adjust-type {
+          when "enable = 'true'";
+          default fixed-cost;
+          description
+            "Specify the adjustment cost of OSPF.";
+          case fixed-cost {
+            description
+              "Specify the fixed adjustment cost of OSPF.";
+            leaf fixed-cost {
+              type uint32 {
+                range "1..65535";
+              }
+              default "65500";
+              description
+                "Specify the fixed adjustment cost of OSPF.";
+            }
+          }
+          case add-cost {
+            description
+              "Specify the increased cost of OSPF.";
+            leaf add-cost {
+              type uint32 {
+                range "1..65535";
+              }
+              default "100";
+              description
+                "Specify the increased cost of OSPF.";
+            }
+          }
+        }
+      }
+      container ospfv3 {
+        description
+          "Configure the adjustment of OSPFv3 cost.";
+        leaf enable {
+          type boolean;
+          default true;
+          description
+            "Enable/disable the adjustment of OSPFv3 cost.";
+        }
+        leaf fixed-cost {
+          when "../enable = 'true'";
+          type uint32 {
+            range "1..65535";
+          }
+          default "65500";
+          description
+            "Specify the fixed adjustment cost of OSPFv3.";
+        }
+      }
+    }
+
+    container state {
+      config false;
+      description
+        "Operational state of HRP role.";
+
+      leaf local-status {
+        type role-type;
+        description
+          "Local state: active/standby/loadbalance.";
+      }
+
+      leaf peer-status {
+        type role-type;
+        description
+          "Peer state: active/standby/loadbalance.";
+      }
+
+      leaf heartbeat-status {
+        type heart-if-state-type;
+        description
+          "The heart-interface state.";
+      }
+
+      leaf is-config-master {
+        type boolean;
+        description
+          "The config role is master.";
+      }
+
+      container switch-infos {
+        description
+          "List of hrp switch information.";
+        list switch-info {
+          key "id";
+          config false;
+          description
+            "Statistics of switch information in history.";
+
+          leaf id {
+            type uint8;
+            description
+              "Sequence.";
+          }
+
+          leaf time {
+            type yang:date-and-time;
+            description
+              "Switch time. for example: 2015-4-29 14:54:54.";
+          }
+
+          leaf description {
+            type string {
+              length "1..256";
+            }
+            description
+              "Switch information. for example:Backup state change to init state.";
+          }
+
+          leaf reason {
+            type string {
+              length "1..256";
+            }
+            description
+              "Switch reason. for example:HRP is disabled.";
+          }
+        }
+      }
+
+      leaf local-esn {
+        type string {
+          length "1..256";
+        }
+        description
+          "The master device's esn.";
+      }
+
+      leaf peer-esn {
+        type string {
+          length "1..256";
+        }
+        description
+          "The peer device's esn.";
+      }
+    }
+  }
+
+  rpc batch-sync-config {
+    description
+      "Batch the configuration to peer device.";
+
+    output {
+      leaf result {
+        type string {
+          length "1..256";
+        }
+        mandatory true;
+        description
+          "The result of batch sync.";
+      }
+    }
+  }
+
+  rpc manual-switch {
+    description
+      "Switch HRP state manually.";
+
+    input {
+      leaf type {
+        type switch-mode;
+        mandatory true;
+        description
+          "The switch choice: active/standby/switch-auto.";
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+/*
+Copyright (C) 2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-license-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-license-notification-deviations-ar5710s";
+  prefix license-notification-devs-ar5710s;
+
+  import huawei-license-notification {
+    prefix license-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-license-notification module.";
+
+  revision 2023-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/license-notification:cloud-server-offline" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:cloud-server-offline-resume" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:cloud-server-offline-locked" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:cloud-server-offline-locked-resume" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:license-resource-used-up" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:license-resource-used-up-cleared" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:license-resource-overused" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:license-resource-overused-resume" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:cloud-license-near-deadline" {
+    deviate not-supported;
+  }
+  deviation "/license-notification:cloud-license-near-deadline-cleared" {
+    deviate not-supported;
+  }
+}

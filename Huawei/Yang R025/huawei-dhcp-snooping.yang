@@ -1,0 +1,472 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-dhcp-snooping {
+  belongs-to huawei-dhcp {
+    prefix dhcp;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing DHCP snooping.";
+  revision 2024-07-30 {
+    description
+      "Modify snooping/global/rate-limit range to 5000.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add deny-dhcp-enable nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-14 {
+    description
+      "Add dynamic bind table node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-25 {
+    description
+      "Add recover snooping user-bind table node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-12-24 {
+    description
+      "Modify snooping dynamic bind table node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-12-23 {
+    description
+      "Delete superfluous config false.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-25 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef dhcp-snooping-port {
+    type enumeration {
+      enum "bootps" {
+        value 0;
+        description
+          "Bootps(67).";
+      }
+      enum "bootpc" {
+        value 1;
+        description
+          "Bootpc(68).";
+      }
+    }
+    description
+      "The type of DHCP snooping port.";
+  }
+  typedef snooping-file-authentication-mode {
+    type enumeration {
+      enum "check" {
+        value 0;
+        description
+          "Check.";
+      }
+      enum "no-check" {
+        value 1;
+        description
+          "No-check.";
+      }
+      enum "force-check" {
+        value 2;
+        description
+          "Force-check.";
+      }
+    }
+    description
+      "The type of file authentication mode.";
+  }
+  grouping dhcp-snooping-type {
+    description
+      "Configure DHCP snooping attributes.";
+    container global {
+      must "(not (user-bind-auto-save-enable='true') and not (user-bind-file-name)) or (user-bind-auto-save-enable='true' and user-bind-file-name)";
+      description
+        "Configure global attributes of DHCP snooping.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DHCP snooping globally.";
+      }
+      leaf server-detect-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the check on bogus DHCP servers.";
+      }
+      leaf user-bind-auto-save-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable automatic saving of DHCP snooping binding entries.";
+      }
+      leaf user-bind-file-name {
+        when "../user-bind-auto-save-enable='true'"; 
+        type string {
+          length "1..56";
+          pattern '(\S+:\S+\.tbl)';
+        }
+        description
+          "File name of saving the snooping binding table.";
+      }
+      leaf check-rate-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the check on the DHCP packet rate globally.";
+      }
+      leaf rate-limit {
+        type uint16 {
+          range "1..5000";
+        }
+        default "100";
+        description
+          "Global rate of DHCP packets.";
+      }
+      leaf check-rate-alarm-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the rate limit alarm function for DHCP packets globally.";
+      }
+      leaf rate-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        default "100";
+        description
+          "Global alarm threshold for the DHCP packet rate.";
+      }
+      leaf alarm-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        default "100";
+        description
+          "Global alarm threshold for DHCP packets.";
+      }
+      leaf rate-limit-packet-count {
+        type uint32;
+        default "0";
+        config false;
+        description
+          "Number of discarded packets after the global packet rate limit is reached.";
+      }
+      leaf user-offline-remove-mac {
+        type boolean;
+        description
+          "Enable/disable to delete the MAC address of a DHCP user after the user goes offline.";
+      }
+      leaf arp-detect-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable ARP detection for DHCP users based on DHCP snooping binding entries.";
+      }
+      leaf global-max-user {
+        type uint16 {
+          range "1..32768";
+        }
+        default "32768";
+        description
+          "Maximum number of users globally.";
+      }
+      leaf snoop-user-transfer-enable {
+        type boolean;
+        description
+          "Enable/disable user transfer.";
+      }
+      leaf mac-strict-check-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable MAC strict check.";
+      }
+      leaf unicast-cpu-forward-disable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable CPU forwarding for DHCP snooping unicast packets.";
+      }
+      leaf file-authentication-mode {
+        type snooping-file-authentication-mode;
+        default "check";
+        description
+          "Set file authentication mode.";
+      }
+      leaf check-server-vlan {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the check on the DHCP server VLAN.";
+      }
+      leaf deny-dhcp-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable to deny DHCP packet.";
+      }
+    }
+    container static-binds {
+      description
+        "List of static binding tables.";
+      list static-bind {
+        key "mac-address ip-address if-name pe-vlan ce-vlan";
+        description
+          "Configure a static binding table.";
+        leaf mac-address {
+          type pub-type:mac-address {
+            length "0..255";
+          }
+          description
+            "User MAC address.";
+        }
+        leaf ip-address {
+          type inet:ipv4-address;
+          description
+            "IP address.";
+        }
+        leaf if-name {
+          type string {
+            length "0..63";
+          }
+          description
+            "Interface name.";
+        }
+        leaf pe-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+          description
+            "PE VLAN ID, 0 means NULL.";
+        }
+        leaf ce-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+          description
+            "CE VLAN ID, 0 means NULL.";
+        }
+      }
+    }
+    container committed-access-rate {
+      description
+        "Configure global attributes of DHCP snooping CAR.";
+      leaf car-cir {
+        type uint32 {
+          range "1..100000000";
+        }
+        
+        description
+          "CAR CIR Value.";
+      }
+      leaf car-cbs {
+        type uint32 {
+          range "1..536870912";
+        }
+        units pps;
+        description
+          "CAR CBS Value.";
+      }
+    }
+    container white-lists {
+      description
+        "List of whitelists.";
+      list white-list {
+        key "white-list-name";
+        max-elements  "8";
+        description
+          "Configure a whitelist.";
+        leaf white-list-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Whitelist name.";
+        }
+        leaf apply-flag {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable to determine whether to use whitelists.";
+        }
+        container white-rules {
+          description
+            "List of whitelist rules.";
+          list white-rule {
+            must "(source-ip and source-mask and destination-address and destination-mask) or (not (source-ip) and not (source-mask) and destination-address and destination-mask) or (source-ip and source-mask and not (destination-address) and not (destination-mask))";
+            key "rule-id";
+            unique "source-ip source-mask destination-address destination-mask source-port destination-port";
+            max-elements  "1023";
+            description
+              "Configure a whitelist rule.";
+            leaf rule-id {
+              type uint16 {
+                range "1..1023";
+              }
+              description
+                "Whitelist rule ID.";
+            }
+            leaf source-ip {
+              type inet:ipv4-address-no-zone;
+              description
+                "Source address.";
+            }
+            leaf source-mask {
+              type inet:ipv4-address-no-zone;
+              description
+                "Source address mask.";
+            }
+            leaf destination-address {
+              type inet:ipv4-address-no-zone;
+              description
+                "Destination address.";
+            }
+            leaf destination-mask {
+              type inet:ipv4-address-no-zone;
+              description
+                "Destination address mask.";
+            }
+            leaf source-port {
+              type dhcp-snooping-port;
+              description
+                "Source port.";
+            }
+            leaf destination-port {
+              type dhcp-snooping-port;
+              description
+                "Destination port.";
+            }
+          }
+        }
+      }
+    }
+    container dynamic-binds {
+      config false;
+      description
+        "List of statistics of dynamic DHCP snooping binding tables.";
+      list dynamic-bind {
+        key "ip-address outer-vlan inner-vlan vsi-name vpn-name bridge-domain";
+        description
+          "Statistics of dynamic DHCP snooping binding entries.";
+        leaf ip-address {
+          type inet:ipv4-address-no-zone;
+          description
+            "User IP address.";
+        }
+        leaf outer-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+            description
+              "Outer VLAN ID.";
+        }
+        leaf inner-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+          description
+            "Inner VLAN ID.";
+        }
+        leaf vsi-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "VSI name.";
+        }
+        leaf vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "VPN name.";
+        }
+        leaf bridge-domain {
+          type uint32;
+          description
+            "Bridge domain ID.";
+        }
+        leaf mac-address {
+          type pub-type:mac-address {
+            length "0..255";
+          }
+          description
+            "User MAC address.";
+        }
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+          ext:support-filter "true";
+        }
+        leaf request-elapsed-time {
+          type uint32;
+          units ms;
+          description
+            "Request Elapsed Time.";
+        }
+        leaf lease {
+          type yang:date-and-time;
+          description
+            "Lease time.";
+        }
+      }
+    }
+  }
+  rpc recover-user-bind-table {
+    description
+      "Recover user-bind table.";
+    input  {
+      leaf user-bind-file-name {
+        type string {
+          length "12..52";
+          pattern '(flash:/\S+\.tbl)';
+        }
+        description
+          "User-bind table backup file name.";
+      }
+    }
+  }
+}

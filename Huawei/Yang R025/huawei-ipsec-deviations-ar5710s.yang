@@ -1,0 +1,886 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ipsec-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-ipsec-deviations-ar5710s";
+  prefix ipsec-devs-ar5710s;
+
+  import huawei-ipsec {
+    prefix ipsec;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ipsec module.";
+
+  revision 2024-11-22 {
+    description
+      "Remove unused yang file references.";
+    reference "";
+  }
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef ah-auth-algorithm-type-deviations {
+    type enumeration {
+      enum MD5 {
+        value 1;
+        description
+          "MD5.";
+      }
+      enum SHA1 {
+        value 2;
+        description
+          "SHA1.";
+      }
+      enum SHA2-256 {
+        value 3;
+        description
+          "SHA2-256.";
+      }
+      enum SHA2-384 {
+        value 4;
+        description
+          "SHA2-384.";
+      }
+      enum SHA2-512 {
+        value 5;
+        description
+          "SHA2-512.";
+      }
+      enum SM3 {
+        value 6;
+        description
+          "SM3.";
+      }
+    }
+    description
+      "The type of authentication-algorithm definition.";
+  }
+
+  typedef esp-encryption-algorithm-type-deviations {
+    type enumeration {
+      enum DES-CBC {
+        value 1;
+        description
+          "DES-CBC.";
+      }
+      enum 3DES-CBC {
+        value 2;
+        description
+          "3DES-CBC.";
+      }
+      enum SM4-CBC {
+        value 4;
+        description
+          "SM4-CBC.";
+      }
+      enum AES-128-CBC {
+        value 5;
+        description
+          "AES-128-CBC.";
+      }
+      enum AES-192-CBC {
+        value 6;
+        description
+          "AES-192-CBC.";
+      }
+      enum AES-256-CBC {
+        value 7;
+        description
+          "AES-256-CBC.";
+      }
+      enum AES-128-GCM {
+        value 8;
+        description
+          "AES-128-GCM.";
+      }
+      enum AES-192-GCM {
+        value 9;
+        description
+          "AES-192-GCM.";
+      }
+      enum AES-256-GCM {
+        value 10;
+        description
+          "AES-256-GCM.";
+      }
+      enum AES-128-GMAC {
+        value 11;
+        description
+          "AES-128-GMAC.";
+      }
+      enum AES-192-GMAC {
+        value 12;
+        description
+          "AES-192-GMAC.";
+      }
+      enum AES-256-GMAC {
+        value 13;
+        description
+          "AES-256-GMAC.";
+      }
+      enum none {
+        value 255;
+        description
+          "None.";
+      }
+    }
+    description
+      "The type of encryption-algorithm definition.";
+  }
+
+  typedef encryption-algorithm-type-deviations {
+    type enumeration {
+      enum DES-CBC {
+        value 1;
+        description
+          "DES-CBC.";
+      }
+      enum 3DES-CBC {
+        value 2;
+        description
+          "3DES-CBC.";
+      }
+      enum SM4-CBC {
+        value 4;
+        description
+          "SM4-CBC.";
+      }
+      enum AES-128-CBC {
+        value 5;
+        description
+          "AES-128-CBC.";
+      }
+      enum AES-192-CBC {
+        value 6;
+        description
+          "AES-192-CBC.";
+      }
+      enum AES-256-CBC {
+        value 7;
+        description
+          "AES-256-CBC.";
+      }
+      enum AES-128-GCM {
+        value 8;
+        description
+          "AES-128-GCM.";
+      }
+      enum AES-192-GCM {
+        value 9;
+        description
+          "AES-192-GCM.";
+      }
+      enum AES-256-GCM {
+        value 10;
+        description
+          "AES-256-GCM.";
+      }
+    }
+    description
+      "The type of encryption-algorithm definition.";
+  }
+
+  typedef integrity-algorithm-type-deviations {
+    type enumeration {
+      enum HMAC-MD5-96 {
+        value 1;
+        description
+          "HMAC-MD5-96.";
+      }
+      enum HMAC-SHA1-96 {
+        value 2;
+        description
+          "HMAC-SHA1-96.";
+      }
+      enum HMAC-SHA2-256 {
+        value 3;
+        description
+          "HMAC-SHA2-256.";
+      }
+      enum HMAC-SHA2-384 {
+        value 4;
+        description
+          "HMAC-SHA2-384.";
+      }
+      enum HMAC-SHA2-512 {
+        value 5;
+        description
+          "HMAC-SHA2-512.";
+      }
+      enum AES-XCBC-96 {
+        value 6;
+        description
+          "AES-XCBC-96.";
+      }
+    }
+    description
+      "The type of integrity-algorithm definition.";
+  }
+
+  typedef prf-type-deviations {
+    type enumeration {
+      enum HMAC-MD5-96 {
+        value 1;
+        description
+          "HMAC-MD5-96.";
+      }
+      enum HMAC-SHA1-96 {
+        value 2;
+        description
+          "HMAC-SHA1-96.";
+      }
+      enum HMAC-SHA2-256 {
+        value 3;
+        description
+          "HMAC-SHA2-256.";
+      }
+      enum HMAC-SHA2-384 {
+        value 4;
+        description
+          "HMAC-SHA2-384.";
+      }
+      enum HMAC-SHA2-512 {
+        value 5;
+        description
+          "HMAC-SHA2-512.";
+      }
+      enum AES-XCBC-128 {
+        value 7;
+        description
+          "AES-XCBC-128.";
+      }
+    }
+    description
+      "The type of integrity-algorithm definition.";
+  }
+
+  typedef auth-method-type-deviations {
+    type enumeration {
+      enum pre-shared-key {
+        value 1;
+        description
+          "Pre-shared key.";
+      }
+      enum rsa-signature {
+        value 2;
+        description
+          "RSA-signature.";
+      }
+      enum digital-envelope {
+        value 3;
+        description
+          "Digital-envelope.";
+      }
+    }
+    description
+      "Type of authentication method.";
+  }
+
+  typedef dh-group-type-deviations {
+    type enumeration {
+      enum group1 {
+        value 1;
+        description
+          "The 768-bit MODP group.";
+      }
+      enum group2 {
+        value 2;
+        description
+          "The 1024-bit MODP group.";
+      }
+      enum group5 {
+        value 5;
+        description
+          "The 1536-bit MODP group.";
+      }
+      enum group14 {
+        value 14;
+        description
+          "The 2048-bit MODP group.";
+      }
+      enum group15 {
+        value 15;
+        description
+          "The 3072-bit MODP group.";
+      }
+      enum group16 {
+        value 16;
+        description
+          "The 4096-bit MODP group.";
+      }
+      enum group18 {
+        value 18;
+        description
+          "The 8192-bit MODP group.";
+      }
+      enum group19 {
+        value 19;
+        description
+          "The 256-bit random ECP group.";
+      }
+      enum group20 {
+        value 20;
+        description
+          "The 384-bit random ECP group.";
+      }
+      enum group21 {
+        value 21;
+        description
+          "The 521-bit random ECP group.";
+      }
+      enum group24 {
+        value 24;
+        description
+          "The 2048-bit MODP Group with 256-bit Prime Order Subgroup.";
+      }
+    }
+    description
+      "The type of DH group definition.";
+  }
+
+  typedef local-id-type-deviations {
+    type enumeration {
+      enum ip {
+        value 1;
+        description
+          "IP address.";
+      }
+      enum fqdn {
+        value 2;
+        description
+          "Fully Qualifed Domain name.";
+      }
+      enum user-fqdn {
+        value 3;
+        description
+          "User fqdn.";
+      }
+      enum dn {
+        value 4;
+        description
+          "Distinguished Name.";
+      }
+      enum esn {
+        value 5;
+        description
+          "Esn.";
+      }
+    }
+    description
+      "Type of IKE id.";
+  }
+
+  typedef user-id-type-deviations {
+    type enumeration {
+      enum ip {
+        value 1;
+        description
+          "IP address.";
+      }
+      enum fqdn {
+        value 2;
+        description
+          "Fully Qualifed Domain name.";
+      }
+      enum user-fqdn {
+        value 3;
+        description
+          "User fqdn.";
+      }
+      enum esn {
+        value 5;
+        description
+          "Esn.";
+      }
+      enum any {
+        value 254;
+        description
+          "Any.";
+      }
+    }
+    description
+      "Type of IKE id.";
+  }
+
+  typedef peer-id-type-deviations {
+    type enumeration {
+      enum ip {
+        value 1;
+        description
+          "IP address.";
+      }
+      enum fqdn {
+        value 2;
+        description
+          "Fully Qualifed Domain name.";
+      }
+      enum user-fqdn {
+        value 3;
+        description
+          "User fqdn.";
+      }
+      enum dn {
+        value 4;
+        description
+          "Distinguished Name.";
+      }
+      enum esn {
+        value 5;
+        description
+          "Esn.";
+      }
+      enum any {
+        value 254;
+        description
+          "Any.";
+      }
+      enum none {
+        value 255;
+        description
+          "None.";
+      }
+    }
+    description
+      "Type of IKE id.";
+  }
+
+  typedef policy-mode-type-deviations {
+    type enumeration {
+      enum isakmp {
+        value 1;
+        description
+          "Indicates use of isakmp to establish the IPsec SA.";
+      }
+      enum isakmp-template {
+        value 2;
+        description
+          "Indicates use of isakmp template to establish the IPsec SA.";
+      }
+    }
+    description
+      "Type of IPSec policy mode.";
+  }
+
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:df-bit-clear" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:cipher-df-bit" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:ikev2-cookie-challenge" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:fragment-before-encryption" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:pre-check" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:succeed-check" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:flow-overlap-check" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:anti-replay-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:anti-replay-window" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:local-name" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:nat-keepalive-interval" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:dpd/ipsec:msg" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:dpd/ipsec:if-related" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:dpd/ipsec:immediately-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:dos-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:dos-log-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:sm-version" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:mtu-check" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:global/ipsec:transport-enhance" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:reauth-interval" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:encryption-algorithm" {
+    deviate replace {
+      type ipsec-devs-ar5710s:encryption-algorithm-type-deviations;
+    }
+    deviate add {
+      default "AES-256-GCM";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:auth-algorithm" {
+    deviate replace {
+      type ipsec-devs-ar5710s:ah-auth-algorithm-type-deviations;
+    }
+    deviate add {
+      default "SHA2-256";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:integrity-algorithm" {
+    deviate replace {
+      type ipsec-devs-ar5710s:integrity-algorithm-type-deviations;
+    }
+    deviate add {
+      default "HMAC-SHA2-256";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:prf" {
+    deviate replace {
+      type ipsec-devs-ar5710s:prf-type-deviations;
+    }
+    deviate add {
+      default "HMAC-SHA2-256";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:auth-method" {
+    deviate replace {
+      type ipsec-devs-ar5710s:auth-method-type-deviations;
+    }
+    deviate replace {
+      mandatory false;
+    }
+    deviate add {
+      default "pre-shared-key";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-proposals/ipsec:ike-proposal/ipsec:dh" {
+    deviate replace {
+      type ipsec-devs-ar5710s:dh-group-type-deviations;
+    }
+    deviate add {
+      max-elements 1;
+    }
+    deviate add {
+      default "group14";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-proposals/ipsec:ipsec-proposal/ipsec:transform-protocol" {
+    deviate replace {
+      mandatory false;
+    }
+    deviate add {
+      default "esp";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-proposals/ipsec:ipsec-proposal/ipsec:ah-auth-algorithm" {
+    deviate replace {
+      type ipsec-devs-ar5710s:ah-auth-algorithm-type-deviations;
+    }
+    deviate add {
+      default "SHA2-256";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-proposals/ipsec:ipsec-proposal/ipsec:esp-auth-algorithm" {
+    deviate add {
+      default "SHA2-256";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-proposals/ipsec:ipsec-proposal/ipsec:esp-encryption-algorithm" {
+    deviate replace {
+      type ipsec-devs-ar5710s:esp-encryption-algorithm-type-deviations;
+    }
+    deviate add {
+      default "AES-256-GCM";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:user-tables/ipsec:user-table/ipsec:remote-users/ipsec:remote-user/ipsec:id-type" {
+    deviate replace {
+      type ipsec-devs-ar5710s:user-id-type-deviations;
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:user-tables/ipsec:user-table/ipsec:remote-users/ipsec:remote-user/ipsec:if-name" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:user-tables/ipsec:user-table/ipsec:remote-users/ipsec:remote-user/ipsec:vpn-name" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:phase1-mode" {
+    deviate add {
+      must "../ipsec:ike-version != 'v2'";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:dh-group" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:local-id/ipsec:reflect-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:local-id/ipsec:type" {
+    deviate replace {
+      mandatory false;
+    }
+    deviate replace {
+      type ipsec-devs-ar5710s:local-id-type-deviations;
+    }
+    deviate add {
+      default "ip";
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:peer-id/ipsec:type" {
+    deviate replace {
+      type ipsec-devs-ar5710s:peer-id-type-deviations;
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:auth-method/ipsec:certificate/ipsec:peer-cert-filename" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:dpd/ipsec:if-related" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:dpd/ipsec:immediately-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:nat-traversal" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:auth-address" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:sm-version" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:pki-whitelist-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:policy-mode" {
+    deviate replace {
+      type ipsec-devs-ar5710s:policy-mode-type-deviations;
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:filter-acl" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:flow-vpn-check-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:reverse-route/ipsec:enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:response-only" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:admin-state" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:connect-track" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:disconnect-track" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:ike-packets-out-if" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:connection-limit" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:sla-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:flow-no-nat-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:pfs" {
+    deviate replace {
+      type ipsec-devs-ar5710s:dh-group-type-deviations;
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:in-dscp" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:out-dscp" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:df-bit-clear" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:frag-bef-encr" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:rate-limit" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:in-svc-class" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:out-svc-class" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:load-balance-algorithm" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:qos-pre-classify" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:keep-sa-until-lifetime-expired" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:efficient-vpn-client" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:sla-detection-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policy-templates/ipsec:policy-template/ipsec:identity-name" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policy-templates/ipsec:policy-template/ipsec:flow-no-nat-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policy-templates/ipsec:policy-template/ipsec:comm-attrs/ipsec:keep-sa-until-lifetime-expired" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:pfs" {
+    deviate replace {
+      type ipsec-devs-ar5710s:dh-group-type-deviations;
+    }
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:in-dscp" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:out-dscp" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:df-bit-clear" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:frag-bef-encr" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:rate-limit" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:in-svc-class" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:out-svc-class" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:load-balance-algorithm" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:qos-pre-classify" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:keep-sa-until-lifetime-expired" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:connection-limit" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:ike-packets-out-if" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:active-ipsec-slots" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:active-bandwidths" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:identitys" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-connections/ipsec:ipsec-connection/ipsec:port-mirror" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-connections/ipsec:ipsec-connection/ipsec:traffic-policy" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-connections/ipsec:ipsec-connection/ipsec:status" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:static-sas" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-resource" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ipsec-tunnels" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec-diagnose" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:smart-link-profile" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:dscp" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:next-payload-standard" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:reauth-interval" {
+    deviate not-supported;
+  }
+  deviation "/ipsec:ipsec/ipsec:ike-peers/ipsec:ike-peer/ipsec:negotiate-route-inject" {
+    deviate not-supported;
+  }
+  ext:deviation-ext "/ipsec:ipsec/ipsec:global/ipsec:lifetime-traffic-based-enable" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete|update";
+    }
+  }
+  ext:deviation-ext "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:sub-policys/ipsec:sub-policy/ipsec:common-attrs/ipsec:lifetime-traffic-based-enable" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete|update";
+    }
+  }
+  ext:deviation-ext "/ipsec:ipsec/ipsec:policy-templates/ipsec:policy-template/ipsec:comm-attrs/ipsec:lifetime-traffic-based-enable" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete|update";
+    }
+  }
+  ext:deviation-ext "/ipsec:ipsec/ipsec:profiles/ipsec:profile/ipsec:common-attrs/ipsec:lifetime-traffic-based-enable" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete|update";
+    }
+  }
+}

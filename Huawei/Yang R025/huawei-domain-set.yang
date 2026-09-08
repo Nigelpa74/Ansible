@@ -1,0 +1,122 @@
+/******************************************************
+ * Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+ * Module description & tree structure:
+module: huawei-domain-set
+   +--rw domain-set
+      +--rw domain-sets
+         +--rw domain-set* [name]
+            +--rw name           string
+            +--rw description?   string
+            +--rw domain*        string
+ ***************************************************/
+module huawei-domain-set {
+  namespace "urn:huawei:yang:huawei-domain-set";
+  prefix "hw-domain-set";
+
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a collection of definitions for huawei security gateway domain group definition.";
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+  revision 2023-08-28 {
+    description
+      "Add global config.";
+    reference "";
+  }
+  revision 2023-08-17 {
+    description
+      "Change name length.";
+    reference "";
+  }
+  revision 2023-08-04 {
+    description
+      "Change name length.";
+    reference "";
+  }
+  revision 2022-09-21 {
+    description
+      "Change description.";
+    reference "";
+  }
+  revision 2022-07-13 {
+    description
+      "Change description length.";
+    reference "";
+  }
+  revision 2019-11-30 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+  
+  typedef domain-set-ref {
+    type leafref {
+      path "/hw-domain-set:domain-set/hw-domain-set:domain-sets/hw-domain-set:domain-set/hw-domain-set:name";
+    }
+    description
+      "This type is used by data models that need to reference configured domain set.";
+  }
+
+  ext:task-name "domain-set";
+  container domain-set {
+    description
+      "List of domain set configuration.";
+    container global {
+      description
+        "Configure global configuration of the domain-set.";
+      leaf public-dns-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable domain-set use public dns server for vsys.";
+      }
+    }
+    container domain-sets {
+      description
+        "List of domain set parameters.";
+      list domain-set {
+        key "name";
+        description
+          "Configure domain set on the device.";
+        leaf name {
+          type string {
+            length "1..128";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          description
+            "The name of the domain set.";
+        }
+        leaf description {
+          type string {
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description
+            "The description of the domain set.";
+        }
+        leaf-list domain {
+          type string {
+            length "1..255";
+          }
+          description
+            "Configure the item of the domain set.";
+        }
+      }
+    }
+  }
+}

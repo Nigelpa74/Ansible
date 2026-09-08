@@ -1,0 +1,40 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-rrm-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-rrm-profile-deviations-ar5710s";
+  prefix hw-wrrmp-devs-ar5710s;
+
+  import huawei-wlan-rrm-profile {
+    prefix hw-wrrmp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-rrm-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wrrmp:wlan-rrm-profile/hw-wrrmp:rrm-profiles/hw-wrrmp:rrm-profile/hw-wrrmp:dynamic-edca/hw-wrrmp:dynamic-edca-threshold" {
+    deviate not-supported;
+  }
+  deviation "/hw-wrrmp:wlan-rrm-profile/hw-wrrmp:rrm-profiles/hw-wrrmp:rrm-profile/hw-wrrmp:multimedia-uplink-delay-guarantee" {
+    deviate not-supported;
+  }
+  deviation "/hw-wrrmp:wlan-rrm-profile/hw-wrrmp:rrm-profiles/hw-wrrmp:rrm-profile/hw-wrrmp:rate-limit-dynamic-interval" {
+    deviate not-supported;
+  }
+}

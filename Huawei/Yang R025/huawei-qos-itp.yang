@@ -1,0 +1,164 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-qos-itp {
+    namespace "urn:huawei:yang:huawei-qos-itp";
+    prefix itp;
+
+    import huawei-extension {
+        prefix ext;
+    }
+    import huawei-qos {
+        prefix qos;
+    }
+
+    organization "Huawei Technologies Co., Ltd.";
+
+    contact
+        "Huawei Industrial Base
+        Bantian, Longgang
+        Shenzhen 518129
+        People's Republic of China
+        Website: http://www.huawei.com
+        Email: support@huawei.com";
+
+    description
+        "YANG model for Huawei ITP Policy configuration.";
+
+    revision 2025-03-26 {
+        description "Modify name length.";
+        reference "Huawei private.";
+    }
+
+    revision 2025-03-07 {
+        description "Modify task name.";
+        reference "Huawei private.";
+    }
+
+    revision 2025-02-24 {
+        description "Add must.";
+        reference "Huawei private.";
+    }
+
+    revision 2025-01-13 {
+        description "Initial revision.";
+        reference "Huawei private.";
+    }
+    ext:task-name "mqc";
+
+    container qos-itp {
+        description "Configuration of itp.";
+
+        container policys {
+            description "List of ITP policies.";
+
+            list policy {
+                key "policy-name";
+                max-elements "32";
+                description "Specify the ITP policies.";
+
+                leaf policy-name {
+                    type string {
+                        length "1..63";
+                    }
+
+                    description "Name of the ITP policy.";
+                }
+
+                choice activate-threshold-type {
+                    description "Configure the threshold type.";
+                    case value {
+                        description "Bandwidth threshold as absolute value.";
+                        leaf bandwidth-value {
+                            type uint32 {
+                                range "1..10000000";
+                            }
+                            units "kbit/s";
+                            description "Specify the bandwidth threshold as an absolute value in kbit/s.";
+                        }
+                    }
+
+                    case percentage {
+                        description "Bandwidth threshold as percentage.";
+                        leaf bandwidth-percentage {
+                            type uint8 {
+                                range "1..100";
+                            }
+                            units "%";
+                            description "Specify the bandwidth threshold as a percentage.";
+                        }
+                    }
+                }
+
+                choice service-threshold-type {
+                    description "Configure the threshold type.";
+                    case value {
+                        description "Service lower bandwidth threshold as absolute value.";
+                        leaf service-value {
+                            type uint32 {
+                                range "1..10000000";
+                            }
+                            units "kbit/s";
+                            description "Specify the service lower bandwidth threshold as an absolute value in kbit/s.";
+                        }
+                    }
+
+                    case percentage {
+                        description "Service lower bandwidth threshold as percentage.";
+                        leaf service-percentage {
+                            type uint8 {
+                                range "1..100";
+                            }
+                            units "%";
+                            default "10";
+                            description "Specify the service lower bandwidth threshold as a percentage.";
+                        }
+                    }
+                }
+
+                leaf detection-period {
+                    type uint32 {
+                        range "5..600";
+                    }
+                    units "s";
+                    default "5";
+                    description "Specifies the detection period in seconds.";
+                }
+
+                leaf suppression-period {
+                    type uint32 {
+                        range "5..3600";
+                    }
+                    units "s";
+                    default "60";
+                    description "Specifies the suppression period in seconds.";
+                }
+
+                leaf up-bandwidth {
+                    type uint32 {
+                        range "100..10000";
+                    }
+                    units "kbit/s";
+                    default "1000";
+                    description "Specifies the up bandwidth in kbit/s.";
+                }
+            }
+        }
+    }
+
+    augment "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior" {
+        description "Reference traffic behavior.";
+        container itp-policy {
+            must "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/qos:policy-actions/qos:policy-action/qos:policy-name";
+            must "/itp:qos-itp/itp:policys/itp:policy/itp:bandwidth-value or /itp:qos-itp/itp:policys/itp:policy/itp:bandwidth-percentage";
+            description "Configure itp policy.";
+            leaf policy-name {
+            type leafref {
+                path "/itp:qos-itp/itp:policys/itp:policy/itp:policy-name";
+            }
+                description "Name of the ITP policy.";
+            }
+        }
+    }
+
+}

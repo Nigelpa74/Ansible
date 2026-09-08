@@ -1,0 +1,212 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+
+*/
+module huawei-wlan-ppsk {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ppsk";
+  prefix wlan-ppsk;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Wlan-ppsk configuration service package.";
+  revision 2025-03-18 {
+    description
+      "Add ppsk VLAN service-schema.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-02 {
+    description
+      "Add ppsk VLAN service-schema.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-22 {
+    description
+      "Add ppsk user-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-19 {
+    description
+      "Modify expire-date description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-25 {
+    description
+      "Modify wlan-ppsk-account id and max-device-number range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-09 {
+    description
+      "Add ppsk expire-hour.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-06 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  container wlan-ppsk {
+    description
+      "Configure wlan-ppsk.";
+    container wlan-ppsk-accounts {
+      description
+        "List of wlan-ppsk-account.";
+      list wlan-ppsk-account {
+        key "id";
+        unique "psk";
+        leaf id {
+          type uint32;
+          description
+            "PPSK ID.";
+        }
+        leaf user-name {
+          type string {
+            length "1..64";
+            pattern '[^\s*"?]+';
+          }
+          description
+            "The PPSK user-name.";
+        }
+        leaf passtype {
+          type enumeration {
+            enum "hex" {
+              value 0;
+              description
+                "The psk is hex-type.";
+            }
+            enum "pass-phrase" {
+              value 1;
+              description
+                "The psk is pass-phrase.";
+            }
+          }
+          mandatory true;
+          description
+            "Config the psk type which can be hex-type or pass-phrase.";
+        }
+        leaf psk {
+          type pub-type:password-extend {
+            length "8..188" {
+              description
+                "The value is of 8 to 63 ASCII characters in plain text, 64 hexadecimal characters in plain text, or 48 or 68 or 88 or 108 characters in cipher text.";
+            }
+          }
+          mandatory true;
+          description
+            "The WPA psk.";
+        }
+        container ssid-lists {
+          description
+            "List of ssid-list.";
+          list ssid-list {
+            key "ssid";
+            min-elements 1;
+            max-elements 10;
+            leaf ssid {
+              type string {
+                length "1..32";
+              }
+              description
+                "The ssid string of the ppsk.";
+            }
+            description
+              "Configure ssid-list.";
+          }
+        }
+        container mac-lists {
+          description
+            "List of mac-list.";
+          list mac-list {
+            key "mac-address";
+            max-elements 4;
+            leaf mac-address {
+              type pub-type:mac-address;
+              description
+                "Configure mac-list.";
+            }
+            description
+              "Configure mac-list.";
+          }
+        }
+
+        container expire-info {
+          presence "Config expire-info.";
+          leaf expire-date {
+            type pub-type:date;
+		    mandatory true;
+            description
+              "The expiration date which format is yyyy-mm-dd. The value ranges from 2000-01-01 to 2099-12-31.";
+          }  
+          leaf expire-hour {
+            type uint32 {
+		      range "0..23";
+		    }	  
+            description
+              "Config expire-hour.";
+          } 
+          description
+              "Configure expire-date and expire-hour.";
+        }
+
+        leaf max-device-number {
+          type uint32 {
+            range "1..4294967295";
+          }
+          description
+            "The max device numbers allowed to be accessed.";
+        }
+
+        leaf vlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Specifies a VLAN ID.";
+        }
+
+        leaf service-scheme {      
+          type string {
+            length "1..32";
+            pattern "[^A-Z/\\*\":?<>|]+";
+          }
+          description
+            "Specifies service-scheme.";
+        }
+        leaf branch-group {
+                    type string {
+                        length "1..35";
+                        pattern
+                          '[^\s?/]+';
+                        pattern
+                          '[!-~]+';
+                    }
+                    description
+                      "The branch group name.";
+        }
+        description
+          "Configure wlan-ppsk-account.";
+      }
+    }
+  }
+  ext:task-name "mm";
+}

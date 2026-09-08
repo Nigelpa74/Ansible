@@ -1,0 +1,199 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mac-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mac-deviations-ar5710s";
+  prefix mac-devs-ar5710s;
+
+  import huawei-mac {
+    prefix mac;
+  }
+  import huawei-evpn {
+    prefix evpn;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-evpl {
+    prefix evpl;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mac module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mac:mac/mac:global-attribute" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:global-mac-usage" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-usages" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-limit-rules" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:global-blackhole-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:bd-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:bd-dyn-qualify-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:vsi-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:evpn-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:bd-mac-total-numbers" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:pbb-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-address-usages" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:guest" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:mux" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:snooping" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:evn" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:ovsdb" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac/mac:mac-statistics/mac:mac-statistic/mac:dynamic-blackhole" {
+    deviate not-supported;
+  }
+  deviation "/mac:reset-dynamic-macs-by-interface" {
+    deviate not-supported;
+  }
+  deviation "/mac:reset-vsi-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:reset-bd-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:reset-evpl-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:reset-evpn-dynamic-macs" {
+    deviate not-supported;
+  }
+  deviation "/mac:mac-swap-action" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mac:mac-addresss/mac:mac-address/mac:mac-type/mac:static/mac:ce-default" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mac:mac-addresss/mac:mac-address/mac:mac-type/mac:static/mac:ce-vlan-id" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mac:mac-limit" {
+    deviate not-supported;
+  }
+  deviation "/evpl:evpl/evpl:instances/evpl:instance/evpn:evpn/evpn:upe/mac:mac-limit" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mac:mac-addresss" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mac:mac-limit" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mac:uni-suppressions" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mac:suppressions" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/mac:sticky-mac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/l2vpn:ldp-signaling/l2vpn:pws/l2vpn:pw/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/l2vpn:bgp-multi-homing-signaling/l2vpn:pws/l2vpn:pw/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/l2vpn:bgp-signaling/l2vpn:pws/l2vpn:pw/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/l2vpn:bgpad-signaling/l2vpn:pws/l2vpn:pw/mac:mac" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/mac:mac-limit" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/mac:vlan-mac-limits" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/mac:vlan-mac-limit-rules" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/mac:suppressions" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/mac:vlan-suppressions" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/mac:mac-swap" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mac:mac-addresss/mac:mac-address" {
+    deviate delete {
+      must 'not (mac:ce-default and mac:ce-vlan-id)';
+    }
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/mac:mac-addresss/mac:mac-address/mac:mac-type/mac:static/mac:out-interface-name" {
+    deviate delete {
+      must '/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:pvid=current()/../../../vlan:id or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:vlan-stackings/ethernet:vlan-stacking[ethernet:stacking-vlan=current()/../../../vlan:id] or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:vlan-mappings/ethernet:vlan-mapping[ethernet:mapping-vlan=current()/../../../vlan:id] or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:trunk-vlans or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:trunk-vlan-id-list';
+    }
+    deviate add {
+      must '/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:pvid=current()/../../../vlan:id or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:trunk-vlans';
+    }
+  }
+}

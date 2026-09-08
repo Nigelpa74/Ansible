@@ -1,0 +1,326 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-netconf-client {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-netconf-client";
+  prefix netconf-client;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "NETCONF Client.";
+  revision 2024-07-26 {
+    description
+      "Add the container node sessions to query the netconfc sessions on device.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-29 {
+    description
+      "Add the node last-down-time to record the last disconnection time of the configuration session.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-09-04 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef connection-state {
+    type enumeration {
+      enum "initial" {
+        value 1;
+        description
+          "Initial state.";
+      }
+      enum "connected" {
+        value 0;
+        description
+          "Connected state.";
+      }
+    }
+    description
+      "NETCONF client connection state.";
+  }
+  typedef session-state {
+    type enumeration {
+      enum "init" {
+        value 0;
+        description
+          "The session is in initialization state.";
+      }
+      enum "locking" {
+        value 1;
+        description
+          "The NETCONF client is locking peer device configurations.";
+      }
+      enum "ready" {
+        value 2;
+        description
+          "The session is idle.";
+      }
+      enum "block" {
+        value 3;
+        description
+          "The session is blocked.";
+      }
+    }
+    description
+      "NETCONF client session state.";
+  }
+  typedef session-type {
+    type enumeration {
+      enum "cfg" {
+        value 0;
+        description
+          "Configuration channel.";
+      }
+      enum "query" {
+        value 1;
+        description
+          "Query channel.";
+      }
+      enum "act" {
+        value 2;
+        description
+          "Maintenance channel.";
+      }
+    }
+    description
+      "NETCONF client session type.";
+  }
+  container netconf-client {
+    description
+      "NETCONF Client.";
+    container connections {
+      description
+        "List of the NETCONF connection for remote.";
+      list connection {
+        key "name";
+        max-elements 1024;
+        description
+          "Configure name for NETCONF connectting with remote.";
+        leaf name {
+          type string {
+            length "1..63";
+          }
+          description
+            "Connection name.";
+        }
+        leaf address {
+          type inet:ipv4-address-no-zone;
+          description
+            "Set the connection destination address.";
+        }
+        leaf ni-name {
+          type string {
+            length "1..31";
+          }
+          must "../address";
+          description
+            "Set the connection VPN instance.";
+        }
+        leaf port {
+          type uint16 {
+            range "22 | 830 | 1025..65535";
+          }
+          default "830";
+          description
+            "Set the connection destination port.";
+        }
+        leaf user-name {
+          type string {
+            length "6..253";
+          }
+          must "../password";
+          description
+            "Set the connection username.";
+        }
+        leaf password {
+          type pub-type:password-extend {
+            length "1..255";
+          }
+          must "../user-name";
+          description
+            "Set the connection password.";
+        }
+        leaf srcaddress {
+          type inet:ipv4-address-no-zone;
+          description
+            "Set the connection source address.";
+        }
+        leaf state {
+          type connection-state;
+          config false;
+          description
+            "Connection state.";
+        }
+        leaf last-down-time {
+          type yang:date-and-time;
+          config false;
+          description
+            "Last disconnection time of the configuration sessions.";
+        }
+      }
+    }
+    container data-sync-results {
+      config false;
+      description
+        "List of data sync result.";
+      list data-sync-result {
+        key "peer-id";
+        description
+          "Statistics of data sync result.";
+        leaf peer-id {
+          type uint32;
+          description
+            "Peer id.";
+        }
+        leaf begin-time {
+          type string {
+            length "1..63";
+          }
+          description
+            "Begin time of the peer data sync.";
+        }
+        leaf end-time {
+          type string {
+            length "1..63";
+          }
+          description
+            "End time of the peer data sync.";
+        }
+        leaf retry-times {
+          type uint32;
+          description
+            "Data sync retry times.";
+        }
+        leaf sync-type {
+          type string {
+            length "1..63";
+          }
+          description
+            "Data sync type.";
+        }
+        leaf sync-result {
+          type string {
+            length "1..63";
+          }
+          description
+            "Data sync result.";
+        }
+        container app-infos {
+          config false;
+          description
+            "List of application data sync information.";
+          list app-info {
+            key "app-name";
+            description
+              "Statistics of application information of the peer data sync.";
+            leaf app-name {
+              type string {
+                length "1..63";
+              }
+              description
+                "Application name of the peer data sync.";
+            }
+            leaf start-time {
+              type string {
+                length "1..63";
+              }
+              description
+                "Start time of the app data sync.";
+            }
+            leaf sync-status {
+              type string {
+                length "1..63";
+              }
+              description
+                "Sync status of the app.";
+            }
+          }
+        }
+      }
+    }
+    container sessions {
+      config false;
+      description
+        "List of NETCONF Client sessions.";
+      list session {
+        key "peer-id type";
+        description
+          "Statistics of NETCONF Client session.";
+        leaf peer-id {
+          type uint32;
+          description
+            "ID of a peer device.";
+        }
+        leaf type {
+          type session-type;
+          description
+            "Session type.";
+        }
+        leaf session-id {
+          type uint32;
+          description
+            "ID of session.";
+        }
+        leaf dest-ip {
+          type inet:ip-address;
+          description
+            "Peer IP address of a session.";
+        }
+        leaf dest-port {
+          type inet:port-number;
+          description
+            "Peer port number of a session.";
+        }
+        leaf connection-name {
+          type string {
+            length "1..63";
+          }
+          description
+            "Connection name.";
+        }
+        leaf user-name {
+          type string {
+            length "6..253";
+          }
+          description
+            "User name of session.";
+        }
+        leaf state {
+          type session-state;
+          description
+            "Session state.";
+        }
+        leaf up-time {
+          type yang:date-and-time;
+          description
+            "Time when the session is successfully established.";
+        }
+      }
+    }
+  }
+  ext:task-name "netconfc";
+}

@@ -1,0 +1,306 @@
+/******************************************************
+ * Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+ * Module description & tree structure:
+module: huawei-address-set
+   +--rw address-set
+      +--rw address-objects
+      |  +--rw address-object* [name]
+      |     +--rw name           string
+      |     +--rw description?   string
+      |     +--rw elements
+      |        +--rw element* [elem-id]
+      |           +--rw elem-id         uint16
+      |           +--rw (object-items)?
+      |              +--:(ipv4)
+      |              |  +--rw address-ipv4?   inet:ipv4-address-no-zone
+      |              |  +--rw mask?           inet:ipv4-address-no-zone
+      |              +--:(ipv6)
+      |              |  +--rw address-ipv6?   inet:ipv6-address-no-zone
+      |              |  +--rw prefix?         uint8
+      |              +--:(mac)
+      |              |  +--rw mac-address?    pub-type:mac-address
+      |              +--:(ipv4-range)
+      |              |  +--rw start-ipv4?     inet:ipv4-address-no-zone
+      |              |  +--rw end-ipv4?       inet:ipv4-address-no-zone
+      |              +--:(ipv6-range)
+      |                 +--rw start-ipv6?     inet:ipv6-address-no-zone
+      |                 +--rw end-ipv6?       inet:ipv6-address-no-zone
+      +--rw address-groups
+         +--rw address-group* [name]
+            +--rw name           string
+            +--rw description?   string
+            +--rw elements
+               +--rw element* [elem-id]
+                  +--rw elem-id           uint16
+                  +--rw (group-items)?
+                     +--:(object-name)
+                     |  +--rw address-object?   address-object-ref
+                     +--:(group-name)
+                        +--rw address-group?    address-group-ref
+ ***************************************************/
+module huawei-address-set {
+  namespace "urn:huawei:yang:huawei-address-set";
+  prefix hw-address-set;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a collection of YANG definitions for huawei security gateway address set definition.";
+  revision 2025-08-28 {
+    description
+       "Modify the must condition for 'name' in address-object and address-group.";
+    reference "";
+  }
+
+  revision 2025-06-11 {
+    description
+       "Add unique condition in address-set group elements.";
+    reference "";
+  }
+  
+  revision 2025-02-10 {
+    description
+       "Add the description of the element.";
+    reference "";
+  }
+
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+
+  revision 2024-03-30 {
+    description
+      "Modify address set objects and groups element id range, must condition.";
+    reference "";
+  }
+
+  revision 2020-01-03 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+
+  typedef address-object-ref {
+    type leafref {
+      path "/hw-address-set:address-set/hw-address-set:address-objects/hw-address-set:address-object/hw-address-set:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured address object.";
+  }
+
+  typedef address-group-ref {
+    type leafref {
+      path "/hw-address-set:address-set/hw-address-set:address-groups/hw-address-set:address-group/hw-address-set:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured address group.";
+  }
+  ext:task-name "address-set";
+  container address-set {
+    description "Indicates address set configuration.";
+    container address-objects {
+      description "List of address object configuration parameters.";
+      list address-object {
+        key "name";
+        description 
+          "Configure a address object.";
+        leaf name {
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          must "not(../../../address-groups/address-group/name) or ../../../address-groups/address-group/name != current()";
+          description "The name of the address-set.";
+        }
+        
+        leaf description {
+          type string{
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description "The description of the address-set.";
+        }
+
+        container elements {
+          description "List of address object elements.";
+          list element {
+            key elem-id;
+            unique "object-items/ipv4/address-ipv4 object-items/ipv4/mask";
+            unique "object-items/ipv6/address-ipv6 object-items/ipv6/prefix";
+            unique "object-items/mac/mac-address";
+            unique "object-items/ipv4-range/start-ipv4 object-items/ipv4-range/end-ipv4";
+            unique "object-items/ipv6-range/start-ipv6 object-items/ipv6-range/end-ipv6";
+            description 
+                "Configure a address object element.";
+            leaf elem-id {
+              type uint16;
+              description "The id of the element in address object.";
+            }
+            leaf description {
+              type string{
+                length "1..64";
+                pattern '[^?]+';
+              }
+              description "The description of the element in address object.";
+            }
+            choice object-items {
+              mandatory true;
+              description 
+                "Select element type.";
+              case ipv4 {
+                description "IPv4 address.";
+                leaf address-ipv4 {
+                  type inet:ipv4-address-no-zone;
+                  mandatory true;
+                  description "IPv4 address.";
+                }
+                leaf mask {
+                  type inet:ipv4-address-no-zone;
+                  mandatory true;
+                  description "Configuring address mask.";
+                }
+              }
+              case ipv6 {
+                description "IPv6 address.";
+                leaf address-ipv6 {
+                  type inet:ipv6-address-no-zone;
+                  mandatory true;
+                  description "IPv6 address.";
+                }
+                leaf prefix {
+                  type uint8 {
+                    range "1..128";
+                  }
+                  mandatory true;
+                  description "IPv6 address prefix.";
+                }
+              }
+              case mac {
+                description "Indicate MAC address.";
+                leaf mac-address {
+                  type pub-type:mac-address;
+                  mandatory true;
+                  description "MAC address.";
+                }
+              }
+              case ipv4-range {
+                description "IPv4 address range.";
+                leaf start-ipv4 {
+                  type inet:ipv4-address-no-zone;
+                  mandatory true;
+                  description "Start IPv4 address.";
+                }
+                leaf end-ipv4 {
+                  type inet:ipv4-address-no-zone;
+                  mandatory true;
+                  description "End IPv4 address.";
+                }
+              }
+              case ipv6-range {
+                description "IPv6 address range.";
+                leaf start-ipv6 {
+                  type inet:ipv6-address-no-zone;
+                  mandatory true;
+                  description "Start IPv6 address.";
+                }
+                leaf end-ipv6 {
+                  type inet:ipv6-address-no-zone;
+                  mandatory true;
+                  description "End IPv6 address.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    container address-groups {
+      description "List of address group configuration parameters.";
+      list address-group {
+        key "name";
+        description 
+          "Configure a address group.";
+        leaf name {
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          must "not(../../../address-objects/address-object/name) or ../../../address-objects/address-object/name != current()";
+          description "The name of the address-set.";
+        }
+        
+        leaf description {
+          type string{
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description "The description of the address-set.";
+        }
+
+        container elements {
+          description "List of address group elements.";
+          list element {
+            key elem-id;
+            unique "group-items/object-name/address-object";
+            unique "group-items/group-name/address-group";
+            description "Configure address group elements.";
+            leaf elem-id {
+              type uint16;
+              description "The id of the element in address-set.";
+            }
+            leaf description {
+              type string{
+                length "1..64";
+                pattern '[^?]+';
+              }
+              description "The description of the element in address-set.";
+            }
+            choice group-items {
+              mandatory true;
+              description 
+                "Configuring address object or group.";
+              case object-name {
+                description "Configuring address object.";
+                leaf address-object {
+                  type address-object-ref;
+                  description "The name of the address object.";
+                }
+              }
+              case group-name {
+                description "Configuring address group.";
+                leaf address-group {
+                  type address-group-ref;
+                  must "../../../hw-address-set:name != current()";
+                  description "The name of the address group.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

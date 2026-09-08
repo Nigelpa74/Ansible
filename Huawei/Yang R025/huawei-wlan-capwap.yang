@@ -1,0 +1,452 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-capwap {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-capwap";
+  prefix hw-cwp;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ifm {
+    prefix huawei-ifm;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "CAPWAP configuration service package.";
+  revision 2025-09-11 {
+    description
+      "Add capwap source interface number description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-27 {
+    description
+      "Add exclude update.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-19 {
+    description
+      "Modify the minimum value of interval.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-26 {
+    description
+      "Modify query-capwap-link.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-30 {
+    description
+      "Add capwap-link-infos.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-14 {
+    description
+      "Remove operation-exclude delete of dtls-psk and inter-ctrl-dtls-psk.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-13 {
+    description
+      "Add inter-controller DTLS.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-11 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-30 {
+    description
+      "Add exclude delete.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-01 {
+    description
+      "Add the range of capwap-heartbeats, and add the default value of ctrl-dtls-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-22 {
+    description
+      "Modify the description of control remote link priority.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-02 {
+    description
+      "Add capwap dtls version1.0 switch and dtls cbc switch, and modify default values of capwap-heartbeats timers and cert-mandatory-match switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-22 {
+    description
+      "Add capwap double version and dtls data encrypt.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2022-09-19 {
+    description
+      "Add capwap control-link priority.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-14 {
+    description
+      "Modify dtls psk len.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-08 {
+    description
+      "Add ifm type limit revision.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-08-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef cwplink {
+    type union {
+      type uint32;
+      type pub-type:mac-address;
+    }
+    description
+      "Query capwap link by index or mac-address.";
+  }
+
+  container wlan-capwap {
+    description
+      "Configure CAPWAP Configuration.";
+    container capwap-source {
+      description
+        "Configure CAPWAP source Configuration.";
+      leaf source-type {
+        type enumeration {
+          enum "interface" {
+            value 0;
+            description
+              "Configure interface type.";
+          }
+          enum "ip-address" {
+            value 1;
+            description
+              "Configure IP type.";
+          }
+        }
+        default "interface";
+        description
+          "CAPWAP source type.";
+      }
+      leaf source-ip-version {
+        type enumeration {
+          enum "ipv4" {
+            value 0;
+            description
+              "Configure only-IPv4 version.";
+          }
+          enum "ipv6" {
+            value 1;
+            description
+              "Configure only-IPv6 type.";
+          }
+          enum "double" {
+            value 2;
+            description
+              "Configure double type.";
+          }
+        }
+        default "ipv4";
+        description
+          "CAPWAP source ip-version.";	  
+     }
+	  
+      container source-interfaces {
+        when "../source-type = 'interface'";
+        description
+          "List of CAPWAP source interface list.";
+        list source-interface {
+          key "interface-name";
+          description
+            "Configure CAPWAP source interface.";
+          leaf interface-name {
+            type leafref {
+              path "/huawei-ifm:ifm/huawei-ifm:interfaces/huawei-ifm:interface/huawei-ifm:name";
+            }
+            must "/huawei-ifm:ifm/huawei-ifm:interfaces/huawei-ifm:interface[huawei-ifm:name=current()]/huawei-ifm:type = 'Vlanif' or /huawei-ifm:ifm/huawei-ifm:interfaces/huawei-ifm:interface[huawei-ifm:name=current()]/huawei-ifm:type = 'LoopBack'";
+            description
+              "Source interface name. The maximum number of interfaces that can be configured is constrained by the total number of IPv4 and IPv6 addresses under these interfaces.";
+          }
+        }
+      }
+      container source-ips {
+        when "../source-type = 'ip-address'";
+        description
+          "Configure CAPWAP source IP.";
+        leaf ipv4-address {
+          ext:operation-exclude update;
+          when "../../source-ip-version != 'ipv6'";
+          type inet:ipv4-address;
+          description
+            "Configure capwap source IPv4 Addr.";
+        }        
+        leaf ipv6-address {
+          ext:operation-exclude update;
+          when "../../source-ip-version != 'ipv4'";
+          type inet:ipv6-address;
+          description
+            "Configure capwap source IPv6 Addr.";
+        }   
+
+      }
+    }
+
+    container capwap-heartbeats {
+      description
+        "Configure CAPWAP heartbeat configuration.";
+      leaf interval {
+        type uint32 {
+            range "2..300";
+        }
+        units "s";
+        default "25";
+        description
+          "Interval for sending CAPWAP echo packets, in seconds.";
+      }
+      leaf timers {
+        type uint32 {
+            range "3..120";
+        }
+        default "6";
+        description
+          "Number of CAPWAP echo packet transmissions.";
+      }
+    }
+    leaf control-local-link-priority {
+      type uint32 {
+        range "0..7";
+      }
+      default "7";
+      description
+        "Configure the local link priority.";
+    }
+    leaf control-remote-link-priority {
+      type uint32 {
+        range "0..7";
+      }
+      default "7";
+      description
+        "Configure the remote link priority.";
+    }
+    container capwap-dtls {
+      description
+        "Configure CAPWAP DTLS configuration.";
+      leaf ctrl-dtls-switch {
+        type enumeration {
+          enum "off" {
+            value 0;
+            description
+              "Disable the CAPWAP ctrl-link DTLS function.";
+          }
+          enum "on" {
+            value 1;
+            description
+              "Enable the CAPWAP ctrl-link DTLS function.";
+          }
+          enum "auto" {
+            value 2;
+            description
+              "Enables or disables the DTLS encryption function adaptively based on whether this function is enabled on the peer end.";
+          }
+        }
+        default "auto";
+        description
+          "Configure ctrl dtls switch configuration.";
+      }
+      leaf dtls-psk {
+        type pub-type:password-extend {
+          length "8..148";
+        }
+        description
+          "Pre-shared psk key value for CAPWAP DTLS link.";
+      }
+      leaf no-auth-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable CAPWAP DTLS no auth switch.";
+      }
+      leaf cert-mandatory-match-switch {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable CAPWAP DTLS cert-mandatory-match switch.";
+      }
+      leaf version10-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable CAPWAP DTLS version1.0 switch.";
+      }
+      leaf cbc-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable CAPWAP DTLS cbc switch.";
+      }
+      leaf data-dtls-switch {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable CAPWAP data-link DTLS switch.";		
+      }
+      leaf inter-ctrl-dtls-switch {
+        type enumeration {
+          enum "off" {
+            value 0;
+            description
+              "Disable the CAPWAP inter-ctrl-link DTLS function.";
+          }
+          enum "on" {
+            value 1;
+            description
+              "Enable the CAPWAP inter-ctrl-link DTLS function.";
+          }
+          enum "auto" {
+            value 2;
+            description
+              "Enables or disables the DTLS encryption function adaptively based on whether this function is enabled on the peer end.";
+          }
+        }
+        default "auto";
+        description
+          "Configure inter-ctrl dtls switch configuration.";
+      }
+      leaf inter-ctrl-dtls-psk {
+        type pub-type:password-extend {
+          length "8..148";
+        }
+        description
+          "Pre-shared psk key value for CAPWAP inter-controller DTLS link.";
+      }
+    }
+  }
+  rpc query-capwap-link {
+    description
+      "Query capwap link info.";
+    input {
+      leaf link {
+        type cwplink;
+        description
+          "Input Capwap link.";
+      }
+    }
+    output {
+      container capwap-link-infos {
+        description
+          "List of CAPWAP link information.";
+        list capwap-link-info {
+          key "link-id";
+          description
+            "Operational data of CAPWAP link information.";
+          leaf link-id {
+            type uint32;
+            description
+              "CAPWAP link ID.";
+          }
+          leaf client-mac {
+            type pub-type:mac-address;
+            description
+              "CAPWAP client MAC address.";
+          }
+          leaf control-port {
+            type uint16;
+            description
+              "Port for CAPWAP control link.";
+          }
+          leaf data-port {
+            type uint16;
+            description
+              "Port for CAPWAP data link.";
+          }
+          leaf link-type {
+            type enumeration {
+              enum "AP" {
+                value 0;
+                description
+                  "AP management link.";
+              }
+              enum "LKM" {
+                value 1;
+                description
+                  "AP Logical Management Link.";
+              }
+            }
+            description
+              "CAPWAP link type.";
+          }
+          leaf state {
+            type string {
+              length "1..32";
+            }
+            description
+              "CAPWAP link state.";
+          }
+          leaf source-ip {
+            type inet:ip-address;
+            description
+              "Source IP address of the CAPWAP link.";
+          }
+          leaf destination-ip {
+            type inet:ip-address;
+            description
+              "Destination IP address of the CAPWAP link.";
+          }
+          leaf role {
+            type enumeration {
+              enum "server" {
+                value 0;
+                description
+                  "Server of the CAPWAP link.";
+              }
+              enum "client" {
+                value 1;
+                description
+                  "Client of the CAPWAP link.";
+              }
+            }
+            description
+              "Device role of the CAPWAP link.";
+          }
+        }
+      }
+    }
+  }
+  ext:task-name "capwap";
+}

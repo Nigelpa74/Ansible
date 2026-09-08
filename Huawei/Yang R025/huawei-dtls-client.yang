@@ -1,0 +1,295 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+
+module huawei-dtls-client {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-dtls-client";
+  prefix dtls-client;
+  
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import huawei-network-instance {
+    prefix ni;
+  }
+  
+  import huawei-extension {
+    prefix ext;
+  }
+
+  import huawei-dtls-authen {
+    prefix da;
+  }
+
+  import huawei-pki {
+    prefix pki;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     dtls client implementations.";
+
+  revision 2024-12-05 {
+    description "Add default value for cipher-suite.";
+    reference "";
+  }
+
+  revision 2024-02-19 {
+    description "Correct cipher-suite.";
+    reference "";
+  }
+
+  revision 2023-03-30 {
+    description "Add status and detect info.";
+    reference "";
+  }
+
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+
+  revision 2022-10-18 {
+    description "Add cipher-suite system record.";
+    reference "";
+  }
+
+  revision 2022-07-22 {
+    description "Add pki realm.";
+    reference "";
+  }
+
+  revision 2022-01-10 {
+    description "Add dtls esn authenticate.";
+    reference "";
+  }
+
+  revision 2020-05-11 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "sdwan";    
+
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+
+  typedef cipher-suite-mode {
+    type enumeration {
+      enum "rsa-with-aes-128-sha" {
+        value 0;
+        description
+          "RSA-WITH-AES-128-SHA cipher suite.";
+      }
+      enum "ecdhe-rsa-with-aes-128-gcm-sha256" {
+        value 1;
+        description
+          "ECDHE-RSA-WITH-AES-128-GCM-SHA256 cipher suite.";
+      }
+      enum "ecdhe-rsa-with-aes-256-gcm-sha384" {
+        value 2;
+        description
+          "ECDHE-RSA-WITH-AES-256-GCM-SHA384 cipher suite.";
+      }
+    }
+    description
+      "Ciphersuite mode.";
+  }
+  typedef registration-status {
+    type enumeration {
+      enum "init" {
+        value 0;
+        description
+          "The DTLS connection is being initializing.";
+      }
+      enum "registering" {
+        value 1;
+        description
+          "The client is registering with the server.";
+      }
+      enum "close" {
+        value 2;
+        description
+          "The DTLS connection is closed.";
+      }
+    }
+    description
+      "Status of registration with the server.";
+  }
+  
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+  grouping detect-info {
+    description
+      "Detect information.";
+    leaf detect-result {
+      type enumeration {
+        enum "init" {
+          value 0;
+          description
+            "The state of client detection is init.";
+        }
+        enum "up" {
+          value 1;
+          description
+            "The state of client detection is up.";
+        }
+        enum "down" {
+          value 2;
+          description
+            "The state of client detection is down.";
+        }
+      }
+      config false;
+      description
+        "The state of client detection.";
+    }
+    leaf detect-packets-send {
+      type uint32;
+      config false;
+      description
+        "Number of detection packets sent to peer.";
+    }
+    leaf detect-packets-receive {
+      type uint32;
+      config false;
+      description
+        "Number of detection packets receive from peer.";
+    }
+  }
+
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+
+
+    
+    container dtls-client {
+      presence "create dtls-client";
+      description "Configure the dtls client.";
+     
+      container server-ipv4-addresses {
+        description
+          "List of server addresses.";
+          
+          list server-ipv4-address {
+            key "ipv4-address vpn-instance port system-id";
+            description "Configure a server address.";
+            
+            leaf ipv4-address {
+              type inet:ipv4-address-no-zone;
+              description "DTLS server address.";
+            }
+
+            leaf vpn-instance{
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+              }
+              description "DTLS server address vpn-instance.";
+            }
+            
+            leaf port {
+              type uint16 {
+                range "10000..65535";
+              }
+              description "DTLS server port.";
+            }
+
+            leaf system-id {
+              type inet:ipv4-address-no-zone ;
+              description "DTLS server management address, only used by SDWAN.";
+            }
+          leaf status {
+            type registration-status;
+            config false;
+            description
+              "Status of registration with the server.";
+          }
+          uses detect-info;
+          }
+      }
+      container server-ipv6-addresses {
+        description
+          "List of server addresses.";
+        list server-ipv6-address {
+          key "ipv6-address vpn-instance port system-id";
+          description 
+            "Configure a server address.";
+          leaf ipv6-address {
+            type inet:ipv6-address-no-zone;
+            description 
+              "Specify the IPv6 address of the DTLS server.";
+          }
+          leaf vpn-instance{
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description 
+              "Specify the vpn of the IPv6 DTLS server.";
+          }
+          leaf port {
+            type uint16 {
+              range "10000..65535";
+            }
+            description 
+              "Specify the port of the IPv6 DTLS server.";
+          }
+          leaf system-id {
+            type inet:ipv4-address-no-zone ;
+            description 
+              "Specify the DTLS server management address, only used by SDWAN.";
+          }
+          leaf status {
+            type registration-status;
+            config false;
+            description
+              "Status of registration with the server.";
+          }
+          uses detect-info;
+        }
+      }
+      leaf-list cipher-suite {
+        type cipher-suite-mode;
+        default "ecdhe-rsa-with-aes-128-gcm-sha256";
+        default "ecdhe-rsa-with-aes-256-gcm-sha384";
+        description
+          "Configure the cipher suite of the DTLS client.";
+      }
+      leaf esn-authenticate {
+        type leafref{
+          path "/da:dtls-authen/da:esn-lists/da:esn-list/da:name";
+        }
+        description
+          "Configure ESN authenticate of DTLS client.";
+      }
+      leaf pki-realm {
+        type leafref{
+          path "/pki:pki/pki:domains/pki:domain/pki:name";
+        }
+        description "Configure PKI realm of DTLS client.";
+      }
+    }
+}

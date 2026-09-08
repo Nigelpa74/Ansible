@@ -1,0 +1,475 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-acl-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-acl-deviations-ar5710s";
+  prefix acl-devs-ar5710s;
+
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-acl module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef match-order-deviations {
+    type enumeration {
+      enum config {
+        value 0;
+        description
+          "Rules in a rule group are matched in the order they are configured.";
+      }
+    }
+    description
+      "Matching order.";
+  }
+
+  typedef fragment-type-deviations {
+    type enumeration {
+      enum fragment {
+        value 1;
+        description
+          "Non-first fragmented packet.
+           Flag of checking the non-first fragmented packets.";
+      }
+    }
+    description
+      "Type of packet fragmentation.";
+  }
+
+  typedef range-type-deviations {
+    type enumeration {
+      enum range {
+        value 5;
+        description
+          "Between two port numbers.";
+      }
+    }
+    description
+      "Range type.";
+  }
+
+  typedef group4-type-deviations {
+    type enumeration {
+      enum link {
+        value 1;
+        description
+          "Link ACL.";
+      }
+      enum basic {
+        value 2;
+        description
+          "Basic ACL.";
+      }
+      enum advance {
+        value 3;
+        description
+          "Advanced ACL.";
+      }
+    }
+    description
+      "Type of a rule group.";
+  }
+
+  typedef group6-type-deviations {
+    type enumeration {
+      enum basic {
+        value 4;
+        description
+          "Basic ACL.";
+      }
+      enum advance {
+        value 5;
+        description
+          "Advanced ACL.";
+      }
+    }
+    description
+      "Type of a rule group.";
+  }
+
+  typedef acl4-identity-deviations {
+    type string {
+      length "1..32";
+      pattern '([2-4]\d{3})|(23[0-9]{3})|([0-9a-zA-Z]([^\s]*))';
+    }
+    description
+      "ACL4-identity is begin with a-z or A-Z or 0-9.";
+  }
+
+  typedef acl6-identity-deviations {
+    type string {
+      length "1..32";
+      pattern '([2-3]\d{3})|([0-9a-zA-Z]([^\s]*))';
+    }
+    description
+      "ACL6-identity is begin with a-z or A-Z or 0-9.";
+  }
+
+  deviation "/acl:acl/acl:global" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:ias-priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:active-status" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:fragment-type" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:vpn/acl:vpn-any" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:ias-priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:active-status" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:packets-priority/acl:tos" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:vpn/acl:vpn-any" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:source-port/acl:not-equal" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:dest-port/acl:not-equal" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:ttl" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:packet-length" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:icmp-type-end" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:vni" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:vxlan-type" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:ias-priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:active-status" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:frame-type" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:frame-mask" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:ce-vlan-id" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:ce-vlan-id-mask" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:ce-vlan-value-8021p" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-ethernets/acl:rule-ethernet/acl:priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-mplss" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-users" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-arps" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:ias-priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:vpn/acl:vpn-any" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:ias-priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:source/acl:ip-pool" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:dest/acl:ip-pool" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:packets-priority/acl:tos" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:icmp-type-end" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:proto-option-code" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:proto-routing-type" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:vpn/acl:vpn-any" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:source-port/acl:not-equal" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:source-port/acl:port-pool" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:dest-port/acl:not-equal" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:dest-port/acl:port-pool" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:priority" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:log-enable" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:ip-pools/acl:ip-pool/acl:apply-type/acl:apply-bgp" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:ip-pools/acl:ip-pool/acl:apply-type/acl:apply-interface" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:ip-pools/acl:ip-pool/acl:apply-type/acl:apply-ip/acl:host-names" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:ip-pool6s" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:urls" {
+    deviate not-supported;
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:identity" {
+    deviate replace {
+      type acl-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:type" {
+    deviate replace {
+      type acl-devs-ar5710s:group4-type-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:match-order" {
+    deviate delete {
+      must "not (../match-order='auto' and ../type='mpls')";
+    }
+    deviate replace {
+      type acl-devs-ar5710s:match-order-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:vpn" {
+    deviate delete {
+      default "vpn-instance";
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-basics/acl:rule-basic/acl:vpn/acl:vpn-instance/acl:vpn-name" {
+    deviate delete {
+      default "_public_";
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:vpn" {
+    deviate delete {
+      default "vpn-instance";
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:vpn/acl:vpn-instance/acl:vpn-name" {
+    deviate delete {
+      default "_public_";
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:tcp-flag/acl:mask/acl:tcp-flag-mask" {
+    deviate delete {
+      default "63";
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:source-port/acl:range/acl:source-port-begin" {
+    deviate delete {
+      must "(not (../fragment-type) or (../fragment-type!='fragment' and ../fragment-type!='fragment-subseq'))";
+    }
+    deviate add {
+      must '(not (../fragment-type))';
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:source-port/acl:range/acl:source-port-end" {
+    deviate delete {
+      must "(not (../fragment-type) or (../fragment-type!='fragment' and ../fragment-type!='fragment-subseq'))";
+    }
+    deviate add {
+      must '(not (../fragment-type))';
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:dest-port/acl:range/acl:dest-port-begin" {
+    deviate delete {
+      must "(not (../fragment-type) or (../fragment-type!='fragment' and ../fragment-type!='fragment-subseq'))";
+    }
+    deviate add {
+      must '(not (../fragment-type))';
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:dest-port/acl:range/acl:dest-port-end" {
+    deviate delete {
+      must "(not (../fragment-type) or (../fragment-type!='fragment' and ../fragment-type!='fragment-subseq'))";
+    }
+    deviate add {
+      must '(not (../fragment-type))';
+    }
+  }
+  deviation "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:fragment-type" {
+    deviate delete {
+      must "(../fragment-type!='fragment' and ../fragment-type!='fragment-subseq') or ((../fragment-type='fragment' or ../fragment-type='fragment-subseq') and (not(../dest-port-begin) and not(../source-port-begin) and not(../dest-port-end) and not(../source-port-end)))";
+    }
+    deviate add {
+      must 'not(../fragment-type) or ((../fragment-type) and (not(../dest-port-begin) and not(../source-port-begin) and not(../dest-port-end) and not(../source-port-end)))';
+    }
+    deviate replace {
+      type acl-devs-ar5710s:fragment-type-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:identity" {
+    deviate replace {
+      type acl-devs-ar5710s:acl6-identity-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:type" {
+    deviate replace {
+      type acl-devs-ar5710s:group6-type-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:match-order" {
+    deviate replace {
+      type acl-devs-ar5710s:match-order-deviations;
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:source-ipaddr" {
+    deviate add {
+      must '(../source-ipaddr and ../source-wild) or (../source-ipaddr and ../source-mask-len)';
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:vpn" {
+    deviate delete {
+      default "vpn-instance";
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-basics/acl:rule-basic/acl:vpn/acl:vpn-instance/acl:vpn-name" {
+    deviate delete {
+      default "_public_";
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:vpn" {
+    deviate delete {
+      default "vpn-instance";
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:vpn/acl:vpn-instance/acl:vpn-name" {
+    deviate delete {
+      default "_public_";
+    }
+  }
+  deviation "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:tcp-flag/acl:mask/acl:tcp-flag-mask" {
+    deviate delete {
+      default "63";
+    }
+  }
+  deviation "/acl:acl/acl:ip-pools/acl:ip-pool/acl:apply-type" {
+    deviate delete {
+      default "apply-bgp";
+    }
+  }
+  deviation "/acl:acl/acl:port-pools/acl:port-pool/acl:ports/acl:port/acl:operation" {
+    deviate replace {
+      type acl-devs-ar5710s:range-type-deviations;
+    }
+  }
+  ext:deviation-ext "/acl:acl/acl:groups/acl:group/acl:match-order" {
+    ext:deviate-ext "delete" {
+      ext:operation-exclude "update|delete" {
+        when '../rule-basics or ../rule-advances or ../rule-ethernets or ../rule-interfaces or ../rule-mplss';
+        description
+          "The 'match-order' cannot be updated, when rule exists.";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update" {
+        when '(../acl:rule-basics/acl:rule-basic) or (../acl:rule-advances/acl:rule-advance) or (../acl:rule-ethernets/acl:rule-ethernet)';
+        description
+          "When an ACL rule exists, this value can not be changed.";
+      }
+    }
+  }
+  ext:deviation-ext "/acl:acl/acl:groups/acl:group/acl:rule-advances/acl:rule-advance/acl:tcp-flag/acl:mask/acl:tcp-flag-mask" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+  ext:deviation-ext "/acl:acl/acl:group6s/acl:group6/acl:match-order" {
+    ext:deviate-ext "delete" {
+      ext:operation-exclude "update|delete" {
+        when '../rule-basics or ../rule-advances';
+        description
+          "The 'match-order' cannot be updated, when rule exists.";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update" {
+        when '(../acl:rule-basics/acl:rule-basic) or (../acl:rule-advances/acl:rule-advance) ';
+        description
+          "When an ACL rule exists, this value can not be changed.";
+      }
+    }
+  }
+  ext:deviation-ext "/acl:acl/acl:group6s/acl:group6/acl:rule-advances/acl:rule-advance/acl:tcp-flag/acl:mask/acl:tcp-flag-mask" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+}

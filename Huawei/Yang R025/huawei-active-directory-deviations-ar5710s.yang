@@ -1,0 +1,180 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-active-directory-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-active-directory-deviations-ar5710s";
+  prefix active-directory-devs-ar5710s;
+
+  import huawei-active-directory {
+    prefix active-directory;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-active-directory module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:cipher-suite" {
+    deviate not-supported;
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:mobile-number-filter" {
+    deviate not-supported;
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:time-stamp-filter" {
+    deviate not-supported;
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:ip-address-filter" {
+    deviate not-supported;
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:access-parameters/active-directory:prohibit-anonymous-access/active-directory:manager/active-directory:repassword" {
+    deviate not-supported;
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:base-dn" {
+    deviate add {
+      default "dc=my-domain,dc=com";
+    }
+    deviate replace {
+      type string {
+        length "1..129";
+        pattern '"[^"]{1,127}"|[^" ]{1,127}';
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:ldap-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:ldap-ssl-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:user-filter" {
+    deviate add {
+      default "sAMAccountName";
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:group-filter" {
+    deviate add {
+      default "ou";
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:primary-authentication-server/active-directory:port" {
+    deviate add {
+      default "88";
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:primary-authentication-server/active-directory:host-name" {
+    deviate replace {
+      type string {
+        length "1..127";
+        pattern '.*\..*';
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:secondary-authentication-server/active-directory:port" {
+    deviate add {
+      default "88";
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:secondary-authentication-server/active-directory:host-name" {
+    deviate replace {
+      type string {
+        length "1..127";
+        pattern '.*\..*';
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:thirdly-authentication-server/active-directory:port" {
+    deviate add {
+      default "88";
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-ip/active-directory:thirdly-authentication-server/active-directory:host-name" {
+    deviate replace {
+      type string {
+        length "1..127";
+        pattern '.*\..*';
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-url/active-directory:url/active-directory:server-url" {
+    deviate add {
+      must "contains(., '.')";
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:authentication-server/active-directory:use-url/active-directory:url/active-directory:port" {
+    deviate add {
+      default "88";
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:access-parameters/active-directory:prohibit-anonymous-access/active-directory:manager" {
+    deviate add {
+      must './manager-dn and ./password';
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:access-parameters/active-directory:prohibit-anonymous-access/active-directory:manager/active-directory:password" {
+    deviate replace {
+      type pub-type:password-extend {
+        length "1..148";
+      }
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:access-parameters/active-directory:allow-anonymous-access/active-directory:manager-anonymous-enable" {
+    deviate add {
+      must "../manager-anonymous-enable = 'true'";
+    }
+  }
+  deviation "/active-directory:active-directory/active-directory:ad-servers/active-directory:ad-server/active-directory:source-type/active-directory:loopback/active-directory:loopback-number" {
+    deviate replace {
+      type int32 {
+        range "0..1023";
+      }
+    }
+  }
+}

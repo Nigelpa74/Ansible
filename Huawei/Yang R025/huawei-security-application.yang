@@ -1,0 +1,1086 @@
+/* 
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+/*
+module: huawei-security-application
+   +--rw security-application
+      +--rw global
+      |  +--rw max-packets?             uint32
+      |  +--rw max-bytes?               uint32
+      |  +--rw port-threshold?          uint32
+      |  +--rw detect-direction?        detect-direction
+      |  +--rw application-cache?       application-cache
+      |  +--rw aging-time?              uint32
+      |  +--rw ip-identification?       boolean
+      |  +--rw asset-identification?    boolean
+      |  +--rw dns-identification?      boolean
+      |  +--rw quic-decrypt?            boolean
+	  +--rw user-defined-apps
+      |  +--rw user-defined-app* [name]
+      |     +--rw name           string
+      |     +--rw label*         string
+      |     +--rw data-model?    string
+      |     +--rw category?      string
+      |     +--rw subcategory?   string
+      |     +--rw description?   string
+      |     +--rw domain*        string
+      |     +--ro state
+      |     |  +--ro risk-value?   uint32
+      |     |  +--ro status?       status-flag
+      |     +--rw dns-rules
+      |        +--rw dns-rule* [name]
+      |           +--rw name           string
+      |           +--rw protocol       protocol
+      |           +--rw domain         string
+      |           +--rw description?   string
+      |           +--rw priority?      uint32
+      |           +--rw port-equal?
+      |              +--port?          uint32
+      |              +--next-port?     uint32
+      |           +--rw port-range?    uint32
+      |              +--start-port?    uint32
+      |              +--end-port?      uint32
+      |     +--rw rules
+      |        +--rw rule* [name]
+      |           +--rw name           string
+      |           +--rw protocol?      protocol       
+      |           +--rw description?   string
+      |           +--rw address*
+      |             |--rw ip-address?  inet:ip-prefix 
+      |             |--rw masklen?     uint32 
+      |           +--rw address*
+      |             |--rw ip-address?  inet:ip-prefix 
+      |             |--rw masklen?     uint32
+      |             |--rw ip-direction?     flow-direction
+      |           +--rw port*          inet:port-number
+      |           +--rw port-infos
+      |             |  +--rw port?       inet:port-number
+      |             |  +--rw end-port?   inet:port-number
+      |             |  +--rw port-direction?  flow-direction
+      |           +--rw signature
+      |             |  +--rw mode?           mode
+      |             |  +--rw direction?      direction
+      |             |  +--rw pattern-type?   pattern-type
+      |             |  +--rw pattern?        string
+      |             |  +--rw field?          identityref
+      +--rw predefined-apps
+      |   +--rw predefined-app* [name]
+      |      +--rw name            string
+      |      +--rw risk-value?     uint32
+      |      +--rw label*          string
+      |      +--rw abandon?        boolean
+      |      +--rw multichannel?   boolean
+      |      +--rw data-model?     string
+      |      +--rw category?       string
+      |      +--rw subcategory?    string
+      |      +--rw description?    string
+  +--rpc egine-configuration-commit
+    +--commit
+*/
+module huawei-security-application {
+  namespace "urn:huawei:yang:huawei-security-application";
+  prefix "security-app";
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  
+  import huawei-extension {
+      prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of definitions for huawei application.";
+  revision 2025-09-24 {
+    description
+      "Modify the slot type for DNS and IP table entry queries. Modify the operation permissions of the app id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-23 {
+    description
+      "Increase maintainable commands.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-25 {
+    description
+      "Increase maintainable commands and rollback ip-enhance config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-18 {
+    description
+      "Increase maintainable commands.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-09 {
+    description
+      "Add ip-enhance config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-18 {
+    description
+      "Increase the length of the description information of application.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-27 {
+    description
+      "Add quic-decrypt config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-31 {
+    description
+      "Add dns-identification config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-28 {
+    description
+      "Add the max-elements of ip-address-infos.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-15 {
+    description
+      "Change description and fix typo, add units.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-14 {
+    description
+      "Change predefined-apps to config true and cannot create delete or update.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-04 {
+    description
+      "Add asset-identification config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-01 {
+    description
+      "Add ip-identification config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-26 {
+    description
+      "Add port and address-info to adapt old product.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-06 {
+    description
+      "Add dns rule and application id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-31 {
+    description
+      "Add port-direction and ip-direction key.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-18 {
+    description
+      "Add port-type and ip-type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-03-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "security-application";
+  identity protocol-field {
+    description "Base type of protocol field.";
+  }
+
+  identity general-payload {
+    base protocol-field;
+    description "The field of signature is general-payload.";
+  }
+
+  identity http-method {
+    base protocol-field;
+    description "The field of signature is http.method.";
+  }
+
+  identity http-uri {
+    base protocol-field;
+    description "The field of signature is http.uri.";
+  } 
+
+  identity http-user-agent {
+    base protocol-field;
+    description "The field of signature is http.user-agent.";
+  } 
+  
+  identity http-host {
+    base protocol-field;
+    description "The field of signature is http.host.";
+  } 
+  
+  identity http-content-type {
+    base protocol-field;
+    description "The field of signature is http.content-type.";
+  } 
+  
+  identity http-cookie {
+    base protocol-field;
+    description "The field of signature is http.cookie.";
+  } 
+  
+  identity http-body {
+    base protocol-field;
+    description "The field of signature is http.body.";
+  }
+
+  typedef category-name {
+    type string {
+      length "1..32";
+    }
+    description "This type represents category.";
+  }
+
+  typedef subcategory-name {
+    type string {
+      length "1..32";
+    }
+    description "This type represents category.";
+  }
+
+  typedef label-name {
+    type string {
+      length "1..256";
+    }
+    description "This type represents name of label.";
+  }
+
+  typedef software-name {
+    type string {
+    length "1..128";
+    }
+    description "This type represents software.";
+  }
+
+  typedef status-flag {      
+    type enumeration {
+      enum active {
+        value 0;
+        description "Active state.";
+      }
+      enum inactive {
+        value 1;
+        description "Inactive state.";
+      }
+    }
+    description "The state of the application.";
+  }
+  
+  typedef protocol {      
+    type enumeration {
+      enum tcp {
+        value 0;
+        description "Tcp protocol.";
+      }
+      enum udp {
+        value 1;
+        description "Udp protocol.";
+      }
+      enum any {
+        value 2;
+        description "Tcp or udp protocol.";
+      }
+    }
+    description "The protocol of user-defined application rule:tcp/udp/any.";
+  }
+   
+  typedef mode {      
+    
+    type enumeration {
+      enum flow {
+        value 0;
+        description "Flow mode.";
+      }
+      enum packet {
+        value 1;
+        description "Packet mode.";
+      }
+    }
+    description "The mode of user-defined application rule:flow mode or packet mode.";
+  }
+   
+  typedef direction {      
+    type enumeration {
+      enum request {
+        value 0;
+        description "Request direction.";
+      }
+      enum response {
+        value 1;
+        description "Response direction.";
+      }
+      enum both {
+        value 2;
+        description "Both direction.";
+      }
+    }
+    description "The direction of user-defined application rule:request/response/both.";
+  }
+  typedef pattern-type {
+    type enumeration {
+      enum regular {
+        value 0;
+        description "Regular pattern type.";
+      }
+      enum plain {
+        value 1;
+        description "Plain pattern type.";
+      }
+    }
+    description "The pattern type of user-defined application rule:regular/plain.";
+  }
+  typedef detect-direction {
+    type enumeration {
+      enum unidirection {
+        value 0;
+        description "Unilateral direction.";
+      }
+      enum bidirection {
+        value 1;
+        description "Bidirection.";
+      }
+    }
+    description "The direction of application detecting:unidirection/bidirection.";
+  }
+  typedef application-cache {
+    type enumeration {
+      enum none {
+        value 0;
+        description "None fast relation table.";
+      }
+      enum low {
+        value 1;
+        description "Low fast relation table.";
+      }
+      enum high {
+        value 2;
+        description "High fast relation table.";
+      }
+    }
+    description "The application fast relation table:none/low/high.";
+  }
+  typedef data-type {      
+    type enumeration {
+      enum unassigned {
+        value 0;
+        description "The unassigned model.";
+      }
+      enum browser-based {
+        value 1;
+        description "The browser-based model.";
+      }
+      enum client-server {
+        value 2;
+        description "The client-server model.";
+      }
+      enum networking {
+        value 3;
+        description "The networking model.";
+      }
+      enum peer-to-peer {
+        value 4;
+        description "The peer-to-peer model.";
+      }
+    }
+    description "The data model type of the application.";
+  }
+  typedef flow-direction {
+    type enumeration {
+      enum destination {
+        value 0;
+        description "Destination direction.";
+      }
+      enum source {
+        value 1;
+        description "Source direction.";
+      }
+    }
+    description "The port/ip direction of user-defined application rule:destination/source.";
+  }
+  typedef statistics-type {
+    type enumeration {
+       enum statistics {
+        value 1;
+        description "Indicate the statistics type.";
+      }
+      enum error-statistics {
+        value 2;
+        description "Indicate the error statistics type.";
+      }
+    }
+    description "The type of statistics.";
+  }
+  typedef egn-deploy-type {
+    type enumeration {
+       enum engine {
+        value 1;
+        description "Indicate the egn plug-in is deployed in engine.";
+      }
+      enum forward {
+        value 2;
+        description "Indicate the egn plug-in is deployed in forward.";
+      }
+    }
+    description "The type of the egn plug-in deployment model.";
+  }
+  container security-application {
+    description "The application information.";
+    container global {
+      description "Configure the global state information of application detecting.";
+      leaf max-packets {
+        type uint32 {
+          range "1..64";
+        }
+        units "packet";
+        default 8;
+        description "Reached the maximum irrigation package number, the flow is no longer detected.";
+      }
+
+      leaf max-bytes {
+        type uint32 {
+          range "1..10240";
+        }
+        default 2048;
+        description "The maximum number of bytes arrive, the flow is no longer detected.";
+      }
+
+      leaf port-threshold {
+        type uint32 {
+          range "1..64";
+        }
+        default 16;
+        description "The threshold of application port detecting.";
+      }
+
+      leaf detect-direction {
+        type detect-direction;
+        default bidirection;
+        description "The direction of application detecting.";
+      }
+
+      leaf application-cache {
+        type application-cache;
+        default none;
+        description "Configure the fast relation table of application.";
+      }
+
+      leaf aging-time {
+        type uint32 {
+          range "0..60";
+        }
+        units "s";
+        default 1;
+        description "The aging-time of detecting application, default 1s.";
+      }
+
+      leaf ip-identification {
+        type boolean;
+        default false;
+        description "Enable/disable the identification of ip library.";
+      }
+
+      leaf asset-identification {
+        type boolean;
+        default false;
+        description "Enable/disable the identification of asset library.";
+      }
+
+      leaf dns-identification {
+        type boolean;
+        default false;
+        description "Enable/disable the identification of dns library.";
+      }
+
+      leaf quic-decrypt {
+        type boolean;
+        default false;
+        description "Enable/disable the decryption of quic library.";
+      }
+    }
+
+    container user-defined-apps {
+      description "List of the user-defined applications information.";
+      list user-defined-app { 
+        key "name";
+        description "Configure the user-defined-application list.";
+        leaf name {
+          type string {
+            length "4..64";
+          }
+          description "The name of user-defined application.";
+        }
+
+        leaf app-id {
+          type uint32 {
+            range "65536..100000";
+          }
+          description "The app-id of user-defined application.";
+        }
+
+        leaf-list label {    
+          type label-name;
+          description "Configure the label of user defined application,an application may have multiple labels.";
+        }
+
+        leaf data-model {
+          type data-type;
+          default unassigned;
+          description "The data-model of user-defined application.";
+        }
+
+        leaf category {
+          type category-name;
+          must "../subcategory";
+          default "General";
+          description "The category of user-defined application.";
+        } 
+
+        leaf subcategory {
+          type subcategory-name;
+          must "../category";
+          default "Other";
+          description "The subcategory of user-defined application.";
+        }
+
+        leaf description {
+          type string {
+            length "1..128";
+          }
+          description "The description information of application.";
+        }
+        leaf-list domain {
+          type string {
+            length "1..128";
+          }
+          description "Configure the domain of user defined application,an application may have multiple domains.";
+        }
+
+      container state {
+        config false;
+        description "Operational data of the state of user-defined application.";
+        leaf risk-value {
+          type uint32;
+          description "The risk value of user-defined application.";
+        }
+
+        leaf status {
+          type string {
+            length "1..32";
+          }
+          description "The commit status of user-defined application.";
+        }
+      }
+
+      container dns-rules {
+        description "List of the application dns rules.";
+        list dns-rule {
+          key "name";
+          description "Configure the dns user-defined application rule list.";
+          leaf name {
+            type string {
+              length "1..64";
+            }
+            description "Configure the name of user-defined application dns rule.";
+          }
+
+          leaf protocol {
+            type protocol;
+            mandatory true;
+            description "The protocol of user-defined application dns rule.";
+          }
+
+          leaf domain {
+            type string {
+              length "3..127";
+            }
+            mandatory true;
+            description "The pattern of user-defined application dns rule.";
+          }
+
+          leaf description {
+            type string {
+              length "1..128";
+            }
+            description "The description information of user-defined application dns rule.";
+          }
+
+          leaf priority {
+            type uint32 {
+              range "0..60000";
+            }
+            description "The priority of user-defined application dns rule.";
+          }
+
+          choice ports {
+            description "Configure the ports of user-defined application dns rule.";
+            case port-equal {
+              description "Configure the port of user-defined application dns rule.";
+              leaf port {
+                type inet:port-number;
+                mandatory true;
+                description "The port of user-defined application rule.";
+              }
+
+              leaf next-port {
+                type inet:port-number;
+                description "The port of user-defined application rule.";
+              }
+            }
+            case port-range {
+              description "Configure the port range of user-defined application dns rule.";
+              leaf start-port {
+                type inet:port-number;
+                mandatory true;
+                description "The start port of user-defined application rule.";
+              }
+              leaf end-port {
+                type inet:port-number;
+                must ". > ../start-port";
+                mandatory true;
+                description "The end port of user-defined application rule.";
+              }
+            }
+          }
+        }
+      }
+
+      container rules {
+        description "List of the application rules.";
+        list rule {
+          key "name";
+          description "Configure the user-defined-application rule list.";
+          leaf name {
+            type string {
+              length "1..64";
+            }
+            description "Configure the name of user-defined application rule.";
+          }
+
+          leaf protocol {
+            type protocol;
+            description "The protocol of user-defined application rule.";
+          }
+
+          leaf description {
+            type string {
+              length "1..128";
+            }
+            description "The description information of user-defined application rule.";
+          }
+
+          leaf-list port {
+            type inet:port-number;
+            max-elements 4;
+            status deprecated;
+            description "Configure the destination port of user-defined application rule. Advised to use the Container port-infos.";
+          }
+
+          container port-infos {
+            description "List of the port-info.";
+            list port-info {
+              key "port port-direction";
+              max-elements 4;
+              description "Configure the user-defined-application port list.";
+              leaf port {
+                type inet:port-number;
+                description "The port of user-defined application rule.";
+              }
+              leaf port-direction {
+                type flow-direction;
+                description "The port-direction of the user-defined application rule.";
+              }
+              leaf end-port {
+                type inet:port-number;
+                must ". > ../port";
+                description "The end-port of user-defined application rule.";
+              }
+            }
+          }
+
+          container address-infos {
+            status deprecated;
+            description "List of the address-info. Advised to use the Container ip-address-infos.";
+            list address-info {
+              key "ip-address masklen";
+              status deprecated;
+              description "Configure the user-defined-application address list.";
+              leaf ip-address {
+                type inet:ip-address;
+                status deprecated;
+                description "The ip-address of user-defined application rule.";
+              }
+
+              leaf masklen {
+                type uint32;
+                status deprecated;
+                description "The masklen of ip address, default 32.";
+              }
+            }
+          }
+
+          container ip-address-infos {
+            description "List of the address-info.";
+            list ip-address-info {
+              key "ip-address masklen ip-direction";
+              max-elements 4;
+              description "Configure the user-defined-application address list.";
+              leaf ip-address {
+                type inet:ip-address;
+                description "The ip-address of user-defined application rule.";
+              }
+
+              leaf masklen {
+                type uint32;
+                description "The masklen of ip address, default 32.";
+              }
+
+              leaf ip-direction {
+                type flow-direction;
+                description "The ip-direction of the user-defined application rule.";
+              }
+            }
+          }
+
+        container signature {
+          must "./mode and ./direction and ./pattern-type and ./pattern";
+          must "not(./field='security-app:http-method' or ./field='security-app:http-uri' or ./field='security-app:http-user-agent' or ./field='security-app:http-host' or ./field='security-app:http-content-type' or ./field='security-app:http-cookie' or ./field='security-app:http-body') or ((./field='security-app:http-method' or ./field='security-app:http-uri' or ./field='security-app:http-user-agent' or ./field='security-app:http-host' or ./field='security-app:http-content-type' or ./field='security-app:http-cookie' or ./field='security-app:http-body') and ../protocol='tcp' and ./pattern-type='regular')";
+          description "Configure the signature of user-defined application rule.";
+          leaf mode {
+            type mode;
+            description "The mode of user-defined application rule.";
+          }
+
+          leaf direction {
+            type direction;
+            description "The direction of user-defined application rule.";
+          }
+
+          leaf pattern-type{
+            type pattern-type;
+            description "The pattern-type of the user-defined application rule.";
+          }
+
+          leaf pattern {
+            type string {
+              length "3..256";
+            }
+            description "The pattern of user-defined application rule.";
+          }
+
+          leaf field {
+            when "../mode and ../direction and ../pattern-type and ../pattern";
+            type identityref {
+              base protocol-field;
+            }
+            default "general-payload";
+            description "The field of user-defined application rule.";
+          }
+        }
+      }
+      }
+    }
+  }
+
+    container predefined-apps {
+      ext:operation-exclude create|delete|update;
+      description "List of the predefined-apps.";
+      list predefined-app {  
+          key "name";
+          description "Specify to use predefined application for service.";
+          ext:generated-by system;
+          leaf name {
+            type string {
+            length "1..128";
+          }
+          description "The english name of predefined application.";
+          }   
+            
+          leaf risk-value {
+            type uint32;
+          description "The risk value of predefined application.";
+          }
+              
+          leaf-list label {
+            type string {
+            length "1..128";
+            }
+            description "Specify labels of predefined application, an application may have multiple labels.";
+          } 
+              
+          leaf abandon {
+            type boolean;
+            description "Enable/disable the abandon flag of predefined application.";
+          }
+        
+          leaf multichannel {
+            type boolean;
+            description "Enable/disable the multi channel flag of predefined application.";
+          }
+        
+          leaf data-model {
+            type data-type;
+            description "The english name of predefined application data-model.";
+          }
+              
+          leaf category {
+            type string {
+            length "1..32";
+            }
+            description "The english name of application category.";
+          } 
+      
+          leaf subcategory {
+            type string {
+            length "1..32";
+            }
+            description "The english name of application subcategory.";
+          }
+      
+          leaf description {
+            type string {
+            length "1..256";
+            }
+            description "The description information of application.";
+          }
+      }
+    }
+  } 
+  rpc egine-configuration-commit {
+    description
+      "Sa application engine configuration commit.";
+    input  {
+      leaf commit {
+        type uint32;
+        description "Commit the configuration.";
+      }
+    }
+  }
+
+  rpc query-sa-statistics {
+    description "List of sa statistics.";
+    input {
+      leaf statistics-type {
+        type statistics-type;
+        must "(../statistics-type = 'error-statistics' and ../egn-deploy-type and ../egn-deploy-type != '') or (../statistics-type = 'statistics' and ../egn-deploy-type != 'engine' and ../egn-deploy-type != 'forward')";
+        mandatory true;
+        description "Specify the type of sa statistics to be queried.";
+      }
+      leaf egn-deploy-type {
+        type egn-deploy-type;
+        description "Specify the type of egn plug-in deployment model to be queried.";
+      }
+      leaf slot {
+        type string {
+            length "1..16";
+        }
+        must "../cpu and ../cpu != ''";
+        description "Specify the slot.";
+      }
+      leaf cpu {
+        type uint32;
+        must "../slot and ../slot != ''";
+        description "Specify the cpu.";
+      }
+    }
+    output {
+      container sa-statistics {
+        list sa-statistic {
+            key "slot cpu";
+            leaf slot {
+                type string{
+                    length "1..16";
+                }
+                description "Specify the slot.";
+            }
+            leaf cpu {
+                type uint32;
+                description "Specify the cpu.";
+            }
+            leaf sa-statistic {
+                type string {
+                    length "0..40960";
+                }
+                description "The statistics of sa.";
+            }
+            description "The statistics of sa.";
+        }
+        description "List of sa statistic.";
+      }
+    }
+  }
+  rpc delete-dns-ip-table {
+    description "Delete the DNS association entries.";
+    input {
+      choice dns-ip {
+        mandatory true;
+        description "Deletes the DNS association entry condition.";
+        case ip-address {
+          description "Deletes the DNS association entry IPv4 condition.";
+          leaf ip-address {
+            type inet:ipv4-address-no-zone;
+            description "The IPv4 address of the DNS association entry.";
+          }
+        }
+        case ipv6-address {
+          description "Deletes the DNS association entry IPv6 condition.";
+          leaf ipv6-address {
+            type inet:ipv6-address-no-zone;
+            description "The IPv6 address of the DNS association entry.";
+          }
+        }
+        case all {
+          description "Deletes the DNS association entry condition.";
+          leaf all {
+            type empty;
+            description "Delete all DNS association entries.";
+          }
+        }
+      }
+    }
+  }
+  rpc reset-sa-statistics {
+    description "Clear the debugging information.";
+    input {
+      leaf slot {
+        type string {
+          length "1..16";
+        }
+        must "../cpu and ../cpu != ''";
+        description "Specify the slot.";
+      }
+      leaf cpu {
+        type uint32;
+        must "../slot and ../slot != ''";
+        description "Specify the cpu.";
+      }
+    }
+  }
+  rpc query-dns-ip-table {
+    description "Query the DNS association entries.";
+    input {
+      choice dns-ip {
+        mandatory true;
+        description "Query the DNS association entry condition.";
+        case ip-address {
+          description "Deletes the DNS association entry IPv4 condition.";
+          leaf ip-address {
+            type inet:ipv4-address-no-zone;
+            description "The IPv4 address of the DNS association entry.";
+          }
+        }
+        case ipv6-address {
+          description "Query the DNS association entry IPv6 condition.";
+          leaf ipv6-address {
+            type inet:ipv6-address-no-zone;
+            description "The IPv6 address of the DNS association entry.";
+          }
+        }
+        case domain {
+          description "Query DNS association entry domain condition.";
+          leaf domain {
+            type string {
+              length "1..128";
+            }
+            description "Query the domain of DNS association entries.";
+          }
+        }
+        case all {
+          description "Query the DNS association entry condition.";
+          leaf all {
+            type empty;
+            description "Query all DNS association entries.";
+          }
+        }
+      }
+      leaf slot {
+        type string {
+            length "1..16";
+        }
+        must "../cpu and ../cpu != ''";
+        description "Specify the slot.";
+      }
+      leaf cpu {
+        type uint32;
+        must "../slot and ../slot != ''";
+        description "Specify the cpu.";
+      }
+    }
+    output {
+      container dns-ip-table-infos {
+        list dns-ip-table-info {
+            key "slot cpu";
+            leaf slot {
+                type string {
+                    length "1..16";
+                }
+                description "Specify the slot.";
+            }
+            leaf cpu {
+                type uint32;
+                description "Specify the cpu.";
+            }
+            leaf dns-ip-table-info {
+                type string {
+                    length "0..40960";
+                }
+                description "The dns ip table info of sa.";
+            }
+            description "The dns ip table info of sa.";
+        }
+        description "List of the dns ip table info of sa.";
+      }
+    }
+  }
+  rpc set-sa-bypass {
+    description "The flow passthrough switch.";
+    input {
+      leaf enable {
+        type boolean;
+        mandatory true;
+        description "Enable/disable the flow passthrough switch.";
+      }
+    }
+  }
+  rpc query-sa-bypass {
+    description "Query the status of the flow passthrough switch.";
+    output {
+      leaf result {
+        type string {
+          length "0..1024";
+        }
+        description "Displays whether the switch is on.";
+      }
+    }
+  }
+}

@@ -1,0 +1,241 @@
+/*
+Copyright (C) 2020 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-qos-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-qos-notification-deviations-ar5710s";
+  prefix qos-notifi-devs-ar5710s;
+
+  import huawei-qos-notification {
+    prefix qos-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "deviations of qos notification";
+
+  revision 2020-04-07 {
+    description
+      "Add new nodes";
+    reference "Huawei private.";
+  }
+
+  deviation "/qos-notification:xqos-unsupported-feature-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-unsupported-feature-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-buffer-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-buffer-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-port-queue-statistics-discard-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-port-queue-statistics-discard-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-user-queue-apply-pir-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-user-queue-apply-pir-success-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-user-queue-apply-pir-from-pool-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:hqos-user-queue-apply-pir-from-pool-success-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-4queue-resource-over-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-4queue-resource-over-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-4queue-resource-pre-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-4queue-resource-pre-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-8queue-resource-over-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-8queue-resource-over-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-8queue-resource-pre-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-8queue-resource-pre-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-ac-band-over-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-ac-band-over-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-apply-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-apply-fail-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-apply-user-queue-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-apply-user-queue-fail-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-bandwidth-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-hard-pipe-bandwidth-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-port-queue-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-port-queue-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-soft-pipe-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-soft-pipe-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-tm-performance-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-tm-performance-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:global-acl-not-support-board" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-mode-channel-over-portshap-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-mode-channel-over-portshap-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:qos-resource-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:qos-resource-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:qos-resource-overrun-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:qos-resource-overrun-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-mode-flexe-over-portshap-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-mode-flexe-over-portshap-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-apply-pir-exhaust-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-apply-pir-exhaust-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-apply-pir-pre-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-apply-pir-pre-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-pir-adjust-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-user-queue-pir-adjust-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-unsupported-action-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-unsupported-action-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-car-bindwidth-exceed-chip-limit-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-car-bindwidth-exceed-chip-limit-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-board-hqos-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-board-hqos-fail-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-interface-hqos-fail-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-interface-hqos-fail-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-received-multi-pause-frame-interface-down" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-received-multi-pause-frame-interface-down-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-trunk-traffic-congestion" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-trunk-traffic-congestion-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-forward-resource-over-load" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-forward-resource-over-load-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-board-service-mismatch-trap" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-slot-traffic-congestion" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-slot-traffic-congestion-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-ipv6-acl-mask-imprecise-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-ipv6-acl-mask-imprecise-resume" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-traffic-policy-rule-resource-pre-alarm" {
+    deviate not-supported;
+  }
+  deviation "/qos-notification:xqos-traffic-policy-rule-resource-pre-alarm-resume" {
+    deviate not-supported;
+  }
+}

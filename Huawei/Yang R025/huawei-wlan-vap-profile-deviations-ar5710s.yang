@@ -1,0 +1,138 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-vap-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-vap-profile-deviations-ar5710s";
+  prefix vap-prof-devs-ar5710s;
+
+  import huawei-wlan-vap-profile {
+    prefix vap-prof;
+  }
+  import huawei-radius {
+    prefix radius;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-vap-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:vlan-mode/vap-prof:pool" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:forward-mode" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:softgre-profile-name" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:split-tunnel-acl" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:layer3-roam-switch" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:vlan-mobility-group" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:sea-monitor-applications" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:flow-learning" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:controller-off-track-link" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:mu-ba-trigger-mode" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:mdns-centralized-control" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:dhcp-centralized-control" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:iconnect" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:sta-network-detect" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:anti-attack-flood" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:ap-zone" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:mdns-policy-local-ac-switch" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:navi-ac-service-vlan-check-switch" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:vip-user-applications" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:harmonyos-push-proxy" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:asfn-switch" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:effect-radio" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:nat-roam-forbidden-switch" {
+    deviate not-supported;
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:vap-type" {
+    deviate replace {
+      type enumeration {
+        enum service {
+          value 1;
+          description
+            "Configure vap-type service.";
+        }
+        enum backup-ap-offline {
+          value 2;
+          description
+            "Configure vap-type backup-ap-offline.";
+        }
+        enum backup-auth-server-down {
+          value 3;
+          description
+            "Configure vap-type auth-server-down.";
+        }
+      }
+    }
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:auth-server-down-vap/vap-prof:server-tmplt" {
+    deviate replace {
+      type leafref {
+        path "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:name";
+      }
+    }
+  }
+  deviation "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile/vap-prof:vap-auto-hide-server-tmplt" {
+    deviate replace {
+      type leafref {
+        path "/radius:radius/radius:radius-server-groups/radius:radius-server-group/radius:name";
+      }
+    }
+  }
+}

@@ -1,0 +1,729 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+/*
+module: huawei-security-signature
+   +--rw security-signature
+      +--rw security-signatures
+      |  +--rw security-signature* [type]
+      |     +--rw type                         identityref
+      |     +--rw apply-confirmation-enable?   boolean
+      |     +--rw schedule
+      |     |  +--rw enable?         boolean
+      |     |  +--rw (schedule-time)?
+      |     |     +--:(daily)
+      |     |     |  +--rw daily-time?     string
+      |     |     +--:(weekly)
+      |     |     |  +--rw weekday?        weekday
+      |     |     |  +--rw weekday-time?   string
+      |     |     +--:(hourly)
+      |     |        +--rw minute?         uint8
+      |     +--ro result
+      |     |  +--ro type?                 identityref
+      |     |  +--ro result?               enumeration
+      |     |  +--ro result-description?   string
+      |     |  +--ro result-code?          uint32
+      |     +--ro version
+      |        +--ro type?          identityref
+      |        +--ro version?       string
+      |        +--ro size?          uint32
+      |        +--ro update-time?   yang:date-and-time
+      |        +--ro issue-time?    yang:date-and-time
+      +--rw update-server
+      |  +--rw server!
+      |  |  +--rw address    inet:host
+      |  |  +--rw port?      inet:port-number
+      |  +--rw proxy-server
+      |     +--rw enable?     boolean
+      |     +--rw address?    inet:host
+      |     +--rw port?       inet:port-number
+      |     +--rw username?   string
+      |     +--rw password?   pub-type:password
+      +--rw update-global
+         +--rw hrp-independent-update?     boolean
+rpcs:
+   +---x signature-database-update
+      +---w input
+      |  +---w type              identityref
+      |  +---w update-type       update-type
+      |  +---w signature-file    string
+      +--ro output
+         +--ro result                enumeration
+         +--ro result-description?   string
+         +--ro result-code           uint32
+*/
+module huawei-security-signature {
+  namespace "urn:huawei:yang:huawei-security-signature";
+  prefix "security-signature";
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for huawei security signature.";
+  
+  revision 2025-06-16 {
+    description
+      "Add the range of values for the port of update server, add constraint description for the schedule-weekly group.
+       Delete the schedule-hourly, schedule-daily and schedule-weekly grouping and put the definition of grouping directly into the case, then set their leaf nodes can't be deleted.
+       Add a default case for the server-info node. Add dynamic default values for domain and port nodes.
+       Add the add-exclude and system-generated extended options to the list node security-signature.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-12-18 {
+    description
+      "Add obsolete label for apply-confirmation-enable and file-reputation, add when label for container schedule.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-10-23 {
+    description
+      "Add cnc update-global and leaf node hrp-independent-update.";
+    reference
+      "Huawei private.";
+  }
+ 
+  revision 2023-12-16 {
+    description
+      "Add identity type application-ap.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-04-24 {
+    description
+      "Add leaf node interface-name.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-04-20 {
+    description
+      "Add compile rpc.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-03-01 {
+    description
+      "Change cnc to domain, and format this file.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-02-16 {
+    description
+      "Add location signature database type.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2021-06-23 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  ext:task-name "security-signature";
+  identity type {
+    description
+      "Base type of signature database.";
+  }
+
+  identity intrusion-prevention {
+    base type;
+    description
+      "The intrusion-prevention signature database.";
+  }
+
+  identity antivirus {
+    base type;
+    description
+      "The antivirus signature database.";
+  }
+
+  identity application {
+    base type;
+    description
+      "The application signature database.";
+  }
+
+  identity domain {
+    base type;
+    description
+      "The domain name signature database.";
+  }
+
+  identity ip-reputation {
+    base type;
+    description
+      "The ip-reputation signature database.";
+  }
+
+  identity file-reputation {
+    base type;
+    status obsolete;
+    description
+      "The file-reputation signature database.";
+  }
+
+  identity application-ap {
+    base type;
+    description
+      "The application signature database for wlan-ap.";
+  }
+
+  identity location {
+    base type;
+    description
+      "The location signature database.";
+  }
+
+  identity version-type {
+    description
+      "Base type of version.";
+  }
+
+  identity current {
+    base version-type;
+    description
+      "The current version.";
+  }
+
+  identity rollback {
+    base version-type;
+    description
+      "The rollback version.";
+  }
+
+  identity download {
+    base version-type;
+    description
+      "The download version.";
+  }
+
+  typedef weekday {
+    type enumeration {
+      enum sunday {
+        value 0;
+        description
+          "Sunday of the week.";
+      }
+      enum monday {
+        value 1;
+        description
+          "Monday of the week.";
+      }
+      enum tuesday {
+        value 2;
+        description
+          "Tuesday of the week.";
+      }
+      enum wednesday {
+        value 3;
+        description
+          "Wednesday of the week.";
+      }
+      enum thursday {
+        value 4;
+        description
+          "Thursday of the week.";
+      }
+      enum friday {
+        value 5;
+        description
+          "Friday of the week.";
+      }
+      enum saturday {
+        value 6;
+        description
+          "Saturday of the week.";
+      }
+    }
+    description
+      "A type modeling the weekdays in the Greco-Roman tradition.";
+  }
+
+  typedef update-type {
+    type enumeration {
+      enum local {
+        value 0;
+        description
+          "Indicate the local update.";
+      }
+      enum online {
+        value 1;
+        description
+          "Indicate the online update.";
+      }
+      enum restore {
+        value 2;
+        description
+          "Restore the default version.";
+      }
+      enum rollback {
+        value 3;
+        description
+          "Indicate the version rollback.";
+      }
+      enum apply {
+        value 4;
+        description
+          "Apply the downloaded version.";
+      }
+      enum abort {
+        value 5;
+        description
+          "Stop the update.";
+      }
+    }
+    description
+      "The type of update operation.";
+  }
+
+  typedef update-schedule-frequency {
+    type enumeration {
+      enum hourly {
+        value 0;
+        description
+          "The mode of update schedule frequency is hourly.";
+      }
+      enum daily {
+        value 1;
+        description
+          "The mode of update schedule frequency is daily.";
+      }
+      enum weekly {
+        value 2;
+        description
+          "The mode of update schedule frequency is weekly.";
+      }
+    }
+    description
+      "The schedule frequency type of signature database online updating.";
+  }
+
+  grouping result-information {
+    leaf type {
+      type identityref {
+        base type;
+      }
+      description
+        "The type of signature database.";
+    }
+
+    leaf result {
+      type enumeration {
+        enum success {
+          value 0;
+          description
+            "The result is success.";
+        }
+        enum failure {
+          value 1;
+          description
+            "The result is failure.";
+        }
+        enum updating {
+          value 2;
+          description
+            "The result is updating.";
+        }
+        enum not-supported {
+          value 3;
+          description
+            "Not supported.";
+        }
+      }
+      description
+        "Update operation result.";
+    }
+
+    leaf result-description {
+      type string {
+        length "1..256";
+      }
+      description
+        "Update operation result description.";
+    }
+
+    leaf result-code {
+      type uint32;
+      description
+        "Update operation result code.";
+    }
+    description
+      "The result of update.";
+  }
+
+  grouping version-information {
+    leaf type {
+      type identityref {
+        base version-type;
+      }
+      description
+        "The type of signature database.";
+    }
+    leaf version {
+      type string {
+        length "1..16";
+      }
+      description
+        "The version of signature database.";
+    }
+
+    leaf size {
+      type uint32;
+      units Byte;
+      description
+        "The size of signature database.";
+    }
+
+    leaf update-time {
+      type yang:date-and-time;
+      description
+        "The update time of signature database.";
+    }
+
+    leaf issue-time {
+      type yang:date-and-time;
+      description
+        "The issue time of signature database.";
+    }
+    description
+      "The version information of update.";
+  }
+
+  grouping compile-states {
+    description
+      "The states of engine compile.";
+    leaf state {
+      type enumeration {
+        enum "compiling" {
+          value 0;
+          description
+            "Indicates that the security engine is compiling.";
+        }
+        enum "success" {
+          value 1;
+          description
+            "Indicates that the security engine compiled successfully.";
+        }
+        enum "fail" {
+          value 2;
+          description
+            "Indicates that the security engine compiled failed.";
+        }
+      }
+      description
+        "Indicate the current compile-state.";
+    }
+  }
+
+  container security-signature {
+    description
+      "The signature database.";
+    container security-signatures {
+      description
+        "List of the signature databases.";
+      list security-signature {
+        ext:generated-by system;
+        ext:operation-exclude create;
+        key "type";
+        description
+          "Configure the signature datebase update infomation.";
+        leaf type {
+          type identityref {
+            base type;
+          }
+          description
+            "The type of signature database.";
+        }
+
+        leaf apply-confirmation-enable {
+          type boolean;
+          default false;
+          status obsolete;
+          description
+            "Enable/disable the switch of automatically applying the download signature database version.";
+        }
+
+        container schedule {
+          when "(../type != 'security-signature:location')";
+          description
+            "Configure the schedule information.";
+          leaf enable {
+            type boolean;
+            default true;
+            description
+              "Enable/disable the switch of signature database online updating schedule function.";
+          }
+
+          choice schedule-time {
+            description
+              "The mode of schedule time.";
+            case daily {
+              leaf daily-time {
+                ext:operation-exclude delete;
+                type string {
+                  length "3..5";
+                  pattern
+                    "([0-9]|[0-1][0-9]|2[0-3]):([0-9]|[0-5][0-9])";
+                }
+                description
+                  "The daily time of signature database online updating.";
+              }
+              description
+                "The mode of schedule-time is daily.";
+            }
+
+            case weekly {
+              leaf weekday {
+                ext:operation-exclude delete;
+                type weekday;
+                must "../weekday-time";
+                description
+                  "The weekly day of signature database online updating.";
+              }
+
+              leaf weekday-time {
+                ext:operation-exclude delete;
+                type string {
+                  length "3..5";
+                  pattern
+                    "([0-9]|[0-1][0-9]|2[0-3]):([0-9]|[0-5][0-9])";
+                }
+                must "../weekday";
+                description
+                  "The daily time of signature database online updating.";
+              }
+              description
+                "The mode of schedule-time is weekly.";
+            }
+
+            case hourly {
+              leaf minute {
+                ext:operation-exclude delete;
+                type uint8 {
+                  range "0..59";
+                }
+                description
+                  "The daily time of signature database online updating.";
+              }
+              description
+                "The mode of schedule-time is hourly.";
+            }
+          }
+        }
+        container result {
+          config false;
+          uses result-information;
+          description
+            "Operational state of the list of update-state result information.";
+        }
+
+        container version {
+          config false;
+          uses version-information;
+          description
+            "Operational state of the version state.";
+        }
+      }
+    }
+
+    container update-server {
+      description
+        "Configure the update server information.";
+      container server {
+        presence
+          "Enable session item";
+        description
+          "Configure the server information.";
+        choice server-info {
+          default "server-domain";
+          description
+            "The mode of schedule time.";
+          case server-address {
+            description
+              "The address of update server.";
+            leaf address {
+              type inet:host;
+              description
+                "The address of update server.";
+            }
+          }
+          case server-domain {
+            description
+              "The domain of update server.";
+            leaf domain {
+              ext:dynamic-default;
+              type string {
+                length "1..64";
+              }
+              description
+                "The domain of update server.";
+            }
+          }
+        }
+        leaf port {
+          ext:dynamic-default;
+          type inet:port-number {
+            range "1..65535";
+          }
+          description
+            "The port of update server.";
+        }
+      }
+    }
+
+    container update-source {
+      description
+        "Configure the update source information.";
+      leaf ip {
+        type inet:ipv4-address;
+        description
+          "The source IP address of online updating.";
+      }
+      leaf vpn-instance {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        description
+          "The vpn-instance of online updating.";
+      }
+      leaf interface-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description
+          "The interface name of online updating.";
+      }
+    }
+ 
+    container update-global {
+      description
+        "Configure the update global information.";
+      leaf hrp-independent-update {
+        type boolean;
+        default false;
+        description
+          "Enable/disable independent update of the signature database on the standby device.";
+      }
+    }
+
+    container compile-state {
+      config false;
+      description
+        "Operational state of the configuration-commit information.";
+      uses compile-states;
+    }
+  }
+
+  rpc signature-database-update {
+    description
+      "Signature datebase update action.";
+    input {
+      leaf type {
+        type identityref {
+          base type;
+        }
+        mandatory true;
+        description
+          "The type of signature database.";
+      }
+
+      leaf update-type {
+        type update-type;
+        mandatory true;
+        description
+          "The type of update.";
+      }
+
+      leaf signature-file {
+        when "../update-type = 'local'";
+        type string {
+          length "1..64";
+        }
+        mandatory true;
+        description
+          "The filename (include path) of offline signature database package.";
+      }
+    }
+
+    output {
+      leaf result {
+        type enumeration {
+          enum success {
+            value 0;
+            description
+              "The result is success.";
+          }
+          enum failure {
+            value 1;
+            description
+              "The result is failure.";
+          }
+          enum updating {
+            value 2;
+            description
+              "The result is updating.";
+          }
+          enum not-supported {
+            value 3;
+            description
+              "Not supported.";
+          }
+        }
+        description
+          "Update operation result.";
+      }
+
+      leaf result-description {
+        type string {
+          length "1..256";
+        }
+        description
+          "Update operation result description.";
+      }
+
+      leaf result-code {
+        type uint32;
+        description
+          "Update operation result code.";
+      }
+    }
+  }
+  rpc engine-config-commit {
+    description
+      "Engine configuration commit.";
+  }
+}

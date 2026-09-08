@@ -1,0 +1,372 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ospfv2-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ospfv2-deviations-ar5710s";
+  prefix ospfv2-devs-ar5710s;
+
+  import huawei-ospfv2 {
+    prefix ospfv2;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ospfv2 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ospfv2:ospfv2/ospfv2:advertise-max-cost" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:session-car" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:micro-isolation-car" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:flush-source-trace" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:system-control/ospfv2:shorttimeout-neighbor-ctrl-enable" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:neighbor-threshold-alarm" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:hrp-route-tag" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:hrp-route-match-discard" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:global-state" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:ospfv2/ospfv2:hrp-peer-infos" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:reset-redistribution" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:reset-process" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:reset-spf" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2:reset-frr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/ospfv2:ospf-import-rts/ospfv2:ospf-import-rt/ospfv2:policy-type/ospfv2:route-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:traffic-adj" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:traffic-adv" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:local-mt" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:advertise-mpls-lsr-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:advertise-mpls-lsr-id-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:mpls-ldp-auto-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:max-link-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:max-recv-lsa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:bandwidth/ospfv2:config-bw-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:metric-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:metric-link-loss" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:delay-normalize" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:advertise-link-attributes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:advertise-link-attributes-tlv" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:bier" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:bgp-ls" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:avoid-micro-loop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:default-route/ospfv2:no-summary/ospfv2:no-summary/ospfv2:policy-type/ospfv2:route-filter-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:route-preferences/ospfv2:route-preference/ospfv2:policy-type/ospfv2:route-filter-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:ecmp-prefer" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:rlfa-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:rlfa-max-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:tilfa-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:tiebreaker/ospfv2:ldp-sync" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:tiebreaker/ospfv2:srlg-disjoint" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:route-policy/ospfv2:policy-type/ospfv2:route-filter-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:rlfa-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:local-mt-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:flood-control" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:filter-import/ospfv2:policy-type/ospfv2:route-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:import-routes/ospfv2:import-route/ospfv2:inherit-route-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:import-routes/ospfv2:import-route/ospfv2:no-sid-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:import-routes/ospfv2:import-route/ospfv2:policy-type/ospfv2:route-filter-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:cost-bindings" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:network-lsa-delete-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:mpls-te" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interface-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:sham-links" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:filters/ospfv2:filter/ospfv2:policy-type/ospfv2:route-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:link-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:mpls-ldp-auto-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:dcn-opq-blk-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:fallback-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:fallback-bw" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:source-sub-ip-address" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:frr/ospfv2:rlfa-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:frr/ospfv2:ti-lfa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:flush-source-trace" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:mpls-te-peers" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:sub-ip-peer" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:multi-areas" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:srlgs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:bandwidth-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:disp-data/ospfv2:mpls-te-link" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:disp-data/ospfv2:remain-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:disp-data/ospfv2:link-delay-info" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:nbr-statistics/ospfv2:nbr-statistic/ospfv2:dns-host-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:sub-ip-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:disp-data/ospfv2:lsdb-received-lsa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:slink-nbr-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:traffic-adj-stats" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:migp-routings" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:rilsa/ospfv2:flex-algo-definitions" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:rilsa/ospfv2:srlb-tlvs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:prefix-lsas/ospfv2:prefix-lsa/ospfv2:flex-algo-prefix-metrics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:link-lsas/ospfv2:link-lsa/ospfv2:application-specific-link-attribute" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:link-lsas/ospfv2:link-lsa/ospfv2:application-specific-link-attributes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:link-lsas/ospfv2:link-lsa/ospfv2:min-max-unidirectional-link-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:link-lsas/ospfv2:link-lsa/ospfv2:unidirectional-link-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:link-lsas/ospfv2:link-lsa/ospfv2:unidirectional-delay-variation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:lsdb-statistics/ospfv2:lsdb-statistic/ospfv2:te-lsa" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:neighbors/ospfv2:neighbor/ospfv2:multi-area-flag" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:neighbors/ospfv2:neighbor/ospfv2:dns-host-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:routings/ospfv2:routing/ospfv2:nexthop-datas/ospfv2:nexthop-data/ospfv2:backup-label-stack" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:flex-algo-states" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/ospfv2:ospf-import-rts/ospfv2:ospf-import-rt/ospfv2:src-vrf" {
+    deviate add {
+      must "(../../../l3vpn:type='ipv4-unicast' and /ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']) or (../../../l3vpn:type='ipv6-unicast' and /ni:network-instance/ni:instances/ni:instance[ni:name=current()]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv6-unicast'])";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:opaque" {
+    deviate replace {
+      default "false";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:bfd/ospfv2:min-rx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:bfd/ospfv2:min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:default-route/ospfv2:no-summary/ospfv2:no-summary/ospfv2:match-any" {
+    deviate delete {
+      must "../match-any='false' or ../route-policy-name or ../route-filter-name";
+    }
+    deviate add {
+      must "../match-any='false' or ../route-policy-name";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:frr/ospfv2:tiebreaker" {
+    deviate delete {
+      must 'ldp-sync!=lowest-cost';
+    }
+    deviate delete {
+      must 'ldp-sync!=srlg-disjoint';
+    }
+    deviate delete {
+      must 'lowest-cost!=srlg-disjoint';
+    }
+    deviate delete {
+      must 'node-protect!=ldp-sync';
+    }
+    deviate delete {
+      must 'node-protect!=srlg-disjoint';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:bfd/ospfv2:min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ospfv2:ospfv2/ospfv2:sites/ospfv2:site/ospfv2:areas/ospfv2:area/ospfv2:interfaces/ospfv2:interface/ospfv2:bfd/ospfv2:min-rx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+}

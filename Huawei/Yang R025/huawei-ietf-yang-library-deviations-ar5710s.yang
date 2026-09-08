@@ -1,0 +1,52 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ietf-yang-library-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-ietf-yang-library-deviations-ar5710s";
+  prefix yanglib-devs-ar5710s;
+
+  import ietf-yang-library {
+    prefix yanglib;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for ietf-yang-library module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/yanglib:yang-library/yanglib:module-set/yanglib:name" {
+    deviate replace {
+      type string {
+        length "1..20";
+      }
+    }
+  }
+  deviation "/yanglib:yang-library/yanglib:schema/yanglib:name" {
+    deviate replace {
+      type string {
+        length "1..20";
+      }
+    }
+  }
+  deviation "/yanglib:yang-library/yanglib:content-id" {
+    deviate replace {
+      type string {
+        length "1..32";
+      }
+    }
+  }
+}

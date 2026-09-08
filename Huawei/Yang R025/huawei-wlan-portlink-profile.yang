@@ -1,0 +1,302 @@
+/*
+Copyright (C) 2024-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-portlink-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-portlink-profile";
+  prefix portlinkprof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-wired-port-profile {
+    prefix wiredportprofile;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Port link profile configuration service package.";
+  revision 2025-04-15 {
+    description
+      "Modify speed mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-10 {
+    description
+      "Add priority node for PoE. Add speed-mode, shutdown, crc-alarm and lldp node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-15 {
+    description
+      "Add power-off-time-range node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-19 {
+    description
+      "Update pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-22 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping binding-portlink-profile {
+    description
+      "Binding port link profile.";
+    container binding-portlink-profile {
+      description
+        "Configure binding port link profile.";
+      leaf binding-portlink-profile {
+        type leafref {
+          path "/wlan-portlink-profile/portlink-profiles/portlink-profile/profile-name";
+        }
+        default "default";
+        description
+          "Binding a port link profile.";
+      }
+    }
+  }
+  container wlan-portlink-profile {
+    description
+      "Configure port link profile.";
+    container portlink-profiles {
+      description
+        "List of port link profiles.";
+      list portlink-profile {
+        key "profile-name";
+        description
+          "Configure a port link profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "Port link profile name.";
+        }
+        leaf speed {
+          type uint32 {
+            range "100 | 1000 | 2500 | 5000 | 10000";
+          }
+          must "not(../auto-speed)";
+          description
+            "Configure port speed.";
+        }
+        leaf-list auto-speed {
+          type uint32 {
+            range "10 | 100 | 1000 | 2500 | 5000 | 10000";
+          }
+          must "not(../speed)";
+          description
+            "Configure port speed set.";
+        }
+        leaf shutdown {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the port.";
+        }
+        container crc-alarm {
+          description
+            "Configure port crc alarm switch and threshold.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable crc alarm for the port.";
+          }
+          leaf high-threshold {
+            when "../enable = 'true'";
+            type uint8 {
+              range "1..100";
+            }
+            default 50;
+            description
+              "High threshold.";
+          }
+          leaf low-threshold {
+            when "../enable = 'true'";
+            type uint8 {
+              range "1..100";
+            }
+            must "../high-threshold > ../low-threshold";
+            default 20;
+            description
+              "Low threshold.";
+          }
+        }
+        container lldp {
+          description
+            "Configure LLDP function for the port.";
+          leaf status {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable LLDP for the port.";
+          }
+          container basic-tlv {
+	        when "../status='true'";
+            description
+              "Configure basic TLV.";
+            leaf management-address {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the management address TLV.";
+            }
+            leaf port-description {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the interface description TLV.";
+            }
+            leaf system-capability {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the system capability TLV.";
+            }
+            leaf system-description {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the system description TLV.";
+            }
+            leaf system-name {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the system name TLV.";
+            }
+          }
+          container power-tlv {
+	        when "../status='true'";
+            description
+              "Configure the LLDP IEEE 802.3 Power Via MDI TLV.";
+            leaf power {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the Power Via MDI TLV.";
+            }
+            leaf mode {
+              when "../power='true'";
+              type enumeration {
+                enum "auto" {
+                  value 0;
+                  description
+                    "802.3bt for UPOE port and 802.3at for PoE port.";
+                }
+                enum "802.1ab" {
+                  value 1;
+                  description
+                    "The 802.1ab mode.";
+                }
+                enum "802.3at" {
+                  value 2;
+                  description
+                    "The 802.3at mode.";
+                }
+                enum "802.3bt" {
+                  value 3;
+                  description
+                    "The 802.3bt draft mode.";
+                }
+              }
+              default "auto";
+              description
+                "Mode of IEEE 802.3 Power Via MDI TLV.";
+            }
+          }
+          container legacy-tlv {
+	        when "../status='true'";
+            description
+              "Configure the LLDP legacy TLV.";
+            leaf power-capability {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the power capability TLV.";
+            }
+            leaf four-pair-power {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable the device to send the four-pair-power TLV.";
+            }
+          }
+        }
+        container poe {
+          description
+            "Configure poe for the port.";
+          leaf disable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable poe.";
+          }
+          leaf force-power {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable force power.";
+          }
+          leaf legacy {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable poe legacy.";
+          }
+          leaf power-off-time-range {
+            type string {
+            length "1..32";
+          }
+          description
+          "Configure the PoE power-off time range.";
+          }
+          leaf priority {
+            type enumeration {
+              enum "low" {
+                value 0;
+                description
+                  "Low priority.";
+              }
+              enum "high" {
+                value 1;
+                description
+                  "High priority.";
+              }
+              enum "critical" {
+                value 2;
+                description
+                  "Critical priority.";
+              }
+            }
+            default "low";
+            description
+                  "Config the power supply priority.";
+          }
+        }
+      }
+    }
+  }
+  augment "/wiredportprofile:wlan-wired-port-profile/wiredportprofile:wiredport-profiles/wiredportprofile:wiredport-profile" {
+    description
+      "Configure binding port link profile to wired port profile.";
+    uses portlinkprof:binding-portlink-profile;
+  }
+  ext:task-name "pcm";
+}

@@ -1,0 +1,70 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mpls-notification-deviations-ar5710s";
+  prefix mpls-notification-devs-ar5710s;
+
+  import huawei-mpls-notification {
+    prefix mpls-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mpls-notification:mpls-tunnel-rerouted" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:block-label-threshold-exceed" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:block-label-threshold-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:block-label-total-count-exceed" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:block-label-total-count-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-slot-res-total-count-exceed" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-slot-res-total-count-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-rsvp-tunnel-address-conflict" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-rsvp-tunnel-address-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-rsvp-address-conflict" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:mpls-rsvp-address-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:ldp-last-local-adj-down" {
+    deviate not-supported;
+  }
+  deviation "/mpls-notification:ldp-last-local-adj-down-clear" {
+    deviate not-supported;
+  }
+}

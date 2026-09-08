@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-management-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-wlan-management-deviations-ar5710s";
+  prefix hw-wmng-devs-ar5710s;
+
+  import huawei-wlan-management {
+    prefix hw-wmng;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-management module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wmng:wlan-management/hw-wmng:ap-type-update-files/hw-wmng:ap-type-update-file/hw-wmng:url" {
+    deviate not-supported;
+  }
+  deviation "/hw-wmng:wlan-management/hw-wmng:ap-type-update-patchs/hw-wmng:ap-type-update-patch/hw-wmng:url" {
+    deviate not-supported;
+  }
+  deviation "/hw-wmng:wlan-management/hw-wmng:ap-update-capability" {
+    deviate not-supported;
+  }
+  deviation "/hw-wmng:wlan-management/hw-wmng:ac-protect" {
+    deviate not-supported;
+  }
+  deviation "/hw-wmng:sta-steering" {
+    deviate not-supported;
+  }
+  deviation "/hw-wmng:wlan-management/hw-wmng:ap-update-mode/hw-wmng:update-mode" {
+    deviate replace {
+      type enumeration {
+        enum ac-mode {
+          value 0;
+          description
+            "AP file fragments transmit by capwap-control packet.";
+        }
+        enum ftp-mode {
+          value 1;
+          description
+            "AP file fragments transmit by ftp protocol.";
+        }
+        enum sftp-mode {
+          value 2;
+          description
+            "AP file fragments transmit by sftp protocol.";
+        }
+      }
+    }
+  }
+}

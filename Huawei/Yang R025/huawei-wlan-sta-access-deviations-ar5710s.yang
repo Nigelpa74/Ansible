@@ -1,0 +1,46 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-sta-access-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-sta-access-deviations-ar5710s";
+  prefix wlan-sta-acc-devs-ar5710s;
+
+  import huawei-wlan-sta-access {
+    prefix wlan-sta-acc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-sta-access module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:sta-whitelist-profiles/wlan-sta-acc:profile-lists/wlan-sta-acc:profile-list/wlan-sta-acc:sta-device-id-lists" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:sta-blacklist-profiles/wlan-sta-acc:profile-lists/wlan-sta-acc:profile-list/wlan-sta-acc:sta-device-id-lists" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:dynamic-blacklists" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:sta-offline-delay" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sta-acc:reset-dynamic-blacklist" {
+    deviate not-supported;
+  }
+}

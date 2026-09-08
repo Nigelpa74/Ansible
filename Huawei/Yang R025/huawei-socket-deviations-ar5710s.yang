@@ -1,0 +1,52 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-socket-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-socket-deviations-ar5710s";
+  prefix socket-devs-ar5710s;
+
+  import huawei-socket {
+    prefix socket;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-socket module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/socket:socket/socket:tcp-global/socket:tcp-pathmtu-timeout" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:tcp-infos/socket:tcp-info/socket:acl-identity" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:tcp-infos/socket:tcp-info/socket:acl-type" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:tcp-infos/socket:tcp-info/socket:acl-type6" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:udp-infos/socket:udp-info/socket:acl-infos" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:tcp-aos" {
+    deviate not-supported;
+  }
+  deviation "/socket:socket/socket:tcp-statistics-verboses/socket:tcp-statistics-verbose/socket:ao-err" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,45 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pim-notification-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-pim-notification-deviations-ar5710s";
+  prefix pim-notification-devs-ar5710s;
+
+  import huawei-pim-notification {
+    prefix pim-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pim-notification module.";
+
+  revision 2024-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/pim-notification:pim-sg-inactive-threshold-exceed" {
+    deviate not-supported;
+  }
+  deviation "/pim-notification:bsr-crp-reach-limit" {
+    deviate not-supported;
+  }
+  deviation "/pim-notification:bsr-crp-reach-limit-resume" {
+    deviate not-supported;
+  }
+  deviation "/pim-notification:bsr-bsm-reach-limit" {
+    deviate not-supported;
+  }
+  deviation "/pim-notification:bsr-bsm-reach-limit-resume" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,1728 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pbr {
+  namespace "urn:huawei:yang:huawei-pbr";
+  prefix pbr;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-nqa {
+    prefix nqa;
+  }
+  import huawei-bfd {
+    prefix bfd;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "PBR module.";
+  revision 2025-06-24 {
+    description
+      "Add ordered-by attribute to the nexthop-address node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-05 {
+    description
+      "Add new leaf track interface.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-08 {
+    description
+      "Modify admin-name and test-name parameter range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-02 {
+    description
+      "Add new leaf per-packet and track bfd.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-25 {
+    description
+      "Add must condition of leaf nqa-instance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-20 {
+    description
+      "Add redirect site.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-03 {
+    description
+      "Fix interface word spelling.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-08 {
+    description
+      "Delete redirect nexthop parameters.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-27 {
+    description
+      "Add redirect interface, add redirect nexthop parameters.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-09 {
+    description
+      "Delete unused node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-05 {
+    description
+      "Modify max-elements for IPv4-multinhp.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-14 {
+    description
+      "Split L2VPN related nodes to pbr-l2vpn YANG file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-12 {
+    description
+      "Descriptive optimization.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-11 {
+    description
+      "The modifications in the schema file are synchronized to the YANG file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-25 {
+    description
+      "The modifications in the schema file are synchronized to the YANG file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-12-31 {
+    description
+      "The modifications in the schema file are synchronized to the YANG file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-10-09 {
+    description
+      "The modifications in the schema file are synchronized to the YANG file.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-04-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "qos";
+  typedef routing-type {
+    type enumeration {
+      enum false {
+        value 0;
+        description
+          "No route.";
+      }
+      enum default {
+        value 1;
+        description
+          "Filter default route.";
+      }
+      enum blackhole {
+       value 2;
+        description
+          "Filter blackhole route.";
+      }
+      enum default-blackhole {
+        value 3;
+        description
+          "Filter default and blackhole route.";
+      }
+    }
+    description
+      "Routing type.";
+  }
+  augment "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior" {
+    description
+      "Traffic behavior.";
+    container pbr {
+      description
+        "Configure traffic behavior redirect.";
+      container redirect-to-cpu {
+        description 
+          "Configure redirect packets to the CPU.";
+        leaf to-cpu {
+          type empty;
+          description "Redirect packets to the CPU.";
+        }
+      }
+      container redirect-backup-nexthop{
+        must "(../pbr-ipv4/ipv4-nexthop)";
+        description 
+          "Configure redirect backup next hop.";
+        leaf next-hop-ip {
+          type inet:ip-address;
+          description
+            "Next hop address.";
+        }
+        leaf vpn-instance{
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          must "../vpn-instance!='_public_'";
+          description 
+            "VPN-instance name.";
+        }
+        choice nexthop-extend {
+          description 
+            "Nexthop extend.";
+          case nqa {
+            description 
+              "NQA.";
+            leaf admin-name {
+              type leafref {
+                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+              }
+              description 
+                "The administrator name of an NQA test instance.";
+            }
+            leaf test-name {
+              type leafref {
+                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+              }
+              description 
+                "The name of an NQA test instance.";
+            }
+          }
+          case interface{
+            description 
+              "Track interface.";
+            leaf interface{
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description 
+                "Track interface name.";
+            }
+          }
+        }
+      }
+      container redirect-to-interface {
+        presence "Redirect to interface.";
+        description
+          "Configure redirect to interface.";
+        leaf interface {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          mandatory true;
+          description
+            "Outbound interface.";
+        }
+        leaf fail-action {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable fail action.";
+        }
+        choice track {
+          default "ip-route";
+          description
+			      "Interface/vrrp/ip-route for AR.";
+          case ip-route {
+            description
+            "Configure ip route.";
+            container ip-route {
+              description
+                "Configure ip-route.";
+              leaf ip {
+                type inet:ip-address;
+                  description
+                    "IP address.";
+              }
+              leaf mask-length {
+                type uint8 {
+                  range "1..32";
+                }
+                description
+                  "Mask length.";
+              }
+            }
+          }
+          case nqa {
+            description
+            "Configure NQA.";
+            container nqa {
+              description
+                "Configure NQA.";		      
+              leaf nqa-admin-name {
+                type leafref {
+                  path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                }
+                description
+                  "NQA admin name.";
+              }
+              leaf nqa-instance {
+                type leafref {
+                  path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                }
+                must "/nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                description
+                  "NQA instance.";
+              }
+            }
+          }
+          case ipv6-route {
+            description
+            "Configure IPv6-route.";
+            container ipv6-route {
+              description
+                "Configure IPv6-route.";
+              leaf ipv6-address {
+                type inet:ipv6-address-no-zone;
+                description
+                "IPv6 address.";
+              }
+              leaf mask-length {
+                type uint8 {
+                  range "1..128";
+                }
+                description
+                "IPv6 mask length.";
+              }
+            }
+          }
+        }
+      }
+      container redirect-to-backup-interface {
+        presence "Redirect to interface.";
+        description
+          "Configure redirect to backup interface.";
+        leaf interface {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          mandatory true;
+          description
+            "Outbound interface.";
+        }
+      }
+      container redirect-to-site {
+        description 
+          "Configure redirect packets to the site.";
+        leaf site-id {
+          type uint32 {
+          range "1.. 1073741759";
+          }
+          description
+          "Redirect packets to site.";
+        }
+        leaf backup-site-id {
+          type uint32 {
+          range "1.. 1073741759";
+          }
+          must "../site-id";
+          description
+          "Redirect packets to backup site.";
+        }
+      }
+      container pbr-ipv4 {
+        description
+          "Configure action of redirecting to IPv4.";
+        choice pbr-ipv4 {
+          description
+            "Action of redirecting to IPv4.";
+          case redirect-vpn-instance {
+            description 
+              "Redirect VPN-instance.";
+            container redirect-vpn-instance {
+              description 
+                "Configure redirect VPN-instance.";
+              leaf vpn-instance{
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                must "../vpn-instance!='_public_'";
+                description 
+                  "VPN-instance name.";
+              }
+            }
+          }
+          case redirect-to-interface {
+            description
+                "Action of redirecting to interface.";
+            container redirect-to-interface {
+              description
+                  "Configure action of redirecting to interface.";
+              leaf if-name {
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                mandatory true;
+                description
+                  "Outbound interface name.";
+              }
+              leaf route-forward {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable route forward.";
+              }
+              leaf enable-dhcp {
+                type boolean ;
+                default "false";
+                description 
+                  "Enable/disable DHCP flag when redirect Eth interface.";
+              }
+              choice interface-extend {
+                description 
+                  "Interface extend.";
+                case nqa {
+                  description 
+                    "NQA.";
+                  leaf admin-name {
+                    type string {
+                      length "1..31";
+                    }
+                    description 
+                      "The administrator name of an NQA test instance.";
+                  }
+                  leaf test-name {
+                    type string {
+                      length "1..31";
+                    }
+                    description 
+                      "The name of an NQA test instance.";
+                  }      
+                }
+                case ip-route {
+                  description 
+                    "IP route.";
+                  leaf ip {
+                    type inet:ip-address;
+                    description 
+                      "IP address.";
+                  }
+                  leaf mask-length {
+                    type uint8 {
+                      range "0..32";
+                    }
+                    description 
+                      "Mask length.";
+                  }
+                }
+              }
+            }
+          }
+          case ipv4-nexthop {
+            description
+              "Action of redirect to IPv4 nexthop.";
+            container ipv4-nexthop {
+              presence "create ipv4-nexthop";
+              description
+               "Enable/disable action of redirect to IPv4 nexthop.";
+              leaf nexthop-address {
+                type inet:ipv4-address-no-zone;
+                mandatory true;
+                description
+                  "Next hop address.";
+              }
+              leaf common-route-priority {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable common route priority.";
+              }
+              choice action-type {
+                default "none";
+                description
+                  "Action of redirect to IPv4 nexthop type.";
+                case none {
+                  description
+                    "Action of redirect to IPv4 nexthop none.";
+                  container none {
+                    description
+                      "Configure action of redirect to IPv4 nexthop none.";
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                      description
+                        "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                    choice property {
+                      default "routing-filter";
+                      description
+                        "IPv4 property.";
+                      case vpn-network {
+                         description
+                           "Specify VPN network.";
+                        leaf vpn-network {
+                        type empty;
+                        description
+                          "VPN network.";
+                        }
+                      }
+                      case routing-filter {
+                        description
+                          "Routing filter.";
+                        leaf routing-filter {
+                          type routing-type;
+                          default "false";
+                          description
+                            "Routing type.";
+                        }
+                        leaf public-network {
+                          type empty;
+                          description
+                            "Public network.";
+                        }
+                      }
+                    }
+                    container nexthop-track{
+                      description 
+                        "Configure redirect next-hop track."; 
+                      choice nexthop-extend {
+                        description 
+                          "Nexthop extend.";
+                        case nqa {
+                          description 
+                            "NQA.";
+                          container nqa {
+                            description 
+                              "Configure NQA.";
+                            leaf nqa-admin-name {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                              }
+                              must "../nqa-instance";
+                              description
+                                "NQA admin name.";
+                            }
+                            leaf nqa-instance {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                              }
+                              must "../nqa-admin-name and /nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                              description
+                                "NQA instance.";
+                            }
+                          }
+                        }
+                        case ip-route {
+                          description 
+                            "IP route.";
+                          container ip-route {
+                            description 
+                              "Configure IP route.";
+                            leaf ip {
+                              type inet:ip-address;
+                              description 
+                                "IP address.";
+                            }
+                            leaf mask-length {
+                              type uint8 {
+                                range "0..32";
+                              }
+                              description 
+                                "Mask length.";
+                            }
+                          }
+                        }
+                        case nsh{
+                          description 
+                            "Service function chaining defined network service header.";
+                          container nsh{
+                            description 
+                              "Configure service function chaining defined network service header.";
+                            leaf spi-index{
+                              type uint32;
+                              description 
+                                "SPI index.";
+                            }
+                            leaf si-index{
+                              type uint8;
+                              description 
+                                "SI index.";
+                            }
+                          }
+                        }
+                        case interface{
+                          description 
+                            "Track interface.";
+                          container interface{
+                            description 
+                              "Configure track interface.";
+                            leaf interface{
+                              type leafref {
+                                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                              }
+                              description 
+                                "Interface name.";
+                            }
+                          }
+                        }
+                        case track-vrrp{
+                          description 
+                            "Track VRRP.";
+                          container track-vrrp{
+                            description 
+                              "Configure track VRRP.";
+                            leaf vrid{
+                             type uint8;
+                             description 
+                               "VRID.";
+                            }
+                            leaf interface{
+                             type leafref {
+                                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                             }
+                             description 
+                               "Interface name.";
+                            }
+                          }
+                        }
+                      }
+                    }
+                    leaf-list trunk {
+                      type uint8;
+                      description 
+                        "Configure trunk ID.";
+                    }
+                  }
+                }
+                case interface {
+                  description
+                   "Action of redirect to IPv4 interface.";
+                  container interface {
+                    presence "create ipv4-interface";
+                    description
+                     "Enable/disable action of redirect to IPv4 interface.";
+                    leaf if-name {
+                      type leafref {
+                        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                      }
+                      mandatory true;
+                      description
+                        "Outbound interface name.";
+                    }
+                    leaf route-forward {
+                      type boolean;
+                      default "false";
+                      description
+                        "Enable/disable route forward.";
+                    }
+                  }
+                }
+                case vpn-instance {
+                  description
+                     "Private VRF LSP.";
+                  container vpn-instance {
+                    presence "create ipv4-vpn";
+                    description
+                     "Enable/disable action of redirect to VRF LSP.";
+                    leaf vrf-name {
+                      type leafref {
+                        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                      }
+                      must "../vrf-name!='_public_'";
+                      mandatory true;
+                      description
+                        "VPN name.";
+                    }
+                    leaf nqa-admin-name {
+                      type leafref {
+                        path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                      }
+                      must "../nqa-instance";
+                      description
+                        "NQA admin name.";
+                    }
+                    leaf nqa-instance {
+                      type leafref {
+                        path "/nqa:nqa/nqa:instances/nqa:instance[nqa:admin-name=current()/../nqa-admin-name]/nqa:test-name";
+                      }
+                      must "../nqa-admin-name";
+                      description
+                        "NQA instance.";
+                    }
+                    leaf routing-filter {
+                      type routing-type;
+                      default "false";
+                      description
+                        "Routing type.";
+                    }
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                        description
+                          "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                    container nexthop-track{
+                      description 
+                        "Configure redirect next-hop track."; 
+                      choice nexthop-extend {
+                        description 
+                          "Nexthop extend.";
+                        case nqa {
+                          description 
+                            "NQA.";
+                          container nqa {
+                            description 
+                              "Configure NQA.";
+                            leaf nqa-admin-name {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                              }
+                              must "../nqa-instance";
+                              description
+                                "NQA admin name.";
+                            }
+                              leaf nqa-instance {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                              }
+                              must "../nqa-admin-name and /nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                              description
+                                "NQA instance.";
+                            }
+                          }
+                        }
+                        case ip-route {
+                          description 
+                            "IP route.";
+                          container ip-route {
+                            description 
+                              "Configure IP route.";
+                            leaf ip {
+                              type inet:ip-address;
+                              description 
+                                "IP address.";
+                            }
+                            
+                            leaf mask-length {
+                              type uint8 {
+                                range "0..32";
+                              }
+                              description 
+                                "Mask length.";
+                            }
+                          }
+                        }
+                        case nsh{
+                          description 
+                            "Service function chaining defined network service header.";
+                          container nsh{
+                            description 
+                              "Configure service function chaining defined network service header.";
+                            leaf spi-index{
+                              type uint32;
+                              description 
+                                "SPI index.";
+                            }
+                            leaf si-index{
+                              type uint8;
+                              description 
+                                "SI index.";
+                            }
+                          }
+                        }
+                        case interface{
+                          description 
+                            "Track interface.";
+                          container interface{
+                            description 
+                              "Configure track interface.";
+                            leaf interface{
+                              type leafref {
+                                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                              }
+                              description 
+                                "Interface name.";
+                            }
+                          }
+                        }
+                        case track-vrrp{
+                          description 
+                            "Track VRRP.";
+                          container track-vrrp{
+                            description 
+                              "Configure track VRRP.";
+                            leaf vrid{
+                             type uint8;
+                             description 
+                               "VRID.";
+                            }
+                            leaf interface{
+                             type leafref {
+                                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                             }
+                             description 
+                               "Interface name.";
+                            }
+                          }
+                        }
+                      }
+                    }
+                    leaf-list trunk {
+                      type uint8;
+                      description 
+                        "Configure trunk ID.";
+                    }
+                  }
+                }
+                case nqa {
+                  description
+                    " Specify NQA test class.";
+                  container nqa {
+                    presence "create ipv4-nqa";
+                    description
+                      "Enable/disable action of redirect to NQA.";
+                    leaf nqa-admin-name {
+                      type leafref {
+                        path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                      }
+                      mandatory true;
+                      description
+                        "NQA admin name.";
+                    }
+                    leaf nqa-instance {
+                    type leafref {
+                      path "/nqa:nqa/nqa:instances/nqa:instance[nqa:admin-name=current()/../nqa-admin-name]/nqa:test-name";
+                    }
+                      mandatory true;
+                      description
+                        "NQA instance.";
+                    }
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                      description
+                        "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                    choice property {
+                      default "routing-filter";
+                      description
+                        "Specify other NQA property.";
+                      case vpn-network {
+                        description
+                          "Specify VPN network.";
+                        leaf vpn-network {
+                          type empty;
+                          description
+                            "VPN network.";
+                        }
+                      }
+                      case routing-filter {
+                        description
+                          "Routing filter.";
+                           leaf routing-filter {
+                          type routing-type;
+                          default "false";
+                          description
+                            "Routing type.";
+                        }
+                        leaf public-network {
+                          type empty;
+                          description
+                            "Public network.";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          case ipv4-nexthops {
+			description
+               "Specify IPv4 nexthop.";
+            container ipv4-nexthops {
+              description
+                "Configure action of redirect to IPv4 nexthop or multi-nexthops.";
+              leaf remote {
+                type boolean;
+                description
+                  "Enable/disable redirect to remote next hop address.";
+              }
+              leaf multi-vpn {
+			    when "../remote = 'true'";
+                type boolean;
+				default "false";
+                description
+                  "Enable/disable redirect to multi-vpn nexthop address.";
+              }
+              leaf load-balance {
+                when "../remote = 'false'";
+                type boolean;
+                description
+                  "Enable/disable redirect to ECMP nexthop. Set to TRUE, means enable ecmp.";
+              }
+              leaf vpn-instance {
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                must "../nexthop-addresss/nexthop-address/ip-address";
+                description
+                  "Specify vpn instance for nexthop address.";
+              }
+              leaf deny {
+                type boolean;
+                description
+                  "Enable/disable drop packets when routes are invalid.";
+              }
+              leaf exact {
+                when "../remote = 'true'";
+                type empty;
+                description
+                  "Configure redirect to exact nexthop.";
+              }
+              leaf low-precedence {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable low precedence.";
+              }
+              leaf src-vpn-instance {
+                when "../low-precedence = 'true'";
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                description
+                  "Source vpn instance.";
+              }
+              leaf local {
+                when "../remote = 'true'";
+                type empty;
+                description
+                  "Enable/disable local.";
+              }
+              leaf per-packet {
+                when "../load-balance = 'true'";
+                type empty;
+                description
+                  "Load balance by per packet.";
+              }
+              container nexthop-addresss {
+                description
+                  "List of redirect nexthops.";
+                list nexthop-address {
+                  key "ip-address";
+                  min-elements 1;
+                  max-elements 16;
+                  ordered-by user;
+                  description
+                    "Configure redirect nexthop address.";
+                  leaf ip-address {
+                    type inet:ipv4-address-no-zone;
+                    description
+                      "Nexthop ip address.";
+                  }
+                  leaf reaction-probe-failtimes {
+                    type int8 {
+                      range "1..15";
+                    }
+                    description
+                      "Specify NQA probe fail times.";
+                  }
+                  choice track {
+                    default "ip-route";
+                    description
+                      "Interface/vrrp/ip-route for AR.";
+                    case ip-route {
+                      description
+                        "Configure ip route.";
+                      container ip-route {
+                        description
+                          "Configure ip-route.";
+                        leaf ip {
+                          type inet:ip-address;
+                          description
+                            "IP address.";
+                        }
+                        leaf mask-length {
+                          type uint8 {
+                            range "1..32";
+                          }
+                          description
+                            "Mask length.";
+                        }
+                      }
+                    }
+                    case interface {
+                      description
+                        "Configure L3 interface.";
+                      container interface {
+                        description
+                          "Configure Interface.";
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          description
+                            "Ifname.";
+                        }
+                      }
+                    }
+                    case nqa {
+                      description
+                        "Configure NQA.";
+                      container nqa {
+                      description
+                        "Configure NQA.";		      
+                        leaf nqa-admin-name {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                          }
+                          description
+                            "NQA admin name.";
+                        }
+                        leaf nqa-instance {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                          }
+                          must "/nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                          description
+                            "NQA instance.";
+                        }
+                      }
+                    }
+                    case track-vrrp {
+                      description
+                        "Configure vrrp.";
+                      container track-vrrp {
+                        description
+                          "Configure vrrp.";
+                        leaf vrid {
+                          type uint32;
+                          must "../interface";
+                          description
+                            "Vrid.";
+                        }
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          must "../vrid";
+                          description
+                            "Interface.";
+                        }
+                      }
+                    }
+                    case bfd {
+                      description
+                        "Configure BFD.";
+                      container bfd {
+                        description
+                          "Configure BFD.";
+                        leaf bfd-session-name {
+                          type leafref {
+                            path "/bfd:bfd/bfd:sessions/bfd:session/bfd:name";
+                          }
+                          description
+                            "BFD session name.";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              container multi-vpn-nexthop-addresss {
+                  when "../multi-vpn = 'true'";
+                    description
+                      "List of redirect multi-vpn nexthops.";
+                    list multi-vpn-nexthop-address {
+                      key "ip-address vrf-name";
+                      max-elements 16;
+                      description
+                        "Configure redirect nexthop address.";
+                    leaf ip-address {
+                      type inet:ipv4-address-no-zone;
+                      description
+                        "Nexthop ip address.";
+                  }
+                  leaf vrf-name {
+                    type leafref {
+                      path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                    }
+                    description
+                      "VPN name.";
+                  }
+                  leaf reaction-probe-failtimes {
+                    type int8 {
+                      range "1..15";
+                    }
+                    description
+                      "Specify NQA probe fail times.";
+                  }
+                  choice track {
+                    description
+                      "Interface/vrrp/ip-route for AR.";
+                    case ip-route {
+                      description
+                        "Configure ip route.";
+                      container ip-route {
+                        description
+                          "Configure ip-route.";
+                        leaf ip {
+                          type inet:ip-address;
+                          mandatory true;
+                          description
+                            "IP address.";
+                        }
+                        leaf mask-length {
+                          type uint8 {
+                            range "1..32";
+                          }
+                          mandatory true;
+                          description
+                            "Mask length.";
+                        }
+                      }
+                    }
+                    case interface {
+                      description
+                        "Configure L3 interface.";
+                      container interface {
+                        description
+                          "Configure Interface.";
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          description
+                            "Ifname.";
+                        }
+                      }
+                    }
+                    case nqa {
+                      description
+                        "Configure NQA.";
+                      container nqa {
+                        description
+                          "Configure NQA.";		      
+                        leaf nqa-admin-name {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                          }
+                          mandatory true;
+                          description
+                            "NQA admin name.";
+                        }
+                        leaf nqa-instance {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                          }
+                          must "/nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                          mandatory true;
+                          description
+                            "NQA instance.";
+                        }
+                      }
+                    }
+                    case bfd {
+                      description
+                        "Configure BFD.";
+                      container bfd {
+                        description
+                          "Configure BFD.";
+                        leaf bfd-session-name {
+                          type leafref {
+                            path "/bfd:bfd/bfd:sessions/bfd:session/bfd:name";
+                          }
+                          description
+                            "BFD session name.";
+                        }
+                      }
+                    }
+                    case track-vrrp {
+                      description
+                        "Configure vrrp.";
+                      container track-vrrp {
+                        description
+                          "Configure vrrp.";
+                        leaf vrid {
+                          type uint32;
+                          mandatory true;
+                          description
+                            "Vrid.";
+                        }
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          mandatory true;
+                          description
+                            "Interface.";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      container pbr-ipv6 {
+        description
+          "Configure action of redirecting to IPv6.";
+        choice pbr-ipv6 {
+          description
+            "Action of redirecting to IPv6.";
+          case ipv6-redirect-public-network {
+            description
+              "Action of redirecting to IPv6 public-network.";
+            container ipv6-redirect-public-network {
+              presence "create ipv6-redirect-public-network";
+              description
+                "Enable/disable action of redirecting to IPv6 public-network.";
+            }
+          }
+          case ipv6-redirect-to-interface {
+            description
+                "Action of redirecting to IPv6 interface.";
+            container ipv6-redirect-to-interface {
+              description
+                  "Configure action of redirecting to IPv6 interface.";
+              leaf if-name {
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                mandatory true;
+                description
+                  "Outbound interface name.";
+              }
+              leaf route-forward {
+                type boolean;
+                default "false";
+                  description
+                  "Enable/disable route forward.";
+              }
+            }
+          }
+          case ipv6-nexthop {
+            description
+              "Action of redirecting to a IPv6 next hop.";
+            container ipv6-nexthop {
+              presence "create ipv6";
+              description
+               "Enable/disable action of redirecting to a IPv6 next hop.";
+              leaf nexthop-address {
+                type inet:ipv6-address-no-zone;
+                mandatory true;
+                description
+                  "Next hop address.";
+              }
+              leaf common-route-priority {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable common route priority.";
+              }
+              choice action-type {
+                default "none";
+                description
+                  "Action of redirect to IPv6 nexthop type.";
+                case none {
+                  description
+                    "Action of redirect to IPv6 nexthop type.";
+                  container none {
+                    description
+                      "Configure action of redirect to IPv6 nexthop type none.";
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                        description
+                          "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                    leaf routing-filter {
+                        type routing-type;
+                        default "false";
+                        description
+                          "Routing type.";
+                    }
+                    container nexthop-track{
+                      description 
+                        "Configure redirect next-hop track.";
+                      choice nexthop-extend {
+                        description 
+                          "Nexthop extend.";
+                        case nqa {
+                          description 
+                            "NQA.";
+                          container nqa {
+                            description 
+                              "Configure NQA.";
+                            leaf nqa-admin-name {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                              }
+                              must "../nqa-instance";
+                              description
+                                "NQA admin name.";
+                            }
+                              leaf nqa-instance {
+                              type leafref {
+                                path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                              }
+                              must "../nqa-admin-name and /nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                              description
+                                "NQA instance.";
+                            }
+                          }
+                        }
+                        case ip-route {
+                          description 
+                            "IP route.";
+                          container ip-route {
+                            description 
+                              "Configure IP route.";
+                            leaf ip {
+                              type inet:ip-address;
+                              description 
+                                "IP address.";
+                            }
+                            leaf mask-length {
+                              type uint8 {
+                                range "0..32";
+                              }
+                              description 
+                                "Mask length.";
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                case interface {
+                  description
+                    "Action of redirecting to a IPv6 interface.";
+                  container interface {
+                    presence "create ipv6-interface";
+                    description
+                      "Enable/disable action of redirecting to a IPv6 interface.";
+                    leaf if-name {
+                      type leafref {
+                        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                      }
+                      mandatory true;
+                      description
+                        "Outbound interface name.";
+                    }
+                    leaf route-forward {
+                      type boolean;
+                      default "false";
+                      description
+                        "Enable/disable route forward.";
+                    }
+                  }
+                }
+                
+                case vpn-instance {
+                  description
+                    "Private VRF LSP.";
+                  container vpn-instance {
+                    presence "create ipv6-vpn";
+                    description
+                      "Enable/disable action of redirecting to IPv6 VRF LSP.";
+                    leaf vrf-name {
+                      type leafref {
+                        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                      }
+                      must "../vrf-name!='_public_'";
+                      mandatory true;
+                      description
+                        "VPN name.";
+                    }
+                    leaf nqa-admin-name {
+                      type leafref {
+                        path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                      }
+                      must "../nqa-instance";
+                      description
+                        "NQA admin name.";
+                    }
+                    leaf nqa-instance {
+                    type leafref {
+                      path "/nqa:nqa/nqa:instances/nqa:instance[nqa:admin-name=current()/../nqa-admin-name]/nqa:test-name";
+                    }
+                      must "../nqa-admin-name";
+                      description
+                        "NQA instance.";
+                    }
+                    leaf routing-filter {
+                      type routing-type;
+                      default "false";
+                      description
+                        "Routing type.";
+                    }
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                        description
+                          "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                  }
+                }
+                case nqa {
+                  description
+                    "Specify NQA test class.";
+                  container nqa {
+                    presence "create ipv6-nqa";
+                    description
+                      "Enable/disable action of redirecting to IPv6 NQA.";
+                    leaf nqa-admin-name {
+                      type leafref {
+                        path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                      }
+                      mandatory true;
+                      description
+                        "NQA admin name.";
+                    }
+                    leaf nqa-instance {
+                    type leafref {
+                      path "/nqa:nqa/nqa:instances/nqa:instance[nqa:admin-name=current()/../nqa-admin-name]/nqa:test-name";
+                    }
+                      mandatory true;
+                      description
+                        "NQA instance.";
+                    }
+                    leaf deny {
+                      type boolean;
+                      default "false";
+                      description
+                        "Enable/disable packets are dropped when routes are invalid.";
+                    }
+                    leaf routing-filter {
+                      type routing-type;
+                      default "false";
+                      description
+                       "Routing type.";
+                    }
+                  }
+                }
+              }
+            }
+          }
+          case ipv6-nexthops {
+			description
+               "Specify IPv4 nexthop.";
+            container ipv6-nexthops {
+              description
+                "Configure action of redirect to IPv6 nexthop or multi-nexthops.";
+              leaf remote {
+                type boolean;
+                description
+                  "Enable/disable redirect to remote next hop address.";
+              }
+              leaf multi-vpn {
+			    when "../remote = 'true'";
+                type boolean;
+				default "false";
+                description
+                  "Enable/disable redirect to multi-vpn nexthop address.";
+              }
+              leaf load-balance {
+                when "../remote = 'false'";
+                type boolean;
+                description
+                  "Enable/disable redirect to ECMP nexthop. Set to TRUE, means enable ecmp.";
+              }
+              leaf vpn-instance {
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                must "../nexthop-addresss/nexthop-address/ipv6-address";
+                description
+                  "Specify vpn instance for nexthop address.";
+              }
+              leaf deny {
+                when "../remote = 'false'";
+                type boolean;
+                description
+                  "Enable/disable drop packets when routes are invalid.";
+              }
+              leaf exact {
+                when "../remote = 'true'";
+                type empty;
+                description
+                  "Configure redirect to exact nexthop.";
+              }
+              leaf low-precedence {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable low precedence.";
+              }
+              leaf per-packet {
+                when "../load-balance = 'true'";
+                type empty;
+                description
+                  "Load balance by per packet.";
+              }
+              leaf src-vpn-instance {
+                when "../low-precedence = 'true'";
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                description
+                  "Source vpn instance.";
+              }
+              leaf local {
+                when "../remote = 'true'";
+                type empty;
+                description
+                  "Enable/disable local.";
+              }
+              container nexthop-addresss {
+                description
+                  "List of redirect nexthops.";
+                list nexthop-address {
+                  key "ipv6-address";
+                  min-elements 1;
+                  max-elements 16;
+                  ordered-by user;
+                  description
+                    "Configure redirect nexthop address.";
+                  leaf ipv6-address {
+                    type inet:ipv6-address-no-zone;
+                    description
+                      "Nexthop IPv6 address.";
+                  }
+
+                  leaf reaction-probe-failtimes {
+                    type int8 {
+                      range "1..15";
+                    }
+                    description
+                      "Specify NQA probe fail times.";
+                  }
+                  choice track {
+                    default "nqa";
+                    description
+                      "Track ip-route or NQA.";
+                    case nqa {
+                      description
+                        "Configure NQA.";
+                      container nqa {
+                        description
+                          "Configure NQA.";
+                        leaf nqa-admin-name {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                          }
+                          description
+                            "NQA admin name.";
+                        }
+                        leaf nqa-instance {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                          }
+                          must "/nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                          description
+                            "NQA instance.";
+                        }
+                      }
+                    }
+                    case bfd {
+                      description
+                        "Configure BFD.";
+                      container bfd {
+                        description
+                          "Configure BFD.";
+                        leaf bfd-session-name {
+                          type leafref {
+                            path "/bfd:bfd/bfd:sessions/bfd:session/bfd:name";
+                          }
+                          description
+                            "BFD session name.";
+                        }
+                      }
+                    }
+                    case interface {
+                      description
+                        "Configure L3 interface.";
+                      container interface {
+                        description
+                          "Configure Interface.";
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          description
+                            "Ifname.";
+                        }
+                      }
+                    }
+                    case ipv6-route {
+                      description
+                        "Configure IPv6-route.";
+                      container ipv6-route {
+                        description
+                          "Configure IPv6-route.";
+                        leaf ipv6-address {
+                          type inet:ipv6-address-no-zone;
+                          description
+                            "IPv6 address.";
+                        }
+                        leaf mask-length {
+                          type uint8 {
+                            range "1..128";
+                          }
+                          description
+                            "IPv6 mask length.";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              container multi-vpn-nexthop-addresss {
+                when "../multi-vpn = 'true'";
+                description
+                        "List of redirect multi-vpn nexthops.";
+                list multi-vpn-nexthop-address {
+                  key "ipv6-address vrf-name";
+                  max-elements 16;
+                  description
+                    "Configure redirect nexthop address.";
+                  leaf ipv6-address {
+                    type inet:ipv6-address-no-zone;
+                    description
+                      "Nexthop IPv6 address.";
+                  }
+				          leaf vrf-name {
+                    type leafref {
+                      path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                    }
+                    description
+                      "VPN name.";
+                  }
+                  leaf reaction-probe-failtimes {
+                    type int8 {
+                      range "1..15";
+                    }
+                    description
+                      "Specify NQA probe fail times.";
+                  }
+                  choice track {
+                    description
+                      "Track IPv6-route or NQA.";
+                    case interface {
+                      description
+                        "Configure L3 interface.";
+                      container interface {
+                        description
+                          "Configure Interface.";
+                        leaf interface {
+                          type leafref {
+                            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                          }
+                          description
+                            "Ifname.";
+                        }
+                      }
+                    }
+                    case nqa {
+                      description
+                        "Configure NQA.";
+                      container nqa {
+                      description
+                        "Configure NQA.";		      
+                        leaf nqa-admin-name {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                          }
+                          mandatory true;
+                          description
+                            "NQA admin name.";
+                        }
+                        leaf nqa-instance {
+                          type leafref {
+                            path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                          }
+                          must "/nqa:nqa/nqa:instances/nqa:instance/nqa:icmp-input";
+                          mandatory true;
+                          description
+                            "NQA instance.";
+                        }
+                      }
+                    }
+                    case ipv6-route {
+                      description
+                        "Configure IPv6 route.";
+                      container ipv6-route {
+                        description
+                          "Configure IPv6-route.";
+                        leaf ipv6-address {
+                          type inet:ipv6-address-no-zone;
+                          mandatory true;
+                          description
+                            "IPv6 address.";
+                        }
+                        leaf mask-length {
+                          type uint8 {
+                            range "1..128";
+                          }
+                          mandatory true;
+                          description
+                            "Mask length.";
+                        }
+                      }
+                    }
+                    case bfd {
+                      description
+                        "Configure BFD.";
+                      container bfd {
+                        description
+                          "Configure BFD.";
+                        leaf bfd-session-name {
+                          type leafref {
+                            path "/bfd:bfd/bfd:sessions/bfd:session/bfd:name";
+                          }
+                          description
+                            "BFD session name.";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

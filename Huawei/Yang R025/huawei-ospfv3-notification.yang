@@ -1,0 +1,248 @@
+/*
+Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ospfv3-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ospfv3-notification";
+  prefix ospfv3-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of ospfv3.";
+  revision 2024-12-11 {
+    description
+      "Add notification srv6-port-license-inactive and srv6-port-license-inactive-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-08 {
+    description
+      "Add notification source-prefix-conflict and source-prefix-conflict-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-16 {
+    description
+      "Add notification recv-lsa-exceed-threshold and recv-lsa-exceed-threshold-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-13 {
+    description
+      "Add notification lsa-retran-exceed-limit and lsa-retran-exceed-limit-clear.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-10 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ospf";
+  notification neighbor-exceed-threshold {
+    description
+      "This object indicates that the number of ospfv3 exceeds the configured threshold.";
+    leaf neighbor-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the upper alarm threshold for the number of neighbors.";
+    }
+  }
+  notification neighbor-exceed-threshold-resume {
+    description
+      "This object indicates that the number of ospfv3 has been less than the configured threshold.";
+    leaf neighbor-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the upper alarm threshold for the number of neighbors.";
+    }
+  }
+  notification lsa-retran-exceed-limit {
+    description
+      "This object indicates that the number of OSPFv3 LSA retransmissions on an interface exceeds the limit.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Area ID.";
+    }
+    leaf if-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification  lsa-retran-exceed-limit-clear {
+    description
+      "This object indicates that the number of OSPFv3 LSA retransmissions on an interface is lower than the limit.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf area-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Area ID.";
+    }
+    leaf if-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification recv-lsa-exceed-threshold {
+    description
+      "This object indicates that the number of received LSAs exceeded the threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf received-lsa-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the threshold value of received LSAs.";
+    }
+  }
+  notification recv-lsa-exceed-threshold-resume {
+    description
+      "This object indicates that the number of received LSAs fell below 90 percent of the threshold.";
+    leaf process-id {
+      type uint32;
+      description
+        "Process ID.";
+    }
+    leaf received-lsa-threshold-upper {
+      type uint32;
+      description
+        "This object indicates the threshold value of received LSAs.";
+    }
+  }
+  notification source-prefix-conflict {
+    description
+      "A conflict between the network slice source prefix of the local device and the IPv6 prefix of another device is detected.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPFv3 process ID.";
+    }
+    leaf router-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPFv3 router ID.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-router-id{
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPFv3 conflict router ID.";
+    }
+  }
+  notification source-prefix-conflict-clear {
+    description
+      "The conflict between the network slice source prefix and the IPv6 prefix is cleared.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPFv3 process ID.";
+    }
+    leaf router-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPFv3 router ID.";
+    }
+    leaf ipv6-prefix-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "IPv6 prefix address.";
+    }
+    leaf ipv6-prefix-address-mask {
+      type uint32;
+      description
+        "IPv6 prefix address mask.";
+    }
+    leaf conflict-router-id{
+      type inet:ipv4-address-no-zone;
+      description
+        "OSPFv3 conflict router ID.";
+    }
+  }
+  notification srv6-port-license-inactive {
+    description
+      "No SRv6 license authorization was available.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPFv3 process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+  notification srv6-port-license-inactive-clear {
+    description
+      "The alarm indicating that no SRv6 license authorization was available was cleared.";
+    leaf process-id {
+      type uint32;
+      description
+        "OSPFv3 process ID.";
+    }
+    leaf interface-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Interface name.";
+    }
+    leaf interface-count {
+      type uint32;
+      description
+        "Interface count.";
+    }
+  }
+}

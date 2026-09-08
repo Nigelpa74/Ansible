@@ -1,0 +1,114 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cfg-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-cfg-deviations-ar5710s";
+  prefix cfg-devs-ar5710s;
+
+  import huawei-cfg {
+    prefix cfg;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-cfg module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef cfg-server-type-deviations {
+    type enumeration {
+      enum ftp {
+        value 1;
+        description
+          "FTP protocol.";
+      }
+      enum tftp {
+        value 2;
+        description
+          "TFTP protocol.";
+      }
+      enum sftp {
+        value 3;
+        description
+          "SFTP protocol.";
+      }
+    }
+    description
+      "Server type.";
+  }
+
+  deviation "/cfg:cfg/cfg:ap-startup-infos" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:translate-configuration-status" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:re-authorization-rules" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:re-authorization-mode" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:re-authorization-default" {
+    deviate not-supported;
+  }
+  deviation "/cfg:clear-startup/cfg:input" {
+    deviate not-supported;
+  }
+  deviation "/cfg:clear-interface-config" {
+    deviate not-supported;
+  }
+  deviation "/cfg:save-all-virtual-systems" {
+    deviate not-supported;
+  }
+  deviation "/cfg:set-startup/cfg:input/cfg:slot-id" {
+    deviate not-supported;
+  }
+  deviation "/cfg:configuration-translate" {
+    deviate not-supported;
+  }
+  deviation "/cfg:configuration-translate-abort" {
+    deviate not-supported;
+  }
+  deviation "/cfg:save-ap-configs" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:autosave-checkpoint/cfg:start-time" {
+    deviate delete {
+      default "02:00";
+    }
+  }
+  deviation "/cfg:cfg/cfg:backup-servers/cfg:backup-server/cfg:transport-type" {
+    deviate replace {
+      type cfg-devs-ar5710s:cfg-server-type-deviations;
+    }
+  }
+  deviation "/cfg:cfg/cfg:global-switch/cfg:configuration-slave-detect-switch" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:global-switch/cfg:checkpoint-switch" {
+    deviate not-supported;
+  }
+  deviation "/cfg:cfg/cfg:trial-status" {
+    deviate not-supported;
+  }
+  deviation "/cfg:load-configuration-to-candidate" {
+    deviate not-supported;
+  }
+  deviation "/cfg:load-configuration-to-candidate-result" {
+    deviate not-supported;
+  }
+}

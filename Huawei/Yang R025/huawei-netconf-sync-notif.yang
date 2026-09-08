@@ -1,0 +1,81 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-netconf-sync-notif {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-netconf-sync-notif";
+  prefix netconf-sync-notif;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "The NETCONF sync notification nodes are defined in this file.";
+  reference
+    "Huawei private.";
+  revision 2024-04-15 {
+     description
+       "Add description for each value of resource-type.";
+     reference
+       "Huawei private.";
+   }
+  revision 2021-03-05 {
+     description
+       "Initial revision.";
+     reference
+       "Huawei private.";
+   }
+  ext:task-name "netconf";
+  notification netconf-mda-resource-change {
+    description
+      "Generated when any kind of MDA resource file changed. Then the
+       MDA resource package files will be regenerated.";
+    leaf resource-type {
+      type bits {
+        bit yang {
+          description
+            "YANG model files.";
+        }
+        bit yang-patch {
+          description
+            "YANG model patch files.";
+        }
+        bit yang-zh-cn {
+          description
+            "Chinese resource files of YANG models.";
+        }
+        bit yang-zh-cn-patch {
+          description
+            "Chinese resource patch files of YANG models.";
+        }
+        bit alarm {
+          description
+            "Alarm information files.";
+        }
+        bit alarm-patch {
+          description
+            "Alarm information patch files.";
+        }
+        bit panel {
+          description
+            "Panel infomation files.";
+        }
+        bit panel-patch {
+          description
+            "Panel information patch files.";
+        }
+      }
+      mandatory true;
+      description
+        "The type of MDA resource files that changed.";
+    }
+  }
+}

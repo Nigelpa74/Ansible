@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-isis-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-isis-notification-deviations-ar5710s";
+  prefix isis-notification-devs-ar5710s;
+
+  import huawei-isis-notification {
+    prefix isis-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-isis-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/isis-notification:network-slice-source-prefix-conflict" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:network-slice-source-prefix-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:isis-ip-conflict" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:isis-ip-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:instance-id-mismatch" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:instance-id-mismatch-clear" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:srv6-port-license-inactive" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:srv6-port-license-inactive-clear" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:srmpls-port-license-inactive" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:srmpls-port-license-inactive-clear" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:adaptive-routing-congest" {
+    deviate not-supported;
+  }
+  deviation "/isis-notification:adaptive-routing-congest-clear" {
+    deviate not-supported;
+  }
+}

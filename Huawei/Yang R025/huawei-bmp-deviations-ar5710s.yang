@@ -1,0 +1,143 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bmp-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bmp-deviations-ar5710s";
+  prefix bmp-devs-ar5710s;
+
+  import huawei-bmp {
+    prefix bmp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bmp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef monitor-vpns-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+    }
+    description
+      "The address family of BMP monitor.";
+  }
+
+  typedef monitor-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+    }
+    description
+      "The address family of BMP monitor.";
+  }
+
+  typedef monitor-vpn-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+    }
+    description
+      "The address family of BMP monitor.";
+  }
+
+  deviation "/bmp:bmp/bmp:bmp/bmp:status/bmp:sessions/bmp:session/bmp:version" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:version" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:ipv4-vpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:ipv6-vpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:ipv4-labeluni" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:ipv4-flow" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:ipv6-flow" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:evpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:link-state-unicast" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-all-vpn/bmp:route-modes/bmp:route-mode/bmp:address-family" {
+    deviate replace {
+      type bmp-devs-ar5710s:monitor-vpn-af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:address-family" {
+    deviate delete {
+      must "((../../../bgp-vpn-name != '_public_') and (../address-family !='ipv4vpn' and ../address-family !='ipv6vpn' and ../address-family !='evpn' and ../address-family != 'ls')) or (../../../bgp-vpn-name = '_public_')";
+    }
+    deviate replace {
+      type bmp-devs-ar5710s:monitor-vpns-af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:adj-rib-mode" {
+    deviate delete {
+      must "((../address-family = 'ipv4flow' or ../address-family = 'ipv6flow') and (../adj-rib-mode = 'locrib')) or ((../address-family != 'ipv4flow' and ../address-family != 'ipv6flow'))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-vpns/bmp:monitor-vpn/bmp:route-modes/bmp:route-mode/bmp:add-path" {
+    deviate delete {
+      must "(../add-path='false') or (../add-path='true' and (../address-family ='ipv4uni' or ../address-family ='ipv6uni' or ../address-family ='ipv4vpn' or ../address-family ='ipv6vpn' or ../address-family ='ipv4labeluni' or ../address-family ='evpn'))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bmp:bmp/bmp:sessions/bmp:session/bmp:monitor-peers/bmp:monitor-peer/bmp:route-modes/bmp:route-mode/bmp:address-family" {
+    deviate delete {
+      must "((../../../bgp-vpn-name != '_public_') and (../address-family !='ipv4vpn' and ../address-family !='ipv6vpn' and ../address-family !='evpn' and ../address-family != 'ls')) or (../../../bgp-vpn-name = '_public_')";
+    }
+    deviate replace {
+      type bmp-devs-ar5710s:monitor-af-type-deviations;
+    }
+  }
+}

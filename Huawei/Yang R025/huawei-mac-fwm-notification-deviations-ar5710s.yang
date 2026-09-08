@@ -1,0 +1,61 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mac-fwm-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mac-fwm-notification-deviations-ar5710s";
+  prefix mac-fwm-notification-devs-ar5710s;
+
+  import huawei-mac-fwm-notification {
+    prefix mac-fwm-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mac-fwm-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mac-fwm-notification:bd-mac-limit-over-threshold-alarm" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:bd-mac-limit-over-threshold-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:vxlan-tunnel-mac-limit-over-threshold-alarm" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:vxlan-tunnel-mac-limit-over-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:vsi-mac-limit-over-threshold-alarm" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:vsi-mac-limit-over-threshold-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:mflp-bd-alarm" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:mflp-bd-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:mflp-vsi-alarm" {
+    deviate not-supported;
+  }
+  deviation "/mac-fwm-notification:mflp-vsi-alarm-resume" {
+    deviate not-supported;
+  }
+}

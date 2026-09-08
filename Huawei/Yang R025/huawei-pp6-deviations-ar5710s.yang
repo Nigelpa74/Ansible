@@ -1,0 +1,63 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pp6-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-pp6-deviations-ar5710s";
+  prefix pp6-devs-ar5710s;
+
+  import huawei-pp6 {
+    prefix pp6;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pp6 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef app-proto-type-deviations {
+    type enumeration {
+      enum default {
+        value 0;
+        description
+          "Default protocol.";
+      }
+    }
+    description
+      "Application protocol type.";
+  }
+
+  deviation "/pp6:pp6/pp6:ipv6-global/pp6:echo-reply" {
+    deviate not-supported;
+  }
+  deviation "/pp6:pp6/pp6:ipv6-global/pp6:host-unreach" {
+    deviate not-supported;
+  }
+  deviation "/pp6:pp6/pp6:ipv6-global/pp6:port-unreach" {
+    deviate not-supported;
+  }
+  deviation "/pp6:pp6/pp6:ipv6-global/pp6:udp-zero-checksum-ignore" {
+    deviate not-supported;
+  }
+  deviation "/pp6:pp6/pp6:slot-ip6-packet-rate-limits" {
+    deviate not-supported;
+  }
+  deviation "/pp6:pp6/pp6:ipv6-dscps/pp6:ipv6-dscp/pp6:proto-type" {
+    deviate replace {
+      type pp6-devs-ar5710s:app-proto-type-deviations;
+    }
+  }
+}

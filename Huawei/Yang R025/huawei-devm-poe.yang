@@ -1,0 +1,690 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-devm-poe {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-devm-poe";
+  
+  prefix devm-poe;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-time-range {
+    prefix timerange;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Ethernet Power Supply.";
+  revision 2024-11-23 {
+    description
+      "Add the poe-track-shutdown node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-13 {
+    description
+      "Correct spelling errors.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-04 {
+    description
+      "Add not-support port-status.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-30 {
+    description
+      "Add pattern of position node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-22 {
+    description
+      "Add node of transmit power-off node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-22 {
+    description
+      "Add node of actual-power node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-13 {
+    description
+      "Add the global container and anti-interference-freq node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-26 {
+    description
+      "Add rpc node of fast-on-enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-25 {
+    description
+      "Add mos-fault.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-21 {
+    description
+      "Add dynamic-default.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-04-01 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "device-mgr";
+  
+  typedef poe-mode-type {
+    type enumeration {
+      enum af-inrush {
+        value 0;
+        description 
+          "Change the PoE interface to conformance IEEE 802.3af.";
+      }
+      enum at-inrush {
+        value 1;
+        description 
+          "Change the PoE interface to conformance IEEE 802.3at.";
+      }
+      enum pre-bt-inrush {
+        value 2;
+        description 
+          "If most parameters supported by the PDs requiring high power comply with IEEE 802.3at standards, change the PoE interface to the PoE++ compatible mode.";
+      }
+      enum bt-inrush {
+        value 3;
+        description 
+          "Change the PoE interface to conformance IEEE 802.3bt.";
+      }
+    }
+    description
+      "PoE Mode Type.";
+  }
+  typedef poe-port-power-state {
+    type enumeration {
+      enum on {
+        value 0;
+        description 
+          "Power state is on.";
+      }
+      enum off {
+        value 1;
+        description 
+          "Power state is off.";
+      }
+    }
+    description 
+      "The on-off state of interface power-state.";
+  }
+  typedef poe-port-priority {        
+    type enumeration {
+      enum low {
+        value 0;
+        description 
+          "Low priority.";
+      }
+      enum high {
+        value 1;
+        description 
+          "High priority.";
+      }
+      enum critical {
+        value 2;
+        description 
+          "Critical priority.";
+      }
+    }
+    description 
+      "The poe priority of interface.";
+  }
+  typedef poe-port-status {        
+    type enumeration {
+      enum detecting {
+        value 0;   
+        description 
+          "Detecting status.";         
+      }
+      enum disabled {
+        value 1;
+        description 
+          "Disabled status.";
+      }
+      enum powered {
+        value 2;
+        description 
+          "Powered status.";
+      }
+      enum overloaded {
+        value 3;
+        description 
+          "Overloaded status.";
+      }
+      enum power-ready {
+        value 4;
+        description 
+          "Power-ready status.";
+      }
+      enum unstable-voltage {
+        value 5;
+        description 
+          "Unstable-voltage status.";
+      }
+      enum power-deny {
+        value 6;
+        description 
+          "Power-deny status.";
+      }
+      enum classification-overcurrent {
+        value 7;
+        description 
+          "Classification overcurrent status.";
+      }
+      enum unknown-class {
+        value 8;
+        description 
+          "Unknown-class status.";
+      }
+      enum power-overcurrent {
+        value 9;
+        description 
+          "Power overcurrent status.";
+      }
+      enum poweron-fail {
+        value 10;
+        description 
+          "Power-on fail status.";
+      }
+      enum powering {
+        value 11;
+        description 
+          "Powering status.";
+      }
+      enum time-range-poweroff {
+        value 12;
+        description 
+          "Time-range power off status.";
+      }
+      enum test-mode {
+        value 13;
+        description 
+          "Test mode.";
+      }
+      enum legacy-disable {
+        value 14;
+        description 
+          "Legacy-disable status.";
+      }
+      enum class-mismatch {
+        value 15;
+        description 
+          "Class mismatch status.";
+      }
+      enum chip-fault {
+        value 16;
+        description 
+          "Chip-fault status.";
+      }
+      enum high-temperature {
+        value 17;
+        description
+          "High-temperature status.";
+      }
+      enum mos-fault {
+        value 18;
+        description 
+          "MOS-fault status.";
+      }
+      enum not-support {
+        value 19;
+        description 
+          "Port is not support PoE.";
+      }
+      enum disabled-track-shutdown {
+        value 20;
+        description 
+          "PoE disabled by command shutdown.";
+      }
+    }
+    description 
+      "The poe port status.";
+  }
+  typedef poe-anti-inter-freq {
+    type enumeration {
+      enum 50Hz {
+        value 0;
+        description 
+          "50Hz anti-interference frequency.";
+      }
+      enum 60Hz {
+        value 1;
+        description 
+          "60Hz anti-interference frequency.";
+      }
+    }
+    description 
+      "PoE anti-interference frequency.";
+  }
+
+  container devm-poe {
+    description
+      "Ethernet Power Supply.";
+    container global {
+      description
+        "Configure globally configured attributes.";
+      leaf anti-interference-freq {
+        type poe-anti-inter-freq;
+        units "Hz";
+        default "50Hz";
+        description
+          "PoE anti-interference frequency.";
+      }
+      leaf poe-track-shutdown {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable PoE track port shutdown.";
+      }
+    }
+    container poes {
+      description
+        "List of Ethernet Power Supply.";
+      list poe {
+        ext:generated-by system;
+        ext:operation-exclude create;
+        key "position";
+        description
+          "Configure to Ethernet Power Supply.";
+        leaf position {
+          type string {
+            length "1..32";
+            pattern "[0-9/]+";
+          }
+          description
+            "Slot position.";
+        }
+        leaf reserved-power {
+          type uint32 {
+            range "0..100";
+          }
+          default 20;
+          description 
+            "When there is a burst increase in power consumption, the reserved power can support the system running.";
+        }
+        leaf threshold-power {
+          type uint32 {
+            range "0..100";
+          }
+          default 90;
+          description
+            "The alarm threshold of the PoE power consumption for the specific slot.";
+        }
+        leaf max-power {
+          type uint32;
+          units "mW";
+          ext:dynamic-default;
+          description
+            "PoE maximum power, the default maximum power varies according to the board.";
+        }
+        leaf entity-index {
+          type uint32;
+          config false;
+          description
+            "Entity index.";
+        }
+        leaf supply-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "POE Supply Power.";
+        }
+        leaf available-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "POE Available Power.";
+        }
+        leaf consumption-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "Total Power Consumption.";
+        }
+        leaf peak-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "Power Peak Value.";
+        }
+        leaf reference-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "Reference Power.";
+        }
+        leaf support-flag {
+          type boolean;
+          config false;
+          description
+            "PoE support state.";
+        }  
+        container ports {
+          description
+            "List of POE port information.";
+          list port {
+            ext:generated-by system;
+            ext:operation-exclude create;
+            key "interface-name";
+            description
+              "Configure to POE port information.";
+            leaf interface-name {
+              type string {
+                length "1..255";
+              }
+              description
+                "Interface name.";
+            }
+            leaf power-mode {
+              when "../single-class-enable='false'";
+              type poe-mode-type;
+              ext:dynamic-default;
+              description
+                "PoE power supply mode. It takes effect only when single-class-enable is false, and it does not display when single-class-enable is true. The default value is dynamically determined by the attributes of the slot.";
+            }
+            leaf fast-on-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE fast-on.";
+            }
+            leaf legacy-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE legacy.";
+            }
+            leaf power-off-time-range {
+              type leafref {
+                path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+              }
+              description
+                "Specifies PoE power-off time range on the interface. If the current time is within the specified time range, the remote powered device (PD) connected to the interface cannot be powered on.";
+            }
+            leaf manual-power-setting {
+              type poe-port-power-state;
+              description
+                "Set PoE Manual Power.";
+            }
+            leaf power-enable {
+              type boolean;
+              default "true";
+              description
+                "Enable/disable PoE power supply on the interface.";
+            }
+            leaf port-max-power {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mW";
+              ext:dynamic-default;
+              description
+                "Max Power. The value range of this parameter is dynamically determined by the available power of chassis and slot.";
+            }
+            leaf power-priority {
+              type poe-port-priority;
+              description
+                "PoE power priority.";
+            }
+            leaf power-on-delay {
+              type uint32 {
+                range "0..60";
+              }
+              ext:dynamic-default;
+              description
+                "PoE power-on delay time. The default value is dynamically determined by the attributes of the slot.";
+            }
+            leaf auto-neg-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE power auto-neg.";
+            }
+            leaf single-class-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE single-class.";
+            }
+            leaf power-status{
+              type poe-port-status;
+              config false;
+              description 
+                "The PoE port status.";
+            }
+            leaf interface-description {
+              type string {
+                length "0..64";
+              }
+              config false;
+              description
+                "Interface description.";
+            }
+            leaf pd-class {
+              type uint32{
+                range "0..255";
+              }
+              config false;
+              description
+                "PD level.";
+            }
+            leaf pd-reference-power {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mW";
+              config false;
+              description
+                "PD reference power.";
+            }
+            leaf port-current {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mA";
+              config false;
+              description
+                "Output current.";
+            }
+            leaf port-voltage {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "V";
+              config false;
+              description
+                "Output voltage.";
+            }
+            leaf port-power {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mW";
+              config false;
+              description
+                "Output power.";
+            }
+            leaf port-peak-power {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mW";
+              config false;
+              description
+                "Output peak power.";
+            }
+            leaf port-average-power {
+              type uint32{
+                range "0..2147483647";
+              }
+              units "mW";
+              config false;
+              description
+                "Output average power.";
+            }
+            leaf pd-power-mode {
+              type string {
+                length "1..16";
+              }
+              config false;
+              description
+                "PD power-up mode.";
+            }
+            leaf pd-support-mode {
+              type string {
+                length "1..16";
+              }
+              config false;
+              description
+                "PD support mode.";
+            }
+            leaf power-state {
+              type string {
+                length "1..16";
+              }
+              config false;
+              description
+                "Power ON/OFF.";
+            }
+            leaf trans-actual-power-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE transmit actual-power.";
+            }
+            leaf trans-power-off-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable PoE transmit power-off.";
+            }
+          }
+        }
+      }
+    }
+    container chassis-poes {
+      description
+        "List of Chassis.";
+      list chassis-poe {
+        ext:generated-by system;
+        ext:operation-exclude create;
+        key "position";
+        description
+          "Configure to POE Power Information.";
+        leaf position {
+          type string {
+            length "1..255";
+          }
+          description
+            "Chassis position.";
+        }
+        leaf reserved-power {
+          type uint32 {
+            range "0..100";
+          }
+          default 20;
+          description
+            "The reserved power percent for the specific frame.";
+        }
+        leaf threshold-power {
+          type uint32 {
+            range "0..100";
+          }
+          default 90;
+          description
+            "The alarm threshold of the PoE power consumption for the specific frame.";
+        }
+        leaf entity-index {
+          type uint32;
+          config false;
+          description
+            "Entity index.";
+        }
+        leaf supply-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "POE Supply Power.";
+        }
+        leaf available-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "POE Available Power.";
+        }
+        leaf consumption-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "Total Power Consumption.";
+        }
+        leaf peak-power {
+          type uint32;
+          units "mW";
+          config false;
+          description
+            "Power Peak Value.";
+        }
+      }
+    }
+  }
+
+  rpc fast-on-enable {
+    ext:node-ref "/devm-poe/poes/poe/ports/port/fast-on-enable";
+    description
+      "Enable/Disable PoE fast-on on the interface.";
+    input  {
+      leaf interface-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            mandatory true;
+            description
+            "Interface name.";
+        }
+      leaf enable {
+            type boolean;
+            mandatory true;
+            description
+            "Enable/Disable PoE fast-on.";
+        }
+    }
+  }
+}

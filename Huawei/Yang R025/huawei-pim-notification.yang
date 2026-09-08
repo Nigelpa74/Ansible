@@ -1,0 +1,498 @@
+/*
+Copyright (C) 2023-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pim-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-pim-notification";
+  prefix pim-notification;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "The module defines notifications for PIM.";
+  revision 2024-04-28 {
+    description
+      "Add bsr-crp-reach-limit and bsr-crp-reach-limit-resume notification nodes. Add bsr-bsm-reach-limit and bsr-bsm-reach-limit-resume notification nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-24 {
+    description
+      "Add multicast sources for a multicast group limit nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "pim";
+
+  typedef ip-addr-type {
+    type enumeration {
+      enum "unknown" {
+        value 0;
+        description
+          "Unknown type.";
+      }
+      enum "ipv4unicast" {
+        value 1;
+        description
+          "IPv4 unicast.";
+      }
+      enum "ipv6unicast" {
+        value 2;
+        description
+          "IPv6 unicast.";
+      }
+    }
+    description
+      "Address family.";
+  }
+  typedef limit-type {
+    type enumeration {
+      enum "sm-star-group" {
+        value 1;
+        description
+          "PIM-SM (*, G) entry.";
+      }
+      enum "sm-source-group" {
+        value 2;
+        description
+          "PIM-SM (S, G) entry.";
+      }
+      enum "dm-star-group" {
+        value 3;
+        description
+          "PIM-DM (*, G) entry.";
+      }
+      enum "dm-source-group" {
+        value 4;
+        description
+          "PIM-DM (S, G) entry.";
+      }
+      enum "bidir-pim-star-group" {
+        value 5;
+        description
+          "BIDIR-PIM (*, G) entry.";
+      }
+    }
+    description
+      "Limit type.";
+  }
+  typedef pim-route-threshold-exceed-reason-type {
+    type enumeration {
+      enum "entry-added" {
+        value 1;
+        description
+          "The entry is added.";
+      }
+      enum "configuration-changed" {
+        value 100;
+        description
+          "The configuration is changed.";
+      }
+    }
+    description
+      "Indicates the alarm cause type of the PIM entry threshold alarm.";
+  }
+  typedef pim-route-resume-reason-type {
+    type enumeration {
+      enum "entry-deleted" {
+        value 1;
+        description
+          "The entry is deleted.";
+      }
+      enum "configuration-changed" {
+        value 2;
+        description
+          "The configuration is changed.";
+      }
+    }
+    description
+      "Indicates the cause type of PIM entry alarm clearance.";
+  }
+  notification pim-sg-inactive-threshold-exceed {
+    description
+      "The number of inactive (S, G) reached threshold.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf instance-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Instance name.";
+    }
+    leaf interval {
+      type uint32 {
+        range "60..65535";
+      }
+      description
+        "Alarm interval.";
+    }
+    leaf threshold {
+      type uint32 {
+        range "1..64000";
+      }
+      description
+        "Alarm threshold for the maximum number of inactive (S, G) entries.";
+    }
+    leaf count {
+      type uint32 {
+        range "1..64000";
+      }
+      description
+        "Inactive (S, G) count.";
+    }
+  }
+  notification pim-route-threshold-exceed {
+    description
+      "The number of global PIM entries reached the alarm threshold.";
+    leaf limit-type {
+        type limit-type;
+        description
+        "Entry limit type.";
+    }
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of current global PIM entries.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of global PIM entries.";
+    }
+    leaf threshold-number {
+      type uint32;
+      description
+        "Alarm trigger threshold.";
+    }
+    leaf reason-type {
+      type pim-route-threshold-exceed-reason-type;
+      description
+        "Alarm cause reason.";
+    }
+  }
+  notification pim-route-threshold-exceed-resume {
+    description
+      "The number of global PIM entries falls below the alarm threshold.";
+    leaf limit-type {
+        type limit-type;
+        description
+        " Entry limit type.";
+    }
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of current global PIM entries.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of global PIM entries.";
+    }
+    leaf threshold-number {
+      type uint32;
+      description
+        "Alarm trigger threshold.";
+    }
+    leaf reason-type {
+      type pim-route-resume-reason-type;
+      description
+        "Alarm clearance reason.";
+    }
+  }
+  notification pim-route-exceed {
+    description
+      "The number of global PIM entries reached the upper limit.";
+    leaf limit-type {
+      type limit-type;
+      description
+        "Entry limit type.";
+    }
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of current global PIM entries.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of global PIM entries.";
+    }
+    leaf src-addr {
+      type inet:ip-address-no-zone;
+      description
+        "Source address.";
+    }
+    leaf grp-addr {
+      type inet:ip-address-no-zone;
+      description
+        "Group address.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Instance name of the (S, G) entry.";
+    }
+  }
+  notification pim-route-exceed-resume {
+    description
+      "The number of global PIM entries falls below the upper limit.";
+    leaf limit-type {
+      type limit-type;
+      description
+        "Entry limit type.";
+    }
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of current global PIM entries.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of global PIM entries.";
+    }
+    leaf src-addr {
+      type inet:ip-address-no-zone;
+      description
+        "Source address.";
+    }
+    leaf grp-addr {
+      type inet:ip-address-no-zone;
+      description
+        "Group address.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Instance name of the (S, G) entry.";
+    }
+    leaf reason-type {
+      type pim-route-resume-reason-type;
+      description
+        "Alarm clearance reason.";
+    }
+  }
+  notification pim-source-per-group-exceed {
+    description
+      "At least one multicast group's multicast source number reached the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Instance name of the (S, G) entry.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of multicast sources for a multicast group.";
+    }
+  }
+  notification pim-source-per-group-exceed-resume {
+    description
+      "All multicast group's multicast source number falls below the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Instance name of the (S, G) entry.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Maximum number of multicast sources for a multicast group.";
+    }
+  }
+  notification bsr-crp-reach-limit {
+    description
+      "The number of C-RP entries received by the BSR reached the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Name of the VPN instance.";
+    }
+    leaf bsr-addr {
+      type inet:ip-address-no-zone;
+      description
+        "IP address of the BSR.";
+    }
+    leaf admin-scope {
+      type string {
+        length "0..64";
+      }
+      description
+        "BSR admin scope.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of C-RP entries received by the BSR.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Upper limit of the number of C-RP entries that can be accepted by the BSR.";
+    }
+  }
+  notification bsr-crp-reach-limit-resume {
+    description
+      "The number of C-RP entries received by the BSR fell below the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Name of the VPN instance.";
+    }
+    leaf bsr-addr {
+      type inet:ip-address-no-zone;
+      description
+        "IP address of the BSR.";
+    }
+    leaf admin-scope {
+      type string {
+        length "0..64";
+      }
+      description
+        "BSR admin scope.";
+    }
+    leaf current-number {
+      type uint32;
+      description
+        "Number of C-RP entries received by the BSR.";
+    }
+    leaf limit-number {
+      type uint32;
+      description
+        "Upper limit of the number of C-RP entries that can be accepted by the BSR.";
+    }
+  }
+  notification bsr-bsm-reach-limit {
+    description
+      "The size of the BSM packet has reached the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Name of the VPN instance.";
+    }
+    leaf bsr-addr {
+      type inet:ip-address-no-zone;
+      description
+        "IP address of the BSR.";
+    }
+    leaf admin-scope {
+      type string {
+        length "0..64";
+      }
+      description
+        "BSR admin scope.";
+    }
+  }
+  notification bsr-bsm-reach-limit-resume {
+    description
+      "The size of the BSM packet sent by the BSR fell below the upper limit.";
+    leaf address-family {
+      type ip-addr-type;
+      description
+        "Address family.";
+    }
+    leaf vrf-name {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Name of the VPN instance.";
+    }
+    leaf bsr-addr {
+      type inet:ip-address-no-zone;
+      description
+        "IP address of the BSR.";
+    }
+    leaf admin-scope {
+      type string {
+        length "0..64";
+      }
+      description
+        "BSR admin scope.";
+    }
+  }
+}

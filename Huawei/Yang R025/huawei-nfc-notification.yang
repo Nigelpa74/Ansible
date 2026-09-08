@@ -1,0 +1,98 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nfc-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nfc-notification";
+  prefix nfc-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of nfc module.";
+  reference
+    "Huawei private.";
+  revision 2025-07-03 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "nfc";
+  notification timer-res-threshold-exceed {
+    description
+      "The usage of timer resources reached the threshold.";
+    leaf process-name {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates the process information.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates the slot information.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates a cpu id.";
+    }
+    leaf current-usage {
+      type uint32;
+      description
+        "Indicates the current usage.";
+    }
+    leaf threshold-usage {
+      type uint32;
+      description
+        "Indicates the alarm threshold.";
+    }
+  }
+  notification timer-res-threshold-exceed-resume {
+    description
+      "The usage of timer resources is less than the threshold.";
+    leaf process-name {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates the process information.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Indicates the slot information.";
+    }
+    leaf cpu-id {
+      type uint32;
+      description
+        "Indicates a cpu id.";
+    }
+    leaf current-usage {
+      type uint32;
+      description
+        "Indicates the current usage.";
+    }
+    leaf threshold-usage {
+      type uint32;
+      description
+        "Indicates the alarm threshold.";
+    }
+  }
+}
+

@@ -1,0 +1,166 @@
+/******************************************************
+* Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+
+module huawei-aspf {
+	namespace "urn:huawei:yang:huawei-aspf";
+	prefix "hw-aspf";
+
+    import huawei-extension {
+        prefix ext;
+    }
+
+    organization
+        "Huawei Technologies Co., Ltd.";
+
+    contact
+        "Huawei Industrial Base
+        Bantian, Longgang
+        Shenzhen 518129
+        People's Republic of China
+        Website: http://www.huawei.com
+        Email: support@huawei.com";
+
+	description
+		"This module contains a collection of YANG definitions for Configuration of aspf.";
+
+    revision 2025-02-11 {
+	    description
+		    "Add ILS and MGCP protocol type.";
+        reference "";
+	}
+    revision 2025-01-13 {
+	    description
+		    "Add MMS protocol type.";
+        reference "";
+	}
+    revision 2024-10-21 {
+	    description
+		    "Add MSRPC and SCCP protocol type.";
+        reference "";
+	}
+    revision 2024-09-21 {
+	    description
+		    "Add TALK protocol type.";
+        reference "";
+	}
+    revision 2023-04-14 {
+	    description
+		    "Add OPC protocol type.";
+        reference "";
+	}
+    revision 2023-01-18 {
+	    description
+		    "Add XDMCP protocol type.";
+        reference "";
+	}
+    revision 2020-11-17 {
+	    description
+		    "Initial revision.";
+        reference "";
+	}
+
+    typedef protocol-type {
+        type enumeration {
+            enum dns {
+                value 0;
+                description "Indicate domain name service.";
+            }
+            enum ftp {
+                value 1;
+                description "Indicate file transfer protocol.";
+            }
+            enum h323 {
+                value 2;
+                description "Indicate H.323 protocol.";
+            }
+            enum msn {
+                value 3;
+                description "Indicate MSN protocol.";
+            }
+            enum netbios {
+                value 4;
+                description "Indicate netbios over TCP/IP protocol.";
+            }
+            enum pptp {
+                value 5;
+                description "Indicate point-to-point tunnel protocol.";
+            }
+            enum qq {
+                value 6;
+                description "Indicate QQ protocol.";
+            }
+            enum rsh {
+                value 7;
+                description "Indicate remote shell protocol.";
+            }
+            enum rtsp {
+                value 8;
+                description "Indicate real time streaming protocol.";
+            }
+            enum sip {
+                value 9;
+                description "Indicate session initiation protocol.";
+            }
+            enum sqlnet {
+                value 10;
+                description "Indicate SQL*Net protocol.";
+            }
+            enum ipv6-ftp {
+                value 11;
+                description "Indicate IPv6 file transfer protocol.";
+            }
+            enum ipv6-rtsp {
+                value 12;
+                description "Indicate IPv6 real time streaming protocol.";
+            }
+            enum ipv6-sip {
+                value 13;
+                description "Indicate IPv6 session initiation protocol.";
+            }
+            enum xdmcp {
+                value 14;
+                description "Indicate XDMCP protocol.";
+            }
+            enum opc {
+                value 15;
+                description "Indicate OPC protocol.";
+            }
+            enum talk {
+                value 16;
+                description "Indicate TALK protocol.";
+            }
+            enum msrpc {
+                value 17;
+                description "Indicate MSRPC protocol.";
+            }
+            enum sccp {
+                value 18;
+                description "Indicate SCCP protocol.";
+            }
+            enum mms {
+                value 19;
+                description "Indicate MMS protocol.";
+            }
+            enum ils {
+                value 20;
+                description "Indicate ILS protocol.";
+            }
+            enum mgcp {
+                value 21;
+                description "Indicate MGCP protocol.";
+            }
+        }
+        description "Indicate the protocol of aspf configurtion.";
+    }
+
+    ext:task-name "aspf";
+	container aspf {
+        description "Specify aspf configuration.";
+        leaf-list protocol {
+            type protocol-type;
+            description "Specify protocol.";
+        }
+     }
+}

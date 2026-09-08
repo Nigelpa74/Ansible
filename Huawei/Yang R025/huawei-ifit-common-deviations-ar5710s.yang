@@ -1,0 +1,491 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifit-common-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ifit-common-deviations-ar5710s";
+  prefix ifit-common-devs-ar5710s;
+
+  import huawei-ifit-common {
+    prefix ifit-common;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ifit {
+    prefix ifit;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ifit-common module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef flow-type-deviations {
+    type enumeration {
+      enum unidirection {
+        value 2;
+        description
+          "An unidirection IFIT flow.";
+      }
+    }
+    description
+      "Flow type.";
+  }
+
+  typedef flow-direction-deviations {
+    type enumeration {
+      enum ingress {
+        value 1;
+        description
+          "Ingress of an IFIT flow.";
+      }
+      enum transit-input {
+        value 2;
+        description
+          "Transit input of an IFIT flow.";
+      }
+      enum transit-output {
+        value 3;
+        description
+          "Transit output of an IFIT flow.";
+      }
+      enum egress {
+        value 4;
+        description
+          "Egress of an IFIT flow.";
+      }
+      enum conversion-input {
+        value 9;
+        description
+          "Conversion input of an IFIT flow.";
+      }
+      enum conversion-output {
+        value 10;
+        description
+          "Conversion output of an IFIT flow.";
+      }
+    }
+    description
+      "Flow direction.";
+  }
+
+  typedef flow-scenario-deviations {
+    type enumeration {
+      enum flow-ip {
+        value 0;
+        description
+          "Scenario of IFIT IP flow.";
+      }
+    }
+    description
+      "Scenario of an IFIT flow.";
+  }
+
+  deviation "/ifit-common:set-dynamic-flow/ifit-common:input/ifit-common:dscp" {
+    deviate not-supported;
+  }
+  deviation "/ifit-common:set-dynamic-flow/ifit-common:input/ifit-common:disorder-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit-common:set-dynamic-flow/ifit-common:input/ifit-common:delay-per-packet-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit-common:reset-dynamic-flow/ifit-common:input/ifit-common:dscp" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:clock-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:clock-source" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:reverse-flow-learn" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:ht16-telemetry-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:ht16-inherit-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:egress-bind-device-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:alarm-threshold-upper-limit" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:alarm-threshold-lower-limit" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:ht16-trace-srv6be-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:ht16-trace-srv6policy-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:cgn-service-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:next-hops" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:peer-locators" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:decapsulation-peer-locators" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:disorder-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:gtpu-sn-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:delay-per-packet-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:single-device-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:match-priority" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:inst-type-priority" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:destination-port-end" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:gtp-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:gtp-teid" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition2" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:bind-ifs/ifit-common:bind-if/ifit-common:members" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow-evpn" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow-apn" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:instance-ht16s" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:flow-monitor-id" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:node-id" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:instance-type" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:disorder-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flows/ifit-common:dynamic-flow/ifit-common:disorder-measure-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flows/ifit-common:dynamic-flow/ifit-common:dscp" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flows/ifit-common:dynamic-flow/ifit-common:delay-per-packet-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flows/ifit-common:dynamic-flow/ifit-common:trunk-if-name" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:mode" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:native-ip-learning/ifit-common:interval" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:native-ip-learning/ifit-common:report-loss-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:native-ip-learning/ifit-common:bind-learning-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:native-ip-learning/ifit-common:bind-learning-interface-autos" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:native-ip-learning/ifit-common:clear-color-flag-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:flow-statistic-results/ifit-common:flow-statistic-result/ifit-common:one-way-delays" {
+    deviate not-supported;
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:resource" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ifit-common:ifit-learning/ifit-common:flow-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ifit-common:ifit-learning/ifit-common:learning-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ifit-common:ifit-learning/ifit-common:per-packet-delay-measure" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ifit-common:ifit-learning/ifit-common:bind-learning-interface/ifit-common:learning-interface/ifit-common:all-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifit-common:ifit/ifit-common:mappings" {
+    deviate not-supported;
+  }
+  deviation "/ifit-common:set-dynamic-flow/ifit-common:input/ifit-common:protocol" {
+    deviate replace {
+      type uint8 {
+        range "0..254";
+        ext:value-meaning {
+          ext:item "6" {
+            ext:meaning "tcp";
+          }
+          ext:item "17" {
+            ext:meaning "udp";
+          }
+        }
+      }
+    }
+  }
+  deviation "/ifit-common:reset-dynamic-flow/ifit-common:input/ifit-common:protocol" {
+    deviate replace {
+      type uint8 {
+        range "0..254";
+        ext:value-meaning {
+          ext:item "6" {
+            ext:meaning "tcp";
+          }
+          ext:item "17" {
+            ext:meaning "udp";
+          }
+        }
+      }
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance" {
+    deviate delete {
+      must "../../global/clock-mode='common' or (disorder-measure-enable='false' and gtpu-sn-measure-enable='false')";
+    }
+    deviate delete {
+      must "delay-per-packet-enable = 'false' or (loss-measure-enable = 'true' and disorder-measure-enable = 'false' and gtpu-sn-measure-enable = 'false')";
+    }
+    deviate delete {
+      must "gtpu-sn-measure-enable='false' or disorder-measure-enable = 'false'";
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow-scenario" {
+    deviate replace {
+      type ifit-common-devs-ar5710s:flow-scenario-deviations;
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow" {
+    deviate delete {
+      must "(../gtpu-sn-measure-enable='true' and ((source-ipv6 and destination-ipv6) or (source-ip or destination-ip))) or ../gtpu-sn-measure-enable='false'";
+    }
+    deviate delete {
+      must "(destination-ip or destination-ipv6 or source-ip or source-ipv6) or ((address-type or peer-evpl-id) and flow-type='unidirection')";
+    }
+    deviate delete {
+      must "../../../global/clock-mode!='precision-full' or ../interval=10";
+    }
+    deviate delete {
+      must "../../../global/clock-mode='common' or (not(address-type) and not(peer-evpl-id) and not(peer-ip) and not(peer-locator-prefix))";
+    }
+    deviate delete {
+      must "not (gtp-enable='true') or (not (protocol) or (protocol='17' and ((source-port=2152 and destination-port>=2152) or (destination-port=2152 and source-port>=2152))))";
+    }
+    deviate add {
+      must '(source-ip or source-ipv6) and (destination-ip or destination-ipv6)';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-type" {
+    deviate delete {
+      must "(../../single-device-measure-enable='true' and ../flow-type='unidirection') or (../../single-device-measure-enable='false')";
+    }
+    deviate delete {
+      must "../../../../global/clock-mode='common' or ../flow-type='unidirection'";
+    }
+    deviate replace {
+      type ifit-common-devs-ar5710s:flow-type-deviations;
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:flow-address-type/ifit-common:ipv4-condition/ifit-common:destination-ip" {
+    deviate add {
+      must '../destination-ip != ../source-ip';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:flow-address-type/ifit-common:ipv6-condition/ifit-common:destination-ipv6" {
+    deviate add {
+      must '../destination-ipv6 != ../source-ipv6';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:protocol" {
+    deviate replace {
+      type uint8 {
+        range "0..254";
+        ext:value-meaning {
+          ext:item "6" {
+            ext:meaning "tcp";
+          }
+          ext:item "17" {
+            ext:meaning "udp";
+          }
+        }
+      }
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:source-port" {
+    deviate delete {
+      must '../protocol=6 or ../protocol=17 or ../protocol=132';
+    }
+    deviate add {
+      must '../protocol=6 or ../protocol=17';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:static-instances/ifit-common:static-instance/ifit-common:flow/ifit-common:flow-filter/ifit-common:filter-condition1/ifit-common:destination-port" {
+    deviate delete {
+      must '../protocol =6 or ../protocol=17 or ../protocol=132';
+    }
+    deviate add {
+      must '../protocol =6 or ../protocol=17';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:direction" {
+    deviate replace {
+      type ifit-common-devs-ar5710s:flow-direction-deviations;
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flow-hops/ifit-common:dynamic-flow-hop/ifit-common:flow-type" {
+    deviate replace {
+      type ifit-common-devs-ar5710s:flow-type-deviations;
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:dynamic-flows/ifit-common:dynamic-flow/ifit-common:protocol" {
+    deviate replace {
+      type uint8 {
+        range "0..254";
+        ext:value-meaning {
+          ext:item "6" {
+            ext:meaning "tcp";
+          }
+          ext:item "17" {
+            ext:meaning "udp";
+          }
+        }
+      }
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:address-type/ifit-common:ipv4-condition/ifit-common:source-ipv4-mask" {
+    deviate add {
+      must '../source-ipv4-address';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:address-type/ifit-common:ipv4-condition/ifit-common:destination-ipv4-mask" {
+    deviate add {
+      must '../destination-ipv4-address';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:address-type/ifit-common:ipv6-condition/ifit-common:source-ipv6-mask" {
+    deviate add {
+      must '../source-ipv6-address';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:address-type/ifit-common:ipv6-condition/ifit-common:destination-ipv6-mask" {
+    deviate add {
+      must '../destination-ipv6-address';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:protocol" {
+    deviate replace {
+      type uint8 {
+        range "0..254";
+        ext:value-meaning {
+          ext:item "6" {
+            ext:meaning "tcp";
+          }
+          ext:item "17" {
+            ext:meaning "udp";
+          }
+        }
+      }
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:source-port" {
+    deviate delete {
+      must '../protocol=6 or ../protocol=17 or ../protocol=132';
+    }
+    deviate add {
+      must '../protocol=6 or ../protocol=17';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:source-port-end" {
+    deviate add {
+      must '../source-port and ../source-port < ../source-port-end';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:destination-port" {
+    deviate delete {
+      must '../protocol=6 or ../protocol=17 or ../protocol=132';
+    }
+    deviate add {
+      must '../protocol=6 or ../protocol=17';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:whitelist-groups/ifit-common:whitelist-group/ifit-common:whitelist-rules/ifit-common:whitelist-rule/ifit-common:destination-port-end" {
+    deviate add {
+      must '../destination-port and ../destination-port < ../destination-port-end';
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:srv6-segment-list-flows/ifit-common:srv6-segment-list-flow/ifit-common:flow-type" {
+    deviate replace {
+      type ifit-common-devs-ar5710s:flow-type-deviations;
+    }
+  }
+  deviation "/ifit:ifit/ifit-common:ifit-common/ifit-common:srv6-segment-list-flows/ifit-common:srv6-segment-list-flow/ifit-common:measure-mode" {
+    deviate replace {
+      type enumeration {
+        enum e2e {
+          value 1;
+          description
+            "E2E measure mode.";
+        }
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/ifit-common:ifit-learning" {
+    deviate delete {
+      must "/ifit:ifit/ifit-common:ifit-common/ifit-common:global/ifit-common:clock-mode='common'";
+    }
+  }
+}

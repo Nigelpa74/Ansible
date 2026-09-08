@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ospfv2-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ospfv2-notification-deviations-ar5710s";
+  prefix ospfv2-notification-devs-ar5710s;
+
+  import huawei-ospfv2-notification {
+    prefix ospfv2-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ospfv2-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ospfv2-notification:neighbor-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2-notification:neighbor-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2-notification:recv-lsa-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2-notification:recv-lsa-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2-notification:ospf-ip-conflict" {
+    deviate not-supported;
+  }
+  deviation "/ospfv2-notification:ospf-ip-conflict-clear" {
+    deviate not-supported;
+  }
+}

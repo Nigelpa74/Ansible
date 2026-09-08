@@ -1,0 +1,38 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nat-server-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-nat-server-deviations-ar5710s";
+  prefix hw-nat-server-devs-ar5710s;
+
+  import huawei-nat-server {
+    prefix hw-nat-server;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nat-server module.";
+
+  revision 2024-09-19 {
+    description
+      "Add mask-len leaf node.";
+    reference "";
+  }
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nat-server:nat-server/hw-nat-server:server-mappings/hw-nat-server:server-mapping/hw-nat-server:mask-len" {
+    deviate not-supported;
+  }
+}

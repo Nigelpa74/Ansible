@@ -1,0 +1,2139 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac {
+  namespace "urn:huawei:yang:huawei-nac";
+  prefix hw-nac;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-aaa {
+    prefix aaa;
+  }
+  import huawei-aaa-service {
+    prefix aaa-service;
+  }
+  import huawei-ssl {
+    prefix ssl;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-nac-group {
+    prefix hw-nac-group;
+  }
+  import huawei-nac-mac {
+    prefix hw-nac-mac;
+  }
+  import huawei-nac-portal {
+    prefix hw-nac-portal;
+  }
+  import huawei-nac-dot1x {
+    prefix hw-nac-dot1x;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+     configuring NAC implementations.
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents.";
+revision 2025-07-18 {
+    description
+      "Modify max-elements of vip-mac-user.
+       Modify the must condition of node description to a when condition.";
+    reference
+      "Huawei private";
+}
+revision 2025-07-14 {
+    description
+      "1.Add mandatory definition for vip-mac-user prefix-length node;
+         Modify description for vip-mac-user mac-address node.
+       2.Add node for access user DTLS car mode.
+       3.Modify the lower and upper threshold value range of the quiet-alarm node.
+       4.Delete the must condition of in-accounting-start-type node;
+         Add the must condition of in-accounting-start-type node.;
+       5.Add leaf description;
+         Add leaf mac-address.;
+       6.Add leaf mlag-enable;
+         Add leaf mlag-traffic-sync-interval;
+         Add leaf dual-syn-enable;
+         Add leaf dual-syn-intval.";
+    reference
+      "Huawei private";
+}
+revision 2025-01-22 {
+    description
+      "Add max-user-num default value.";
+    reference
+      "Huawei private";
+}
+revision 2025-01-08 {
+    description
+      "Add vip mac users.";
+    reference
+      "Huawei private";
+}
+revision 2025-01-07 {
+    description
+      "Add last authorization.";
+    reference
+      "Huawei private";
+}
+revision 2025-01-02 {
+    description
+      "Add device-sensor dhcp option and access user roam table.";
+    reference
+      "Huawei private";
+}
+revision 2024-08-29 {
+    description
+      "Modify pattern for access-author-policy and access-context-profile node.";
+    reference
+      "Huawei private";
+  }
+revision 2024-08-21 {
+    description
+      "Modify pattern of access-context-profil node.";
+    reference
+      "Huawei private";
+}
+revision 2024-07-09 {
+    description
+      "Add leaf send-dhcp-release.";
+    reference
+      "Huawei private";
+}
+revision 2024-06-24 {
+    description
+      "Add Container traffic-control.";
+    reference
+      "Huawei private";
+}
+revision 2024-06-19 {
+    description
+      "Add must condition for portal-access-profile and destination-port.;
+       Delete leafref for VLAN.";
+    reference
+      "Huawei private";
+  }
+revision 2024-06-11 {
+    description
+      "Add pattern for access-author-policy and access-context-profile node.";
+    reference
+      "Huawei private";
+  }
+revision 2024-06-03 {
+    description
+      "Add authentication-profile-name node must condition.";
+    reference
+      "Huawei private";
+  }
+
+revision 2024-05-23 {
+    description
+      "Add enum ap.";
+    reference
+      "Huawei private";
+}
+
+revision 2024-05-21 {
+    description
+      "Add container device-sensor.";
+    reference
+      "Huawei private";
+}
+
+revision 2024-03-15 {
+    description
+      "Add access-user car-mode default value.";
+    reference
+      "Huawei private";
+}
+
+revision 2024-01-13 {
+    description
+      "Update access-user car-mode default value.";
+    reference
+      "Huawei private";
+}
+
+revision 2023-09-09 {
+    description
+      "Add access-user car-mode.";
+    reference
+      "Huawei private";
+}
+revision 2023-08-10 {
+    description
+      "Add in-accounting-start-type.";
+    reference
+      "Huawei private";
+  }
+revision 2023-04-14 {
+    description
+      "Add redirect-original-url.";
+    reference
+      "Huawei private";
+  }
+revision 2022-12-13 {
+    description
+      "Expand the maximum number of access users on the interface in multi-authen mode to 102400.";
+    reference
+      "Huawei private";
+  }
+revision 2022-06-13 {
+    description
+      "Expand the maximum number of access users on the interface in multi-authen mode to 65536.";
+    reference
+      "Huawei private";
+  }
+revision 2022-04-01 {
+    description
+      "Add free-rule ip-any.";
+    reference
+      "Huawei private";
+  }
+revision 2022-03-23 {
+    description
+      "Add update-session-mode default.";
+    reference
+      "Huawei private";
+  }
+  revision 2022-02-17 {
+    description
+      "Add no-replace-dot1x default.";
+    reference
+      "Huawei private";
+  }
+  revision 2022-01-30 {
+    description
+      "Modify type empty.";
+    reference
+      "Huawei private";
+  }
+  revision 2022-01-17 {
+    description
+      "Add single quotation mark.";
+    reference
+      "Huawei private";
+  }
+  revision 2022-01-11 {
+    description
+      "Modify node VLAN.";
+    reference
+      "Huawei private";
+  }
+  revision 2021-12-05 {
+    description
+      "Add the mandatory true attribute of leaf node domain-name in access-default-domain list;
+       Add the mandatory true attribute of leaf node domain-name in access-foece-domain list.";
+    reference
+      "Huawei private";
+  }
+  revision 2021-12-04 {
+    description
+      "Delete the mandatory true attribute of leaf node service-scheme in authorize-of-device list.";
+    reference
+      "Huawei private";
+  }
+  revision 2021-01-28 {
+    description
+      "Add leaf node no-replace-dot1x, order-mac-dot1x, force-mac-authen-first
+       and single-stack-control in authentication-profile list.";
+    reference
+      "Huawei private";
+  }
+  revision 2020-08-06 {
+    description
+      "Add container speed-limit/user-alarm-percentage in global node;
+       Add delay/fallback-ip in arp-detect;
+       Add several leafs in authentication-profile;
+       Add rpc reset-statistics;
+       Add access-context-profile and access-author-policy related nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef car-mode {
+    type enumeration {
+      enum "default" {
+        value 0;
+        description
+          "Default CAR mode, without authorization and accounting.";
+      }
+      enum "ipv4-mixed" {
+        value 1;
+        description
+          "CAR mode for a scenario where IPv4 wired and wireless user coexists, with authorization and accounting.";
+      }
+      enum "dual-stack-single" {
+        value 2;
+        description
+          "CAR mode for a scenario where only dual-stack wired or wireless user exists, with authorization and accounting.";
+      }
+      enum "ipv4-single" {
+        value 3;
+        description
+          "CAR mode for a scenario where only IPv4 wired or wireless user exists, with authorization and accounting.";
+      }
+      enum "dtls" {
+        value 4;
+        description
+          "CAR mode for the RADIUS over DTLS scenario.";
+      }
+    }
+    default "default";
+    description
+      "The type of access-user car-mode.";
+  }
+
+  typedef user-type {
+    type enumeration {
+      enum all {
+        value 0;
+        description
+          "Specifies access user CAR mode for all users.";
+      }
+      enum wired {
+        value 1;
+        description
+          "Specifies access user CAR mode only for wired users.";
+      }
+      enum wireless {
+        value 2;
+        description
+          "Specifies access user CAR mode only for wireless users.";
+      }
+    }
+    description
+      "Type of authentication users.";
+  }
+
+  typedef nac-type {
+    type enumeration {
+      enum dot1x {
+        value 0;
+        description
+          "Specifies a default or forcible domain for 802.1X authentication users.";
+      }
+      enum mac {
+        value 1;
+        description
+          "Specifies a default or forcible domain for MAC address authentication users.";
+      }
+      enum portal {
+        value 2;
+        description
+          "Specifies a default or forcible domain for Portal authentication users.";
+      }
+    }
+    description
+      "Type of authentication users.";
+  }
+
+  typedef authen-phase-type {
+    type enumeration {
+      enum authen-fail {
+        value 0;
+        description
+          "Authentication failure.";
+      }
+      enum authen-server-down {
+        value 1;
+        description
+          "Authentication server is down.";
+      }
+      enum authen-server-up {
+        value 2;
+        description
+          "Authentication service is up.";
+      }
+      enum client-no-response {
+        value 3;
+        description
+          "No response from client.";
+      }
+      enum pre-authen {
+        value 4;
+        description
+          "Pre-authentication.";
+      }
+      enum portal-server-down {
+        value 5;
+        description
+          "Portal server down.";
+      }
+      enum portal-server-up {
+        value 6;
+        description
+          "Portal server up.";
+      }
+    }
+    description
+      "Type of authentication phase.";
+  }
+
+  grouping ip-subnet {
+    description
+      "The IP subnet group.";
+    leaf ip {
+      type inet:ipv4-address-no-zone;
+      mandatory true;
+      description
+        "Specifies the source or destination IP address depending on the keyword.";
+    }
+    choice subnet {
+      mandatory true;
+      description
+        "The subnet choice.";
+      case prefix-length {
+        description
+          "Case prefix length.";
+        leaf prefix-length {
+          type uint8 {
+            range "0..32";
+          }
+          description
+            "Specifies the mask length of the source or destination IP address depending on the keyword.";
+        }
+      }
+      case net-mask {
+        description
+          "Case network mask.";
+        leaf net-mask {
+          type yang:dotted-quad;
+          description
+            "Specifies the mask of the source or destination IP address depending on the keyword.";
+        }
+      }
+    }
+  }
+
+  container nac {
+    description
+      "Configuration and state data of the feature of network access control.";
+    container global {
+      description
+        "Configure global nac function.";
+      leaf send-dhcp-release {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function that send dhcp release when user offline.";
+      }
+      leaf mlag-enable {
+          type boolean;
+          default "false";  
+          description
+            "Enable/disable the function of access mode of M-LAG.";
+      }
+      leaf mlag-traffic-sync-interval {
+        type uint32 {
+              range "120..1800";
+          }
+          units "s";
+          default "120";
+          description
+            "Configure the interval of user's traffics sync in mode of M-LAG.";
+      }
+      leaf dual-syn-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable user synchronization between master device and back device.";
+      }
+      leaf dual-syn-intval {
+        type uint16 {
+          range "30..65535";
+        }
+        units "min";
+        default "30";
+        description
+          "Period of the user information synchronization between master device and back device.";
+      }
+      container band-width {
+        description
+          "Configure the bandwidth share mode.";
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the bandwidth share mode.";
+        }
+      }
+      container pre-authen-access {
+        description
+          "Configure the function of keeping users who fail to be authenticated and do not have any network access rights in the pre-connection state.";
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of keeping users who fail to be authenticated and do not have any network access rights in the pre-connection state.";
+        }
+      }
+      container speed-limit {
+        description
+          "Configure speed limit related function.";
+        leaf speed-limit-auto {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to dynamically adjust the rate of packets from NAC users.";
+        }
+      }
+      container port-vlan-modify-keep {
+        description
+          "Configure the function that keeping users online when modifying VLAN or port type.";
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function that Keeping users online when modifying VLAN or port type.";
+        }
+      }
+      container access-context {
+        description
+          "Configure NAC access context profile.";
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable access-context profile function.";
+        }
+      }
+      container access-author {
+        description
+          "Configure NAC access authorization policy.";
+        leaf name {
+          type leafref {
+            path "/hw-nac:nac/hw-nac:access-author-policys/hw-nac:access-author-policy/hw-nac:name";
+          }
+          description
+            "Enable/disable access authorization policy.";
+        }
+      }
+      container user-alarm-percentage {
+        description
+          "Configure the alarm percentage of NAC access users number.";
+        leaf lower-threshold {
+          type uint8 {
+            range "1..100";
+          }
+          units "%";
+          default "50";
+          description
+            "Specifies the lower threshold percentage.";
+        }
+        leaf upper-threshold {
+          type uint8 {
+            range "1..100";
+          }
+          units "%";
+          must '../upper-threshold >= ../lower-threshold';
+          default "100";
+          description
+            "Specifies the upper threshold percentage.";
+        }
+      }
+      container last-author-age {
+        description
+          "Configure last authorization aging time.";
+        leaf timer {
+          type uint8 {
+            range "1..30";
+          }
+          units "d";
+          default "3";
+          description
+            "Specifies authorization aging days.";
+        }
+      }
+      container vip-mac-users { 
+        description "List of setting the vip MAC users.";
+        list vip-mac-user { 
+          key "mac-address";
+          max-elements "1024";
+          description
+            "Configure the vip MAC users.";
+          leaf mac-address {
+            type pub-type:mac-address;
+            description
+              "Specifies the vip user MAC address. The MAC address must be the MAC address obtained after mask match.";
+          }
+          leaf prefix-length {
+            type uint8 {
+              range "1..48";
+            }
+            mandatory true;
+            description
+              "The length of the subnet prefix.";
+          }
+        } 
+      }
+      container mac-move {
+        description
+          "Configure MAC address migration function.";
+        choice enable-vlan {
+          description
+            "Specifies the VLAN range for enabling MAC address migration.";
+          case all-vlan {
+            description
+              "All VLAN case.";
+            leaf all {
+              type empty;
+              description
+                "Enables MAC address migration in all VLANs.";
+            }
+          }
+          case vlan-params {
+            description
+              "VLAN range case.";
+            leaf range {
+              type pub-type:vlan-range;
+              description
+                "Enables MAC address migration in the specified VLANs.";
+            }
+          }
+        }
+        container detect {
+          description
+            "Configure MAC address migration detect function parameters.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable a device to detect users' online status before user MAC address migration.";
+          }
+          leaf interval {
+            type uint16 {
+              range "1..5";
+            }
+            units "s";
+            default "3";
+            description
+              "Specifies the interval at which a device detects users' online status before user MAC address migration.";
+          }
+          leaf times {
+            type uint8 {
+              range "1..3";
+            }
+            default "1";
+            description
+              "Specifies the maximum number of detections before user MAC address migration.";
+          }
+        }
+        container quiet {
+          description
+            "Configure the quiet period and the maximum number of MAC address migration times within 60 seconds before users enter the quiet state.";
+          leaf period {
+            type uint16 {
+              range "0..3600";
+            }
+            units "s";
+            default "0";
+            description
+              "Specifies the quiet period for MAC address migration users.";
+          }
+          leaf times {
+            type uint8 {
+              range "1..10";
+            }
+            default "3";
+            description
+              "Specifies the maximum number of MAC address migration times within 60 seconds before users enter the quiet state.";
+          }
+        }
+        container quiet-log {
+          description
+            "Configure MAC move quiet log function.";
+          leaf enable {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable the device to record logs about MAC address migration quiet.";
+          }
+        }
+        container quiet-alarm {
+          description
+            "Configure MAC move quiet alarm function.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the device to send alarms about MAC address migration quiet.";
+          }
+          leaf lower-threshold {
+            type uint8 {
+              range "1..99";
+            }
+            units "%";
+            default "50";
+            description
+              "Specifies the lower alarm threshold.";
+          }
+          leaf upper-threshold {
+            type uint8 {
+              range "2..100";
+            }
+            units "%";
+            must '../upper-threshold > ../lower-threshold';
+            default "100";
+            description
+              "Specifies the upper alarm threshold.";
+          }
+        }
+      }
+      container arp-detect {
+        description
+          "Configure offline detection related configuration of access users.";
+        leaf default-detect-ip {
+          type inet:ipv4-address-no-zone;
+          default "0.0.0.0";
+          description
+            "Specifies the default source IP address of offline detection packets.";
+        }
+        leaf delay {
+          type uint8 {
+            range "0..120";
+          }
+          units "s";
+          default "0";
+          description
+            "Specifies arp-detect delay time.";
+        }
+        container fallback-ip {
+          presence "Create fallback ip-address.";
+          description
+            "Configure the IP address for calculating source IP address of offline detection packets.";
+          uses ip-subnet;
+        }
+        container detect-source-items {
+          description
+            "List of setting the source IP address and source MAC address of offline detection packets in a VLAN.";
+          list detect-source-item {
+            key "vlan";
+            description
+              "Configure the source IP address and source MAC address of offline detection packets in a VLAN list.";
+            leaf vlan {
+              type uint16 {
+                range "1..4094";
+              }
+              description
+                "Specifies a VLAN ID.";
+            }
+            leaf ip {
+              type inet:ipv4-address-no-zone;
+              mandatory true;
+              description
+                "Specifies the source IP address of offline detection packets.";
+            }
+            leaf mac {
+              type pub-type:mac-address;
+              mandatory true;
+              description
+                "Specifies the source MAC address of offline detection packets.";
+            }
+          }
+        }
+      }
+      container access-user-manage {
+        description
+          "Configure Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol Secure (HTTPS) based user management.";
+        leaf url-type {
+          type enumeration {
+            enum http {
+              value 0;
+              description
+                "Indicates HTTP based user management.";
+            }
+            enum https {
+              value 1;
+              description
+                "Indicates HTTPS based user management.";
+            }
+          }
+          description
+            "URL type.";
+        }
+        leaf listening-port {
+          type inet:port-number;
+          description
+            "Specifies a port number.";
+        }
+        leaf ssl-policy {
+          type leafref {
+            path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+          }
+          must "../url-type = 'https'";
+          description
+            "Specifies the Secure Sockets Layer (SSL) policy used by the built-in Portal server.";
+        }
+        leaf-list acl {
+          type leafref {
+            path "/acl:acl/acl:groups/acl:group/acl:identity";
+          }
+          description
+            "Configure the number of an ACL.";
+        }
+      }
+      container access-user-car-mode {
+        must "((mode='dtls' and access-type) or mode!='dtls')";
+        description
+          "Configure access user CAR mode.";
+        leaf mode {
+          type car-mode;
+          default "default";
+          description
+            "Configure access user CAR mode.";
+        }
+        leaf access-type {
+          when "../mode='dtls'";
+          type bits {
+            bit dot1x {
+              position 0;
+              description
+                "Enable/disable of access user CAR mode for 802.1X authentication users.";
+            }
+            bit mac-authen {
+              position 1;
+              description
+                "Enable/disable access user CAR mode for MAC address authentication users.";
+            }
+            bit portal {
+              position 2;
+              description
+                "Enable/disable access user CAR mode for Portal authentication users.";
+            }
+            bit https-portal {
+              position 3;
+              description
+                "Enable/disable access user CAR mode for HTTPS Portal authentication users.";
+            }
+          }
+          description
+            "Specifies access type of access user CAR mode.";
+        }
+        leaf user-type {
+          when "../mode='dtls'";
+          type user-type;
+          default "all";
+          description
+            "Specifies user type of access user CAR mode.";
+        }
+      }
+      container traffic-control {
+        description
+          "Configure the traffic-control strict mode.";
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the traffic-control strict mode.";
+        }
+      }
+      container device-sensor {
+        description
+          "Configure terminal type awareness function.";
+        leaf-list option {
+            type uint8 {
+              range "60";
+            }
+            max-elements 1;
+            description
+              "Configure the DHCP option code.";
+        }
+        container lldp {
+          description
+            "Configure protocol of lldp.";
+          leaf tlv {
+            type bits {
+              bit system-name-tlv {
+                position 4;
+                  description
+                    "5:System Name TLV.";
+              }
+              bit system-description-tlv {
+                position 5;
+                  description
+                    "6:System Description TLV.";
+              }
+              bit system-capabilities-tlv {
+                position 6;
+                  description
+                    "7:System Capabilities TLV.";
+              }
+            }
+            description
+              "TLV type of lldp.";
+          }
+        }
+        container mdn {
+          description
+            "Configure protocol of mdn.";
+          leaf tlv {
+            type bits {
+              bit device-id-tlv {
+                position 0;
+                  description
+                    "1:Device ID TLV.";
+              }
+              bit address-tlv {
+                position 1;
+                  description
+                    "2:Address TLV.";
+              }
+              bit function-tlv {
+                position 3;
+                  description
+                    "4:Function TLV.";
+              }
+              bit version-tlv {
+                position 4;
+                  description
+                    "5:Version TLV.";
+              }
+              bit platform-tlv {
+                position 5;
+                  description
+                    "6:Platform TLV.";
+              }
+            }
+            description
+              "TLV type of mdn.";
+          }
+        }
+      }
+    }
+    container authentication-profiles {
+      description
+        "List of NAC authentication profile related configuration and state data.";
+      list authentication-profile {
+        key "name";
+        ext:generated-by "system" {
+          ext:filter "name='default_authen_profile' or name='mac_authen_profile' or name='dot1x_authen_profile' or name='dot1xmac_authen_profile'";
+          description
+            "The default authentication profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "name='default_authen_profile' or name='mac_authen_profile' or name='dot1x_authen_profile' or name='dot1xmac_authen_profile'";
+          description
+            "The default authentication profile cannot be deleted.";
+        }
+        description
+          "Configure NAC authentication profile related configuration and state data.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of an authentication profile.";
+        }
+        leaf dot1x-access-profile {
+          type leafref {
+            path "/hw-nac-dot1x:nac-dot1x/hw-nac-dot1x:dot1x-access-profiles/hw-nac-dot1x:dot1x-access-profile/hw-nac-dot1x:name";
+          }
+          description
+            "Specifies the name of an 802.1X access profile.";
+        }
+        leaf portal-access-profile {
+          type leafref {
+            path "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:name";
+          }
+          must "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile[hw-nac-portal:name=current()]/hw-nac-portal:portal-server/hw-nac-portal:server-name or /hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile[hw-nac-portal:name=current()]/hw-nac-portal:local-portal-function/hw-nac-portal:local-server-enable";
+          description
+            "Specifies the name of a Portal access profile.";
+        }
+        leaf mac-access-profile {
+          type leafref {
+            path "/hw-nac-mac:nac-mac/hw-nac-mac:mac-access-profiles/hw-nac-mac:mac-access-profile/hw-nac-mac:name";
+          }
+          description
+            "Specifies the name of a MAC access profile.";
+        }
+        leaf free-rule-profile {
+          type leafref {
+            path "/hw-nac:nac/hw-nac:authentication-free-rule-profiles/hw-nac:authentication-free-rule-profile/hw-nac:name";
+          }
+          description
+            "Specifies the name of an authentication-free rule profile.";
+        }
+        leaf single-access {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to allow users to access in only one authentication mode.";
+        }
+        leaf statistics-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable traffic statistics collection for authentication profile users.";
+        }
+        leaf dot1x-mac-bypass {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable MAC address bypass authentication.";
+        }
+        leaf wlan-max-user-num {
+          type uint16 {
+            range "1..128";
+          }
+          description
+            "Specifies max user number.";
+        }
+        leaf dual-stack-separate {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of collecting statistics on IPv4 and IPv6 traffic separately.";
+        }
+        leaf authen-server-up-reauthen {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to re-authenticate users in the survival state when the authentication server changes from Down or forcible Up to Up.";
+        }
+        leaf authen-server-down-reauthen {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable reauthentication when authentication server is down.";
+        }
+        leaf termination-action-reauthenticate {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable reauthentication after the timeout time sent by radius server through session timeout attribute arrives.";
+        }
+        leaf roam-mac-authen-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable MAC authentication for roaming users.";
+        }
+        leaf iconnect-access-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable iconnect terminal access.";
+        }
+        leaf arp-reply-trigger {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable authentication trigger by ARP reply packet.";
+        }
+        leaf no-replace-dot1x {
+          type enumeration {
+            enum always-response {
+              value 0;
+              description
+                "Always response.";
+            }
+            enum no-response-voice {
+              value 1;
+              description
+                "No response for voice terminals.";
+            }
+            enum no-response-all {
+              value 2;
+              description
+                "No response for all users.";
+            }
+          }
+          default "always-response";
+          description
+            "Configure the function that whether device responds to EAP-start.";
+        }
+        leaf order-mac-dot1x {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable order of EAP-start message triggering authentication is that MAC authentication precedes dot1x authentication.";
+        }
+        leaf force-mac-authen-first {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable performing MAC authentication forcibly before dot1x authentication.";
+        }
+        leaf single-stack-control {
+          type enumeration {
+            enum ipv4-ipv6 {
+              value 0;
+              description
+                "Single stack control is disabled.";
+            }
+            enum ipv4 {
+              value 1;
+              description
+                "IPv4 single stack mode.";
+            }
+            enum ipv6 {
+              value 2;
+              description
+                "IPv6 single stack mode.";
+            }
+          }
+          description
+            "Enable/disable single stack authentication function.";
+        }
+        leaf control-direction {
+          type enumeration {
+            enum inbound {
+              value 0;
+              description
+                "Inbound direction traffic control.";
+            }
+            enum all {
+              value 1;
+              description
+                "Bidirectional traffic control.";
+            }
+          }
+          default "inbound";
+          description
+            "Configure the traffic control direction.";
+        }
+        leaf ip-conflict-check {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable IP conflict detection for client.";
+        }
+        leaf no-ip-check {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable IP hash table for client.";
+        }
+        leaf mac-move-detect {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable mac-move detect function.";
+        }
+        leaf redirect-original-url {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of carrying the original URL parameters when a redirection URL is triggered by a redirection ACL for users who pass Portal authentication.";
+        }
+        container force-domain {
+          description
+            "Configure the configured domain as a forcible domain.";
+          leaf default-force-domain {
+            type leafref {
+              path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+            }
+            description
+              "Specifies the domain name.";
+          }
+        }
+        container access-force-domains {
+          description
+            "List of access force domain configuration.";
+          list access-force-domain {
+            key "access-type";
+            description
+              "Configure access force domain configuration list.";
+            leaf access-type {
+              type nac-type;
+              description
+                "Type of authentication users.";
+            }
+            leaf domain-name {
+              type leafref {
+                path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+              }
+              mandatory true;
+              description
+                "Specifies the domain name.";
+            }
+          }
+        }
+        container default-domain {
+          description
+            "Configure the configured domain as a default domain.";
+          leaf default-default-domain {
+            type leafref {
+              path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+            }
+            description
+              "Specifies the domain name.";
+          }
+        }
+        container access-default-domains {
+          description
+            "List of access default domain configuration.";
+          list access-default-domain {
+            key "access-type";
+            description
+              "Configure access default domain.";
+            leaf access-type {
+              type nac-type;
+              description
+                "Type of authentication users.";
+            }
+            leaf domain-name {
+              type leafref {
+                path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+              }
+              mandatory true;
+              description
+                "Specifies the domain name.";
+            }
+          }
+        }
+        container handshake {
+          description
+            "Configure ARP handshake parameters.";
+          leaf enable {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable the handshake with pre-connection users and authorized users.";
+          }
+          leaf period {
+            type uint16 {
+              range "5..7200";
+            }
+            units "s";
+            default "100";
+            description
+              "Specifies the handshake interval.";
+          }
+          leaf times {
+            type uint16 {
+              range "1..255";
+            }
+            default "3";
+            description
+              "Specifies the handshake times.";
+          }
+        }
+        container authorize-of-devices {
+          description
+            "List of voice terminals to go online without authentication.";
+          list authorize-of-device {
+            key "device-type";
+            description
+              "Configure voice terminals to go online without authentication list.";
+            leaf device-type {
+              type enumeration {
+                enum voice {
+                  value 0;
+                  description
+                    "Value of voice.";
+                }
+                enum iconnect {
+                  value 1;
+                  description
+                    "Value of iConnect terminal.";
+                }
+                enum ap {
+                  value 2;
+                  description
+                    "Huawei AP.";
+                }
+              }
+              description
+                "Device type.";
+            }
+            leaf service-scheme {
+              type leafref {
+                path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+              }
+              description
+                "Specifies the name of the service scheme based on which network access rights are assigned to voice terminals.";
+            }
+          }
+        }
+        container authorize {
+          description
+            "Configure binding a service scheme to an authentication profile.";
+          leaf service-scheme {
+            type leafref {
+              path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+            }
+            description
+              "Specifies the name of a service scheme bound to an authentication profile.";
+          }
+        }
+        container timer {
+          description
+            "Configure timer function.";
+          container re-authen-period {
+            description
+              "Configure the interval for re-authenticating pre-connection users or users who fail authentication.";
+            leaf pre-authen {
+              type uint16 {
+                range "0|30..7200";
+              }
+              units "s";
+              default "60";
+              description
+                "Specifies the interval for re-authenticating pre-connection users.";
+            }
+            leaf authen-fail {
+              type uint16 {
+                range "0|30..7200";
+              }
+              units "s";
+              default "60";
+              description
+                "Specifies the interval for re-authenticating users who fail authentication.";
+            }
+            leaf pre-authen-wlan {
+              type uint16 {
+                range "0|30..7200";
+              }
+              units "s";
+              default "300";
+              description
+                "Specifies re-authen period for pre-authen wireless user.";
+            }
+            leaf authen-fail-wlan {
+              type uint16 {
+                range "0|30..7200";
+              }
+              units "s";
+              default "300";
+              description
+                "Specifies re-authen period for authen-fail wireless user.";
+            }
+          }
+          container aging-period {
+            description
+              "Configure the aging time for pre-connection, authorize-keep or fail to be authenticated user entries.";
+            leaf pre-authen {
+              type uint32 {
+                range "0..4294860";
+              }
+              units "s";
+              default "82800";
+              description
+                "Specifies the aging time for re-authenticating pre-connection users.";
+            }
+            leaf authen-fail {
+              type uint32 {
+                range "0..4294860";
+              }
+              units "s";
+              default "82800";
+              description
+                "Specifies the aging time for re-authenticating users who fail authentication.";
+            }
+            leaf authorize-keep {
+              type uint32 {
+                range "0..4294860";
+              }
+              units "s";
+              default "0";
+              description
+                "Specifies the aging time for uses who maintained authorization.";
+            }
+          }
+        }
+        container authentication-mode {
+          description
+            "Configure the user access mode.";
+          leaf mode {
+            type enumeration {
+              enum single-terminal {
+                value 0;
+                description
+                  "Configures an interface to allow only one user to go online.";
+              }
+              enum single-voice-with-data {
+                value 1;
+                description
+                  "Configures an interface to allow only one data user and one voice user to go online.";
+              }
+              enum multi-share {
+                value 2;
+                description
+                  "Configures an interface to allow multiple users to go online.";
+              }
+              enum multi-authen {
+                value 3;
+                description
+                  "Configures an interface to allow multiple users to go online.";
+              }
+            }
+            default "multi-authen";
+            description
+              "Authentication mode.";
+          }
+          leaf default-max-user-num {
+            when "../mode='multi-authen'";
+            type uint32 {
+              range "1..102400";
+            }
+            default "10000";
+            description
+              "Specifies the maximum number of access users on the interface in multi-authen mode.";
+          }
+          container user-nums {
+            when "../mode='multi-authen'";
+            description
+              "List of maximum user number configuration.";
+            list user-num {
+              key "access-type";
+              description
+                "Configure maximum user number configuration list.";
+              leaf access-type {
+                type enumeration {
+                  enum dot1x {
+                    value 0;
+                    description
+                      "Specifies the maximum number of 802.1X authenticated users allowed to connect to the interface in multi-authen mode.";
+                  }
+                  enum mac-authen {
+                    value 1;
+                    description
+                      "Specifies the maximum number of MAC authenticated users allowed to connect to the interface in multi-authen mode.";
+                  }
+                  enum portal {
+                    value 2;
+                    description
+                      "Specifies the maximum number of Portal authenticated users allowed to connect to the interface in multi-authen mode.";
+                  }
+                  enum none {
+                    value 3;
+                    description
+                      "Specifies the maximum number of pre-connection users allowed to connect to the interface in multi-authen mode.";
+                  }
+                }
+                description
+                  "Configure the type of authenticated users.";
+              }
+              leaf max-user-num {
+                type uint32 {
+                  range "1..102400";
+                }
+                default "100000";
+                description
+                  "Specifies the maximum number of access users on the interface in multi-authen mode.";
+              }
+            }
+          }
+        }
+        container authorize-of-authentication-events {
+          description
+            "List of authentication event authorization information.";
+          list authorize-of-authentication-event {
+            key "event";
+            description
+              "Configure authentication event authorization information list.";
+            leaf event {
+              type enumeration {
+                enum pre-authen {
+                  value 0;
+                  description
+                    "Configures the device to assign network access rights to users when the users establish pre-connections with the device.";
+                }
+                enum authen-fail {
+                  value 1;
+                  description
+                    "Configures the device to assign network access rights to users when the authentication server sends authentication failure packets to the device.";
+                }
+                enum authen-server-down {
+                  value 2;
+                  description
+                    "Configures the device to assign network access rights to users when the authentication server is Down or the server is in the forcible Up state.";
+                }
+              }
+              description
+                "Authentication event.";
+            }
+            leaf response-fail {
+              type boolean;
+              default false;
+              description
+                "Enable/disable the device to send authentication failure packets to users after assigning network access rights to the users.";
+            }
+            leaf last-authorization {
+              when "../event='authen-server-down'";
+              type boolean;
+              default false;
+                description
+                  "Enable/disable authorize last authorization.";
+            }
+            choice authorize {
+              description
+                "Authorize parameters choice.";
+              case vlan {
+                description
+                  "VLAN case.";
+                leaf vlan-id {
+                  type uint16 {
+                    range "1..4094";
+                  }
+                  description
+                    "Specifies a VLAN ID. When this parameter is specified, users can access only the resources in the VLAN.";
+                }
+              }
+              case service-scheme {
+                description
+                  "Service scheme case.";
+                leaf service-scheme {
+                  type leafref {
+                    path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+                  }
+                  description
+                    "Specifies the name of the service scheme based on which network access rights are assigned to users.";
+                }
+              }
+              case ucl-group {
+                description
+                  "Ucl group case.";
+                leaf ucl-group {
+                  type leafref {
+                    path "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:name";
+                  }
+                  description
+                    "Specifies the name of the UCL group based on which network access rights are assigned to users.";
+                }
+              }
+            }
+          }
+        }
+        container keep-authorize-of-authentication-events {
+          description
+            "List of keep user authorization when the authentication server is down or does not respond.";
+          list keep-authorize-of-authentication-event {
+            key "event";
+            description
+              "Configure keep user authorization when the authentication server is down or does not respond.";
+            leaf event {
+              type enumeration {
+                enum authen-server-down {
+                  value 1;
+                  description
+                    "Configures the device to assign network access rights to users when the authentication server is Down or the server is in the forcible Up state.";
+                }
+                enum authen-server-noreply {
+                  value 2;
+                  description
+                    "Configures the device to assign network access rights to users when the authentication server does not respond.";
+                }
+              }
+              description
+                "Authentication event.";
+            }
+            choice response-type {
+              description
+                "Response choice.";
+              case no-response {
+                description
+                  "No response packet case.";
+                leaf no-response {
+                  type empty;
+                  description
+                    "Enable/disable No response packet after authorization.";
+                }
+              }
+              case response-fail {
+                description
+                  "Response authentication fail packet case.";
+                leaf response-fail {
+                  type empty;
+                  description
+                    "Enable/disable Response authentication fail packet after authorization.";
+                }
+              }
+            }
+          }
+        }
+        container domain-name {
+          description
+            "Configure domain name parameters.";
+          leaf security-name-delimiter {
+            type string {
+              length "1";
+            }
+            description
+              "Specifies a delimiter for a security string.";
+          }
+          leaf domain-name-delimiter {
+            type string {
+              length "1";
+            }
+            description
+              "Specifies a domain name delimiter of only one bit.";
+          }
+          leaf domain-name-direction {
+            type enumeration {
+              enum left-to-right {
+                value 0;
+                description
+                  "Parses a domain name form left to right.";
+              }
+              enum right-to-left {
+                value 1;
+                description
+                  "Parses a domain name form right to left.";
+              }
+            }
+            description
+              "Configures the direction in which a domain name is parsed.";
+          }
+          leaf domain-name-location {
+            type enumeration {
+              enum after-delimiter {
+                value 0;
+                description
+                  "Indicates that the domain name is placed behind the domain name delimiter.";
+              }
+              enum before-delimiter {
+                value 1;
+                description
+                  "Indicates that the domain name is placed before the domain name delimiter.";
+              }
+            }
+            description
+              "Configures the position of a domain name.";
+          }
+        }
+        container assigned-ip-address {
+          description
+            "Configure the function of carrying users' IP addresses in Accounting-Start packets.";
+          leaf in-accounting-start {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the function of carrying users' IP addresses in Accounting-Start packets.";
+          }
+          leaf arp-delay {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable permitting ARP packets after Accounting-Start Response packets are received.";
+          }
+          leaf in-accounting-start-type {
+            when "../in-accounting-start = 'true'";
+            type enumeration {
+              enum ipv4-ipv6 {
+                value 0;
+                description
+                  "Configure the function of carrying users' IPv4 or IPv6 addresses in Accounting-Start packets.";
+              }
+              enum ipv4 {
+                value 1;
+                description
+                  "Configure the function of carrying users' IPv4 addresses in Accounting-Start packets.";
+              }
+              enum ipv6 {
+                value 2;
+                description
+                  "Configure the function of carrying users' IPv6 addresses in Accounting-Start packets.";
+              }
+            }
+            default "ipv4-ipv6";
+            description
+              "Configure the IP type of the function of carrying users' IP addresses in Accounting-Start packets.";
+          }
+        }
+        container realtime-accounting-trigger {
+          description
+            "Configure a device to send accounting packets for roaming, terminal information, and address updating.";
+          leaf update-ip-accounting {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable a device to send accounting packets for roaming.";
+          }
+          leaf roam-accounting {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable a device to send accounting packets for terminal information.";
+          }
+          leaf update-info-accounting {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable a device to send accounting packets for address updating.";
+          }
+          leaf update-session-mode {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the accounting session update mode during roaming accounting.";
+          }
+        }
+        container permit-domain-list {
+          description
+            "Configure permitted domains for WLAN users.";
+          leaf-list domain {
+            type leafref {
+              path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+            }
+            max-elements 4;
+            description
+              "Configure the name of a permitted domain for WLAN users.";
+          }
+        }
+        container force-push {
+          description
+            "Configure a pushed URL template or pushed URL.";
+          choice url-source {
+            description
+              "Force push url source choice.";
+            case template {
+              description
+                "Url template case.";
+              leaf url-template {
+                type leafref {
+                  path "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:name";
+                }
+                description
+                  "Specifies the name of a pushed URL template.";
+              }
+            }
+            case url {
+              description
+                "Url address case.";
+              leaf url-address {
+                type string {
+                  length "1..247";
+                }
+                description
+                  "Specifies a pushed URL.";
+              }
+            }
+          }
+        }
+        container link-down-offline {
+          description
+            "Configure the user logout delay when an interface link is faulty.";
+          choice off-line {
+            description
+              "Link down off-line choice.";
+            case unlimited {
+              description
+                "Unlimited case.";
+              leaf unlimited {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable Indicating that users are not logged out when an interface link is faulty.";
+              }
+            }
+            case delay-time {
+              description
+                "Delay time case.";
+              leaf delay-time {
+                type uint16 {
+                  range "0..60";
+                }
+                units "s";
+                default "10";
+                description
+                  "Specifies the user logout delay when an interface link is faulty.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container authentication-free-rule-profiles {
+      description
+        "List of authentication free rule profile configuration.";
+      list authentication-free-rule-profile {
+        key "name";
+        description
+          "Configure authentication free rule profile.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies the name of an authentication-free rule profile.";
+        }
+        container free-acl {
+          description
+            "Configure authentication-free rule defined by ACL.";
+          leaf-list ipv6-acl {
+            type leafref {
+              path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+            }
+            description
+              "Configure the number or name of an IPv6 ACL.";
+          }
+          leaf-list ipv4-acl {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            description
+              "Configure the number or name of an IPv4 ACL.";
+          }
+        }
+        container free-rules {
+          description
+            "List of common authentication-free rule.";
+          list free-rule {
+            key "rule-id";
+            description
+              "Configure common authentication-free rule.";
+            leaf rule-id {
+              type uint16 {
+                range "0..1023";
+              }
+              description
+                "Specifies the number of an authentication-free rule for NAC authentication users.";
+            }
+            leaf description{
+              when "../source or ../destination";
+              type string {
+                length "1..127";
+                pattern '[^\?\s](([^\?\s]*)|[^\t\?]*[^\?\s])';
+              }
+              description
+                "ACL description. The value cannot begin or end with a space.";
+           }
+            container source {
+              description
+                "Configure source information for NAC authentication users without authentication.";
+              choice source {
+                description
+                  "Source choice.";
+                case source-any {
+                  description
+                    "Any source case.";
+                  leaf any {
+                    type empty;
+                    description
+                      "Indicates any condition.";
+                  }
+                }
+                case source-params {
+                  description
+                    "Source parameters case.";
+                  uses ip-subnet;
+                  leaf any-ip {
+                    type empty;
+                    description
+                      "Indicates any ip. Choose either any-ip or ip-subnet.";
+                  }
+                  leaf interface {
+                    type leafref {
+                      path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                    }
+                    description
+                      "Specifies the source interface in the rule.";
+                  }
+                  leaf vlan-id {
+                    type uint16 {
+                      range "1..4094";
+                    }
+                    description
+                      "Specifies the VLAN ID of source packets.";
+                  }
+                  leaf mac-address {
+                    type pub-type:mac-address{
+                       pattern '[0-9a-f][02468ace][0-9a-f]{2}(-[0-9a-f]{4}){2}';
+                    }
+                    must "../mac-address != '0000-0000-0000'";
+                    description
+                     "Specifies the source mac address of packets.";
+                  }
+                }
+              }
+            }
+            container destination {
+              description
+                "Configure the destination network resource that NAC authentication users can access without authentication.";
+              choice destination {
+                description
+                  "Destination choice.";
+                case destination-any {
+                  description
+                    "Any destination case.";
+                  leaf any {
+                    type empty;
+                    description
+                      "Indicates any condition.";
+                  }
+                }
+                case destination-ip {
+                  description
+                    "Destination IP.";
+                  uses ip-subnet;
+                  leaf any-ip {
+                    type empty;
+                    description
+                      "Indicates any ip. Choose either any-ip or ip-subnet.";
+                  }
+                }
+              }
+              container destination-port {
+                description
+                  "Configure destination port.";
+                leaf destination-port {
+                  type inet:port-number;
+                  must "../protocol";
+                  description
+                    "Specifies a TCP or UDP destination port number.";
+                }
+                leaf protocol {
+                  type enumeration {
+                    enum TCP {
+                      value 0;
+                      description
+                        "Protocol of TCP.";
+                    }
+                    enum UDP {
+                      value 1;
+                      description
+                        "Protocol of UDP.";
+                    }
+                  }
+                  must "../../ip";
+                  description
+                    "Protocol type.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    container access-context-profiles {
+      description
+        "List of NAC access context profile related configuration and state data.";
+      list access-context-profile {
+        key "name";
+        description
+          "Configure NAC access context profile related configuration and state data.";
+        leaf name {
+          type string {
+            length "1..32";
+            pattern "([^/\\\\\":?<>|%'@\\*]{1,32})";
+          }
+          must "../name != '-' and ../name != '--'";
+          description
+            "Specifies the name of access context profile.";
+        }
+        container if-match-vlan {
+          description
+            "Configure user identification strategy based on VLAN.";
+          leaf-list vlans {
+            type pub-type:vlan-range;
+            description
+              "Configure VLAN range.";
+          }
+        }
+      }
+    }
+    container access-author-policys {
+      description
+        "List of NAC access authorization policies related configuration and data.";
+      list access-author-policy {
+        key "name";
+        description
+          "Configure NAC access authorization policy related configuration and state data.";
+        leaf name {
+          type string {
+            length "1..32";
+            pattern "([^/\\\\\":?<>|%'@\\*]{1,32})";
+          }
+          must "../name != '-' and ../name != '--' and ../name != 'n' and ../name != 'na' and ../name != 'nam' and ../name != 'name'";
+          description
+            "Specifies the name of access authorization policy.";
+        }
+        container match-service-schemes {
+          description
+            "List of authorization service-schemes based on access-context before authentication success.";
+          list match-service-scheme {
+            key "access-context-profile phase";
+            leaf access-context-profile {
+              type leafref {
+                path "/hw-nac:nac/hw-nac:access-context-profiles/hw-nac:access-context-profile/hw-nac:name";
+              }
+              description
+                "Specifies an existing access-context-profile name.";
+            }
+            leaf phase {
+              type authen-phase-type;
+              description
+                "Specifies the authentication phase.";
+            }
+            leaf service-scheme {
+              type leafref {
+                path "/aaa-service:aaa-service/aaa-service:service-schemes/aaa-service:service-scheme/aaa-service:name";
+              }
+              mandatory true;
+              description
+                "Specifies an existing service-scheme name.";
+            }
+            description
+              "Configure authorization service-schemes based on access-context before authentication success.";
+          }
+        }
+        container match-event-reauthens {
+          description
+            "List of reauthentication action at certain server event.";
+          list match-event-reauthen {
+            key "access-context-profile";
+            leaf access-context-profile {
+              type leafref {
+                path "/hw-nac:nac/hw-nac:access-context-profiles/hw-nac:access-context-profile/hw-nac:name";
+              }
+              description
+                "Specifies an existing access-context-profile name.";
+            }
+            leaf authen-server-up-reauthen {
+              type boolean;
+              description
+                "Enable/disable reauthentication when authentication server is up.";
+            }
+            leaf portal-server-up-reauthen {
+              type boolean;
+              description
+                "Enable/disable reauthentication when portal server is up.";
+            }
+            description
+              "Configure reauthentication action at certain server event.";
+          }
+        }
+        container match-access-domains {
+          description
+            "List of access-domains based on access-context.";
+          list match-access-domain {
+            key "access-context-profile access-domain";
+            description
+              "Configure access-domains based on access-context.";
+            leaf access-context-profile {
+              type leafref {
+                path "/hw-nac:nac/hw-nac:access-context-profiles/hw-nac:access-context-profile/hw-nac:name";
+              }
+              description
+                "Specifies an existing access-context-profile name.";
+            }
+            leaf access-domain {
+              type leafref {
+                path "/aaa:aaa/aaa:domains/aaa:domain/aaa:name";
+              }
+              description
+                "Specifies an domain-name.";
+            }
+            leaf default-domain-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable access-domain as default domain for all access-types.";
+            }
+            leaf force-domain-enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable access-domain as force domain for all access-types.";
+            }
+            leaf-list access-type-for-default-domain {
+              type nac-type;
+              description
+                "Configure access-type for default domain based on access-context-profile.";
+            }
+            leaf-list access-type-for-force-domain {
+              type nac-type;
+              description
+                "Configure access-type for force domain based on access-context-profile.";
+            }
+          }
+        }
+      }
+    }
+    container user-roams {
+      config false;
+      description
+        "List of access user roam infomation.";
+      list user-roam {
+        key "mac-address";
+        description
+          "Statistics of access user roam infomation.";
+        leaf mac-address {
+          type pub-type:mac-address;
+          description
+            "Displays the roaming information of a roaming user with a specified MAC address.";
+        }
+        leaf acct-session-id {
+          type string {
+            length "1..44";
+          }
+          description
+            "Displays the roaming information of a roaming user with a specified accounting ID.";
+        }
+        leaf ip-address {
+          type inet:ip-address-no-zone;
+          description
+            "Displays the roaming information of a roaming user with a specified IP address.";
+        }
+        leaf fac-ip-address {
+          type inet:ip-address-no-zone;
+          description
+            "Displays the roaming information of the foreigne AC with a specified IP address.";
+        }
+      }
+    }
+  }
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "Augment this interface.";
+    container nac {
+      description
+        "Configure nac configuration to the interface.";
+      container authentication-profile {
+        description
+          "Configure applying an authentication profile to the interface.";
+        leaf authentication-profile-name {
+          type leafref {
+            path "/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile/hw-nac:name";
+          }
+          must "not((../../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-mode='disable' or ../../../ifm:type='Vlanif') and (/hw-nac:nac/hw-nac:authentication-profiles/hw-nac:authentication-profile[hw-nac:name=current()]/hw-nac:dot1x-access-profile))";
+          description
+            "Specifies the name of an authentication profile.";
+        }
+      }
+    }
+  }
+
+  ext:task-name "nac";
+}

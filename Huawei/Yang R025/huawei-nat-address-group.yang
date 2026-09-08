@@ -1,0 +1,288 @@
+/******************************************************
+* Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+module huawei-nat-address-group {
+    namespace "urn:huawei:yang:huawei-nat-address-group";
+        prefix "hw-nat-addrgroup";
+
+    import ietf-inet-types {
+        prefix inet;
+    }
+    import huawei-nat {
+        prefix nat;
+    }
+    import huawei-extension {
+        prefix ext;
+    }
+    import huawei-network-instance {
+        prefix ni;
+    }
+    import huawei-l3vpn {
+        prefix l3vpn;
+    }
+    organization
+          "Huawei Technologies Co., Ltd.";
+
+    contact
+          "Huawei Industrial Base
+          Bantian, Longgang
+          Shenzhen 518129
+          People's Republic of China
+          Website: http://www.huawei.com
+          Email: support@huawei.com";
+
+	description
+		"This module contains a collection of YANG definitions for Configuration of NAT address group.";
+
+    revision 2025-06-18 {
+        description
+            "Add must condition to exclude-ports and route-vpn-name.";
+        reference "";
+    }
+    revision 2025-04-30 {
+        description
+            "Add operation-exclude attribute to id leaf and port-block container.";
+        reference "";
+    }
+    revision 2025-01-03 {
+        description
+            "Add the value of route-vpn-name leaf-list.";
+        reference "";
+    }
+    revision 2024-12-28 {
+        description
+            "Add default value to the address-zone leaf.";
+        reference "";
+    }
+    revision 2024-09-12 {
+        description
+            "Add name pattern and modified description.";
+        reference "";
+    }
+    revision 2024-07-26 {
+        description
+            "The dynamic default value is added to the id leaf.";
+        reference "";
+    }
+    revision 2023-02-14 {
+	    description
+	        "Modify the value of extended-times leaf.";
+        reference "";
+    }
+    revision 2022-12-26 {
+	    description
+	        "Initial revision.";
+        reference "";
+    }
+
+    typedef nat-address-group-name {
+        type string {
+            length "1..34";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+        }
+        description "Specify the name of the address group (can not be 'all','vsys','all-systems').";
+    }
+
+    ext:task-name "nat-cgn";
+    container nat-address-group {
+        description "Configure the NAT address group.";
+        container snat-address-groups {
+            description "List of source NAT address groups.";
+            list snat-address-group {
+                key "name";
+                description "Specify the name of the source NAT address group.";
+                leaf name {
+                    type nat-address-group-name;
+                    description "Indicate the name of the address group.";
+                }
+                leaf id {
+                    ext:dynamic-default;
+                    ext:operation-exclude update|delete;
+                    type uint32;
+                    description "Specify the ID of the address group.";
+                }
+                leaf mode {
+                    type enumeration {
+                        enum pat {
+                            value 0;
+                            description "Indicates the PAT mode.";
+                        }
+                        enum no-pat {
+                            value 1;
+                            description "Indicates the No-PAT mode.";
+                        }
+                        enum full-cone {
+                            value 2;
+                            description "Indicates the full-cone mode.";
+                        }
+                    }
+                    default "pat";
+                    description
+                        "Configure the NAT mode of the address group.
+                        By default, the NAT mode of the address group is PAT.";
+                }
+                container mode-pattern {
+                    description "Configure address zone.";
+                    leaf address-zone {
+                        when "../../mode = 'no-pat' or ../../mode = 'full-cone'";
+                        type enumeration {
+                            enum global {
+                                value 0;
+                                description
+                                    "Indicates the global full-cone or the No-PAT mode.
+                                    The server map entry does not contain security zone parameters when data matches the global full-cone NAT.";
+                            }
+                            enum local {
+                                value 1;
+                                description
+                                    "Indicates the global full-cone or the No-PAT mode.
+                                    The server map entry contains security zone parameters when data matches the local full-cone NAT.";
+                            }
+                        }
+                        default "global";
+                        description "Indicate the mode of address group.";
+                    }
+                    leaf reverse-enable {
+                        when "../../mode = 'full-cone'";
+                        type boolean;
+                        default true;
+                        description
+                            "Enable/disable the system from creating a reverse entry.
+                            If this parameter is true, both a server-map entry and its reverse entry are created.";
+                    }
+                }
+                container sections {
+                    description "Configure section information.";
+                    uses nat:section-type;
+                }
+                leaf vrid {
+                    type uint32 {
+                            range "1..255";
+                    }
+                    description
+                        "The VRID keyword is used to direct traffic in hot standby scenarios to implement load balancing.
+                        Generally, you do not need to configure the VRID keyword.
+                        The system automatically binds a public IP address in the NAT address pool to a VRRP group whose virtual IP address is on the same network segment as the public address and has the smallest VRID.
+                        In this way, traffic is transmitted on the master device in the VRRP group.
+                        If there are multiple VRRP groups, you can configure the VRID keyword to bind a public IP address in the NAT address pool to a specified VRRP group, so that traffic can be transmitted on the master device in the VRRP group.
+                        Ensure that the correct VRID is specified during the binding, because the system does not check whether the corresponding VRRP group exists.";
+                }
+                container port-block {
+                    ext:operation-exclude update;
+                    description
+                        "Configure port block information for port pre-allocation and incremental allocation.
+                        Configure both or neither of the start-port and end-port parameters.";
+                    leaf size {
+                        type uint16 {
+                            range "8..16384";
+                        }
+                        description "Specify the size of the pre-allocated port range.";
+                    }
+                    leaf extended-times {
+                        type uint8 {
+                            range "1..128";
+                        }
+                        description "Specify the number of incremental allocations.";
+                    }
+
+                    uses nat:port-range-type;
+                }
+                leaf statistics-enable {
+                    type boolean;
+                    default false;
+                    description "Enable/disable the NAT address group statistics function.";
+                }
+                leaf route-enable {
+                    type boolean;
+                    default "false";
+                    description "Enable/disable open programing routes (OPRs) for addresses in the NAT address pool.";
+                }
+                leaf-list route-vpn-name {
+                    type leafref {
+                        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                    }
+                    must "/ni:network-instance/ni:instances/ni:instance[ni:name = current()]/l3vpn:afs/l3vpn:af/l3vpn:type";
+                    max-elements 4;
+                    description "Configure the vpn-instance of the open programing routes (OPRs).";
+                }
+                container exclude-ips {
+                    description "List of excludes IP addresses from the NAT address group.";
+                    list exclude-ip {
+                        key "start-ip";
+                        description "Configure excludes IP addresses from the NAT address group.";
+                        leaf start-ip {
+                            type inet:ip-address;
+                            description "Specify the IP address or the start IP address.";
+                        }
+                        choice end-ip-or-mask {
+                            description "Indicate the end IP or mask of start IP.";
+                            case end-ip {
+                                leaf end-ip {
+                                    type inet:ip-address;
+                                    description "Specify the end IP address.";
+                                }
+                                description "Specify the end IP address.";
+                            }
+
+                            case mask {
+                                leaf mask {
+                                    type uint32 {
+                                        range "1..32";
+                                    }
+                                    description "Specify the mask of the subnet.";
+                                }
+                                description "Specify the mask of the subnet.";
+                            }
+                        }
+                }
+            }
+
+            container exclude-ports {
+                description "List of the ports excluded in the NAT process.";
+                list exclude-port {
+                    must "(start-port >= 2048) and (start-port <= end-port) and ((end-port - start-port) < 256)";
+                    key "start-port";
+                    description "Configure the port that will be excluded in the NAT process.";
+                    uses nat:port-range-type;
+                }
+            }
+            }
+        }
+
+        container dnat-address-groups {
+            description "List of destination NAT address groups.";
+            list dnat-address-group {
+                key "name";
+                description "Specify the destination NAT address group information.";
+                leaf name {
+                    type nat-address-group-name;
+                    description "Indicate the name of the destination NAT address group.";
+                }
+                leaf id {
+                    ext:dynamic-default;
+                    ext:operation-exclude update|delete;
+                    type uint32;
+                    description "Specify the ID of the address group.";
+                }
+                container sections {
+                    description "Configure section information.";
+                    uses nat:section-type {
+                        augment "section" {
+                            description "Specify the weight of the address segment.";
+                            container extended-info {
+                                description "Configure the extended information of the address segment.";
+                                leaf weight {
+                                    type uint16 {
+                                        range "1..10";
+                                    }
+                                    description "Specify the weight of the address segment.";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

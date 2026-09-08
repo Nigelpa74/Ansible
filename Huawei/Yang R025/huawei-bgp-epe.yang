@@ -1,0 +1,1331 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-epe {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-epe";
+  prefix bgp-epe;
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-te {
+    prefix te;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-twamp-controller {
+    prefix twamp-controller;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "BGP EPE configuration.";
+  revision 2025-01-20 {
+    description
+      "Add enum usp-usd-sid to type sid-type-ext. Add enum usp-usd to type sid-flavor-type. Modify must condition of leaf type to support usp usd.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-26 {
+    description
+      "Add container egress-engineer-srv6-peer-sets. Add container parameter. Add srv6-peer-sets container. Add no-reachable-peers-exist enum.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-14 {
+    description
+      "Add srv6-adjacency-static-sid. Add srv6-collect-network-slice. Add network-slice-info container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-24 {
+    description
+      "Add container of srv6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-27 {
+    description
+      "Add container of epe.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-01 {
+    description
+      "Update YANG file for epe-sid node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-25 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "bgp";
+  typedef sid-type {
+    type enumeration {
+      enum "psp-usp-usd-sid" {
+        value 2;
+        description
+          "Static End.X SID (PSP, USP, USD) of a BGP peer.";
+      }
+      enum "psp-usp-usd-coc-sid" {
+        value 3;
+        description
+          "Static End.X SID (PSP, USP, USD, COC) of a BGP peer.";
+      }
+      enum "coc-sid" {
+        value 4;
+        description
+          "Static End.X SID (COC) of a BGP peer.";
+      }
+      enum "psp-coc-sid" {
+        value 5;
+        description
+          "Static End.X SID (PSP, COC) of a BGP peer.";
+      }
+      enum "psp-usp-usd-coc-next-sid" {
+        value 6;
+        description
+          "Static End.X SID (PSP, USP, USD, COC, NEXT) of a BGP peer.";
+      }
+      enum "psp-usd-next-sid" {
+        value 7;
+        description
+          "Static End.X SID (PSP, USD, NEXT) of a BGP peer.";
+      }
+    }
+    description
+      "SRv6 static SID type.";
+  }
+  typedef sid-type-ext {
+    type enumeration {
+      enum "no-psp" {
+        value 0;
+        description
+          "Static End.X SID of a BGP peer.";
+      }
+      enum "psp-sid" {
+        value 1;
+        description
+          "Static End.X SID (PSP) of a BGP peer.";
+      }
+      enum "psp-usp-usd-sid" {
+        value 2;
+        description
+          "Static End.X SID (PSP, USP, USD) of a BGP peer.";
+      }
+      enum "psp-usp-usd-coc-sid" {
+        value 3;
+        description
+          "Static End.X SID (PSP, USP, USD, COC) of a BGP peer.";
+      }
+      enum "coc-sid" {
+        value 4;
+        description
+          "Static End.X SID (COC) of a BGP peer.";
+      }
+      enum "psp-coc-sid" {
+        value 5;
+        description
+          "Static End.X SID (PSP, COC) of a BGP peer.";
+      }
+      enum "psp-usp-usd-coc-next-sid" {
+        value 6;
+        description
+          "Static End.X SID (PSP, USP, USD, COC, NEXT) of a BGP peer.";
+      }
+      enum "psp-usd-next-sid" {
+        value 7;
+        description
+          "Static End.X SID (PSP, USD, NEXT) of a BGP peer.";
+      }
+      enum "usp-usd-sid" {
+        value 8;
+        description
+          "Static End.X SID (USP, USD) of a BGP peer.";
+      }
+    }
+    description
+      "SRv6 static SID type.";
+  }
+  typedef sid-mode-type {
+    type enumeration {
+      enum "common" {
+        value 0;
+        description
+          "Common mode of SRv6 static SID type.";
+      }
+      enum "compress" {
+        value 1;
+        description
+          "Compress mode of SRv6 static SID type.";
+      }
+    }
+    description
+      "Sid mode type.";
+  }
+  typedef epe-label-type {
+    type enumeration {
+      enum "node" {
+        value 1;
+        description
+          "Peer node label.";
+      }
+      enum "adj" {
+        value 2;
+        description
+          "Peer node label.";
+      }
+      enum "set" {
+        value 3;
+        description
+          "Peer set label.";
+      }
+    }
+    description
+      "EPE label type.";
+  }
+  typedef sid-flavor-type {
+    type enumeration {
+      enum "no-flavor" {
+        value 0;
+        description
+          "SRv6 SID flavor (no-flavor).";
+      }
+      enum "psp" {
+        value 1;
+        description
+          "SRv6 SID flavor (PSP).";
+      }
+      enum "psp-usp-usd" {
+        value 2;
+        description
+          "SRv6 SID flavor (PSP, USP, USD).";
+      }
+      enum "psp-usp-usd-coc" {
+        value 3;
+        description
+          "SRv6 SID flavor (PSP, USP, USD, COC).";
+      }
+      enum "coc" {
+        value 4;
+        description
+          "SRv6 SID flavor (COC).";
+      }
+      enum "psp-coc" {
+        value 5;
+        description
+          "SRv6 SID flavor (PSP, COC).";
+      }
+      enum "psp-usp-usd-coc-next" {
+        value 6;
+        description
+          "SRv6 SID flavor (PSP, USP, USD, COC, NEXT).";
+      }
+      enum "psp-usd-next" {
+        value 7;
+        description
+          "SRv6 SID flavor (PSP, USD, NEXT).";
+      }
+      enum "usp-usd" {
+        value 8;
+        description
+          "SRv6 SID flavor (USP, USD).";
+      }
+    }
+    description
+      "SRv6 SID flavor.";
+  }
+  typedef label-flag-type {
+    type enumeration {
+      enum "ok" {
+        value 0;
+        description
+          "Label is ok.";
+      }
+      enum "not-enough" {
+        value 1;
+        description
+          "Not enough.";
+      }
+      enum "wait-aging" {
+        value 2;
+        description
+          "Wait aging.";
+      }
+      enum "interface-not-support" {
+        value 3;
+        description
+          "Interface not supported.";
+      }
+      enum "peer-not-reachable" {
+        value 4;
+        description
+          "Peer not reachable.";
+      }
+      enum "only-support-compress-type" {
+        value 5;
+        description
+          "Only support compress type.";
+      }
+      enum "only-support-16-bit-compress-type" {
+        value 6;
+        description
+          "Only support 16-bit compress type.";
+      }
+      enum "no-reachable-peers-exist" {
+        value 7;
+        description
+          "No reachable peers exist.";
+      }
+    }
+    description
+      "Label flag type.";
+  }
+  typedef sid-type-bit {
+    type bits {
+      bit no-flavor {
+        description
+          "SRv6 SID flavor (no-flavor).";
+      }
+      bit psp {
+        description
+          "SRv6 SID flavor (PSP).";
+      }
+      bit usp {
+        description
+          "SRv6 SID flavor (USP).";
+      }
+      bit usd {
+        description
+          "SRv6 SID flavor (USD).";
+      }
+      bit coc {
+        description
+          "SRv6 SID flavor (COC).";
+      }
+      bit next {
+        description
+          "SRv6 SID flavor (NEXT).";
+      }
+    }
+    description
+      "SRv6 SID flavor.";
+  }
+  grouping egress-engineering-type {
+    description
+      "BGP egress-engineering attributes.";
+    leaf local-as {
+      type bgp:as-number-validate;
+      description
+        "Local AS.";
+    }
+    leaf remote-as {
+      type bgp:as-number-validate;
+      description
+        "Remote AS.";
+    }
+    leaf local-router-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Local router ID.";
+    }
+    leaf remote-router-id {
+      type inet:ipv4-address-no-zone;
+      description
+        "Remote router ID.";
+    }
+    leaf local-member-as {
+      type bgp:as-number-validate;
+      description
+        "Local member AS.";
+    }
+    leaf remote-member-as {
+      type bgp:as-number-validate;
+      description
+        "Remote member AS.";
+    }
+    leaf local-interface-address {
+      type inet:ip-address-no-zone;
+      description
+        "Local interface address.";
+    }
+  }
+  grouping sids-type {
+    description
+      "BGP sids-type.";
+    container sids {
+      description
+        "List of static SID.";
+      list sid {
+        key "locator-name type mode";
+        description
+          "Statistics of static SID.";
+        leaf locator-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+          }
+          description
+            "Referenced locator name.";
+        }
+        leaf type {
+          type sid-type-ext;
+          description
+            "The type of SRv6 static SID.";
+        }
+        leaf mode {
+          type sid-mode-type;
+          description
+            "Sid mode.";
+        }
+        leaf status {
+          type label-flag-type;
+          description
+            "Sid status.";
+        }
+        leaf value {
+          type inet:ipv6-address-no-zone;
+          description
+            "Sid value.";
+        }
+      }
+    }
+  }
+  rpc reset-bgp-epe-traffic-statistics {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe/bgp-epe:traffic-statistics/bgp-epe:out-bound-infos/bgp-epe:out-bound-info";
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe/bgp-epe:traffic-statistics/bgp-epe:in-bound-infos/bgp-epe:in-bound-info";
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe/bgp-epe:traffic-statistics/bgp-epe:out-bound-aggregated-infos/bgp-epe:out-bound-aggregated-info";
+    description
+      "Reset BGP egress engineering traffic statistics.";
+  }
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process" {
+    description
+      "BGP egress engineering segment-routing IPv6 configuration.";
+      container epe-srv6 {
+        when "../../../ni:name='_public_'";
+        status deprecated;
+        ext:advised-node "../bgp-epe:epe-srv6-option/bgp-epe:global-locator-name";
+        description
+          "Configure BGP egress engineering segment-routing IPv6 information.";
+          leaf locator-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+            }
+            status deprecated;
+            description
+              "Referenced locator name.";
+          }
+      }
+      container epe-srv6-option {
+        when "../../../ni:name='_public_'";
+        description
+          "Configure BGP egress engineering segment-routing IPv6 options.";
+          leaf-list sid-flavor {
+            type sid-flavor-type;
+            description
+              "Configure SID flavor.";
+          }
+          leaf-list global-locator-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+            }
+            max-elements 2;
+            description
+              "Configure locator name.";
+          }
+      }
+    container epe-state {
+      config false;
+      description
+          "Statistics of BGP egress peer engineering information.";
+      container peer-nodes {
+        description
+          "List of displayed BGP egress peer engineering information.";
+        list peer-node {
+          key "address";
+          description
+            "Statistics of BGP egress peer engineering information.";
+          leaf address {
+            type inet:ip-address-no-zone;
+            description
+              "Peer address.";
+          }
+          leaf peer-adj-number {
+            type uint32;
+            description
+              "Number of LDP peer adjacencies.";
+          }
+          uses egress-engineering-type;
+          leaf label-flag {
+            type label-flag-type;
+            description
+              "Label flag.";
+          }
+          leaf node-label {
+            type uint32;
+            description
+              "Node label.";
+          }
+          leaf peer-set-label-flag {
+            type label-flag-type;
+            description
+              "Label flag of peer-set.";
+          }
+          leaf peer-set-label {
+            type uint32;
+            description
+              "Label of peer-set.";
+          }
+          container nexthops {
+            description
+              "List of displayed BGP egress peer engineering nexthop information.";
+            list nexthop {
+              key "remote-interface-address interface-name";
+              description
+                "Statistics of BGP egress peer engineering nexthop information.";
+              leaf remote-interface-address {
+                type inet:ip-address-no-zone;
+                description
+                  "Remote interface address.";
+              }
+              leaf interface-name {
+                type leafref {
+                    path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                  }
+                description
+                  "Outbound interface name.";
+              }
+            }
+          }
+        }
+      }
+      container adjs {
+        description
+          "List of displayed BGP egress peer engineering ADJ information.";
+        list adj {
+          key "remote-interface-address interface-name";
+          description
+            "Statistics of BGP egress peer engineering ADJ information.";
+          leaf remote-interface-address {
+            type inet:ip-address-no-zone;
+            description
+              "Remote interface address.";
+          }
+          leaf interface-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "Outbound interface name.";
+          }
+          leaf local-interface-address {
+            type inet:ip-address-no-zone;
+            description
+              "Local interface address.";
+          }
+          leaf interface-id {
+            type uint32;
+            description
+              "Interface index.";
+          }
+          leaf label-flag {
+            type label-flag-type;
+            description
+              "Label flag.";
+          }
+          leaf label {
+            type uint32;
+            description
+              "ADJ label.";
+          }
+        }
+      }
+      container srv6-peer-nodes {
+        description
+          "List of displayed BGP egress IPv6 peer engineering information.";
+        list srv6-peer-node {
+          key "address";
+          description
+            "Statistics of BGP egress IPv6 peer engineering information.";
+          leaf address {
+            type inet:ip-address-no-zone;
+            description
+              "Peer address.";
+          }
+          leaf locator-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+            }
+            status deprecated;
+            description
+              "Referenced locator name.";
+          }
+          leaf peer-adj-number {
+            type uint32;
+            description
+              "Number of LDP peer adjacencies.";
+          }
+          uses egress-engineering-type;
+          uses sids-type;
+          container nexthops {
+            description
+              "List of displayed BGP egress peer engineering nexthop information.";
+            list nexthop {
+              key "remote-interface-address interface-name";
+              description
+                "Statistics of BGP egress peer engineering nexthop information.";
+              leaf remote-interface-address {
+                type inet:ip-address-no-zone;
+                description
+                  "Remote interface address.";
+              }
+              leaf interface-name {
+                type leafref {
+                    path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                  }
+                description
+                  "Outbound interface name.";
+              }
+            }
+          }
+        }
+      }
+      container srv6-adjs {
+        description
+          "List of displayed BGP egress IPv6 peer engineering ADJ information.";
+        list srv6-adj {
+          key "remote-interface-address interface-name";
+          description
+            "Statistics of BGP egress IPv6 peer engineering ADJ information.";
+          leaf remote-interface-address {
+            type inet:ip-address-no-zone;
+            description
+              "Remote interface address.";
+          }
+          leaf interface-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "Outbound interface name.";
+          }
+          leaf locator-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+            }
+            status deprecated;
+            description
+              "Referenced locator name.";
+          }
+          leaf local-interface-address {
+            type inet:ip-address-no-zone;
+            description
+              "Local interface address.";
+          }
+          leaf interface-id {
+            type uint32;
+            description
+              "Interface index.";
+          }
+          uses sids-type;
+        }
+      }
+      container srv6-peer-sets {
+        config false;
+        description
+          "List of displayed SRv6 peer set information.";
+        list srv6-peer-set {
+          key "peer-set-name";
+          description
+            "Statistics of BGP SRv6 peer set information.";
+          leaf peer-set-name {
+            type string {
+              length "1..63";
+            }
+            description
+              "The name for SRv6 peer set.";
+          }
+          leaf local-as {
+            type bgp:as-number-validate;
+            description
+              "Local AS.";
+          }
+          leaf local-router-id {
+            type inet:ipv4-address-no-zone;
+            description
+              "Local router ID.";
+          }
+          leaf peer-number {
+            type uint32;
+            description
+              "The number of peers in SRv6 peer set.";
+          }
+          uses sids-type;
+          container peer-lists {
+            description
+              "List of displayed BGP egress peer engineering information in SRv6 peer set.";
+            list peer-list {
+              key "peer-address";
+              description
+                "Statistics of BGP egress peer engineering information in SRv6 peer set.";
+              leaf peer-address {
+                type inet:ip-address-no-zone;
+                description
+                  "Peer address.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container epe {
+      description
+        "Configure BGP egress-engineering information.";
+      container traffic-statistics {
+        description
+          "Configure BGP egress-engineering traffic statistics information.";
+        container config {
+          when "../../../../../ni:name='_public_'";
+          description
+            "Configure BGP egress-engineering traffic statistics.";
+          leaf ipv4-enable {
+            type empty;
+            description
+              "Enable/disable BGP egress engineering traffic statistics.";
+          }
+        }
+        container out-bound-infos {
+          config false;
+          description
+            "List of BGP egress-engineering out-bound traffic statistics.";
+          list out-bound-info {
+            key "epe-label peer-ip out-interface-name";
+            description
+              "BGP egress-engineering out-bound traffic statistics.";
+            leaf epe-label {
+              type uint32 {
+                range "0..4294967295";
+              }
+              description
+                "Inlabel.";
+            }
+            leaf peer-ip {
+              type inet:ipv4-address-no-zone;
+              description
+                "The ip address of peer.";
+            }
+            leaf out-interface-name {
+              type string {
+                length "1..49";
+              }
+              description
+                "The name of interface.";
+            }
+            leaf next-hop {
+              type inet:ipv4-address-no-zone;
+              description
+                "The ip address of next hop.";
+            }
+            leaf label-type {
+              type epe-label-type;
+              description
+                "The label type.";
+            }
+            leaf current-time {
+              type yang:date-and-time;
+              description
+                "Current time.";
+            }
+            leaf flow-period {
+              type uint32 {
+                range "0..4294967295";
+              }
+              units "s";
+              description
+                "Traffic statistics collection period.";
+            }
+            leaf last-period-bit-rate {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units "bit/s";
+              description
+                "Bit rate of the last period.";
+            }
+            leaf last-period-packet-rate {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units "pps";
+              description
+                "Packet rate of the last period.";
+            }
+            leaf query-interval {
+              type uint32 {
+                range "0..4294967295";
+              }
+              units s;
+              description
+                "Query interval.";
+            }
+            leaf interval-bit-rate {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units bit/s;
+              description
+                "Bit rate of the realtime period.";
+            }
+            leaf interval-packet-rate {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units pps;
+              description
+                "Packet rate of the realtime period.";
+            }
+            leaf total-bytes {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units Byte;
+              description
+                "Total number of transmitted bytes.";
+            }
+            leaf total-packets {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units packet;
+              description
+                "Total number of transmitted packets.";
+            }
+          }
+        }
+        container in-bound-infos {
+          config false;
+          description
+            "List of BGP egress-engineering in-bound traffic statistics.";
+          list in-bound-info {
+            key "epe-label";
+            description
+              "BGP egress-engineering in-bound traffic statistics.";
+            leaf epe-label {
+              type uint32 {
+                range "0..4294967295";
+              }
+              description
+                "Inlabel.";
+            }
+            leaf label-type {
+              type epe-label-type;
+              description
+                "The label type.";
+            }
+            leaf total-bytes {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units Byte;
+              description
+                "Total number of transmitted bytes.";
+            }
+            leaf total-packets {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units packet;
+              description
+                "Total number of transmitted packets.";
+            }
+          }
+        }
+        container out-bound-aggregated-infos {
+          config false;
+          description
+            "List of BGP egress-engineering out-bound aggregated traffic statistics.";
+          list out-bound-aggregated-info {
+            key "epe-label";
+            description
+              "BGP egress-engineering out-bound aggregated traffic statistics.";
+            leaf epe-label {
+              type uint32 {
+                range "0..4294967295";
+              }
+              description
+                "Inlabel.";
+            }
+            leaf label-type {
+              type epe-label-type;
+              description
+                "The label type.";
+            }
+            leaf total-bytes {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units Byte;
+              description
+                "Total number of transmitted bytes.";
+            }
+            leaf total-packets {
+              type uint64 {
+                range "0..18446744073709551615";
+              }
+              units packet;
+              description
+                "Total number of transmitted packets.";
+            }
+          }
+        }
+      }
+      container network-slice-info {
+        config false;
+        description
+            "Statistics of BGP egress engineering network slice information.";
+        container main-slice-interfaces {
+          description
+            "List of displayed main slice interface information.";
+          list main-slice-interface {
+            key "peer-address interface-name";
+            description
+              "Statistics of main slice interface information.";
+            leaf peer-address {
+              type inet:ip-address-no-zone;
+              description
+                "Peer address.";
+            }
+            leaf interface-name {
+              type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+              description
+                "Interface name.";
+            }
+            container slices {
+              description
+                "List of displayed slice information.";
+              list slice {
+                key "main-slice interface-name slice-id";
+                description
+                  "Statistics of slice information.";
+                leaf main-slice {
+                  type boolean;
+                  description
+                    "Main/Sub slice.";
+                }
+                leaf interface-name {
+                  type leafref {
+                      path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                    }
+                  description
+                    "Interface name.";
+                }
+                leaf slice-id {
+                  type uint32;
+                  description
+                    "Slice ID.";
+                }
+                leaf slice-type {
+                  type string {
+                    length "1..20";
+                  }
+                  description
+                    "Slice type.";
+                }
+                leaf maximum-link-bandwidth {
+                  type uint64;
+                  units kbit/s;
+                  description
+                    "Maximum link bandwidth.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    container egress-engineer-srv6-peer-sets {
+      when "../../../ni:name='_public_'";
+      description
+        "List of srv6 peer set information under BGP instance.";
+      list egress-engineer-srv6-peer-set {
+        key "peer-set-name";
+        description
+          "Configure srv6 peer set information.";
+        leaf peer-set-name {
+          type string {
+            length "1..63";
+          }
+          description
+            "The name for srv6 peer set.";
+        }
+        container static-sids {
+          description
+            "List of static SID.";
+          list static-sid {
+            key "locator-name type";
+            unique sid-value;
+            description
+              "Configure static SID.";
+            leaf locator-name {
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-srv6-option/bgp-epe:global-locator-name";
+              }
+              description
+                "Name of the locator to which the static SID belongs.";
+            }
+            leaf type {
+              type sid-type-bit;
+              must ".='psp' or .='no-flavor' or .='psp usp usd' or .='psp usp usd coc' or .='coc' or .='psp coc' or .='psp usp usd coc next' or .='psp usd next' or .='usp usd'";
+              must "((.='psp usp usd coc next' or .='psp usd next') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-16 and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='psp usp usd coc next' and .!='psp usd next')";
+              must "(.='psp usp usd coc next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or .!='psp usp usd coc next'";
+              must "((.='coc' or .='psp coc' or .= 'psp usp usd coc') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='coc' and .!='psp coc' and .!='psp usp usd coc')";
+              description
+                "The type of SRv6 static SID.";
+            }
+            leaf sid-mode {
+              type sid-mode-type;
+              must "((../type='psp' or ../type='no-flavor' or ../type='psp usp usd' or ../type='usp usd') and .='common' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:static-length != 0) or (.='compress' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length)";
+              mandatory true;
+              description
+                "The mode of SRv6 static SID.";
+            }
+            leaf sid-value {
+              type inet:ipv6-address-no-zone;
+              mandatory true;
+              description
+                "Sid value.";
+            }
+          }
+        }
+      }
+    }
+  }
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer" {
+    description
+      "BGP peer egress engineering segment-routing IPv6 configuration.";
+    container epe-srv6 {
+      when "../../../../../ni:name='_public_' and ../bgp:egress-engineer='enable'";
+      status deprecated;
+      ext:advised-node "../bgp-epe:epe/bgp-epe:srv6";
+      description
+        "Configure BGP peer egress engineering segment-routing IPv6 information.";
+      choice sid-option {
+        status deprecated;
+        description
+          "Set automatic SID or static SID.";
+        case auto-sid {
+          status deprecated;
+          description
+            "Set automatic SID.";
+          leaf locator-name {
+            type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+            }
+            status deprecated;
+            description
+              "Name of the locator referenced by a BGP peer.";
+          }
+        }
+        case static-sid {
+          when "../../../bgp-epe:epe-srv6/bgp-epe:locator-name";
+          status deprecated;
+          description
+            "Set static SID (PSP) value.";
+          choice psp-sid-type {
+            status deprecated;
+            description
+              "Set SID compress flag.";
+            case uncompress {
+              status deprecated;
+              description
+                "SID (PSP).";
+              leaf psp-sid {
+                type inet:ipv6-address-no-zone;
+                must "not(../no-flavor-sid) or (.!=../no-flavor-sid)";
+                must "not(../no-flavor-sid-compress) or (.!=../no-flavor-sid-compress)";
+                must "not(../ext-static-sids/ext-static-sid[sid-value=current()])";
+                status deprecated;
+                description
+                  "Static End.X SID (PSP) of a BGP peer.";
+              }
+            }
+            case compress {
+              status deprecated;
+              description
+                "Compress SID (PSP).";
+              leaf psp-sid-compress {
+                type inet:ipv6-address-no-zone;
+                must "not(../no-flavor-sid) or (.!=../no-flavor-sid)";
+                must "not(../no-flavor-sid-compress) or (.!=../no-flavor-sid-compress)";
+                must "not(../ext-static-sids/ext-static-sid[sid-value=current()])";
+                must "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-block-length or /ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-16";
+                must "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-static-length";
+                status deprecated;
+                description
+                  "Static End.X Compress SID (PSP) of a BGP peer.";
+              }
+            }
+          }
+          choice no-flavor-sid-type {
+            status deprecated;
+            description
+              "Set static SID (no flavor) value.";
+            case uncompress {
+              status deprecated;
+              description
+                "SID (no flavor).";
+              leaf no-flavor-sid { 
+                type inet:ipv6-address-no-zone;
+                must "not(../psp-sid) or (.!= ../psp-sid)";
+                must "not(../psp-sid-compress) or (.!=../psp-sid-compress)";
+                must "not(../ext-static-sids/ext-static-sid[sid-value=current()])";
+                status deprecated;
+                description
+                  "Static End.X SID (no flavor) of a BGP peer.";
+              }
+            }
+            case compress {
+              status deprecated;
+              description
+                "Compress SID (no flavor).";
+              leaf no-flavor-sid-compress {
+                type inet:ipv6-address-no-zone;
+                must "not(../psp-sid) or (.!=../psp-sid)";
+                must "not(../psp-sid-compress) or (.!=../psp-sid-compress)";
+                must "not(../ext-static-sids/ext-static-sid[sid-value=current()])";
+                must "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-block-length or /ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-16";
+                must "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-static-length";
+                status deprecated;
+                description
+                  "Static End.X Compress SID (no flavor) of a BGP peer.";
+              }
+            }
+          }
+          container ext-static-sids {
+            status deprecated;
+            description
+              "List of static SID.";
+            list ext-static-sid {
+              key "type";
+              unique sid-value;
+              status deprecated;
+              description
+                "Configure static SID.";
+              leaf type {
+                type sid-type;
+                status deprecated;
+                description
+                  "The type of SRv6 static SID type.";
+              }
+              leaf sid-mode {
+                type sid-mode-type;
+                must "../type='psp-usp-usd-sid' or (((../type='psp-usp-usd-coc-sid' or ../type='coc-sid' or ../type='psp-coc-sid') or ((/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-16 and /ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../../../../../../bgp-epe:epe-srv6/bgp-epe:locator-name]/srv6:compress-static-length and ../../../../../../../../srv6:srv6/srv6:compress-16-mode) and ((../type='psp-usp-usd-coc-next-sid' and ../../../../../../../../srv6:srv6/srv6:compress-16-mode='default') or ../type='psp-usd-next-sid'))) and .!='common')";
+                mandatory true;
+                status deprecated;
+                description
+                  "The mode of SRv6 static SID type.";
+              }
+              leaf sid-value {
+                type inet:ipv6-address-no-zone;
+                mandatory true;
+                status deprecated;
+                description
+                  "Sid value.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container epe {
+      description
+        "Configure BGP peer egress engineering information.";
+      container virtual-link {
+        when "../../../../../../ni:name='_public_'";
+        must "../../bgp:egress-engineer='enable'";
+        must "contains(../../bgp:address,':') and (substring(../../bgp:address,1,4) != 'FE80')";
+        must "not(admin-groups-name) or not(admin-groups)";
+        presence "Create EPE virtual link."; 
+        description
+          "Configure BGP peer egress engineering segment-routing IPv6 virtual link information.";
+        leaf metric { 
+          type uint32 {
+            range "1..16777215";
+          }
+          description
+            "Specifies the Value of virtual link metric.";
+        }
+        leaf admin-groups {
+          type pub-type:hex-binary;
+          description
+            "Specifies virtual link management attributes. They are total 32 bits.";
+        }
+        leaf-list srlg-group {
+          type uint32 {
+            range "0..4294967295";
+          }
+          max-elements "64";
+          description
+            "Configure a list of risk-shared link groups of virtual link.";
+        }
+        leaf twamp-test-session-id { 
+          type leafref {
+            path "/twamp-controller:twamp-controller/twamp-controller:client/twamp-controller:sessions/twamp-controller:session/twamp-controller:id";
+          }
+          must "contains(/twamp-controller:twamp-controller/twamp-controller:client/twamp-controller:sessions/twamp-controller:session[twamp-controller:id = current()]/twamp-controller:send-ip-addr, ':')";
+          description
+            "Specifies the Value of twamp test-session ID.";
+        }
+        leaf-list admin-groups-name {
+          type leafref {
+            path "/te:te/te:affinity-define/te:affinity-mappings/te:affinity-mapping/te:attribute-name";
+          }
+          max-elements "32";
+          description
+            "Configure the virtual link management attributes. They are total 32 bits.";
+        }
+      }
+      container srv6 {
+        when "../../../../../../ni:name='_public_' and ../../bgp:egress-engineer='enable'";
+        description
+          "Configure BGP peer egress engineering segment-routing IPv6 information.";
+        choice sid-option {
+          description
+            "Set automatic SID or static SID.";
+          case auto-sid {
+            description
+              "Set automatic SID.";
+            leaf-list locator-name {
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srv6:locators/srv6:locator/srv6:name";
+              }
+              must "contains(../../../bgp:address,':')";
+              max-elements 2;
+              description
+                "Configure the locator referenced by a BGP peer.";
+            }
+          }
+          case static-sid {
+            description
+              "Set static SID value.";
+            container static-sids {
+              description
+                "List of static SID.";
+              list static-sid {
+                must "contains(../../../../bgp:address,':')";
+                key "locator-name type";
+                unique sid-value;
+                description
+                  "Configure static SID.";
+                leaf locator-name {
+                  type leafref {
+                    path "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-epe:epe-srv6-option/bgp-epe:global-locator-name";
+                  }
+                  description
+                    "Name of the locator to which the static SID belongs.";
+                }
+                leaf type {
+                  type sid-type-bit;
+                  must ".='psp' or .='no-flavor' or .='psp usp usd' or .='psp usp usd coc' or .='coc' or .='psp coc' or .='psp usp usd coc next' or .='psp usd next' or .='usp usd'";
+                  must "((.='psp usp usd coc next' or .='psp usd next') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-16 and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='psp usp usd coc next' and .!='psp usd next')";
+                  must "(.='psp usp usd coc next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or .!='psp usp usd coc next'";
+                  must "((.='coc' or .='psp coc' or .= 'psp usp usd coc') and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length) or (.!='coc' and .!='psp coc' and .!='psp usp usd coc')";
+                  description
+                    "The type of SRv6 static SID.";
+                }
+                leaf sid-mode {
+                  type sid-mode-type;
+                  must "((../type='psp' or ../type='no-flavor' or ../type='psp usp usd' or ../type='usp usd') and .='common' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:static-length != 0) or (.='compress' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../bgp-epe:locator-name]/srv6:compress-static-length)";
+                  mandatory true;
+                  description
+                    "The mode of SRv6 static SID.";
+                }
+                leaf sid-value {
+                  type inet:ipv6-address-no-zone;
+                  mandatory true;
+                  description
+                    "Sid value.";
+                }
+              }
+            }
+          }
+        }
+        container parameter {
+          when "../../../../../../../ni:name='_public_'";
+          description
+            "Configure BGP peer egress engineering SRv6 parameters.";
+          leaf peer-set-name {
+            type leafref {
+              path "../../../../../../bgp-epe:egress-engineer-srv6-peer-sets/bgp-epe:egress-engineer-srv6-peer-set/bgp-epe:peer-set-name";
+            }
+            must "contains(../../../../bgp:address,':')";
+            description
+              "Add peer to peer set.";
+          }
+        }
+      }
+    }
+  }
+  augment "/bgp:bgp/bgp:base-process" {
+    description
+      "BGP egress engineering global configuration.";
+    container egress-engineer-global {
+      when "../bgp:enable='true'";
+      description
+        "Configure the egress engineer global parameter.";
+      leaf confed-id-compatible {
+        type empty;
+        description
+          "Enable/disable filling the confederation member-as in the BGP-EPE NLRI.";
+      }
+      leaf collect-utilized-bandwidth {
+        type uint32 {
+          range "10..600";
+        }
+        units "s";
+        description
+          "Collecting utilized bandwidth interval.";
+      }
+      leaf srv6-adjacency-static-sid {
+        type empty; 
+        description 
+          "Enable/disable BGP egress-engineering srv6 adjacency static-sid."; 
+      }
+      leaf srv6-collect-network-slice {
+        type empty;
+        description
+          "Enable/disable BGP-EPEv6 to collect network slice information.";
+      }
+    }
+  }
+}

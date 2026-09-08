@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-gre-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-gre-deviations-ar5710s";
+  prefix gre-devs-ar5710s;
+
+  import huawei-gre {
+    prefix gre;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-gre module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/gre:gre" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre/gre:gre-tunnel/gre:icmp-detect-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre/gre:gre-tunnel/gre:mtu-check-enable" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre/gre:gre-tunnel/gre:relay-tunnel-name" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre6" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:gre/gre:gre-tunnel/gre:source/gre:if-info/gre:if-name" {
+    deviate delete {
+      must "not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:l2-mode-enable='true')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type/gre:p2mp-gre/gre:mgre-tunnel/gre:source/gre:if-info/gre:if-name" {
+    deviate delete {
+      must "not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:l2-mode-enable='true')";
+    }
+    deviate add {
+      must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Ethernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Eth-Trunk' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Ip-Trunk' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Virtual-Ethernet' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Serial' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Pos' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Tunnel' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Vlanif' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='LoopBack' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='25GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='10GE' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='GEBrief' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Mp-group' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Dialer' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='OpenGE'";
+    }
+  }
+}

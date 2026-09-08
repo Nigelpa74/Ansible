@@ -1,0 +1,453 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-srpolicy-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-srpolicy-deviations-ar5710s";
+  prefix srpolicy-devs-ar5710s;
+
+  import huawei-srpolicy {
+    prefix srpolicy;
+  }
+  import huawei-net-slice {
+    prefix net-slice;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-segment-routing {
+    prefix sr;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-srpolicy module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef bfd-enable-type-deviations {
+    type enumeration {
+      enum disable {
+        value 0;
+        description
+          "Disable.";
+      }
+      enum ubfd-enable {
+        value 2;
+        description
+          "Unaffiliated BFD enable.";
+      }
+      enum ubfd-enable-reverse-path-bsid {
+        value 3;
+        description
+          "Enable the function to specify the return tunnel of unaffiliated BFD packets based on a specified binding SID.";
+      }
+    }
+    description
+      "BFD enable type.";
+  }
+
+  typedef policy-bfd-enable-type-deviations {
+    type enumeration {
+      enum not-configured {
+        value 0;
+        description
+          "Not configured.";
+      }
+      enum disable {
+        value 2;
+        description
+          "Disable.";
+      }
+      enum ubfd-enable {
+        value 3;
+        description
+          "Unaffiliated BFD enable.";
+      }
+      enum ubfd-enable-reverse-path-bsid {
+        value 4;
+        description
+          "Enable the function to specify the return tunnel of unaffiliated BFD packets based on a specified binding SID.";
+      }
+    }
+    description
+      "BFD enable type for SR Policy.";
+  }
+
+  typedef encapsulation-disp-type-deviations {
+    type enumeration {
+      enum invalid {
+        value 0;
+        description
+          "Invalid encapsulation mode.";
+      }
+      enum insert {
+        value 1;
+        description
+          "Insert encapsulation mode.";
+      }
+    }
+    description
+      "Encapsulation modes.";
+  }
+
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-templates/srpolicy:attribute-template/srpolicy:bfd-slice-inherit-match" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-templates/srpolicy:attribute-template/srpolicy:path-mtu-detect" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:bfd-slice-inherit-match" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:path-mtu-detect" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:sr-configuration-path-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:sr-bgp-path-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:odn-template-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:sr-odn-template-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:srv6-odn-template-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:sr-pag-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:srv6-pag-refcnt" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:constraint-paths" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:constraint-templates" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:reset-sr-mpls-te-policy-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:detect-srv6-te-policy-path-mtu" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:path-mtu-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:path-mtu-period-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:path-mtu-period-detect-interval" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:auto-bandwidth-sample-interval" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:auto-bandwidth-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:pcep-lsp-identifiers-report" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:list-reverse-xsid-switch-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:list-xsid-delete-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:dual-fed" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bsid-dynamic-specified-encaps-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bfd/srpolicy:min-rx" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bfd/srpolicy:slice-inherit-match" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:compute-types" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:segments/srpolicy:segment/srpolicy:type/srpolicy:segment-type-2/srpolicy:compress-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:policy-association-groups" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:srv6-odn-templates" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:locator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bfd-address" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:path-mtu-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:encapsulation-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:diffserv-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:ifit-measure-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:shortcut-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:route-policy-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:metric-type/srpolicy:relative" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:process-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bfd-slice-inherit-match" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:constraint-template-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:compute-types" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:reduce" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bsid-endpoint-behavior" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:afr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:dual-fed" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:type/srpolicy:explicit/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:co-routed-path-type/srpolicy:xsid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:type/srpolicy:dynamic" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-traffic-statistics/srpolicy:policy-traffic-statistic/srpolicy:compensated-last-period-byte-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-traffic-statistics/srpolicy:policy-traffic-statistic/srpolicy:compensated-last-period-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-traffic-statistics/srpolicy:policy-traffic-statistic/srpolicy:compensated-interval-byte-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-traffic-statistics/srpolicy:policy-traffic-statistic/srpolicy:compensated-interval-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-traffic-statistics/srpolicy:policy-traffic-statistic/srpolicy:compensated-total-byte" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:list-traffic-statistics/srpolicy:list-traffic-statistic/srpolicy:compensated-last-period-byte-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:list-traffic-statistics/srpolicy:list-traffic-statistic/srpolicy:compensated-last-period-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:list-traffic-statistics/srpolicy:list-traffic-statistic/srpolicy:compensated-interval-byte-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:list-traffic-statistics/srpolicy:list-traffic-statistic/srpolicy:compensated-interval-bit-rate" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:list-traffic-statistics/srpolicy:list-traffic-statistic/srpolicy:compensated-total-byte" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:binding-sids/srpolicy:binding-sid/srpolicy:reduce" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:bfd-slice-inherit-match" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:ifit-measure-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:interface-index" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:interface-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:reduce" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:path-mtu-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:dual-fed" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:compute-source" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:delegate-congestion" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:ct0-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:odn-color" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:binding-sids/srpolicy:binding-sid/srpolicy:encapsulation-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:binding-sids/srpolicy:binding-sid/srpolicy:reduce" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:xsids" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:reverse-xsid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:sids/srpolicy:sid/srpolicy:block-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:sids/srpolicy:sid/srpolicy:node-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:sids/srpolicy:sid/srpolicy:function-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:sids/srpolicy:sid/srpolicy:compress-length" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:sids/srpolicy:sid/srpolicy:flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:path-mtu-detected-min-mtu" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:path-mtu-detected-reply-node-address" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:segment-lists/srpolicy:segment-list/srpolicy:path-mtu-detected-records" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:policy-association-groups" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-down-reasons/srpolicy:policy-down-reason/srpolicy:list-down-reasons/srpolicy:list-down-reason/srpolicy:odn-created" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-down-reasons/srpolicy:policy-down-reason/srpolicy:list-down-reasons/srpolicy:list-down-reason/srpolicy:algorithm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/sr:segment-routing/srpolicy:srpolicy" {
+    deviate not-supported;
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-templates/srpolicy:attribute-template/srpolicy:bfd-enable" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:policy-bfd-enable-type-deviations;
+    }
+  }
+  deviation "/srpolicy:srpolicy/srpolicy:attribute-template-infos/srpolicy:attribute-template-info/srpolicy:bfd-enable" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:policy-bfd-enable-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bfd/srpolicy:enable" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:bfd-enable-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bfd/srpolicy:min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+    deviate replace {
+      default "1000";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-attributes/srpolicy:bfd/srpolicy:backup-min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bfd-enable" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:policy-bfd-enable-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bfd-min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:bfd-backup-min-tx" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:metric-type" {
+    deviate delete {
+      default "relative";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policys/srpolicy:policy/srpolicy:candidate-paths/srpolicy:candidate-path/srpolicy:network-slice-id" {
+    deviate replace {
+      type leafref {
+        path "/net-slice:net-slice/net-slice:instances/net-slice:instance/net-slice:id";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:bsid-encapsulation-mode" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:encapsulation-disp-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:bfd-enable" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:bfd-enable-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/srpolicy:encapsulation-mode" {
+    deviate replace {
+      type srpolicy-devs-ar5710s:encapsulation-disp-type-deviations;
+    }
+  }
+}

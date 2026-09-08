@@ -1,0 +1,55 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dtls-client-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-dtls-client-deviations-ar5710s";
+  prefix dtls-client-devs-ar5710s;
+
+  import huawei-dtls-client {
+    prefix dtls-client;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-dtls-client module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv4-addresses/dtls-client:server-ipv4-address/dtls-client:status" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv4-addresses/dtls-client:server-ipv4-address/dtls-client:detect-result" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv4-addresses/dtls-client:server-ipv4-address/dtls-client:detect-packets-send" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv4-addresses/dtls-client:server-ipv4-address/dtls-client:detect-packets-receive" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv6-addresses/dtls-client:server-ipv6-address/dtls-client:status" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv6-addresses/dtls-client:server-ipv6-address/dtls-client:detect-result" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv6-addresses/dtls-client:server-ipv6-address/dtls-client:detect-packets-send" {
+    deviate not-supported;
+  }
+  deviation "/dtls-client:dtls-client/dtls-client:server-ipv6-addresses/dtls-client:server-ipv6-address/dtls-client:detect-packets-receive" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,393 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ftpc {
+  namespace "urn:huawei:yang:huawei-ftpc";
+  prefix ftpc;
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "File transfer protocol client.";
+  revision 2024-10-10 {
+    description
+      "Add rpc ftpc-list-remote-files.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-25 {
+    description
+      "Add container transfer-tasks and rpc ftpc-cancel-transfer-task.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-26 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ftp-client";
+  typedef ftpc-trans-cmd-type {
+    type enumeration {
+      enum "put" {
+        value 25;	  
+        description
+          "Upload local files to the remote server.";
+      }
+      enum "get" {
+        value 26;	  
+        description
+          "Download files from the remote server to the client.";
+      }
+    }
+    description
+      "FTP client transfer command type.";
+  }
+  container ftpc {
+    description
+      "File transfer protocol client.";
+    container client {
+      description
+        "Configure ftp client.";
+      leaf source-ipv4-address {
+        type inet:ipv4-address-no-zone;
+        description
+          "Users can configure the source IP address for outgoing connections by specifying the source IP address.";
+      }
+      leaf source-interface-name {
+        when "not(../source-ipv4-address)";
+        type pub-type:if-name;
+        description
+          "Users can configure the source interface for outgoing connections by specifying the source interface name. The specified source interface must exist and an IP address must be configured on the interface.";
+      }
+      leaf src-ipv6-addr {
+        type inet:ipv6-address-no-zone;
+        description
+          "FTP source IPv6 address.";
+      }
+      leaf ipv6-vpn-instance-name {
+        when "../src-ipv6-addr";
+        type string {
+          length "1..31";
+        }
+        description
+          "The specified VPN instance must exist and IPv6-family must be enabled in the VPN instance.";
+      }
+      leaf enabled {
+        type boolean;
+        default false;
+        description
+          "Enable/disable the FTP client function.";
+      }
+    }
+    container global-vpn {
+      description
+        "Configure VPN.";
+      leaf vpn-name {
+        type string {
+          length "1..31";
+        }
+        description
+          "VPN name.";
+      }
+      leaf ipv6-vpn-name {
+        type string {
+          length "1..31";
+        }
+        description
+          "IPv6 VPN name.";
+      }
+    }
+    container transfer-tasks {
+      config false;
+      description
+        "List of FTP transfer file result.";
+      list transfer-task {
+        key "transfer-id";
+        description
+          "FTP transfer file result state.";
+        leaf transfer-id {
+          type uint32;
+          description
+            "FTP transfer task id.";
+        }
+        leaf command-type {
+          type ftpc-trans-cmd-type;
+          description
+            "The type of operation (get/put).";
+        }
+        leaf server-address {
+          type inet:host;
+          description
+            "The IP address or Hostname of remote system (FTP server).";
+        }
+        leaf server-port {
+          type uint16 {
+            range "1..65535";
+          }
+          description
+            "The port number.";
+        }
+        leaf vpn-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "The VPN instance name.";
+        }
+        leaf local-file-name {
+          type string {
+            length "1..256";
+          }
+          description
+            "The local file name.";
+        }
+        leaf remote-file-name {
+          type string {
+            length "1..256";
+          }
+          description
+            "The remote file name.";
+        }
+        leaf status {
+          type string {
+            length "0..50";
+          }
+          description
+            "Indicates that the transfer status.";
+        }
+        leaf percentage {
+          type uint32 {
+            range "0..100";
+          }
+          units %;
+          description
+            "Show the transfer percentage.";
+        }
+        leaf error-code {
+          type uint32;
+          description
+            "Show the error code when transfer failed.";
+        }
+        leaf error-message {
+          type string {
+            length "0..1024";
+          }
+          description
+            "A message describing the error.";
+        }
+      }
+    }
+  }
+  rpc ftpc-transfer-file {
+    description
+      "FTP client transfer file.";
+    input {
+      leaf server-port {
+        type uint32 {
+          range "1..65535";
+        }
+        description
+          "Use this server port to transfer the file.";
+      }
+      leaf source-ipv4-address {
+        type inet:ipv4-address-no-zone;
+        must "../server-ipv4-address";
+        description
+          "Use this source IPv4 address to transfer the file.";
+      }
+      leaf source-ipv6-address {
+        type inet:ipv6-address-no-zone;
+        must "../server-ipv6-address";
+        description
+          "Use this source IPv6 address to transfer the file.";
+      }
+      leaf server-ipv4-address {
+        type string {
+          length "1..255";
+        }
+        must "not(../server-ipv6-address)";
+        description
+          "Use this IPv4 address or Hostname as the server IPv4 address or server hostname and transfer files to this server.";
+      }
+      leaf server-ipv6-address {
+        type string {
+          length "1..255";
+        }
+        description
+          "Use this IPv6 address or Hostname as the server IPv6 address or server hostname and transfer files to this server.";
+      }
+      leaf command-type {
+        type ftpc-trans-cmd-type;
+        description
+          "Specify the type of the operation to be performed.";
+      }
+      leaf user-name {
+        type string {
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Use this username to authenticate the connection before transferring files.";
+      }
+      leaf password {
+        type pub-type:password-extend;
+        mandatory true;
+        description
+          "Use this password to authenticate the connection before transferring files.";
+      }
+      leaf local-file-name {
+        type string {
+          length "1..128";
+        }
+        description
+          "Transfer this file to the server.";
+      }
+      leaf remote-file-name {
+        type string {
+          length "1..128";
+        }
+        description
+          "The server stores the received file using this file name.";
+      }
+      leaf remote-extension {
+        type string {
+          length "1..5";
+        }
+        description
+          "Append this remote extension to the destination file name as a temporary file name during file transmission.";
+      }
+      leaf vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        must "(../server-ipv4-address) and not(../is-public-net) and not(../source-interface-name)";
+        description
+          "Use this VPN name to connect to the server.";
+      }
+      leaf ipv6-vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        must "(../server-ipv6-address) and not(../is-public-net) and not(../source-interface-name)";
+        description
+          "Use this IPv6 VPN name to connect to the server.";
+      }
+      leaf is-public-net {
+        type boolean;
+        description
+          "Using public net or not.";
+      }
+      leaf source-interface-name {
+        type pub-type:if-name;
+        must "not(../is-public-net)";
+        description
+          "Use this source interface name to transfer the file.";
+      }
+      leaf async {
+        type boolean;
+        default "false";
+        description
+            "Specify the transfer type.";
+      }
+    }
+    output {
+      leaf transfer-id {
+        type uint32;
+        description
+          "FTP transfer task id.";
+      }
+    }
+  }
+  rpc ftpc-cancel-transfer-task {
+    description
+      "Force the termination of a transfer task.";
+    input {
+      leaf transfer-id {
+        type uint32;
+        mandatory true;
+        description
+          "Particular transfer task id to cancel.";
+      }
+    }
+  }
+  rpc ftpc-list-remote-files {
+    description
+      "FTP list files on remote server filter by suffix.";
+    input {
+      leaf server-ip-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "IPv4 or IPv6 address of remote server.";
+      }
+      leaf server-port {
+        type uint16 {
+          range "1..65535";
+        }
+        default "21";
+        description
+          "Use this server port to connect server.";
+      }
+      leaf user-name {
+        type string {
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Use this username to authenticate the connection before list files.";
+      }
+      leaf password {
+        type pub-type:password-extend;
+        mandatory true;
+        description
+          "Use this password to authenticate the connection before list files.";
+      }
+      leaf file-suffix {
+        type string {
+          length "1..5";
+        }
+        mandatory true;
+        description
+          "Specify the file's suffix.";
+      }
+    }
+    output {
+      container remote-files {
+        description
+          "List of FTP remote file's names.";
+        list remote-file {
+          key "remote-file-name";
+          description
+              "List of FTP remote file's names.";
+          leaf remote-file-name {
+            type string {
+              length "1..256";
+            }
+            description
+              "FTP remote file name.";
+          }
+        }
+      }
+    }
+  }
+}

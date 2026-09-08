@@ -1,0 +1,73 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-notification-deviations-ar5710s";
+  prefix bgp-notification-devs-ar5710s;
+
+  import huawei-bgp-notification {
+    prefix bgp-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-notification module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/bgp-notification:bgp-pdpeer-af-route-exceed" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-pdpeer-af-route-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-pdpeer-af-route-threshold-exceed" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-pdpeer-af-route-threshold-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-sid-label-conflict" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-sid-label-conflict-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-multi-dynamic-peer-session-exceed" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-multi-dynamic-peer-session-exceed-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-unnumbered-packet-send-failed" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-unnumbered-packet-send-failed-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-rpki-roa-invalid-announce" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-rpki-roa-invalid-announce-clear" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-routing-adjust-alarm" {
+    deviate not-supported;
+  }
+  deviation "/bgp-notification:bgp-routing-adjust-alarm-clear" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,621 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-driver-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-driver-notification";
+  prefix driver-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of board module.";
+
+  revision 2025-09-11 {
+    description
+      "Add notification log for heat-abnormal.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-21 {
+    description
+      "Add notification log for cmu alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-21 {
+    description
+      "Add notification log for board cold/warm start.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-26 {
+    description
+      "Add notification log for device reboot.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-08 {
+    description
+      "Add one notification log for system-mac address changed.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-09-10 {
+    description
+      "Add one notification log for entity status changed.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-05-08 {
+    description
+      "Add four notification alarms.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "device-mgr";
+  notification board-invalid {
+    description
+      "The board totally failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-invalid-resume {
+    description
+      "The board resumed from total failure.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-remove {
+    description
+      "The board was removed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-insert {
+    description
+      "The board was inserted.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification heat-abnormal {
+    description
+      "The heat dissipation of the device is abnormal.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+  }
+  notification heat-normal {
+    description
+      "The heat dissipation of the device is normal.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+  }
+  notification cmu-invalid {
+    description
+      "The CMU totally failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification cmu-invalid-resume {
+    description
+      "The CMU failure was resumed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-fail {
+    description
+      "The board partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-fail-resume {
+    description
+      "The board resumed from partial failure.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification all-lpu-sfu-fail {
+    description
+      "All installed LPUs and SFUs were not registered for a long time.";
+  }
+  notification all-lpu-sfu-fail-resume {
+    description
+      "A LPU or SFU is registered, or all LPUs and SFUs are powered off.";
+  }
+  notification bootloader-password-empty {
+    description
+      "The password of bootloader is empty.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU.";
+    }
+  }
+  notification bootloader-password-empty-resume {
+    description
+      "The password of bootloader is set.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU.";
+    }
+  }
+  notification board-warning {
+    description
+      "The board experienced a minor fault.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification board-warning-resume {
+    description
+      "The board resumed from the minor fault.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Type of the notification entity. The value can be one of the following: - 1: MPU - 2: LPU - 3: SFU - 4: PIC - 5: CF card - 6: OFC.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification chassis-fail {
+    description
+      "The chassis partially failed.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification chassis-fail-resume {
+    description
+      "The chassis resumed from partial failure.";
+    leaf entity-index {
+      type uint32;
+      description
+        "Indicates the index of an entity.";
+    }
+    leaf entity-name {
+      type string {
+        length "0..255";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification entity-status-change {
+    description
+      "The entity status has changed.";
+    leaf entity-name {
+      type string {
+        length "0..31";
+         }      
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type; 
+      description
+        "Indicates the type of an entity.";
+    }
+    leaf entity-status {
+      type devm:entity-oper-state-type;
+      description
+        "Indicates the status of an entity.";
+    }
+  }
+  notification entity-status-change-verbose {
+    description
+      "Details of the entity whose status has changed.";
+    leaf entity-name {
+      type string {
+        length "0..31";
+         }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf position {
+      type string {
+        length "0..31";
+         }
+      description
+        "Entity position.";
+    }
+    leaf entity-type {
+      type devm:notification-entity-type;
+      description
+        "Indicates the type of an entity.";
+    }
+    leaf entity-status {
+      type devm:entity-oper-state-type;
+      description
+        "Indicates the status of an entity.";
+    }
+    leaf esn {
+      type string {
+        length "0..31";
+         }
+      description
+        "E-label serial number of an entity.";
+    }
+    leaf vendor-type {
+      type string {
+        length "0..31";
+         }
+      description
+        "Type of a hardware entity.";
+    }
+    leaf online-state {
+      type devm:entity-oper-state-type;
+      description
+        "Online-state of an entity.";
+    }
+    leaf register-state {
+      type devm:entity-oper-state-type;
+      description
+        "Register-state of an entity.";
+    }
+    leaf power-state {
+      type devm:entity-oper-state-type;
+      description
+        "Power-state of an entity.";
+    }
+    leaf role {
+      type devm:entity-standby-state;
+      description
+        "Master/slave role of an entity.";
+    }
+    leaf event {
+      type devm:entity-oper-state-type;
+      description
+        "Event that triggers an notification.";
+    }
+  }
+  notification storage-device-remove {
+    description
+      "The storage device was removed.";
+    leaf entity-name {
+      type string {
+        length "0..31";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf storage-device-name {
+      type string {
+        length "0..31";
+      }
+      description
+        "Indicates the name of a storage device.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification storage-device-insert {
+    description
+      "A storage device was inserted.";
+    leaf entity-name {
+      type string {
+        length "0..31";
+      }
+      description
+        "Indicates the name of an entity.";
+    }
+    leaf storage-device-name {
+      type string {
+        length "0..31";
+      }
+      description
+        "Indicates the name of a storage device.";
+    }
+    leaf fault-id {
+      type devm:notification-probable-cause-type;
+      description
+        "Indicates the error code.";
+    }
+  }
+  notification sysmac-switch-event {
+    description
+      "The system-mac address switch event.";
+    leaf new-sysmac {
+      type pub-type:mac-address;
+      description
+        "The new system MAC address.";
+    }
+  }
+  notification device-reboot {
+    description
+      "The device reboot event.";
+    leaf physical-name {
+      type string {
+        length "0..128";
+      }
+      description
+        "The device physical name.";
+    }
+    leaf reboot-info {
+      type string {
+        length "0..256";
+      }
+      description
+        "The device reboot reason info.";
+    }
+  }
+  notification cold-start {
+    description
+        "Cold start event.";
+  }
+  notification warm-start {
+    description
+        "Warm start event.";
+  }
+}

@@ -1,0 +1,597 @@
+/*
+Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mac-fwm-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mac-fwm-notification";
+  prefix mac-fwm-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of MAC forwarding resources.";
+  revision 2024-06-06 {
+    description
+      "Add New Alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-22 {
+    description
+      "Modify Task Name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-06 {
+    description
+      "Add New Alarm.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-12-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  
+  ext:task-name "mac";
+  
+  typedef port-action {
+    type enumeration {
+      enum "restrict" {
+        value 1;
+        description
+          "Discard the unknow source mac packets and not learn, send trap.";
+      }
+      enum "protect" {
+        value 2;
+        description
+          "Discard the unknow source mac packets and not learn.";
+      }
+      enum "error-down" {
+        value 3;
+        description
+          "Discard the unknow source mac packets and not learn, send trap, shutdown the port.";
+      }
+    }
+    description
+      "PortSecurityProtectAction.";
+  }
+  notification mac-usage-raising-threshold {
+    description
+      "MAC usage reached the threshold.";
+    leaf base-trap-severity {
+      type int32;
+      description
+        "Trap severity.";
+    }
+    leaf base-trap-probable-cause {
+      type int32;
+      description
+        "Trap probable cause.";
+    }
+    leaf base-trap-event-type {
+      type int32;
+      description
+        "Trap event type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Device ID.";
+    }
+    leaf ent-physical-name {
+      type string {
+        length "1..246";
+      }
+      description
+        "Indicates the device name.";
+    }
+    leaf mac-entity-usage {
+      type int32;
+      description
+        "Indicates the MAC address table usage.";
+    }
+    leaf mac-entity-usage-threshold {
+      type int32;
+      description
+        "Indicates the MAC address table usage threshold.";
+    }
+  }
+  notification mac-usage-falling-threshold {
+    description
+      "MAC usage reaches the Threshold,and then falling the Threshold.";
+    leaf base-trap-severity {
+      type int32;
+      description
+        "Trap severity.";
+    }
+    leaf base-trap-probable-cause {
+      type int32;
+      description
+        "Trap probable cause.";
+    }
+    leaf base-trap-event-type {
+      type int32;
+      description
+        "Trap event type.";
+    }
+    leaf physical-index {
+      type int32;
+      description
+        "Device ID.";
+    }
+    leaf ent-physical-name {
+      type string {
+        length "1..246";
+      }
+      description
+        "Indicates the device name.";
+    }
+    leaf mac-entity-usage {
+      type int32;
+      description
+        "Indicates the MAC address table usage.";
+    }
+    leaf mac-entity-usage-threshold {
+      type int32;
+      description
+        "Indicates the MAC address table usage threshold.";
+    }
+  }
+  notification bd-mac-limit-over-threshold-alarm {
+    description
+      "MAC address learning reached the limit.";
+    leaf bd-id {
+      type int32;
+      description
+        "Indicates the BD ID.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification bd-mac-limit-over-threshold-alarm-resume {
+    description
+      "MAC address learning is resumed.";
+    leaf bd-id {
+      type int32;
+      description
+        "Indicates the BD ID.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vxlan-tunnel-mac-limit-over-threshold-alarm {
+    description
+      "MAC address learning reached the limit.";
+    leaf source-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Source IP Address.";
+    }
+    leaf peer-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Peer IP Address.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vxlan-tunnel-mac-limit-over-threshold-resume {
+    description
+      "MAC address learning is resumed.";
+    leaf source-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Source IP Address.";
+    }
+    leaf peer-ip {
+      type inet:ipv4-address-no-zone;
+      description
+        "Peer IP Address.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vlan-mac-limit-over-threshold {
+    description
+      "MAC address learning reached the limit.";
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vlan-mac-limit-over-threshold-resume {
+    description
+      "MAC address learning is resumed.";
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification port-mac-limit-over-threshold {
+    description
+      "MAC address learning reached the limit.";
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification port-mac-limit-over-threshold-resume {
+    description
+      "MAC address learning is resumed.";
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vsi-mac-limit-over-threshold-alarm {
+    description
+      "MAC address learning reached the limit.";
+    leaf vsi-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the VSI name.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification vsi-mac-limit-over-threshold-alarm-resume {
+    description
+      "MAC address learning is resumed.";
+    leaf vsi-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the VSI name.";
+    }
+    leaf mac-limit-max-mac {
+      type int32;
+      description
+        "Indicates the maximum number of MAC addresses allowed to be learned.";
+    }
+  }
+  notification mflp-bd-alarm {
+    description
+      "MAC flapping detected in BD.";
+    leaf bd-id {
+      type int32;
+      description
+        "Indicates the BD ID.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that learns the flapping MAC address first.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Indicates the first interface that learns the flapping MAC address later.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Indicates the second interface that learns the flapping MAC address later.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification mflp-bd-alarm-resume {
+    description
+      "MAC flapping detection recovered in BD.";
+    leaf bd-id {
+      type int32;
+      description
+        "Indicates the BD ID.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that learns the flapping MAC address first.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Indicates the first interface that learns the flapping MAC address later.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Indicates the second interface that learns the flapping MAC address later.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification mflp-vlan-alarm {
+    description
+      "MAC flapping detected in VLAN.";
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Original port.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Flapping port.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Flapping port.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Alarm reason.";
+    }
+  }
+  notification mflp-vlan-alarm-resume {
+    description
+      "MAC flapping detection recovered in VLAN.";
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Original port.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Flapping port.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Flapping port.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Alarm reason.";
+    }
+  }
+  notification mflp-vsi-alarm {
+    description
+      "MAC flapping detected in VSI.";
+    leaf vsi-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the VSI name.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that learns the flapping MAC address first.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Indicates the first interface that learns the flapping MAC address later.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Indicates the second interface that learns the flapping MAC address later.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification mflp-vsi-alarm-resume {
+    description
+      "MAC flapping detection recovered in VSI.";
+    leaf vsi-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "Indicates the VSI name.";
+    }
+    leaf original-port {
+      type pub-type:if-name;
+      description
+        "Indicates the interface that learns the flapping MAC address first.";
+    }
+    leaf flap-port-a {
+      type pub-type:if-name;
+      description
+        "Indicates the first interface that learns the flapping MAC address later.";
+    }
+    leaf flap-port-b {
+      type pub-type:if-name;
+      description
+        "Indicates the second interface that learns the flapping MAC address later.";
+    }
+    leaf alarm-reason {
+      type string {
+        length "1..4096";
+      }
+      description
+        "Indicates the description of alarm cause.";
+    }
+  }
+  notification port-security-reach-maxlimit-alarm {
+    description
+      "Alarm of port perform the protect action shutdown or restrict when receiving insecure mac packets in the interface.";
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+    leaf protect-action {
+      type port-action;
+      description
+        "1:restrict;2:protect;3:error-down.";
+    }
+  }
+  notification port-security-reach-maxlimit-alarm-resume {
+    description
+      "Port perform of the protect action shutdown or restrict is resumed.";
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+  }
+  notification port-security-insecure-alarm {
+    description
+      "The alarm when MAC addresses that received are illegal.";
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+    leaf mac-address {
+      type pub-type:mac-address;
+      description
+        "MAC address.";
+    }
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf protect-action {
+      type port-action;
+      description
+        "1:restrict;2:protect;3:error-down.";
+    }
+  }
+  notification port-security-staticflp-alarm {
+    description
+      "The alarm when MAC addresses that received are staticflp.";
+    leaf mac-address {
+      type pub-type:mac-address;
+      description
+        "MAC address.";
+    }
+    leaf vlan-id {
+      type int32;
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+  }
+  notification port-mac-action-event {
+    description
+      "The MAC address learning or aging event is reported on the interface.";
+    leaf mac-action-info {
+      type string {
+        length "1..100";
+      }
+      description
+        "MAC address learning or aging event.";
+    }
+    leaf mac-address {
+      type pub-type:mac-address;
+      description
+        "MAC address.";
+    }
+    leaf vlan-id {
+      type int32 {
+        range "1..4096";
+      }
+      description
+        "Indicates the VLAN ID.";
+    }
+    leaf port-name {
+      type pub-type:if-name;
+      description
+        "Interface name.";
+    }
+  }
+}

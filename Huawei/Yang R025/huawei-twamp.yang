@@ -1,0 +1,45 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-twamp {
+  namespace "urn:huawei:yang:huawei-twamp";
+  prefix twamp;
+
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Two-way Active Measurement Protocol.";
+
+  revision 2024-03-12 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "twampclient";
+
+  container twamp {
+    description
+      "Configure Two-Way Active Measurement Protocol.";
+    container twamp-light {
+      description
+        "Configure the Twamp-light.";
+      leaf qos-car-disable {
+        type empty;
+        description
+          "Enable/disable the CAR compatibility.";
+      }
+    }
+  }
+  
+}

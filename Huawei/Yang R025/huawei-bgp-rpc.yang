@@ -1,0 +1,1049 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-rpc {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-rpc";
+  prefix bgp-rpc;
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-routing-policy {
+    prefix rtp;
+  }
+  import huawei-xpl {
+    prefix xpl;
+  }
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "BGP rpc configuration.";
+  revision 2025-02-13 {
+    description
+    "Add the route-server context policy rpc node.";
+    reference
+    "Huawei private.";
+  }
+  revision 2023-03-02 {
+    description
+    "Add the slow-delete sids rpc node.";
+    reference
+    "Huawei private.";
+  }
+  revision 2022-09-19 {
+    description
+      "Add the slow peer reset node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-17 {
+    description
+      "Add the dampping rpc node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-11-04 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "bgp";
+  typedef flapping-af-type {
+    type enumeration {
+      enum "ipv4uni" {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum "ipv4multi" {
+        value 2;
+        description
+          "IPv4 multicast address family.";
+      }
+      enum "ipv4vpn" {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum "ipv4labeluni" {
+        value 4;
+        description
+          "IPv4 labeled address family.";
+      }
+      enum "ipv6uni" {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum "ipv6vpn" {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+    }
+    description
+      "The address family type of flapping.";
+  }
+  typedef slow-delete-sid-af-type {
+    type enumeration {
+      enum "ipv4uni" {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum "ipv6uni" {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+    }
+    description
+      "The address family type of slow-delete-sid.";
+  }
+  grouping log-info-grouping {
+    description
+      "BGP peer or group log information.";
+    leaf index {
+      type uint32;
+      description
+        "Index of peer log information.";
+    }
+    leaf state-event {
+      type string {
+          length "1..19";
+      }
+      description
+        "Status of a peer when an event occurs.";
+    }
+    leaf error-code {
+      type string {
+          length "1..47";
+      }
+      description
+        "Error code that triggers an event.";
+    }
+    leaf error-sub-code {
+      type string {
+          length "1..52";
+      }
+      description
+        "Error sub-code that triggers an event.";
+    }
+    leaf notification {
+      type string {
+          length "1..39";
+      }
+      description
+        "Sent or received notification messages.";
+    }
+    leaf date-time {
+      type yang:date-and-time;
+      description
+        "Time when the log information was recorded.";
+    }
+    leaf error-data {
+      type string {
+          length "1..32";
+      }
+      description
+        "Error data that triggers an event.";
+    }
+  }
+  grouping route-server-context-ipv4uni-route-type {
+    description
+      "Information about routes.";
+    container routes {
+      description
+        "List of displayed route information in an address family.";
+      list route {
+        key "vpn-name route-distinguisher prefix mask-length route-type im-table-id from path-id";
+        description
+          "Statistics of routes.";
+        uses bgp-rt:routing-table-vpn-name;
+        uses bgp-rt:ipv4uni-routing-table-type;
+        uses bgp-rt:xsec-information;
+        leaf attribute-index {
+          type leafref {
+            path "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:attributes/bgp-rt:attribute/bgp-rt:index";
+          }
+          description
+            "The ID of attribute.";
+        }
+        leaf default-color {
+          type uint32;
+          description
+            "Default color.";
+        }
+      }
+    }
+  }
+  grouping route-server-context-ipv6uni-route-type {
+    description
+      "Information about routes.";
+    container routes {
+      description
+        "List of displayed route information in an address family.";
+      list route {
+        key "vpn-name route-distinguisher prefix mask-length route-type im-table-id from path-id";
+        description
+          "Statistics of routes.";
+        uses bgp-rt:routing-table-vpn-name;
+        uses bgp-rt:ipv6uni-routing-table-type;
+        uses bgp-rt:xsec-information;
+        leaf attribute-index {
+          type leafref {
+            path "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:attributes/bgp-rt:attribute/bgp-rt:index";
+          }
+          description
+            "The ID of attribute.";
+        }
+        leaf default-color {
+          type uint32;
+          description
+            "Default color.";
+        }
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset BGP address family operation.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-all {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process";
+    description
+      "Reset BGP operation.";
+  }
+  rpc reset-base-process-bgp-peer-af {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Reset the BGP peer operation.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+	      mandatory true;
+        description
+          "Peer address.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-peer-as {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Reset the BGP AS number.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-as {
+        type bgp:as-number-validate;
+        mandatory true;
+        description
+          "AS number of a peer.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-peer-type {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer";
+    description
+      "Reset the BGP peer operation.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf peer-type {
+        type bgp:group-type;
+        mandatory true;
+        description
+          "Peer type.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-group-af {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af";
+    description
+      "Reset the BGP group operation.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:group-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf group-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:name";
+        }
+        mandatory true;
+        description
+          "Specify the name of a peer group.";
+      }
+    }
+  }
+  rpc refresh-base-process-bgp-af-direction {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Soft reset BGP connections.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf direction {
+        type bgp:direction-type;
+        mandatory true;
+        description
+          "Soft reset BGP connections in the inbound/outbound direction.";
+      }
+    }
+  }
+  rpc refresh-base-process-bgp-peer-af-direction {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Soft reset a peer with a specified peer address.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Peer address.";
+      }
+      leaf direction {
+        type bgp:direction-type;
+        mandatory true;
+        description
+          "Soft reset BGP connections in the inbound/outbound direction.";
+      }
+    }
+  }
+  rpc refresh-base-process-bgp-peer-type-direction {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Soft reset peers with a specified peer type.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf peer-type {
+        type bgp:group-type;
+        mandatory true;
+        description
+          "Peer type.";
+      }
+      leaf direction {
+        type bgp:direction-type;
+        mandatory true;
+        description
+          "Soft reset BGP connections in the inbound/outbound direction.";
+      }
+    }
+  }
+  rpc refresh-base-process-bgp-group-af {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af";
+    description
+      "Soft reset a peer group with a specified group name.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:group-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf group-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:name";
+        }
+        mandatory true;
+        description
+          "Specify the name of a peer group.";
+      }
+      leaf direction {
+        type bgp:direction-type;
+        mandatory true;
+        description
+          "Soft reset BGP connections in the inbound/outbound direction.";
+      }
+    }
+  }
+  rpc diagnose-base-process-peer-log-info {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Display BGP peer log information.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Peer address.";
+      }
+    }
+    output {
+      container log-infos {
+        description
+          "List of BGP peer log information.";
+        list log-info {
+          key "index";
+          description
+            "BGP peer log information.";
+          uses log-info-grouping;
+        }
+      }
+    }
+  }
+  rpc diagnose-base-process-group-log-info {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af";
+    description
+      "BGP group log information.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:group-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf group-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:name";
+        }
+        mandatory true;
+        description
+          "Specify the name of a peer group.";
+      }
+    }
+    output {
+      container log-infos {
+        description
+          "List of BGP group log information.";
+        list log-info {
+          key "remote-address index";
+          description
+            "BGP group log information.";
+          leaf remote-address {
+            type inet:ip-address-no-zone;
+            description
+              "Peer address.";
+          }
+          uses log-info-grouping;
+        }
+      }
+    }
+  }
+  rpc clear-base-process-bgp-loop-detect-alarm {
+    ext:node-ref "/bgp:bgp/bgp:base-process/bgp:route-loop-detect-enable";
+    description
+      "Clear BGP route loop-detect alarm.";
+  }
+  rpc reset-base-process-bgp-peer-af-flapping-count {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Reset the statistics of the route flapping count based on the peer address.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Peer address.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-peer-af-flapping {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Reset the statistics of the route flapping based on the peer address.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Peer address.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-flapping-all {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset the statistics of route flapping.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-flapping-network-address {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset the statistics of route flapping of a specified IPv4 network address.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf network-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "IPv4 network address advertised by BGP.";
+      }
+      leaf mask-length {
+        type uint8 {
+          range "1..128";
+        }
+        mandatory true;
+        description
+          "Prefix mask length.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-flapping-as-path-filter {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset route flapping statistics based on an as-path filter.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf as-path-filter {
+          type leafref {
+           path "/rtp:routing-policy/rtp:as-path-filters/rtp:as-path-filter/rtp:name";
+          }
+        mandatory true;
+        description
+          "As path filter.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-flapping-as-path-regular-expression {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset route flapping statistics that match the as path regular expression.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf as-path-regular-expression {
+        type string {
+          length "1..80";
+        }
+        mandatory true;
+        description
+          "As path regular expression.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-dampening-all {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset route dampening information.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-dampening-network-address {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset route dampening information of a specified network address.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type flapping-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf network-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Network address advertised by BGP.";
+      }
+      leaf mask-length {
+        type uint8 {
+          range "1..128";
+        }
+        mandatory true;
+        description
+          "Prefix mask length.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-peer-af-slow-peer {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af";
+    description
+      "Restore a slow peer as a normal peer.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+      leaf remote-address {
+        type inet:ip-address-no-zone;
+        mandatory true;
+        description
+          "Peer address.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-af-slow-peer {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset slow peers as normal peers.";
+    input  {
+      leaf vrf-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf address-family {
+        type bgp:af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }  
+  }
+  rpc reset-bgp-slow-delete-sid-all {
+    ext:node-ref "/bgp:bgp/bgp:base-process";
+    description
+      "Reset all slow-delete sids.";
+  }
+  rpc reset-base-process-bgp-slow-delete-enddt46-sid {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process";
+    description
+      "Reset all slow-delete End DT46 sids.";
+  }
+  rpc reset-base-process-bgp-public-af-slow-delete-sid {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset Bgp slow-delete sids.";
+    input  {
+      leaf address-family {
+        type slow-delete-sid-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }
+  }
+  rpc reset-base-process-bgp-vpn-af-slow-delete-sid {
+    ext:node-ref "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af";
+    description
+      "Reset slow-delete sids of all private VPN instances.";
+    input  {
+      leaf address-family {
+        type slow-delete-sid-af-type;
+        mandatory true;
+        description
+          "Address family type of a BGP instance.";
+      }
+    }
+  }
+  rpc route-server-context-policy-ipv4-unicast-route {
+    ext:node-ref "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:routes/bgp-rt:route";
+    description
+      "Display BGP route-server context-policy IPv4 unicast route.";
+    input {
+      leaf vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf context-policy {
+        type leafref {
+          path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+        }
+        mandatory true;
+        description
+          "Specify the route-server context-policy.";
+      }
+      leaf prefix {
+        type inet:ip-address-no-zone;
+        description
+          "BGP route prefix.";
+      }
+      leaf mask-length {
+        type uint8;
+        description
+          "Prefix mask length.";
+      }
+    }
+    output {
+      uses route-server-context-ipv4uni-route-type;
+    }
+  }
+  rpc route-server-context-filter-ipv4-unicast-route {
+    ext:node-ref "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:routes/bgp-rt:route";
+    description
+      "Display BGP route-server context-filter IPv4 unicast route.";
+    input {
+      leaf vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf context-filter-name {
+        type leafref {
+          path "/xpl:xpl/xpl:route-filters/xpl:route-filter/xpl:name";
+        }
+        mandatory true;
+        description
+          "Specify an route-server context-filter name.";
+      }
+      leaf context-filter-parameter {
+        when "../context-filter-name";
+        type xpl:filter-parameter-type;
+        description
+          "Specify an route-server context-filter parameter.";
+      }
+      leaf prefix {
+        type inet:ip-address-no-zone;
+        description
+          "BGP route prefix.";
+      }
+      leaf mask-length {
+        type uint8;
+        description
+          "Prefix mask length.";
+      }
+    }
+    output {
+      uses route-server-context-ipv4uni-route-type;
+    }
+  }
+  rpc route-server-context-policy-ipv6-unicast-route {
+    ext:node-ref "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:routes/bgp-rt:route";
+    description
+      "Display BGP route-server context-policy IPv6 unicast route.";
+    input {
+      leaf vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf context-policy {
+        type leafref {
+          path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+        }
+        mandatory true;
+        description
+          "Specify the route-server context-policy.";
+      }
+      leaf prefix {
+        type inet:ip-address-no-zone;
+        description
+          "BGP route prefix.";
+      }
+      leaf mask-length {
+        type uint8;
+        description
+          "Prefix mask length.";
+      }
+    }
+    output {
+      uses route-server-context-ipv6uni-route-type;
+    }
+  }
+  rpc route-server-context-filter-ipv6-unicast-route {
+    ext:node-ref "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:routes/bgp-rt:route";
+    description
+      "Display BGP route-server context-filter IPv6 unicast route.";
+    input {
+      leaf vpn-name {
+        type leafref {
+          path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+        }
+        mandatory true;
+        description
+          "VPN name of a BGP instance.";
+      }
+      leaf context-filter-name {
+        type leafref {
+          path "/xpl:xpl/xpl:route-filters/xpl:route-filter/xpl:name";
+        }
+        mandatory true;
+        description
+          "Specify an route-server context-filter name.";
+      }
+      leaf context-filter-parameter {
+        when "../context-filter-name";
+        type xpl:filter-parameter-type;
+        description
+          "Specify an route-server context-filter parameter.";
+      }
+      leaf prefix {
+        type inet:ip-address-no-zone;
+        description
+          "BGP route prefix.";
+      }
+      leaf mask-length {
+        type uint8;
+        description
+          "Prefix mask length.";
+      }
+    }
+    output {
+      uses route-server-context-ipv6uni-route-type;
+    }
+  }
+}

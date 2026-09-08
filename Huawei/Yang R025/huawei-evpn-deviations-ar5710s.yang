@@ -1,0 +1,137 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-evpn-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-evpn-deviations-ar5710s";
+  prefix evpn-devs-ar5710s;
+
+  import huawei-evpn {
+    prefix evpn;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-evpl {
+    prefix evpl;
+  }
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-evpn module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef xpl-filter-name-deviations {
+    type string {
+      length "1..200";
+      pattern '\s*(([0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200})|([0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200}[\(](($)?[0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200})(([,]($)?[0-9a-zA-Z][0-9a-zA-Z\-_\.]{0,200}){0,7})[\)]))\s*';
+    }
+    description
+      "XPL route-filter's name.";
+  }
+
+  deviation "/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-evpn-mac-duplication" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpn-mac-duplication" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpn-vpn-sid" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-evpn-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpn-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-evpn-peer-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpn-peer-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-evpl-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpl-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-evpl-peer-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/evpn:reset-all-evpl-peer-traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/evpn:evpl-upes" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/bd:service-points/bd:service-point/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:import-policy-type/evpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:mpls-routing" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:irb2ip" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:label-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:state" {
+    deviate not-supported;
+  }
+  deviation "/evpl:evpl/evpl:instances/evpl:instance/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/evpn:evpn-attribute" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/l2vpn:ldp-signaling/l2vpn:pws/l2vpn:pw/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:profiles/bd:profile/evpn:evpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/evpn:evpn/evpn:export-policy-type/evpn:xpl-ref/evpn:export-filter/evpn:name" {
+    deviate replace {
+      type evpn-devs-ar5710s:xpl-filter-name-deviations;
+    }
+  }
+}

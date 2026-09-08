@@ -1,0 +1,2261 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-ipsec {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-ipsec";
+  prefix ipsec;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ipsec-type {
+    prefix ipsec-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+  import huawei-dhcp {
+    prefix dhcp;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     IPSec implementations.";
+
+  revision 2025-09-05 {
+    description "Modify the length of leaf node profile/name, and the type of leaf node ipsec-connection/policy-name.";
+    reference "Huawei private.";
+  }
+
+  revision 2025-07-17 {
+    description "Add the when condition of leaf node vpn-name.";
+    reference "";
+  }
+  revision 2025-06-13 {
+    description "Add the default value of leaf nodes policy-alias, policy-template-alias, certificate-preference, auth-sign-hash.";
+    reference "Huawei private.";
+  }
+  revision 2025-04-18 {
+    description "Add IPsec scenario container, modify user-table node, modify ike peer node, modify ipsec global node, add keep-sa-until-lifetime-expired node.";
+    reference "";
+  }
+  revision 2025-03-05 {
+    description "Modifying IPsec smart-link node.";
+    reference "";
+  }
+  revision 2024-07-01 {
+    description "Add IPsec policy or template flow no nat function.";
+    reference "";
+  }
+  revision 2024-06-11 {
+    description "Add IPsec policy or profile status.";
+    reference "";
+  }
+  revision 2024-04-02 {
+    description "Add rpc get-ipsec-sa-list.";
+    reference "";
+  }
+  revision 2024-03-20 {
+    description "Modifying Path Representations.";
+    reference "";
+  }
+  revision 2023-09-07 {
+    description "Modifying the version range to 1.1.";
+    reference "";
+  }
+  revision 2023-09-01 {
+    description "Modifying the Ipsec router module.";
+    reference "";
+  }
+  revision 2023-07-17 {
+    description "Modifying the active-ipsec-slots Node Description.";
+    reference "";
+  }
+  revision 2023-07-03 {
+    description "Add IPsec SLA detection nodes.";
+    reference "";
+  }
+  revision 2023-06-14 {
+    description "Modify length of profile name.";
+    reference "";
+  }
+  revision 2023-04-21 {
+    description "Add ipsec bandwidths license, Modify auth-address.";
+    reference "";
+  }
+  revision 2023-04-19 {
+    description "Add ikev2 authentication sigh-hash and rsa signature padding type node. Add IPsec tunnel source and destination node.";
+    reference "";
+  }
+  revision 2023-04-03 {
+    description "Add IPsec profiles.";
+    reference "";
+  }
+  revision 2023-03-29 {
+    description "Add IPsec smart-link used by IPsec policy node.";
+    reference "";
+  }
+  revision 2022-12-26 {
+    description "Add units for nodes nat-keepalive-interval and reauth-interval.";
+    reference "";
+  }
+  revision 2022-09-26 {
+    description "Delete container instances and related nodes because rbs does not support USG.";
+    reference "";
+  }
+  revision 2022-08-24 {
+    description "Modify default value of anti-replay-enable, modify default value of duration based on traffic and time.";
+    reference "";
+  }
+  revision 2022-08-09 {
+    description "Add policy-template alias.";
+    reference "";
+  }
+  revision 2022-03-17 {
+    description "Add policy alias and acl6 of policy, specify the range of ike-proposal id.";
+    reference "";
+  }
+  revision 2022-01-05 {
+    description "Add tunnel protocol and modify address type.";
+    reference "";
+  }
+  revision 2021-11-23 {
+    description "Modify file for the firewall netconf function.";
+    reference "";
+  } 
+  revision 2020-02-11 {
+    description "Fix syntax errors.";
+    reference "";
+  } 
+  revision 2019-12-07 {
+    description "Initial revision.";
+    reference "";
+  }
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+  grouping reverse-route {
+    description "To generate route information.";
+    leaf enable {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable route generation.";
+    }
+    leaf mode {
+      type enumeration {
+        enum "static" {
+          value 1;
+          description "Static.";
+        }
+        enum "dynamic" {
+          value 2;
+          description "Dynamic.";
+        }
+      }
+      default "dynamic";
+      description "If reverse-route mode is static, IPSec will add route information when IPSec connection is bound to interface.
+                   If reverse-route mode is dynamic, IPSec will add route information when IPSec tunnel is up.";
+    }
+    choice nexthop {
+      description "The choice of nexthop.";
+      case nexthop-address {
+        description "Nexthop address.";
+        leaf nexthop-address {
+          type inet:host;
+          description "The ip-address of nexthop.";
+        }
+      }
+      case auto-mode {
+        description "Auto-mode.";
+        leaf auto-mode {
+          type boolean;
+          description "Enable/disable the auto-mode by using original route nexthop as reverse-route nexthop for IPSec transport encapsulation.";
+        }
+      }
+    }
+    leaf preference {
+      type uint32 {
+        range "1..255";
+      }
+      default "70";
+      description "Used to set the route priority."; 
+    } 
+  }  
+  
+  grouping dpd {
+    description "The parameter for dead peer detection.";
+    leaf type {
+      type ipsec-type:dpd-type;
+      default "none";
+      description "The type of DPD.";
+    }
+    leaf msg {
+      type enumeration {
+        enum "seq-hash-notify" {
+          value 1;
+          description "DPD payload SEQUENCE-HASH-NOTIFY.";
+        }
+        enum "seq-notify-hash" {
+          value 2;
+          description "DPD payload SEQUENCE-NOTIFY-HASH.";
+        }
+      }
+      default "seq-hash-notify";
+      description "The payload order of DPD msg.";
+    }
+    leaf interval {
+      type uint16 {
+        range "10..3600";
+      }
+      units s;
+      default "30";
+      description "The interval for DPD message.";
+    }
+    leaf retry-interval {
+      type uint8 {
+        range "2..60";
+      }
+      units s;
+      default "15"; 
+      description "DPD message retry interval.";            
+    }
+    leaf retry-times {
+      type uint8 {
+        range "3..10";
+      }
+      default "3"; 
+      description "DPD message retry times for the specified peer.";            
+    }
+    
+    leaf if-related {
+      type boolean;
+      default "false";
+      description "Enable/disable the relationship between the interface of DPD msg received and the interface where the IPSec policy applied.";
+    }
+    leaf immediately-enable {
+      when "not(../type='periodic')";
+      type boolean;
+      default "false";
+      description
+        "Enable/disable DPD Effective Immediately.";
+    }
+  }
+  
+  grouping efficient-vpn-client {
+    description "The parameter for efficient vpn client.";
+    leaf dh {
+      type ipsec-type:dh-group-type;
+      default "group14";
+      description "Diffie Hellman group.";
+    }
+    leaf peer-address {
+      type inet:host;
+      description "The peer addresses of the efficient vpn.";
+    }
+    
+    leaf pre-shared-key {
+      type pub-type:password-extend;
+      description "The pre-shared key of the efficient vpn.";
+    }  
+    
+    container remote-networks {
+      description "List of the network of the remote side.";
+      list remote-network {
+        key remote-network-ip;
+        description "Configure the network of the remote side.";
+        leaf remote-network-ip {
+          type inet:ip-prefix;
+          description "The ip-prefix of the remote-network.";
+        }
+      }
+    }                     
+  }
+  
+  
+  grouping policy-common-attributes{
+    description
+      "Policy common attributes.";
+    leaf ike-peer-name {
+      type leafref {
+        path "/ipsec/ike-peers/ike-peer/name";
+      }
+      description
+        "Specify the IKE peer of IPsec policy.";
+    }
+    
+    leaf-list ipsec-proposal-name {
+      type leafref {
+        path "/ipsec/ipsec-proposals/ipsec-proposal/name";
+      }
+      description
+        "Specify the IKE peer of IPsec policy.";
+    }
+    
+    leaf lifetime-traffic-based-enable {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable SA duration traffic-based function.";
+    }
+    leaf lifetime-traffic-based {
+      when "../lifetime-traffic-based-enable = 'true'";
+      type uint32 {
+        range "0|256..200000000";
+      }
+      units kB;
+      default "83886080";
+      description
+        "Volume of traffic (in kB) a SA will live before expiring.";
+    }
+    leaf lifetime-time-based {
+      type uint32 {
+        range "30..604800";
+      }
+      units s;
+      default "3600";
+      description
+        "Value of time (in seconds) a SA will live before expiring.";
+    }
+    
+    leaf pfs {
+      type ipsec-type:dh-group-type;
+      description
+        "Use perfect forward secrecy (PFS) in IKE phase 2 negotiation.";
+    }
+    
+    leaf in-dscp {
+      type uint8 {
+        range "0..63";
+      }
+      description
+        "Remark DSCP value.";
+    }
+    leaf out-dscp {
+      type uint8 {
+        range "0..63";
+      }
+      description
+        "Remark DSCP value.";
+    }
+    leaf anti-replay-enable {
+      type boolean;
+      default "false";
+      description "Enable/disable anti-replay.";
+    }
+    leaf anti-replay-window {
+      type ipsec-type:anti-replay-window-size-type;
+      default "1024";
+      description
+        "Configure IPsec anti-replay window size.";
+    }
+    leaf df-bit-clear {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable clear Fragmentation Flag of the original packet.";
+    }
+    leaf frag-bef-encr {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable fragment packets before encryption.";
+    }
+    container rate-limit {
+      description "Configure the rate limitation of the IPSec tunnel."; 
+      leaf in-speed-limit-type {
+        type ipsec-type:speed-limit-type;
+        default "ipsec-sa-based";
+        description "The type of inbound rate limitation.";
+      }   
+
+      leaf in-speed-limit {
+        type uint32;
+        units kbit/s;
+        description "The rate limitation."; 
+      } 
+      
+      leaf in-payload-flag {
+        when "../in-speed-limit";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable inbound Speed Limit IP Payload Flag.";
+      } 
+      
+      leaf out-speed-limit-type {
+        type ipsec-type:speed-limit-type;
+        default "ipsec-sa-based";
+        description "The type of outbound speed limitation.";
+      }   
+
+      leaf out-speed-limit {
+        type uint32;
+        units kbit/s;
+        description "The rate limitation."; 
+      }  
+      leaf out-payload-flag {
+        when "../out-speed-limit";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable outbound Speed Limit IP Payload Flag.";
+      } 
+    }
+
+    leaf in-svc-class {
+      type ipsec-type:service-class-type;
+      description
+        "Remark inbound service class.";
+    }
+    leaf out-svc-class {
+      type ipsec-type:service-class-type;
+      description
+        "Remark outbound service class.";
+      
+    }
+    leaf load-balance-algorithm {
+      type ipsec-type:lb-algorithm-type;
+      description
+        "IPSec load balance algorithm.";
+    }
+    leaf log-enable {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the log function of IPSec tunnel establishment and removal.";
+    }
+      
+    leaf qos-pre-classify {
+      type boolean;
+      default "false";
+      description "Enable/disable QOS classify flag before IPSec.";
+    }
+    leaf keep-sa-until-lifetime-expired {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable the device to delete the original IPsec SA after the hard lifetime expires during IPsec SA re-negotiation.";
+    }
+  } /*end of grouping policy-common-attributes*/
+
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+  container ipsec {
+    description "The container of IPSec vpn.";
+    container global {
+      description
+        "Configure the IPSec Global information.";
+      leaf df-bit-clear {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable clear Fragmentation Flag of the original packet.";      
+      }
+      leaf cipher-df-bit {
+        type ipsec-type:df-bit-type;
+        default "copy";
+        description
+          "Configure the Don't Fragment (DF) flag bit in an IPsec packet.";
+      }
+      leaf fragment-before-encryption {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable fragment Before Encryption.";
+      }
+      leaf pre-check {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable pre-Check Function.";    
+      }
+      leaf succeed-check {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable succeed-Check Function.";
+        
+      }
+      leaf flow-overlap-check  {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable flow-overlap check function.";
+        
+      }
+      leaf lifetime-traffic-based-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable SA Duration by Traffic.";
+        
+      }
+      leaf lifetime-kilobytes {
+        when "../lifetime-traffic-based-enable = 'true'";
+        type uint32 {
+          range "0|256..200000000";
+        }
+        units kB;
+        default "83886080";
+        description
+          "SA Duration by Traffic.";
+      }
+      leaf lifetime-seconds {
+        type uint32 {
+          range "30..604800";
+        }
+        units s;
+        default "3600";
+        description
+          "SA Duration by Time.";        
+      }
+      
+      leaf anti-replay-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable anti-replay.";      
+      }
+      leaf anti-replay-window {
+        when "(../anti-replay-enable='true')";
+        type ipsec-type:anti-replay-window-size-type;
+        default "1024";
+        description
+          "Value of anti-replay window size [32,64,128,256,512,1024,8192].";
+      }
+
+      leaf local-name {
+        type string {
+          length "1..255";
+        }
+        description
+          "Local Name.";
+        
+      }
+      leaf nat-keepalive-interval {
+        type uint16 {
+          range "5..300";
+        }
+        units s;
+        default "20";
+        description
+          "NAT keepalive interval (in seconds).";
+      }
+      container dpd {
+        description "Configure the parameter for dead peer detection.";
+        uses dpd;
+      }
+      
+      leaf dos-log-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DOS attack log function.";
+      }
+      
+      leaf dos-log-threshold {
+        when "../dos-log-enable='true'";
+        type uint16 {
+          range "1..200";
+        }
+        default "120";
+        description
+          "Log threshold value.";
+      }
+      leaf sm-version {
+        type ipsec-type:sm-version-type;
+        default "standard";
+        description
+          "SM Version.";
+      }
+      
+      leaf mtu-check {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable Mtu-Check Function.";
+      }
+      leaf ikev2-cookie-challenge {
+        type uint16 {
+          range "1..1000 | 25000";
+        }
+        default 25000;
+        description
+          "Configure the maximum number of half-open connections allowed by IKEv2.";
+      }
+      leaf transport-enhance {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the ipsec transport enhance.";
+      }
+    }  /* end of global-configuration */
+    
+    container ipsec-proposals {  
+      description "List of the IPSec proposal.";    
+      list ipsec-proposal {    
+        key "name";
+        description "Configure the list of IPSec proposals.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description "IPSec proposal name.";
+        }
+        
+        leaf transform-protocol {
+          type ipsec-type:transform-protocol-type;        
+          mandatory true;
+          description "The protocol of IPSec transform.";
+        }
+        
+        leaf encapsulation-mode {
+          type ipsec-type:encapsulation-mode-type;   
+          default "tunnel";
+          description "The encapsulation mode of IPSec protection.";
+        }
+        
+        leaf-list ah-auth-algorithm {
+          when "../transform-protocol != 'esp'";
+          type ipsec-type:auth-algorithm-type;
+          description "Specify the authentication algorithm for AH protocol.";
+        }
+    
+        leaf-list esp-auth-algorithm {
+          when "../transform-protocol != 'ah'";
+          type ipsec-type:auth-algorithm-type;
+          description "Specify the authentication algorithm for ESP protocol.";
+        }
+    
+        leaf-list esp-encryption-algorithm {
+          when "../transform-protocol != 'ah'";
+          type ipsec-type:encryption-algorithm-type;
+          description "Specify the encryption algorithm for ESP protocol.";
+        }
+      }  /*end of ipsec-proposal*/
+    }  /*end of ipsec-proposals*/
+   
+    container ike-proposals {
+      description "List of IKE proposals.";
+      list ike-proposal{
+        key "id";
+        description "Configure the list of IKE proposals.";
+  
+        leaf id {
+          type uint16 {
+            range  "1..1025";
+          }
+          description "IKE proposal number.";
+        }
+        
+        leaf-list encryption-algorithm {
+          type ipsec-type:encryption-algorithm-type;
+          description "Configure the IKE encryption algorithm.";
+        }
+    
+        leaf-list auth-algorithm {
+          type ipsec-type:auth-algorithm-type;
+          description "Configure the IKEv1 authentication algorithm.";
+        }
+    
+        leaf-list integrity-algorithm {
+          type ipsec-type:integrity-algorithm-type;
+          description "Configure the IKEv2 integrity algorithm.";
+        }
+        
+        leaf-list prf {
+          type ipsec-type:integrity-algorithm-type;
+          description "Configure the IKEv2 prf algorithm.";
+        }
+        
+        leaf-list dh {
+          type ipsec-type:dh-group-type;
+          description "Configure the Diffie Hellman group.";
+        }
+    
+        leaf auth-method {
+          type ipsec-type:auth-method-type;
+          mandatory true;
+          description "IKE authentication method.";
+        } 
+        
+        leaf reauth-interval {
+          type uint32 {
+            range "60..604800";
+          }
+          units s;
+          description "Re-Authentication Interval.";
+        }
+    
+        leaf lifetime {
+          type uint32 {
+            range "60..604800";
+          }
+          units s;
+          default "86400";
+          description "The lifetime of IKE SA in seconds.";
+        }  
+      }  /*end of ike-proposal*/
+  	}
+
+    container ike-peers {
+      description "List of IKE peers.";
+      list ike-peer {
+        key "name";
+        description "Configure the IKE Peer.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description
+            "Peer Name.";
+        }
+        leaf ike-proposal{
+          type leafref {
+            path "/ipsec/ike-proposals/ike-proposal/id";
+          }
+          description "The IKE proposal.";
+        }
+
+        leaf ike-version {
+          type ipsec-type:ike-version-type;
+          mandatory true;
+          description "The IKE version.";
+        }
+
+        leaf phase1-mode{
+          type ipsec-type:phase1-mode-type;
+          description "IKEv1 exchange mode.";
+        }
+
+        leaf dh-group {
+          type ipsec-type:dh-group-type;
+          description "The Diffie Hellman group.";
+        }
+		
+        container local-id { 
+          description "Configure the local id used by the IPSec tunnel.";
+          leaf type {
+            type ipsec-type:id-type;
+            mandatory true;
+            description "The id type.";
+          }
+          
+          leaf value {
+            type string {
+              length "1..255";
+            }
+            description "The id value.";
+          }
+          
+          leaf certificate-preference {
+            type boolean;
+            ext:dynamic-default;
+            description "Enable/disable get local id from certificate function.";
+          }
+          
+          leaf reflect-enable {
+            type boolean;
+            default "true";
+            description "Enable/disable the function that use received IDr as local id.";
+          }
+        }
+         
+        container peer-id { 
+          description "Configure the peer id used by the IPSec tunnel.";
+          leaf type {
+            type ipsec-type:id-type;
+            description "The id type.";
+          }
+          
+          leaf value {
+            type string {
+              length "1..255";
+            }
+            description "The id value.";
+          }
+        }
+        
+        choice auth-method {
+          description "The choice of IKE authentication method.";
+          case certificate{
+            /* when "/ipsec/ike-proposal/auth-mode = 'rsa-signature'";*/
+            description "The IKE authentication method is certificate.";
+            /* There is currently no pki yang, temporarily deleted.
+            leaf pki-realm-name {
+              type string {
+                length "1..64";
+              }
+              description "The name of pki realm.";
+            } */
+            leaf local-cert-filename {
+              type string {
+                length "1..127";
+              }
+              description "The local certificate file name.";
+            }
+            
+            leaf peer-cert-filename {
+              type string {
+                length "1..127";
+              }
+              description "The peer certificate file name.";
+            }
+          }
+          case pre-shared-key {
+            /*when "/ipsec/ike-proposal/auth-mode = 'pre-share'";*/
+            description "The IKE authentication method is pre-shared-key.";
+            leaf pre-shared-key {
+              type pub-type:password-extend;
+              description "The pre-shared key of the IPSec connection.";
+            }
+          }
+        }
+
+        leaf user-table-id {
+          type leafref {
+            path "/ipsec/user-tables/user-table/id";
+          }
+          description "Specify the IKE user table id referenced by the IKE peer.";
+        }
+        
+        container dpd {
+          description "Configure the parameter for dead peer detection.";
+          uses dpd;
+        }
+
+        leaf nat-traversal {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable NAT Traversal function.";
+        }
+		
+        container peer-address {
+          description "Configure the peer addresses of IPSec tunnel.";
+          choice peer-address {  
+            description "The peer addresses of IPSec tunnel.";
+            case address-section {
+    		      description "Address section.";
+              leaf address-begin {
+                type inet:ip-address-no-zone;
+                description "Peer address begin.";
+              }
+              leaf address-end {
+                when "../address-begin";
+                type inet:ip-address-no-zone;
+                description "Peer address end.";
+              }
+            }
+            case address-list {
+              description "Address list.";
+      		    leaf-list host-name {
+      		      type inet:host;
+      			    description "Configure the peer addresses of IPSec tunnel.";
+      		    }
+      		  }
+      		}
+      		leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description "The VPN instance name of peer address.";
+          }
+        }
+        container auth-address {
+          description "Configure the peer addresses of IPSec tunnel.";
+          leaf auth-address-begin {
+            type inet:ipv4-address-no-zone;
+            description "IKE Remote Authentication Address.";
+          }
+
+          leaf auth-address-end {
+            when "../auth-address-begin";
+            type inet:ipv4-address-no-zone;
+            description "IKE Remote Authentication End Address.";
+          }
+        }
+        leaf flow-vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description "The VPN instance name of data packets.";
+        }        
+        
+        leaf sm-version {
+          type ipsec-type:sm-version-type;
+          default "standard";
+          description
+            "SM Version.";
+        }
+        
+        leaf pki-whitelist-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable PKI WhiteList.";
+        }
+        leaf auth-sign-hash {
+          when "../ike-version!='v1'";
+          type ipsec-type:auth-algorithm-type;
+          ext:dynamic-default;
+          description
+            "Configure the IKEv2 authentication signature hash algorithm.";
+        }
+        leaf rsa-sign-padding {
+          type ipsec-type:rsa-sign-padding-type;
+          default "pss";
+          description
+            "Configure the rsa signature padding type.";
+        }
+        leaf dscp {
+          type uint16 {
+            range "0..63";
+          }
+          description
+            "Configure the dscp value in IKE packets.";
+        }
+        leaf next-payload-standard {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable IKEv2 fragmentation next-payload following RFC standard.";
+        }
+        leaf negotiate-route-inject {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable ciphertext route injection.";
+        }
+        leaf negotiate-compatible {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the responder to receive the IKE proposal and IPsec proposal of the IKE peer.";
+        }
+        leaf ip-pool {
+          type leafref {
+            path "/dhcp:dhcp/dhcp:server/dhcp:global-ip-pools/dhcp:global-ip-pool/dhcp:ip-pool-name";
+          }
+          description
+            "Specifies an IP address pool referenced by the IKE peer.";
+        }
+        leaf reauth-interval {
+          type uint32 {
+            range "60..604800";
+          }
+          units s;
+          description
+            "Configure the IKEv2 re-authentication interval. By default, the device does not perform IKEv2 re-authentication.";
+        }
+      }
+    } /* end of container ike peers*/ 
+    
+    container user-tables {    
+      description "List of the container of user table.";
+    	list user-table {
+    	  key "id";
+    	  description "Configure the list of user table.";
+    	  leaf id {
+          type uint16 {
+            range "1..1024";
+          }
+    	    description "User table number.";
+    	  }
+        container remote-users { 
+          description "List of the definition of remote users.";
+          list remote-user {
+            key "user-name";        
+            description "Configure the definition of the remote user.";  
+            leaf user-name {
+              type string {
+                length "1..63";
+              }
+              description "The user name.";
+            }
+            leaf description {
+              type string {
+                length "1..63";
+              }
+              description "Configure the description of user.";
+            }
+            leaf id-type {
+              type ipsec-type:id-type;
+              description "The id type.";
+            }
+            leaf id-value {
+              when "../id-type and ../id-type != 'ip'";
+              type string {
+                length "1..255";
+              }
+              mandatory true;
+              description "The id value.";
+            }
+            leaf ip-type-id-value {
+              when "../id-type = 'ip'";
+              type inet:ip-address-no-zone;
+              mandatory true;
+              description "The id value for ip type.";
+            }
+            leaf if-name {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description "The ifnet interface for the remote-user.";
+            }
+            leaf vpn-name {
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+              }
+              description "The VPN instance name for data traffics.";
+            }
+            leaf pre-shared-key {
+              type pub-type:password-extend;
+              description "The preshare key for the remote-user.";
+            }
+            leaf primary-dns {
+              type inet:ipv4-address-no-zone;
+              description "Configure the primary DNS server address allocated to the IKE user.";
+            }
+            leaf secondary-dns {
+              when "../primary-dns";
+              type inet:ipv4-address-no-zone;
+              description "Configure the secondary DNS server address allocated to the IKE user.";
+            }
+            leaf ip-alloc-address {
+              type inet:ipv4-address-no-zone;
+              must "../ip-alloc-mask";
+              description "Configure the IP address allocated to the IKE user.";
+            }
+            leaf ip-alloc-mask {
+              type inet:ipv4-address-no-zone;
+              must "../ip-alloc-address";
+              description "Configure the IP mask allocated to the IKE user.";
+            }
+          }
+        }  //end of container remote-users
+      } // end of list user-table
+    } // end of container user-tables
+	
+    container policys {
+      description
+        "List of the IPSec policy. Configuration is not allowed when the policy name and policy template name are the same.";
+      list policy {
+        key "name";
+        description "Configure IPSec policy.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description "Name of IPsec policy group.";
+        }
+
+        container sub-policys {
+          description "List of IPSec policy. Configuration is not allowed when the policy name and policy template name are the same.";
+          list sub-policy {
+            key "seq-number";
+            description "Configure IPSec Policy.";
+
+            leaf seq-number {
+              type uint32 {
+                range "1..10000";
+              }
+              description "The sequence number of IPsec sub policy.";
+            }
+
+            leaf policy-alias {
+              when "../policy-mode='isakmp'";
+              type string {
+                length "1..128";
+              }
+              ext:dynamic-default;
+              description "The policy alias.";
+            }
+
+            leaf enable {
+              when "../policy-mode='isakmp'";
+              type boolean;
+              default "true";
+              description "Enable/disable the policy.";
+            }
+
+            leaf policy-mode {
+              type ipsec-type:policy-mode-type;
+              mandatory true;
+              description "Policy mode.";
+            }
+
+            leaf template-name {
+              when "../policy-mode='isakmp-template'";
+              type leafref {
+                path "/ipsec/policy-templates/policy-template/name";
+              }
+              description
+                "Name of IPsec policy template.";
+            }
+
+            leaf filter-acl {
+              when "../policy-mode='isakmp'";
+              type leafref {
+                path "/acl:acl/acl:groups/acl:group/acl:identity";
+              }
+              description "The filter ACL.";
+            }
+
+            leaf flow-vpn-check-enable {
+              when "../policy-mode='isakmp'";
+              type boolean;
+              default "true";
+              description "Enable/disable the function of checking flow vpn for data packets.";
+            }
+
+            leaf trigger-mode {
+              when "../policy-mode = 'isakmp'";
+              type enumeration {
+                  enum "auto" {
+                    value 1;
+                    description "Auto.";
+                  }
+                  enum "traffic-based" {
+                    value 2;
+                    description "Traffic-based.";
+                  }
+              }
+              default "traffic-based";
+              description "SA trigger mode.";
+            }
+
+            leaf response-only {
+              when "../policy-mode = 'isakmp'";
+              type boolean;
+              default "false";
+              description "Enable/disable IPSec policy as responsor only.";
+            }
+
+            leaf admin-state {
+              when "../policy-mode = 'isakmp'";
+              type ipsec-type:up-down-type;
+              default "up";
+              description "The admin state.";
+            }
+
+            leaf smart-link-profile {
+              when "../policy-mode='isakmp'";
+              type string {
+                length "1..15";
+              }
+              description "The name of smart link profile.";
+            }
+
+            leaf sla-enable {
+              when "../policy-mode='isakmp'";
+              type boolean;
+              default "false";
+              description "Enable/disable the SLA detection of the IPSec policy.";
+            }
+
+            leaf flow-no-nat-enable {
+                when "../policy-mode='isakmp'";
+                type boolean;
+                default "false";
+                description "Enable/disable the function of source nat exception for ipsec flow.";
+            }
+
+            container local-address {
+              when "../policy-mode='isakmp'";
+              description "Configure the local address of the ipsec tunnel.";
+              choice address{
+                description "Local address.";
+                case ip-address {
+                  description "Local ip address.";
+                  leaf ip-address {
+                    type inet:ip-address-no-zone;
+                    description "Set the ip address as ipsec tunnel local address.";
+                  }
+                }
+                case use-interface-address {
+                  description "Use the IP address of the interface.";
+                  leaf use-interface-address {
+                    type boolean;
+                    description "Enable/disable the ip address of the tunnel interface as the local address.";
+                  }
+                }
+              }
+            }
+
+            choice acl {
+              when "policy-mode='isakmp'";
+              description "Specify the packets to protect by this policy.";
+              case  acl-identity {
+                description "Specify the acl number, only support the advanced acl.";
+                leaf acl-identity {
+                  type leafref {
+                    path "/acl:acl/acl:groups/acl:group/acl:identity";
+                    }
+                  description "Specify the acl number.";
+                }
+              }
+              case  acl6-identity {
+                description "Specify the acl6 number, only support the advanced acl.";
+                leaf acl6-identity {
+                  type leafref {
+                    path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+                  }
+                  description "Specify the acl6 number.";
+                }  
+              }
+            }
+
+            container reverse-route {
+              when "../policy-mode='isakmp'";
+              description "Configure the route information.";
+              uses reverse-route; 
+            }
+
+            container connect-track {
+              when "../policy-mode='isakmp'";
+              description "Configure the container of connect track object.";
+              leaf track-obj-type {
+                type ipsec-type:track-obj-type;
+                description "The type of the track object.";
+              }
+              leaf track-obj-name {
+                type string {
+                  length "1..32";
+                }
+                description "The name of track object.";
+              }
+              leaf track-obj-extend-name {
+                type string {
+                  length "1..32";
+                }
+                description "The extend name of track object.";
+              }
+              leaf track-obj-state {
+                type ipsec-type:up-down-type;
+                description "The state of the track object.";
+              }
+            }
+
+            container disconnect-track {
+              when "../policy-mode='isakmp'";
+              description "Configure the container of disconnect track object.";
+              leaf track-obj-type {
+                type ipsec-type:track-obj-type;
+                description "The type of the track object.";
+              }
+              leaf track-obj-name {
+                type string {
+                  length "1..32";
+                }
+                description "The name of track object.";
+              }
+              leaf track-obj-extend-name {
+                type string {
+                  length "1..32";
+                }
+                description "The extend name of track object.";
+              }
+              leaf track-obj-state {
+                type ipsec-type:up-down-type;
+                description "The state of the track object.";
+              }
+            }
+
+            container ike-packets-out-if { 
+              when "(../policy-mode='isakmp')";
+              description "Configure the output interface for IKE packets.";
+              choice output-type {
+                description "The choice to set packets' output interface."; 
+                case if-name {
+                  description "The interface name.";
+                  leaf if-name {
+                    type leafref {
+                      path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                    }
+                    description "The interface name."; 
+                  }
+                }
+                case applied-if {
+                  description "The interface of the IPSec policy applied.";
+                  leaf applied-if {
+                    when "../../policy-mode = 'isakmp'";
+                    type boolean;
+                    description "Enable/disable the interface of the IPSec policy applied.";
+                  }          
+                }
+              }
+            }
+
+            container connection-limit {
+              when "(../policy-mode='isakmp')";
+              description "Configure the limitation of the connection."; 
+              leaf max-sub-tunnels {
+                type uint32;   
+                description "The sub tunnels limitation.";          
+              }
+            }
+
+            container common-attrs {
+              when "(../policy-mode='isakmp')";
+              description
+                "Configure the proposals of IPsec policy.";
+              uses policy-common-attributes;
+            }
+
+            container efficient-vpn-client {
+              when "../policy-mode='efficient-vpn-client'";
+              description "Configure the parameter for efficient vpn client.";
+              uses efficient-vpn-client;
+            }
+
+            container sla-detection-threshold {
+              when "../policy-mode='isakmp'";
+              presence "Create SLA detection threshold.";
+              description "Configure the SLA detection threshold.";
+              leaf delay {
+                type uint16 {
+                  range "1..3000";
+                }
+                units ms;
+                default "500";
+                description "Delay threshold of SLA detection.";
+              }
+              leaf loss-rate {
+                type uint8 {
+                  range "1..100";
+                }
+                units %;
+                default "30";
+                description "Loss rate threshold of SLA detection.";
+              }
+              leaf jitter {
+                type uint16 {
+                  range "1..3000";
+                }
+                units ms;
+                default "300";
+                description "Jitter threshold of SLA detection.";
+              }
+            }
+          }
+        }
+      }      
+    } /* end of container policys */
+
+    container policy-templates {
+      description
+        "List of IPSec Policy-Template. Configuration is not allowed when the policy name and policy template name are the same.";
+      list policy-template {
+        key "name";
+        description
+          "Configure IPSec Policy-Template.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description
+            "Name of IPsec policy.";
+        }
+
+        leaf alias {
+          type string {
+            length "1..128";
+          }
+          ext:dynamic-default;
+          description "The policy template alias.";
+        }
+
+        leaf local-address {
+          type inet:ip-address-no-zone;
+          description
+            "IPsec policy local address.";
+        }
+
+        leaf acl-rule-modification-response-disable {
+          type boolean;
+          description "Enable/disable IPSec SA whether reset When acl rule is modified.";
+        }
+
+        leaf admin-state {
+          type ipsec-type:up-down-type;
+          description "The admin state.";
+        }
+
+        leaf identity-name {
+          type leafref {
+            path "/ipsec/identitys/identity/identity-name";
+          }
+          description
+            "IKE Identity Name.";
+        }  
+
+        leaf binding-ifname {
+          when "../local-address";
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Binding the enter interface of IPsec message.";
+        }
+
+        leaf vlans {
+          type pub-type:vlan-range;
+          description
+            "The vlaue of VLAN range.";
+        }
+
+        leaf flow-no-nat-enable {
+            type boolean;
+            default "false";
+            description "Enable/disable the function of source nat exception for ipsec flow.";
+        }
+
+        choice acl {
+          description "Specify the packets to protect by this policy.";
+          case  acl-identity {
+            description "Specify the acl number, only support the advanced acl.";
+            leaf acl-identity {
+              type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+              }
+              description "Specify the acl number.";
+            }
+          }
+          case  acl6-identity {
+            description "Specify the acl6 number, only support the advanced acl.";
+            leaf acl6-identity {
+              type leafref {
+              path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+              }
+              description "Specify the acl6 number.";
+            }  
+          }
+        }
+        container scenario {
+          presence "Enable scenario";
+          description "Configure the remote end access type in the IPsec policy template.";
+          leaf type {
+            mandatory true;
+            type ipsec-type:scenario-type;
+            description "Specify the scenario type.";
+          }
+          leaf branch-access {
+            when "../type = 'ptmp'";
+            type boolean;
+            default "false";
+            description "Enable/disable the branch-access scenario.";
+          }
+          leaf ikev1-user-access {
+            when "../type = 'ptmp'";
+            type boolean;
+            default "false";
+            description "Enable/disable the ikev1-user-access scenario.";
+          }
+          leaf ikev2-user-access {
+            when "../type = 'ptmp'";
+            type boolean;
+            default "false";
+            description "Enable/disable the ikev2-user-access scenario.";
+          }
+        }
+
+        container reverse-route {
+          description "Configure route information.";
+          uses reverse-route; 
+        }
+
+        container ike-packets-out-if { 
+          description "Configure the output interface for IKE packets.";
+          choice output-type {
+            description "The choice to set packets' output interface."; 
+            case if-name {
+              description "The interface name.";
+              leaf if-name {
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                description "The interface name."; 
+              }
+            }
+            case applied-if {
+              description "The interface of the IPSec policy applied.";
+              leaf applied-if {
+                type boolean;
+                description "Enable/disable the interface of the IPSec policy applied.";
+              }          
+            }
+          }
+        }
+
+        container comm-attrs {
+          description
+            "Configure the proposals of IPsec policy.";
+          uses policy-common-attributes;
+        }
+      }
+    } /* end of container policy-templates */
+
+    container profiles {
+      description "List of the IPsec profile. Configuration is not allowed when the profile name is same with policy name or policy template name.";
+        list profile {
+          key "name";
+          description "Configure IPsec profile.";
+          leaf name {
+            type string {
+                length "1..32";
+            }
+            description "Name of IPsec profile.";
+          }
+
+          container common-attrs {
+            description "Configure the proposals of IPsec profile.";
+            uses policy-common-attributes;
+          }
+
+          container connection-limit {
+            description "Configure the limitation of the connection."; 
+            leaf max-sub-tunnels {
+              type uint32;   
+              description "The sub tunnels limitation.";          
+            }
+          }
+
+          leaf ike-packets-out-if {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description "The interface name.";
+          }
+        }
+    } /* end of container profiles */
+     
+    container active-ipsec-slots {
+      description
+        "List of active IPSec Slot.";
+      list active-ipsec-slot {
+        key "slot-id";
+        description
+          "Configure the active IPSec Slot.";
+        leaf slot-id {
+          type string {
+            length "1..31";
+          }
+          description
+            "Slot.";
+        }
+      }
+    } /* active-ipsec-slots */
+
+    container active-bandwidths {
+        description 
+        "List of active bandwidth for IPsec board.";
+        list active-bandwidth {
+            key "slot";
+            description
+            "Configure active-bandwidth for IPSEC board.";        
+            leaf slot {
+                type string {
+                length "1..31";
+                }
+                description
+                "Slot ID.";
+            }
+
+            leaf bandwidth-value {
+                type uint16 {
+                    range "10..400";
+                }
+                units "Gbit/s";
+                mandatory true;
+                description
+                "Configure the bandwidth value for ipsec.";
+            }
+        }
+    }
+
+    container identitys {
+      description
+        "List of IKE Identity.";
+      list identity {
+        key "identity-name";
+        description
+          "Configure IKE Identity.";
+        leaf identity-name {
+          type string {
+            length "1..15";
+          }
+          description
+            "IKE Identity name.";
+        }
+        container ips {
+          description
+            "List of IP type IKE identity.";
+          list ip {
+            key "ipaddress mask";
+            description
+              "Configure IP type IKE identity.";
+            leaf ipaddress {
+              type inet:ipv4-address-no-zone;
+              description
+                "IPv4 address.";
+            }
+            leaf mask {
+              type inet:ipv4-address-no-zone;
+              description
+                "Mask.";
+            }
+          }
+        }
+        container dns {
+          description
+            "List of the DN type IKE identity.";
+          list dn {
+            key "dn";
+            description
+              "Configure the DN type IKE identity.";
+            leaf dn {
+              type string {
+                length "1..255";
+              }
+              description
+                "Dn.";
+            }
+          }
+        }
+        container fqdns {
+          description
+            "List of the FQDN type IKE identity.";
+          list fqdn {
+            key "fqdn";
+            description
+              "Configure the FQDN type IKE identity.";
+            leaf fqdn {
+              type string {
+                length "1..255";
+              }
+              description
+                "Fqdn.";
+            }
+          }
+        }
+        container user-fqdns {
+          description
+            "List of user FQDN type IKE identity.";
+          list user-fqdn {
+            key "user-fqdn";
+            description
+              "Configure the user FQDN type IKE identity.";
+            leaf user-fqdn {
+              type string {
+                length "1..255";
+              }
+              description
+                "User Fqdn.";
+            }
+          }
+        }
+      }
+    } /* end of container identitys  */
+
+    container ipsec-connections {
+      description "List of IPSec connections.";
+      list ipsec-connection {
+        key "if-name policy-name";
+        description "Configure the IPSec connections.";
+  
+        leaf if-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description "The interface name.";
+        }      
+        
+        leaf policy-name {
+          type leafref {
+            path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:name";
+          }
+          description "The IPSec policy name.";
+        }
+        /* do not support now
+        leaf svc-inst-gp-name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Configure Service Instance Group Name.";
+        }*/
+        leaf status {
+          type ipsec-type:policy-or-profile-status-type;
+          description
+            "The status of IPsec policy or profile.";
+        }
+        leaf shared {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable ipsec profile sharing the same outbound interface.";
+        }
+        container port-mirror {
+          description
+            "Configure the Port mirroring.";
+          leaf observer-idx-inbound {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Port mirroring inbound observer index.";
+          }
+          leaf acl-inbound {
+            when "../observer-idx-inbound";
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'"; 
+            description
+              "Port mirroring inbound ACL number.";
+          }
+          leaf observer-idx-outbound {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Port mirroring outbound observer index.";
+          }
+          leaf acl-outbound {
+            when "../observer-idx-outbound";
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'"; 
+            description
+              "Port mirroring outbound ACL number.";
+          }
+        }
+        container traffic-policy {
+          description
+            "Configure the traffic policy.";
+          leaf acl-inbound {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'"; 
+            description
+              "Traffic Policy inbound ACL number.";
+          }
+          leaf acl-outbound {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'"; 
+            description
+              "Traffic Policy outbound ACL number.";
+          }
+        }
+      } /*end of ipsec-connection*/
+    } /*end of container ipsec-connection*/
+  
+	
+    container static-sas {
+      description
+        "List of IPSec static SA's.";
+      list static-sa {
+        key "name";
+        max-elements  "1000";
+        description
+          "Configure the IPSec SA.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description
+            "SA name.";
+        }
+        leaf proposal-name {
+          type leafref {
+            path "/ipsec/ipsec-proposals/ipsec-proposal/name";
+          }
+          must "/ipsec/ipsec-proposals/ipsec-proposal[name=current()]/encapsulation-mode='transport'";
+          description
+            "Proposal name.";
+        }
+        leaf inbound-ah-authpasswd {
+          type pub-type:password-extend {
+            length "32..392";
+          }
+          description
+            "Inbound AH authentication password, [32,40,64,96,128] Hexadecimal string for key(16 bytes for MD5 or 20 bytes for SHA1 or 32 bytes for SHA2-256 or 48 bytes for SHA2-384 or 64 bytes for SHA2-512).";
+        }
+        leaf outbound-ah-authpasswd {
+          type pub-type:password-extend {
+            length "32..392";
+          }
+          description
+            "Outbound AH authentication password, [32,40,64,96,128] Hexadecimal string for key(16 bytes for MD5 or 20 bytes for SHA1 or 32 bytes for SHA2-256 or 48 bytes for SHA2-384 or 64 bytes for SHA2-512).";
+        }
+        leaf inbound-esp-authpasswd {
+          type pub-type:password-extend {
+            length "32..392";
+          }
+          description
+            "Inbound ESP authentication password, [32,40,64,96,128] Hexadecimal string for key(16 bytes for MD5 or 20 bytes for SHA1 or 32 bytes for SHA2-256 or 48 bytes for SHA2-384 or 64 bytes for SHA2-512).";
+        }
+        leaf outbound-esp-authpasswd {
+          type pub-type:password-extend {
+            length "32..392";
+          }
+          description
+            "Outbound ESP authentication password, [32,40,64,96,128] Hexadecimal string for key(16 bytes for MD5 or 20 bytes for SHA1or 32 bytes for SHA2-256 or 48 bytes for SHA2-384 or 64 bytes for SHA2-512).";
+        }
+        leaf inbound-esp-encrpasswd {
+          type pub-type:password-extend {
+            length "16..432";
+          }
+          description
+            "Inbound ESP encryption password, [16,32,48,64] Hexadecimal string for key(8 bytes for DES or 24 bytes for 3DES or 16 bytes for AES-128 or 24 bytes for AES-192 or 32 bytes for AES-256).";
+        }
+        leaf outbound-esp-encrpasswd {
+          type pub-type:password-extend {
+            length "16..432";
+          }
+          description
+            "Outbound ESP encryption password, [16,32,48,64] Hexadecimal string for key(8 bytes for DES or 24 bytes for 3DES or 16 bytes for AES-128 or 24 bytes for AES-192 or 32 bytes for AES-256).";
+        }
+        leaf inbound-ah-strkey {
+          type pub-type:password-extend {
+            length "1..432";
+          }
+          description
+            "Inbound AH string-key, Plain text.";
+        }
+        leaf outbound-ah-strkey {
+          type pub-type:password-extend {
+            length "1..432";
+          }
+          description
+            "Outbound AH string-key, Plain text.";
+        }
+        leaf inbound-esp-strkey {
+          type pub-type:password-extend {
+            length "1..432";
+          }
+          description
+            "Inbound ESP string-key, Plain text.";
+        }
+        leaf outbound-esp-strkey {
+          type pub-type:password-extend {
+            length "1..432";
+          }
+          description
+            "Outbound ESP string-key, Plain text.";
+        }
+        leaf inbound-ah-spi {
+          type uint32 {
+            range "256..4294967295";
+          }
+          description
+            "Inbound AH SPI.";
+        }
+        leaf outbound-ah-spi {
+          type uint32 {
+            range "256..4294967295";
+          }
+          description
+            "Outbound AH SPI.";
+        }
+        leaf inbound-esp-spi {
+          type uint32 {
+            range "256..4294967295";
+          }
+          description
+            "Inbound ESP SPI.";
+        }
+        leaf outbound-esp-spi {
+          type uint32 {
+            range "256..4294967295";
+          }
+          description
+            "Outbound ESP SPI.";
+        }
+        leaf reference-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          config false;
+          description
+            "Reference count.";
+        }
+      }
+    } /*end of container static-sa*/
+
+    container ipsec-resource {
+      description "Configure nodes with the same function as the ones augmented from huawei-system, used only for VRP8, VRPv8 VNFs can provide the function without importing huawei-system module.";
+      
+      leaf tunnel-specificaiton {
+        type uint32;
+        description "The maximum number of IPSec tunnels that the device supports.";
+      }
+      
+      leaf tunnel-number {
+        type uint32;
+        config false;
+        description "The current number of established IPSec tunnels.";
+      }
+    }
+    
+    container ipsec-tunnels {
+      config false;
+      description "List of the IPSec tunnels information.";
+      list ipsec-tunnel {
+        key "if-name policy-name policy-id flow-info";
+        description "Statistics of the IPSec tunnels.";
+        
+        leaf if-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description "The interface name.";
+        }
+    
+        leaf policy-name {
+          type leafref {
+            path "/ipsec/policys/policy/name";
+          }
+          description "The IPSec policy name."; 
+        }
+  
+        leaf policy-id { 
+          type leafref {
+            path "/ipsec/policys/policy/sub-policys/sub-policy/seq-number";
+          }
+          description "The IPSec policy sequence number.";
+        }
+        
+		leaf flow-info {
+          type string {
+            length "1..256";
+          }
+          description "The flow info.";
+        }
+        leaf policy-alias {
+          type string {
+            length "1..128";
+          }
+          description "The policy alias.";
+        }
+		leaf tunnel-vpn-name { 
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description "The VPN instance name of the IPSec peer-address and local-address.";
+        }
+    
+        leaf peer-address {
+          type inet:host;
+          description "Peer address."; 
+        }
+        leaf peer-port { 
+          type uint16;
+          description "Peer udp port.";
+        }
+        leaf local-address { 
+          type inet:host;
+          description "Pocal address.";
+        }
+        leaf local-port { 
+          type uint16;
+          description "Local udp port.";
+        }
+        leaf flow-vpn-name {
+          type pub-type:vrf-name;
+          description "The VPN instance name of data packets.";
+        }
+        leaf status {
+          type ipsec-type:up-down-type;
+          description "The status of SA.";
+        }
+
+        leaf packets-encrypted {
+          type uint64;
+          description "The packets numbers which was encrypted by IPSec.";
+        }  
+        leaf packets-encrypt-drop {
+          type uint64;
+          description "The packets numbers which was droped when IPSec encrypts packets.";
+        }  
+        leaf packets-decrypted {
+          type uint64;
+          description "The packets numbers which was decrypted by IPSec.";
+        }  
+        leaf packets-decrypt-drop {
+          type uint64;
+          description "The packets numbers which was droped when IPSec decrypts packets.";
+        } 
+      }
+    } /*end of container ipsec-tunnels*/
+  } /*end of container ipsec*/
+  
+  
+  /*************************************************************
+  * rpc 
+  **************************************************************/
+  rpc ipsec-diagnose {
+    description "Diagnose the IPSec connection.";
+    
+    input {
+      leaf if-name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description "The interface name.";
+      }
+  
+      leaf policy-name {
+        type leafref {
+          path "/ipsec/policys/policy/name";
+        }
+        description "The IPSec policy name."; 
+      }
+  
+      leaf policy-id { 
+        type leafref {
+          path "/ipsec/policys/policy/sub-policys/sub-policy/seq-number";
+        }
+        description "The IPSec policy sequence number.";
+      }
+  
+      leaf tunnel-vpn-name { 
+        type pub-type:vrf-name;
+        description "The VPN instance name of the IPSec peer-address and local-address.";
+      }
+
+      leaf peer-address {
+        type inet:ip-address;
+        description "Peer address.";
+      }
+    }
+    
+    output {
+      container diagnose-results {
+        description "List of the diagnose results of IPSec connection.";
+        list diagnose-result {
+          key "id";
+          description "Diagnose result.";
+          leaf id {
+            type int32;
+            description "Result id.";
+          }
+          leaf result {
+            type enumeration {
+              enum "success" {
+                value 1;
+                description "Success.";
+              }
+              enum "fail" {
+                value 2;
+                description "Fail.";
+              }
+            }
+            description "Brief result.";
+          }
+          leaf detail {
+            type string {
+              length "1..256";
+            }
+            description "Detail information.";
+          }
+        }
+      } /*end of diagnose-results*/
+    } /*end of output*/
+  }
+
+  rpc get-ipsec-sa-list {
+    description "Get IPSec SAs.";
+
+    input {
+      leaf start-index {
+        type uint32;
+        description "The start index want to request.";
+      }
+      leaf request-num {
+        type uint32;
+        description "The sa num want to request.";
+      }
+      leaf peer-address {
+        type inet:host;
+        description "Peer address.";
+      }
+      leaf local-address {
+        type inet:host;
+        description "Local address.";
+      }
+    }
+
+    output {
+      container ipsec-sas {
+        description "List of the output results of IPsec SAs.";
+        list ipsec-sa {
+          key "if-name policy-name";
+          description "IPsec SA."; 
+
+          leaf if-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description "Interface name.";
+          }
+          leaf policy-name {
+            type leafref {
+              path "/ipsec:ipsec/ipsec:policys/ipsec:policy/ipsec:name";
+            }
+            description "The IPSec policy name.";
+          }
+          leaf tunnel-vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description "The VPN instance name of the ipsec peer-address and local-address.";
+          }
+          leaf peer-address {
+            type inet:host;
+            description "Peer address.";
+          }
+          leaf peer-port {
+            type uint16;
+            description "Peer udp port.";
+          }
+          leaf local-address {
+            type inet:host;
+            description "Local address.";
+          }
+          leaf local-port {
+            type uint16;
+            description "Local udp port.";
+          }
+          leaf flow-vpn-name {
+            type pub-type:vrf-name;
+            description "The VPN instance name of data packets.";
+          }
+          leaf flow-info {
+            type string {
+              length "1..256";
+            }
+            description "The flow info.";
+          }
+          leaf status {
+            type ipsec-type:up-down-type;
+            description "The status of SA.";
+          }
+        } /*end of list*/
+      }
+ 
+      leaf returned-num {
+        type uint32;
+        description "The returned num of list item.";
+      }
+    } /*end of output*/
+  } /*end of rpc*/
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface/tnlm:tunnel-protocol/tnlm:type" {
+    description
+      "IPsec configuration on interface.";
+	case ipsec-tunnel {
+      description
+        "IPsec tunnel encapsulation protocol.";
+      container ipsec-tunnel {
+        presence "Specifies tunnel-protocol IPsec.";
+        description
+          "Configure IPsec tunnel.";
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable IPsec protocol on the tunnel interface.";
+        }
+        container source {
+          description
+            "Configure the source address and VPN instance of the tunnel interface.";
+          choice source {
+            description
+              "Configure the source address of the tunnel interface.";
+            case ip-address {
+              description
+                "Source ip address.";
+              leaf ip-address {
+                type inet:ipv4-address-no-zone;
+                description
+                  "Configure the source ip address.";
+              }
+            }
+            case interface {
+              description
+                "Source interface.";
+              leaf interface {
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                description
+                  "Configure the source interface name.";
+              }
+            }
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+              "Configure the VPN instance name.";
+          }
+        }
+        leaf destination {
+          type inet:ipv4-address-no-zone;
+          description
+            "Configure the destination address of the tunnel interface.";
+        }
+      }
+    }
+  }
+    ext:task-name "ipsec";
+} /*end of module huawei-ipsec*/
+  
+ 

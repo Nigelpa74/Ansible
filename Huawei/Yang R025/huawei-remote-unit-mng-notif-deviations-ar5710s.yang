@@ -1,0 +1,100 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-remote-unit-mng-notif-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-remote-unit-mng-notif-deviations-ar5710s";
+  prefix remote-unit-mng-notif-devs-ar5710s;
+
+  import huawei-remote-unit-mng-notif {
+    prefix remote-unit-mng-notif;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-remote-unit-mng-notif module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/remote-unit-mng-notif:link-abnormal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:link-normal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-down" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-up" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-input-rate-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-input-rate-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-output-rate-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-output-rate-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:optical-module-power-abnormal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:optical-module-power-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:remote-unit-full" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-remote-unit-full" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:pse-power-abnormal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:pse-power-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:temperature-abnormal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:temperature-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:phy-status-abnormal" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:phy-status-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:iic-fault" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-congest" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:port-congest-resume" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:mac-usage-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/remote-unit-mng-notif:mac-usage-exceed-threshold-resume" {
+    deviate not-supported;
+  }
+}

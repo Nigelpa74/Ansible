@@ -1,0 +1,277 @@
+/*
+Copyright (C) 2020-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-system-diag-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-system-diag-notification";
+  prefix system-diag-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of system-diag-notification.";
+  revision 2023-02-01 {
+    description
+      "Modify task-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-19 {
+    description
+      "Add entity-ext-exception-occurs notification.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2020-12-25 {
+    description
+      "Modify data type of CPU ID.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2020-11-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "system"; 
+  notification communicate-error {
+    description
+      "The internal board communication failed.";
+    leaf entity-physical-index {
+      type uint32;
+      description
+        "The index for this entry.";
+    }
+    leaf ent-physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The textual name of the physical entity.";
+    }
+    leaf entity-trap-ent-type {
+      type uint32;
+      description
+        "The type of this entity.";
+    }
+    leaf entity-trap-fault-id {
+      type uint32;
+      description
+        "To describe the fault id of trap.";
+    }
+    leaf entity-communicate-type {
+      type uint32;
+      description
+        "The type of this commnuicate.";
+    }
+    leaf entity-trap-reason-descr {
+      type string {
+        length "1..255";
+      }
+      description
+        "To describe the reason of trap in DisplayString style.";
+    }
+  }
+  notification communicate-resume {
+    description
+      "The internal board communication resumed.";
+    leaf entity-physical-index {
+      type uint32;
+      description
+        "The index for this entry.";
+    }
+    leaf ent-physical-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The textual name of the physical entity.";
+    }
+    leaf entity-trap-ent-type {
+      type uint32;
+      description
+        "The type of this entity.";
+    }
+    leaf entity-trap-fault-id {
+      type uint32;
+      description
+        "To describe the fault id of trap.";
+    }
+    leaf entity-communicate-type {
+      type uint32;
+      description
+        "The type of this commnuicate.";
+    }
+    leaf entity-trap-reason-descr {
+      type string {
+        length "1..255";
+      }
+      description
+        "To describe the reason of trap in DisplayString style.";
+    }
+  }
+  notification inner-port-link-down {
+    description
+      "The link of the internal communication interface went down.";
+    leaf inner-port-slot-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot Id.";
+    }
+    leaf inner-port-cpu-id {
+      type uint32;
+      description
+        "CPU Id.";
+    }
+    leaf inner-port-port-id {
+      type uint32;
+      description
+        "Port Id.";
+    }
+  }
+  notification inner-port-link-up {
+    description
+      "The link status of the internal communication interface went up.";
+    leaf inner-port-slot-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot Id.";
+    }
+    leaf inner-port-cpu-id {
+      type uint32;
+      description
+        "CPU Id.";
+    }
+    leaf inner-port-port-id {
+      type uint32;
+      description
+        "Port Id.";
+    }
+  }
+  notification inner-port-packet-crc-err {
+    description
+      "The internal communication interface encountered a CRC error.";
+    leaf inner-port-slot-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot Id.";
+    }
+    leaf inner-port-cpu-id {
+      type uint32;
+      description
+        "CPU Id.";
+    }
+    leaf inner-port-port-id {
+      type uint32;
+      description
+        "Port Id.";
+    }
+  }
+  notification inner-port-packet-crc-err-resume {
+    description
+      "The internal communication interface recovered from a CRC error.";
+    leaf inner-port-slot-id {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot Id.";
+    }
+    leaf inner-port-cpu-id {
+      type uint32;
+      description
+        "CPU Id.";
+    }
+    leaf inner-port-port-id {
+      type uint32;
+      description
+        "Port Id.";
+    }
+  }
+  notification cpu-fwd-congestion-packet-loss {
+    description
+      "Congestion and packet loss occur during CPU forwarding.";
+    leaf slot {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf cpu {
+      type uint32;
+      description
+        "CPU ID.";
+    }
+  }
+  notification cpu-fwd-congestion-packet-loss-recover {
+    description
+      "Congestion and packet loss of CPU forwarding recover.";  
+    leaf slot {
+      type string {
+        length "1..50";
+      }
+      description
+        "Slot ID.";
+    }
+    leaf cpu {
+      type uint32;
+      description
+        "CPU ID.";
+    }
+  }
+  notification process-exception-occur {
+    description
+      "An exception occurs in the process.";
+    leaf slot {
+      type string {
+        length "1..49";
+      }
+      description
+        "Slot Id.";
+    }
+    leaf cpu {
+      type uint32;
+      description
+        "CPU Id.";
+    }
+    leaf process-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Process Name.";
+    }
+    leaf exception-time {
+      type yang:date-and-time;
+      description
+        "Display the time when the exception occurs.";
+    }
+    leaf exception-info {
+      type string {
+        length "1..127";
+      }
+      description
+        "Display exception information.";
+    }
+  }
+}

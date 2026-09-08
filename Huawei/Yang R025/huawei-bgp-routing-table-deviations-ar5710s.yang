@@ -1,0 +1,84 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-routing-table-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-bgp-routing-table-deviations-ar5710s";
+  prefix bgp-rt-devs-ar5710s;
+
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-routing-table module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:peer-advertise-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:peer-receive-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:peer-receive-active-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:attributes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-unicast/bgp-rt:xsecs" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:peer-advertise-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:peer-receive-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:peer-receive-active-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:attributes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv6-unicast/bgp-rt:xsecs" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-labeluni" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ipv4-multicast" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:routing-flappings" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-rt:ifit-nexthops" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:instance-processs/bgp:instance-process/bgp-rt:bgp-route" {
+    deviate not-supported;
+  }
+}

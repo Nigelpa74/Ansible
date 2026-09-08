@@ -1,0 +1,404 @@
+/*
+Copyright (C) 2019-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-dhcp-client {
+  belongs-to huawei-dhcp {
+    prefix dhcp;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing DHCP client.";
+ revision 2023-10-27 {
+    description
+      "Add client query option15 and hex-string of option43.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-05 {
+    description
+      "Modify string patterns.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-23{
+    description
+      "Modify client-state.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-21{
+    description
+      "Add option43.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-12-24{
+    description
+      "Add dhcp-server-ip and client-bootstrap-server-url-querys.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-30 {
+    description
+      "Modify client-querys.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-12-22 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  
+  typedef client-state {
+    type enumeration {
+      enum "init" {
+        value 0;
+        description
+          "Init state.";
+      }
+      enum "selecting" {
+        value 1;
+        description
+          "Selecting state.";
+      }
+      enum "requesting" {
+        value 2;
+        description
+          "Requesting state.";
+      }
+      enum "bound" {
+        value 3;
+        description
+          "Bound state.";
+      }
+      enum "renewing" {
+        value 4;
+        description
+          "Renewing state.";
+      }
+      enum "rebinding" {
+        value 5;
+        description
+          "Rebinding state.";
+      }
+      enum "waiting-offer" {
+        value 6;
+        description
+          "Waiting offer state.";
+      }
+      enum "halt" {
+        value 7;
+        description
+          "Halt state.";
+      }
+      enum "init-reboot" {
+        value 8;
+        description
+          "Init reboot state.";
+      }
+      enum "verify" {
+        value 9;
+        description
+          "Verify state.";
+      }
+      enum "rebooting" {
+        value 10;
+        description
+          "Rebooting state.";
+      }
+      enum "verifying" {
+        value 11;
+        description
+          "Verifying state.";
+      }
+    }
+    description
+      "The type of client-state.";
+  }
+  grouping dhcp-client-type {
+    description
+      "Configure DHCP client attributes.";
+    container excluded-servers {
+      description
+        "List of configuring DHCP client excluded servers.";
+      list excluded-server {
+        key "server-address";
+        description
+          "Configure a DHCP client excluded server.";
+        leaf server-address {
+          type inet:ipv4-address-no-zone;
+          description
+            "Server address.";
+        }
+      }
+    }
+    container global {
+      description
+        "Configure DHCP client global attributes.";
+      leaf option60 {
+        type string {
+          length "1..128";
+          pattern '((\S[^\t]*\S)|\S)';
+        }
+        description
+          "The value of DHCP client global option60.";
+      }
+      leaf unicast-flag {
+        type empty;
+        description
+          "DHCP client unicast flag.";
+      }
+      container ip-routes {
+        description
+          "List of a routing entry delivered by the DHCP server to a DHCP client.";
+        list ip-route {
+          key "ip-address";
+          description
+            "Configure a routing entry delivered by the DHCP server to a DHCP client.";
+          leaf ip-address {
+            type inet:ipv4-address-no-zone;
+            description
+              "Specify the destination IP address.";
+          }
+          leaf mask {
+            type inet:ipv4-address-no-zone;
+            description
+              "Specify the mask of the IP address.";
+          }
+          leaf mask-length {
+            type uint8 {
+              range "0..32";
+            }
+            description
+              "Specify the mask length.";
+          }
+          leaf interface-name {
+            type leafref {
+              path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description
+              "Specify the type and number of the interface that forwards packets.";
+          }
+          leaf preference-value {
+            type uint8 {
+              range "1..255";
+            }
+            description
+              "Specify the priority of the routing protocol.";
+          }
+        }
+      }
+    }
+    container client-querys {
+      config false;
+      description
+        "List of statistics of the dynamic data obtained by the DHCP client.";
+      list client-query {
+        key "interface-name";
+        description
+          "Statistics of the dynamic data obtained by the DHCP client.";
+        leaf interface-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "DHCP client lease information on a specified interface.";
+        }
+        leaf ip-address {
+          type inet:ip-address-no-zone;
+          description
+            "Device IP address.";
+        }
+        leaf mask {
+          type inet:ipv4-address-no-zone;
+          description
+            "Specify a subnet mask.";
+        }
+        leaf tftp-server-name {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify a TFTP server name allocated to DHCP clients.";
+        }
+        leaf startup-file-name {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify a startup file name allocated to DHCP clients.";
+        }
+        leaf option15 {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify option15 allocated to DHCP clients.";
+        }
+        leaf option148 {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify option148 allocated to DHCP clients.";
+        }
+        leaf dhcp-server-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Specify option54 which is dhcp server ip allocated to DHCP clients.";
+        }
+        leaf client-state {
+          type string {
+            length "1..20";
+          }
+          description
+            "Current machine state.";
+        }
+        leaf option145 {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify option145 allocated to DHCP clients.";
+        }
+        leaf option146 {
+          type string {
+            length "1..256";
+          }
+          description
+            "Specify option146 allocated to DHCP clients.";
+        }
+        leaf-list tftp-server-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Operational data of TFTP server ip allocated to DHCP clients.";
+        }
+        container option43 {
+          description
+            "Operational data of option43 allocated to DHCP clients.";
+          leaf hex-string {
+            type string {
+              length "1..512";
+            }
+            description
+              "Specify option43 allocated to DHCP clients.";
+          }
+          leaf sub-option5 {
+            type string {
+              length "1..256";
+            }
+            description
+              "Operational data of sub-option5 of option43 allocated to DHCP clients.";
+          }
+        }
+      }
+    }
+    container client-gateway-querys {
+      config false;
+      description
+        "List of statistics of the dynamic data obtained by the DHCP client.";
+      list client-gateway-query {
+        key "interface-name gateway";
+        description
+          "Statistics of the dynamic data obtained by the DHCP client.";
+        leaf interface-name {
+          type string {
+            length "1..64";
+          }
+          description
+            "DHCP client lease information on a specified interface.";
+        }
+        leaf gateway {
+          type inet:ipv4-address-no-zone;
+          description
+            "Statistics of a gateway address.";
+        }
+      }
+    }
+    container client-dns-server-querys {
+      config false;
+      description
+        "List of statistics of the dynamic data obtained by the DHCP client.";
+      list client-dns-server-query {
+        key "interface-name dns-server-ip";
+        description
+          "Statistics of the dynamic data obtained by the DHCP client.";
+        leaf interface-name {
+          type string {
+            length "1..64";
+          }
+          description
+            "DHCP client lease information on a specified interface.";
+        }
+        leaf dns-server-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Statistics of the IP address of a DNS server.";
+        }
+      }
+    }
+    container client-log-server-querys {
+      config false;
+      description
+        "List of statistics of the dynamic data obtained by the DHCP client.";
+      list client-log-server-query {
+        key "interface-name log-server-ip";
+        description
+          "Statistics of the dynamic data obtained by the DHCP client.";
+        leaf interface-name {
+          type string {
+            length "1..64";
+          }
+          description
+            "DHCP client lease information on a specified interface.";
+        }
+        leaf log-server-ip {
+          type inet:ipv4-address-no-zone;
+          description
+            "Statistics of a log server.";
+        }
+      }
+    }
+    container client-bootstrap-server-url-querys {
+      config false;
+      description
+        "List of statistics of the dynamic data obtained by the DHCP client.";
+      list client-bootstrap-server-url-query {
+        key "interface-name bootstrap-server-url";
+        description
+          "Statistics of the dynamic data obtained by the DHCP client.";
+        leaf interface-name {
+          type string {
+            length "1..64";
+          }
+          description
+            "DHCP client lease information on a specified interface.";
+        }
+        leaf bootstrap-server-url {
+          type string {
+            length "1..256";
+          }
+          description
+            "Statistics of option143 which is the url of a bootstrap server.";
+        }
+      }
+    }
+  }
+}

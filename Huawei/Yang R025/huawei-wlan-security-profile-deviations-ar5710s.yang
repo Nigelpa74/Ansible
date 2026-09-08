@@ -1,0 +1,71 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-security-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-security-profile-deviations-ar5710s";
+  prefix wlan-sec-prof-devs-ar5710s;
+
+  import huawei-wlan-security-profile {
+    prefix wlan-sec-prof;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-security-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wpa/wlan-sec-prof:wpa-parameter/wlan-sec-prof:authentication-method/wlan-sec-prof:dpsk" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wep" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:sew-certificate" {
+    deviate not-supported;
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wpa/wlan-sec-prof:wpa-parameter/wlan-sec-prof:authentication-method/wlan-sec-prof:psk/wlan-sec-prof:pass-type" {
+    deviate add {
+      must "not ((../pass-type = 'hex' and (../wpa-type = 'wpa2-wpa3' or ../wpa-type = 'wpa3')) or (../wpa-type = 'wpa3' and ../encrption-method != 'aes'))" {
+        error-app-tag "0xdb11";
+      }
+    }
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wpa/wlan-sec-prof:wpa-parameter/wlan-sec-prof:authentication-method/wlan-sec-prof:dot1x/wlan-sec-prof:dot1x-method" {
+    deviate add {
+      must "not (../wpa-type = 'wpa3' and not (../encrption-method = 'aes' or ../encrption-method = 'aesgcm256'))" {
+        error-app-tag "0xdb11";
+      }
+    }
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wpa/wlan-sec-prof:wpa-parameter/wlan-sec-prof:authentication-method/wlan-sec-prof:ppsk/wlan-sec-prof:ppsk-method" {
+    deviate add {
+      must "not (../wpa-type = 'wpa3' or ../wpa-type = 'wpa2-wpa3')" {
+        error-app-tag "0xdb11";
+      }
+    }
+  }
+  deviation "/wlan-sec-prof:wlan-security-profile/wlan-sec-prof:security-profiles/wlan-sec-prof:security-profile/wlan-sec-prof:policy/wlan-sec-prof:wpa/wlan-sec-prof:wpa-parameter/wlan-sec-prof:encrption-method" {
+    deviate delete {
+      must "not (../encrption-method = 'tkip-aes' and not (../wpa-type = 'wpa-wpa2'))";
+    }
+    deviate add {
+      must "not ((../encrption-method = 'tkip-aes' and not (../wpa-type = 'wpa-wpa2')) or (../encrption-method = 'aesgcm256' and ../wpa-type != 'wpa3') or (../wpa-type = 'wpa2-wpa3' and ../encrption-method != 'aes'))" {
+        error-app-tag "0xdb11";
+      }
+    }
+  }
+}

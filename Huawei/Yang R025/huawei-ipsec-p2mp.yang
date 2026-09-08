@@ -1,0 +1,414 @@
+/********************************************
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-ipsec-p2mp {
+  namespace "urn:huawei:yang:huawei-ipsec-p2mp";
+  prefix ipsec-p2mp;
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  
+  import huawei-site {
+    prefix site;
+  }
+
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+
+  import huawei-sd-wan-tunnel {
+    prefix sd-wan-tunnel;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     p2mp sa implementations.";
+  revision 2025-09-11 {
+    description "Modify ipsec-p2mp interface type constraint.";
+    reference "";
+  }
+  revision 2025-02-10 {
+    description "Add encrypted-packets-mode.";
+    reference "";
+  }
+  revision 2023-08-09 {
+    description "Add sa infos.";
+    reference "";
+  }
+  revision 2023-03-30 {
+    description "Add sa infos.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-02-08 {
+    description "Change default encryption-algorithm.";
+    reference "Huawei private.";
+  }
+
+  revision 2021-01-12 {
+    description "Add SM3 and SM4.";
+    reference "Huawei private.";
+  }
+
+  revision 2020-05-15 {
+    description "Initial revision.";
+    reference "Huawei private.";
+  }
+  
+  ext:task-name  "sdwan";
+
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+
+  typedef protocol-type {
+    type enumeration {
+      enum "esp" {
+        value 1;
+        description
+          "ESP.";
+      }
+      enum "ah" {
+        value 2;
+        description
+          "AH.";
+      }
+    }
+    description "Type of IPSec transform protocol.";
+  }
+  typedef encapsulation-type {
+    type enumeration {
+      enum "tunnel" {
+        value 1;
+        description
+          "Tunnel.";
+      }
+      enum "transport" {
+        value 2;
+        description
+          "Transport.";
+      }
+    }
+    description "The type of encapsulation mode.";
+  }
+  typedef esp-auth-algorithm-type {
+    type enumeration {
+      enum "SHA2-256" {
+        value 1;
+        description
+          "SHA2-256.";
+      }
+      enum "SM3" {
+        value 2;
+        description
+          "SM3.";
+      }
+    }
+    description "The esp authentication algorithm.";
+  }
+  typedef encryption-algorithm-type {
+    type enumeration {
+      enum "aes-128" {
+        value 1;
+        description
+          "AES-128.";
+      }
+      enum "aes-256" {
+        value 2;
+        description
+          "AES-256.";
+      }
+      enum "aes-128-gcm" {
+        value 3;
+        description
+          "AES-128-GCM.";
+      }
+      enum "aes-256-gcm" {
+        value 4;
+        description
+          "AES-256-GCM.";
+      }
+      enum "sm4" {
+        value 5;
+        description
+          "SM4.";
+      }
+    }
+    description "The type esp encryption algorithm.";
+  }
+  typedef dh-group-type {
+    type enumeration {
+      enum "group19" {
+        value 1;
+        description
+          "The 256-bit random ECP group.";
+      }
+      enum "group20" {
+        value 2;
+        description
+          "The 384-bit random ECP group.";
+      }
+      enum "group21" {
+        value 3;
+        description
+          "The 521-bit random ECP group.";
+      }
+    }
+    description "The type of dh group.";
+  }
+  typedef match-mode-type {
+    type enumeration {
+      enum "loose" {
+        value 0;
+        description
+          "Loose.";
+      }
+      enum "strict" {
+        value 1;
+        description
+          "Strict.";
+      }
+    }
+    description "The type of match mode of key exchange algorithm.";
+  }
+
+  typedef encrypted-packets-mode {
+    type enumeration {
+      enum decryption-precedence {
+        value 0;
+        description "Decryption preference mode.";
+      }
+      enum routing-precedence {
+        value 1;
+        description "Routing preference mode.";
+      }
+    }
+    description
+      "Control encrypted packets decryption or routing precedence.";
+  }
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+
+  container ipsec-p2mp {
+    description "Configuration of ipsec p2mp.";
+    container ipsec-p2mp-policys {
+      description "List of ipsec p2mp policies.";
+
+      list ipsec-p2mp-policy {
+        key "name";
+        max-elements 1;
+        description "Configure a policy for p2mp list.";
+        leaf name {
+          type string {
+            length "1..15";
+          }
+          description "Ipsec p2mp policy name.";
+        }
+      
+        leaf lifetime {
+          type uint32 {
+            range "60..43200";
+          }
+          units min;        
+          default "1440";
+          description "The lifetime of ipsec policy in minutes.";
+        }
+        
+        leaf esp-encryption-algorithm {
+          
+          type encryption-algorithm-type;
+          default "aes-256-gcm";
+          description "Specify the esp encryption algorithm.";
+        }
+    
+        leaf esp-auth-algorithm {
+          type esp-auth-algorithm-type;
+          default "SHA2-256";
+          description "Specify the esp authentication algorithm.";
+        }
+        
+        container key-exchange {
+          presence "create key-exchange";
+          description "Configure key-exchange.";
+          leaf dh {
+            type dh-group-type;
+            mandatory true;
+            description "Diffie Hellman Group.";
+          }
+        
+          leaf strict-enable {
+              type boolean;
+              default "false";
+              description "Enable/disable the strict.";
+          }
+        }
+      }
+    }
+
+    leaf encrypted-packets-precedence {
+        type encrypted-packets-mode;
+        default "decryption-precedence";
+        description "Decryption preference mode or routing preference mode for encrypted packets.";
+    }
+  }
+  
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+      when "(ifm:type = 'Tunnel') and (tnlm:tunnel-protocol/sd-wan-tunnel:sd-wan-tunnel)";
+      description
+        "Extend interface attribute.";    
+      container ipsec-p2mp {
+        description "Configure the ipsec p2mp.";
+        
+        leaf ipsec-p2mp-policy {
+          type leafref {
+            path "/ipsec-p2mp:ipsec-p2mp/ipsec-p2mp:ipsec-p2mp-policys/ipsec-p2mp:ipsec-p2mp-policy/ipsec-p2mp:name";
+          }
+          description "Specify the ipsec p2mp policy.";
+        }
+      }
+  }
+  
+  augment /site:site/site:site-instances/site:site-instance/site:transport-network-points/site:transport-network-point {
+    description
+        "Extend TNP attribute.";
+    container ipsec-p2mp {
+        description "Configure the ipsec p2mp.";
+        
+        leaf ipsec-p2mp-policy {
+          type leafref {
+            path "/ipsec-p2mp:ipsec-p2mp/ipsec-p2mp:ipsec-p2mp-policys/ipsec-p2mp:ipsec-p2mp-policy/ipsec-p2mp:name";
+          }
+          description "Specify the ipsec p2mp policy.";
+        }
+    }
+  }
+
+  augment /site:site/site:site-instances/site:site-instance {
+    description
+        "Get encrypt status.";
+    container encrypt-statuses {
+      config false;
+      description
+        "List of Service encryption statuses.";
+	  
+      list encrypt-status {
+        key "tnp-id vpn-instance";
+        description
+          "Operational state of encryption.";
+        leaf tnp-id {
+          type uint32;
+          description
+            "Specify the transport network point index.";
+        }
+
+        leaf vpn-instance {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description "Service vpn-instance name.";
+        }
+
+        leaf encrypted {
+          type boolean;
+          description
+            "The encrypted status of vpn-instance and tnp-id.";
+        }
+      }
+    }
+  }
+  augment /site:site/site:site-infos/site:site-info {
+    description
+      "Extend SA attribute.";
+    container ipsec-p2mp {
+      config false;
+      description "Operational data of ipsec p2mp.";
+      container ipsec-p2mp-sa-infos {
+        description "List of information of ipsec p2mp sa.";
+        list ipsec-p2mp-sa-info {
+          key "spi";
+          description "Operational data of ipsec p2mp sa.";
+          leaf spi {
+            type uint32 {
+              range "1..4294967295";
+            }
+            description
+              "Security parameter index.";
+          }
+          leaf protocol {
+            type protocol-type;
+            description
+              "The protocol of IPSec p2mp transform.";
+          }
+          leaf remain-expire-time {
+            type uint32;
+            units s;
+            description
+              "Remaining aging time.";
+          }
+          leaf encapsulation-mode {
+            type encapsulation-type;
+            description
+              "The encapsulation mode.";
+          }
+          leaf authentication-algorithm {
+            type esp-auth-algorithm-type;
+            description
+              "The authentication algorithm.";
+          }
+          leaf encryption-algorithm {
+            type encryption-algorithm-type;
+            description
+              "The esp encryption algorithm.";
+          }
+          leaf key-exchange-group {
+            type dh-group-type;
+            description
+              "The dh group of key exchange algorithm.";
+          }
+          leaf key-exchange-match-mode {
+            type match-mode-type;
+            description
+              "The match mode of key exchange algorithm.";
+          }
+        }
+      }
+    }
+  }
+}

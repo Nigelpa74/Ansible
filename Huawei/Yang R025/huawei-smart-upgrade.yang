@@ -1,0 +1,1576 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-upgrade {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-smart-upgrade";
+  prefix smart-upgrade;
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-software {
+    prefix software;
+  }
+  import huawei-ssl {
+    prefix ssl;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Specify smart upgrade management.";
+  revision 2025-06-12 {
+    description
+      "Add when condition to vpn-name node, add a query to check whether a file exists, add upgrade fail reason detail.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-04 {
+    description
+      "Delete the presence attribute of the smart-upgrade node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-20 {
+    description
+      "Add filename, add other-language-description, download-result, download-fail-reason leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-31 {
+    description
+      "Add new version description, add verify-dns.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-03 {
+    description
+      "Add no-valid-certificate in enum of download-fail-reason, add smart-upgrade-fail-reason type, redefine the type of fail-reason in upgrade-info, add constraints on ip-address and vpn-name, add download-result and download-fail-reason leaf in version-info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-29 {
+    description
+      "Set user-info deprecated.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-11 {
+    description
+      "Add schedule download info container, download time, other language description leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-19 {
+    description
+      "Add local net info and scheduled upgrade info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-25 {
+    description
+      "Add download-software-specify-server to the RPC node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-04 {
+    description
+      "Add recommended-software-url and recommended-patch-url to the RPC check-agent-product-new-version in output.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-07 {
+    description
+      "Redefine the type of ssl-policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-11-23 {
+    description
+      "Redefine the type of ssl-policy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-28 {
+    description
+      "Set container of scheduled-upgrade-info config false.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-23 {
+    description
+      "Redefine the name and version length of the software package and patch package.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-03 {
+    description
+      "Add recommended-software-version and recommended-patch-version to the RPC check-agent-product-new-version in output.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-23 {
+    description
+      "Add check-agent-product-new-version to the RPC node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-08 {
+    description
+      "Add a container version-lists for smart upgrade.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-24 {
+    description
+      "Add product-family and package name leaf node to the local-info container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-14 {
+    description
+      "Add upgrade-package-not-exist to the enum upgrade-status.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-25 {
+    description
+      "Add create-scheduled-upgrade, delete-scheduled-upgrade and cancel-upgrade to the RPC node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-16 {
+    description
+      "Add download-software and check-new-version to the RPC node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-09 {
+    description
+      "Modify the range of http port form 1 to 65535.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-01-17 {
+    description
+      "Add a leaf check-new-version-interval for smart upgrade.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-07-01 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "upgrade";
+
+  typedef check-version-result {
+    type enumeration {
+      enum "need-update" {
+        value 0;
+        description
+          "Upgrade is required.";
+      }
+      enum "network-error" {
+        value 1;
+        description
+          "Network error.";
+      }
+      enum "version-optimal" {
+        value 2;
+        description
+          "The current version is optimal.";
+      }
+      enum "no-valid-certificate" {
+        value 3;
+        description
+          "HTTPS communication authentication failed.";
+      }
+      enum "no-valid-dns" {
+        value 4;
+        description
+          "Cannot verify domain name.";
+      }
+    }
+    description
+      "Check version result.";
+  }
+  typedef upgrade-status {
+    type enumeration {
+      enum "initial" {
+        value 0;
+        description
+          "Initial.";
+      }
+      enum "running" {
+        value 1;
+        description
+          "Upgrading.";
+      }
+      enum "success" {
+        value 2;
+        description
+          "Upgrade succeeded.";
+      }
+      enum "upgrade-fail" {
+        value 3;
+        description
+          "Upgrade failed.";
+      }
+      enum "download-fail" {
+        value 4;
+        description
+          "Failed to download the software package.";
+      }
+      enum "upgrade-package-not-exist" {
+        value 5;
+        description
+          "Upgrade package not exist.";
+      }
+    }
+    description
+      "Upgrade status.";
+  }
+  typedef download-fail-reason {
+    type enumeration {
+      enum "feature-name-invalid" {
+        value 0;
+        description
+          "The parameter is invalid.";
+      }
+      enum "no-space" {
+        value 1;
+        description
+          "There is no space to download the file.";
+      }
+      enum "no-feature" {
+        value 2;
+        description
+          "The feature software cannot be found in upgrade policy.";
+      }
+      enum "no-pkg-in-houp" {
+        value 3;
+        description
+          "The feature software cannot be found in houp.";
+      }
+      enum "net-error" {
+        value 4;
+        description
+          "The network has an error.";
+      }
+      enum "no-valid-certificate" {
+        value 5;
+        description
+          "HTTPS communication authentication failed.";
+      }
+      enum "no-valid-dns" {
+        value 6;
+        description
+          "Cannot verify domain name.";
+      }
+    }
+    description
+      "Specify the reason for the software operation failure.";
+  }
+
+  typedef smart-upgrade-fail-reason {
+    type enumeration {
+      enum "feature-name-invalid" {
+        value 0;
+        description
+          "The parameter is invalid.";
+      }
+      enum "no-space" {
+        value 1;
+        description
+          "There is no space to download and upgrade the file.";
+      }
+      enum "no-feature" {
+        value 2;
+        description
+          "The feature software cannot be found in upgrade policy.";
+      }
+      enum "no-pkg-in-houp" {
+        value 3;
+        description
+          "The feature software cannot be found in houp.";
+      }
+      enum "net-error" {
+        value 4;
+        description
+          "The network has an error.";
+      }
+      enum "no-valid-certificate" {
+        value 5;
+        description
+          "HTTPS communication authentication failed.";
+      }
+      enum "para-invalid" {
+        value 6;
+        description
+          "Para is invalid.";
+      }
+      enum "system-busy" {
+        value 7;
+        description
+          "Another user is performing package management opertions.";
+      }
+      enum "compatibility-check-failed" {
+        value 8;
+        description
+          "Compatibility check failed.";
+      }
+      enum "dependency-check-failed" {
+        value 9;
+        description
+          "Dependency check failed.";
+      }
+      enum "upgrade-error" {
+        value 10;
+        description
+          "Upgrade error.";
+      }
+      enum "smart-upgrade-error" {
+        value 11;
+        description
+          "Smart upgrade error.";
+      }
+      enum "no-valid-dns" {
+        value 12;
+        description
+          "Cannot verify domain name.";
+      }
+    }
+    description
+      "Specify the reason for the smart upgrade failure.";
+  }
+ 
+  typedef patch-type {
+    type enumeration {
+      enum "hot" {
+        value 0;
+        description
+          "Hot patch.";
+      }
+      enum "cold" {
+        value 1;
+        description
+          "Cold patch.";
+      }
+    }
+    description
+      "The type of the patch.";
+  }
+
+  typedef download-status {
+    type enumeration {
+      enum "not-started" {
+        value 0;
+        description
+          "Download not started.";
+      }
+      enum "downloading" {
+        value 1;
+        description
+          "Downloading.";
+      }
+      enum "successfully" {
+        value 2;
+        description
+          "Download succeeded.";
+      }
+      enum "failed" {
+        value 3;
+        description
+          "Download failed.";
+      }
+    }
+    description
+      "Download software result.";
+  }
+  typedef upgrade-type {
+    type enumeration {
+      enum "upgrade-now" {
+        value 0;
+        description
+          "Upgrade right now.";
+      }
+      enum "scheduled-upgrade" {
+        value 1;
+        description
+          "Scheduled upgrade.";
+      }
+    }
+    description
+      "Upgrade type.";
+  }
+  typedef file-types {
+    type enumeration {
+      enum "software" {
+        value 0;
+        description
+          "Software.";
+      }
+      enum "patch" {
+        value 1;
+        description
+          "Patch.";
+      }
+      enum "recommended-feature" {
+        value 2;
+        description
+          "Recommended feature.";
+      }
+      enum "wait-install-feature" {
+        value 3;
+        description
+          "Wait install feature.";
+      }
+    }
+    description
+      "File type.";
+  }
+  container smart-upgrade {
+    description
+      "Smart upgrade management.";
+    container global {
+      description
+        "Configure smart upgrade.";
+
+      leaf check-new-version-interval {
+        type uint32 {
+          range "0..180";
+        }
+        units "h";
+        default 0;
+        description
+          "Timer of check update in the device. The value 0 means disable check timer.";
+      }
+
+      choice transport  {
+        case http {
+          leaf http-url {
+            type string {
+              length "1..127";
+            }
+            description
+              "Server URL or IP address.";
+          }
+          leaf http-port {
+            type uint32 {
+              range "1..65535";
+            }
+            default 443;
+            description
+              "Server HTTP port.";
+          }
+          leaf ssl-policy {
+            type leafref {
+              path "/ssl:ssl/ssl:ssl-policys/ssl:ssl-policy/ssl:policy-name";
+            }
+            description
+              "SSL policy name.";
+          }
+          leaf verify-server-disable {
+            type boolean;
+            default true;
+            description
+              "Enable/disable verify http server.";
+          }
+          leaf verify-dns {
+            type boolean;
+            default false;
+            description
+            "Enable/disable verify domain name.";
+          }
+          choice source {
+            description
+              "Configure local network to used.";
+
+            case ip {
+              description
+                "Specify ip address and vpn.";
+              leaf ip-address {
+                when '../http-url';
+                type inet:ip-address-no-zone;
+                description
+                  "Ip address.";
+              }
+              leaf vpn-name {
+                when '../http-url and ../ip-address';
+                type leafref {
+                  path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                }
+                description
+                  "Name of a VPN instance.";
+              }
+            }
+            case interface {
+              description
+                "Specify interface.";
+              leaf interface-name {
+                when '../http-url';
+                type leafref {
+                  path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                }
+                description
+                  "Interface name to be used for communicating with the server/peer.";
+              }
+            }
+          }
+          description
+            "HTTP configuration.";
+        }
+
+        description
+          "Transmission configuration of smart upgrade.";
+      }
+
+      container user-info {
+        status deprecated;
+        description
+          "Configure user information.";
+        leaf telephone {
+          type pub-type:password {
+            length "1..21";
+          }
+          description
+            "The phone number of the user receiving the HOUP upgrade result.";
+        }
+        leaf email {
+          when "../telephone";
+          type pub-type:password {
+            length "1..128";
+          }
+          description
+            "The email of the user receiving the HOUP upgrade result.";
+        }
+        leaf retention-period {
+          when "../telephone and ../email";
+          type uint32 {
+            range "1..180";
+          }
+          description
+            "Retention period of phone number and email in the device (unit: month).";
+        }
+      }
+      container upgrade-time {
+        description
+          "Configure periodic upgrade.";
+
+        choice upgrade-time {
+          case monthly {
+            leaf month-day {
+              type uint32 {
+                range "1..31";
+              }
+              description
+                "Day in a month.";
+            }
+            description
+              "Performs device upgrade once a month.";
+          }
+          case weekly {
+            leaf week-day {
+              type uint32 {
+                range "1..7";
+              }
+              description
+                "Day in a week.";
+            }
+            description
+              "Performs device upgrade once a week.";
+          }
+          case yearly {
+            leaf month {
+              type uint32 {
+                range "1..12";
+              }
+              description
+                "Month.";
+            }
+            leaf day {
+              type uint32 {
+                range "1..31";
+              }
+              description
+                "Day.";
+            }
+            leaf hour {
+              type uint32 {
+                range "0..23";
+              }
+              description
+                "Hour.";
+            }
+            leaf minute {
+              type uint32 {
+                range "0..59";
+              }
+              description
+                "Minute.";
+            }
+            description
+              "Performs device upgrade once a year.";
+            }
+          description
+            "Configure upgrade time type.";
+        }
+      }
+    }
+    container smart-upgrade-info {
+      config false;
+      description
+        "Operational data of smart upgrade information.";
+
+      container version-info {
+        description
+          "Operational data of check version information from HOUP.";
+        leaf refresh-time {
+          type yang:date-and-time;
+          description
+            "Check update time.";
+        }
+        leaf check-version {
+          type check-version-result;
+          description
+            "Check version result.";
+        }
+        leaf upgrade-description {
+          type string {
+            length "1..1023";
+          }
+          description
+            "Upgrade description information in English.";
+        }
+        leaf recommended-software-version {
+          type software:system-software-version;
+          description
+            "Recommended system software package version.";
+        }
+        leaf recommended-patch-version {
+          type software:patch-version;
+          description
+            "Recommended patch package version.";
+        }
+        leaf recommended-patch-type {
+          type patch-type;
+          description
+            "Recommended patch type.";
+        }
+        leaf other-language-upgrade-description {
+          type string {
+            length "1..2047";
+          }
+          description
+            "Upgrade description information in other language.";
+        }
+        leaf recommended-software-download-result {
+          type download-status;
+          description
+            "The status of recommended system software downloaded.";
+        }
+        leaf recommended-software-download-fail-reason {
+          when "../recommended-software-download-result = 'failed'";
+          type download-fail-reason;
+          description
+            "Cause of the recommended system software download failure.";
+        }
+        leaf recommended-patch-download-result {
+          type download-status;
+          description
+            "The status of recommended patch downloaded.";
+        }
+        leaf recommended-patch-download-fail-reason {
+          when "../recommended-patch-download-result = 'failed'";
+          type download-fail-reason;
+          description
+            "Cause of the recommended patch download failure.";
+        }
+        container recommended-feature-list-versions {
+          description
+            "List of recommended feature package list versions.";
+
+          list recommended-feature-list-version {
+            key "feature-name";
+            description
+              "Operational data of recommended feature package list version.";
+            leaf feature-name {
+              type string {
+                length "1..127";
+              }
+              description
+                "Recommended feature package name.";
+            }
+            leaf feature-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Recommended feature package version.";
+            }
+            leaf feature-patch-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Recommended feature patch package version.";
+            }
+            leaf description {
+              type string {
+                length "1..2047";
+              }
+              description
+                "Recommended feature package description in english.";
+            }
+            leaf other-language-description {
+              type string {
+                length "1..2047";
+              }
+              description
+                "Recommended feature package description in other language.";
+            }
+            leaf feature-download-result {
+              type download-status;
+              description
+                "The status of feature package downloaded.";
+            }
+            leaf feature-download-fail-reason {
+              when "../feature-download-result = 'failed'";
+              type download-fail-reason;
+              description
+                "Cause of the feature package download failure.";
+            }
+          }
+        }
+        container recommended-sub-product-list-versions {
+          description
+            "List of recommended subproduct versions.";
+
+          list recommended-sub-product-list-version {
+            key "sub-product-type";
+            description
+              "Operational data of recommended subproduct version.";
+            leaf sub-product-type {
+              type string {
+                length "1..127";
+              }
+              description
+                "Subproduct type.";
+            }
+            leaf sub-software-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Recommended subproduct software package version.";
+            }
+            leaf sub-patch-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Recommended subproduct patch package version.";
+            }
+            leaf sub-patch-type {
+              type patch-type;
+              description
+                "Recommended subproduct patch type.";
+            }
+            leaf upgrade-description {
+              type string {
+                length "1..1023";
+              }
+              description
+                "Upgrade description information in English.";
+            }
+          }
+        }
+      }
+      container upgrade-info {
+        description
+          "Operational data of upgrade information.";
+
+        leaf upgrade-time {
+          type yang:date-and-time;
+          description
+            "Upgrade time.";
+        }
+        leaf upgrade-type {
+          type upgrade-type;
+          description
+            "Upgrade type.";
+        }
+        leaf upgrade-status {
+          type upgrade-status;
+          description
+            "Upgrade status.";
+        }
+        leaf next-upgrade-time {
+          type yang:date-and-time;
+          description
+            "Next upgrade time, displayed in periodic configuration upgrade.";
+        }
+        leaf fail-reason {
+          type smart-upgrade-fail-reason;
+          description
+            "Cause of the software smart upgrade failure.";
+        }
+        leaf fail-reason-detail {
+          type string {
+            length "0..1024";
+          }
+          description
+            "Description of the upgrade failure.";
+        }
+      }
+      container download-infos {
+        description
+          "List of downloaded software packages information.";
+        list download-info {
+          key "product-type";
+          description
+            "Operational state of downloaded software packages state by product type.";
+          leaf product-type {
+            type string {
+              length "1..127";
+            }
+            description
+              "Product type.";
+          }
+          leaf status {
+            type download-status;
+            description
+              "Download status.";
+          }
+          leaf failed-reason {
+            when "../status = 'failed'";
+            type download-fail-reason;
+            description
+              "Cause of the software download failure.";
+          }
+          leaf total-download-progress {
+            type uint32 {
+              range "0..100";
+            }
+            units "%";
+            description
+              "Total download progress.";
+          }
+          leaf download-time {
+            type yang:date-and-time;
+            description
+              "Download start time.";
+          }
+          container download-lists {
+            description
+              "List of downloaded software packages information.";
+            list download-list {
+              key "version";
+              description
+                "Operational data of downloaded software packages.";
+              leaf version {
+                type string {
+                  length "1..63";
+                }
+                description
+                  "Download package version.";
+              }
+              leaf status {
+                type download-status;
+                  description
+                    "The status of software downloaded.";
+              }
+              leaf download-file-name {
+                type string {
+                  length "4..127";
+                }
+                description
+                  "Download package name.";
+              }
+              leaf download-progress {
+                type uint32 {
+                  range "0..100";
+                }
+                units "%";
+                description
+                  "Download progress.";
+              }
+              leaf download-speed {
+                type uint32;
+                units "kB/s";
+                description
+                  "Download speed.";
+              }
+              leaf download-file-size {
+                type uint32;
+                units "kB";
+                description
+                  "Download file size.";
+              }
+              leaf feature-name {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Download feature name.";
+              }
+            }
+          }
+        }
+      }
+      container local-info {
+        description
+          "Operational data of current device and version information.";
+        leaf product-family {
+          type string {
+            length "1..63";
+          }
+          description
+            "Product family.";
+        }
+        leaf product-group-type {
+          type string {
+            length "1..63";
+          }
+          description
+            "Product group type.";
+        }
+        leaf device-name {
+          type string {
+            length "1..63";
+          }
+          description
+            "Device name.";
+        }
+        leaf device-esn {
+          type string {
+            length "1..63";
+          }
+          description
+            "Device ESN.";
+        }
+        leaf software-version {
+          type software:system-software-version;
+          description
+            "Current system software package version.";
+        }
+        leaf software-name {
+          type software:system-software-name;
+          description
+            "Current system software package name.";
+        }
+        leaf patch-version {
+          type software:patch-version;
+          description
+            "Current patch package version.";
+        }
+        leaf patch-name {
+          type software:patch-name;
+          description
+            "Current patch package name.";
+        }
+        container local-sub-product-list-versions {
+          description
+            "List of local subproduct list versions.";
+
+          list local-sub-product-list-version {
+            key "local-product-type";
+            description
+              "Operational data of local subproduct version.";
+            leaf local-product-type {
+              type string {
+                length "1..127";
+              }
+              description
+                "Subproduct type.";
+            }
+            leaf local-software-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Software version of subproduct.";
+            }
+            leaf local-patch-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Patch version of subproduct.";
+            }
+          }
+        }
+        container local-feature-list-versions {
+          description
+            "List of local feature package versions.";
+
+          list local-feature-list-version {
+            key "local-feature-name";
+            description
+              "Operational data of local feature package version.";
+            leaf local-feature-name {
+              type string {
+                length "1..127";
+              }
+              description
+                "Local feature name.";
+            }
+            leaf local-feature-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Local feature package version.";
+            }
+            leaf local-feature-package-name {
+              type string {
+                length "1..127";
+              }
+              description
+                "Local feature package name.";
+            }
+            leaf local-feature-patch-version {
+              type string {
+                length "1..63";
+              }
+              description
+                "Local feature patch package version.";
+            }
+          }
+        }
+      }
+      container wait-install-feature-list-versions {
+        description
+          "List of feature software waiting to be installed.";
+        list wait-install-feature-list-version {
+          key "feature-name";
+          description
+            "Operational data of recommended feature list version.";
+          leaf feature-name {
+            type string {
+              length "1..63";
+            }
+            description
+              "Feature name.";
+          }
+          leaf feature-version {
+            type string {
+              length "1..63";
+            }
+            description
+              "Feature software version.";
+          }
+          leaf description {
+            type string {
+              length "1..1023";
+            }
+            description
+              "Feature package description.";
+          }
+          leaf filename {
+            type string {
+              length "1..127";
+            }
+            description
+              "Feature package file name.";
+          }
+          leaf other-language-description {
+            type string {
+              length "1..2047";
+            }
+            description
+              "Feature package other language description.";
+          }
+          leaf download-result {
+            type download-status;
+            description
+              "The status of feature package downloaded.";
+          }
+          leaf download-fail-reason {
+            when "../download-result = 'failed'";
+            type download-fail-reason;
+            description
+              "Cause of the feature package download failure.";
+          }
+        }
+      }
+      container file-statuses {
+        description
+          "List of File status of new version information.";
+
+        list file-status {
+          key "file-name";
+          description 
+            "Operational data of file status of new version information.";
+          leaf file-name {
+            type string {
+              length "1..127";
+            }
+            description
+              "Local file name.";
+          }
+          leaf file-type {
+            type file-types;
+            description
+              "File type.";
+          }
+          leaf feature-name {
+            when "../file-type = 'recommended-feature' or ../file-type = 'wait-install-feature'";
+            type string {
+              length "1..127";
+            }
+            description
+              "Feature name.";
+          }
+          leaf is-exist {
+            type boolean;
+            default "false";
+            description
+              "File existence status.";
+          }
+        }
+      }
+    }
+
+    container scheduled-upgrade-info {
+      config false;
+      description
+        "Operational data of scheduled upgrade information.";
+      leaf scheduled-time {
+        type yang:date-and-time;
+        description
+          "Scheduled upgrade time.";
+      }
+      leaf software-version {
+        type software:system-software-version;
+        description
+          "Upgrade system software package version.";
+      }
+      leaf patch-version {
+        type software:patch-version;
+        description
+          "Upgrade patch package version.";
+      }
+      container feature-list-versions {
+        description
+          "List of recommended feature package list versions.";
+        list feature-list-version {
+          key "feature-name";
+          description
+            "Operational data of recommended feature package list version.";
+          leaf feature-name {
+            type string {
+              length "1..127";
+            }
+            description
+              "Feature name.";
+          }
+          leaf feature-version {
+            type string {
+              length "1..63";
+            }
+            description
+              "Feature package version.";
+          }
+        }
+      }
+    }
+    container scheduled-download-info {
+      config false;
+      description
+        "Operational data of scheduled download information.";
+      leaf scheduled-time {
+        type yang:date-and-time;
+        description
+          "Scheduled download time.";
+      }
+      leaf software-version {
+        type software:system-software-version;
+        description
+          "Download system software package version.";
+      }
+      leaf patch-version {
+        type software:patch-version;
+        description
+          "Download patch package version.";
+      }
+      container feature-list-versions {
+        description
+          "List of recommended feature package list versions.";
+        list feature-list-version {
+          key "feature-name";
+          description
+            "Operational data of recommended feature package list version.";
+          leaf feature-name {
+            type string {
+              length "1..127";
+            }
+            description
+              "Feature name.";
+          }
+          leaf feature-version {
+            type string {
+              length "1..63";
+            }
+            description
+              "Feature package version.";
+          }
+        }
+      }
+    }
+  }
+
+  rpc upgrade-right-now {
+    description
+      "Upgrade now.";
+    input {
+      choice type {
+        description
+          "Upgrade software.";
+        case upgrade-software {
+          description
+            "Upgrade.";
+          leaf recheck-new-version {
+            type boolean;
+            default "true";
+            description
+              "Flag of determining whether to check new version again.";
+          }
+        }
+        case specify-software {
+          description
+            "Upgrade software by versions.";
+          leaf base-version {
+            type software:system-software-version;
+            description
+              "Specify the version of the base software to be updated.";
+          }
+          leaf base-name {
+            type software:system-software-name;
+            description
+              "Specify the name of a software package that needs to be upgraded.";
+          }
+          leaf patch-version {
+            type software:patch-version;
+            description
+              "Specify the version of the patch software to be updated.";
+          }
+          leaf patch-name {
+            type software:patch-name;
+            description
+              "Specify the full path name of a patch package.";
+          }
+          container feature-lists {
+            description
+              "List of feature.";
+            list feature-list {
+              key "name";
+              description "Feature list.";
+              leaf name {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Feature name.";
+              }
+              leaf version {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Feature package version.";
+              }
+              leaf package-name {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Feature package name.";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  rpc check-new-version {
+    description
+      "Check new version.";
+    output {
+      container result-infos {
+        description
+          "Check new version result.";
+        leaf result {
+          type check-version-result;
+          description
+            "Check version result.";
+        }
+      }
+    }
+  }
+
+  rpc download-software {
+    description
+      "Download software.";
+    input  {
+      choice type {
+        description
+          "Download type.";
+        case update-software {
+          description
+            "Download software packages to be upgraded.";
+          leaf recheck-new-version {
+            type boolean;
+            default "true";
+            description
+              "Flag of determining whether to check new version again.";
+          }
+        }
+        case specify-software {
+          description
+            "Download the software packages by versions.";
+          container version-lists {
+            description
+              "List of version.";
+            list version-list {
+              key "version";
+              min-elements 1;
+              description "Version list.";
+              leaf version {
+                type string {
+                  length "1..63";
+                }
+                description
+                  "Version name.";
+              }
+              leaf offering-name {
+                type string {
+                  length "1..127";
+                }
+                description
+                  "Feature package offering name.";
+              }
+            }
+          }
+        }
+        case specify-product {
+          description
+            "Download the software packages by product type.";
+          leaf product-type {
+            type string {
+              length "1..127";
+            }
+            description
+            "Product type.";
+          }
+          leaf recheck-new-version-type {
+            type boolean;
+            default "true";
+            description
+              "Flag of determining product download whether to check new version again.";
+          }
+        }
+      }
+    }
+  }
+
+  rpc download-software-specify-server {
+    description
+      "Download the package by houp url.";
+    input {
+      leaf http-url {
+        type string{
+          length "1..255";
+        }
+        mandatory true;
+        description
+          "Specify the download houp url.";
+      }
+      leaf package-name {
+        type string {
+          length "4..127";
+        }
+        mandatory true;
+        description
+          "Specify the software or patch name.";
+      }
+    }
+  }
+
+  rpc create-scheduled-upgrade {
+    description
+      "Create scheduled upgrade.";
+    input {
+      leaf scheduled-time {
+        type yang:date-and-time;
+        mandatory true;
+        description
+          "Scheduled upgrade time.";
+      }
+      choice type {
+        description
+          "Scheduled upgrade software.";
+        case upgrade-software {
+          description
+            "Upgrade all software.";
+          leaf recheck-new-version {
+            type boolean;
+            default "true";
+            description
+              "Flag of determining whether to check new version again.";
+          }
+        }
+        case specify-software {
+          description
+            "Upgrade software by versions.";
+          leaf software-version {
+            type software:system-software-version;
+            description
+              "Upgrade system software package version.";
+          }
+          leaf patch-version {
+            type software:patch-version;
+            description
+              "Upgrade patch package version.";
+          }
+        }
+      }
+    }
+  }
+
+  rpc delete-scheduled-upgrade {
+    description
+      "Delete scheduled upgrade.";
+  }
+
+  rpc cancel-upgrade {
+    description
+      "Cancel upgrade.";
+  }
+
+  rpc check-agent-product-new-version {
+    description
+      "Check new version of agent product.";
+    input {
+      leaf product-family {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Product family.";
+      }
+      leaf product-group-type {
+        type string {
+          length "1..63";
+        }
+        description
+          "Product group type.";
+      }
+      leaf product-type {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Product type.";
+      }
+      leaf device-esn {
+        type string {
+          length "1..63";
+        }
+        description
+          "Device ESN.";
+      }
+      leaf software-version {
+        type software:system-software-version;
+        description
+          "Current system software package version.";
+      }
+      leaf patch-version {
+        type software:patch-version;
+        description
+          "Current patch package version.";
+      }
+    }
+    output {
+      container result-infos {
+        description
+          "Check new version result.";
+        leaf result {
+          type smart-upgrade:check-version-result;
+          description
+            "Check version result.";
+        }
+        leaf recommended-software-version {
+          when "../result = 'need-update'";
+          type software:system-software-version;
+          description
+            "Recommended system software package version.";
+        }
+        leaf recommended-patch-version {
+          when "../result = 'need-update'";
+          type software:patch-version;
+          description
+            "Recommended patch package version.";
+        }
+        leaf recommended-software-url {
+          when "../result = 'need-update'";
+          type string {
+            length "1..511";
+          }
+          description
+            "Recommended system software package url.";
+        }
+        leaf recommended-patch-url {
+          when "../result = 'need-update'";
+          type string {
+            length "1..511";
+          }
+          description
+            "Recommended patch package url.";
+        }
+        leaf upgrade-description {
+            when "../result = 'need-update'";
+            type string {
+                length "1..1023";
+            }
+            description
+                "Upgrade description information in English.";
+        }
+        leaf other-language-upgrade-description{
+            when "../result = 'need-update'";
+            type string {
+                length "1..2047";
+            }
+            description
+                "Upgrade description information in other language.";
+        }
+      }
+    }
+  }
+}

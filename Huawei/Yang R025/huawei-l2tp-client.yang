@@ -1,0 +1,148 @@
+/*
+Copyright (C) 2024-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-l2tp-client {
+  namespace "urn:huawei:yang:huawei-l2tp-client";
+  prefix hw-l2tp-client;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description "This module contains a collection of YANG definitions for L2TP client.";
+  revision 2025-09-17 {
+    description "Add prefix to path of leaf group-number.";
+    reference "Huawei private.";
+  }
+  revision 2024-07-17 {
+    description "Modify range of hello-interval and max number of lns-ip.";
+    reference "Huawei private.";
+  }
+  revision 2024-05-07 {
+    description "Remove mandatory attribute on leaf tunnel-password.";
+    reference "Huawei private.";
+  }
+  revision 2024-03-11 {
+    description "Add container for fixing query issue.";
+    reference "Huawei private.";
+  }
+  revision 2024-01-17 {
+    description "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  ext:task-name "l2tpc";
+  container l2tp-client {
+    description "Configure L2TP client.";
+    container l2tp-enable {
+      description "Configure L2TP client global parameters.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description "Enable/disable the L2TP function.";
+      }
+    }
+    container groups {
+      description "List of l2tp groups.";
+      list group {
+        key "group-number";
+        max-elements 16;
+        description "Configure l2tp group which used to create L2TP tunnel.";
+        leaf group-number {
+          type uint16 {
+            range "1..1024";
+          }
+          description "The number of l2tp group.";
+        }
+        leaf tunnel-auth {
+          type boolean;
+          default "true";
+          description "Enable/disable the tunnel authentication.";
+        }
+        leaf tunnel-name {
+          type string {
+            length "1..30";
+          }
+          description "Tunnel name.";
+        }
+        leaf tunnel-password {
+          type pub-type:password-extend {
+            length "1..432";
+          }
+          description "Tunnel password for tunnel authentication.";
+        }
+        leaf hello-interval {
+          type uint32 {
+            range "0..100000";
+          }
+          units s;
+          default 60;
+          description "The interval of HELLO message for tunnel keepalive.";
+        }
+        leaf vpn-instance {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description "The VPN instance name selected for connecting LNS server.";
+        }
+        container start-l2tp {
+          description "Configure the trigger condition for creating L2TP tunnel.";
+          container lns-ips {
+            description "List of LNS IPs.";
+            list lns-ip {
+              key "ip-address";
+              max-elements 5;
+              description "Configure the IP of LNS server.";
+              leaf ip-address {
+                type inet:ipv4-address-no-zone;
+                description "The IPv4 address.";
+              }
+            }
+          }
+          container lns-host {
+            description "Configure the host name of LNS server.";
+            leaf host-name {
+              type string {
+                length "1..255";
+              }
+              description "The host name of LNS server.";
+            }
+          }
+        }
+      }
+    }
+  }
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description "Add configuration in the interfaces.";
+    container l2tp-auto-client {
+      when "../ifm:type='Dialer'";
+      presence "Create L2TP auto client.";
+      description "Configure L2TP client.";
+      leaf group-number {
+        type leafref {
+          path "/hw-l2tp-client:l2tp-client/hw-l2tp-client:groups/hw-l2tp-client:group/hw-l2tp-client:group-number";
+        }
+        description "Specifies the number of l2tp group which used to create L2TP tunnel.";
+      }
+    }
+  }
+}

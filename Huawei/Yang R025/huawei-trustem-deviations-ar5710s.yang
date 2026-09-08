@@ -1,0 +1,114 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-trustem-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-trustem-deviations-ar5710s";
+  prefix trustem-devs-ar5710s;
+
+  import huawei-trustem {
+    prefix trustem;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-trustem module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef compilation-options-feature-deviations {
+    type enumeration {
+      enum ASLR {
+        value 0;
+        description
+          "The feature address space layout randomization.";
+      }
+      enum PIC {
+        value 1;
+        description
+          "The feature position independent code.";
+      }
+      enum PIE {
+        value 2;
+        description
+          "The feature position independent executables.";
+      }
+      enum stack-protector {
+        value 3;
+        description
+          "The feature stack protect.";
+      }
+      enum RELRO {
+        value 4;
+        description
+          "The feature read-Only relocation.";
+      }
+      enum BIND_NOW {
+        value 5;
+        description
+          "The feature BIND_NOW.";
+      }
+      enum NX {
+        value 6;
+        description
+          "The feature non-executable memory.";
+      }
+      enum strip {
+        value 7;
+        description
+          "The feature strip.";
+      }
+      enum KASLR {
+        value 8;
+        description
+          "The feature kernal address space layout randomization.";
+      }
+    }
+    description
+      "Secure compilation options feature.";
+  }
+
+  deviation "/trustem:trustem/trustem:dynamic-integrity-measurement-mode" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:statuss" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:status2s" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:system-security-statuses/trustem:system-security-status/trustem:kernel-signature-enabled" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:audit-log-infos" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:security-boot-infos" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:location-owner-infos" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:tee-infos" {
+    deviate not-supported;
+  }
+  deviation "/trustem:security-recover" {
+    deviate not-supported;
+  }
+  deviation "/trustem:trustem/trustem:system-security-statuses/trustem:system-security-status/trustem:vulnerability-exploitation-preventions/trustem:vulnerability-exploitation-prevention/trustem:feature" {
+    deviate replace {
+      type trustem-devs-ar5710s:compilation-options-feature-deviations;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ntp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ntp-deviations-ar5710s";
+  prefix ntp-devs-ar5710s;
+
+  import huawei-ntp {
+    prefix ntp;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ntp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ntp:ntp/ntp:system-config/ntp:local-port" {
+    deviate not-supported;
+  }
+  deviation "/ntp:ntp/ntp:access-controls/ntp:access-control" {
+    deviate add {
+      must 'acl4-identity or acl6-identity';
+    }
+  }
+  deviation "/ntp:ntp/ntp:access-controls/ntp:access-control/ntp:acl4-identity" {
+    deviate delete {
+      must "/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+  }
+}

@@ -1,0 +1,64 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-eca-notification {
+  namespace "urn:huawei:yang:huawei-eca-notification";
+  prefix eca-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Notification of the ECA.";
+  revision 2025-05-26 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "diags-eca";
+  notification eva-detect-fault {
+    description
+      "The EVA detects a fault on the device.";
+    leaf detect-mode {
+      type string {
+        length "0..63";
+      }
+      description
+        "The mode name of a detect.";
+    }
+    leaf detect-object {
+      type string {
+        length "0..63";
+      }
+      description
+        "The object name of a detect.";
+    }
+  }
+  notification eva-detect-fault-resume {
+    description
+      "The EVA detects that a fault on the device is rectified.";
+    leaf detect-mode {
+      type string {
+        length "0..63";
+      }
+      description
+        "The mode name of a detect.";
+    }
+    leaf detect-object {
+      type string {
+        length "0..63";
+      }
+      description
+        "The object name of a detect.";
+    }
+  }
+}

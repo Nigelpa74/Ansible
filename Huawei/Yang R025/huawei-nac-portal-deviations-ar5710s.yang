@@ -1,0 +1,297 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-portal-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-portal-deviations-ar5710s";
+  prefix hw-nac-portal-devs-ar5710s;
+
+  import huawei-nac-portal {
+    prefix hw-nac-portal;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nac-portal module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:tunnel-forward-ip" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:https-source-ip/hw-nac-portal:https-source-ip/hw-nac-portal:ip/hw-nac-portal:ipv6-address" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:user-roam-reply-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:local-portal-server" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:portal-page-functions" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:ipv6-urls" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:url-parameter/hw-nac-portal:set-parameter-value/hw-nac-portal:device-ip/hw-nac-portal:ipv6" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:url-parameter/hw-nac-portal:set-parameter-value/hw-nac-portal:device-ip/hw-nac-portal:interface-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:portal-server-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:server-url-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:portal-server-down/hw-nac-portal:authorize-parameters/hw-nac-portal:ucl-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:portal-server-down/hw-nac-portal:last-authorization" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:local-portal-function" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:http-proxy-redirect-function" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:listening-port" {
+    deviate replace {
+      type inet:port-number {
+        range "1024..55535";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:https-packet-speed-limit" {
+    deviate replace {
+      default "1";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:https-source-ip/hw-nac-portal:https-source-ip/hw-nac-portal:all/hw-nac-portal:all-interface" {
+    deviate add {
+      must "../all-interface = 'true'";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:redirect-global/hw-nac-portal:redirect-http-port" {
+    deviate add {
+      max-elements 1;
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1024..65535";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:web-authen-server-protocol/hw-nac-portal:protocol/hw-nac-portal:http/hw-nac-portal:http-enable" {
+    deviate add {
+      must "../http-enable = 'true'";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:web-authen-server-protocol/hw-nac-portal:port" {
+    deviate add {
+      must "(../http-enable='true' or ../ssl-policy)";
+    }
+    deviate replace {
+      type inet:port-number {
+        range "1025..65535";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template" {
+    deviate add {
+      max-elements 8;
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:name" {
+    deviate replace {
+      type string {
+        length "1..31";
+        pattern '[!-~]+';
+        pattern "([^/\\*\":?<>|@%']{3,31})|([^/\\*\":?<>|@%'-]-)|(-[^/\\*\":?<>|@%'-])|([^/\\*\":?<>|@%'-]{1,2})";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:url-parameter/hw-nac-portal:mac-address-format" {
+    deviate add {
+      must '(delimiter and format) or (not (delimiter) and not (format))';
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:mark-parameter/hw-nac-portal:start-mark" {
+    deviate add {
+      default "?";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:mark-parameter/hw-nac-portal:assignment-mark" {
+    deviate add {
+      default "=";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:url-templates/hw-nac-portal:url-template/hw-nac-portal:mark-parameter/hw-nac-portal:isolate-mark" {
+    deviate add {
+      default "&";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server" {
+    deviate add {
+      max-elements 8;
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:protocol" {
+    deviate replace {
+      type enumeration {
+        enum portal {
+          value 1;
+          description
+            "Sets the protocol used in Portal authentication to Portal.";
+        }
+        enum http {
+          value 2;
+          description
+            "Sets the protocol used in Portal authentication to HTTP or HTTPS.";
+        }
+        enum http-uam {
+          value 3;
+          description
+            "Specifies the password encryption mode. The password is encrypted using the ASCII character mode.";
+        }
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:source-ip-address/hw-nac-portal:interface/hw-nac-portal:interface-name" {
+    deviate add {
+      must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'LoopBack')";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:destination-port/hw-nac-portal:port" {
+    deviate replace {
+      type inet:port-number {
+        range "1..65535";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:url-template" {
+    deviate add {
+      must '(name and not (ciphered-parameter-name) and not (iv-parameter-name) and not (key)) or (name and ciphered-parameter-name and iv-parameter-name and key)';
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:server-detect-function/hw-nac-portal:critical-server-num" {
+    deviate replace {
+      type uint8 {
+        range "0..32";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:http-method-parameters/hw-nac-portal:post-parameters/hw-nac-portal:login-fail/hw-nac-portal:response" {
+    deviate add {
+      default "redirect-login-url";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:http-method-parameters/hw-nac-portal:post-parameters/hw-nac-portal:login-success/hw-nac-portal:response" {
+    deviate add {
+      default "redirect-init-url";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:http-method-parameters/hw-nac-portal:post-parameters/hw-nac-portal:logout-fail/hw-nac-portal:response" {
+    deviate add {
+      default "message";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-servers/hw-nac-portal:portal-server/hw-nac-portal:http-method-parameters/hw-nac-portal:post-parameters/hw-nac-portal:logout-success/hw-nac-portal:response" {
+    deviate add {
+      default "message";
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:name" {
+    deviate add {
+      must "../name != '-' and ../name != '--'";
+    }
+    deviate replace {
+      type string {
+        length "1..31";
+        pattern "([^/\\\\\":?<>|%'@\\*]{1,31})";
+        pattern '[^\s?]+';
+        pattern '[!-~]+';
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:authentication-networks/hw-nac-portal:authentication-network/hw-nac-portal:subnet" {
+    deviate add {
+      mandatory true;
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:authentication-networks/hw-nac-portal:authentication-network/hw-nac-portal:subnet/hw-nac-portal:mask-length/hw-nac-portal:prefix-length" {
+    deviate replace {
+      type uint8 {
+        range "1..32";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:portal-authentication-timer/hw-nac-portal:offline-detect" {
+    deviate replace {
+      type uint16 {
+        range "0 | 30..7200";
+      }
+    }
+  }
+  deviation "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile/hw-nac-portal:portal-server/hw-nac-portal:bak-server-name" {
+    deviate add {
+      must '../server-name';
+    }
+  }
+  ext:deviation-ext "/hw-nac-portal:nac-portal/hw-nac-portal:global/hw-nac-portal:web-authen-server-protocol/hw-nac-portal:port" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default {
+        ext:default-value "8000" {
+          when "../http-enable='true'";
+          description
+            "The default value is 8000 when http-enable is true.";
+        }
+        ext:default-value "8443" {
+          when '../ssl-policy';
+          description
+            "The default value is 8443 when ssl-policy exists.";
+        }
+      }
+    }
+  }
+  ext:deviation-ext "/hw-nac-portal:nac-portal/hw-nac-portal:portal-access-profiles/hw-nac-portal:portal-access-profile" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "delete" {
+        ext:filter "name = 'portal_access_profile'";
+        description
+          "The default portal access profile cannot be deleted.";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:generated-by "system" {
+        ext:filter "name = 'portal_access_profile'";
+        description
+          "The default portal access profile is generated by system.";
+      }
+    }
+  }
+}

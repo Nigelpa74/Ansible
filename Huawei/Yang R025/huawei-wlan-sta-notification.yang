@@ -1,0 +1,376 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-sta-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-sta-notification";
+  prefix hw-wstantf;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "WLAN STA notification package.";
+
+  revision 2024-12-28 {
+    description
+      "Added hwApStaFullTrap, hwApRoamUserNumExceedThresholdTrap, hwWlanWapiCertificateInvalidTrap, hwApSipfpmUserFlowFullTrap.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-01-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping vap-basic-para {
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+		length "1..63";   
+	  }
+      description
+        "AP-Name.";
+    }
+	leaf ap-id {
+      type int32;
+      description
+        "AP ID.";	  
+	}
+	leaf radio-id {
+      type int32;
+      description
+        "Radio ID.";	  
+	}	
+	leaf wlan-id {
+      type int32;
+      description
+        "Wlan ID.";	  
+	}	
+    description
+        "The VAP basic para.";	
+  }  
+
+  notification vap-sta-full {
+    description "VAP sta full notification.";
+	uses hw-wstantf:vap-basic-para;
+	leaf fail-cause {
+      type int32;
+      description
+        "Failed cause.";	 		
+	}
+	leaf permit-num {
+      type int32;
+      description
+        "Permit-num.";	 		
+	}	
+  } 
+  notification vap-sta-full-restore {
+    description "VAP sta full restore notification.";
+	uses hw-wstantf:vap-basic-para;
+	leaf fail-cause {
+      type int32;
+      description
+        "Failed cause.";	 		
+	}
+	leaf cur-num {
+      type int32;
+      description
+        "Cur-num.";	 		
+    }
+  } 
+
+  notification roam-user-exceed-threshold {
+    description "Number of roaming users exceeds the alarm threshold notification.";
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+	    length "1..63";
+	  }
+      description
+        "AP-Name.";
+    }
+    leaf radio-id {
+      type int32;
+      description
+        "Radio ID.";
+    }
+    leaf user-num {
+      type int32;
+      description
+        "User Number.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+  }
+  notification roam-user-exceed-threshold-restore {
+    description
+      "Number of roaming users exceeds the alarm threshold restore notification.";
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "AP-Name.";
+    }
+    leaf radio-id {
+      type int32;
+      description
+        "Radio ID.";
+    }
+    leaf user-num {
+      type int32;
+      description
+        "User Number.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+  }
+
+  notification ap-sta-full {
+    description "The number of STAs associated with an AP reached the maximum number notification.";
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "AP-Name.";
+    }
+    leaf fail-cause {
+      type int32;
+      description
+        "Cause of the STA authentication failure.";
+    }
+    leaf permit-num {
+      type int32;
+      description
+        "Number of STAs allowed to associate with an AP.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+  }
+  notification ap-sta-full-restore {
+    description
+      "The number of STAs associated with an AP reached the maximum number restore notification.";
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "AP-Name.";
+    }
+    leaf fail-cause {
+      type int32;
+      description
+        "Cause of the STA authentication failure.";
+    }
+    leaf current-num {
+      type int32;
+      description
+        "Maximum number of STAs that can be associated with the AP.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+  }
+
+  notification wapi-certification-invalid {
+    description "The WAPI certificate is invalid notification.";
+    leaf sec-profile-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Name of a security profile.";
+    }
+    leaf cert-type {
+      type enumeration {
+        enum "ac" {
+          value 0;
+          description
+            "The ac certification type.";
+        }
+        enum "asu" {
+          value 1;
+          description
+            "The asu certification type.";
+        }
+        enum "issuer" {
+          value 2;
+          description
+            "The issuer certification type.";
+        }
+      }
+      description
+        "Type of a certificate.";
+    }
+    leaf cert-file-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Name of a WAPI certificate file.";
+    }
+    leaf cert-start-time {
+      type string {
+        length "1..63";
+      }
+      description
+        " Start time of WAPI certificate validity.";
+    }
+    leaf cert-end-time {
+      type string {
+        length "1..63";
+      }
+      description
+        "End time of WAPI certificate validity.";
+    }
+  }
+  notification wapi-certification-invalid-restore {
+    description
+      "The WAPI certificate is invalid restore notification.";
+    leaf sec-profile-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "Name of a security profile.";
+    }
+    leaf cert-type {
+      type enumeration {
+        enum "ac" {
+          value 0;
+          description
+            "The ac certification type.";
+        }
+        enum "asu" {
+          value 1;
+          description
+            "The asu certification type.";
+        }
+        enum "issuer" {
+          value 2;
+          description
+            "The issuer certification type.";
+        }
+      }
+      description
+        "Type of a certificate.";
+    }
+  }
+
+  notification sipfpm-user-flow-full {
+    description "Reached the maximum number of iPCA flows of the STA notification.";
+    leaf sta-mac {
+      type pub-type:mac-address;
+      description
+        "STA-MAC.";
+    }
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "AP-Name.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+    leaf max-user-sipfpm-flow-num {
+      type string {
+        length "1..63";
+      }
+      description
+        "Maximum number of S-IPFPM flows of the STA.";
+    }
+  }
+  notification sipfpm-user-flow-full-restore {
+    description
+      "Reached the maximum number of iPCA flows of the STA restore notification.";
+    leaf sta-mac {
+      type pub-type:mac-address;
+      description
+        "STA-MAC.";
+    }
+    leaf ap-mac {
+      type pub-type:mac-address;
+      description
+        "AP-MAC.";
+    }
+    leaf ap-name {
+      type string {
+        length "1..63";
+      }
+      description
+        "AP-Name.";
+    }
+    leaf ap-id {
+      type int32;
+      description
+        "AP ID.";
+    }
+    leaf max-user-sipfpm-flow-num {
+      type string {
+        length "1..63";
+      }
+      description
+        "Maximum number of S-IPFPM flows of the STA.";
+    }
+  }
+
+  ext:task-name "mm";
+}

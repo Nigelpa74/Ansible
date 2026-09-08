@@ -1,0 +1,155 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-host-security-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-host-security-deviations-ar5710s";
+  prefix host-security-devs-ar5710s;
+
+  import huawei-host-security {
+    prefix host-security;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-host-security module.";
+
+  revision 2022-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef session-protocol-type-deviations {
+    type enumeration {
+      enum bgp {
+        value 1;
+        description
+          "Session-car for bgp packet.";
+      }
+      enum bgp4plus {
+        value 2;
+        description
+          "Session-car for bgp4plus packet.";
+      }
+      enum ospf {
+        value 4;
+        description
+          "Session-car for ospf packet.";
+      }
+      enum ospfv3 {
+        value 5;
+        description
+          "Session-car for ospfv3 packet.";
+      }
+    }
+    description
+      "The session-protocol type.";
+  }
+
+  deviation "/host-security:host-security/host-security:anti-attacks" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:host-cars" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:pass-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:drop-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:statistic-support-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:pass-packets-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:drop-packets-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:packet-statistics/host-security:packet-statistic/host-security:protocol-status" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-packet-statistics/host-security:top-packet-statistic/host-security:pass-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-packet-statistics/host-security:top-packet-statistic/host-security:drop-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-packet-statistics/host-security:top-packet-statistic/host-security:statistic-support-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-packet-statistics/host-security:top-packet-statistic/host-security:pass-packets-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-packet-statistics/host-security:top-packet-statistic/host-security:drop-packets-2nd" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:wireless-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:top-wireless-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:cpu-port-statistics/host-security:cpu-port-statistic/host-security:pass-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:cpu-port-statistics/host-security:cpu-port-statistic/host-security:drop-bytes" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:auto-source-traces" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:adjust-car" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-port-defend" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:filters" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:cpcars" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:alarm-enable" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:alarm-threshold" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:penalty-enable" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:penalty-threshold" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:defend-type" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:auto-defend/host-security:sample-rate" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:applied-policy-specified/host-security:applied-policy-mcu" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:history-packet-statistics" {
+    deviate not-supported;
+  }
+  deviation "/host-security:clear-packet-statistic" {
+    deviate not-supported;
+  }
+  deviation "/host-security:host-security/host-security:policys/host-security:policy/host-security:session-cars/host-security:session-car/host-security:session-protocol" {
+    deviate replace {
+      type host-security-devs-ar5710s:session-protocol-type-deviations;
+    }
+  }
+}

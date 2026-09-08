@@ -1,0 +1,101 @@
+/******************************************************
+ * Copyright (C) 2020-2024 Huawei Technologies Co., Ltd. All rights reserved.
+ * Module description & tree structure:
+module: huawei-security-app-group
+   +--rw security-app-group
+      +--rw application-groups
+         +--rw application-group* [name]
+            +--rw name                string
+            +--rw description?        string
+            +--rw applications
+               +--rw predefined-app*     string
+               +--rw user-defined-app*   hw-app:userdef-app-ref
+ ***************************************************/
+module huawei-security-app-group {
+  namespace "urn:huawei:yang:huawei-security-app-group";
+  prefix "hw-app-group";
+
+  import huawei-extension {
+      prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a collection of YANG definitions for huawei security gateway application group definition.";
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+  revision 2022-11-18 {
+    description
+      "Modify application type.";
+    reference "";
+  }
+  revision 2020-07-01 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+
+  ext:task-name "appgroup";
+  typedef application-group-ref {
+    type leafref {
+      path "/hw-app-group:security-app-group/hw-app-group:application-groups/hw-app-group:application-group/hw-app-group:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured application group.";
+  }
+
+  container security-app-group {
+    description "Indicates application group configuration.";
+    container application-groups {
+      description "List of application group.";
+      list application-group {
+        key "name";
+        description "Configure application group on the device.";
+        leaf name {
+          type string {
+            length "1..32";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          description "The name of the application group.";
+        }
+
+        leaf description {
+          type string {
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description "The description of the application group.";
+        }
+
+        container applications{
+          description "Configure the item of application group.";
+          leaf-list predefined-app {
+            type string {
+              length "1..128";
+            }
+            description "Configure the predefined application name.";
+          }
+
+          leaf-list user-defined-app {
+            type string {
+              length "4..32";
+            }
+            description "Configure the user defined application name.";
+          }
+        }
+      }
+    }
+  }
+}

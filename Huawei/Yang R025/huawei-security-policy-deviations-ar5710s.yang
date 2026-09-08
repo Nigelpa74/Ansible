@@ -1,0 +1,190 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-security-policy-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-security-policy-deviations-ar5710s";
+  prefix security-policy-deviations-ar5710s;
+
+  import huawei-security-policy {
+    prefix hw-security-policy;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base Bantian, Longgang Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com Email: support@huawei.com";
+
+  revision 2025-06-11 {
+    description
+      "Add bc-profile and fb-profile leaf trim.";
+    reference "Huawei private.";
+  }
+  revision 2025-04-14 {
+    description
+      "Add MAC leaf trim.";
+    reference "Huawei private.";
+  }
+  revision 2021-01-21 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:hit-count" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:first-hit-time" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:last-hit-time" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:policy-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:traffic-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:session-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:session-aging-time" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:traffic-metadata-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:long-connection" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:send-deny-packet" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:source-address/hw-security-policy:threat-feed" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:destination-address/hw-security-policy:threat-feed" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-object" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-object-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-group-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-items-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:application/hw-security-policy:label" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:application/hw-security-policy:categories" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:application/hw-security-policy:software" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:vlan-id" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:vserver" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:expserver" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:policy-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:traffic-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:session-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:traffic-metadata-enable" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:dst-match-using-public-ip" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:hit-count" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:first-hit-time" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:last-hit-time" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:service/hw-security-policy:service-items/hw-security-policy:protocol-and-ports/hw-security-policy:protocol-and-port/hw-security-policy:protocol" {
+    deviate replace {
+      type enumeration {
+        enum tcp {
+          value 6;
+          description
+            "Indicates TCP.";
+        }
+        enum udp {
+          value 17;
+          description
+            "Indicates UDP.";
+        }
+      }
+    }
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:parent-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:security-policy-groups" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:default-rule/hw-security-policy:action" {
+    deviate replace {
+      type boolean;
+      default "true";
+    }
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:profile/hw-security-policy:bc-profile" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:profile/hw-security-policy:fb-profile" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:profile/hw-security-policy:dns-profile" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:profile/hw-security-policy:dlp-profile" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:clear-counters-all" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:clear-counters-by-rule" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:source-address/hw-security-policy:address-mac" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:source-address/hw-security-policy:geo-location-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:destination-address/hw-security-policy:address-mac" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:destination-address/hw-security-policy:geo-location-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-security-policy:security-policy/hw-security-policy:rules/hw-security-policy:rule/hw-security-policy:url-category" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,226 @@
+/*
+Copyright (C) 2024-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-iot-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-iot-profile";
+  prefix iot-prof;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-ap-card {
+    prefix ap-card;
+  }
+  import huawei-wlan-ap {
+    prefix wlan-ap;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix wlan-agp;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Iot profile configuration service package.";
+  revision 2025-09-19 {
+    description
+      "Delete when ip-address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-08-12 {
+    description
+      "Delete port and extern-port operation-exclude delete.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-12 {
+    description
+      "Add profile-name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-05 {
+    description
+      "Add container management-server-ext.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-22 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping binding-iot-instance {
+    description
+      "Binding IoT profile.";
+    container binding-iot-instance {
+      must "(./binding-iot-profile and ./protocol) or (not (./binding-iot-profile) and not (./protocol))";
+      description
+        "Configure binding IoT profile.";
+      leaf binding-iot-profile {
+        ext:operation-exclude delete;
+        type leafref {
+          path "/iot-prof:wlan-iot-profile/iot-prof:iot-profiles/iot-prof:iot-profile/iot-prof:profile-name";
+        }
+        description
+          "Binding a IoT profile.";
+      }
+      leaf protocol {
+        ext:operation-exclude delete;
+        type enumeration {
+          enum "tcp" {
+            value 0; 
+            description "TCP protocol.";
+          }
+          enum "udp"  {
+            value 1; 
+            description "UDP protocol.";
+          }
+        }
+        description
+        "Iot protocol.";
+      }
+      leaf port {
+        type inet:port-number {
+          range "1025..55535";
+        }
+        description "Port.";
+      }
+      leaf extern-port {
+        type inet:port-number {
+          range "1025..55535";
+        }
+        description "Second port.";
+      }
+    }
+  }
+  container wlan-iot-profile {
+    description
+      "Configure a IoT profile.";
+    container iot-profiles {
+      description
+        "List of IoT profiles.";
+      list iot-profile {
+        key "profile-name";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "IoT profile name.";
+        }
+        container permit-address {
+          must "(./ip-address and ./subnet-mask) or (not (./ip-address) and not (./subnet-mask))";
+          description
+            "Configure a IoT permit address.";
+          leaf ip-address {
+            type inet:ipv4-address;
+              description
+                "Proxy Trusted host ip.";
+          }
+          leaf subnet-mask {
+            ext:operation-exclude delete;
+            type uint8 {
+              range "0..32";
+            }
+            description
+              "Config host ip subnet mask.";
+          }
+        }
+		leaf iot-type {
+          type enumeration {
+            enum "cas-edu" {
+		      value 0; 
+			  description "IoT card type.";
+		    }
+            enum "common"  {
+		      value 1; 
+			  description "IoT card type.";
+		    }
+        }
+        default "common";
+        description
+          "Iot card type.";
+        }
+        container management-servers {
+          description
+            "List of management server related with this card.";
+          list management-server {
+            key "address port";
+            description
+              "Configure server address and port for first channel.";
+            leaf address {
+              type inet:host;
+              description
+                "Server ip address or domain.";
+            }
+            leaf port {
+              type uint16 {
+                range "1..65535";
+              }
+              description
+                "Server port.";
+            }
+          }
+        }
+        container management-server-ext {
+          must "(./address and ./port) or (not (./address) and not (./port))";
+          description
+            "Configure an extended channel for the management server.";
+            leaf address {
+              ext:operation-exclude delete;
+              type inet:host;
+              description
+                "Server IP address or domain name.";
+            }
+            leaf port {
+              ext:operation-exclude delete;
+              type uint16 {
+                range "1..65535";
+              }
+              description
+                "Server port.";
+            }
+        }
+        leaf share-key {
+          type pub-type:password-extend {
+            length "6..148";
+          }
+          description
+            "Share key of IoT.";
+        }
+        description
+          "Configure of IoT profile.";
+      }
+    }
+  }
+
+  augment "/wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance/ap-card:ap-card-instances/ap-card:ap-card-instance" {
+    description
+      "Binding IoT profile to wlan ap.";
+    uses iot-prof:binding-iot-instance;
+  }
+  augment "/wlan-agp:wlan-ap-group-profile/wlan-agp:ap-group-profiles/wlan-agp:ap-group-profile/ap-card:group-card-instances/ap-card:group-card-instance" {
+    description
+      "Binding IoT profile to ap group.";
+    uses iot-prof:binding-iot-instance;
+  }
+  ext:task-name "pcm";
+
+}

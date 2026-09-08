@@ -1,0 +1,207 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-voice-vlan {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-voice-vlan";
+  prefix voice-vlan;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Voice VLAN management.";
+  revision 2025-06-10 {
+    description
+      "Update string pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-22 {
+    description
+      "Add leaf dynamic-compatibility-mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add string pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-26 {
+    description
+      "Update Interface Restrictions.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-06 {
+    description
+      "Update Interface Restrictions.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-22 {
+    description
+      "Update Interface Restrictions.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-07 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef voice-vlan-id {
+    type uint16 {
+      range "2..4094";
+    }
+    description
+      "Type definition representing a Voice VLAN ID.";
+  }
+  typedef security-mode {
+    type enumeration {
+      enum "disable" {
+        value 0;
+        description
+          "Disable Voice VLAN security mode.";
+      }
+      enum "enable" {
+        value 1;
+        description
+          "Enable Voice VLAN security mode.";
+      }
+    }
+    description
+      "Voice VLAN security mode.";
+  }
+  container voice-vlan {
+    description
+      "The Voice VLAN configurations.";
+    container global {
+      description
+        "Configure the system Voice VLAN information.";
+      leaf remark-8021p {
+        type uint8 {
+          range "0..7";
+        }
+        default "5";
+        description
+          "IEEE 802.1P encapsulation.";
+      }
+      leaf remark-dscp {
+        type uint8 {
+          range "0..63";
+        }
+        default "46";
+        description
+          "Differentiated services code point.";
+      }
+      leaf dynamic-compatibility-mode {
+        type empty;
+        description
+          "Enable/disable the dynamic voice VLAN compatibility mode.";
+      }
+    }
+    container ouis {
+      description
+        "List of Voice VLAN's OUI.";
+      list oui {
+        key "mac mask";
+        max-elements 512;
+        description
+          "Configure Voice VLAN's OUI. The OUI is the result of the AND operation between the MAC address and mask.";
+        leaf mac {
+          type pub-type:mac-address {
+            length "0..255";
+          }
+          description
+            "MAC address.";
+        }
+        leaf mask {
+          type uint16 {
+            range "1..48";
+          }
+          description
+            "Length of MAC address.";
+        }
+        leaf description {
+          type string {
+            length "1..80";
+            pattern '[^\?\s](([^\?\s]*)|[^\t\?]*[^\?\s])';
+          }
+          description
+            "MAC address description.";
+        }
+      }
+    }
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "Describes the VLANs configuration of the interface.";
+    container voice-vlan {
+      when "../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute";
+      description
+        "Configure Voice VLAN information on interface.";
+      leaf voice-vlan-id {
+        type voice-vlan-id;
+        must "not (../voice-vlan-id = ../../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute/ethernet:pvid)";
+        description
+          "Voice VLAN ID.";
+      }
+      leaf include-untagged {
+        when "../voice-vlan-id";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable untagged packets forward in Voice VLAN, To configure the include-untagged mode, disable LLDP or configure the disable lldp tlv-enable med-tlv network-policy command on the interface. Otherwise, some user terminals cannot go online.";
+      }
+      leaf remark-mode {
+        when "../voice-vlan-id";
+        type enumeration {
+          enum "vlan" {
+            value 0;
+            description
+              "Modify the priority of Voice packets to be forwarded by VLAN.";
+          }
+          enum "mac-address" {
+            value 1;
+            description
+              "Modify the priority of Voice packets to be forwarded by MAC address.";
+          }
+        }
+        must "not(../security='enable' and ../remark-mode='vlan')";
+        default "vlan";
+        description
+          "Priority mode of packets.";
+      }
+      leaf security {
+        when "../voice-vlan-id";
+        type security-mode;
+        must "not(../security='enable' and ../remark-mode='vlan')";
+        default "disable";
+        description
+          "Voice VLAN security mode.";
+      }
+    }
+  }
+  ext:task-name "vlan";
+}

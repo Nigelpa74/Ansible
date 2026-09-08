@@ -1,0 +1,601 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-dhcp-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-dhcp-notification";
+  prefix dhcp-notification;
+
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of DHCP-notification.";
+  revision 2025-06-13 {
+    description
+      "Rename untrusted-v4server-receive-client-request to v4server-receive-client-vendor-info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-01 {
+    description
+      "Modify description of node used-ip-exhaust-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-26 {
+    description
+      "Add untrust dhcpv4 server receive client request.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-22 {
+    description
+      "Add dhcpv6 server notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-25 {
+    description
+      "Modify snooping alarm packets notification on untrusted ports.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-23 {
+    description
+      "Add snooping alarm packets notification on untrusted ports.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add snooping alarm packet notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-10 {
+    description
+      "Modify snooping-binding-table-threshold description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-24 {
+    description
+      "Add relay proxy notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-11 {
+    description
+      "Add used-ip-exhaust notification.";
+    reference
+      "Huawei private.";
+  }  
+  revision 2022-11-09 {
+    description
+      "Add used-ip-reach-threshold notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-02-01 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "dhcp";
+
+  notification alarm-mac-reach-threshold {
+    description
+      "The number of discard packets by mac exceeds alarm threshold.";
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates interface name.";
+    }
+    leaf vlan-id {
+      type uint32;
+      description
+        "VLAN Id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification alarm-request-reach-threshold {
+    description
+      "The number of discard packets by request exceeds alarm threshold.";
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates interface name.";
+    }
+    leaf vlan-id {
+      type uint32;
+      description
+        "VLAN Id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification alarm-reply-reach-threshold {
+    description
+      "The number of discard packets by reply exceeds alarm threshold.";
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates interface name.";
+    }
+    leaf vlan-id {
+      type uint32;
+      description
+        "VLAN Id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification alarm-bd-reply-reach-threshold {
+    description
+      "The number of discard packets by reply exceeds alarm threshold on BD.";
+    leaf bd-id {
+      type uint32;
+      description
+        "Bridge domain id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification relay-ip-unnumbered-table-threshold {
+    description
+      "The number of DHCP relay IP unnumbered entries on the device exceeds 80% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP relay IP unnumbered entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay IP unnumbered entries on the device.";
+    }
+  }
+  notification relay-ip-unnumbered-table-threshold-resume {
+    description
+      "The number of DHCP relay IP unnumbered entries on the device falls below 70% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP relay IP unnumbered entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay IP unnumbered entries on the device.";
+    }
+  }
+  notification relay-ip-unnumbered-table-exhaust {
+    description
+      "The number of DHCP relay IP unnumbered entries on the device reaches the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay IP unnumbered entries on the device.";
+    }
+  }
+  notification relay-ip-unnumbered-table-exhaust-resume {
+    description
+      "The number of DHCP relay IP unnumbered entries on the device falls below 90% of the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay IP unnumbered entries on the device.";
+    }
+  }
+  notification snooping-binding-table-threshold {
+    description
+      "The number of DHCP snooping entries on the device exceeds alarm threshold of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP snooping entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP snooping entries on the device.";
+    }
+  }
+  notification snooping-binding-table-threshold-resume {
+    description
+      "The number of DHCP snooping entries on the device falls below alarm threshold of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP snooping entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP snooping entries on the device.";
+    }
+  }
+  notification snooping-binding-table-exhaust {
+    description
+      "The number of DHCP snooping entries on the device reaches the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP snooping entries on the device.";
+    }
+  }
+  notification snooping-binding-table-exhaust-resume {
+    description
+      "The number of DHCP snooping entries on the device falls below 90% of the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP snooping entries on the device.";
+    }
+  }
+  notification v6-relay-table-threshold {
+    description
+      "The number of DHCPv6 relay entries on the device exceeds 80% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCPv6 relay entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay entries on the device.";
+    }
+  }
+  notification v6-relay-table-threshold-resume {
+    description
+      "The number of DHCPv6 relay entries on the device falls below 70% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCPv6 relay entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay entries on the device.";
+    }
+  }
+  notification v6-relay-table-exhaust {
+    description
+      "The number of DHCPv6 relay entries on the device reaches the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay entries on the device.";
+    }
+  }
+  notification v6-relay-table-exhaust-resume {
+    description
+      "The number of DHCPv6 relay entries on the device falls below 90% of the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay entries on the device.";
+    }
+  }
+  notification v6-relay-ip-table-threshold {
+    description
+      "The number of DHCPv6 relay IP entries on the device exceeds 80% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCPv6 relay IP entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay IP entries on the device.";
+    }
+  }
+  notification v6-relay-ip-table-threshold-resume {
+    description
+      "The number of DHCPv6 relay IP entries on the device falls below 70% of the upper limit.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCPv6 relay IP entries on the device.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay IP entries on the device.";
+    }
+  }
+  notification v6-relay-ip-table-exhaust {
+    description
+      "The number of DHCPv6 relay IP entries on the device reaches the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay IP entries on the device.";
+    }
+  }
+  notification v6-relay-ip-table-exhaust-resume {
+    description
+      "The number of DHCPv6 relay IP entries on the device falls below 90% of the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCPv6 relay IP entries on the device.";
+    }
+  }
+  notification v6-alarm-reply-reach-threshold {
+    description
+      "The number of discard packets by reply exceeds alarm threshold.";
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Indicates interface name.";
+    }
+    leaf vlan-id {
+      type uint32;
+      description
+        "VLAN Id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification v6-alarm-bd-reply-reach-threshold {
+    description
+      "The number of discard packets by reply exceeds alarm threshold on BD.";
+    leaf bd-id {
+      type uint32;
+      description
+        "Bridge domain id.";
+    }
+    leaf discard-packets {
+      type uint32;
+      description
+        "Indicates the number of the discard packets.";
+    }
+  }
+  notification used-ip-reach-threshold {
+    description
+      "The number of used addresses exceeds alarm threshold.";
+    leaf pool-index {
+      type uint32;
+      description
+        "Indicates the pool index.";
+    }
+    leaf pool-name {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates the pool name.";
+    }
+    leaf threshold {
+      type uint32;
+      description
+        "Indicates the percentage of the alarm generated.";
+    }
+  }
+  notification used-ip-reach-threshold-resume {
+    description
+      "The number of used addresses descends to alarm threshold.";
+    leaf pool-index {
+      type uint32;
+      description
+        "Indicates the pool index.";
+    }
+    leaf pool-name {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates the pool name.";
+    }
+    leaf threshold {
+      type uint32;
+      description
+        "Indicates the percentage of the alarm resumed.";
+    }
+  }
+  notification used-ip-exhaust {
+    description
+      "The available IP addresses in the IP pool are exhausted.";
+    leaf pool-index {
+      type uint32;
+      description
+        "Indicates the pool index.";
+    }
+    leaf pool-name {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates the pool name.";
+    }
+  }
+  notification used-ip-exhaust-resume {
+    description
+      "The IP pool recovers from IP address exhausion, being capable of allocating IP addresses.";
+    leaf pool-index {
+      type uint32;
+      description
+        "Indicates the pool index.";
+    }
+    leaf pool-name {
+      type string {
+        length "1..128";
+      }
+      description
+        "Indicates the pool name.";
+    }
+  }
+  notification relay-proxy-table-threshold {
+    description
+      "The number of DHCP relay proxy entries exceeded the threshold.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP relay proxy entries.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay proxy entries.";
+    }
+  }
+  notification relay-proxy-table-threshold-resume {
+    description
+      "The number of DHCP relay proxy entries fell below the threshold.";
+    leaf current-number {
+      type uint32;
+      description
+        "Number of DHCP relay proxy entries.";
+    }
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay proxy entries.";
+    }
+  }
+  notification relay-proxy-table-exhaust {
+    description
+      "The number of DHCP relay proxy entries reached the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay proxy entries.";
+    }
+  }
+  notification relay-proxy-table-exhaust-resume {
+    description
+      "The number of DHCP relay proxy entries fell below the upper limit.";
+    leaf max-number {
+      type uint32;
+      description
+        "Maximum number of DHCP relay proxy entries.";
+    }
+  }
+  notification allocated-ipv6-users-reach-limit-alarm {
+    description
+      "An alarm is generated when the number of users who have been assigned IPv6 addresses reaches the allowed maximum number.";
+    leaf limite-value {
+      type uint32;
+      description
+        "Maximum number of users to whom IPv6 addresses can be assigned.";
+    }
+  }
+  notification allocated-ipv6-users-reach-limit-resume {
+    description
+      "A clear alarm is generated when the number of users who have been assigned IPv6 addresses falls below 90% of the allowed maximum number.";
+    leaf resume-value {
+      type uint32;
+      description
+        "90% of the maximum number of users to whom IPv6 addresses can be assigned.";
+    }
+  }
+  notification allocated-ipv6-users-reach-threshold-alarm {
+    description
+      "An alarm is generated when the number of users who have been assigned IPv6 addresses reaches 80% of the allowed maximum number.";
+    leaf threshold {
+      type uint32;
+      description
+        "80% of the maximum number of users to whom IPv6 addresses can be assigned.";
+    }
+  }
+  notification allocated-ipv6-users-reach-threshold-resume {
+    description
+      "A clear alarm is generated when the number of users who have been assigned IPv6 addresses falls below 70% of the allowed maximum number.";
+    leaf resume-value {
+      type uint32;
+      description
+        "70% of the maximum number of users to whom IPv6 addresses can be assigned.";
+    }  
+  }
+  notification v4server-receive-client-vendor-info {
+    description
+      "The DHCP server receives the vendor information carried by the client.";
+    leaf pool-name {
+      type string {
+        length "1..64";
+        }
+      description
+        "Indicates the pool name.";
+    }
+    leaf vpn-name {
+      type string {
+        length "1..31";
+      }
+      description
+        "VPN-instance name.";
+    }
+    leaf vlan-id {
+      type uint32;
+      description
+        "The VLAN Id of interface address pool.";
+    }
+    leaf user-mac {
+      type pub-type:mac-address;
+      description
+        "The MAC address of user.";
+    }
+    leaf user-option12 {
+      type string {
+        length "1..64";
+      }
+      description
+        "The option12 of user.";
+    }
+    leaf user-option60 {
+      type string {
+        length "1..64";
+      }
+      description
+        "The option60 of user.";
+    }
+    leaf user-option125 {
+      type string {
+        length "1..128";
+      }
+      description
+        "The option125 of user.";
+    }
+  }
+}

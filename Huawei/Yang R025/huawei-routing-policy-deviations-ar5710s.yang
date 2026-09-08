@@ -1,0 +1,354 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-routing-policy-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-routing-policy-deviations-ar5710s";
+  prefix rtp-devs-ar5710s;
+
+  import huawei-routing-policy {
+    prefix rtp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-routing-policy module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef route-type-deviations {
+    type enumeration {
+      enum external1 {
+        value 1;
+        description
+          "Type-1 external route of OSPF.";
+      }
+      enum external2 {
+        value 2;
+        description
+          "Type-2 external route of OSPF.";
+      }
+      enum internal {
+        value 4;
+        description
+          "OSPF internal route, including inter-area routes and intra-area routes of OSPF.";
+      }
+      enum isis-level1 {
+        value 5;
+        description
+          "Level-1 route of IS-IS.";
+      }
+      enum isis-level2 {
+        value 6;
+        description
+          "Level-2 route of IS-IS.";
+      }
+      enum nssa-external1 {
+        value 7;
+        description
+          "NSSA type-1 external route of OSPF.";
+      }
+      enum nssa-external2 {
+        value 8;
+        description
+          "NSSA type-2 external route of OSPF.";
+      }
+      enum ibgp {
+        value 10;
+        description
+          "Internal route of BGP.";
+      }
+      enum ebgp {
+        value 11;
+        description
+          "Eternal route of BGP.";
+      }
+      enum evpn-prefix {
+        value 29;
+        description
+          "IP-prefix routes.";
+      }
+      enum bgpls-node {
+        value 33;
+        description
+          "Node route of BGP-LS.";
+      }
+      enum bgpls-link {
+        value 34;
+        description
+          "Link route of BGP-LS.";
+      }
+      enum bgpls-ipv4-prefix {
+        value 35;
+        description
+          "IPv4 prefix route of BGP-LS.";
+      }
+      enum bgpls-ipv6-prefix {
+        value 36;
+        description
+          "IPv6 prefix route of BGP-LS.";
+      }
+    }
+    description
+      "Match route type.";
+  }
+
+  typedef cost-type-deviations {
+    type enumeration {
+      enum external {
+        value 0;
+        description
+          "Cost type of an IS-IS external route.";
+      }
+      enum internal {
+        value 1;
+        description
+          "Cost type of an IS-IS internal route.";
+      }
+      enum type-1 {
+        value 2;
+        description
+          "Type-1 external route of OSPF.";
+      }
+      enum type-2 {
+        value 3;
+        description
+          "Type-2 external route of OSPF.";
+      }
+      enum internal-inc-ibgp {
+        value 4;
+        description
+          "BGP inherits the cost of iterated IGP route cost and advertises routes to IBGP and EBGP peers.";
+      }
+      enum med-plus-igp {
+        value 5;
+        description
+          "BGP follow the cost of iterated IGP route cost.";
+      }
+    }
+    description
+      "Cost type.";
+  }
+
+  deviation "/rtp:routing-policy/rtp:ext-community-segmented-nexthop-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:community-lists" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:vni-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:mac-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:eth-tag-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:ipv4-prefix-lists" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:ipv6-prefix-lists" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:ext-community-bandwidth-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:ext-community-compress-algorithm-filters" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:port-lists" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:protocol-lists" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:route-exists-list-restrain" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-community-filters/rtp:match-community-filter/rtp:match-type/rtp:sort-match" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-protocols" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ext-community-segmented-nexthop-filter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-mpls-label/rtp:mpls-label2" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-mac-filter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-l3vni-filter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-l2vni-filter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-eth-tag-filter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-route-originator" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-group-address" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ext-community-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ipv4-flow-source" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ipv6-flow-source" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ipv4-flow-destination" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ipv6-flow-destination" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-ext-community-compress-algorithm" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-flowspec-protocol" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-flowspec-port" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-flowspec-source-port" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-flowspec-destination-port" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-community/rtp:set-community/rtp:reference" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-mpls-label-mode" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-aigp" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ipv4-nexthop/rtp:ipv4-nexthop-set/rtp:original" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ipv6-nexthop/rtp:ipv6-nexthop-set/rtp:original" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-cost-type/rtp:operation" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-cost-type/rtp:cost-value" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-traffic" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-priority" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-qos-parameter" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ext-community-redirect-ip" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ext-community-redirect-vpn" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-entropy-label-none" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-peer-id" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ext-community-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-flex-algo-id" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-miig-tag" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-esi" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-prefix-sid" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:tunnel-selectors/rtp:tunnel-selector/rtp:nodes/rtp:node/rtp:actions/rtp:apply-segment-routing-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/rtp:regex-info" {
+    deviate not-supported;
+  }
+  deviation "/rtp:routing-policy/rtp:large-community-filters/rtp:large-community-filter" {
+    deviate replace {
+      max-elements 200;
+    }
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:conditions/rtp:match-route-types/rtp:match-route-type/rtp:route-type" {
+    deviate replace {
+      type rtp-devs-ar5710s:route-type-deviations;
+    }
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-cost-type/rtp:value" {
+    deviate replace {
+      type rtp-devs-ar5710s:cost-type-deviations;
+    }
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ipv4-gateway/rtp:gateway-type" {
+    deviate replace {
+      type enumeration {
+        enum origin-nexthop {
+          value 0;
+          description
+            "Origin-nexthop.";
+        }
+        enum ip-address {
+          value 1;
+          description
+            "IP-address.";
+        }
+      }
+    }
+  }
+  deviation "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:nodes/rtp:node/rtp:actions/rtp:apply-ipv6-gateway/rtp:gateway-type" {
+    deviate replace {
+      type enumeration {
+        enum origin-nexthop {
+          value 0;
+          description
+            "Origin-nexthop.";
+        }
+        enum ip-address {
+          value 1;
+          description
+            "IP-address.";
+        }
+      }
+    }
+  }
+}

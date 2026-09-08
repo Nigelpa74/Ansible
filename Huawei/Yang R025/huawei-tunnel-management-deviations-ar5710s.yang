@@ -1,0 +1,190 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-tunnel-management-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-tunnel-management-deviations-ar5710s";
+  prefix tnlm-devs-ar5710s;
+
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-tunnel-management module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef sel-seq-tunnel-type-deviations {
+    type enumeration {
+      enum lsp {
+        value 1;
+        description
+          "Search for LDP LSPs.";
+      }
+      enum ldp {
+        value 255;
+        description
+          "Search for LDP LSPs.";
+      }
+    }
+    description
+      "Tunnel type of select-sequences.";
+  }
+
+  typedef sel-seq-tunnel-ipv6-type-deviations {
+    type enumeration {
+      enum srv6-te-policy {
+        value 52;
+        description
+          "SRv6 TE Policy, used to define the selection sequence of tunnel types.";
+      }
+      enum srv6-te-flow-group {
+        value 55;
+        description
+          "SRv6 TE Flow group, used to define the selection sequence of tunnel types.";
+      }
+    }
+    description
+      "Tunnel type of select-sequences.";
+  }
+
+  typedef tunnel-type-deviations {
+    type enumeration {
+      enum invalid {
+        value 0;
+        description
+          "Tunnel of the none type. The none type is an initial type, indicating that no tunnel type is configured. A tunnel can be used only after a tunnel type excluding the none type is configured.";
+      }
+      enum ldp {
+        value 1;
+        description
+          "LDP tunnel.";
+      }
+      enum static-lsp {
+        value 4;
+        description
+          "Static LSP.";
+      }
+      enum gre {
+        value 5;
+        description
+          "GRE tunnel.";
+      }
+      enum 6over4 {
+        value 10;
+        description
+          "IPv6-over-IPv4 tunnel.";
+      }
+      enum mpls-local-ifnet {
+        value 12;
+        description
+          "MPLS_local_IFNET tunnel, which is mainly used as a virtual tunnel between two ASBRs in the VPN Option B networking.";
+      }
+      enum ipsec {
+        value 24;
+        description
+          "IPSec Tunnel.";
+      }
+      enum 4over6 {
+        value 44;
+        description
+          "IPv4-over-IPv6 tunnel.";
+      }
+      enum p2mp-gre {
+        value 64;
+        description
+          "P2MP GRE tunnel.";
+      }
+      enum ldp-lsp {
+        value 255;
+        description
+          "LDP lsp tunnel.";
+      }
+      enum srv6-te-policy {
+        value 52;
+        description
+          "SRv6 TE Policy.";
+      }
+      enum srv6-te-flow-group {
+        value 55;
+        description
+          "SRv6 TE Flow group.";
+      }
+      enum sd-wan {
+        value 56;
+        description
+          "SD-WAN Tunnel.";
+      }
+    }
+    description
+      "Tunnel type.";
+  }
+
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv4-set/tnlm:policy-type/tnlm:select-sequences/tnlm:select-sequence/tnlm:unmix" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv4-set/tnlm:policy-type/tnlm:binding" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv6-set/tnlm:policy-type/tnlm:binding" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-down-switch" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-infos/tnlm:tunnel-info/tnlm:sr-te-policy-color" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-infos/tnlm:tunnel-info/tnlm:sr-te-policy-group" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-infos/tnlm:tunnel-info/tnlm:color-type/tnlm:color" {
+    deviate not-supported;
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv4-set/tnlm:policy-type/tnlm:select-sequences/tnlm:select-sequence/tnlm:select-tunnel-types/tnlm:select-tunnel-type" {
+    deviate replace {
+      max-elements 1;
+    }
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv4-set/tnlm:policy-type/tnlm:select-sequences/tnlm:select-sequence/tnlm:select-tunnel-types/tnlm:select-tunnel-type/tnlm:type" {
+    deviate delete {
+      must "((../type='sr-te-policy' or ../type='flex-algo-lsp') and ../../../unmix = 'true') or (../type != 'sr-te-policy' and ../type != 'flex-algo-lsp')";
+    }
+    deviate replace {
+      type tnlm-devs-ar5710s:sel-seq-tunnel-type-deviations;
+    }
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv6-set/tnlm:policy-type/tnlm:select-sequences/tnlm:select-sequence/tnlm:unmix" {
+    deviate delete {
+      must "(../select-tunnel-types/select-tunnel-type[type = 'srv6-te-policy'] and ../select-tunnel-types/select-tunnel-type[type = 'srv6-te-flow-group'] and ../unmix = 'true') or (../unmix = 'false')";
+    }
+    deviate add {
+      must "(count(../select-tunnel-types/select-tunnel-type)=1) and (../unmix = 'false')
+            or (count(../select-tunnel-types/select-tunnel-type)=2 and (../unmix = 'true'))";
+    }
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-policys/tnlm:tunnel-policy/tnlm:ipv6-set/tnlm:policy-type/tnlm:select-sequences/tnlm:select-sequence/tnlm:select-tunnel-types/tnlm:select-tunnel-type/tnlm:type" {
+    deviate replace {
+      type tnlm-devs-ar5710s:sel-seq-tunnel-ipv6-type-deviations;
+    }
+  }
+  deviation "/tnlm:tunnel-management/tnlm:tunnel-infos/tnlm:tunnel-info/tnlm:type" {
+    deviate replace {
+      type tnlm-devs-ar5710s:tunnel-type-deviations;
+    }
+  }
+}

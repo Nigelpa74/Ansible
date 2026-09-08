@@ -1,0 +1,1015 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+submodule huawei-dhcpv6-snooping {
+  yang-version 1;
+  belongs-to huawei-dhcpv6 {
+    prefix dhcpv6;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing DHCPv6 snooping.";
+  revision 2025-01-07 {
+    description
+      "Add Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-22 {
+    description
+      "Modify dynamic-binds node type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add deny-dhcpv6-enable nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-18 {
+    description
+      "Modify dynamic-binds node range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add alarm-reply-enable and alarm-reply-threshold leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-30 {
+    description
+      "Add file-authentication-mode node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-18 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-04 {
+    description
+      "Add unit to packet statistics.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef snooping-file-authentication-mode {
+    type enumeration {
+      enum "check" {
+        value 0;
+        description
+          "Check.";
+      }
+      enum "no-check" {
+        value 1;
+        description
+          "No-check.";
+      }
+      enum "force-check" {
+        value 2;
+        description
+          "Force-check.";
+      }
+    }
+    description
+      "The type of file authentication mode.";
+  } 
+  grouping dhcpv6-snooping-type {
+    description
+      "DHCPv6 snooping.";
+    container global {
+      description
+        "Configure global attributes of DHCPv6 snooping.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DHCPv6 snooping globally.";
+      }
+      leaf alarm-threshold {
+        when "../enable='true'";
+        type uint16 {
+          range "1..1000";
+        }
+        default "100";
+        description
+          "Global alarm threshold for DHCPv6 packets.";
+      }
+      leaf user-bind-auto-save-enable {
+        when "../enable='true'";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable automatic saving of DHCPv6 snooping binding entries.";
+      }
+      leaf nd-detect-enable {
+        when "../enable='true'";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DHCPv6 ND detection.";
+      }
+      leaf nomatch-packet-forward-policy {
+        when "../enable='true'";
+        type boolean;
+        default "true";
+        description
+          "Enable/disable forward policy for checking the DHCPv6 snooping binding table.";
+      }
+      leaf file-authentication-mode {
+        when "../enable='true'";
+        type snooping-file-authentication-mode;
+        default "check";
+        description
+          "Set file authentication mode.";
+      }
+      leaf packet-discard-alarm-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        units pps;
+        default "100";
+        description
+          "Global alarm threshold for discarding DHCPv6 packets.";
+      }
+      leaf packet-discard-alarm {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable global alarm for discarding DHCPv6 packets.";
+      }
+      leaf packet-rate-threshold {
+        type uint16 {
+          range "1..5000";
+        }
+        units pps;
+        default "5000";
+        description
+          "Global rate threshold of DHCPv6 packets.";
+      }
+      leaf check-packet-rate {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the rate limit alarm function for DHCPv6 packets globally.";
+      }
+      leaf check-request-mac {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of checking the validity of DHCPv6 messages based on MAC addresses.";
+      }
+      leaf detect-confirm-client {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the confirm-client probing function of DHCPv6 snooping.";
+      }
+      leaf mac-conflict-detect {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable DHCPv6 snooping for detecting whether a user is online.";
+      }
+      leaf deny-dhcpv6-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable to deny DHCPv6 packet.";
+      }
+      container detect-retransmit {
+        description
+          "Configure the number of times and interval at which the DAD NS packets are sent for DHCPv6 snooping.";
+        leaf retransmit-number {
+          type uint8 {
+            range "1..10";
+          }
+          default "3";
+          description
+            "Number of received packets from clients.";
+        }
+        leaf retransmit-interval {
+          type uint32 {
+            range "60..86400";
+          }
+          units "s";
+          default "180";
+          description
+            "Number of received packets from clients.";
+        }
+      }
+      container option18-format {
+        presence "Configure option18 format.";
+        description
+          "Configure the format of the Option 18 field in a DHCPv6 message.";
+        leaf vlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an outer VLAN ID.";
+        }
+        leaf cevlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an inner VLAN ID.";
+        }
+        leaf user-defind-text {
+          type string {
+            length "1..251";
+          }
+          mandatory true;
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+          }
+      }
+      container option37-format {
+        presence "Configure option37 format.";
+        description
+          "Configure the format of the Option 37 field in a DHCPv6 message.";
+        leaf vlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an outer VLAN ID.";
+        }
+        leaf cevlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an inner VLAN ID.";
+        }
+        leaf user-defind-text {
+          type string {
+            length "1..247";
+          }
+          mandatory true;
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+        }
+      }
+    }
+    container packet-statistics {
+      config false;
+      description
+        "DHCPv6 snooping packet statistics.";
+      leaf received-client {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received packets from clients.";
+      }
+      leaf received-solicit {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received solicit packets from clients.";
+      }
+      leaf received-request {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received request packets from clients.";
+      }
+      leaf received-confirm {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received confirm packets from clients.";
+      }
+      leaf received-renew {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received renew packets from clients.";
+      }
+      leaf received-rebind {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received rebind packets from clients.";
+      }
+      leaf received-decline {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received decline packets from clients.";
+      }
+      leaf received-release {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received release packets from clients.";
+      }
+      leaf received-information-request {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received information-request packets from clients.";
+      }
+      leaf received-relay-server {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received packets from relay agents or servers.";
+      }
+      leaf received-advertise {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received advertise packets from relay agents or servers.";
+      }
+      leaf received-reply {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received reply packets from relay agents or servers.";
+      }
+      leaf received-relay-forward {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received relay-forward packets from relay agents or servers.";
+      }
+      leaf received-relay-reply {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of received relay-reply packets from relay agents or servers.";
+      }
+      leaf sent-client {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent packets to clients.";
+      }
+      leaf sent-advertise {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent advertise packets to clients.";
+      }
+      leaf sent-reply {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent reply packets to clients.";
+      }
+      leaf sent-relay-server {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent packets to relay agents or servers.";
+      }
+
+      leaf sent-solicit {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent solicit packets to relay agents or servers.";
+      }
+      leaf sent-request {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent request packets to relay agents or servers.";
+      }
+      leaf sent-confirm {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent confirm packets to relay agents or servers.";
+      }
+      leaf sent-renew {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent renew packets to relay agents or servers.";
+      }
+      leaf sent-rebind {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent rebind packets to relay agents or servers.";
+      }
+      leaf sent-decline {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent decline packets to relay agents or servers.";
+      }
+      leaf sent-release {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent release packets to relay agents or servers.";
+      }
+      leaf sent-information-request {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent information-request packets to relay agents or servers.";
+      }
+      leaf sent-relay-forward {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent relay-forward packets to relay agents or servers.";
+      }
+      leaf sent-relay-reply {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent relay-reply packets to relay agents or servers.";
+      }
+      leaf local-release {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of sent local release packets to relay agents or servers.";
+      }
+      leaf total-drop-packet {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of discarded packets.";
+      }
+      leaf drop-by-static-bind-table-exceeded {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of packets discarded when the number of static binding table exceeds the limit.";
+      }
+      leaf drop-by-authentication-fail {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of discarded packets due to authentication failures.";
+      }
+      leaf drop-by-general-error {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of discarded packets due to general errors.";
+      }
+      leaf drop-by-untrusted-interface {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of discarded packets due to untrusted interfaces.";
+      }
+      leaf drop-by-bad-packet {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of discarded packets due to bad packets.";
+      }
+      leaf drop-by-dynamic-bind-table-exceeded {
+        type uint32 {
+          range "0..4294967295";
+        }
+        units packet;
+        description
+          "Number of packets discarded when the number of dynamic binding table exceeds the limit.";
+      }
+    }
+    container dynamic-binds {
+      config false;
+      description
+        "List of dynamic binding tables.";
+      list dynamic-bind {
+        key "if-name vpn-name ipv6-addr ipv6-mask pe-vlan ce-vlan";
+        description
+          "Operational data of dynamic binding table.";
+        leaf if-name {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description
+            "Interface name.";
+        }
+        leaf vpn-name {
+          type leafref {
+            path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+          }
+          description
+            "Name of the VPN instance.";
+        }
+        leaf ipv6-addr {
+          type inet:ipv6-address-no-zone;
+          description
+            "IPv6 address.";
+        }
+        leaf ipv6-mask {
+          type uint8 {
+            range "0..128";
+          }
+          description
+            "IPv6 mask.";
+        }
+        leaf pe-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+          description
+            "ID of the outer VLAN.";
+        }
+        leaf ce-vlan {
+          type uint16 {
+            range "0..4094";
+          }
+          description
+            "ID of the inner VLAN.";
+        }
+        leaf mac-addr {
+          type pub-type:mac-address;
+          description
+            "MAC address.";
+        }
+        leaf lease-time {
+          type yang:date-and-time;
+          description
+            "Indicates the lease of a binding table.";
+        }
+      }
+    }
+  }
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Extend interface attribute.";
+    container dhcpv6-snooping-if {
+      description
+        "Configure DHCPv6 snooping attributes on an interface.";
+      leaf packet-discard-alarm-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        units pps;
+        default "100";
+        description
+          "Alarm threshold for discarding DHCPv6 packets.";
+      }
+      leaf packet-discard-alarm {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable alarm for discarding DHCPv6 packets.";
+      }
+      leaf packet-rate-threshold {
+        type uint16 {
+          range "1..5000";
+        }
+        units pps;
+        default "5000";
+        description
+          "Global rate threshold of DHCPv6 packets.";
+      }
+      leaf check-packet-rate {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the rate limit alarm function for DHCPv6 packets.";
+      }
+      leaf check-request-mac {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of checking the validity of DHCPv6 messages based on MAC addresses.";
+      }
+      leaf check-relay-forward {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of discarding DHCPv6 Relay-Forward messages.";
+      }
+      leaf alarm-reply-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the alarm function for discarded untrusted packets.";
+      }
+      leaf alarm-reply-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        description
+          "The alarm threshold is configured for discarded untrusted packets.";
+      }
+      leaf deny-dhcpv6-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable to deny DHCPv6 packet.";
+      }
+      container option18-insert-setting {
+        description
+          "Configure the device to insert the Option 18 field to a DHCPv6 message.";
+        choice option18-insert-format {
+          description
+            "Specify DHCP option18 insertion format.";
+          case insert-format {
+            description
+              "Enable the device to insert the Option 18 field to a DHCPv6 message.";
+            leaf insert {
+              type empty;
+              description
+                "Enable the device to insert DHCP option18 to DHCP packets.";
+            }
+          }
+          case rebuild-format {
+            description
+            "Enable the device to forcibly insert the Option 18 field to a DHCPv6 message.";
+            leaf rebuild {
+              type empty;
+              description
+                "Enable the device to forcibly insert DHCP Option18 to DHCP packets.";
+            }
+          }
+        }
+      }
+      container option18-format {
+        presence "Configure option18 format.";
+        description
+          "Configure the format of the Option 18 field in a DHCPv6 message.";
+        leaf vlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an outer VLAN ID.";
+        }
+        leaf cevlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an inner VLAN ID.";
+        }
+        leaf user-defind-text {
+          type string {
+            length "1..251";
+          }
+          mandatory true;
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+          }
+      }
+      container option37-insert-setting {
+        description
+          "Configure the device to insert the Option 37 field to a DHCPv6 message.";
+        choice option37-insert-format {
+          description
+            "Specify DHCP option37 insertion format.";
+          case insert-format {
+            description
+              "Enable the device to insert the Option 37 field to a DHCPv6 message.";
+            leaf insert {
+              type empty;
+              description
+                "Enable the device to insert DHCP option37 to DHCP packets.";
+            }
+          }
+          case rebuild-format {
+            description
+            "Enable the device to forcibly insert the Option 37 field to a DHCPv6 message.";
+            leaf rebuild {
+              type empty;
+              description
+                "Enable the device to forcibly insert DHCP option37 to DHCP packets.";
+            }
+          }
+        }
+      }
+      container option37-format {
+        presence "Configure option18 format.";
+        description
+          "Configure the format of the Option 37 field in a DHCPv6 message.";
+        leaf vlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an outer VLAN ID.";
+        }
+        leaf cevlan-id {
+          type uint16 {
+            range "1..4094";
+          }
+          description
+            "Indicates an inner VLAN ID.";
+        }
+        leaf user-defind-text {
+          type string {
+            length "1..251";
+          }
+          mandatory true;
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+        }
+      }
+      container lightweight-relay-agent {
+        description
+          "Configure Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+        choice ldra-switch {
+          description
+            "Specify Lightweight DHCPv6 Relay Agent (LDRA) switch.";
+          case ldra-enable {
+            description
+              "Enable Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+            leaf enable {
+              type empty;
+              description
+                "Enable Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+            }
+          }
+          case ldra-disable {
+            description
+              "Disable Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+            leaf disable {
+              type empty;
+              description
+                "Disable Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+            }
+          }
+        }
+        leaf trust {
+          when "../enable";
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to trust the received Relay-Forward messages.";        
+        }
+      }
+    }
+  }
+  augment "/vlan:vlan/vlan:vlans/vlan:vlan" {
+    description
+      "Extend VLAN attribute.";
+    container dhcpv6-snooping-vlan {
+      description
+        "Configure DHCPv6 snooping VLAN attributes.";
+      leaf packet-discard-alarm-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        units pps;
+        default "100";
+        description
+          "Alarm threshold for discarding DHCPv6 packets.";
+      }
+      leaf packet-discard-alarm {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable alarm for discarding DHCPv6 packets.";
+      }
+      leaf packet-rate-threshold {
+        type uint16 {
+          range "1..5000";
+        }
+        units pps;
+        default "5000";
+        description
+          "Global rate threshold of DHCPv6 packets.";
+      }
+      leaf check-packet-rate {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the rate limit alarm function for DHCPv6 packets.";
+      }
+      leaf check-request-mac {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of checking the validity of DHCPv6 messages based on MAC addresses.";
+      }
+      leaf check-relay-forward {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the function of discarding DHCPv6 Relay-Forward messages.";
+      }
+      leaf alarm-reply-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the alarm function for discarded untrusted packets.";
+      }
+      leaf alarm-reply-threshold {
+        type uint16 {
+          range "1..1000";
+        }
+        description
+          "The alarm threshold is configured for discarded untrusted packets.";
+      }
+      leaf deny-dhcpv6-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable to deny DHCPv6 packet.";
+      }
+      container option18-insert-setting {
+        description
+          "Configure the device to insert the Option 18 field to a DHCPv6 message.";
+        choice option18-insert-format {
+          description
+            "Specify DHCP option18 insertion format.";
+          case insert-format {
+            description
+              "Enable the device to insert the Option 18 field to a DHCPv6 message.";
+            leaf insert {
+              type empty;
+              description
+                "Enable the device to insert DHCP option18 to DHCP packets.";
+            }
+          }
+          case rebuild-format {
+            description
+            "Enable the device to forcibly insert the Option 18 field to a DHCPv6 message.";
+            leaf rebuild {
+              type empty;
+              description
+                "Enable the device to forcibly insert DHCP Option18 to DHCP packets.";
+            }
+          }
+        }
+      }
+      container option18-format {
+        description
+          "Configure the format of the Option 18 field in a DHCPv6 message.";
+        leaf user-defind-text {
+          type string {
+            length "1..251";
+          }
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+          }
+      }
+      container option37-insert-setting {
+        description
+          "Configure the device to insert the Option 37 field to a DHCPv6 message.";
+        choice option37-insert-format {
+          description
+            "Specify DHCP option37 insertion format.";
+          case insert-format {
+            description
+              "Enable the device to insert the Option 37 field to a DHCPv6 message.";
+            leaf insert {
+              type empty;
+              description
+                "Enable the device to insert DHCP option37 to DHCP packets.";
+            }
+          }
+          case rebuild-format {
+            description
+            "Enable the device to forcibly insert the Option 37 field to a DHCPv6 message.";
+            leaf rebuild {
+              type empty;
+              description
+                "Enable the device to forcibly insert DHCP option37 to DHCP packets.";
+            }
+          }
+        }
+      }
+      container option37-format {
+        description
+          "Configure the format of the Option 37 field in a DHCPv6 message.";
+        leaf user-defind-text {
+          type string {
+            length "1..251";
+          }
+          description
+            "The format string can use the hexadecimal notation, ASCII format, or combination of the two formats.";
+        }
+      }
+      container lightweight-relay-agent {
+        description
+          "Configure Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+        leaf enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable Lightweight DHCPv6 Relay Agent (LDRA) for DHCPv6 snooping.";
+        }
+        leaf trust {
+          when "../enable = 'true'";
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the device to trust the received Relay-Forward messages.";
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2007 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+ */
+
+module huawei-remote-unit-mng {
+  namespace "urn:huawei:yang:huawei-remote-unit-mng";
+  prefix rumng;
+  
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  } 
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for
+     managing remote unit.";
+revision 2025-06-20 {
+    description 
+    	"1.Add lldp neighbor.
+         2.Add the pattern of alias.
+         3.Modify the description of mac-type.
+         4.Add the mandatory attribute to the input of query-remote-unit-mac.
+         5.Add portid node value range.
+         6.Add default value of poe-force-power.
+         7.Trim the backup group related nodes, and add standard descriptions for the nodes upgrade-cutoff-time and ifname.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-12-09 {
+    description 
+    	"Increase dependency of the VLAN and change the backup-groups ru-id.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-11-27 {
+    description 
+    	"Change the value range of the backup port.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-11-20 {
+    description 
+    	"Add macsec policy.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-11-01 {
+    description 
+    	"Modify poe-power-on-delay description.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-10-28 {
+    description 
+    	"Add backup port.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-09-29 {
+    description 
+    	"Add backup group node value range.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-09-23 {
+    description 
+    	"Add remote-unit backup configuration.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-09-20 {
+    description 
+    	"Update leaf datatype of Interface-POE.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-08-29 {
+    description 
+    	"Update MACSec ckn configuration.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-08-12 {
+    description 
+    	"Update MACSec cak configuration limit.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-07-15 {
+    description 
+    	"Add MACSec configuration nodes of remote-unit.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-06-29 {
+    description 
+    	"Add POE information of remote-unit.";
+    reference
+      "Huawei private.";
+  }
+
+revision 2024-05-29 {
+    description 
+    	"Add negotiation of remote-unit.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-03-22 {
+    description 
+    	"Add limit to description of remote-unit.";
+    reference
+      "Huawei private.";
+  }
+revision 2024-03-01 {
+    description 
+    	"Add limit to description of remote-unit.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-20 {
+    description 
+    	"Add sync-data-right-now.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-10 {
+    description 
+    	"Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef device-status-type {
+    type enumeration {
+      enum normal {
+      	value 0;
+        description
+          "Remote unit is in normal state.";
+      }
+      enum upgrading {
+      	value 1;
+        description
+          "Remote unit is in upgrading state.";
+      }
+      enum idle {
+      	value 2;
+        description
+          "Remote unit is in idle state.";
+      }
+      enum abnormal {
+      	value 3;
+        description
+          "Remote unit is in abnormal state.";
+      }
+      enum configuration {
+      	value 4;
+        description
+          "Remote unit is in configuration state.";
+      }
+    }
+    description "Remote unit status.";
+  }
+  typedef vlan-mode-type {
+  	type enumeration {
+      enum "transparent" {
+        value 0;
+        description
+          "Transparent VLAN mode.";
+      }
+      enum "manual" {
+        value 1;
+        description
+          "Manually configure VLAN mode.";
+      }
+    }
+    description "The port media type of port.";
+  }      
+  typedef media-type {
+  	type enumeration {
+      enum "copper" {
+        value 0;
+        description
+          "Copper.";
+      }
+      enum "fiber" {
+        value 1;
+        description
+          "Fiber.";
+      }
+    }
+    description "The port media type of port.";
+  }
+  typedef poe-power-mode-type {
+    type enumeration {
+      enum "bt-inrush" {
+        value 0;
+        description
+          "POE++.";
+      }
+      enum "at-inrush" {
+        value 1;
+        description
+          "POE+.";
+      }
+      enum "af-inrush" {
+        value 2;
+        description
+          "802.3.";
+      }
+    }
+    description "The poe power mode.";  
+  }
+  typedef eth-negotiation-type {
+    type enumeration {
+      enum "enabled" {
+        value 0;
+        description
+          "Enabled.";
+      }
+      enum "disabled" {
+        value 1;
+        description
+          "Disabled.";
+      }
+    }
+    description
+      "Auto negotiation on an Ethernet port.";
+  }
+  typedef eth-speed-type {
+    type enumeration {
+      enum "10M" {
+        value 0;
+        description
+          "10M mode.";
+      }
+      enum "100M" {
+        value 1;
+        description
+          "100M mode.";
+      }
+      enum "1000M" {
+        value 2;
+        description
+          "1000M mode.";
+      }
+      enum "2500M" {
+        value 3;
+        description
+          "2500M mode.";
+      }
+    }
+    description
+      "Speed type of an Ethernet port.";
+  }
+  typedef eth-duplex-type {
+    type enumeration {
+      enum "half" {
+        value 0;
+        description
+          "Half duplex.";
+      }
+      enum "full" {
+        value 1;
+        description
+          "Full duplex.";
+      }
+    }
+    description
+      "Duplex type of an Ethernet port.";
+  }
+  typedef vlan-id {
+    type uint16 {
+      range "1..4094";
+    }
+    description
+      "VLAN ID.";
+  }
+  typedef port-status {
+    type enumeration {
+      enum down {
+        value 0;
+        description
+          "The interface is in down state.";
+      }
+      enum up {
+        value 1;
+        description
+          "The interface is in up state.";
+      }
+    }
+    description
+      "Interface status type.";
+  }
+  typedef port-status-type {
+    type enumeration {
+      enum down {
+        value 1;
+        description
+          "The interface is in down state.";
+      }
+      enum up {
+        value 0;
+        description
+          "The interface is in up state.";
+      }
+    }
+    description
+      "Interface status type.";
+  }
+  typedef transceiver-type {
+    type enumeration {
+      enum "SFP-1000BASE-X" {
+        value 0;
+        description
+          "SFP 1000Base-X.";
+      }
+      enum "SFP-1000BASE-T" {
+        value 1;
+        description
+          "SFP 1000Base-T.";
+      }
+      enum "UNKNOWN" {
+        value 255;
+        description
+          "Unknown.";
+      }
+    }
+    description
+      "Transmission media type of optical module.";
+  }
+  typedef trans-mode-type {
+    type enumeration {
+      enum "single-mode" {
+        value 0;
+        description
+          "Single mode.";
+      }
+      enum "multi-mode" {
+        value 1;
+        description
+          "Multi mode.";
+      }
+    }
+    description
+      "Optical transceiver transmission mode.";
+  }
+  typedef firmware-type {
+  	type enumeration {
+  		enum "app" {
+        value 0;
+        description
+          "APP firmware.";
+      }
+      enum "bios" {
+        value 1;
+        description
+          "BIOS firmware.";
+      }	
+      enum "poe" {
+        value 2;
+        description
+          "POE firmware.";
+      }	
+  	}
+    description
+      "Remote unit firmware type.";	
+  }
+  typedef detail-device-status-type {
+    type enumeration {
+    	enum unknown {
+      	value 0;
+        description
+          "Remote unit is in unknown state.";
+      }
+      enum idle {
+      	value 1;
+        description
+          "Remote unit is in idle state.";
+      }
+      enum normal {
+      	value 2;
+        description
+          "Remote unit is in normal state.";
+      }
+      enum upgrading {
+      	value 3;
+        description
+          "Remote unit is in upgrading state.";
+      }
+      enum configuring {
+      	value 4;
+        description
+          "Remote unit is in configuring state.";
+      }
+      enum abnormal {
+      	value 5;
+        description
+          "Remote unit is in abnormal state.";
+      }
+      enum offline {
+      	value 6;
+        description
+          "Remote unit is in offline state.";
+      }
+    }
+    description "The status of remote unit.";
+  }
+  typedef mac-type {
+    type enumeration {
+      enum "dynamic" {
+        value 0;
+        description
+          "Dynamic type.";
+      }
+      enum "static" {
+        value 1;
+        description
+          "Static type.";
+      }
+      
+    }
+    description
+      "MAC type.";
+  }
+  typedef chassis-id-sub-type {
+    type enumeration {
+      enum "other" {
+        value 0;
+        description
+          "Other extended retention.";
+      }
+      enum "chassis-component" {
+        value 1;
+        description
+          "Chassis component.";
+      }
+      enum "interface-alias" {
+        value 2;
+        description
+          "Interface alias.";
+      }
+      enum "port-component" {
+        value 3;
+        description
+          "Interface component.";
+      }
+      enum "mac-address" {
+        value 4;
+        description
+          "MAC address.";
+      }
+      enum "network-address" {
+        value 5;
+        description
+          "Network address.";
+      }
+      enum "interface-name" {
+        value 6;
+        description
+          "Interface name.";
+      }
+      enum "local" {
+        value 7;
+        description
+          "Local name.";
+      }
+    }
+    description
+      "Chassis ID sub type.";
+  }
+  typedef management-address-type {
+    type enumeration {
+      enum "other" {
+        value 0;
+        description
+          "The type of management address is other.";
+      }
+      enum "ipv4" {
+        value 1;
+        description
+          "The type of management address is IPv4.";
+      }
+      enum "ipv6" {
+        value 2;
+        description
+          "The type of management address is IPv6.";
+      }
+      enum "nsap" {
+        value 3;
+        description
+          "The type of management address is NSAP.";
+      }
+      enum "hdlc" {
+        value 4;
+        description
+          "The type of management address is HDLC.";
+      }
+      enum "bbn1822" {
+        value 5;
+        description
+          "The type of management address is BBN1822.";
+      }
+      enum "mac" {
+        value 6;
+        description
+          "The type of management address is MAC.";
+      }
+      enum "e163" {
+        value 7;
+        description
+          "The type of management address is E163.";
+      }
+      enum "e164" {
+        value 8;
+        description
+          "The type of management address is E164.";
+      }
+      enum "f69" {
+        value 9;
+        description
+          "The type of management address is F69.";
+      }
+      enum "x121" {
+        value 10;
+        description
+          "The type of management address is X121.";
+      }
+      enum "ipx" {
+        value 11;
+        description
+          "The type of management address is IPX.";
+      }
+      enum "apple-talk" {
+        value 12;
+        description
+          "The type of management address is APPLE-TALK.";
+      }
+      enum "decnet-iv" {
+        value 13;
+        description
+          "The type of management address is DECNET-IV.";
+      }
+      enum "banyan-vines" {
+        value 14;
+        description
+          "The type of management address is BANYAN-VINES.";
+      }
+      enum "e164-with-nsap" {
+        value 15;
+        description
+          "The type of management address is E164-with-NSAP.";
+      }
+      enum "dns" {
+        value 16;
+        description
+          "The type of management address is DNS.";
+      }
+      enum "distinguished-name" {
+        value 17;
+        description
+          "The type of management address is distinguished-name.";
+      }
+      enum "as-number" {
+        value 18;
+        description
+          "The type of management address is AS-NUMBER.";
+      }
+      enum "xtp-over-ipv4" {
+        value 19;
+        description
+          "The type of management address is XTP-over-IPv4.";
+      }
+      enum "xtp-over-ipv6" {
+        value 20;
+        description
+          "The type of management address is XTP-over-IPv6.";
+      }
+      enum "xtp-native-mode-xtp" {
+        value 21;
+        description
+          "The type of management address is XTP-native-mode-XTP.";
+      }
+      enum "fibre-channel-wwpn" {
+        value 22;
+        description
+          "The type of management address is fibre-channel-WWPN.";
+      }
+      enum "fibre-channel-wwn" {
+        value 23;
+        description
+          "The type of management address is fibre-channel-WWN.";
+      }
+      enum "gwid" {
+        value 24;
+        description
+          "The type of management address is GWID.";
+      }
+    }
+    description
+      "Management address type.";
+  }
+  typedef port-id-sub-type {
+    type enumeration {
+      enum "other" {
+        value 0;
+        description
+          "The Port id sub type is other.";
+      }
+      enum "interface-alias" {
+        value 1;
+        description
+          "The Port id sub type is interface-alias.";
+      }
+      enum "port-component" {
+        value 2;
+        description
+          "The Port id sub type is port-component.";
+      }
+      enum "mac-address" {
+        value 3;
+        description
+          "The Port id sub type is mac-address.";
+      }
+      enum "network-address" {
+        value 4;
+        description
+          "The Port id sub type is network-address.";
+      }
+      enum "interface-name" {
+        value 5;
+        description
+          "The Port id sub type is interface-name.";
+      }
+      enum "agent-circuit-id" {
+        value 6;
+        description
+          "The Port id sub type is agent-circuit-id.";
+      }
+      enum "local" {
+        value 7;
+        description
+          "The Port id sub type is local.";
+      }
+    }
+    description
+      "Port id sub type.";
+  }
+
+	grouping chassis-id {
+    description
+      "Chassis ID.";
+    leaf chassis-id-sub-type {
+      type chassis-id-sub-type;
+      description
+        "Chassis type.";
+    }
+    leaf chassis-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Chassis ID.";
+    }
+  }
+  grouping port-id {
+    description
+      "Port ID.";
+    leaf port-id-sub-type {
+      type port-id-sub-type;
+      description
+        "Interface ID subtype.";
+    }
+    leaf port-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "Interface ID.";
+    }
+  }
+  grouping port-description {
+    description
+      "Port description.";
+    leaf port-description {
+      type string {
+        length "1..256";
+      }
+      description
+        "Interface description.";
+    }
+  }
+  grouping system-name {
+    description
+      "System name.";
+    leaf system-name {
+      type string {
+        length "1..256";
+      }
+      description
+        "System name.";
+    }
+  }
+  grouping system-description {
+    description
+      "System description.";
+    leaf system-description {
+      type string {
+        length "1..256";
+      }
+      description
+        "System description.";
+    }
+  }
+  
+  ext:task-name "rumng";
+  /* config remote unit */
+  container remote-unit-mng {
+  	description "Remote unit configuration and status.";
+  	container global { 
+  		description "Configure global properties for remote units.";
+  	  leaf isolate {
+          type boolean;
+          description "Enable/disable port isolation.";
+      }
+      leaf vlan-mode {
+          type vlan-mode-type;
+          description "VLAN configuration mode.";
+      }
+      leaf lldp {
+        type boolean;
+        default "true";
+        description "Enable/disable of LLDP.";
+      }
+      container upgrade-cutoff-time {
+        when "not(../upgrade-start-time)";
+        must "(count(./date) = count(./time))";
+        description "Configure remote unit deployment end time."; 
+        leaf date {
+          type string {
+            length "10";
+            pattern '\d{4}/\d{2}/\d{2}';
+          }
+          description "Date string type such as '2010/10/08'.";
+        }
+        leaf time {
+          type pub-type:time;
+          description "Date string type such as 23:00:01.";      	
+        }     	
+      }
+      
+      leaf upgrade-start-time {
+        type pub-type:time;
+        must "not(../upgrade-cutoff-time/date) and not(../upgrade-cutoff-time/time)";
+        description "Set the remote module to apply the new version at a specific time, such as 23:00:01.";      	
+      }
+      container backup-groups {
+        status obsolete;
+        description "List of backup groups.";
+        list backup-group {
+          key "backup-group-id";
+          description "Configure backup group.";
+          leaf backup-group-id {
+            type uint32 {
+              range "0..16777215";
+            }
+            description "Id of the backup group.";
+          }
+          leaf ru-id1 {
+            type uint32 {
+              range "0..16777215";
+            }
+            mandatory true;
+            description "Id of one remote unit.";
+          }
+          leaf ru-id2 {
+            type uint32 {
+              range "0..16777215";
+            }
+            mandatory true;
+            description "Id of another remote unit.";
+          }
+        }
+      }
+  	}     
+
+    container remote-units {
+      description "List of remote unit configuration.";   
+      list remote-unit {        
+        key "connect-interface";
+        description "Configure remote unit.";
+        leaf connect-interface {
+          type leafref {
+            path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+          }
+          description "The interface connects to the remote unit.";
+        }
+        leaf alias {
+          type string {
+            length "1..32";
+            pattern '("[^"?]*"|[^ ?\t\n\r][^ ?\t\n\r]*)';
+          }
+          description "Alias of the remote unit.";
+        }
+        leaf description {
+          type string {
+            length "1..64";
+            pattern '([^? \n\r\t][^?\n\r\t]*[^? \n\r\t])|[^? \n\r\t]';
+          }
+          description "The description of the remote unit.";
+        }
+        leaf isolate {
+          type boolean;
+          description "Enable/disable isolate.";
+        }
+      	leaf vlan-mode {
+          type vlan-mode-type;
+          description "VLAN configuration mode.";
+        }
+        leaf backup-port {
+          type uint32 {
+            range "1..2";
+          }
+          status obsolete;
+          description "Backup port id.";
+        }
+        leaf lldp {
+          type boolean;
+          default "true";
+          description "Enable/disable of LLDP.";
+        }
+      	container interfaces {
+      	  description "List of interface.";  
+    	    list interface {
+            key "ifname";
+            description "Configure interface of remote unit.";           
+            leaf ifname {
+              type string {
+                length "1..32";
+                pattern '(uplink|port[1-9]|port[1-2][0-9]|port3[0-2])';
+              }
+              description
+                "The name of the interface.";
+            }	
+            
+            leaf admin-status {
+              type port-status-type;
+              description
+                "Administrative status of an interface.";
+            }
+            
+            leaf negotiation {
+              type eth-negotiation-type;
+              description
+                "Auto negotiation on an Ethernet port.";
+            }
+            leaf speed {
+              when "../negotiation = 'disabled'";
+              type eth-speed-type;
+              description
+                "Speed of an Ethernet port.";
+            }
+            leaf duplex {
+              type eth-duplex-type;
+              description
+                "Duplex type of an Ethernet port.";
+            }
+            leaf poe-power-mode {
+              type poe-power-mode-type;
+              description
+                "POE power mode.";
+            }
+            leaf poe-force-power {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable of poe fore power.";
+            }
+            leaf poe-power-on-delay  {
+              type boolean;
+              description
+                "Enable/disable of poe power-on delay. You are advised to use the node poe-power-on-delay-time.";
+            }
+            leaf poe-power-on-delay-time {
+              type uint32;
+              description "The delay time of poe power-on delay.";
+            }
+            leaf port-default-vlan {  
+              type vlan-id;
+              must "../../../vlan-mode = 'manual'";
+              description
+                "Default VLAN ID.";
+            }
+            leaf tagged-vlans {
+              type pub-type:vlan-range;
+              must "../../../vlan-mode = 'manual'";
+              description
+                "List of VLANs that are allowed to pass.";
+            }
+            leaf untagged-vlans {
+              type pub-type:vlan-range;
+              must "../../../vlan-mode = 'manual'";
+              description
+                "List of untagged VLANs that are allowed to pass.";
+            } 
+            container macsec {
+              description "Configure remote unit interface macsec."; 
+              leaf enable {
+                type boolean;
+                  default "false";
+                description
+                  "Enable/disable of macsec.";
+              }
+              leaf ckn {
+                when  "../enable='true'";  
+                ext:case-sensitivity "upper2lower";
+                type string {
+                  length "2..64";
+                }
+                description "The macsec cak name of the remote unit.";
+              }
+              leaf cak {
+                when  "../ckn";                                
+                type pub-type:password-extend;
+                description "The macsec cak of the remote unit.";
+              }
+              leaf mka-life-time {
+                type uint32 {
+                  range "6..60";
+                }
+                units "s";
+                default "6";
+                description "The macsec mka life time of the remote unit.";      	
+              }
+              leaf mode {
+                type enumeration {
+                  enum "none" {
+                    value 0;
+                    description
+                      "MACSec mode none.";
+                  }
+                  enum "normal" {
+                    value 1;
+                    description
+                      "MACSec mode normal.";
+                  }
+                  enum "integrity-only" {
+                    value 2;
+                    description
+                      "MACSec mode integrity-only.";
+                  }     	
+                }
+                default "normal";
+                description "The macsec mode of the remote unit."; 
+              }
+              leaf policy {
+                type enumeration {
+                  enum "must-secure" {
+                    value 0;
+                    description
+                      "Must secure policy.";
+                  }
+                  enum "should-secure" {
+                    value 1;
+                    description
+                      "Should secure policy.";
+                  }
+                }
+                default "must-secure";
+                description
+                  "MACsec policy function.";
+              }
+            }
+            leaf poe {
+              type boolean;
+              default "true";
+              description "Enable/disable of PoE.";
+            }
+    	  } // interface
+        }  // interfaces
+      } // remote-unit      
+    }  // remote-units
+
+    /* remote unit status */
+    container remote-unit-status {
+    	config false;
+    	description
+        "Operational state of remote unit.";
+      container basic-data {
+      	description
+          "Operational state of remote units.";
+        container device-datas {
+        	description
+            "List of the data of remote units.";
+        	list device-data {
+        	  key "esn";
+        	  description "Operational state of remote unit.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf device-name {
+              type string {
+                length "0..32";
+              }
+              description "The name of remote unit.";	
+            }
+            
+            leaf device-type {
+            	type string {
+                length "1..32";
+              }
+              description "The device type of remote unit.";	
+            }
+            leaf online-time {
+            	type int32; 
+              description "The time of remote-unit online.";	
+            }
+            leaf connect-interface {
+            	type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description "The connect interface to remote unit.";	
+            }
+            leaf device-status {
+              type device-status-type; 
+              description "The status of remote unit.";
+            }
+            
+            leaf abnormal-reason {
+              type string {
+                length "0..128";
+              }
+              description "The abnormal reason of remote unit.";		
+            }
+            leaf slot-index {
+              type int32; 
+              description "The slot index of remote-unit online.";		
+            }
+            leaf app-version {
+              type string {
+                length "1..32";
+              }
+              description "The app version of remote unit.";		
+            }            
+          } // list device-data
+        } // container device-datas
+        container interfaces {
+      	  description "List of remote unit's port.";
+          list interface {
+            key "esn portid";
+            description "Operational state of remote unit.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32;
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";	
+              }
+              description
+                "The name of the interface.";
+            }	
+            leaf media {
+              type media-type;
+              description
+                "The media type of port.";	
+            }
+            leaf admin-status {
+              type port-status;
+              description
+                "Administrative status of an interface.";
+            }
+            leaf physical-status {
+              type port-status;
+              description
+                "Physical status of an interface.";
+            }
+            leaf oper-status {
+              type port-status;
+              description
+                "Running status of an interface.";
+            }
+            leaf negotiation {
+              type eth-negotiation-type;
+              description
+                "Auto negotiation on an Ethernet port.";
+            }
+            leaf duplex {
+              type eth-duplex-type;
+              description
+                "Duplex type of an Ethernet port.";
+            }
+            leaf speed {
+              type uint32;
+              description
+                "Speed of an Ethernet port.";
+            }
+            leaf trunk-name {
+            	type string {
+                length "0..32";	
+              }
+              description
+                "The trunk name of the interface.";	
+            }
+            leaf neighbor-interface {
+            	type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              description "The interface for connecting the central device to the remote unit.";	
+            }
+          } // list interface
+        } // container interfaces 
+        container optical-modules { 
+          description "List of remote unit's optical-modules.";
+          list optical-module {
+            key "esn portid";
+            description "Operational state of optical module.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32;
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";	
+              }
+              description
+                "The name of the interface.";
+            }
+            leaf vendor-name {
+              type string {
+                length "0..20";
+              }
+              description
+                "Name of an optical transceiver vendor.";
+            }
+            
+            leaf serial-number {
+              type string {
+                length "0..20";
+              }
+              description
+                "Optical module serial number (SN) provided by the vendor.";
+            }
+            
+            leaf transceiver {
+              type string {
+                length "0..64";
+              }
+              description
+                "Transmission media type of optical module.";
+            }
+            
+            leaf trans-mode {
+              type trans-mode-type;
+              description
+                "Optical transceiver transmission mode.";
+            }
+            
+            leaf rx-high-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units " dBm";
+              description
+                "Receiving high alarm power.";
+            }
+            leaf rx-low-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units " dBm";
+              description
+                "Receiving low alarm power.";
+            }
+            leaf tx-high-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units " dBm";
+              description
+                "Transmit high alarm power.";
+            }
+            leaf tx-low-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units " dBm";
+              description
+                "Transmit low alarm power.";
+            }
+          } // list optical-modules
+        } // container optical-modules
+      }  // container basic-data 
+      
+      container detail-data {
+        description
+            "Operational data of remote unit performance.";       
+        container device-datas {
+        	description
+            "List of remote unit device.";
+          list device-data {
+          	key "esn";
+          	description "Operational data of remote unit.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf device-status {
+              type detail-device-status-type;
+              description "The status of remote unit.";
+            }
+            leaf memory-rate {
+              type uint32;
+              description "The memory rate of remote unit.";
+            }
+            leaf used-disk-space {
+              type uint64;
+              units "MB";
+              description "The used disk space of remote unit.";
+            }
+            leaf total-disk-space {
+              type uint64;
+              units "MB";
+              description "The total disk space of remote unit.";
+            }
+            leaf temperature {
+              type int32;
+              units "°C";
+              description "The temperature of remote unit.";
+            }    
+          } //  list device-data
+        }  // container device-datas 
+        container interfaces {
+          description "List of remote unit port status.";
+          list interface {
+            key "esn portid";
+            description "Operational data of remote unit port.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32;
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";
+              }
+              description "The name of interface.";
+            }
+            leaf oper-status {
+              type port-status;
+              description
+                "Running status of an interface.";
+            }
+            leaf bandwith {
+              type uint32;
+              units "Mbit/s";
+              description
+                "Bandwith of an interface.";
+            }
+            leaf receive-bit-rate {
+              type uint64;
+              units "bit/s";
+              description
+                "Rate at which bits are received within the interval.";
+            }
+            leaf send-bit-rate {
+              type uint64;
+              units "bit/s";
+              description
+                "Rate at which bits are sent within the interval.";
+            }
+            leaf receive-peak-rate {
+              type uint64;
+              units "bit/s";
+              description
+                "Rate at which bits are received within the interval.";
+            }
+            leaf send-peak-rate {
+              type uint64;
+              units "bit/s";
+              description
+                "Rate at which bits are sent within the interval.";
+            }
+            leaf receive-byte {
+              type uint64;
+              units "Byte";
+              description
+                "Number of received bytes.";
+            }
+            leaf send-byte {
+              type uint64;
+              units "Byte";
+              description
+                "Number of sent bytes.";
+            }
+            leaf receive-multicast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of received multicast packets.";
+            }
+            leaf send-multicast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of sent multicast packets.";
+            }
+            leaf receive-unicast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of received unicast packets.";
+            }
+            leaf send-unicast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of sent unicast packets.";
+            }
+            leaf receive-broadcast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of received broadcast packets.";
+            }
+            leaf send-broadcast-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of sent broadcast packets.";
+            }
+            leaf receive-error-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of received error packets.";
+            }
+            leaf receive-drop-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of received discarded packets.";
+            }
+            leaf send-drop-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of sent discarded packets.";
+            }
+            leaf crc-packet {
+              type uint64;
+              units "packet";
+              description
+                "Number of crc packets.";
+            }
+            leaf receive-bandwidth-utilization   {
+              type string {
+                length "1..64";
+              }
+              description
+                "Input bandwidth utilization.";
+            }
+            leaf send-bandwidth-utilization {
+              type string {
+                length "1..64";
+              }
+              description
+                "Output bandwidth utilization.";
+            }
+          } // list interface
+        } // container interfaces   
+        container optical-modules { 
+          description "List of optical modules.";
+          list optical-module {
+          	key "esn portid";
+            description "Operational state of optical module.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32;
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";
+              }
+              description "The name of interface.";
+            }
+            leaf certified-state {
+              type enumeration {
+              	enum "non-certified" {
+                  value 0;
+                  description
+                    "Non-certified transceiver.";
+                }
+                enum "certified" {
+                  value 1;
+                  description
+                    "Certified transceiver.";
+                }
+              }
+              description
+                "Certified state.";
+            }
+            leaf vendor-name {
+              type string {
+                length "0..20";
+              }
+              description
+                "Name of an optical transceiver vendor.";
+            }
+            leaf trans-mode {
+              type trans-mode-type;
+              description
+                "Optical transceiver transmission mode.";
+            }
+            leaf manufacture-date {
+              type pub-type:date;
+              description
+                "Optical manufacture date.";
+            }
+            leaf transceiver-bandwith{
+            	type string {
+                length "0..32";
+              }
+              units "Mbit/s";
+              description
+                "Bandwith of transceiver.";
+            }
+            leaf serial-number {
+              type string {
+                length "0..20";
+              }
+              description
+                "Optical module serial number (SN) provided by the vendor.";
+            }
+            leaf transmission-distance {
+              type string {
+                length "0..64";
+              }
+              units "m";
+              description
+                "Transmission distance.";
+            }
+            
+            leaf transceiver-type {
+              type string {
+                length "0..64";
+              }
+              description
+                "Transmission media type of optical module.";
+            }
+            leaf ddm-flag {
+              type enumeration {
+                enum "disable" {
+                  value 0;
+                  description
+                    "Disable.";
+                }
+                enum "external" {
+                  value 1;
+                  description
+                    "External.";
+                }
+                enum "internal" {
+                  value 2;
+                  description
+                    "Internal.";
+                }
+              }
+              description
+                "Flag of DDM.";
+            }
+            leaf temperature {
+              type string {
+                length "0..64";
+              }
+              units "°C";
+              description
+                "Optical temperature.";
+            }
+            leaf temperature-high-threshold {
+              type string {
+                length "0..64";
+              }
+              units "°C";
+              description
+                "Optical temperature high threshold.";
+            }
+            leaf temperature-low-threshold {
+              type string {
+                length "0..64";
+              }
+              units "°C";
+              description
+                "Optical temperature low threshold.";
+            }
+            
+            leaf voltage {
+              type string {
+                length "0..64";
+              }
+              units "V";
+              description
+                "Optical transceiver real voltage.";
+            }
+            leaf voltage-high-threshold {
+              type string {
+                length "0..64";
+              }
+              units "V";
+              description
+                "Optical voltage high threshold.";
+            }
+            leaf voltage-low-threshold {
+              type string {
+                length "0..64";
+              }
+              units "V";
+              description
+                "Optical voltage high threshold.";
+            }
+            leaf bias {
+              type string {
+                length "0..64";
+              }
+              units "mA";
+              description
+                "Optical bias.";
+            }
+            leaf bias-high-threshold {
+              type string {
+                length "0..64";
+              }
+              units "mA";
+              description
+                "Optical bias high threshold.";
+            }
+            leaf bias-low-threshold {
+              type string {
+                length "0..64";
+              }
+              units "mA";
+              description
+                "Optical bias low threshold.";
+            }
+            
+            leaf rx-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Receiving power.";
+            }
+            leaf rx-high-warn-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Receiving high warning power.";
+            }
+            leaf rx-low-warn-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Receiving low warning power.";
+            }
+            leaf rx-high-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Receiving high alarm power.";
+            }
+            leaf rx-low-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Receiving low alarm power.";
+            }
+            leaf tx-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Transmit power.";
+            }
+            
+            leaf tx-high-warn-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Transmit high warning power.";
+            }
+            leaf tx-low-warn-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Transmit low warning power.";
+            }
+            
+            leaf tx-high-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Transmit high alarm power.";
+            }
+            leaf tx-low-alarm-power {
+              type string {
+                length "0..64";
+              }
+              units "dBm";
+              description
+                "Transmit low alarm power.";
+            }
+          } // optical-module
+        } // container optionals  
+        container device-poes {
+          description
+            "List of remote unit device.";
+          list device-poe {
+          	key "esn";
+          	description "Operational data of remote unit.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf poe-power-supply {
+              type uint32;
+              units "mW";
+              description "Indicates the supply power.";
+            }
+            leaf total-available-power {
+              type uint32;
+              units "mW";
+              description "Indicates the total available power.";
+            }
+            leaf total-power-consumption {
+              type uint32;
+              units "mW";
+              description "Indicates the total output power.";
+            }
+            leaf power-peak-value {
+              type uint32;
+              units "mW";
+              description "Indicates the peak output power.";
+            }
+            leaf power-voltage {
+              type uint32;
+              units "V";
+              description "Output voltage.";
+            }  
+            leaf pse-reset-times {
+              type uint32;
+              description "Indicates the number of PSE chip resets.";
+            }
+            leaf poe-failure {
+              type boolean;
+              description "Check whether the PoE firmware is normal.";
+            }
+          } //  list device-poe
+        }  // container device-poes
+        container interface-poes {
+          description "List of remote unit port's POE status.";
+          list interface-poe {
+            key "esn portid";
+            description "Operational data of remote unit port's POE.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32;
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";
+              }
+              description "The name of interface.";
+            }
+            leaf pd-class {
+              type string {
+                length "1..32";
+              }
+              description
+                "Class of the PD connected to the interface.";
+            }
+            leaf pd-reference-power {
+              type string {
+                length "1..32";
+              }
+              description
+                "Reference power of an interface.";
+            }
+            leaf pd-current-power {
+              type uint32;
+              units "mW";
+              description
+                "Current output power of an interface.";
+            }
+            leaf pd-peak-power {
+              type uint32;
+              units "mW";
+              description
+                "Peak output power of an interface.";
+            }
+            leaf pd-average-power {
+              type uint32;
+              units "mW";
+              description
+                "Average output power of an interface.";
+            }
+            leaf power-up-mode {
+              type poe-power-mode-type;
+              description
+                "Power supply mode of an interface.";
+            }
+            leaf default-power-up-mode {
+              type poe-power-mode-type;
+              description
+                "Default power supply mode of an interface.";
+            }
+            leaf force-power {
+              type boolean;
+              description
+                "Whether forcible PoE power supply is enabled on an interface.";
+            }
+            leaf power-on {
+              type boolean;
+              description
+                "Whether the interface is powered on.";
+            }
+            leaf power-on-delay-time {
+              type uint32;
+              units "s";
+              description
+                "Power supply delay of an interface, in seconds. If the value is 0, no delay occurs.";
+            }
+            leaf power-status {
+              type string {
+              length "1..32";
+            }
+              description
+                "Power supply status of an interface.";
+            }
+            leaf current {
+              type uint32;
+              units "mA";
+              description
+                "Output current of an interface.";
+            }
+            leaf voltage {
+              type uint32;
+              units "V";
+              description
+                "Output voltage of an interface.";
+            }
+          } // list interface-poe
+        } // container interface-poes
+        container lldp-neighbors {
+          description "List of remote unit port's LLDP neighbor.";
+          list lldp-neighbor {
+            key "esn portid";
+            description "Operational data of remote unit port's LLDP neighbor.";
+            leaf esn {
+              type string {
+                length "1..32";
+              }
+              description "The ESN of remote unit.";
+            }
+            leaf portid {
+              type uint32 {
+                range "1..32";
+              }
+              description "Indicates the interface number.";
+            }
+            leaf ifname {
+              type string {
+                length "1..32";
+              }
+              description "The name of interface.";
+            }
+            container neighbors {
+              description
+                "List of information about LLDP neighbors.";
+              list neighbor {
+                key "index";
+                description
+                  "Statistics of information about an LLDP neighbor.";
+                leaf index {
+                  type uint32 {
+                    range "0..4294967295";
+                  }
+                  description
+                    "Neighbor index.";
+                }
+                uses chassis-id;
+                uses port-id;
+                uses port-description;
+                uses system-name;
+                uses system-description;
+              }
+            }
+          } // list lldp-neighbor
+        } // container lldp-neighbors
+      }  // detail-data
+    } // remote-unit-status
+  }
+  
+  rpc remote-unit-reboot {
+    description "Reboot remote device.";
+  	input {
+  		container remote-units {
+        description "List of remote devices.";
+		  leaf mode {        
+        	type enumeration {
+	          enum all { 
+              value 0;           
+	            description "Reboot all remote devices.";
+	          }
+	          enum multiple {   
+              value 1;          
+	            description "Reboot multiple remote devices.";
+	          }
+        	}
+        	mandatory true;
+        	description "Indicate how to reboot the remote devices.";
+      	}  	
+      	
+  		  list remote-unit {
+          key "connect-interface";  
+          description "Remote devices.";
+          leaf connect-interface {
+            type string {
+              length "1..64";
+            }
+            description "The interface connects to the remote device.";
+          }
+        } // list
+  	  } // remote-units
+    } // input
+  }
+  
+  rpc restart-remote-unit-port {
+    description "Restart the port of remote device.";
+  	input {	
+  		container remote-units {
+        description "List of remote devices.";
+  		  list remote-unit {  
+		  key "connect-interface"; 
+          description "Remote devices.";
+          leaf connect-interface {
+            type string {
+              length "1..64";
+            }
+            description "The interface connects to the remote device.";
+          }
+          
+          leaf port-name {
+          	type string{
+              length "1..64";
+            }
+          	description "The interface on remote device.";
+          }
+          
+          leaf interval {
+          	type uint32;
+          	description "The interval between port restarts, in seconds.";
+          }
+        } // remote-unit
+    	}  // remote-units
+    } // input
+  }
+  
+  rpc upgrade-force {
+    description "Forcibly upgrading the firmware of the remote unit.";
+  	input {	
+  		container remote-units {
+        description "List of remote devices.";
+  		  list remote-unit {  
+		      key "connect-interface"; 
+          description "Remote devices.";
+          leaf connect-interface {
+            type string {
+              length "1..64";
+            }
+            description "The interface connects to the remote device.";
+          }
+          
+          leaf firmware-type {
+          	type firmware-type;
+          	description "The interface on remote device.";
+          }
+        } // remote-unit
+    	}  // remote-units
+    } // input
+  }
+  
+  rpc upgrade-right-now {
+    description "Upgrade the firmware of the remote unit immediately.";
+  	input {	
+  		leaf enable {
+        type boolean;
+        mandatory true;
+        description "Upgrade the firmware of the remote unit immediately.";
+      }
+    } // input
+  }
+
+  rpc sync-data-right-now {
+    description "Sync the the remote unit's data immediately.";
+  	input {	
+  	  leaf enable {
+        type boolean;
+        mandatory true;
+        description "Sync the the remote unit's data immediately.";
+      }
+    } // input
+  }
+  rpc query-remote-unit-mac {
+    description "Sync the the remote unit's data immediately.";
+  	input {	
+  	  leaf connect-interface {
+        type string {
+          length "1..64";
+        }
+        mandatory true;
+        description "The interface connects to the remote device.";
+      }
+      leaf mac-address {
+        type pub-type:mac-address;
+        mandatory true;
+        description "The MAC address.";
+      }
+    } // input
+    output {
+      leaf port-name {
+        type string{
+          length "1..64";
+        }
+        description "The interface connects to the remote device.";
+      }
+      leaf mac-type {
+        type mac-type;
+        description "The MAC address.";
+      }
+    }
+  }
+}

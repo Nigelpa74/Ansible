@@ -1,0 +1,348 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nqa-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nqa-deviations-ar5710s";
+  prefix nqa-devs-ar5710s;
+
+  import huawei-nqa {
+    prefix nqa;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nqa module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/nqa:nqa/nqa:global/nqa:fec-validation-sr-prefix-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:lbm-receive-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:ltm-receive-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:gmac-ltm-receive-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:lspv-ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:gmac-ping-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:gmac-trace-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:test-max-flow-id" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:reflector-max-id" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:vxlan-echo-v4" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:vxlan-echo-v6" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:icmp-session-car" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:icmpv6-session-car" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:global/nqa:bier6-oam" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:server/nqa:icmp-servers" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:testflows" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:groups" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:reflectors" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:fwd-if-name" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:compatibility" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:path-type" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:udp" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:jitter/nqa:jitter-input/nqa:hardware-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:jitter/nqa:jitter-input/nqa:timestamp" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp-jitter/nqa:icmp-jitter-input/nqa:hardware-enable" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp-jitter/nqa:icmp-jitter-input/nqa:timestamp" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp-jitter/nqa:icmp-jitter-input/nqa:receive-timeunit" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-ping/nqa:lsp-ping-input/nqa:lsp-protocol/nqa:bgp" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-ping/nqa:lsp-ping-input/nqa:lsp-protocol/nqa:te" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-ping/nqa:lsp-ping-input/nqa:lsp-protocol/nqa:srte" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-ping/nqa:lsp-ping-input/nqa:lsp-protocol/nqa:srbe" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-ping/nqa:lsp-ping-input/nqa:lsp-protocol/nqa:srte-policy" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-trace/nqa:lsp-trace-input/nqa:lsp-protocol/nqa:bgp" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-trace/nqa:lsp-trace-input/nqa:lsp-protocol/nqa:te" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-trace/nqa:lsp-trace-input/nqa:lsp-protocol/nqa:srte" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-trace/nqa:lsp-trace-input/nqa:lsp-protocol/nqa:srbe" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-trace/nqa:lsp-trace-input/nqa:lsp-protocol/nqa:srte-policy" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:lsp-jitter" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:pwe3-ping" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:path-mtu" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:pwe3-trace" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:vpls-pw-ping" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:vpls-pw-trace" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:arp-ping-ip" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:path-jitter" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:vpls-mac-ping" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:ethernet-service" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:general-flow" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:dns/nqa:dns-input/nqa:address/nqa:ipv4-address/nqa:ipv4-source-address" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:lsp-jitter-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:path-mtu-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:attempts-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:disconnect-operation-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:connection-fail-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:dest-address" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:last-good-probe-time" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:packet-rewrite-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:packet-rewrite-ratio" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:packet-disorder-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:packet-disorder-ratio" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:fragment-disorder-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:fragment-disorder-ratio" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:jitter-overthresholds-sd-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:jitter-overthresholds-ds-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:jitter-results/nqa:jitter-result/nqa:overalloverthresholds-num" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:arp-ping-ip-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:multi-path-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:trace-multi-path-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:path-jitter-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:ethernet-service-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:record/nqa:general-flow-results" {
+    deviate not-supported;
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input" {
+    deviate delete {
+      must "not(ipv4-next-hop and (ni-name != '_public_' or fwd-if-name or path-type = 'bypass'))";
+    }
+    deviate delete {
+      must "not(ipv6-next-hop and (ni-name != '_public_' or fwd-if-name or path-type = 'bypass'))";
+    }
+    deviate delete {
+      must 'not(out-if-name and fwd-if-name)';
+    }
+    deviate delete {
+      must "not(pass-route = 'true' and fwd-if-name)";
+    }
+    deviate delete {
+      must "not(path-type = 'bypass' and (pass-route = 'true' or fwd-if-name or ipv6-dest-address or ipv6-source-address or ipv6-next-hop))";
+    }
+    deviate add {
+      must "not(ipv4-next-hop and (ni-name != '_public_'))";
+    }
+    deviate add {
+      must "not(ipv6-next-hop and (ni-name != '_public_'))";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:send-trap-bits" {
+    deviate replace {
+      type bits {
+        bit resultchange {
+          position 23;
+          description
+            "Indicates that a trap is sent when the result status changes.";
+        }
+        bit rtd {
+          position 28;
+          description
+            "Indicates that a trap is sent when the RTD exceeds the threshold.";
+        }
+        bit testcomplete {
+          position 29;
+          description
+            "Indicates that a trap is sent when a test succeeds.";
+        }
+        bit testfailure {
+          position 30;
+          description
+            "Indicates that a trap is sent when the number of test failures reaches the threshold.";
+        }
+        bit probefailure {
+          position 31;
+          description
+            "Indicates that a trap is sent when the OWD from the source to the destination exceeds the threshold.";
+        }
+      }
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:sdwan-site-id" {
+    deviate delete {
+      must "(../sdwan-site-id and (not(../ipv6-next-hop) and not(../ipv4-next-hop) and not(../out-if-name) and not(../pass-route = 'true') and not(../path-type = 'bypass') and not(../fwd-if-name)))";
+    }
+    deviate add {
+      must "(../sdwan-site-id and (not(../ipv6-next-hop) and not(../ipv4-next-hop) and not(../out-if-name) and not(../pass-route = 'true')))";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp/nqa:icmp-input/nqa:sdwan-system-id" {
+    deviate delete {
+      must "(../sdwan-system-id and (not(../ipv6-next-hop) and not(../ipv4-next-hop) and not(../out-if-name) and not(../pass-route = 'true') and not(../path-type = 'bypass') and not(../fwd-if-name)))";
+    }
+    deviate add {
+      must "(../sdwan-system-id and (not(../ipv6-next-hop) and not(../ipv4-next-hop) and not(../out-if-name) and not(../pass-route = 'true')))";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:trace/nqa:trace-input" {
+    deviate add {
+      must "not(ni-name != '_public_' and (ipv6-next-hop or ipv4-next-hop))";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:jitter/nqa:jitter-input" {
+    deviate delete {
+      must "(hardware-enable = 'true' and not(data-fill) and interval >= 10 and not(ipv6-dest-address) and not(ipv6-source-address)) or (hardware-enable = 'false' and timestamp != 'microsecond' and interval >= 20)";
+    }
+    deviate add {
+      must '(interval >= 20)';
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:jitter/nqa:jitter-input/nqa:data-size" {
+    deviate delete {
+      must "(../hardware-enable = 'true' and ../data-size <= 1472) or (../hardware-enable = 'false')";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp-jitter/nqa:icmp-jitter-input" {
+    deviate delete {
+      must "not(hardware-enable = 'true' and (ipv6-dest-address or ipv6-source-address))";
+    }
+  }
+  deviation "/nqa:nqa/nqa:instances/nqa:instance/nqa:type/nqa:icmp-jitter/nqa:icmp-jitter-input/nqa:interval" {
+    deviate delete {
+      must "../hardware-enable = 'false' and ../interval >= 20 or ../hardware-enable = 'true'";
+    }
+    deviate add {
+      must '../interval >= 20';
+    }
+  }
+}

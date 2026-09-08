@@ -1,0 +1,223 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-vrrp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-vrrp-deviations-ar5710s";
+  prefix vrrp-devs-ar5710s;
+
+  import huawei-vrrp {
+    prefix vrrp;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-vrrp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef vrrpauthen-mode-deviations {
+    type enumeration {
+      enum none {
+        value 0;
+        description
+          "No authentication mode.";
+      }
+      enum simple {
+        value 1;
+        description
+          "Simple authentication mode.";
+      }
+      enum md5 {
+        value 2;
+        description
+          "HMAC-MD5 authentication mode.";
+      }
+    }
+    description
+      "VRRP authen-mode is like none/simple/md5.";
+  }
+
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:adv-time-learn" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:ping-enable" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:v6-cks-mode" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:smooth-switch-enable" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:smooth-switch-time" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:unicast-port" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:gratuitous-enhance-enable" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:na-enhance-enable" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:dscp" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:first-packet-delay" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:vrrp-session-car" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:vrrp6-session-car" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/vrrp:vrrp" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:backup-groups/vrrp:ttlcheck-flag" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:backup-groups/vrrp:arpsend-simple" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:backup-groups/vrrp:passive" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:backup-group6s/vrrp:hoplimit-check" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:backup-group6s/vrrp:nd-send-simple" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vrrp:vrrp/vrrp:track-admins" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:vrrp-type/vrrp:member-vrrp/vrrp:arp-copy-to-member" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:vrrp-type/vrrp:admin-vrrp/vrrp:init-state-holdtime" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:vrrp-type/vrrp:unicast" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:virtual-ips/vrrp:virtual-ip/vrrp:mask" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:virtual-ips/vrrp:virtual-ip/vrrp:vgmp-role" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:track-3ahs" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:track-mtgrps" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:statistics/vrrp:send-timeerr-num" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:statistics/vrrp:receive-timeerr-num" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:statistics/vrrp:send-reply-num" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:statistics/vrrp:receive-reply-num" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:vgmp-role" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:vrrp6-type/vrrp:admin/vrrp:init-state-holdtime" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:vrrp6-type/vrrp:member/vrrp:na-copy-to-member" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:backup-forward" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:track-mtgrps" {
+    deviate not-supported;
+  }
+  deviation "/vrrp:vrrp/vrrp:global/vrrp:gratuitous-timeout" {
+    deviate replace {
+      default "120";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group" {
+    deviate delete {
+      must "((../../../../ifm:type='LoopBack') and vrrp:peer-addr) or (../../../../ifm:type!='LoopBack')";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:preempt/vrrp:delay-time" {
+    deviate replace {
+      type uint16 {
+        range "0..3600";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:adver-interval" {
+    deviate add {
+      must '((../adver-interval) mod 1000 = 0)';
+    }
+    deviate replace {
+      type uint32 {
+        range "1000..255000";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/vrrp:vrrp/vrrp:groups/vrrp:group/vrrp:authentication-mode" {
+    deviate delete {
+      must "((not(../../../../../ifm:type='LoopBack') and not(../authentication-mode='hmac-sha256')) or ((../../../../../ifm:type='LoopBack') and not(../authentication-mode='simple')))";
+    }
+    deviate replace {
+      type vrrp-devs-ar5710s:vrrpauthen-mode-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6" {
+    deviate add {
+      must "((count(track-bfds/track-bfd[bfd-type='normal'])<=8) and (count(track-bfds/track-bfd[bfd-type='link'])<=8) and (count(track-bfds/track-bfd[bfd-type='peer'])<=1)) or not(track-bfds/track-bfd)";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:preempt/vrrp:delay-time" {
+    deviate replace {
+      type uint16 {
+        range "0..3600";
+      }
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/vrrp:vrrp6/vrrp:group6s/vrrp:group6/vrrp:adver-interval" {
+    deviate add {
+      must '((../adver-interval) mod 10 = 0)';
+    }
+    deviate replace {
+      type uint32 {
+        range "1000..40950";
+      }
+    }
+  }
+}

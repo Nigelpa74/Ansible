@@ -1,0 +1,91 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-capwap-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-capwap-deviations-ar5710s";
+  prefix hw-cwp-devs-ar5710s;
+
+  import huawei-wlan-capwap {
+    prefix hw-cwp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-capwap module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-dtls/hw-cwp:data-dtls-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-dtls/hw-cwp:inter-ctrl-dtls-switch" {
+    deviate not-supported;
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-dtls/hw-cwp:inter-ctrl-dtls-psk" {
+    deviate not-supported;
+  }
+  deviation "/hw-cwp:query-capwap-link" {
+    deviate not-supported;
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-source/hw-cwp:source-type" {
+    deviate replace {
+      type enumeration {
+        enum interface {
+          value 0;
+          description
+            "Configure interface type.";
+        }
+      }
+    }
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-source/hw-cwp:source-ip-version" {
+    deviate replace {
+      type enumeration {
+        enum ipv4 {
+          value 0;
+          description
+            "Configure only-IPv4 version.";
+        }
+      }
+    }
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-heartbeats/hw-cwp:interval" {
+    deviate replace {
+      type uint32 {
+        range "20..300";
+      }
+    }
+  }
+  deviation "/hw-cwp:wlan-capwap/hw-cwp:capwap-dtls/hw-cwp:ctrl-dtls-switch" {
+    deviate replace {
+      type enumeration {
+        enum off {
+          value 0;
+          description
+            "Disable the CAPWAP ctrl-link DTLS function.";
+        }
+        enum on {
+          value 1;
+          description
+            "Enable the CAPWAP ctrl-link DTLS function.";
+        }
+      }
+    }
+    deviate replace {
+      default "off";
+    }
+  }
+}

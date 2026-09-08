@@ -1,0 +1,1084 @@
+/*
+* Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-qos-mqc {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-qos-mqc";
+  prefix mqc;
+  import huawei-qos {
+    prefix qos;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-time-range {
+    prefix timerange;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-nac-group {
+    prefix nacgroup;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Huawei mqc extension.";
+  revision 2025-04-11 {
+    description
+      "Add traffic-statistic loss and time parameter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-02 {
+    description
+      "Add traffic-statistic loss and delay parameter.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-20 {
+    description
+      "Add priority of a car-ip-range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-11 {
+    description
+      "Add sa-policys-applys, sa-policys, and car-rate.";
+    reference
+      "Huawei private.";    
+  }
+  revision 2024-10-21 {
+    description
+      "Change location of ip-ranges.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2024-10-15 {
+    description
+      "Add interface qos car apply.";
+    reference
+      "Huawei private.";
+  } 
+  revision 2024-08-09 {
+    description
+      "Add global filter apply and interface filter apply.";
+    reference
+      "Huawei private.";
+  }    
+  revision 2024-07-25 {
+    description
+      "Add must condition of leaf srv6 acl and srv6 IPv6 acl.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-19 {
+    description
+      "Add policy-dscps and sa-whitelist to the sac container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-18 {
+    description
+      "Add sa-enable to the sac global-config container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-02-04 {
+    description
+      "Delete default value of sa-enable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-28 {
+    description
+      "Add traffic filter for ucl6.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-05-10 {
+    description
+      "Change the key of list app-traffic-statistic from app-id to app-name and source-ip.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-12 {
+    description
+      "Change flow-table-usage-alarm-percent leaf into lower-percent and upper percent leafs.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-04-11 {
+    description
+      "Add flow-table-usage-alarm-percent leaf in container global-config.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-17 {
+    description
+      "Add object-type leaf in sa-policys list, and adjust the order of the container qos-mqc.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-18 {
+    description
+      "Add sac container and leafs.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-14 {
+    description
+      "Modify dual policy effective leaf type.";
+    reference
+      "Huawei private.";
+  }    
+  revision 2022-08-26 {
+    description
+      "Add dual policy effective leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-14 {
+    description
+      "Add network-slice-instance and SRv6 acl.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-27 {
+    description
+      "Delete car.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-27 {
+    description
+      "The enumerated values are modified.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-03-26 {
+    description
+      "Remove rely.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-16 {
+    description
+      "Add decap-enable, car percent.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-01-13 {
+    description
+      "Add pre classify.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-11-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef mode-effect-only-one-status {
+    type enumeration {
+      enum "enable" {
+        value 1;
+        description
+          "Enable.";
+      }
+    }
+    description
+      "Enable.";
+  }
+  typedef sa-policy-object-type {
+    type enumeration {
+      enum "application" {
+        value 1;
+        description
+          "Application type.";
+      }
+      enum "application-group" {
+        value 2;
+        description
+          "Application-group type.";
+      }
+    }
+    description
+      "Object type of sa policy.";
+  }
+  typedef sa-policy-action-type {
+    type enumeration {
+      enum deny {
+        value 0;
+        description "Deny action.";
+      }
+    }
+    description 
+      "Action of the QoS SAC policy.";
+  }
+
+  grouping traffic-statistic {
+    description
+      "Traffic statistic leafs group.";
+    leaf upstream-traffic {
+      type uint64;
+      description
+        "Total bytes of upstream traffic.";
+    }
+    leaf downstream-traffic {
+      type uint64;
+      description
+        "Total bytes of downstream traffic.";
+    }
+    leaf upstream-packets {
+      type uint64;
+      description
+        "Total number of upstream packets.";
+    }
+    leaf downstream-packets {
+      type uint64;
+      description
+        "Total number of downstream packets.";
+    }
+    leaf uplr {
+      type uint16;
+      description
+        "Max upstream packet loss rate by permyriad.";
+    }
+    leaf uplr-avg {
+      type uint16;
+      description
+        "Average upstream packet loss rate by permyriad.";
+    }
+    leaf dplr {
+      type uint16;
+      description
+        "Max downstream packet loss rate by permyriad.";
+    }
+    leaf avg-dplr {
+      type uint16;
+      description
+        "Average downstream packet loss rate by permyriad.";
+    }
+    leaf drtt {
+      type uint16;
+      description
+        "Downstream round trip time.";
+    }
+    leaf urtt {
+      type uint16;
+      description
+        "Upstream round trip time.";
+    }
+    leaf avg-drtt {
+      type uint16;
+      description
+        "Average downstream round trip time.";
+    }
+    leaf avg-urtt {
+      type uint16;
+      description
+        "Average upstream round trip time.";
+    }
+    leaf tcp-snd {
+      type uint16;
+      description
+        "TCP server network delay.";
+    }
+    leaf tcp-cnd {
+      type uint16;
+      description
+        "TCP client network delay.";
+    }
+    leaf period {
+      type uint16;
+      description
+        "Peroid of report by second.";
+    }
+    leaf report-timestamp {
+      type uint32;
+      description
+        "Report timestamp.";
+    }
+    leaf creat-timestamp {
+      type uint32;
+      description
+        "Flow table Creat timestamp.";
+    }
+    leaf start-timestamp {
+      type uint32;
+      description
+        "Start timestamp.";
+    }
+    leaf rvs-uplr {
+      type uint16;
+      description
+        "Max reverse upstream packet loss rate by permyriad.";
+    }
+    leaf rvs-avg-uplr {
+      type uint16;
+      description
+        "Average reverse upstream packet loss rate by permyriad.";
+    }
+    leaf rvs-dplr {
+      type uint16;
+      description
+        "Max reverse downstream packet loss rate by permyriad.";
+    }
+    leaf rvs-avg-dplr {
+      type uint16;
+      description
+        "Average reverse downstream packet loss rate by permyriad.";
+    }
+  }
+
+  container qos-mqc {
+    description
+      "Configure mqc function.";
+    container sac {
+      description
+        "Configure sac function.";
+      container global-config {
+        description
+          "Configure sac global function.";
+        leaf effect-sa-policy {
+          type leafref {
+            path "/mqc:qos-mqc/mqc:sac/mqc:sa-policys/mqc:sa-policy/mqc:name";
+          }
+          description
+            "Configure effective sa-policy profile.";
+        }
+        leaf traffic-statistic-enable {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable sac traffic statistic.";
+        }
+        leaf flow-table-aging-time {
+          type uint32 {
+            range "180..3600";
+          }
+          units "s";
+          default "300";
+          description
+            "Specify aging time of sac flow table.";
+        }
+        leaf flow-table-report-cycle {
+          type uint32 {
+            range "60..180";
+          }
+          units "s";
+          default "120";
+          description
+            "Configure report cycle of sac flow table.";
+        }
+        leaf remark-tunnel-inner-layer {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable remark inner-layer 8021p/dscp of tunnel-packet only.";
+        }
+        leaf flow-table-usage-alarm-lower-percent {
+          type uint32 {
+            range "1..100";
+          }
+          units "%";
+          default "50";
+          description
+            "Specify lower alarm percent of sac flow table usage.";
+        }
+        leaf flow-table-usage-alarm-upper-percent {
+          type uint32 {
+            range "1..100";
+          }
+          units "%";
+          must '../flow-table-usage-alarm-upper-percent > ../flow-table-usage-alarm-lower-percent';
+          default "80";
+          description
+            "Specify upper alarm percent of sac flow table usage.";
+        }
+        leaf sa-enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable sac function globally.";
+        }
+      }
+      container sa-policys-applys {
+        description
+          "List of sa-policys-applys.";
+        list sa-policys-apply {
+          key "sa-policy";
+          description
+            "Configure the names of the sa-policy and the referenced ACL.";
+          leaf sa-policy {
+            type leafref {
+              path "/mqc:qos-mqc/mqc:sac/mqc:sa-policys/mqc:sa-policy/mqc:name";
+            }
+            description
+              "Configure the name of the referenced sa-policy.";
+          }
+          leaf acl {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            description
+              "Configure the name or number of the referenced ACL.";
+          }
+        }
+      }
+      container sa-policys {
+        description
+          "List of sa-policy.";
+        list sa-policy {
+          key "name";
+          description
+            "Configure sa-policy.";
+          leaf name {
+            type string {
+              length "1..31";
+            }
+            description
+              "Specify name of sa-policy.";
+          }
+          container policys {
+            description
+              "List of policies of application or application group.";
+            list policy {
+              key "policy-object-name object-type";
+              description
+                "Configure sac policies.";
+              leaf policy-object-name {
+                type string {
+                  length "1..32";
+                }
+                description
+                  "Specify name of policy object, which can be application or application group name.";
+              }
+              leaf object-type {
+                type sa-policy-object-type;
+                description
+                  "Object type of sa policy.";
+              }
+              choice action {
+                mandatory true;
+                description
+                  "Specify the action.";
+                case permit {
+                  description
+                    "Configure the permit action, including remark and rate.";
+                  leaf remark-dscp {
+                    type uint8 {
+                      range "0..63";
+                    }
+                    description
+                      "Specify remarking value of dscp.";
+                  }
+                  leaf remark-8021p {
+                    type uint8 {
+                      range "0..7";
+                    }
+                    description
+                      "Specify remarking value of 8021p.";
+                  }
+                  leaf car-rate {
+                    type uint32;
+                    units "kbit/s";
+                    description
+                      "Configure the CAR rate.";
+                  }
+                }
+                case deny {
+                  description
+                    "Specify deny.";
+                  leaf deny {
+                    type sa-policy-action-type;
+                    description
+                      "Deny action.";
+                  }
+                }
+              }
+            }
+          }
+          container policy-dscps {
+            description
+              "List of policies of dscp.";
+            list policy-dscp {
+              must "./remark-dscp or ./remark-8021p";
+              must "./dscp-begin<=./dscp-end";
+              key "dscp-begin dscp-end";
+              description
+                "Configure sac policies by dscp range.";
+              leaf dscp-begin {
+                type uint8 {
+                  range "0..63";
+                }
+                description
+                  "Specify origin value of dscp, range begin.";
+              }
+              leaf dscp-end {
+                type uint8 {
+                  range "0..63";
+                }
+                description
+                  "Specify origin value of dscp, range end.";
+              }
+              leaf remark-dscp {
+                type uint8 {
+                  range "0..63";
+                }
+                description
+                  "Specify remarking value of dscp.";
+              }
+              leaf remark-8021p {
+                type uint8 {
+                  range "0..7";
+                }
+                description
+                  "Specify remarking value of 8021p.";
+              }
+            }
+          }
+        }
+      }
+      container app-traffic-statistics {
+        config false;
+        description
+          "List of application traffic statistics.";
+        list app-traffic-statistic {
+          key "app-name source-ip";
+          description
+            "Statistics of application traffic.";
+          leaf app-name {
+            type string {
+              length "1..32";
+            }
+            description
+              "Application name.";
+          }
+          leaf source-ip {
+            type inet:ip-address-no-zone;
+            description
+              "Source IP address.";
+          }
+          leaf app-id {
+            type uint32;
+            description
+              "Application ID.";
+          }
+          uses traffic-statistic;
+        }
+      }
+      container sa-whitelists {
+        description
+          "List of sa whitelist.";
+        list sa-whitelist {
+          key "acl-name";
+          description
+            "Configure global sa whitelist.";
+          leaf acl-name {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+            description
+              "Acl number or name.";
+          }
+        }
+      }
+      container sa-whitelist-applys {
+        config false;
+        description
+          "List of sa-whitelist apply state.";
+        list sa-whitelist-apply {
+          key "acl-name slot-id";
+          description
+            "Sa-whitelist apply state.";
+          leaf acl-name {
+            type string {
+              length "1..31";
+            }
+            description
+              "Acl number or name.";
+          }
+          leaf slot-id {
+            type string {
+              length "1..15";
+            }
+            description
+              "Slot id.";
+          }
+          leaf result {
+            type qos:policy-apply-state;
+            description
+              "Sa-whitelist apply state.";
+          }
+        }
+      }
+    }
+  }
+
+  augment "/qos:qos/qos:classifier-template/qos:traffic-classifiers/qos:traffic-classifier" {
+    description
+      "Reference traffic classifier.";
+    container classifier {
+      description
+        "Configure rules.";
+      container rule-apps {
+        description
+          "List of applications.";
+        list rule-app {
+          key "app-name";
+          description
+            "Configure rule matching application.";
+          leaf app-name {
+            type string {
+              length "1..128";
+            }
+            description
+              "If-match application name.";
+          }
+          leaf time-range {
+            type leafref {
+              path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+            }
+            description
+              "Time range instance.";
+          }
+        }
+      }
+      container rule-app-groups {
+        description
+          "List of application groups.";
+        list rule-app-group {
+          key "app-group-name";
+          description
+            "Configure rule matching application group.";
+          leaf app-group-name {
+            type string {
+              length "1..128";
+            }
+            description
+              "Configure the application group.";
+          }
+          leaf time-range {
+            type leafref {
+              path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+            }
+            description
+              "Time range instance.";
+          }
+        }
+      }
+      container rule-srv6-acls {
+        description
+          "List of configure of SRv6 tunnel fields and inner packet fields.";
+        list rule-srv6-acl {
+          key "srv6-acl";
+          description
+            "Configure match SRv6 inner IPv4 packets.";
+          leaf srv6-acl {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "(/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' and ../transit) or (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance' and ../transit)";
+            description
+              "Acl number or name.";
+          }
+          leaf transit {
+            type empty;
+            description
+              "Configure SRv6 IPv4 Transit.";
+          }
+        }
+      }
+      container rule-srv6-ipv6acls {
+        description
+          "List of configure match SRv6 inner IPv6 packets.";
+        list rule-srv6-ipv6acl {
+          key "srv6-ipv6acl";
+          description
+            "Configure match SRv6 inner IPv6 packets.";
+          leaf srv6-ipv6acl {
+            type leafref {
+              path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+            }
+            must "(/acl:acl/acl:group6s/acl:group6[acl:identity=current()]/acl:type='basic' and ../transit) or (/acl:acl/acl:group6s/acl:group6[acl:identity=current()]/acl:type='advance' and ../transit)";
+            description
+              "IPv6 acl number or name.";
+          }
+          leaf ipv6-rule-mode {
+            type qos:ipv6-prefix-mode;
+            description
+              "Match mode.";
+          }
+          leaf transit {
+            type empty;
+            description
+              "Configure SRv6 IPv6 Transit.";
+          }
+        }
+      } 
+    }
+  }
+
+  augment "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior" {
+    description
+      "Reference traffic behavior.";
+    container behavior {
+      description
+        "Configure behavior.";
+      container set-te-classes {
+        description
+          "Configure Set te class.";
+        leaf class-id {
+          type uint16 {
+              range "1..65535";
+          }
+          description
+            "Class Id.";
+        }
+      }
+      container set-multicast-nat {
+        description
+          "Configure bind multicast-nat instance.";
+        leaf instance-id {
+          type uint16 {
+              range "1..65535";
+          }
+          description
+            "ID of a multicast NAT instance.";
+        }
+        leaf instance-name {
+          type string {
+              length "1..128";
+            }
+          description
+            "Name of a multicast NAT instance.";
+        }
+      }
+      container network-slice-instance {
+        description
+          "Configure network-slice instance.";
+        leaf instance-id {
+          type uint32 {
+              range "0..4294967295";
+          }
+          description
+            "ID of a network-slice instance.";
+        }
+      }
+    }
+  }
+
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Configure the mqc on interface.";
+    container pre-classify {
+      description
+        "Configure the pre classify on tunnel interface.";
+      leaf pre-classify {
+        type empty;
+        description
+          "Configure pre classify tunnel interface.";
+      }
+    }
+    container decap-enable {
+      description
+        "Configure the decap enable on tunnel interface.";
+      leaf decap-enable {
+        type empty;
+        must "../../ifm:type='Tunnel'";
+        description
+          "Decap enable.";
+      }
+    }
+    container sa-enable {
+      description
+        "Configure sac function on interface.";
+      leaf enable {
+        type boolean;
+        description
+          "Enable/disable sac function.";
+      }
+    }
+    container ip-ranges {
+        description
+            "List of qos car on interface.";
+        list ip-range {
+            key "direction address-type start-ip end-ip";
+            description
+                "Configure of qos car.";
+            leaf direction {
+                type qos:qos-direction-type;
+                description
+                    "Direction of qos car.";
+            }
+            leaf address-type {
+                type qos:qos-address-type;
+                description
+                    "Type of IP address.";
+            }
+            leaf start-ip {
+                type inet:ipv4-address-no-zone;
+                description
+                    "Specifies an IP address range, A start IP address.";
+            }
+            leaf end-ip {
+                type inet:ipv4-address-no-zone;
+                description
+                    "Specifies an IP address range, A end IP address.";
+            }
+            leaf per-address-enable {
+                type empty;
+                description "Performs traffic policing for packets from each IP address. If this parameter is not specified, the system aggregates all the flows and uses CAR to limit the flows.";
+            }
+            leaf time-range {
+                type leafref {
+                    path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+                }
+                description
+                    "Time range name.";
+             }
+            leaf cir {
+                type uint32 {
+                    range "24..100000000";
+                }
+                units "kbit/s";
+                mandatory true;
+                description
+                    "Committed information rate, which is the average rate of traffic that can pass.";
+            }
+            leaf pir {
+                type uint32 {
+                    range "24..100000000";
+                }
+                units "kbit/s";
+                description 
+                    "Peak information rate, which is the maximum rate of traffic that can pass.";
+            }
+            leaf cbs {
+                type uint32 {
+                    range "10000..4194304";
+                }
+                units "Byte";
+                description 
+                    "Committed burst size, which is the average volume of burst traffic that can pass.";
+            }
+            leaf pbs {
+                type uint32 {
+                    range "10000..4194304";
+                }
+                units "Byte";
+                description 
+                    "Peak burst size, which is the maximum volume of burst traffic that can pass.";
+            }
+            leaf green-action {
+                type qos:color-action-type;
+                description 
+                    "Indicate the action to green packets after meter.";
+            }
+            leaf yellow-action {
+                type qos:color-action-type;
+                description 
+                    "Indicate the action to yellow packets after meter.";
+            }
+            leaf red-action {
+                type qos:color-action-type;
+                description
+                    "Indicate the action to red packets after meter.";
+            }
+            leaf priority {
+              type uint16 {
+                range "0..65535";
+              }
+              ext:dynamic-default;
+              description
+                "Priority of a car-ip-range.";
+            }
+        }
+    }
+    container filter-apply {
+        description "Configure filter apply on interface.";
+        container filter-applys {
+            must "../../ifm:type!='tunnle'and ../../ifm:type!='MEth' and ../../ifm:type!='NULL'and ../../ifm:type!='LoopBack' and ../../ifm:type!='Vlanif' and ../../ifm:type!='Nve'and ../../ifm:type!='Vbdif'and ../../ifm:type!='Stack-Port'and ../../ifm:class='main-interface'";
+            description "List of filter acl interface.";
+            list filter-apply {
+              key "acl-name direction";
+              max-elements 16;
+              description "Configure of filter IPv4 acl.";
+              leaf acl-name {
+                type leafref { path "/acl:acl/acl:groups/acl:group/acl:identity";}
+                must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='link' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+                description "Acl number or name.";
+              }
+              leaf direction {
+                type qos:qos-direction-type;
+                must "current()='inbound'";
+                description "Direction.";
+              } 
+            }               
+        }
+    }
+  }
+  augment /nacgroup:nac-group {
+    description
+      "Reference the nac group.";
+    container nac-group {
+      description
+        "Configure the nac group.";
+      container global-filter-applys {
+        description
+          "List of user acl global.";
+        list global-filter-apply {
+          key "acl-name direction";
+          max-elements 16;
+          description
+            "Configure of filter IPv4 acl.";
+          leaf acl-name {
+            type leafref {
+              path "/acl:acl/acl:groups/acl:group/acl:identity";
+            }
+            must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='UCL'";
+            description
+              "Acl number or name.";
+          }
+          leaf direction {
+            type qos:qos-direction-type;
+            must "current()='inbound'";
+            description
+              "Direction.";
+          }
+        }
+      }
+      
+      container global-ipv6-filter-applys {
+        description
+          "List of user acl6 global.";
+        list global-ipv6-filter-apply {
+          key "acl-name direction";
+          max-elements 16;
+          description
+            "Configure of filter IPv6 acl.";
+          leaf acl-name {
+            type leafref {
+              path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+            }
+            must "/acl:acl/acl:group6s/acl:group6[acl:identity=current()]/acl:type='UCL'";
+            description
+              "Acl number or name.";
+          }
+          leaf direction {
+            type qos:qos-direction-type;
+            must "current()='inbound'";
+            description
+              "Direction.";
+          }
+        }
+      }
+    }
+  }
+  augment "/qos:qos/qos:global-config"{
+    description
+      "Mqc global configuration.";
+    container mqc-effective-only-one {
+      description
+        "Configure traffic policy effective only one mode.";
+      leaf enable {
+        type mode-effect-only-one-status;
+        description
+          "Enable dual effective one.";
+      }
+    }
+    container global-filter-apply {
+        description "Configure filter apply on global.";
+        container global-filter-applys {
+            description "List of filter acl global.";
+            list global-filter-apply {
+              key "acl-name direction";
+              max-elements 16;
+              description "Configure of filter IPv4 acl.";
+              leaf acl-name {
+                type leafref { path "/acl:acl/acl:groups/acl:group/acl:identity";}
+                must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='link' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+                description "Acl number or name.";
+              }
+              leaf direction {
+                type qos:qos-direction-type;
+                must "current()='inbound'";
+                description "Direction.";
+              }
+            }    
+        }
+    }
+    container traffic-policy-mode {
+      description "Configure traffic policy mode.";
+      leaf enhanced-update-mode {
+        type empty;
+        description "Enhanced update mode.";
+      }
+    }
+  }
+  augment "/qos:qos/qos:global-query"{
+    description
+        "Mqc global query.";
+    container car-ip-range-states {
+        description
+            "List of display IP range car state.";
+        list car-ip-range-state {
+          key "interface-name direction";
+          config false;
+          description
+            "Operational state of IP range car state.";
+          leaf interface-name {
+            type leafref {      
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+            }
+            description 
+                "Interface name.";
+          }
+          leaf direction {
+              type qos:qos-direction-type;
+              description
+                  "Direction of qos car.";
+            }
+          leaf start-ip {
+            type inet:ipv4-address-no-zone;
+            description 
+                "Specifies an IP address range, A start IP address.";
+          }
+          leaf end-ip {
+            type inet:ipv4-address-no-zone;
+            description 
+                "Specifies an IP address range, A end IP address.";
+          }
+          leaf address-type {
+            type qos:qos-address-type;
+            description 
+                "Type of IP address.";
+          }
+          leaf result {
+            type qos:policy-apply-state;
+            description 
+                "State of IP range car.";
+          }
+        }
+    }
+  }
+  ext:task-name "mqc";
+}

@@ -1,0 +1,229 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mvpn-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-mvpn-deviations-ar5710s";
+  prefix mvpn-devs-ar5710s;
+
+  import huawei-mvpn {
+    prefix mvpn;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mvpn module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef addr-family-type-deviations {
+    type enumeration {
+      enum ipv4-unicast {
+        value 1;
+        description
+          "IPv4 address family.";
+      }
+    }
+    description
+      "Address family.";
+  }
+
+  typedef rpt-spt-mode-deviations {
+    type enumeration {
+      enum none {
+        value 0;
+        description
+          "PIM SM shared tree is not supported.";
+      }
+      enum spt-mode {
+        value 1;
+        description
+          "SPT-only mode.";
+      }
+    }
+    description
+      "The mode of PIM SM shared tree.";
+  }
+
+  deviation "/mvpn:mvpn/mvpn:globals/mvpn:global/mvpn:enable-inter-area-segmented" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:globals/mvpn:global/mvpn:apply-explicit-null-label" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:ipv6-underlay-globals" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:mvpnglbs" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:rosen-global" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:invalid-switch-group-packets" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:get-mvpnglb-by-range" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:get-mvpn-tunnel-switch-info" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:local-admin-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:is-ipv6-underlay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:src-dt-address" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:is-inter-as" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:global-static-label" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:is-c-multicast-frr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-acl-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-acl-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-flow-based-acl-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-flow-based-acl-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:is-compatible-draft" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:spmsi-tnl-detect-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:rpt-prune-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:inter-area-seg-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:umh-select-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:bier-entropy-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:ipmsi-to-spmsi-switch-immediately" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:is-ipv6-underlay-compatible-style" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-flow-based-rate-acl-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:frr-flow-based-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:extranet-rpfs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:ipmsi-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:ipmsi-infos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:spmsi-tunnels" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:spmsis" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:flow-statistics-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:flow-label-static" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:network-slice" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:send-c-multicast-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:receive-c-multicast-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:rosen-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:mldp-in-band-signaling-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/mvpn:mvpn/mvpn:globals/mvpn:global/mvpn:address-family" {
+    deviate replace {
+      type mvpn-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/mvpn:mvpn/mvpn:globals/mvpn:global/mvpn:mvpn-id" {
+    deviate add {
+      must "../mvpn:address-family='ipv4-unicast'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng" {
+    deviate delete {
+      must "(../../l3vpn:type='ipv4-unicast' and (../mvpn:mvpn-id or /mvpn:mvpn/mvpn:globals/mvpn:global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id or /mvpn:mvpn/mvpn:ipv6-underlay-globals/mvpn:ipv6-underlay-global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id)) or (../../l3vpn:type='ipv6-unicast' and (/mvpn:mvpn/mvpn:globals/mvpn:global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id or /mvpn:mvpn/mvpn:ipv6-underlay-globals/mvpn:ipv6-underlay-global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id))";
+    }
+    deviate delete {
+      must '(./frr-flow-based-rate-acl-name and ./frr-flow-based-threshold) or (not (./frr-flow-based-rate-acl-name) and not (./frr-flow-based-threshold))';
+    }
+    deviate delete {
+      must "../../../../ni:name ='_public_' or ./is-inter-as='false' or ./inter-area-seg-enable='false'";
+    }
+    deviate delete {
+      must "../../../../ni:name ='_public_' or ./is-ipv6-underlay='false' or ./inter-area-seg-enable='false'";
+    }
+    deviate delete {
+      must "../../../../ni:name!='_public_' or /mvpn:mvpn/mvpn:ipv6-underlay-globals/mvpn:ipv6-underlay-global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id";
+    }
+    deviate add {
+      must "(../../l3vpn:type='ipv4-unicast' and /mvpn:mvpn/mvpn:globals/mvpn:global[mvpn:address-family=current()/../../l3vpn:type]/mvpn:mvpn-id)";
+    }
+    deviate add {
+      must "../../../../ni:name!='_public_'";
+    }
+    deviate add {
+      must "../../l3vpn:type='ipv4-unicast'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/mvpn:mvpn/mvpn:mvpn-type/mvpn:ng-mvpn/mvpn:ng/mvpn:rpt-spt-mode" {
+    deviate replace {
+      type mvpn-devs-ar5710s:rpt-spt-mode-deviations;
+    }
+  }
+}

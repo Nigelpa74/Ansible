@@ -1,0 +1,204 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-devm-poe-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-devm-poe-deviations-ar5710s";
+  prefix devm-poe-devs-ar5710s;
+
+  import huawei-devm-poe {
+    prefix devm-poe;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-devm-poe module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef poe-mode-type-deviations {
+    type enumeration {
+      enum af-inrush {
+        value 0;
+        description
+          "Change the PoE interface to conformance IEEE 802.3af.";
+      }
+      enum at-inrush {
+        value 1;
+        description
+          "Change the PoE interface to conformance IEEE 802.3at.";
+      }
+      enum bt-inrush {
+        value 3;
+        description
+          "Change the PoE interface to conformance IEEE 802.3bt.";
+      }
+    }
+    description
+      "PoE Mode Type.";
+  }
+
+  typedef poe-port-status-deviations {
+    type enumeration {
+      enum detecting {
+        value 0;
+        description
+          "Detecting status.";
+      }
+      enum disabled {
+        value 1;
+        description
+          "Disabled status.";
+      }
+      enum overloaded {
+        value 3;
+        description
+          "Overloaded status.";
+      }
+      enum power-ready {
+        value 4;
+        description
+          "Power-ready status.";
+      }
+      enum unstable-voltage {
+        value 5;
+        description
+          "Unstable-voltage status.";
+      }
+      enum power-deny {
+        value 6;
+        description
+          "Power-deny status.";
+      }
+      enum classification-overcurrent {
+        value 7;
+        description
+          "Classification overcurrent status.";
+      }
+      enum power-overcurrent {
+        value 9;
+        description
+          "Power overcurrent status.";
+      }
+      enum poweron-fail {
+        value 10;
+        description
+          "Power-on fail status.";
+      }
+      enum powering {
+        value 11;
+        description
+          "Powering status.";
+      }
+      enum time-range-poweroff {
+        value 12;
+        description
+          "Time-range power off status.";
+      }
+      enum legacy-disable {
+        value 14;
+        description
+          "Legacy-disable status.";
+      }
+      enum chip-fault {
+        value 16;
+        description
+          "Chip-fault status.";
+      }
+      enum high-temperature {
+        value 17;
+        description
+          "High-temperature status.";
+      }
+      enum mos-fault {
+        value 18;
+        description
+          "MOS-fault status.";
+      }
+      enum not-support {
+        value 19;
+        description
+          "Port is not support PoE.";
+      }
+      enum disabled-track-shutdown {
+        value 20;
+        description
+          "PoE disabled by command shutdown.";
+      }
+    }
+    description
+      "The poe port status.";
+  }
+
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:entity-index" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:manual-power-setting" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:interface-description" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:chassis-poes" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:max-power" {
+    deviate replace {
+      type uint32 {
+        range "0..2880000";
+      }
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:interface-name" {
+    deviate add {
+      must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type = 'GEBrief' or 'MultiGE' or '10GE' or '25GE'";
+    }
+    deviate replace {
+      type leafref {
+        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+      }
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:power-mode" {
+    deviate replace {
+      type devm-poe-devs-ar5710s:poe-mode-type-deviations;
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:fast-on-enable" {
+    deviate replace {
+      config false;
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:port-max-power" {
+    deviate replace {
+      type uint32 {
+        range "0..90000";
+      }
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:power-priority" {
+    deviate add {
+      default "low";
+    }
+  }
+  deviation "/devm-poe:devm-poe/devm-poe:poes/devm-poe:poe/devm-poe:ports/devm-poe:port/devm-poe:power-status" {
+    deviate replace {
+      type devm-poe-devs-ar5710s:poe-port-status-deviations;
+    }
+  }
+}

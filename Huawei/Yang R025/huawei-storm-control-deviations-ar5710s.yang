@@ -1,0 +1,121 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-storm-control-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-storm-control-deviations-ar5710s";
+  prefix storm-control-devs-ar5710s;
+
+  import huawei-storm-control {
+    prefix storm-control;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-storm-control module.";
+
+  revision 2022-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef packet-type-deviations {
+    type enumeration {
+      enum broadcast {
+        value 1;
+        description
+          "This value is used for performing on broadcast packets.";
+      }
+      enum unknown-multicast {
+        value 2;
+        description
+          "This value is used for performing on unknown-multicast packets.";
+      }
+      enum unknown-unicast {
+        value 4;
+        description
+          "This value is used for performing on unknown-unicast packets.";
+      }
+    }
+    description
+      "Type of packets going through an interface.";
+  }
+
+  deviation "/storm-control:storm-control" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/storm-control:storm-control" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/storm-control:storm-suppress/storm-control:storm-suppress-action" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/storm-control:storm-control" {
+    deviate not-supported;
+  }
+  deviation "/bd:bd/bd:instances/bd:instance/storm-control:storm-suppress" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:rate-type/storm-control:packet" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:rate-type/storm-control:percent" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/storm-control:storm-suppress/storm-control:storm-suppress-action" {
+    deviate not-supported;
+  }
+  deviation "/l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls/storm-control:storm-suppress" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:packet-type" {
+    deviate replace {
+      type storm-control-devs-ar5710s:packet-type-deviations;
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:rate-type/storm-control:rate/storm-control:cir" {
+    deviate replace {
+      type uint32 {
+        range "0..800000000";
+      }
+    }
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:packet-type" {
+    deviate delete {
+      must '../pps or ../cir or ../percent or (../cir and ../cbs)';
+    }
+    deviate add {
+      must '../cir';
+    }
+    deviate replace {
+      type storm-control-devs-ar5710s:packet-type-deviations;
+    }
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/storm-control:storm-suppress/storm-control:storm-rates/storm-control:storm-rate/storm-control:rate-type/storm-control:rate/storm-control:cir" {
+    deviate replace {
+      type uint32 {
+        range "64..4294967295";
+      }
+    }
+  }
+}

@@ -1,0 +1,328 @@
+/******************************************************
+ * Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+ * Module description & tree structure:
+module: huawei-service-set
+  +--rw service-set
+     +--rw service-objects
+     |  +--rw service-object* [name]
+     |     +--rw name           string
+     |     +--rw description?   string
+     |     +--rw items
+     |        +--rw item* [id]
+     |           +--rw id                        uint16
+     |           +--rw proto-id                  uint8
+     |           +--rw (object-item)?
+     |              +--:(port-item)
+     |              |  +--rw source-port?        hw-pub-type:id-range
+     |              |  +--rw dest-port?          hw-pub-type:id-range
+     |              +--:(icmp-item)
+     |                 +--rw icmp-type-number?   uint8
+     |                 +--rw icmp-code-number?   hw-pub-type:id-range
+     +--rw service-groups
+        +--rw service-group* [name]
+           +--rw name           string
+           +--rw description?   string
+           +--rw items
+              +--rw item* [id]
+                 +--rw id                      uint16
+                 +--rw (group-item)?
+                    +--:(service-object)
+                    |  +--rw service-object?   service-object-ref
+                    +--:(service-group)
+                       +--rw service-group?    service-group-ref
+ ***************************************************/
+module huawei-service-set {
+  namespace "urn:huawei:yang:huawei-service-set";
+  prefix hw-service-set;
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  import huawei-pub-type {
+    prefix hw-pub-type;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com
+     ";
+  description
+    "This module contains a collection of YANG definitions for huawei security gateway service set definition.";
+  revision 2025-08-28 {
+    description
+       "Modify the must condition for 'name' in service-object and service-group.";
+    reference "";
+  }
+
+  revision 2025-06-16 {
+    description
+       "Add unique condition to service-object and service-group.";
+    reference "";
+  }
+
+  revision 2025-02-10 {
+    description
+       "Add the description of the element.";
+    reference "";
+  }
+
+  revision 2024-08-26 {
+    description
+       "Add name and description pattern.";
+    reference "";
+  }
+
+  revision 2024-05-21 {
+    description
+      "Modify icmp-type-code node and must condition.";
+    reference "";
+  }
+
+  revision 2022-08-10 {
+    description
+      "Modify port items node.";
+    reference "";
+  }
+
+  revision 2021-04-09 {
+    description
+      "Modify mismatched nodes.";
+    reference "";
+  }
+
+  revision 2020-03-09 {
+    description
+      "Modify port node.";
+    reference "";
+  }
+
+  revision 2019-10-30 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+
+  typedef service-object-ref {
+    type leafref {
+      path "/hw-service-set:service-set/hw-service-set:service-objects/hw-service-set:service-object/hw-service-set:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured service object.";
+  }
+
+  typedef service-group-ref {
+    type leafref {
+      path "/hw-service-set:service-set/hw-service-set:service-groups/hw-service-set:service-group/hw-service-set:name";
+    }
+    description
+      "This type is used by data models that need to reference
+       configured service group.";
+  }
+
+  grouping icmp-type-code {
+    description
+      "ICMP type and code.";
+    leaf icmp-type-number {
+      type uint8;
+      mandatory true;
+      description
+      "ICMP type number.";
+    } 
+    leaf icmp-code-number {
+      type hw-pub-type:id-range {
+        pattern '((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})(-(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2}))?(,(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})(-(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2}))?){0,63})';
+        ext:value-range "0..255";
+      }
+      mandatory true;
+      description
+      "ICMP code number.";
+    }
+  }
+
+  grouping port-items {
+    description
+      "Protocol port items.";
+    leaf source-port {
+      type hw-pub-type:id-range {
+        pattern '((6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4})(-(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4}))?(,((6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4})(-(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4}))?)){0,63})';
+        ext:value-range "0..65535";
+      }
+      description "Source port range.";
+    }
+    leaf dest-port {
+      type hw-pub-type:id-range {
+        pattern '((6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4})(-(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4}))?(,((6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4})(-(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[0-9]{1,4}))?)){0,63})';
+        ext:value-range "0..65535";
+      }
+      description "Destination port range.";
+    }
+  }
+
+  ext:task-name "service-set";
+  container service-set {
+    description "Service set configuration.";
+    container service-objects{
+      description "List of service object configuration parameters.";
+      list service-object {
+        key "name";
+        description 
+          "Configure a service object.";
+        leaf name {  
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          must "not(../../../service-groups/service-group/name) or ../../../service-groups/service-group/name != current()";
+          description 
+            "Service object name.";
+        }
+      
+        leaf description {
+          type string {
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description 
+            "Service object description.";
+        }
+
+        container items {
+          description 
+            "List of service object element.";
+          list item {
+            key "id";
+            unique "proto-id object-item/port-item/source-port object-item/port-item/dest-port";
+            unique "proto-id object-item/icmp-item/icmp-type-number object-item/icmp-item/icmp-code-number";
+            description 
+              "Configure a service object element.";
+
+            leaf id {
+              type uint16;
+              description 
+                "Element ID.";
+            }
+
+            leaf description {
+              type string{
+                length "1..64";
+                pattern '[^?]+';
+              }
+              description "The description of the service object element.";
+            }
+            
+            leaf proto-id {
+              type uint8 {
+                range "0..255";
+              }
+              mandatory true;
+              description 
+                "Protocol ID value.";
+            }
+
+            choice object-item {
+              description 
+                "Element type.";
+
+              case port-item {
+                when "(./proto-id = 6) or (./proto-id = 17) or (./proto-id = 132)";
+                description 
+                  "The port of TCP, UDP or SCTP.";
+                uses port-items;
+              }
+
+              case icmp-item {
+                when "(./proto-id = 1) or (./proto-id = 58)";
+                description 
+                  "ICMP type and code.";
+                uses icmp-type-code;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    container service-groups {
+      description "List of service group configuration parameters.";
+      list service-group {
+        key "name";
+        description 
+          "Configure a service group.";
+        leaf name {
+          type string {
+            length "1..63";
+            pattern '(^([^\? "])?([^ \?"]*)([^\? "])$)|((^")[^ "\?]([^\?"]* [^\?"]*)[^ "\?]("$))';
+          }
+          must "not(../../../service-objects/service-object/name) or ../../../service-objects/service-object/name != current()";
+          description 
+            "Service object name.";
+        }
+        
+        leaf description {
+          type string {
+            length "1..128";
+            pattern '[^?]+';
+          }
+          description 
+            "Service object description.";
+        }
+
+        container items {
+          description 
+            "List of service group element.";
+          list item {
+            key "id";
+            unique "group-item/service-object/service-object";
+            unique "group-item/service-group/service-group";
+            description 
+              "Configure a service group element.";
+            leaf id {
+              type uint16;
+              description 
+                "Element ID.";
+            }
+            leaf description {
+              type string{
+                length "1..64";
+                pattern '[^?]+';
+              }
+              description "The description of the service group element.";
+            }
+            choice group-item {
+              mandatory true;
+              description 
+                "Service object or group.";
+              case service-object {
+                description 
+                  "Service object.";
+                leaf service-object {
+                  type service-object-ref;
+                  description 
+                    "Service object name.";
+                }
+              }
+              case service-group {
+                description 
+                  "Service group.";
+                leaf service-group {
+                  type service-group-ref;
+                  must "../../../hw-service-set:name != current()";
+                  description 
+                    "Service group name.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

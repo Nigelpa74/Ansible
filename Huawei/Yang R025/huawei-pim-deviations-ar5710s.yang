@@ -1,0 +1,777 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pim-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-pim-deviations-ar5710s";
+  prefix pim-devs-ar5710s;
+
+  import huawei-pim {
+    prefix pim;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-l3-multicast {
+    prefix l3mc;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-multicast {
+    prefix mc;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pim module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef addr-family-type-deviations {
+    type enumeration {
+      enum ipv4unicast {
+        value 1;
+        description
+          "IPv4 unicast address.";
+      }
+    }
+    description
+      "Unicast address.";
+  }
+
+  typedef rp-type-deviations {
+    type enumeration {
+      enum fixed {
+        value 1;
+        description
+          "Fixed.";
+      }
+      enum static {
+        value 2;
+        description
+          "Static.";
+      }
+      enum config-ssm {
+        value 3;
+        description
+          "Configure SSM.";
+      }
+      enum bsr {
+        value 4;
+        description
+          "Bootstrap router (BSR).";
+      }
+      enum auto-rp {
+        value 5;
+        description
+          "Auto-rendezvous point.";
+      }
+      enum other {
+        value 7;
+        description
+          "Other.";
+      }
+    }
+    description
+      "RP mode type.";
+  }
+
+  typedef sg-mode-deviations {
+    type enumeration {
+      enum none {
+        value 1;
+        description
+          "No protocol.";
+      }
+      enum pim-asm {
+        value 2;
+        description
+          "Protocol Independent Multicast-Sparse Mode.";
+      }
+      enum pim-dm {
+        value 3;
+        description
+          "Protocol Independent Multicast-Dense Mode.";
+      }
+      enum pim-ssm {
+        value 5;
+        description
+          "Protocol-Independent Multicast Source-specific Multicast.";
+      }
+      enum other {
+        value 6;
+        description
+          "Other protocols.";
+      }
+    }
+    description
+      "SG mode.";
+  }
+
+  typedef acl4-identity-deviations {
+    type string {
+      length "1..32";
+      pattern '([2-4]\d{3})|(23[0-9]{3})|([0-9a-zA-Z]([^\s]*))';
+    }
+    description
+      "ACL4-identity is begin with a-z or A-Z or 0-9.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:if-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:policy-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:c-rp-policy6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:ipv6-c-rps" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:static-rps/pim:static-rp/pim:policy-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:elected-bsr-rps/pim:elected-bsr-rp/pim:bidir-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:embedded-rp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:reg-policy-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:ssm-policy-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:src-policy-name6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:embedded-rp-policy-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:ipsec-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:ipsec-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:unicast-ipsec-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:register-source-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:fast-reroute" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:fast-reroute-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:hello-join-attr-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:clone-inherit-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:clone-inherit-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:gen-id-chang-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:rpf-prune-holdtime" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:rpf-prune-policy-ipv4" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:rpf-switch-delay-sm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:rpf-switch-delay-ssm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:backup-rpf-switch-holdtime" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:is-backup-rpf-switch-flow-based" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:backup-rpf-switch-policy-ipv4" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:ipv6-spt-switchs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:p2mp/pim:rpf-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:p2mp/pim:rpf-disable-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:p2mp/pim:source-proxy-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:p2mp/pim:source-proxy-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:vector" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:p2mp-tunnels" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:destination-addr-paths" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:sg-inactive-alarm-threshold" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-policy-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-asm-policy-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-ssm-policy-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:nbr-policy-ipv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:sticky-dr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:bfd-bdr-fast-switch" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:ipsec-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:ipsec-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:ignore-dr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:single-tag-fwd-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:ecmp-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:source-proxy-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:source-proxy-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:non-join-attribute-nbr-sount" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:join-attribute" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:offer-interval" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:election-robust-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:backoff-interval" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:ipsec-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:ipsec-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:snooping-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-infos/pim:bdr-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:nbrs/pim:nbr/pim:second-addrs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:upstream-explicit-loadbalance-rules" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:ipv6-upstream-explicit-loadbalance-rules" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:offer-recv-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:offer-send-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:invalid-offer-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:filtered-offer-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:backoff-recv-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:backoff-send-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:invalid-backoff-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:filtered-backoff-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:win-recv-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:win-send-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:invalid-win-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:filtered-win-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:pass-recv-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:pass-send-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:invalid-pass-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:if-message-statistics/pim:if-message-statistic/pim:filtered-pass-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:src-vrf-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:rpf-vector-rd" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:rpf-vector-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:elected-vector-rd" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:elected-vector-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:backup-inbound-if" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:backup-nbr-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:backup-rpf-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:backup-upstream-expiration-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:user-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:original-src-addr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:vector-attribute-status" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:elected-vector" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:elected-vector-nbr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:vector-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:dr-role" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:downstreams/pim:downstream/pim:vectors" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:recv-vrfs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routing-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:claim-routings/pim:claim-routing/pim:backup-rpf-nbr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:claim-routings/pim:claim-routing/pim:backup-global-administrator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:claim-routings/pim:claim-routing/pim:backup-local-administrator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:claim-routings/pim:claim-routing/pim:backup-as-number" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/pim:rpf-vector-paths" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:hash-len" {
+    deviate add {
+      must "(../type='ipv4unicast' and 32>=../hash-len)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:c-rp-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:ipv4-c-rp-ifs/pim:ipv4-c-rp-if/pim:group-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:static-rps/pim:static-rp" {
+    deviate add {
+      must "(count(../static-rp[type='ipv4unicast'])-count(../static-rp[type='ipv4unicast']/policy)<2)";
+    }
+    deviate add {
+      unique "type policy";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:static-rps/pim:static-rp/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:static-rps/pim:static-rp/pim:policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:elected-bsrs/pim:elected-bsr/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsrs/pim:c-bsr/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:elected-bsr-rps/pim:elected-bsr-rp/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:type" {
+    deviate add {
+      must "(../type = 'ipv4unicast' and ../../../../../l3mc:multicast/l3mc:ipv4)";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:reg-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:ssm-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:src-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:register-with-probe" {
+    deviate add {
+      must "../pim:type='ipv4unicast'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:spt-switchs/pim:spt-switch/pim:group-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate delete {
+      must '/acl:acl/acl:groups/acl:group[acl:identity=current()] or not(../../spt-switch[group-policy=/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:identity])';
+    }
+    deviate delete {
+      must '/acl:acl/acl:groups/acl:group[acl:number=number(current())] or not(/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:number) or not(../../spt-switch[group-policy=string(/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:number)])';
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:instances/pim:instance/pim:anycast-rps/pim:anycast-rp/pim:rp-peers/pim:rp-peer/pim:forward-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:type" {
+    deviate add {
+      must "(../pim:type = 'ipv4unicast' and ../../../../../l3mc:multicast/l3mc:ipv4)";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:if-name" {
+    deviate add {
+      must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:class='main-interface' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:l3-sub-interface/ethernet:dot1q-termination or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:l3-sub-interface/ethernet:qinq-termination";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-asm-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:jp-ssm-policy" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:nbr-policy" {
+    deviate replace {
+      type pim-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:is-silent" {
+    deviate add {
+      must "../pim:is-silent='false' or (../pim:type='ipv4unicast' and ../pim:bfd-enable='false' and ../pim:dr-swt-delay-enable='false')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:interfaces/pim:interface/pim:dr-swt-delay-enable" {
+    deviate add {
+      must "../pim:dr-swt-delay-enable='false' or (../pim:type='ipv4unicast' and ../pim:is-silent='false')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:message-statistics/pim:message-statistic/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:protocol" {
+    deviate replace {
+      type pim-devs-ar5710s:sg-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:routings/pim:routing/pim:rp-mode-type" {
+    deviate replace {
+      type pim-devs-ar5710s:rp-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:claim-routings/pim:claim-routing/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:general-cnts/pim:general-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-register-cnts/pim:invalid-register-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-register-stop-cnts/pim:invalid-register-stop-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-c-rp-cnts/pim:invalid-c-rp-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-assert-cnts/pim:invalid-assert-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-bsr-cnts/pim:invalid-bsr-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-hello-cnts/pim:invalid-hello-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-join-prune-cnts/pim:invalid-join-prune-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-graft-cnts/pim:invalid-graft-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-graft-ack-cnts/pim:invalid-graft-ack-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-state-refresh-cnts/pim:invalid-state-refresh-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-auto-rp-announce-cnts/pim:invalid-auto-rp-announce-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:protocol/pim:invalid-messages/pim:invalid-auto-rp-discovery-cnts/pim:invalid-auto-rp-discovery-cnt/pim:type" {
+    deviate replace {
+      type pim-devs-ar5710s:addr-family-type-deviations;
+    }
+  }
+  ext:deviation-ext "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:hash-len" {
+    ext:deviate-ext "replace" {
+      ext:dynamic-default {
+        ext:default-value "30" {
+          when "../type='ipv4unicast'";
+          description
+            "In IPv4, the default value is 30.";
+        }
+      }
+    }
+  }
+  ext:deviation-ext "/ni:network-instance/ni:instances/ni:instance/pim:pim/pim:rp/pim:c-bsr-vpns/pim:c-bsr-vpn/pim:c-rp-priority" {
+    ext:deviate-ext "replace" {
+      ext:dynamic-default {
+        ext:default-value "0" {
+          when "../type='ipv4unicast'";
+          description
+            "In IPv4, the default value is 0.";
+        }
+      }
+    }
+  }
+}

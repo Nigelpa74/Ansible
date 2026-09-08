@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pppoe-client-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-pppoe-client-deviations-ar5710s";
+  prefix hw-pppoe-client-devs-ar5710s;
+
+  import huawei-pppoe-client {
+    prefix hw-pppoe-client;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pppoe-client module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-pppoe-client:reset-pppoe-client-session" {
+    deviate not-supported;
+  }
+  deviation "/hw-pppoe-client:get-pppoe-client-bind-info" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/hw-pppoe-client:pppoe-client-session-summarys" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/hw-pppoe-client:pppoe-clients/hw-pppoe-client:pppoe-client/hw-pppoe-client:dialer" {
+    deviate replace {
+      type uint32 {
+        range "0..127";
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-policy-route-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-smart-policy-route-deviations-ar5710s";
+  prefix smart-policy-route-devs-ar5710s;
+
+  import huawei-smart-policy-route {
+    prefix smart-policy-route;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-smart-policy-route module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:local-network-prefer" {
+    deviate not-supported;
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:spr-policys/smart-policy-route:spr-policy/smart-policy-route:link-transport-networks/smart-policy-route:link-transport-network/smart-policy-route:srv6-te-path-name" {
+    deviate not-supported;
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:spr-policys/smart-policy-route:spr-policy/smart-policy-route:link-transport-networks/smart-policy-route:link-transport-network/smart-policy-route:limit-type" {
+    deviate not-supported;
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:suppress-flapping-period" {
+    deviate add {
+      must '. >= (../switch-period * 2)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:suppress-switch-trap/smart-policy-route:threshold" {
+    deviate add {
+      must "../enable='true'";
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:suppress-switch-trap/smart-policy-route:time" {
+    deviate add {
+      must "../enable='true'";
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:acls" {
+    deviate add {
+      must 'not(../ipv6-acls/ipv6-acl) and not(../app-ipv6-acls/app-ipv6-acl) and not(../appgroup-ipv6-acls/appgroup-ipv6-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:app-acls" {
+    deviate add {
+      must 'not(../ipv6-acls/ipv6-acl) and not(../app-ipv6-acls/app-ipv6-acl) and not(../appgroup-ipv6-acls/appgroup-ipv6-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:appgroup-acls" {
+    deviate add {
+      must 'not(../ipv6-acls/ipv6-acl) and not(../app-ipv6-acls/app-ipv6-acl) and not(../appgroup-ipv6-acls/appgroup-ipv6-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:ipv6-acls" {
+    deviate add {
+      must 'not(../acls/acl) and not(../app-acls/app-acl) and not(../appgroup-acls/appgroup-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:appgroup-ipv6-acls" {
+    deviate add {
+      must 'not(../acls/acl) and not(../app-acls/app-acl) and not(../appgroup-acls/appgroup-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:service-maps/smart-policy-route:service-map/smart-policy-route:match-rule/smart-policy-route:app-ipv6-acls" {
+    deviate add {
+      must 'not(../acls/acl) and not(../app-acls/app-acl) and not(../appgroup-acls/appgroup-acl)';
+    }
+  }
+  deviation "/smart-policy-route:smart-policy-route/smart-policy-route:spr-policys/smart-policy-route:spr-policy/smart-policy-route:apply-to-vpn-instances/smart-policy-route:apply-to-vpn-instance/smart-policy-route:vpn-instance" {
+    deviate add {
+      must '../../../service-map';
+    }
+  }
+  ext:deviation-ext "/smart-policy-route:smart-policy-route/smart-policy-route:spr-policys/smart-policy-route:spr-policy/smart-policy-route:service-map" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "update|delete" {
+        when '../apply-to-vpn-instances/apply-to-vpn-instance/vpn-instance';
+        description
+          "The service-map cannot be updated or deleted, when vpn-instance node is not empty.";
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-host-security-notif-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-host-security-notif-deviations-ar5710s";
+  prefix host-security-notif-devs-ar5710s;
+
+  import huawei-host-security-notif {
+    prefix host-security-notif;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-host-security-notif module.";
+
+  revision 2022-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/host-security-notif:cpcar-auto-port-defend" {
+    deviate not-supported;
+  }
+  deviation "/host-security-notif:cpcar-auto-port-defend-resume" {
+    deviate not-supported;
+  }
+}

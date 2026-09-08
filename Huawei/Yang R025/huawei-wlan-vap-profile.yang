@@ -1,0 +1,1445 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-vap-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-vap-profile";
+  prefix vap-prof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-softgre {
+    prefix wlan-softgre;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Vap profile configuration service package.";
+  revision 2025-07-28 {
+    description
+      "Add vap nat-roam-forbidden-switch node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-23 {
+    description
+      "Modify server-tmplt type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-07-09 {
+    description
+      "Modify server-tmplt.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-02 {
+    description
+      "Add effect-radio.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-05-30 {
+    description
+      "Delete leaf references for huawei-ifit and huawei-security-application.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-17 {
+    description
+      "Fix word spelling problems.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-06 {
+    description
+      "Add asfn-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-03 {
+    description
+      "Add harmonyos-push-proxy.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-24 {
+    description
+      "Extend radio-id.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-15 {
+    description
+      "Add protocol-udp for flow-learning applications.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-06 {
+    description
+      "Add low-rate-suppression.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-30 {
+    description
+      "Add navi-ac.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-18 {
+    description
+      "Add vip-user-applications.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-14 {
+    description
+      "Fix wrong description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-12 {
+    description
+      "Fix wrong description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-10-22 {
+    description
+      "Make ap-zone presence container.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-09-06 {
+    description
+      "Add leader ap configurations.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-30 {
+    description
+      "Add anti-attack-flood.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-07 {
+    description
+      "Add sta-network-detect.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-09 {
+    description
+      "Add iconnect configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-30 {
+    description
+      "Add forward-mode softgre.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-21 {
+    description
+      "Add user mu-ba-trigger mode.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add user flow syslog switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-14 {
+    description
+      "Add distribute vap type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-11 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-01 {
+    description
+      "Modify the leaf node type of rule-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-16 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-11 {
+    description
+      "Modify flow-learning rule max-elements.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-19 {
+    description
+      "Modify VLAN presentation.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name template.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-23 {
+    description
+      "Change dynamic-flow-inspection default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-15 {
+    description
+      "Add nd-trust-port.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add controller-off-track-link.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-10-26 {
+    description
+      "Add multi-link operation default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-20 {
+    description
+      "Delete leafref node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-09-04 {
+    description
+      "Delete multi-link operation default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add multi-link operation.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-20 {
+    description
+      "Add server-down backup vap.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-01 {
+    description
+      "Change option82-pattern-semicolon default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-10 {
+    description
+      "Change home-agent and layer3-roam-switch default value.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-02-01 {
+    description
+      "Modify learn-client-address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-04 {
+    description
+      "Add dns-snooping/mdns-snooping.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-28 {
+    description
+      "Add ip-source-check-user-bind-switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-27 {
+    description
+      "Add sea-monitor-applications and flow-learning.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add keep service para.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-22 {
+    description
+      "Add learn-client-address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-09-09 {
+    description
+      "Fix VLAN pool name length.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add configuration of V6R22C10.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Add binding-authentication-profile.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-06 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  grouping vap-basic-configuration {
+    description
+      "Basic configuration applied to the entire VAP.";
+    leaf service-mode {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable VAP service function.";
+    }
+    choice vlan-mode {
+      default "id";
+      description
+        "The corresponding VLAN of this ssid, used when packets encapsulated as ethernet frame.";
+      case id {
+        description
+          "The corresponding VLAN of this ssid, used when packets encapsulated as ethernet frame.";
+        leaf service-vlan {
+          type uint16 {
+            range "1..4094";
+          }
+          default "1";
+          description
+            "The corresponding VLAN of this ssid, used when packets encapsulated as ethernet frame.";
+        }
+      }
+      case pool {
+        description
+          "The corresponding VLAN of this ssid, used when packets encapsulated as ethernet frame.";
+        leaf service-vlan-pool {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specifies a VLAN Pool.";
+        }
+      }
+    }
+    leaf forward-mode {
+      type enumeration {
+        enum "direct" {
+          value 1;
+          description
+            "The forward-mode is direct.";
+        }
+        enum "tunnel" {
+          value 2;
+          description
+            "The forward-mode is tunnel.";
+        }
+        enum "softgre" {
+          value 3;
+          description
+            "The forward-mode is softgre.";
+        }
+      }
+      default "direct";
+      description
+        "The service forwarding mode.";
+    }
+    leaf softgre-profile-name {
+      when "../forward-mode = 'softgre'";
+      type leafref {
+        path "/wlan-softgre:wlan-softgre/wlan-softgre:profiles/wlan-softgre:profile/wlan-softgre:profile-name";
+      }
+      mandatory true;
+      description
+        "Configure the softgre profile name for the forward-mode softgre.";
+    }
+    leaf vap-type {
+      type enumeration {
+        enum "service" {
+          value 1;
+          description
+            "Configure vap-type service.";
+        }
+        enum "backup-ap-offline" {
+          value 2;
+          description
+            "Configure vap-type backup-ap-offline.";
+        }
+        enum "backup-auth-server-down" {
+          value 3;
+          description
+            "Configure vap-type auth-server-down.";
+        }
+        enum "distribute" {
+          value 4;
+          description
+            "Configure vap-type distribute.";
+        }
+        enum "leader-management" {
+          value 5;
+          description
+            "Configure vap-type leader-management.";
+        }
+        enum "navi" {
+          value 6;
+          description
+            "Configure vap-type service-navi.";
+        }
+      }
+      default "service";
+      description
+        "Configure vap-type.";
+    }
+    container auth-server-down-vap {
+      when "../vap-type = 'backup-auth-server-down'";
+      description
+        "Configure auth-server-down-vap info.";
+      leaf server-tmplt {
+        type string {
+          length "1..32";
+        }
+        mandatory true;
+        description
+          "Configure server-tmplt.";
+      }
+      leaf reject-new-access {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable reject-new-access.";
+      }
+      choice server-up-policy {
+        default "manual-off";
+        description
+          "Choose server-up-policy.";
+        case manual-off {
+          leaf manual-off {
+            type empty;
+            description
+              "Configure Manual off when server up.";
+          }
+          description
+            "Manual off when server up.";
+        }
+        case "hide-ssid" {
+          leaf hide-ssid {
+            type empty;
+            description
+              "Configure hide ssid when server up.";
+          }
+          leaf delay-time {
+            type uint32 {
+              range "10..86400";
+            }
+            default "10";
+            description
+              "Configure delay time when server up.";
+          }
+          description
+            "Hide ssid when server up.";
+        }
+      }
+    }
+    leaf vap-auto-hide-server-tmplt {
+      type string {
+        length "1..32";
+      }
+      description
+        "Configure auth server down vap auto hide server template.";
+    }
+    container multi-link-operation {
+      description
+        "Configure the function of multi-link operation.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable multi-link operation.";
+      }
+    }
+  }
+  grouping dhcp-option82-format {
+    description
+      "Configure dhcp-option82-format.";
+    leaf dhcp-option82-format-type {
+      type enumeration {
+        enum "ap-mac" {
+          value 1;
+          description
+            "The dhcp-option82-format-type is ap-mac.";
+        }
+        enum "ap-name" {
+          value 2;
+          description
+            "The dhcp-option82-format-type is ap-name.";
+        }
+        enum "ap-name-ssid" {
+          value 3;
+          description
+            "The dhcp-option82-format-type is ap-name.";
+        }
+        enum "ap-location" {
+          value 4;
+          description
+            "The dhcp-option82-format-type is ap-name.";
+        }
+        enum "ap-location-ssid" {
+          value 5;
+          description
+            "The dhcp-option82-format-type is ap-name.";
+        }
+        enum "ap-mac-ssid" {
+          value 6;
+          description
+            "The dhcp-option82-format-type is ap-mac-ssid.";
+        }
+        enum "user-defined" {
+          value 7;
+          description
+            "The dhcp-option82-format-type is user-defined.";
+        }
+      }
+      default "ap-mac";
+      description
+        "Config dhcp-option82-format-type.";
+    }
+    leaf ap-mac-format {
+      when "../dhcp-option82-format-type = 'ap-mac'";
+      type enumeration {
+        enum "normal" {
+          value 0;
+          description
+            "Configure normal format.";
+        }
+        enum "compact" {
+          value 1;
+          description
+            "Configure compact format.";
+        }
+        enum "hex" {
+          value 2;
+          description
+            "Configure hex format.";
+        }
+        enum "colon" {
+          value 3;
+          description
+            "Configure colon format.";
+        }
+      }
+      description
+        "Config ap-mac-format.";
+    }
+    leaf ap-mac-ssid-format {
+      when "../dhcp-option82-format-type = 'ap-mac-ssid'";
+      type enumeration {
+        enum "normal" {
+          value 0;
+          description
+            "Configure normal format.";
+        }
+        enum "compact" {
+          value 1;
+          description
+            "Configure compact format.";
+        }
+        enum "colon" {
+          value 2;
+          description
+            "Configure colon format.";
+        }
+      }
+      description
+        "Config ap-mac-ssid-format.";
+    }
+    leaf user-defined {
+      type string {
+        length "1..255";
+      }
+      description
+        "Config user-defined.";
+    }
+    leaf option82-pattern-semicolon {
+      type enumeration {
+        enum "disable" {
+          value 0;
+          description
+            "Config disable.";
+        }
+        enum "enable" {
+          value 1;
+          description
+            "Config enable.";
+        }
+      }
+      default "disable";
+      description
+        "Config option82-pattern-semicolon.";
+    }
+  }
+  grouping learn-client-address-basic {
+    description
+      "Configure learn client address switch and conflict-check.";
+    leaf switch {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the STA address learning function.";
+    }
+    leaf conflict-check {
+      type boolean;
+      default "true";
+      description
+        "Enable/disable the STA address conflict check function.";
+    }
+  }
+  container wlan-vap-profile {
+    description
+      "Configure vap profile.";
+    container vap-profiles {
+      description
+        "List of vap profiles.";
+      list vap-profile {
+        ext:generated-by system {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        key "profile-name";
+        description
+          "Configure a vap profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern
+              '[^\s?]+';
+            pattern
+              '[!-~]+';
+          }
+          description
+            "Vap profile name.";
+        }
+        uses vap-prof:vap-basic-configuration;
+        container binding-authentication-profile {
+          description
+            "Configure binding authentication profile.";
+          leaf authentication-profile {
+            type string {
+              length "1..31";
+            }
+            description
+              "Apply an authentication profile to the VAP profile.";
+          }
+        }
+        leaf dynamic-flow-inspection {
+          type enumeration {
+            enum "disable" {
+              value 0;
+              description
+                "Dynamic flow inspection disable.";
+            }
+            enum "enable" {
+              value 1;
+              description
+                "Dynamic flow inspection enable.";
+            }
+            enum "auto" {
+              value 2;
+              description
+                "Undo dynamic flow inspection.";
+            }
+          }
+          default "auto";
+          description
+            "Enable/disable dynamic flow inspection.";
+        }
+        leaf home-agent {
+          type enumeration {
+            enum "ac" {
+              value 0;
+              description
+                "Configure home Agent HAC.";
+            }
+            enum "ap" {
+              value 1;
+              description
+                "Configure home Agent HAP.";
+            }
+          }
+          default "ap";
+          description
+            "Configure home-agent.";
+        }
+        leaf split-tunnel-acl {
+          type uint32 {
+            range "3000..3031";
+          }
+          description
+            "Configure split-tunnel-acl.";
+        }
+        leaf layer3-roam-switch {
+          type boolean;
+          default true;
+          description
+            "Enable/disable layer3 roam switch.";
+        }
+        leaf vlan-mobility-group {
+          type uint32 {
+            range "1..4094";
+          }
+          default 1;
+          description
+            "Configure VLAN mobility-group.";
+        }
+        leaf ip-source-check-user-bind-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable IP source check user-bind switch.";
+        }
+        leaf arp-anti-attack-check-user-bind-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable ARP anti-attack check user-bind switch.";
+        }
+        leaf dns-snooping {
+          type boolean;
+          default false;
+          description
+            "Enable/disable DNS snooping function.";
+        }
+        leaf mdns-snooping {
+          type boolean;
+          default false;
+          description
+            "Enable/disable mDNS snooping function.";
+        }
+        container dhcp-option82 {
+          leaf insert-switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable DHCP Option82 function.";
+          }
+          container circuit-id {
+            must "(./dhcp-option82-format-type = 'user-defined' and ./user-defined) or (./dhcp-option82-format-type != 'user-defined')";
+            uses vap-prof:dhcp-option82-format;
+            description
+              "Configure circuit-id.";
+          }
+          container remote-id {
+            must "(./dhcp-option82-format-type = 'user-defined' and ./user-defined) or (./dhcp-option82-format-type != 'user-defined')";
+            uses vap-prof:dhcp-option82-format;
+            description
+              "Configure remote-id.";
+          }
+          description
+            "Configure dhcp-option82.";
+        }
+        container learn-client-address {
+          container learn-client-ipv4-address {
+            must "(./switch = 'true') or (./switch = 'false' and ./conflict-check = 'true' and ./dhcp-strict = 'false')";
+            uses vap-prof:learn-client-address-basic;
+            leaf dhcp-strict {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable strict STA IPv4 address learning through DHCP.";
+            }
+            leaf strict-blacklist {
+              when "../dhcp-strict = 'true'";
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the function of Adding STAs with bogus IPv4 addresses to a blacklist.";
+            }
+            description
+              "Configure STA IPv4 address learning function.";
+          }
+          container learn-client-ipv6-address {
+            must "(./switch = 'true') or (./switch = 'false' and ./conflict-check = 'true' and ./strict = 'disable')";
+            uses vap-prof:learn-client-address-basic;
+            leaf strict {
+              type enumeration {
+                enum "disable" {
+                  value 0;
+                  description
+                    "Disable strict STA IPv6 address learning function.";
+                }
+                enum "dhcpv6-strict" {
+                  value 1;
+                  description
+                    "Enables the STA IPv6 address learning function only through DHCPv6.";
+                }
+                enum "dhcpv6-slaac" {
+                  value 2;
+                  description
+                    "Enables the STA IPv6 address learning function only through DHCPv6 or SLAAC in a DHCPv6 + SLAAC scenarios.";
+                }
+              }
+              default "disable";
+              description
+                "Enable/disable strict STA IP address learning through DHCP.";
+            }
+            leaf strict-blacklist {
+              when "../strict != 'disable'";
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the function of Adding STAs with bogus IPv6 addresses to a blacklist.";
+            }
+            description
+              "Configure STA IPv6 address learning function.";
+          }
+          description
+            "Configure STA address learning function.";
+        }
+        leaf auto-off-by-time-range {
+          type string {
+            length "1..32";
+          }
+          description
+            "Configure auto-off-by-time-range.";
+        }
+        container keep-service {
+          description
+            "Configure keep-service.";
+          leaf switch {
+            type boolean;
+            default false;
+            description
+              "Enable/disable keep-service switch.";
+          }
+          leaf allow-new-access {
+            when "../switch = 'true'";
+            type boolean;
+            default false;
+            description
+              "Enable/disable keep-service allow-new-access.";
+          }
+          leaf no-auth {
+            when "../allow-new-access = 'true'";
+            type boolean;
+            default false;
+            description
+              "Enable/disable keep-service no-auth.";
+          }
+        }
+        leaf temp-mngt {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable temp-mngt.";
+        }
+        leaf band-steer {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable band-steer.";
+        }
+        container sea-monitor-applications {
+          description
+            "List of SEA-based monitoring applications.";
+          list sea-monitor-application {
+            key "app-name";
+            max-elements 16;
+            leaf app-name {
+              type string {
+                length "1..128";
+              }
+              description
+                "Specifies an application name.";
+            }
+            description
+              "Configure SEA-based application monitoring.";
+          }
+        }
+        container flow-learning {
+          presence
+            "Flow learning.";
+          description
+            "Configure flow learning function.";
+          container rules {
+            presence
+              "Flow learning rules.";
+            description
+              "List of flow learning rules.";
+            list rule {
+              key "rule-name";
+              max-elements 64;
+              leaf rule-name {
+                type string {
+                  length "1..31";
+                  pattern '([1-9]\d?)|(1[01]\d)|(12[0-8])';
+                }
+                description
+                  "Specifies a rule name.";
+              }
+              leaf direction {
+                type enumeration {
+                  enum "ingress" {
+                    value 1;
+                    description
+                      "Ingress of an IFIT flow.";
+                  }
+                  enum "transit-input" {
+                    value 2;
+                    description
+                      "Transit input of an IFIT flow.";
+                  }
+                  enum "transit-output" {
+                    value 3;
+                    description
+                      "Transit output of an IFIT flow.";
+                  }
+                  enum "egress" {
+                    value 4;
+                    description
+                      "Egress of an IFIT flow.";
+                  }
+                  enum "ingress-output" {
+                    value 5;
+                    description
+                      "Ingress output of an IFIT flow.";
+                  }
+                  enum "egress-input" {
+                    value 6;
+                    description
+                      "Egress input of an IFIT flow.";
+                  }
+                }
+                mandatory true;
+                description
+                  "Specify the measurement direction of flow learning.";
+              }
+              leaf bidirectional {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable adding the reverse flow based on the rule and direction.";
+              }
+              description
+                "Configure rule with direction for flow learning function.";
+            }
+          }
+          container applications {
+            description
+              "List of flow learning applications.";
+            list application {
+              key "app-name";
+              max-elements 16;
+              leaf app-name {
+                type string {
+                  length "1..128";
+                }
+                description
+                  "Specifies an application name.";
+              }
+              leaf protocol-udp {
+                type boolean;
+                default "false";
+                description
+                  "Enable/disable monitoring only the appliction UDP traffic function.";
+              }
+              description
+                "Configure applications for flow learning.";
+            }
+          }
+          leaf color-flag-clear {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the function of clearing the color bit in the ingress direction on the edge node.";
+          }
+        }
+        leaf controller-off-track-link {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of vap down based on controller link down.";
+        }
+        leaf nd-trust-port {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of ND Trust.";
+        }
+        leaf user-flow-syslog-switch {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of user flow syslog.";
+        }
+        leaf mu-ba-trigger-mode {
+          type enumeration {
+            enum "basic-trigger" {
+              value 0;
+              description
+                "Configure mu-ba trigger mode enable.";
+            }
+            enum "mu-bar" {
+              value 1;
+              description
+                "Configure mu-ba trigger mode enable.";
+            }
+            enum "disable" {
+              value 2;
+              description
+                "Configure mu-ba trigger mode disable.";
+            }
+          }
+          default "disable";
+          description
+            "Disables mu-ba trigger mode.";
+        }
+        leaf mdns-centralized-control {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of centralized forwarding of MDNS packets.";
+        }
+        leaf dhcp-centralized-control {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of centralized forwarding of DHCP packets.";
+        }
+        container iconnect {
+          description
+            "Configure iconnect service.";
+          leaf enable {
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the function of iconnect.";
+          }
+        }
+        leaf sta-network-detect {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of station network detection.";
+        }
+        container anti-attack-flood {
+          description
+            "Configure the flood prevention function.";
+          container arp {
+            description
+              "Configure the flood prevention function for ARP packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the ARP flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "1..5000";
+              }
+              units "pps";
+              default "4";
+              description
+                "ARP rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the ARP flood blacklist function.";
+            }
+          }
+          container dhcp {
+            description
+              "Configure the flood prevention function for DHCP packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the dhcp flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "1..5000";
+              }
+              units "pps";
+              default "4";
+              description
+                "DHCP rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the dhcp flood blacklist function.";
+            }
+          }
+          container dhcpv6 {
+            description
+              "Configure the flood prevention function for DHCPv6 packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the DHCPv6 flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "1..5000";
+              }
+              units "pps";
+              default "4";
+              description
+                "DHCPv6 rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the dhcpv6 flood blacklist function.";
+            }
+          }
+          container igmp {
+            description
+              "Configure the flood prevention function for IGMP packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the igmp flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "0..5000";
+              }
+              units "pps";
+              default "4";
+              description
+                "IGMP rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the igmp flood blacklist function.";
+            }
+          }
+          container mdns {
+            description
+              "Configure the flood prevention function for MDNS packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the mdns flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "0..5000";
+              }
+              units "pps";
+              default "4";
+              description
+                "MDNS rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the igmp flood blacklist function.";
+            }
+          }
+          container nd {
+            description
+              "Configure the flood prevention function for ND packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the ND flood prevention function.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "1..5000";
+              }
+              units "pps";
+              default "8";
+              description
+                "ND rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the ND flood blacklist function.";
+            }
+          }
+          container other-broadcast {
+            description
+              "Configure the flood prevention function for broadcast packets other than ARP, DHCP, DHCPv6, and ND packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the flood prevention function for broadcast packets other than ARP, DHCP, DHCPv6, and ND packets.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "0..5000";
+              }
+              units "pps";
+              default "10";
+              description
+                "Other broadcast rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the flood blacklist function for broadcast packets other than ARP, DHCP, DHCPv6, and ND packets.";
+            }
+          }
+          container other-multicast {
+            description
+              "Configure the flood prevention function for multicast packets other than IGMP and mDNS packets.";
+            leaf enable {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the flood prevention function for multicast packets other than IGMP and mDNS packets.";
+            }
+            leaf rate-threshold {
+              type uint32 {
+                range "0..5000";
+              }
+              units "pps";
+              default "10";
+              description
+                "Other multicast rate threshold.";
+            }
+            leaf blacklist {
+              type boolean;
+              default "false";
+              description
+                "Enable/disable the flood blacklist function for multicast packets other than IGMP and mDNS packets.";
+            }
+          }
+        }
+        container ap-zone {
+          presence
+            "Enable ap-zone";
+          leaf name {
+            type string {
+              length "1..35";
+              pattern
+                '[^\s?]+';
+              pattern
+                '([^"]|[^"].*[^"])';
+            }
+            default "default";
+            description
+              "Configure ap-zone name.";
+          }
+          leaf-list radio {
+            type uint32 {
+              range "0..4";
+            }
+            min-elements 1;
+            max-elements 5;
+            description
+              "Configure ap-zone binding radio.";
+          }
+          description
+            "Configure ap-zone.";
+        }
+        leaf mdns-policy-local-ac-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable mdns policy local-ac switch.";
+        }
+        leaf navi-ac-service-vlan-check-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable navi-ac service VLAN check switch.";
+        }
+        container vip-user-applications {
+          description
+            "Configure applications for vip-user.";
+          container vip-user-predefined-apps {
+            description
+              "List of predefined applications for vip-user.";
+            list vip-user-predefined-app {
+              key "app-name";
+              description
+                "Configure specified applications for vip-user.";
+              leaf app-name {
+                type string {
+                  length "1..35";
+                }
+                description
+                  "Predefined application name.";
+              }
+            }
+          }
+          container vip-user-user-defined-apps {
+            description
+              "List of user-defined applications for vip-user.";
+            list vip-user-user-defined-app {
+              key "app-name";
+              description
+                "Configure specified applications for vip-user.";
+              leaf app-name {
+                type string {
+                  length "1..35";
+                }
+                description
+                  "User-definded application name.";
+              }
+            }
+          }
+        }
+        container low-rate-suppression {
+          description
+            "Configure cu limit for low rate user.";
+          leaf cu-limit {
+            type uint32 {
+              range "50..100";
+            }
+            units "%";
+            default "100";
+            description
+              "Cu limit threshold.";
+          }
+        }
+        container harmonyos-push-proxy {
+          description
+            "Configure HarmonyOS push proxy function.";
+          leaf switch {
+            type boolean;
+            default "true";
+            description
+              "Enable/disable the function of Harmony push proxy.";
+          }
+        }
+        leaf asfn-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable ASFN switch.";
+        }
+        leaf effect-radio {
+          type bits {
+            bit freq-2g {
+              position 0;
+              description
+                "The 2.4G radio type.";
+            }
+            bit freq-5g {
+              position 1;
+              description
+                "The 5G radio type.";
+            }
+            bit freq-6g {
+              position 2;
+              description
+                "The 6G radio type.";
+            }
+          }
+          default "freq-2g freq-5g freq-6g";
+          description
+            "Configure effect radio.";
+        }
+        leaf nat-roam-forbidden-switch {
+          type boolean;
+          default false;
+          description
+            "Enable/disable nat roam forbidden switch.";
+        }
+      }
+    }
+  }
+  rpc auth-server-down {
+    description
+      "Controller notify AC the license information.";
+    input  {
+      leaf oper-type {
+        type enumeration {
+          enum "inactive" {
+            value 0;
+            description
+              "License type is indoor-ap.";
+          }
+          enum "active" {
+            value 1;
+            description
+              "License type is outdoor-ap.";
+          }
+        }
+        mandatory true;
+        description
+          "Config license info of WLAN AC device, controlling AP access and wireless services.";
+      }
+      leaf vap-profile {
+        type string {
+          length "1..35";
+        }
+        description
+          "Config license info of WLAN AC device, controlling AP access and wireless services.";
+      }
+    }
+  }
+  ext:task-name "lcm";
+}

@@ -1,0 +1,178 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-igmp-mld-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-igmp-mld-deviations-ar5710s";
+  prefix igmp-mld-devs-ar5710s;
+
+  import huawei-igmp-mld {
+    prefix igmp-mld;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-bd {
+    prefix bd;
+  }
+  import huawei-l2vpn {
+    prefix l2vpn;
+  }
+  import huawei-multicast {
+    prefix mc;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-igmp-mld module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/igmp-mld:reset-mld-group" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/igmp-mld:igmp/igmp-mld:disable-dhcp-stb-packet-copys" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/igmp-mld:mld" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:ipsec" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:ssm-mapping-dns-domain" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:ssm-mapping-query-dns" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:ssm-mapping-query-dns-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:dns-ssm-mappings" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:ipsec" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:display-static-groups/igmp-mld:display-static-group/igmp-mld:is-configured-boundary" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:mld" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:query-response-interval" {
+    deviate replace {
+      type uint32 {
+        range "1..25";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:global/igmp-mld:last-member-query-interval" {
+    deviate replace {
+      type uint32 {
+        range "1..5";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface" {
+    deviate add {
+      must "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/name]/ifm:class='main-interface' or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/name]/ethernet:ethernet/ethernet:l3-sub-interface/ethernet:dot1q-termination or /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/name]/ethernet:ethernet/ethernet:l3-sub-interface/ethernet:qinq-termination";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:enable" {
+    deviate delete {
+      must "../enable='false' or not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/../name][ifm:type='Vbdif'] and /ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=/bd:bd/bd:instances/bd:instance[bd:id=number(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/../name]/ifm:number)]/bd:service-points/bd:service-point/bd:interface-name][ifm:l2-mode-enable='false'])";
+    }
+    deviate delete {
+      must "../enable='false' or not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/../name][ifm:type='Vbdif'] and /l2vpn:l2vpn/l2vpn:instances/l2vpn:instance/l2vpn:vpls[l2vpn:work-mode='normal']/l2vpn:bds/l2vpn:bd[l2vpn:id=number(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()/../name]/ifm:number)])";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:ip-source-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:query-response-interval" {
+    deviate replace {
+      type uint32 {
+        range "1..25";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:last-member-query-interval" {
+    deviate replace {
+      type uint32 {
+        range "1..5";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:entry-limit-acl-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:group-acl-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:interfaces/igmp-mld:interface/igmp-mld:query-acl-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:static-groups/igmp-mld:static-group/igmp-mld:interface" {
+    deviate delete {
+      must 'not(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:static-groups/igmp-mld:static-group/igmp-mld:is-source-dns-ssm-mapping" {
+    deviate delete {
+      must "../is-source-dns-ssm-mapping='false' or (../is-source-address='false' and ../is-inc-step-group-mask='false')";
+    }
+    deviate add {
+      must "../is-source-dns-ssm-mapping='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/igmp-mld:igmp/igmp-mld:dot1q-static-groups/igmp-mld:dot1q-static-group" {
+    deviate delete {
+      must 'begin-vid<=end-vid';
+    }
+    deviate add {
+      must 'begin-vid=end-vid';
+    }
+  }
+}

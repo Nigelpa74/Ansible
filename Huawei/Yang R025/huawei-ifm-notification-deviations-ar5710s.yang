@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifm-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ifm-notification-deviations-ar5710s";
+  prefix ifm-notification-devs-ar5710s;
+
+  import huawei-ifm-notification {
+    prefix ifm-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ifm-notification module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ifm-notification:if-damp-suppress" {
+    deviate not-supported;
+  }
+  deviation "/ifm-notification:if-damp-resume" {
+    deviate not-supported;
+  }
+  deviation "/ifm-notification:if-ipv4-state-alarm" {
+    deviate not-supported;
+  }
+  deviation "/ifm-notification:if-ipv4-state-alarm-resume" {
+    deviate not-supported;
+  }
+  deviation "/ifm-notification:slice-if-bw-not-enough" {
+    deviate not-supported;
+  }
+  deviation "/ifm-notification:slice-if-bw-not-enough-resume" {
+    deviate not-supported;
+  }
+}

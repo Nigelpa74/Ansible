@@ -1,0 +1,144 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ssl-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ssl-notification";
+  prefix ssl-notification;
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of SSL.";
+  revision 2022-08-29 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  notification ssl-certificate-expired {
+    description
+      "The certificate already expired. (CertificateName=[file-name], CertificateType=[file-type], BeginTime=[start-time], EndTime=[end-time])";
+    leaf file-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The name of the Certificate File.";
+    }
+    leaf file-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "The type of the Certificate File.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "The begin time of the Certificate File.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "The end time of the Certificate File.";
+    }
+  }
+  notification ssl-certificate-expired-clear {
+    description
+      "The alarm about certificate expiration is cleared.";
+    leaf file-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The name of the Certificate File.";
+    }
+    leaf file-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "The type of the Certificate File.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "The begin time of the Certificate File.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "The end time of the Certificate File.";
+    }
+  }
+  notification ssl-certificate-expired-early-warning {
+    description
+      "The SSL certificate will expire. (CertificateName=[file-name], CertificateType=[file-type], BeginTime=[start-time], EndTime=[end-time])";
+    leaf file-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The name of the Certificate File.";
+    }
+    leaf file-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "The type of the Certificate File.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "The begin time of the Certificate File.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "The end time of the Certificate File.";
+    }
+  }
+  notification ssl-certificate-expired-early-warning-clear {
+    description
+      "The alarm that the certificate is to expire is cleared.";
+    leaf file-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "The name of the Certificate File.";
+    }
+    leaf file-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "The type of the Certificate File.";
+    }
+    leaf start-time {
+      type yang:date-and-time;
+      description
+        "The begin time of the Certificate File.";
+    }
+    leaf end-time {
+      type yang:date-and-time;
+      description
+        "The end time of the Certificate File.";
+    }
+  }
+  ext:task-name "ssl";
+}

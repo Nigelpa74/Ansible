@@ -1,0 +1,408 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-routing-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-routing-deviations-ar5710s";
+  prefix rt-devs-ar5710s;
+
+  import huawei-routing {
+    prefix rt;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-routing module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/rt:routing/rt:routing-manage/rt:ipv4-vpn-route-statisticss/rt:ipv4-vpn-route-statistics/rt:freed-num" {
+    deviate not-supported;
+  }
+  deviation "/rt:routing/rt:routing-manage/rt:ipv6-vpn-route-statisticss/rt:ipv6-vpn-route-statistics/rt:freed-num" {
+    deviate not-supported;
+  }
+  deviation "/rt:routing/rt:static-routing/rt:ipv4-site/rt:relay-srv6-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/rt:routing/rt:static-routing/rt:ipv6-site/rt:relay-arp-vlink6" {
+    deviate not-supported;
+  }
+  deviation "/rt:routing/rt:static-routing/rt:ipv6-site/rt:relay-srv6-nexthop6" {
+    deviate not-supported;
+  }
+  deviation "/rt:static-unicast-route-number" {
+    deviate not-supported;
+  }
+  deviation "/rt:ipv4-unicast-route-number" {
+    deviate not-supported;
+  }
+  deviation "/rt:ipv6-unicast-route-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:bgp-instance" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:nexthop-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:tunnel-types/rt:mpls-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:tunnel-types/rt:sr-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:role" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-unicast-routes/rt:ipv4-unicast-route/rt:weight" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-unicast-routes/rt:ipv6-unicast-route/rt:nexthop-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-unicast-routes/rt:ipv6-unicast-route/rt:role" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-unicast-routes/rt:ipv6-unicast-route/rt:weight" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-route-statistics/rt:ipv4-route-statistic/rt:freed-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-route-statistics/rt:ipv6-route-statistic/rt:freed-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-localmt-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-localmt-route-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-mbgp-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-mbgp-route-statistic" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-flowspec-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv4-flowspec-route-statistic" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-msr-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-msr-route-statistic" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-flowspec-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:routes/rt:ipv6-flowspec-route-statistic" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:direct-routing/rt:import-ribs/rt:import-rib/rt:policy-type/rt:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:direct-routing/rt:interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:direct-routing/rt:route-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:import-ribs/rt:import-rib/rt:policy-type/rt:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:no-install" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:track-setting/rt:bfd-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:track-setting/rt:efm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:track-setting/rt:health-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:no-install" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:track-setting/rt:efm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:track-setting/rt:health-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:arp-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:nd-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:no-install" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:relay-nd-vlink-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:relay-direct-route-only" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:track-setting/rt:efm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:track-setting/rt:health-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:arp-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:nd-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:no-install" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:relay-nd-vlink-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:relay-direct-route-only" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:track-setting/rt:efm" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:track-setting/rt:health-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:arp-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:nd-detect-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-onlys/rt:nexthop-vrf-only/rt:no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-onlys/rt:nexthop-vrf-only/rt:no-install" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-onlys/rt:nexthop-vrf-only/rt:track-setting" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-interface-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:v4-via-v6-vrf-addresses" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-vxlans" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-multicast-routes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-multicast-route-infos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:bfd-templates/rt:bfd-template/rt:dhcp-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:route-frr-set/rt:multicast-route-frr-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv4-routes/rt:ipv4-route/rt:efm-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv4-routes/rt:ipv4-route/rt:efm-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv4-routes/rt:ipv4-route/rt:health-check-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv4-routes/rt:ipv4-route/rt:health-check-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-routes/rt:ipv6-route/rt:efm-interface-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-routes/rt:ipv6-route/rt:efm-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-routes/rt:ipv6-route/rt:health-check-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:ipv6-routes/rt:ipv6-route/rt:health-check-detect" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:route-policy" {
+    deviate not-supported;
+  }
+  deviation "/rt:routing/rt:routing-manage/rt:relay-default-routes/rt:relay-default-route/rt:address-family" {
+    deviate add {
+      must "../address-family='ipv4-unicast'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:routing-manage/rt:topologys/rt:topology/rt:name" {
+    deviate delete {
+      must "../../../../../../../ni:name='_public_' or ../name='base'";
+    }
+    deviate add {
+      must ". = 'base'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:topology-name" {
+    deviate delete {
+      must "(../../../../../../../ni:name='_public_' or ../topology-name='base') and (count(../nexthop-interfaces/nexthop-interface)> 0 or count(../nexthop-interface-addresses/nexthop-interface-address)> 0 or count(../nexthop-addresses/nexthop-address)> 0 or count(../nexthop-sdwans/nexthop-sdwan)> 0 or count(../nexthop-vrf-addresses/nexthop-vrf-address)> 0 or count(../nexthop-vrf-sdwans/nexthop-vrf-sdwan)> 0 or count(../nexthop-vrf-onlys/nexthop-vrf-only)> 0 or count(../v4-via-v6-interface-addresses/v4-via-v6-interface-address)> 0 or count(../v4-via-v6-addresses/v4-via-v6-address)> 0 or count(../v4-via-v6-vrf-addresses/v4-via-v6-vrf-address)> 0 or count(../nexthop-vrf-vxlans/nexthop-vrf-vxlan)>0)";
+    }
+    deviate add {
+      must "(../../../../../../../ni:name='_public_' or ../topology-name='base') and (count(../nexthop-interfaces/nexthop-interface)> 0 or count(../nexthop-interface-addresses/nexthop-interface-address)> 0 or count(../nexthop-addresses/nexthop-address)> 0 or count(../nexthop-sdwans/nexthop-sdwan)> 0 or count(../nexthop-vrf-addresses/nexthop-vrf-address)> 0 or count(../nexthop-vrf-sdwans/nexthop-vrf-sdwan)> 0 or count(../nexthop-vrf-onlys/nexthop-vrf-only)> 0)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:preference" {
+    deviate add {
+      must '(not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])) and (not(../../../nexthop-sdwans/nexthop-sdwan/preference) or (../../../nexthop-sdwans/nexthop-sdwan/preference[.!=current()])) and (not(../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference) or (../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference[.!=current()]))';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:permanent" {
+    deviate delete {
+      must "../../../topology-name='base' or ../permanent='false'";
+    }
+    deviate add {
+      must "(../../../../../../../l3vpn:type = 'ipv4-unicast') and (../../../topology-name='base') or ../permanent='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interfaces/rt:nexthop-interface/rt:ldp-sync" {
+    deviate add {
+      must "../permanent='false' or ../ldp-sync='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:preference" {
+    deviate add {
+      must '(not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])) and (not(../../../nexthop-sdwans/nexthop-sdwan/preference) or (../../../nexthop-sdwans/nexthop-sdwan/preference[.!=current()])) and (not(../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference) or (../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference[.!=current()]))';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:permanent" {
+    deviate delete {
+      must "../../../topology-name='base' or ../permanent='false'";
+    }
+    deviate add {
+      must "(../../../../../../../l3vpn:type = 'ipv4-unicast') and (../../../topology-name='base') or ../permanent='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-interface-addresses/rt:nexthop-interface-address/rt:ldp-sync" {
+    deviate add {
+      must "../permanent='false' or ../ldp-sync='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:preference" {
+    deviate add {
+      must '(not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])) and (not(../../../nexthop-sdwans/nexthop-sdwan/preference) or (../../../nexthop-sdwans/nexthop-sdwan/preference[.!=current()])) and (not(../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference) or (../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference[.!=current()]))';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-addresses/rt:nexthop-address/rt:permanent" {
+    deviate delete {
+      must "../../../topology-name='base' or ../permanent='false'";
+    }
+    deviate add {
+      must "(../../../../../../../l3vpn:type = 'ipv4-unicast') and (../../../topology-name='base') or ../permanent='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-sdwans/rt:nexthop-sdwan" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-sdwans/rt:nexthop-sdwan/rt:preference" {
+    deviate add {
+      must 'not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:preference" {
+    deviate add {
+      must '(not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])) and (not(../../../nexthop-sdwans/nexthop-sdwan/preference) or (../../../nexthop-sdwans/nexthop-sdwan/preference[.!=current()])) and (not(../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference) or (../../../nexthop-vrf-sdwans/nexthop-vrf-sdwan/preference[.!=current()]))';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-addresses/rt:nexthop-vrf-address/rt:permanent" {
+    deviate delete {
+      must "../../../topology-name='base' or ../permanent='false'";
+    }
+    deviate add {
+      must "(../../../../../../../l3vpn:type = 'ipv4-unicast') and (../../../topology-name='base') or ../permanent='false'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-sdwans/rt:nexthop-vrf-sdwan" {
+    deviate delete {
+      must 'not(../../nexthop-vrf-onlys/nexthop-vrf-only)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/l3vpn:afs/l3vpn:af/rt:routing/rt:static-routing/rt:unicast-route2s/rt:unicast-route2/rt:nexthop-vrf-sdwans/rt:nexthop-vrf-sdwan/rt:preference" {
+    deviate add {
+      must 'not(../../../nexthop-vrf-onlys/nexthop-vrf-only/preference) or (../../../nexthop-vrf-onlys/nexthop-vrf-only/preference[.!=current()])';
+    }
+  }
+}

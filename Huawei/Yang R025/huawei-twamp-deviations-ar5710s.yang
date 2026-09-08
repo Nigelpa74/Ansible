@@ -1,0 +1,33 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-twamp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-twamp-deviations-ar5710s";
+  prefix twamp-devs-ar5710s;
+
+  import huawei-twamp {
+    prefix twamp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-twamp module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/twamp:twamp" {
+    deviate not-supported;
+  }
+}

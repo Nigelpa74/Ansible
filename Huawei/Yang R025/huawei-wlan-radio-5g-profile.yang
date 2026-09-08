@@ -1,0 +1,1261 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-radio-5g-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-radio-5g-profile";
+  prefix radio-5g-prof;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-wlan-ap-radio {
+    prefix ap-radio;
+  }
+  import huawei-wlan-ap {
+    prefix wlan-ap;
+  }
+  import huawei-wlan-ap-group-profile {
+    prefix wlan-agp;
+  }
+  import huawei-wlan-group-radio {
+    prefix wlan-gr;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Radio 5g profile configuration service package.";
+  revision 2025-02-15 {
+    description
+      "Add channel switch announcement configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-11 {
+    description
+      "Add radar-filter-sensitivity-level configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-22 {
+    description
+      "Add beacon-interval-dynamic-range configuration.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-05 {
+    description
+      "Add legacy signal length compatible configuration of dot11n.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-20 {
+    description
+      "Add vip-user-phy-protection function and vht-mcs-map.";
+    reference
+      "Huawei private.";
+  }
+  
+  revision 2024-06-18 {
+    description
+      "Add interference configuration.";
+    reference
+      "Huawei private.";
+  }
+   
+  revision 2024-05-16 {
+    description
+      "The default profile cannot be deleted.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-19 {
+    description
+      "Update profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-22 {
+    description
+      "Fix ack-policy type spelling mistake.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-09 {
+    description
+      "Add vip-user-per-packet-tpc.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-08 {
+    description
+      "Add fastpass-parameters.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-28 {
+    description
+      "Fix anti-interference-parameters constraint condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add dot11be radio-type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-30 {
+    description
+      "Modify training-interval-auto type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-04 {
+    description
+      "Add the anti-interference-parameters container include agc-high-threshold, rx-sensitivity and cca-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-28 {
+    description
+      "Add auto-off by time-range.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-27 {
+    description
+      "Add the cca-threshold.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-19 {
+    description
+      "Add the radio-type, utmost-power, agc-threshold, rx-sensitivity set.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-05 {
+    description
+      "Add the default basic rate set and supported rate set.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-08-19 {
+    description
+      "Add configuration of V6R22C10.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-07-15 {
+    description
+      "Fix task name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-15 {
+    description
+      "Fix binding-radio-5g-profile path and add radio-5g-profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-04-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping radio-5g-basic-configuration {
+    description
+      "Basic configuration applied to the 5g radio.";
+    leaf radio-type {
+      type enumeration {
+        enum "dot11a" {
+          value 0;
+          description
+            "The 802.11a radio type.";
+        }
+        enum "dot11n" {
+          value 1;
+          description
+            "The 802.11n radio type.";
+        }
+        enum "dot11ac" {
+          value 2;
+          description
+            "The 802.11ac radio type.";
+        }
+        enum "dot11ax" {
+          value 3;
+          description
+            "The 802.11ax radio type.";
+        }
+        enum "dot11be" {
+          value 4;
+          description
+            "The 802.11be radio type.";
+        }
+      }
+      default "dot11be";
+      description
+        "Set the radio type.
+         By default, the radio type in a 5G radio profile is dot11be.";
+    }
+    leaf utmost-power {
+      type enumeration {
+        enum "disable" {
+          value 0;
+          description
+            "Disable radios from sending packets at the maximum power.";
+        }
+        enum "enable" {
+          value 1;
+          description
+            "Enable radios to send packets at the maximum power.";
+        }
+      }
+      description
+        "Enable or disable radios sending packets at the maximum power.";
+    }
+    leaf guard-interval-mode {
+      type enumeration {
+        enum "normal" {
+          value 0;
+          description
+            "Guard-interval-mode normal.";
+        }
+        enum "short" {
+          value 1;
+          description
+            "Guard-interval-mode short.";
+        }
+      }
+      default "short";
+      description
+        "Guard interval mode.";
+    }
+    leaf guard-interval-mode-dot11ax {
+      type enumeration {
+        enum "dot8" {
+          value 0;
+          description
+            "11ax GI mode 0.8us.";
+        }
+        enum "1dot6" {
+          value 1;
+          description
+            "11ax GI mode 1.6us.";
+        }
+        enum "3dot2" {
+          value 2;
+          description
+            "11ax GI mode 3.2us.";
+        }
+      }
+      default "dot8";
+      description
+        "Guard interval dot11ax mode.";
+    }
+    leaf beacon-interval {
+      type uint16 {
+        range "60..1000";
+      }
+      units "ms";
+      default "100";
+      description
+        "The interval of sending beacon, the default is 100.";
+    }
+    leaf beacon-interval-dynamic-range {
+      type boolean;
+      default "false";
+      description "Enable/disable the AP to dynamically adjust the beacon interval in a small range.";
+    }
+    leaf rts-cts-mode {
+      type enumeration {
+        enum "disable" {
+          value 0;
+          description
+            "This is used to disable the function of sending packets at the maximum power on a radio.";
+        }
+        enum "rts-cts" {
+          value 1;
+          description
+            "Rts-cts-mode rts-cts, the default is rts-cts.";
+        }
+      }
+      default "rts-cts";
+      description
+        "Set RTS/CTS Mode.";
+    }
+    leaf rts-cts-threshold {
+      type uint32 {
+        range "64..2347" {
+          description
+            "Specifies the RTS-CTS threshold. If the length of a frame to be sent by the MAC Layer exceeds this threshold, an RTS frame needs to be sent before this frame.";
+        }
+      }
+      default "1400";
+      description
+        "Sets the RTS-CTS threshold in a radio profile.";
+    }
+    leaf fragmentation-threshold {
+      type uint32 {
+        range "256..2346";
+      }
+      units "Byte";
+      default "2346";
+      description
+        "Set the fragmentation threshold in a radio profile.";
+    }
+    leaf multicast-rate {
+      type enumeration {
+        enum "6mbps" {
+          value 6;
+          description
+            "6Mbps.";
+        }
+        enum "9mbps" {
+          value 9;
+          description
+            "9Mbps.";
+        }
+        enum "12mbps" {
+          value 12;
+          description
+            "12Mbps.";
+        }
+        enum "18mbps" {
+          value 18;
+          description
+            "18Mbps.";
+        }
+        enum "24mbps" {
+          value 24;
+          description
+            "24Mbps.";
+        }
+        enum "36mbps" {
+          value 36;
+          description
+            "36Mbps.";
+        }
+        enum "48mbps" {
+          value 48;
+          description
+            "48Mbps.";
+        }
+        enum "54mbps" {
+          value 54;
+          description
+            "54Mbps.";
+        }
+      }
+      description
+        "Specifies the multicast rate of wireless packets in a radio profile.";
+    }
+  }
+  grouping ap-binding-radio-5g-instance {
+    description
+      "Binding radio 5g profile.";
+    container binding-radio-5g-instance {
+      description
+        "Configure binding radio 5g profile.";
+      leaf binding-radio-5g-profile {
+        type leafref {
+          path "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:profile-name";
+        }
+        description
+          "Binding a radio 5g profile.";
+      }
+    }
+  }
+  grouping group-binding-radio-5g-instance {
+    description
+      "Binding radio 5g profile.";
+    container binding-radio-5g-instance {
+      description
+        "Configure binding radio 5g profile.";
+      leaf binding-radio-5g-profile {
+        type leafref {
+          path "/radio-5g-prof:wlan-radio-5g-profile/radio-5g-prof:radio-5g-profiles/radio-5g-prof:radio-5g-profile/radio-5g-prof:profile-name";
+        }
+        default "default";
+        description
+          "Binding a radio 5g profile.";
+      }
+    }
+  }
+  container wlan-radio-5g-profile {
+    description
+      "Configure radio 5g profile.";
+    container radio-5g-profiles {
+      description
+        "List of radio 5g profiles.";
+      list radio-5g-profile {
+        ext:generated-by system {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile is generated by system.";
+        }
+        ext:operation-exclude "delete" {
+          ext:filter "profile-name='default'";
+          description
+            "The default profile cannot be deleted.";
+        }
+        key "profile-name";
+        description
+          "Configure a radio 5g profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+		    pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "Radio 5g profile name.";
+        }
+        container dot11a-basic-rate-lists {
+          description
+            "List of dot11a basic rate.";
+          list dot11a-basic-rate-list {
+            ext:generated-by system {
+              ext:filter "basic-rate='6mbps' or basic-rate='12mbps' or basic-rate='24mbps'";
+              ext:can-be-deleted;
+              description
+                "By default, the basic rate set of the 802.11a protocol includes rates 6 Mbps, 12 Mbps, and 24 Mbps.";
+            }
+            key "basic-rate";
+            leaf basic-rate {
+              type enumeration {
+                enum "6mbps" {
+                  value 6;
+                  description
+                    "6Mbps.";
+                }
+                enum "9mbps" {
+                  value 9;
+                  description
+                    "9Mbps.";
+                }
+                enum "12mbps" {
+                  value 12;
+                  description
+                    "12Mbps.";
+                }
+                enum "18mbps" {
+                  value 18;
+                  description
+                    "18Mbps.";
+                }
+                enum "24mbps" {
+                  value 24;
+                  description
+                    "24Mbps.";
+                }
+                enum "36mbps" {
+                  value 36;
+                  description
+                    "36Mbps.";
+                }
+                enum "48mbps" {
+                  value 48;
+                  description
+                    "48Mbps.";
+                }
+                enum "54mbps" {
+                  value 54;
+                  description
+                    "54Mbps.";
+                }
+              }
+              description
+                "11bg basic rate list.";
+            }
+            description
+              "Configure list of 11bg basic rate.";
+          }
+        }
+        container dot11a-support-rate-lists {
+          description
+            "List of dot11a support rate.";
+          list dot11a-support-rate-list {
+            ext:generated-by system {
+              ext:can-be-deleted;
+              description
+                "By default, the supported rate set of the 802.11a protocol includes 6 Mbps, 9 Mbps, 12 Mbps, 18 Mbps, 24 Mbps, 36 Mbps, 48 Mbps, and 54 Mbps.";
+            }
+            key "support-rate";
+            leaf support-rate {
+              type enumeration {
+                enum "6mbps" {
+                  value 6;
+                  description
+                    "6Mbps.";
+                }
+                enum "9mbps" {
+                  value 9;
+                  description
+                    "9Mbps.";
+                }
+                enum "12mbps" {
+                  value 12;
+                  description
+                    "12Mbps.";
+                }
+                enum "18mbps" {
+                  value 18;
+                  description
+                    "18Mbps.";
+                }
+                enum "24mbps" {
+                  value 24;
+                  description
+                    "24Mbps.";
+                }
+                enum "36mbps" {
+                  value 36;
+                  description
+                    "36Mbps.";
+                }
+                enum "48mbps" {
+                  value 48;
+                  description
+                    "48Mbps.";
+                }
+                enum "54mbps" {
+                  value 54;
+                  description
+                    "54Mbps.";
+                }
+              }
+              description
+                "11bg basic rate list.";
+            }
+            description
+              "Configure list of 11bg basic rate.";
+          }
+        }
+        uses radio-5g-prof:radio-5g-basic-configuration;
+        container edca {
+          description
+            "Configure EDCA.";
+          leaf wmm {
+            type enumeration {
+              enum "enable" {
+                value 0;
+                description
+                  "Enable the WMM function in a 2G or 5G radio profile.";
+              }
+              enum "disable" {
+                value 1;
+                description
+                  "Disable the WMM function in a 2G or 5G radio profile.";
+              }
+            }
+            default "enable";
+            description
+              "The Wi-Fi Multimedia (WMM) function in a 2G or 5G radio profile.";
+          }
+          leaf wmm-mandatory {
+            type enumeration {
+              enum "enable" {
+                value 0;
+                description
+                  "Allows STAs that do not support WMM to connect to a WMM-enabled AP.";
+              }
+              enum "disable" {
+                value 1;
+                description
+                  "Do not support WMM from connecting to a WMM-enabled AP.";
+              }
+            }
+            default "disable";
+            description
+              "Disables STAs that do not support WMM from connecting to a WMM-enabled AP.";
+          }
+          container wmm-edca-ap-acvo {
+            must "./ecwmax >= ./ecwmin";
+            leaf aifsn {
+              type uint32 {
+                range "1..15";
+              }
+              default "1";
+              description
+                "Configure aifsn of wmm-ap-client-acvo.";
+            }
+            leaf ecwmin {
+              type uint32 {
+                range "0..15";
+              }
+              default "2";
+              description
+                "Configure ecwmin of wmm-ap-client-acvo.";
+            }
+            leaf ecwmax {
+              type uint32 {
+                range "0..15";
+              }
+              default "3";
+              description
+                "Configure ecwmax of wmm-ap-client-acvo.";
+            }
+            leaf txoplimit {
+              type uint32 {
+                range "0..255";
+              }
+              default "47";
+              description
+                "Configure txoplimit of wmm-ap-client-acvo.";
+            }
+            leaf ack-policy {
+              type enumeration {
+                enum "normal" {
+                  value 0;
+                  description
+                    "Configure ack policy to be normal.";
+                }
+                enum "noack" {
+                  value 1;
+                  description
+                    "Configure ack policy to be noack.";
+                }
+              }
+              default "normal";
+              description
+                "Configure ack policy.";
+            }
+            description
+              "Configure wmm-edca-ap-acvo.";
+          }
+          container wmm-edca-ap-acvi {
+            must "./ecwmax >= ./ecwmin";
+            leaf aifsn {
+              type uint32 {
+                range "1..15";
+              }
+              default "1";
+              description
+                "Configure aifsn of wmm-ap-client-acvi.";
+            }
+            leaf ecwmin {
+              type uint32 {
+                range "0..15";
+              }
+              default "3";
+              description
+                "Configure ecwmin of wmm-ap-client-acvi.";
+            }
+            leaf ecwmax {
+              type uint32 {
+                range "0..15";
+              }
+              default "4";
+              description
+                "Configure ecwmax of wmm-edca-ap-acvi.";
+            }
+            leaf txoplimit {
+              type uint32 {
+                range "0..255";
+              }
+              default "94";
+              description
+                "Configure txoplimit of wmm-edca-ap-acvi.";
+            }
+            leaf ack-policy {
+              type enumeration {
+                enum "normal" {
+                  value 0;
+                  description
+                    "Configure ack policy to be normal.";
+                }
+                enum "noack" {
+                  value 1;
+                  description
+                    "Configure ack policy to be noack.";
+                }
+              }
+              default "normal";
+              description
+                "Configure ack policy.";
+            }
+            description
+              "Configure wmm-edca-ap-acvi.";
+          }
+          container wmm-edca-ap-acbe {
+            must "./ecwmax >= ./ecwmin";
+            leaf aifsn {
+              type uint32 {
+                range "1..15";
+              }
+              default "3";
+              description
+                "Configure aifsn of wmm-edca-ap-acbe.";
+            }
+            leaf ecwmin {
+              type uint32 {
+                range "0..15";
+              }
+              default "4";
+              description
+                "Configure ecwmin of wmm-edca-ap-acbe.";
+            }
+            leaf ecwmax {
+              type uint32 {
+                range "0..15";
+              }
+              default "6";
+              description
+                "Configure ecwmax of wmm-edca-ap-acbe.";
+            }
+            leaf txoplimit {
+              type uint32 {
+                range "0..255";
+              }
+              default "0";
+              description
+                "Configure txoplimit of wmm-edca-ap-acbe.";
+            }
+            leaf ack-policy {
+              type enumeration {
+                enum "normal" {
+                  value 0;
+                  description
+                    "Configure ack policy to be normal.";
+                }
+                enum "noack" {
+                  value 1;
+                  description
+                    "Configure ack policy to be noack.";
+                }
+              }
+              default "normal";
+              description
+                "Configure ack policy.";
+            }
+            description
+              "Configure wmm-edca-ap-acbe.";
+          }
+          container wmm-edca-ap-acbk {
+            must "./ecwmax >= ./ecwmin";
+            leaf aifsn {
+              type uint32 {
+                range "1..15";
+              }
+              default "7";
+              description
+                "Configure aifsn of wmm-edca-ap-acbk.";
+            }
+            leaf ecwmin {
+              type uint32 {
+                range "0..15";
+              }
+              default "4";
+              description
+                "Configure ecwmin of wmm-edca-ap-acbk.";
+            }
+            leaf ecwmax {
+              type uint32 {
+                range "0..15";
+              }
+              default "10";
+              description
+                "Configure ecwmax of wmm-edca-ap-acbk.";
+            }
+            leaf txoplimit {
+              type uint32 {
+                range "0..255";
+              }
+              default "0";
+              description
+                "Configure txoplimit of wmm-edca-ap-acbk.";
+            }
+            leaf ack-policy {
+              type enumeration {
+                enum "normal" {
+                  value 0;
+                  description
+                    "Configure ack policy to be normal.";
+                }
+                enum "noack" {
+                  value 1;
+                  description
+                    "Configure ack policy to be noack.";
+                }
+              }
+              default "normal";
+              description
+                "Configure ack policy.";
+            }
+            description
+              "Configure wmm-edca-ap-acbk.";
+          }
+        }
+        container smart-antenna {
+          description
+            "Configure smart antenna.";
+          leaf smart-antenna {
+            type enumeration {
+              enum "enable" {
+                value 0;
+                description
+                  "Enables the smart antenna selection algorithm for an AP.";
+              }
+              enum "disable" {
+                value 1;
+                description
+                  "Disables the smart antenna selection algorithm for an AP.";
+              }
+            }
+            description
+              "Enables or disables the smart antenna selection algorithm for an AP.
+               By default, the smart antenna selection algorithm is disabled for AP7030DE, AP7050DE, and AP7052DE.";
+          }
+          leaf valid-per-scope-high-per-threshold {
+            type enumeration {
+              enum "50percent" {
+                value 0;
+                description
+                  "50%.";
+              }
+              enum "60percent" {
+                value 1;
+                description
+                  "60%.";
+              }
+              enum "70percent" {
+                value 2;
+                description
+                  "70%.";
+              }
+              enum "80percent" {
+                value 3;
+                description
+                  "80%.";
+              }
+              enum "90percent" {
+                value 4;
+                description
+                  "90%.";
+              }
+            }
+            default "80percent";
+            description
+              "Sets the upper and lower valid packet error rate (PER) thresholds in the smart antenna algorithm.";
+          }
+          leaf valid-per-scope-low-per-threshold {
+            type enumeration {
+              enum "10percent" {
+                value 0;
+                description
+                  "10%";
+              }
+              enum "20percent" {
+                value 1;
+                description
+                  "20%.";
+              }
+              enum "30percent" {
+                value 2;
+                description
+                  "30%.";
+              }
+            }
+            default "20percent";
+            description
+              "Configure the lower valid packet error rate (PER) thresholds in the smart antenna algorithm.";
+          }
+          leaf training-mpdu-number {
+            type uint32 {
+              range "10..1000" {
+                description
+                  "Specifies the number of MPDUs sent by an AP to a STA during smart antenna training.";
+              }
+            }
+            default "640";
+            description
+              "Set the number of MAC protocol data units (MPDUs) sent by an AP to a STA during smart antenna training.";
+          }
+          leaf throughput-triggered-training {
+            type enumeration {
+              enum "10percent" {
+                value 0;
+                description
+                  "10%.";
+              }
+              enum "20percent" {
+                value 1;
+                description
+                  "20%.";
+              }
+              enum "30percent" {
+                value 2;
+                description
+                  "30%.";
+              }
+              enum "40percent" {
+                value 3;
+                description
+                  "40%.";
+              }
+              enum "50percent" {
+                value 4;
+                description
+                  "50%.";
+              }
+            }
+            default "10percent";
+            description
+              "Set a sudden performance change threshold that triggers smart antenna training.";
+          }
+          choice training-interval {
+            default "auto";
+            description
+              "Set the smart antenna training interval.";
+            case auto {
+              description
+                "Indicate that a smart antenna is trained in self-adaptation mode.";
+              leaf training-interval-auto {
+                type boolean;
+                default "true";
+                description
+                  "Enable/disable smart antenna training self-adaptation mode.";
+              }
+            }
+            case interval {
+              description
+                "Set the smart antenna training interval.";
+              leaf interval-value {
+                type uint32 {
+                  range "10..600";
+                }
+                units "s";
+                description
+                  "Indicates the smart antenna training interval.";
+              }
+            }
+          }
+        }
+        container anti-interference-parameters {
+          leaf agc-high-threshold {
+            type int32 {
+              range "-128..-40";
+            }
+            units "dBm";
+            must ". >= ../rx-sensitivity";
+            description
+              "Set the upper AGC threshold.";
+          }
+          leaf rx-sensitivity {
+            type int32 {
+              range "-128..-40";
+            }
+            units "dBm";
+            default "-128";
+            description
+              "Set the receiver sensitivity threshold.";
+          }
+          leaf cca-threshold {
+            type int32 {
+              range "-85..-40";
+            }
+            units "dBm";
+            description
+              "Set the cca-threshold.";
+          }
+          description "Configure anti-interference related parameters.";
+        }
+        leaf a-mpdu {
+          type enumeration {
+            enum "enable" {
+              value 0;
+              description
+                "Configure enable.";
+            }
+            enum "disable" {
+              value 1;
+              description
+                "Configure disable.";
+            }
+          }
+          default "enable";
+          description
+            "Disables the MAC protocol data unit (MPDU) aggregation function.";
+        }
+        leaf a-msdu {
+          type enumeration {
+            enum "enable" {
+              value 1;
+              description
+                "Enables the A-MSDU function.";
+            }
+            enum "disable" {
+              value 2;
+              description
+                "Disables the A-MSDU function.";
+            }
+            enum "auto" {
+              value 3;
+              description
+                "Set auto mode.";
+            }
+          }
+          default "auto";
+          description
+            "A-MSDU mode.";
+        }
+        leaf wifi-light {
+          type enumeration {
+            enum "signal-strength" {
+              value 1;
+              description
+                "Sets the parameter reflected by the blinking frequency of the Wireless indicators on an AP to signal strength. When a Wireless indicator blinks fast, the signal strength is strong.";
+            }
+            enum "traffic" {
+              value 2;
+              description
+                "Sets the parameter reflected by the blinking frequency of the Wireless indicators on an AP to service traffic volume. When a Wireless indicator blinks fast, the service traffic volume is high.";
+            }
+          }
+          description
+            "Specifie the parameter reflected by the blinking frequency of the Wireless indicators on an AP.";
+        }
+        leaf vip-user-reservation-ratio {
+          type uint32 {
+            range "0..100" {
+              description
+                "Specifies the percentage of bandwidth reserved for VIP users.";
+            }
+          }
+          units "%";
+          default "20";
+          description
+            "Configure the percentage of bandwidth reserved for VIP users.";
+        }
+        leaf vip-user-per-packet-tpc {
+          type enumeration {
+            enum "enable" {
+              value 0;
+              description
+                "Configure VIP user per-packet-tpc enable.";
+            }
+            enum "disable" {
+              value 1;
+              description
+                "Configure VIP user per-packet-tpc disable.";
+            }
+          }
+          default "enable";
+          description
+            "Disables the VIP user per-packet-tpc function.";
+        }
+        leaf vip-user-phy-protection {
+          type enumeration {
+            enum "security-priority" {
+              value 0;
+              description
+                "Enables security-first PHY protection for VIP users.";
+            }
+            enum "business-priority" {
+              value 1;
+              description
+                "Enables service-first PHY protection for VIP users.";
+            }
+            enum "disable" {
+              value 2;
+              description
+                "Disables PHY protection for VIP users.";
+            }
+          }
+          default "disable";
+          description
+            "PHY protection for VIP users is disabled.";
+        }
+        leaf vht-a-msdu-max-frame-num {
+          type uint32 {
+            range "2..15" {
+              description
+                "Specifies the maximum number of subframes that can be aggregated into an A-MSDU at one time.";
+            }
+          }
+          default "2";
+          description
+            "Set the maximum number of subframes that can be aggregated into an A-MSDU at one time.
+             By default, a maximum of two subframes can be aggregated into an A-MSDU at one time.
+             This command does not take effect on AirEngine series APs (except the AirEngine 5760-10).";
+        }
+        leaf auto-off-by-time-range {
+          type string {
+            length "1..32";
+          }
+          description
+          "Configure auto-off-by-time-range.";
+        }
+        container fastpass-parameters {
+          leaf fastpass-users {
+            type uint32 {
+              range "0..10";
+            }
+            default "5";
+            description
+              "Specifies the number of FastPass users.";
+          }
+          leaf period-value {
+            type enumeration {
+              enum "20ms" {
+                value 0;
+                description
+                  "20ms.";
+              }
+              enum "40ms" {
+                value 1;
+                description
+                  "40ms.";
+              }
+              enum "60ms" {
+                value 2;
+                description
+                  "60ms.";
+              }
+              enum "80ms" {
+                value 3;
+                description
+                  "80ms.";
+              }
+              enum "100ms" {
+                value 4;
+                description
+                  "100ms.";
+              }
+            }
+            default "20ms";
+            description
+              "Specifies the FastPass scheduling period.";
+          }
+          leaf ratio-value {
+            type uint32 {
+              range "5..75";
+            }
+            units "%";
+            default "25";
+            description
+              "Specifies the percentage of FastPass users in the scheduling period.";
+          }
+          description "Configure fastpass related parameters.";
+        }
+        container interference {
+          description "Configure interference.";
+          leaf adjacent-channel-threshold {
+            type uint32 {
+              range "1..100";
+            }
+            default "50";
+            description "Configure interference adjacent-channel threshold.";
+          }
+          leaf co-channel-threshold {
+            type uint32 {
+              range "1..100";
+            }
+            default "50";
+            description "Configure interference co-channel threshold.";
+          }
+          leaf station-threshold {
+            type uint32 {
+              range "1..256";
+            }
+            default "32";
+            description "Configure interference station threshold.";
+          }
+          leaf detect-switch {
+            type enumeration {
+              enum "disable" {
+                value 0;
+                description "Disable radios from sending packets at the maximum power.";
+              }
+              enum "enable" {
+                value 1;
+                description "Enable radios to send packets at the maximum power.";
+              }
+            }
+            default "disable";
+            description "Configure interference detect-enable.";
+          }
+        }
+        container vht-mcs-map {
+          description
+            "Configure vht-mcs-map.";
+          leaf tx-nss {
+            type uint8 {
+              range "1..8";
+            }
+            description
+              "Configure tx-nss.";
+            }
+          leaf tx-mcs {
+            type uint8 {
+              range "7..9";
+            }
+            description
+              "Configure tx-mcs.";
+          }
+          leaf rx-nss {
+            type uint8 {
+                range "1..8";
+              }
+              description
+                "Configure rx-nss.";
+          }
+          leaf rx-mcs {
+            type uint8 {
+                range "7..9";
+            }
+            description
+              "Configure rx-mcs.";
+          }
+        }
+        leaf dot11n-lsig-len-compatible-switch {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable the function of legacy signal length compatible.";
+        }
+        leaf radar-filter-sensitivity-level {
+          type uint32 {
+            range "0..10";
+          }
+          default "0";
+          description
+            "Specifies the sensitivity level of correction for false DFS radar detection.";
+        }
+        leaf channel-switch-announcement {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable the function of channel switch announcement.";
+        }
+      }
+    }
+  }
+  augment "/wlan-ap:wlan-ap/wlan-ap:ap-instances/wlan-ap:ap-instance/ap-radio:radio-instances/ap-radio:radio-instance" {
+    description
+      "Radio 5g profile bind ap id.";
+    uses radio-5g-prof:ap-binding-radio-5g-instance;
+  }
+  augment "/wlan-agp:wlan-ap-group-profile/wlan-agp:ap-group-profiles/wlan-agp:ap-group-profile/wlan-gr:radio-instances/wlan-gr:radio-instance" {
+    description
+      "Radio 5g profile bind ap group.";
+    uses radio-5g-prof:group-binding-radio-5g-instance;
+  }
+  ext:task-name "wm";
+}

@@ -1,0 +1,66 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nac-group-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nac-group-deviations-ar5710s";
+  prefix hw-nac-group-devs-ar5710s;
+
+  import huawei-nac-group {
+    prefix hw-nac-group;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-nac-group module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:type" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:domains" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:ips" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:ip-escapes" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:isolate" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ip-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:name" {
+    deviate replace {
+      type string {
+        length "1..31";
+      }
+    }
+  }
+  deviation "/hw-nac-group:nac-group/hw-nac-group:ucl-groups/hw-nac-group:ucl-group/hw-nac-group:index" {
+    deviate replace {
+      type uint16 {
+        range "1..4095";
+      }
+    }
+  }
+}

@@ -1,0 +1,403 @@
+/*
+Copyright (C) 2021-2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-devm-poe-notif {
+  namespace "urn:huawei:yang:huawei-devm-poe-notif";
+  prefix devm-poe-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of PoE.";
+  revision 2023-05-29 {
+    description
+      "Modify poe-power-unavailable and poe-power-unavailable-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-25 {
+    description
+      "Add poe-power-unavailible and poe-power-unavailible-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-06-15 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "poe";
+  notification poe-pd-power-off {
+    description
+      "The PD connected to an interface is powered off.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf fault-id {
+      type uint32;
+      description
+        "The probable fault id of poe trap.";
+    }
+  }
+  notification poe-pd-power-on {
+    description
+      "The PD connected to an interface is powered on.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-power-overload {
+    description
+      "The power consumed by a PD connected to an interface exceeds the threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf consuming-power {
+      type uint32;
+      description
+        "Consuming power.";
+    }
+    leaf maximum-power {
+      type uint32;
+      description
+        "Maximum power.";
+    }
+  }
+  notification poe-pd-power-overload-resume {
+    description
+      "The power consumed by a PD connected to an interface does not exceed the threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf consuming-power {
+      type uint32;
+      description
+        "Consuming power.";
+    }
+    leaf maximum-power {
+      type uint32;
+      description
+        "Maximum power.";
+    }
+  }
+  notification poe-pd-connected {
+    description
+      "A PD is connected to an interface.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-disconnected {
+    description
+      "A PD is disconnected to an interface.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-class-invalid {
+    description
+      "A PD of an invalid class is detected.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-class-overcurrent {
+    description
+      "Overcurrent occurs during the classification of a PD.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-power-overcurrent {
+    description
+      "Overcurrent occurs during the powering of a PD.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-power-overcurrent-resume {
+    description
+      "Overcurrent occurs during the powering of a PD.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+  }
+  notification poe-pd-priority-different {
+    description
+      "The priority of PD is different from the port.";
+    leaf if-index {
+      type uint32;
+      description
+        "Interface index.";
+    }
+    leaf if-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Interface name.";
+    }
+    leaf port-priority {
+      type uint32;
+      description
+        "Port priority.";
+    }
+    leaf pd-priority {
+      type uint32;
+      description
+        "PD priority.";
+    }
+  }
+  notification poe-device-power-overload {
+    description
+      "The PSE is overdrawing power.";
+    leaf position {
+      type uint32;
+      description
+        "Device position.";
+    }
+    leaf current-consumed-power {
+      type uint32;
+      description
+        "Current consumed power.";
+    }
+    leaf consumed-power-threshold {
+      type uint32;
+      description
+        "Consumed power threshold.";
+    }
+  }
+  notification poe-device-power-overload-resume {
+    description
+      "The PSE is not overdrawing power.";
+    leaf position {
+      type uint32;
+      description
+        "Device position.";
+    }
+    leaf current-consumed-power {
+      type uint32;
+      description
+        "Current consumed power.";
+    }
+    leaf consumed-power-threshold {
+      type uint32;
+      description
+        "Consumed power threshold.";
+    }
+  }
+  notification poe-chip-fail {
+    description
+      "The poe chip is failed.";
+    leaf chip-id {
+      type uint32;
+      description
+        "Chip ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-chip-fail-resume {
+    description
+      "The poe chip has resumed.";
+    leaf chip-id {
+      type uint32;
+      description
+        "Chip ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-subcard-absent {
+    description
+      "The poe subcard is absent.";
+    leaf card-id {
+      type uint32;
+      description
+        "Card ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-subcard-absent-resume {
+    description
+      "The poe subcard is re-installed.";
+    leaf card-id {
+      type uint32;
+      description
+        "Card ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-communicate-fail {
+    description
+      "The poe communication fails.";
+    leaf chip-id {
+      type uint32;
+      description
+        "Chip ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-communicate-fail-resume {
+    description
+      "The poe communication has resumed.";
+    leaf chip-id {
+      type uint32;
+      description
+        "Chip ID.";
+    }
+    leaf slot-id {
+      type string {
+        length "1..32";
+      }
+      description
+        "Slot ID.";
+    }
+  }
+  notification poe-power-unavailable {
+    description
+      "PoE power is not available.";
+    leaf position {
+      type uint32;
+      description
+        "Device position.";
+    }
+  }
+  notification poe-power-unavailable-resume {
+    description
+      "PoE power is available.";
+    leaf position {
+      type uint32;
+      description
+        "Device position.";
+    }
+  }
+}

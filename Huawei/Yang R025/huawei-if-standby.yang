@@ -1,0 +1,297 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-if-standby {
+  namespace "urn:huawei:yang:huawei-if-standby";
+  prefix if-standby;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-nqa {
+    prefix nqa;
+  }
+  import huawei-route-monitor-group {
+    prefix rmg;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+     configuring interface standby implementations.";
+  revision 2025-05-07 {
+    description
+      "Add case route-monitor-group for container track-type. Add container global. Modify the range of augment when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-07-24 {
+    description
+      "Add switch-delay for container standby-track.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-01-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "interface-mgr";
+  
+  typedef backup-state-type {
+    type enumeration {
+      enum up {
+        value 1;
+        description
+          "Indicates that the interface is in Up state.";
+      }
+      enum down {
+        value 2;
+        description
+          "Indicates that the interface is in Down state.";
+      }
+      enum up-delay {
+        value 3;
+        description
+          "Indicates the delay status before the interface changes from Down to Up.";
+      }
+      enum down-delay {
+        value 4;
+        description
+          "Indicates the delay status before the interface changes from Up to Down.";
+      }
+      enum standby {
+        value 5;
+        description
+          "Indicates that the interface is in standby state.";
+      }
+    }
+    description
+      "Backup state type.";
+  }
+  
+  grouping switch-delay {
+    description
+      "Configure the switch time delay.";
+    container switch-delay {
+      description
+        "Configure the delay in switching services between the primary interface and the backup interface.";
+      leaf primary-to-standby {
+        type uint16;
+        units s;
+        default 5;
+        description 
+          "Specifies the delay in switching services from the primary interface to the standby interface.";
+      }
+      
+      leaf standby-to-primary {
+        type uint16;
+        units s;
+        default 5;
+        description 
+          "Specifies the delay in switching services from the standby interface to the primary interface.";
+      }
+    }
+  }
+
+  grouping loadbalance-threshold {
+    description
+      "Configure the threshold of traffic in load balancing mode.";
+    container loadbalance-threshold {
+      description
+        "Configure the upper and lower threshold of traffic in load balancing mode.";
+      leaf upper-threshold {
+        type uint8 {
+          range "1..99";
+        }
+        description "Specifies the upper threshold of traffic in load balancing mode.";
+      }
+        
+      leaf lower-threshold {
+        type uint8 {
+          range "1..99";
+        }
+        description "Specifies the lower threshold of traffic in load balancing mode.";
+      }
+    }
+  }
+
+  container if-standby {
+    description
+      "Configure standby global.";
+
+      container global {
+        description
+            "Configure interface standby global system attribute.";
+        
+        leaf route-monitor-group-warmup-time {
+          type uint32 {
+            range "0..65535";
+          }
+          units s;
+          default 60;
+          description 
+            "Specifies the route monitoring group warmup time.";
+        }
+      }
+  }
+
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    when "ifm:type='Ethernet' or ifm:type='GigabitEthernet' or ifm:type='100GE' or ifm:type='200GE' or " +
+         "ifm:type='40GE' or ifm:type='10GE' or ifm:type='GEBrief' or ifm:type='MultiGE' or ifm:type='4x10GE' or " +
+         "ifm:type='10x10GE' or ifm:type='3x40GE' or ifm:type='4x25GE' or ifm:type='25GE' or ifm:type='XGigabitEthernet' or " +
+         "ifm:type='FlexE' or ifm:type='50|100GE' or ifm:type='50GE' or ifm:type='400GE' or ifm:type='1200GE' or ifm:type='Cellular' or " +
+         "ifm:type='Serial' or ifm:type='Dialer' or ifm:type='Tunnel' or ifm:type='Eth-Trunk' or ifm:type='Ip-Trunk' or ifm:type='Pos'";
+    description
+      "Configure standby on interfaces.";
+    
+    container standby {
+      must "not (./primary-interface and ./standby-track)";
+      description
+        "Configure interface standby.";
+      
+      container primary-interface {
+        presence "Enable/disable primary interface.";
+        description
+          "Configure primary interface.";
+        uses switch-delay;
+        uses loadbalance-threshold;
+        
+        leaf backup-state {
+          type backup-state-type;
+          config false;
+          description "Backup state of primary interface.";
+        }
+        
+        container standby-interfaces {
+          description "List of standby-interfaces.";
+          list standby-interface {
+            key "name";
+            min-elements 1;
+            max-elements 3;
+            description "Configure standby interface list.";
+        
+            leaf name {
+              type leafref {
+                path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+              }
+              must "(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Ethernet' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='GigabitEthernet' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='100GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='200GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='40GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='40GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='10GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='GEBrief' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='4x10GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='10x10GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='3x40GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='4x25GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='25GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='XGigabitEthernet' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='FlexE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='50|100GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='50GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='400GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='1200GE' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Cellular' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Serial' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Dialer' or " +
+                   "/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name=current()]/ifm:type='Tunnel') and " +
+                   "count(/ifm:ifm/ifm:interfaces/ifm:interface[ifm:name!=current()/../../../../../ifm:name]/if-standby:standby/if-standby:primary-interface/if-standby:standby-interfaces/if-standby:standby-interface/if-standby:name[.=current()])=0 and " +
+                   "../../../../../ifm:name!=../if-standby:name";
+              description "Specifies a standby interface.";
+            }
+            
+            leaf priority {
+              type uint8;
+              description "Specifies the priority of a standby interface.";
+            }
+            
+            leaf backup-state {
+              type backup-state-type;
+              config false;
+              description "Backup state of standby interface.";
+            }
+          }
+        }
+      }
+      
+      container standby-track {
+        must "count(/ifm:ifm/ifm:interfaces/ifm:interface/if-standby:standby/if-standby:primary-interface/if-standby:standby-interfaces/if-standby:standby-interface/if-standby:name[.=current()/../../ifm:name])=0";
+        presence "Enable/disable standby interface track.";
+        description "Configure standby interface track.";
+
+        choice track-type {
+          mandatory true;
+          description "Standby interface track type.";
+          case nqa {
+            description "Standby interface track NQA.";
+    
+            container nqa {
+              description "Configure a NQA track.";
+            
+              leaf admin-name {
+                type leafref {
+                  path "/nqa:nqa/nqa:instances/nqa:instance/nqa:admin-name";
+                }
+                mandatory true;
+                description "Specifies the name of the administrator for a NQA test instance.";
+              }
+            
+              leaf test-name {
+                type leafref {
+                  path "/nqa:nqa/nqa:instances/nqa:instance/nqa:test-name";
+                }
+                mandatory true;
+                description "Specifies the name of a NQA test instance.";
+              }
+            }
+          }
+          case route-monitor-group {
+            description "Standby interface track route monitoring group.";
+    
+            container route-monitor-group {
+              description "Configure a route monitoring group track.";
+            
+              leaf name {
+                type leafref {
+                  path "/rmg:route-monitor-group/rmg:monitor-groups/rmg:monitor-group/rmg:group-name";
+                }
+                mandatory true;
+                description "Specifies the name of route monitoring group.";
+              }
+            
+              leaf weight {
+                type uint16 {
+                  range "1..1000";
+                }
+                description "Specifies the weight of a track interface.";
+              }
+            }
+          }
+        }
+        
+        leaf backup-state {
+          type backup-state-type;
+          config false;
+          description "Backup state of standby interface.";
+        }
+		
+        uses switch-delay;
+      }
+    }
+  }
+}

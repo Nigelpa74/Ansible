@@ -1,0 +1,497 @@
+/*
+Copyright (C) 2022-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-sta-access {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-sta-access";
+  prefix wlan-sta-acc;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-wlan-vap-profile {
+    prefix vap-prof;
+  }
+  import huawei-wlan-system-profile {
+    prefix sys-prof;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Sta whitelist and blacklist profile service package.";
+  revision 2025-03-04 {
+    description
+      "Add sta table.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-20 {
+    description
+      "Add station-unsteerable.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-08 {
+    description
+      "Update station offline delay.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-29 {
+    description
+      "Update whitelist/blacklist mac/oui-address pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-25 {
+    description
+      "Update blacklist mac-address.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-04 {
+    description
+      "Add Add sta device id blacklist and white-list.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-06-27 {
+    description
+      "Add oui pattern and modify mac-address type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-05-10 {
+    description
+      "Update sta blacklist profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-18 {
+    description
+      "Update profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-03-08 {
+    description
+      "Add profile name pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-01-10 {
+    description
+      "Add sta dynamic blacklist.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-12-25 {
+    description
+      "Add sta IPv6 switch.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  grouping sta-white-list-profile {
+    description
+      "Sta whitelist and blacklist profile.";
+    container profile-lists {
+      description
+        "List of profile.";
+      list profile-list {
+        key "profile-name";
+        description
+          "Configure Sta whitelist profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern
+              '[^\s?]+';
+            pattern
+              '[!-~]+';
+          }
+          description
+            "Profile name.";
+        }
+        container sta-mac-lists {
+          description
+            "List of sta-mac.";
+          list sta-mac-list {
+            key "sta-mac";
+            description
+              "Configure sta-mac list.";
+            leaf sta-mac {
+              type pub-type:mac-address {
+                pattern
+                  '[0-9a-f][02468ace][0-9a-f]{2}(-[0-9a-f]{4}){2}';
+              }
+              description
+                "Configure sta-mac.";
+            }
+            leaf description {
+              type string {
+                length "1..80";
+              }
+              description
+                "Configure the description of sta-mac.";
+            }
+          }
+        }
+        container sta-oui-lists {
+          description
+            "List of sta-oui.";
+          list sta-oui-list {
+            key "sta-oui";
+            description
+              "Configure sta-oui list.";
+            leaf sta-oui {
+              type string {
+                length "8";
+                pattern
+                  '[0-9a-f][02468ace](-[0-9a-f]{2}){2}';
+              }
+              description
+                "Configure sta-oui the format is xx-xx-xx.";
+            }
+            leaf description {
+              type string {
+                length "1..80";
+              }
+              description
+                "Configure the description of sta-oui.";
+            }
+          }
+        }
+        container sta-device-id-lists {
+          description
+            "List of STA device IDs.";
+          list sta-device-id-list {
+            key "sta-device-id";
+            description
+              "Configure a STA device ID list.";
+            leaf sta-device-id {
+              type string {
+                length "12";
+              }
+              description
+                "Configure a STA device ID.";
+            }
+            leaf description {
+              type string {
+                length "1..80";
+              }
+              description
+                "Configure the description of a STA device ID.";
+            }
+          }
+        }
+      }
+    }
+  }
+  grouping sta-black-list-profile {
+    description
+      "Sta whitelist and blacklist profile.";
+    container profile-lists {
+      description
+        "List of profile.";
+      list profile-list {
+        key "profile-name";
+        description
+          "Configure sta blacklist profile.";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern
+              '[^\s?]+';
+            pattern
+              '[!-~]+';
+          }
+          description
+            "Profile name.";
+        }
+        container sta-mac-lists {
+          description
+            "List of sta-mac.";
+          list sta-mac-list {
+            key "sta-mac";
+            description
+              "Configure sta-mac list.";
+            leaf sta-mac {
+              type pub-type:mac-address;
+              description
+                "Configure sta-mac.";
+            }
+            leaf description {
+              type string {
+                length "1..80";
+              }
+              description
+                "Configure the description of sta-mac.";
+            }
+          }
+        }
+        container sta-device-id-lists {
+          description
+            "List of STA device IDs.";
+          list sta-device-id-list {
+            key "sta-device-id";
+            description
+              "Configure a STA device ID list.";
+            leaf sta-device-id {
+              type string {
+                length "12";
+              }
+              description
+                "Configure a STA device ID.";
+            }
+            leaf description {
+              type string {
+                length "1..80";
+              }
+              description
+                "Configure the description of a STA device ID.";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping binding-sta-white-black-list-profile {
+    description
+      "Binding a sta whitelist or blacklist profile.";
+    container binding-sta-white-black-list-profile {
+      description
+        "Configure a sta whitelist or blacklist profile.";
+      choice sta-access-mode {
+        case whitelist {
+          leaf binding-sta-whitelist-profile {
+            type leafref {
+              path "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:sta-whitelist-profiles/wlan-sta-acc:profile-lists/wlan-sta-acc:profile-list/wlan-sta-acc:profile-name";
+            }
+            description
+              "Binding a sta whitelist profile.";
+          }
+          description
+            "Binding a sta whitelist profile.";
+        }
+        case blacklist {
+          leaf binding-sta-blacklist-profile {
+            type leafref {
+              path "/wlan-sta-acc:wlan-sta-access/wlan-sta-acc:sta-blacklist-profiles/wlan-sta-acc:profile-lists/wlan-sta-acc:profile-list/wlan-sta-acc:profile-name";
+            }
+            description
+              "Binding a sta blacklist profile.";
+          }
+          description
+            "Binding a sta blacklist profile.";
+        }
+        description
+          "Configure sta access mode.";
+      }
+    }
+  }
+  container wlan-sta-access {
+    description
+      "Configure sta access profile.";
+    container sta-whitelist-profiles {
+      description
+        "Configure sta whitelist profile.";
+      uses wlan-sta-acc:sta-white-list-profile;
+    }
+    container sta-blacklist-profiles {
+      description
+        "Configure sta blacklist profile.";
+      uses wlan-sta-acc:sta-black-list-profile;
+    }
+    container dynamic-blacklists {
+      description
+        "List of the dynamic-blacklists.";
+      list dynamic-blacklist {
+        key "sta-mac";
+        config false;
+        description
+          "Operational state of the dynamic blacklists.";
+
+        leaf sta-mac {
+          type pub-type:mac-address;
+          description
+            "Sta mac.";
+        }
+
+        leaf reason {
+          type uint32;
+          description
+            "Reson.";
+        }
+
+        leaf block-time {
+          type uint32;
+          description
+            "The time of joining blacklist.";
+        }
+
+        leaf expire-time {
+          type uint32;
+          description
+            "The time of expire blacklist.";
+        }
+      }
+    }
+    leaf sta-ipv6-switch {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable sta-IPv6-switch.";
+    }
+    container sta-offline-delay {
+      description
+        "Configure station offline delay.";
+      leaf sta-offline-delay {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable sta-offline-delay switch.";
+      }
+      leaf full-sta-reject {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable full-sta-reject switch.";
+      }
+
+      leaf max-rate {
+        type uint32 {
+          range "1..100";
+        }
+        default "20";
+        description
+          "Max rate of station support offline delay.";
+      }
+      leaf aging-time {
+        type uint32 {
+          range "1..604800";
+        }
+        default "180";
+        description
+          "Aging time of station offline delay.";
+      }
+    }
+    container station-unsteerable-lists {
+      description
+        "List of station-unsteerable list.";
+      list station-unsteerable-list {
+        key "sta-mac";
+        description
+          "Configure the station-unsteerable list.";
+
+        leaf sta-mac {
+          type pub-type:mac-address;
+          description
+            "Sta mac.";
+        }
+      }
+    }
+    container station-lists {
+      config false;
+      description
+        "List of station list.";
+      list station-list {
+        key "sta-mac";
+        config false;
+        description
+          "Operational state of the station list.";
+        leaf sta-mac {
+          type pub-type:mac-address;
+          description
+            "Sta mac.";
+        }
+        leaf ap-id {
+          type uint32;
+          description
+            "Ap-id.";
+        }
+        leaf radio-id {
+          type uint32;
+          description
+            "Radio-id.";
+        }
+        leaf wlan-id {
+          type uint32;
+          description
+            "Wlan-id.";
+        }
+        leaf ssid {
+          type string {
+            length "1..32";
+          }
+          description
+            "Ssid.";
+        }
+        leaf tx-rate {
+          type uint32;
+          description
+            "Tx-rate.";
+        }
+        leaf rx-rate {
+          type uint32;
+          description
+            "Rx-rate.";
+        }
+      }
+    }
+  }
+  rpc reset-dynamic-blacklist {
+    description
+      "Reset the dynamic-blacklists.";
+    input {
+      choice reset {
+        case mac {
+          description
+            "Reset blacklist.";
+          leaf mac-address {
+            type pub-type:mac-address;
+            description
+              "Device mac address.";
+          }
+        }
+        case all {
+          description
+            "Reset all.";
+          leaf all-list {
+            type empty;
+            description
+              "Reset all.";
+          }
+        }
+        description
+          "Reset the dynamic-blacklist.";
+      }
+    }
+  }
+  augment "/vap-prof:wlan-vap-profile/vap-prof:vap-profiles/vap-prof:vap-profile" {
+    description
+      "Binding a sta blacklist profile to vap profile.";
+    uses wlan-sta-acc:binding-sta-white-black-list-profile;
+  }
+  augment "/sys-prof:wlan-system-profile/sys-prof:system-profiles/sys-prof:system-profile" {
+    description
+      "Binding a sta blacklist profile to system profile.";
+    uses wlan-sta-acc:binding-sta-white-black-list-profile;
+  }
+  ext:task-name "mm";
+}

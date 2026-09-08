@@ -1,0 +1,59 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ual {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ual";
+  prefix ual;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Ubiquitous autonomy link configurations.";
+  revision 2024-08-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef ual-role {
+    type enumeration {
+      enum "client" {
+        value 0;
+        description
+          "The role is client device.";
+      }
+      enum "lc" {
+        value 1;
+        description
+          "The role is local controller device.";
+      }
+    }
+    description
+      "The ual role of device.";
+  }
+  container ual {
+    description
+      "Configure UAL configurations.";
+    container global {
+      description
+        "Configure global configurations of UAL.";
+      leaf role {
+        type ual-role;
+        default "client";
+        description
+          "Configure the UAL role of the device.";
+      }
+    }
+  }
+  ext:task-name "ual";
+}

@@ -1,0 +1,277 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-rpc-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-rpc-deviations-ar5710s";
+  prefix bgp-rpc-devs-ar5710s;
+
+  import huawei-bgp-rpc {
+    prefix bgp-rpc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-rpc module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef flapping-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv4vpn {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum ipv6vpn {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+    }
+    description
+      "The address family type of flapping.";
+  }
+
+  typedef bgp-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv4vpn {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum ipv6vpn {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+      enum evpn {
+        value 9;
+        description
+          "EVPN address family.";
+      }
+      enum mvpn {
+        value 10;
+        description
+          "IPv4 MVPN address family.";
+      }
+      enum ls {
+        value 13;
+        description
+          "Link-state Address Family.";
+      }
+      enum ipv6srpolicy {
+        value 21;
+        description
+          "IPv6-family Srpolicy Address Family.";
+      }
+      enum ipv4sdwan {
+        value 22;
+        description
+          "IPv4-family SD-WAN Address Family.";
+      }
+    }
+    description
+      "The type of bgpcommPrefix.";
+  }
+
+  typedef bgp-group-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv4vpn {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum ipv6vpn {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+      enum evpn {
+        value 9;
+        description
+          "EVPN address family.";
+      }
+      enum mvpn {
+        value 10;
+        description
+          "IPv4 MVPN address family.";
+      }
+      enum ls {
+        value 13;
+        description
+          "Link-state Address Family.";
+      }
+      enum ipv4sdwan {
+        value 22;
+        description
+          "IPv4-family SD-WAN Address Family.";
+      }
+    }
+    description
+      "The type of bgpcommPrefix.";
+  }
+
+  deviation "/bgp-rpc:reset-base-process-bgp-slow-delete-enddt46-sid" {
+    deviate not-supported;
+  }
+  deviation "/bgp-rpc:route-server-context-policy-ipv4-unicast-route" {
+    deviate not-supported;
+  }
+  deviation "/bgp-rpc:route-server-context-filter-ipv4-unicast-route" {
+    deviate not-supported;
+  }
+  deviation "/bgp-rpc:route-server-context-policy-ipv6-unicast-route" {
+    deviate not-supported;
+  }
+  deviation "/bgp-rpc:route-server-context-filter-ipv6-unicast-route" {
+    deviate not-supported;
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-af/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-as/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-type/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-group-af/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-group-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:refresh-base-process-bgp-af-direction/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:refresh-base-process-bgp-peer-af-direction/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:refresh-base-process-bgp-peer-type-direction/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:refresh-base-process-bgp-group-af/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-group-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:diagnose-base-process-peer-log-info/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:diagnose-base-process-group-log-info/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-group-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-af-flapping-count/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-af-flapping/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-flapping-all/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-flapping-network-address/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-flapping-as-path-filter/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-flapping-as-path-regular-expression/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-dampening-all/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-dampening-network-address/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:flapping-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-peer-af-slow-peer/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+  deviation "/bgp-rpc:reset-base-process-bgp-af-slow-peer/bgp-rpc:input/bgp-rpc:address-family" {
+    deviate replace {
+      type bgp-rpc-devs-ar5710s:bgp-af-type-deviations;
+    }
+  }
+}

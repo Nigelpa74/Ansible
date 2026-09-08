@@ -1,0 +1,63 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-hips-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-hips-deviations-ar5710s";
+  prefix hw-hips-devs-ar5710s;
+
+  import huawei-hips {
+    prefix hw-hips;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-hips module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:detect-malicious-file" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:memory-integrity-attack" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:process-privilege-escalation" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:kernel-mode-rootkit" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:side-channel-attack" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:key-process-stopped-abnormally" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:hips/hw-hips:state/hw-hips:unauthorized-mac" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:resolve-file-privilege-escalation-event" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:resolve-rootkit-attack-event" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:resolve-unauthorized-root-user-event" {
+    deviate not-supported;
+  }
+  deviation "/hw-hips:process-abnormal-file-detection" {
+    deviate not-supported;
+  }
+}

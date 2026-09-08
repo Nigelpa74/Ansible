@@ -1,0 +1,127 @@
+/******************************************************
+* Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+module huawei-nat {
+    namespace "urn:huawei:yang:huawei-nat";
+        prefix "hw-nat";
+
+    import ietf-inet-types {
+        prefix inet;
+    }
+    import huawei-extension {
+        prefix ext;
+    }
+    import huawei-ifm {
+        prefix ifm;
+    }
+    organization
+          "Huawei Technologies Co., Ltd.";
+
+    contact
+          "Huawei Industrial Base
+          Bantian, Longgang
+          Shenzhen 518129
+          People's Republic of China
+          Website: http://www.huawei.com
+          Email: support@huawei.com";
+
+	description
+		"This module contains a collection of YANG definitions for Configuration of NAT.
+		copyright (c) 2021-2023 huawei technologies co., ltd.	all rights reserved.";
+
+    revision 2025-07-21 {
+	    description
+	        "Modify the description of nat-enable leaf.";
+        reference "";
+    }
+
+    revision 2024-05-22 {
+	    description
+	        "Modify the description of section-type grouping.";
+        reference "";
+    }
+
+    revision 2023-03-21 {
+	    description
+	        "Add mandatory attribute to start-ip leaf and end-ip leaf in ip-range-type grouping.";
+        reference "";
+    }
+    revision 2023-02-17 {
+	    description
+	        "Modify the default value of nat-enable leaf.";
+        reference "";
+    }
+    revision 2021-03-11 {
+	    description
+	        "Initial revision.";
+        reference "";
+    }
+
+    grouping port-range-type {
+        description "Indicate port range information.";
+        leaf start-port {
+            type inet:port-number;
+            description "Indicate the beginning port of a port range.";
+        }
+        leaf end-port {
+            type inet:port-number;
+            description "Indicate the ending port that forms a port range with start-port.";
+        }
+    }
+
+    grouping ip-range-type {
+        description "Indicate IP range information.";
+        leaf start-ip {
+            type inet:ip-address;
+            mandatory true;
+            description "Specify the IP address or the start IP address.";
+        }
+        leaf end-ip {
+            type inet:ip-address;
+            mandatory true;
+            description "Specify the end IP address.";
+        }
+    }
+
+    grouping section-type {
+        description "Configure the section information.";
+        list section {
+            key "id";
+            description "Configure the section information.";
+            leaf id {
+                type uint16 {
+                    range "0..max";
+                }
+                description "Specify the id of the IP address segment.";
+            }
+            uses ip-range-type;
+        }
+    }
+
+    ext:task-name "nat-cgn";
+    augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+        description
+                "NAT configuration of Augment interface.";
+        container nat {
+            description
+                "Configure NAT function.";
+            leaf nat-enable {
+                type boolean;
+                default false;
+                description
+                    "Enable/disable NAT function. 
+                    Supports the following interface types: 400GE interface, 400GE sub-interface, 100GE interface, 100GE sub-interface, 40GE interface, 40GE sub-interface,
+                    25GE interface, 25GE sub-interface, 10GE interface, 10GE sub-interface, GE interface, GE sub-interface, Eth-Trunk interface, Eth-Trunk sub-interface,
+                    Multi-GE interface, Multi-GE sub-interface, Cellular interface, Cellular channel interface, Serial interface, Dialer interface, POS interface,
+                    Tunnel interface, VLANIF interface, IP-Trunk interface, Ethernet interface, Ethernet sub-interface.";
+            }
+            leaf nat64-enable {
+                type boolean;
+                default false;
+                description "Enable/disable NAT64 function.";
+            }
+        }
+    }
+
+}

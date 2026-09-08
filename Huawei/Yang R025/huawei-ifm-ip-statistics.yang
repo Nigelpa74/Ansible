@@ -1,0 +1,341 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifm-ip-statistics {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ifm-ip-statistics";
+  prefix ifm-ip-statistics;
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Ifm statistic configuration.";
+  revision 2025-09-12 {
+    description
+      "Add support for 800G interface.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-01-18 {
+    description
+      "Add support for VDSL interface.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-06 {
+    description
+      "Add support for OpenGe interface.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-06 {
+    description
+      "Change to when condition.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-25 {
+    description
+      "Support dialer interface.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-04-01 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef enable-type {
+    type enumeration {
+      enum "disable" {
+        value 0;
+        description
+          "IP statistic disable.";
+      }
+      enum "enable" {
+        value 1;
+        description
+          "IP statistic enable.";
+      }
+    }
+    description
+      "Enable type.";
+  }
+  typedef direction-type {
+    type enumeration {
+      enum "in-bound" {
+        value 0;
+        description
+          "In bound.";
+      }
+      enum "out-bound" {
+        value 1;
+        description
+          "Out bound.";
+      }
+      enum "both" {
+        value 2;
+        description
+          "In bound and out bound.";
+      }
+    }
+    description
+      "Direction type.";
+  }
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Interface forward configuration to the interface management module.";
+    container ip-statistics-enable {
+      when "../ifm:type='Eth-Trunk' or ../ifm:type='Vlanif' or ../ifm:type='100GE' or ../ifm:type='200GE' or ../ifm:type='40GE' or ../ifm:type='10GE' or ../ifm:type='25GE' or ../ifm:type='50GE' or ../ifm:type='400GE' or ../ifm:type='800GE' or ../ifm:type='MultiGE' or ../ifm:type='GEBrief' or ../ifm:type='Dialer' or ../ifm:type='Cellular' or ../ifm:type='Mp-group' or ../ifm:type='OpenGE' or ../ifm:type='Ethernet'";
+      description
+        "Configure IP traffic statistics.";
+      choice ip-statistics-mode {
+        description
+          "IP traffic statistics mode.";
+        case independent-mode {
+          description
+            "IPv4 or IPv6 traffic statistics mode.";
+          container independent-mode {
+            description
+              "Configure IPv4 or IPv6 traffic statistics.";
+            leaf ipv4-enable {
+              type enable-type;
+              default "disable";
+              description
+                "IPv4 traffic statistics enable.";
+            }
+            leaf ipv4-direction {
+              when "../ipv4-enable='enable'";
+              type direction-type;
+              mandatory true;
+              description
+                "IPv4 traffic statistics direction.";
+            }
+            leaf ipv6-enable {
+              type enable-type;
+              default "disable";
+              description
+                "IPv6 traffic statistics enable.";
+            }
+            leaf ipv6-direction {
+              when "../ipv6-enable='enable'";
+              type direction-type;
+              mandatory true;
+              description
+                "IPv6 traffic statistics direction.";
+            }
+          }
+        }
+        case unified-mode {
+          description
+            "IP traffic statistics mode.";
+          container unified-mode {
+            description
+              "Configure IPv4 and IPv6 traffic statistics.";
+            leaf ip-enable {
+              type enable-type;
+              default "disable";
+              description
+                "IP traffic statistics enable.";
+            }
+          }
+        }
+      }
+    }
+
+    container ip-statistics {
+      config false;
+      description
+        "Statistics of IP traffic.";
+      leaf receive-ip-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IP traffic bytes received on an interface.";
+      }
+      leaf send-ip-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IP traffic bytes sent on an interface.";
+      }
+      leaf receive-ip-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IP traffic packets received on an interface.";
+      }
+      leaf send-ip-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IP traffic packets sent on an interface.";
+      }
+      leaf receive-ip-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IP traffic bits received on an interface.";
+      }
+      leaf send-ip-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IP traffic bits sent on an interface.";
+      }
+      leaf receive-ip-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IP traffic packets received on an interface.";
+      }
+      leaf send-ip-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IP traffic packets sent on an interface.";
+      }
+      leaf receive-ipv4-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IPv4 traffic bytes received on an interface.";
+      }
+      leaf send-ipv4-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IPv4 traffic bytes sent on an interface.";
+      }
+      leaf receive-ipv4-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IPv4 traffic packets received on an interface.";
+      }
+      leaf send-ipv4-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IPv4 traffic packets sent on an interface.";
+      }
+      leaf receive-ipv4-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IPv4 traffic bits received on an interface.";
+      }
+      leaf send-ipv4-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IPv4 traffic bits sent on an interface.";
+      }
+      leaf receive-ipv4-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IPv4 traffic packets received on an interface.";
+      }
+      leaf send-ipv4-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IPv4 traffic packets sent on an interface.";
+      }
+      leaf receive-ipv6-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IPv6 traffic bytes received on an interface.";
+      }
+      leaf send-ipv6-byte {
+        type uint64;
+        units "Byte";
+        description
+          "Number of IPv6 traffic bytes sent on an interface.";
+      }
+      leaf receive-ipv6-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IPv6 traffic packets received on an interface.";
+      }
+      leaf send-ipv6-packet {
+        type uint64;
+        units "packet";
+        description
+          "Number of IPv6 traffic packets sent on an interface.";
+      }
+      leaf receive-ipv6-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IPv6 traffic bits received on an interface.";
+      }
+      leaf send-ipv6-bit-rate {
+        type uint64;
+        units "bit/s";
+        description
+          "Rate of IPv6 traffic bits sent on an interface.";
+      }
+      leaf receive-ipv6-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IPv6 traffic packets received on an interface.";
+      }
+      leaf send-ipv6-packet-rate {
+        type uint64;
+        units "pps";
+        description
+          "Rate of IPv6 traffic packets sent on an interface.";
+      }
+    }
+    container ip-statistics-peak {
+      config false;
+      description
+        "Statistics of peak traffic.";
+      leaf receive-peak-bit {
+        type uint64;
+        units "bit";
+        description
+          "Number of peak traffic bits received on an interface.";
+      }
+      leaf receive-peak-time {
+        type string {
+          length "0..28";
+        }
+        description
+          "Time of peak traffic received on an interface.";
+      }
+      leaf send-peak-bit {
+        type uint64;
+        units "bit";
+        description
+          "Number of peak traffic bits sent on an interface.";
+      }
+      leaf send-peak-time {
+        type string {
+          length "0..28";
+        }
+        description
+          "Time of peak traffic sent on an interface.";
+      }
+    }
+  }
+  ext:task-name "vlan";
+}

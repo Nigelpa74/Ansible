@@ -1,0 +1,54 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-rgm-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-rgm-deviations-ar5710s";
+  prefix rgm-devs-ar5710s;
+
+  import huawei-rgm {
+    prefix rgm;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-rgm module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/rgm:rgm/rgm:rgm-track/rgm:track-pw" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/rgm:rgm/rgm:track-trunk" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/rgm:rgm/rgm:track-rtmtg" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv4/rgm:rgm/rgm:track-ipv6-rtmtg" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/rgm:rgm6/rgm:rgm6-track/rgm:track-vrrp6" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ip:ipv6/rgm:rgm6/rgm:rgm6-track/rgm:track-pw" {
+    deviate not-supported;
+  }
+}

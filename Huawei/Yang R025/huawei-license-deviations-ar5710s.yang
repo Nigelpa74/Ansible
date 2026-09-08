@@ -1,0 +1,105 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-license-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-license-deviations-ar5710s";
+  prefix lcs-devs-ar5710s;
+
+  import huawei-license {
+    prefix lcs;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-license module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/lcs:license/lcs:global/lcs:cloud" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:global-states/lcs:global-state/lcs:startup-filename" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:stack-sale-items/lcs:stack-sale-item/lcs:license-sale-items/lcs:license-sale-item/lcs:license-items" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:item-usages" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:feature-resources" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:rtu-models" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:rtu-bandwidth-params" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:rtu-start-infos" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:rtu-instances" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:cloud-deployment-states" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:overused-resource" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-startup" {
+    deviate not-supported;
+  }
+  deviation "/lcs:startup-paf" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-refresh-item-state" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-calculate-rtu-resource" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:global-states/lcs:global-state/lcs:license-mode" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:cloud-servers" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:cloud-server2s" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:support-sparts" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-revoke-chassis" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-assign" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-smooth" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-report-usage" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-switch-mode" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license-cloud-refresh" {
+    deviate not-supported;
+  }
+}

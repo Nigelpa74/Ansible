@@ -1,0 +1,191 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-link-state-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-link-state-deviations-ar5710s";
+  prefix bgp-ls-devs-ar5710s;
+
+  import huawei-bgp-link-state {
+    prefix bgp-ls;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-link-state module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-ls:link-state-unicast/bgp-ls:option/bgp-ls:ignore-address-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-ls:link-state-unicast/bgp-ls:option/bgp-ls:ignore-address-type" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:prefix-routes/bgp-ls:prefix-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:prefix-routes/bgp-ls:prefix-route/bgp-ls:prefix-attributes-flags" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-routes/bgp-ls:link-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-routes/bgp-ls:link-route/bgp-ls:average-delay" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-routes/bgp-ls:link-route/bgp-ls:average-delay-variation" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-routes/bgp-ls:link-route/bgp-ls:msd-type-value" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-routes/bgp-ls:link-route/bgp-ls:asla-administrative-group" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:node-routes/bgp-ls:node-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:average-delay" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:average-delay-variation" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:msd-type-value" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:asla-administrative-group" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:asla-link-loss" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:asla-link-loss-ratio" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:link-route2s/bgp-ls:link-route2/bgp-ls:asla-utilized-link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:node-route2s/bgp-ls:node-route2/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:srv6sid-routes/bgp-ls:srv6sid-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:netslice-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-srv6sid-routes/bgp-ls:peer-receive-srv6sid-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:average-delay" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:average-delay-variation" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:msd-type-value" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:asla-administrative-group" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:asla-link-loss" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:asla-link-loss-ratio" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-link-routes/bgp-ls:peer-advertise-link-route/bgp-ls:asla-utilized-link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:average-delay" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:average-delay-variation" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:msd-type-value" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:asla-administrative-group" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:asla-link-loss" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:asla-link-loss-ratio" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-link-routes/bgp-ls:peer-receive-link-route/bgp-ls:asla-utilized-link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:te-policy-routes/bgp-ls:te-policy-route/bgp-ls:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:te-policy-routes/bgp-ls:te-policy-route/bgp-ls:policy-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:te-policy-routes/bgp-ls:te-policy-route/bgp-ls:candidate-path-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-te-policy-routes/bgp-ls:peer-advertise-te-policy-route/bgp-ls:policy-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-te-policy-routes/bgp-ls:peer-advertise-te-policy-route/bgp-ls:candidate-path-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-te-policy-routes/bgp-ls:peer-receive-te-policy-route/bgp-ls:policy-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-te-policy-routes/bgp-ls:peer-receive-te-policy-route/bgp-ls:candidate-path-name" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-advertise-netslice-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:peer-receive-netslice-routes" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-ls:link-state-unicast/bgp-ls:statistic/bgp-ls:network-slice-route-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-ls:link-state-unicast/bgp-ls:slow-peer/bgp-ls:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-ls:link-state-unicast" {
+    deviate add {
+      must "../../../bgp:peer-establish-mode!='dynamic-ipv6'";
+    }
+  }
+}

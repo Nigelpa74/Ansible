@@ -1,0 +1,54 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ppp-net-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-ppp-net-deviations-ar5710s";
+  prefix ppp-net-devs-ar5710s;
+
+  import huawei-ppp-net {
+    prefix ppp-net;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-ppp-net module.";
+
+  revision 2021-05-07 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ppp-net:ppp-net/ppp-net:ppp-dampening" {
+    deviate not-supported;
+  }
+  deviation "/ppp-net:ppp-net/ppp-net:load-balance-identify-pppoe" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/ppp-net:ppp-net" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/ppp-net:ppp-net" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ppp-net:ppp-net/ppp-net:ppp/ppp-net:ppp-link-info/ppp-net:ip6cp-state" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ppp-net:ppp-net/ppp-net:ppp/ppp-net:ppp-link-info/ppp-net:reuse-time" {
+    deviate not-supported;
+  }
+}

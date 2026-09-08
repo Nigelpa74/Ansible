@@ -1,0 +1,104 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-msdp-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-msdp-deviations-ar5710s";
+  prefix msdp-devs-ar5710s;
+
+  import huawei-msdp {
+    prefix msdp;
+  }
+  import huawei-multicast {
+    prefix mc;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-msdp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef acl4-identity-deviations {
+    type string {
+      length "1..32";
+      pattern '([2-4]\d{3})|(23[0-9]{3})|([0-9a-zA-Z]([^\s]*))';
+    }
+    description
+      "ACL4-identity is begin with a-z or A-Z or 0-9.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:authentication-type/msdp:tcp-ao" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-policy-local-export-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-policy-local-export-name" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:session-car/msdp:msdp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:import-source-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic' or /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate replace {
+      type msdp-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-cache-maximum" {
+    deviate replace {
+      default "256";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-policy-export-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='advance')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate add {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='advance'))";
+    }
+    deviate replace {
+      type msdp-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-policy-import-name" {
+    deviate replace {
+      type msdp-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/msdp:msdp/msdp:global/msdp:peers/msdp:peer/msdp:sa-request-policy-name" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:number=number(current())] and (/acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type='basic')) or (/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate add {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and (/acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type='basic'))";
+    }
+    deviate replace {
+      type msdp-devs-ar5710s:acl4-identity-deviations;
+    }
+  }
+}

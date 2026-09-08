@@ -1,0 +1,1188 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cellular {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-cellular";
+  prefix cellular;
+
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  include huawei-cellular-type;
+
+  organization "Huawei Technologies Co., Ltd.";
+  contact "Huawei Industrial Base
+           Bantian, Longgang
+           Shenzhen 518129
+           People's Republic of China
+           Website: http://www.huawei.com
+           Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for the
+     configuration of huawei device properties.";
+
+  revision 2025-08-25 {
+    description "Del signal-strength and add wcdma-signal-strength and add lte-signal-strength and add nr-signal-strength.";
+    reference "";
+  }
+  revision 2025-08-15 {
+    description "Add cellular info.";
+    reference "";
+  }
+  revision 2025-07-16 {
+    description "Add pin-pre-verifys node.";
+    reference "";
+  }
+  revision 2025-07-14 {
+    description "Add detect-event action: sim-switch.";
+    reference "";
+  }
+  revision 2025-04-14 {
+    description "Fix module-upgrade leaf slot-id.";
+    reference "";
+  }
+  revision 2025-03-10 {
+    description "Add lte supported band band66.";
+    reference "";
+  }
+  revision 2025-01-20 {
+    description "Add container icmpv6-unreachable and detect container IPv6-addresses.";
+    reference "";
+  }
+  revision 2025-01-09 {
+    description "Add module upgrade.";
+    reference "";
+  }
+
+  revision 2024-08-26 {
+    description "Add single PDN mode.";
+    reference "";
+  }
+  revision 2024-06-07 {
+    description "Change the GE interface type to GEBrief.";
+    reference "";
+  }  
+  revision 2024-04-28 {
+    description "Add GE 10GE 25GE 40GE.";
+    reference "";
+  }   
+  revision 2024-04-08 {
+    description "Add default route for remote unit.";
+    reference "";
+  }
+  revision 2024-02-05 {
+    description "Add GigabitEthernet XGigabitEthernet and MultiGEinterface adapt.";
+    reference "";
+  }
+
+  revision 2023-04-19 {
+    description "Add a container named permit-imsis.";
+    reference "";
+  }
+
+  revision 2022-09-06 {
+    description "Change the IPv4-address type to container.";
+    reference "";
+  }
+
+  revision 2022-08-09 {
+    description "Added fields related to module status.";
+    reference "";
+  }
+
+  revision 2022-01-20 {
+    description "The default value is added to detect-event container.";
+    reference "";
+  }
+
+  revision 2021-12-20 {
+    description "Stabilize revision.";
+    reference "";
+  }
+
+  revision 2020-05-21 {
+    description "Initial revision.";
+    reference "";
+  }
+
+  ext:task-name  "wwan";
+
+  /*
+     config data
+  */
+  container cellular {
+    description "Configure the WWAN function.";
+    container log {
+      description "Configure the WWAN log function.";
+      leaf enable {
+        type boolean;
+        default "true";
+        description "Enable/disable WWAN log function.";
+      }
+
+      leaf lte-sinr-threshold {
+        type uint16 {
+          range "0..30";
+        }
+        units "dB";
+        default "10";
+        description "The value of lte sinr threshold. The value is an integer that ranges from 0 to 30, in dB.";
+      }
+
+      leaf lte-rsrp-threshold {
+        type uint16 {
+          range "80..136";
+        }
+        units "dBm";
+        default "110";
+        description "The value of lte rsrp threshold. The value is an integer that ranges from 80 to 136, in dBm.";
+      }
+
+      leaf nr-sinr-threshold {
+        type uint16 {
+          range "0..30";
+        }
+        units "dB";
+        default "10";
+        description "The value of nr sinr threshold. The value is an integer that ranges from 0 to 30, in dB.";
+      }
+
+      leaf nr-rsrp-threshold {
+        type uint16 {
+          range "80..136";
+        }
+        units "dBm";
+        default "110";
+        description "The value of nr rsrp threshold. The value is an integer that ranges from 80 to 136, in dBm.";
+      }
+    }
+
+    container apn-profiles {
+      description "List of apn profile.";
+      list apn-profile {
+        key name;
+        description "Configure the profile of Access Point Name.";
+
+        leaf name {
+          type string {
+            length "1..64";
+            pattern "[0-9a-zA-Z]|[0-9a-zA-Z][0-9a-zA-Z.-]*[0-9a-zA-Z]";
+          }
+          description "APN profile name.";
+        }
+
+        leaf apn-name {
+          type string {
+            length "1..99";
+            pattern "[0-9a-zA-Z]|[0-9a-zA-Z][0-9a-zA-Z.-]*[0-9a-zA-Z]";
+          }
+          description "Access point name.";
+        }
+
+        leaf sim-id {
+          type uint8{
+            range "1..2";
+          }
+          description "Specify sim ID, when not specified, all sim ids are applied by default.";
+        }
+
+        container authentication-method {
+          presence "create authentication-method";
+          description
+            "Configure the user name, password, and authentication mode for accessing an external PDN network.";
+            leaf username {
+              type string {
+                length "1..64";
+              }
+              mandatory true;
+              description "Specifies the user name for accessing an external PDN network, which is provided by the carrier.";
+            }
+            leaf password {
+                type pub-type:password-extend {
+                length "1..168";
+              }
+              mandatory true;
+              description "Specifies the user password for accessing an external PDN network, which is provided by the carrier.";
+            }
+
+            leaf mode {
+              type authentication-mode-type;
+              description "Authentication mode.";
+            }
+        }
+      }
+    }
+
+    container cellular-profiles {
+      description "List of cellular profile.";
+      list cellular-profile {
+        key name;
+        description "Configure a profile of cellular.";
+
+        leaf name {
+          type string {
+            length "1..64";
+            pattern "[0-9a-zA-Z.-]*";
+          }
+          description "Cellular profile name.";
+        }
+
+        leaf connection-mode {
+          type connection-mode-type;
+          default "auto";
+          description "Configure the modem network connection service.";
+        }
+        leaf single-pdn-mode {
+          type boolean;
+          default "false";
+          description "Enable/disable the function of single PDN.";
+        }
+        container apn-default-bearers {
+          description "List of apn-default-bearer.";
+          list apn-default-bearer {
+            key sim-id;
+            description "Configure the default APN for a wireless network.";
+            leaf sim-id {
+              type uint8 {
+                range "1..2";
+              }
+              description "SIM concerned with default APN profile.";
+            }
+            leaf apn-name {
+              type string {
+                length "1..99";
+                pattern "[0-9a-zA-Z]|[0-9a-zA-Z][0-9a-zA-Z.-]*[0-9a-zA-Z]";
+              }
+              mandatory true;
+              description "Access point name.";
+            }
+            container authentication {
+              presence "create authentication";
+              description "Configure the user name, password, and authentication mode.";
+              leaf username {
+                type string {
+                  length "1..64";
+                }
+                mandatory true;
+                description "Specifies the user name.";
+              }
+              leaf password {
+                type pub-type:password-extend {
+                  length "1..268";
+                }
+                mandatory true;
+                description "Specifies the user password.";
+              }
+
+              leaf authentication-mode {
+                type enumeration {
+                  enum pap {
+                    value 1;
+                    description "Specifies PAP authentication mode.";
+                  }
+                  enum chap {
+                    value 2;
+                    description "Specifies CHAP authentication mode..";
+                  }
+                }
+                mandatory true;
+                description "Authentication mode.";
+              }
+            }
+          }
+        }
+
+        container dialer-timer {
+          description "Configure the dialer timer.";
+          choice interval {
+            description "Configuration for dialer interval.";
+            case seconds {
+              description "Dialer interval in seconds.";
+              leaf seconds {
+                type uint32 {
+                  range "1..604800";
+                }
+                units "s";
+                default "10";
+                description "Configure the interval in seconds.";
+              }
+            }
+            case minutes {
+              description "Dialer interval in minutes.";
+              leaf minutes {
+              type uint32 {
+                  range "1..10080";
+                }
+              units "min";
+              description "Configure the interval in minutes.";
+              }
+            }
+          }
+
+          leaf exponential {
+            type boolean;
+            default "false";
+            description "Enable/disable the function of exponential.";
+          }
+
+          leaf times {
+            when "../exponential = 'true'";
+            type uint8 {
+                range "1..16";
+            }
+            default "5";
+            description "Times of exponential autodial.";
+          }
+        }
+
+        choice band {
+          description "Specifies the frequency band of the network.";
+          case band-auto {
+            description "The modem automatically select a frequency band to connect to the network.";
+            leaf band-auto {
+              type empty;
+              description "Automatically select a frequency band.";
+            }
+          }
+          case band-manually {
+            description "The modem manually select a frequency band to connect to the network.";
+            container network {
+              description "Configure the modem manually select a frequency.";
+
+              leaf-list wcdma {
+                type wcdma-frequency-type;
+                description "Configure the frequency band of the wcdma network.";
+              }
+
+              leaf-list lte {
+                type lte-frequency-type;
+                description "Configure the frequency band of the lte network.";
+              }
+
+              leaf-list nr {
+                type nr-frequency-type;
+                description "Configure the frequency band of the nr network.";
+              }
+            }
+          }
+        }
+
+        container plmn-select {
+          presence "create plmn-select";
+	  description "Configure the modem to manually select a PLMN.";
+          leaf mcc {
+            type uint16 {
+              range "0..999";
+            }
+            mandatory true;
+            description "Specifies the mobile country code (MCC) of a PLMN.";
+          }
+          leaf mnc {
+            type uint16 {
+              range "0..999";
+            }
+            mandatory true;
+            description "Specifies the mobile network code (MNC) of a PLMN.";
+          }
+          leaf fail-over-auto {
+            type boolean;
+            default "false";
+            description "Enable/disable the function of the modem automatically selects a PLMN when manual selection of a PLMN fails.";
+          }
+        }
+
+        container sim-wait-restore {
+          presence "create sim-wait-restore";
+	  description "Configure automatic switch back to the master SIM card.";
+          leaf sim-id {
+            type uint8 {
+              range "1..2";
+            }
+            mandatory true;
+            description "SIM ID.";
+          }
+          leaf enable {
+            type boolean;
+            default "false";
+            description "Enable/disable the function of automatic switch back to the master SIM card.";
+          }
+          leaf time {
+            when "../enable = 'true'";
+            type uint32 {
+              range "1..65535";
+            }
+            units "min";
+            default "60";
+            description "Indicates the specified period of time after which traffic on the backup SIM card is automatically switched back to the master SIM card.";
+          }
+        }
+
+        container modem-event {
+          description "Configure modem event.";
+          container icmp-unreachable {
+            description "Configure the icmp unreach event.";
+            leaf action {
+              type enumeration {
+                enum none {
+                  value 1;
+                  description "Take no action.";
+                }
+                enum modem-reboot {
+                  value 2;
+                  description "Specify modem reboot.";
+                }
+              }
+              default "modem-reboot";
+              description "Specify the action.";
+            }
+            leaf retry-times {
+              when "../action = 'modem-reboot'";
+              type uint8 {
+                range "0..10";
+            }
+              default 3;
+              description "Specify auto-recovery retry times.";
+            }
+          }
+          container icmpv6-unreachable {
+            description "Configure the icmpv6 unreach event.";
+            leaf action {
+              type enumeration {
+                enum none {
+                  value 1;
+                  description "Take no action.";
+                }
+                enum modem-reboot {
+                  value 2;
+                  description "Specify modem reboot.";
+                }
+              }
+              default "modem-reboot";
+              description "Specify the action.";
+            }
+            leaf retry-times {
+              when "../action = 'modem-reboot'";
+              type uint8 {
+                range "0..10";
+              }
+              default 3;
+              description "Specify auto-recovery retry times.";
+            }
+          }
+          container packet-service-detached {
+            description "Configure the packet service detached event.";
+            leaf interval {
+              type uint32 {
+                range "10..86400";
+              }
+              units "s";
+              default 3600;
+              description "Specify packet service detached interval.";
+            }
+            leaf action {
+              type enumeration {
+                enum none {
+                  value 1;
+                  description "Take no action.";
+                }
+                enum modem-reboot {
+                  value 2;
+                  description "Specify modem reboot.";
+                }
+              }
+              default "modem-reboot";
+              description "Specify the action.";
+            }
+            leaf retry-times {
+              when "../action = 'modem-reboot'";
+              type uint8 {
+                range "0..10";
+              }
+              default 3;
+              description "Specify auto-recovery retry times.";
+            }
+          }
+          container services-unavailable {
+            description "Configure the services unavailable event.";
+            leaf interval {
+              type uint16 {
+              range "60..3600";
+              }
+              units "s";
+              default 3600;
+              description "Specify service unavailable interval.";
+            }
+            leaf action {
+              type enumeration {
+                enum none {
+                  value 1;
+                  description "Take no action.";
+                }
+                enum modem-reboot {
+                  value 2;
+                  description "Specify modem reboot.";
+                }
+                enum sim-switch {
+                  value 3;
+                  description "Specify sim switch.";
+                }
+              }
+              default "modem-reboot";
+              description "Specify the action.";
+            }
+            leaf retry-times {
+              when "(../action = 'modem-reboot') or (../action = 'sim-switch')";
+              type uint8 {
+                range "0..10";
+              }
+              default 0;
+              description "Specify auto-recovery retry times.";
+            }
+          }
+        }
+
+        container permit-imsis {
+          description "List of the IMSI info.";
+          list permit-imsi {
+            key imsi;
+            description "Configure the permit imsi of the profile.";
+            leaf imsi {
+              type string {
+                length "14..15";
+                pattern "[0-9]*";
+              }
+              description "Specifies the IMSI info.";
+            }
+          }
+        } 
+        container pin-pre-verifications {
+          description "List of the pre verify info of the pin code.";
+          list pin-pre-verification {
+            key sim-id;
+            description "Configure the pre verify pin code of the SIM card.";
+            leaf sim-id {
+              type uint8 {
+                range "1..2";
+              }
+              description "Current SIM ID.";
+            }
+            leaf pin-code {
+              type pub-type:password-extend {
+	        length "4..8 | 128..188";
+              }
+              description
+	        "Specifies the pre verify pin code of the SIM card. The unencrypted pin code of numbers with a length of 4 to 8. The encrypted pin code ranging from 128 to 188.";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  rpc modem-reboot {
+    description "Specify operations to reboot the modem.";
+    input {
+      leaf name {
+        type leafref {
+           path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description "The name of the cellular interface.";
+      }
+    }
+  }
+  rpc module-upgrade {
+    description "Upgrades the firmware of a modem.";
+    input {
+      leaf slot-id {
+        type string {
+          length "1..15";
+        }
+        description "Specify slot ID.";
+      }
+      leaf name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description "The name of the cellular interface.";
+      }
+      leaf directory {
+        type string {
+          length "1..65";
+        }
+        description "Specify directory of the firmware.";
+      }
+    }
+  }
+  rpc sim-switch {
+    description "Specify operations to switch the SIM card.";
+    input {
+      leaf name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description "The name of the cellular interface.";
+      }
+      leaf sim-id {
+          type uint8 {
+            range "1..2";
+          }
+          description "Specifies the ID of the SIM card.";
+      }
+    }
+  }
+  rpc modify-sim-pin {
+    description "Specify operations to modify the pin code of the SIM card.";
+    input {
+      leaf name {
+        type leafref {
+          path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+        }
+        description "The name of the cellular interface.";
+      }
+      leaf old-pin {
+        type pub-type:password-extend {
+          length "4..8";
+          pattern '(([0-9])*)';
+        }
+        description "Specifies the old pin code of the SIM card.";
+      }
+      leaf new-pin {
+        type pub-type:password-extend {
+          length "4..8";
+          pattern '(([0-9])*)';
+        }
+        description "Specifies the new pin code of the SIM card.";
+      }
+    }
+  }
+  
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    when "ifm:type = 'Cellular' or ifm:type = 'GigabitEthernet' or ifm:type = 'XGigabitEthernet' or ifm:type = 'MultiGE'or " +
+    "ifm:type = 'GEBrief' or ifm:type = '10GE' or ifm:type = '25GE' or ifm:type = '40GE'";
+    description "The vendor's properties of interface.";
+
+    container cellular {
+      description "Configure the cellular interface.";
+      container dialer-enable {
+        when "contains(../../ifm:name, ':') or contains(../../ifm:name, '.')";
+        description "Configure dialer enable.";
+        leaf ip-address-alloc {
+            type boolean;
+            default "false";
+            description "Enable/disable automatic dialing and obtain IP address.";
+        }
+      }
+      container cellular-profiles {
+        when "not(contains(../../ifm:name, ':')) and not(contains(../../ifm:name, '.'))";
+        description "List of cellular profile.";
+        list cellular-profile {
+          key name;
+          description "Specify configuration for cellular profile.";
+          leaf name {
+            type leafref {
+              path "/cellular:cellular/cellular:cellular-profiles/cellular:cellular-profile/cellular:name";
+            }
+            description "Cellular profile name.";
+          }
+        }
+      }
+
+      container apn-profiles {
+        when "contains(../../ifm:name, ':') or contains(../../ifm:name, '.')";
+        description "List of apn profile.";
+        list apn-profile {
+          key name;
+          description "Specify configuration for APN profile.";
+          leaf name {
+            type leafref {
+              path "/cellular:cellular/cellular:apn-profiles/cellular:apn-profile/cellular:name";
+            }
+            description "APN profile name.";
+          }
+
+          leaf priority {
+            type uint8 {
+              range "1..255";
+            }
+            default 100;
+            description "Priority of the APN profile.";
+          }
+        }
+      }
+      container modem-event {
+        when "contains(../../ifm:name, ':') or contains(../../ifm:name, '.')";
+        description "Configure modem event.";
+        container dial-failed {
+          description "Configure the dial-failed event.";
+          leaf fail-times {
+            type uint8 {
+              range "1..128";
+            }
+            default "6";
+            description "Specify dial failed times.";
+          }
+          leaf action {
+            type enumeration {
+              enum none {
+                value 1;
+                description "Take no action.";
+              }
+              enum modem-reboot {
+                value 2;
+                description "Specify modem reboot.";
+              }
+            }
+            default "modem-reboot";
+            description "Specify the action.";
+          }
+          leaf retry-times {
+            when "../action = 'modem-reboot'";
+            type uint8 {
+              range "0..10";
+            }
+            default 3;
+            description "Specify auto-recovery retry times.";
+          }
+        }
+        container detect-event {
+          description "Configure the detect event.";
+          leaf ipv4-address {
+            type inet:ipv4-address-no-zone;
+            status obsolete;
+            description "Specify the detection IP address.";
+          }
+          leaf interval {
+            type uint16 {
+              range "15..1800";
+            }
+            units "s";
+            default 60;
+            description "Specify the detection interval.";
+          }
+          leaf fail-times {
+            type uint8 {
+              range "1..128";
+            }
+            default 5;
+            description "Specify probing failed times.";
+          }
+          leaf action {
+            type enumeration {
+              enum redial {
+                value 1;
+                description "Specify redial.";
+              }
+              enum modem-reboot {
+                value 2;
+                description "Specify modem reboot.";
+              }
+              enum apn-switch {
+                value 3;
+                description "Specify apn switch.";
+              }
+            }
+            default "modem-reboot";
+            description "Specify the action.";
+          }
+          leaf retry-times {
+            type uint8 {
+              range "0..10";
+            }
+            default 3;
+            description "Specify auto-recovery retry times, when the value is 0, it means unlimited times.";
+          }
+          container ipv4-addresses {
+            description "List of the detection IP address.";
+            list ipv4-address {
+              key ipv4-address;
+              max-elements "2";
+              description "Specify the detection IP address.";
+              leaf ipv4-address {
+                type inet:ipv4-address-no-zone;
+                description "The detection IP address.";
+              }
+            }
+          }
+          container ipv6-addresses {
+            description "List of the detection IPv6 address.";
+            list ipv6-address {
+              key "ipv6-address";
+              max-elements "2";
+              description "Specify the detection IPv6 address.";
+              leaf ipv6-address {
+                type inet:ipv6-address-no-zone;
+                description "The detection IPv6 address.";
+              }
+            }
+          }
+        }
+      }
+      container default-route {
+        when "contains(../../ifm:name, ':') or contains(../../ifm:name, '.')";
+        description "Configure default route.";
+        leaf enable {
+            type boolean;
+            default "true";
+            description "Enable/disable to generate default route.";
+        }
+      }
+    }
+  }
+
+  /*
+    state data
+  */
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    when "ifm:type = 'Cellular' or ifm:type = 'GigabitEthernet' or ifm:type = 'XGigabitEthernet' or ifm:type = 'MultiGE' or " +
+    "ifm:type = 'GEBrief' or ifm:type = '10GE' or ifm:type = '25GE' or ifm:type = '40GE'";
+    description "Huawei's properties of interface.";
+
+    container cellular-state {
+      when "not(contains(../ifm:name, ':')) and not(contains(../ifm:name, '.'))";
+      config false;
+      description "Operational state of wireless wan interface, including 3GPP (WCDMA/LTE) and 3GPP2 (CDMA2000).";
+
+      leaf modem-status {
+        type modem-status-type;
+        description "Modem status.";
+      }
+      container current-apns {
+        description "List of current-apns.";
+        list current-apn {
+          key channel-id;
+          description "Statistics of current apn.";
+          leaf channel-id {
+              type uint8;
+              description "Channel id.";
+          }
+          leaf apn-name {
+              type leafref {
+              path "/cellular:cellular/cellular:apn-profiles/cellular:apn-profile/cellular:apn-name";
+              }
+            description "Current apn name.";
+          }
+          leaf packet-session-state {
+            type enumeration {
+            enum active {
+              value 1;
+              description "Packet-session active.";
+            }
+            enum inactive {
+              value 2;
+              description "Packet-session inactive.";
+            }
+           }
+           description "Packet session state.";
+          }
+        }
+      }
+      container hardware {
+        description "Hardware state.";
+
+        leaf modem-name {
+          type string {
+            length "1..64";
+          }
+          description "Modem name.";
+        }
+
+        leaf modem-type {
+          type string {
+            length "1..64";
+          }
+          description "Modem type.";
+        }
+
+        leaf imei {
+          type string {
+            length "1..64";
+          }
+          description "International Mobile Equipment Identity.";
+        }
+
+        leaf firmware-version {
+          type string {
+            length "1..64";
+          }
+          description "Modem firmware version.";
+        }
+      }
+
+      container sims {
+        description "List of SIM state.";
+        list sim {
+          key sim-id;
+          description "Statistics of SIM Card.";
+          leaf sim-id {
+            type uint8;
+            description "Current SIM ID.";
+          }
+          leaf sim-status {
+            type sim-status-type;
+            description "Current SIM status.";
+          }
+          leaf iccid {
+            type string {
+              length "1..64";
+            }
+            description "Integrate circuit card identity.";
+          }
+          leaf imsi {
+            type string {
+              length "1..64";
+            }
+            description "International Mobile Subscriber Identity.";
+          }
+          container network {
+            description "Network state.";
+
+            leaf service-status {
+              type service-status-type;
+              description "Current service status.";
+            }
+
+            leaf packet-service-status {
+              type enumeration {
+                enum attached {
+                  value 1;
+                  description "Packet-service attached.";
+                }
+                enum detached {
+                  value 2;
+                  description "Packet-service detached.";
+                }
+              }
+              description "Packet service status.";
+            }
+
+            leaf network-mode {
+              type network-mode-type;
+              description "Current network connection mode.";
+            }
+
+            leaf country-code {
+              type uint32;
+              description "Mobile Country Code (MCC).";
+            }
+
+            leaf network-code {
+              type uint32;
+              description "Mobile Network Code (MNC).";
+            }
+
+            leaf operator {
+              type string {
+                length "1..64";
+              }
+              description "Mobile Operator Information.";
+            }
+
+            leaf area-code {
+              type uint32;
+              description "Area Code.";
+            }
+
+            leaf band {
+              type string {
+                length "1..64";
+              }
+              description "Current band.";
+            }
+
+            leaf cell-id {
+              type uint64;
+              description "Cell ID.";
+            }
+
+            leaf ber {
+              type string {
+                length "1..64";
+              }
+              description "Bit error rate.";
+            }
+
+            leaf arfcn {
+              type string {
+                length "1..64";
+              }
+              description "Absolute radio frequency channel number.";
+            }
+          }
+          container radio {
+            description "Radio state.";
+
+            leaf rssi {
+              type int16;
+              description "Received Signal Strength Indicator in dBm unit.";
+            }
+
+            leaf rscp {
+              type int16;
+              description "WCDMA received Signal Code Power in dBm unit.";
+            }
+
+            leaf ecio {
+              type int16;
+              description "WCDMA energy Per Chip to Interference of Other Cell Ratio in dB unit.";
+            }
+
+            leaf rsrp {
+              type int16;
+              description "LTE reference Signal Received Power.";
+            }
+
+            leaf rsrq {
+              type int16;
+              description "LTE reference Signal Received quality.";
+            }
+
+            leaf sinr {
+              type int16;
+              description "LTE signal to Interference Plus Noise Ratio.";
+
+            }
+
+            leaf nr-rsrp {
+              type int16;
+              description "NR reference signal received power.";
+            }
+
+            leaf nr-rsrq {
+              type int16;
+              description "NR reference signal received quality.";
+            }
+
+            leaf nr-sinr {
+              type int16;
+              description "NR signal to noise and interference ratio.";
+            }
+          }
+        }
+      }
+    }
+  }
+  /*
+    cellular info
+  */
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    when "ifm:type = 'Cellular' or ifm:type = 'GigabitEthernet' or ifm:type = 'XGigabitEthernet' or ifm:type = 'MultiGE' or " +
+    "ifm:type = 'GEBrief' or ifm:type = '10GE' or ifm:type = '25GE' or ifm:type = '40GE'";
+    description "Huawei's properties of interface.";
+
+    container cellular-info {
+      when "not(contains(../ifm:name, ':')) and not(contains(../ifm:name, '.'))";
+      config false;
+      description "Operational state of cellular info.";
+
+      container sim-info {
+        description "Operational state of sim info.";
+
+        leaf sim1-status {
+          type sim-status-type;
+          description "SIM card 1 status.";
+        }
+        leaf sim2-status {
+          type sim-status-type;
+          description "SIM card 2 status.";
+        }
+      }
+
+      container signal-quality {
+        description "Operational state of signal quality.";
+
+        leaf wcdma-signal-strength {
+          type signal-strength-type;
+          description "wcdma signal strength.";
+        }
+        leaf lte-signal-strength {
+          type signal-strength-type;
+          description "lte signal strength.";
+        }
+        leaf nr-signal-strength {
+          type signal-strength-type;
+          description "nr signal strength.";
+        }
+
+        container radio {
+          description "Radio state.";
+
+          leaf rssi {
+            type int16;
+            description "Received Signal Strength Indicator in dBm unit.";
+          }
+
+          leaf rscp {
+            type int16;
+            description "WCDMA received Signal Code Power in dBm unit.";
+          }
+
+          leaf ecio {
+            type int16;
+            description "WCDMA energy Per Chip to Interference of Other Cell Ratio in dB unit.";
+          }
+
+          leaf rsrp {
+            type int16;
+            description "LTE reference Signal Received Power.";
+          }
+
+          leaf rsrq {
+            type int16;
+            description "LTE reference Signal Received quality.";
+          }
+
+          leaf sinr {
+            type int16;
+            description "LTE signal to Interference Plus Noise Ratio.";
+          }
+
+          leaf nr-rsrp {
+            type int16;
+            description "NR reference signal received power.";
+          }
+
+          leaf nr-rsrq {
+            type int16;
+            description "NR reference signal received quality.";
+          }
+
+          leaf nr-sinr {
+            type int16;
+            description "NR signal to noise and interference ratio.";
+          }
+        }
+      }
+
+      container channel-states {
+        description "List of channel state.";
+        list channel-state {
+          key interface-name;
+          description "Channel state.";
+          leaf interface-name {
+            type string {
+              length "1..64";
+            }
+            description "Interface name.";
+          }
+          leaf channel-state {
+            type string {
+              length "1..10";
+            }
+            description "Channel state UP/DOWN.";
+          }
+        }
+      }    
+    }
+  }
+}

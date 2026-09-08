@@ -1,0 +1,805 @@
+/*
+Copyright (C) 2019-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ipsec-type {
+  namespace "urn:huawei:yang:huawei-ipsec-type";
+  prefix ipsec-type;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for IPSec types.";
+  revision 2024-09-20 {
+      description
+        "Add auth-method-type ecdsa-signature.";
+      reference
+        "";
+  }
+  revision 2024-06-13 {
+    description
+      "Add IPsec policy or profile status type.";
+    reference
+      "";
+  }
+  revision 2023-04-19 {
+    description
+      "Add rsa signature padding type.";
+    reference
+      "";
+  }
+  revision 2023-04-17 {
+    description
+      "Modify dh-group-type and auth-method-type.";
+    reference
+      "";
+  }
+  revision 2023-04-12 {
+    description
+      "Delete profile from policy-mode-type.";
+    reference
+      "";
+  }
+  revision 2023-02-22 {
+    description
+      "Fix description warning.";
+    reference
+      "";
+  }
+  revision 2022-12-26 {
+    description
+      "Fix task-name missing error.";
+    reference
+      "";
+  }
+  revision 2020-01-21 {
+    description
+      "Fix syntax errors.";
+    reference
+      "";
+  }
+  revision 2019-12-07 {
+    description
+      "Initial revision.";
+    reference
+      "";
+  }
+  typedef dh-group-type {
+    type enumeration {
+      enum "none" {
+        value 0;
+        description
+          "The empty group.";
+      }
+      enum "group1" {
+        value 1;
+        description
+          "The 768-bit MODP group.";
+      }
+      enum "group2" {
+        value 2;
+        description
+          "The 1024-bit MODP group.";
+      }
+      enum "group5" {
+        value 5;
+        description
+          "The 1536-bit MODP group.";
+      }
+      enum "group8" {
+        value 8;
+        description
+          "EC2N group over GF[2^283].";
+      }
+      enum "group14" {
+        value 14;
+        description
+          "The 2048-bit MODP group.";
+      }
+      enum "group15" {
+        value 15;
+        description
+          "The 3072-bit MODP group.";
+      }
+      enum "group16" {
+        value 16;
+        description
+          "The 4096-bit MODP group.";
+      }
+      enum "group18" {
+        value 18;
+        description
+          "The 8192-bit MODP group.";
+      }
+      enum "group19" {
+        value 19;
+        description
+          "The 256-bit random ECP group.";
+      }
+      enum "group20" {
+        value 20;
+        description
+          "The 384-bit random ECP group.";
+      }
+      enum "group21" {
+        value 21;
+        description
+          "The 521-bit random ECP group.";
+      }
+      enum "group24" {
+        value 24;
+        description
+          "The 2048-bit MODP Group with 256-bit Prime Order Subgroup.";
+      }
+    }
+    description
+      "The type of DH group definition.";
+  }
+  typedef encryption-algorithm-type {
+    type enumeration {
+      enum "DES-CBC" {
+        value 1;
+        description
+          "DES-CBC.";
+      }
+      enum "3DES-CBC" {
+        value 2;
+        description
+          "3DES-CBC.";
+      }
+      enum "SM1-CBC" {
+        value 3;
+        description
+          "SM1-CBC.";
+      }
+      enum "SM4-CBC" {
+        value 4;
+        description
+          "SM4-CBC.";
+      }
+      enum "AES-128-CBC" {
+        value 5;
+        description
+          "AES-128-CBC.";
+      }
+      enum "AES-192-CBC" {
+        value 6;
+        description
+          "AES-192-CBC.";
+      }
+      enum "AES-256-CBC" {
+        value 7;
+        description
+          "AES-256-CBC.";
+      }
+      enum "AES-128-GCM" {
+        value 8;
+        description
+          "AES-128-GCM.";
+      }
+      enum "AES-192-GCM" {
+        value 9;
+        description
+          "AES-192-GCM.";
+      }
+      enum "AES-256-GCM" {
+        value 10;
+        description
+          "AES-256-GCM.";
+      }
+      enum "AES-128-GMAC" {
+        value 11;
+        description
+          "AES-128-GMAC.";
+      }
+      enum "AES-192-GMAC" {
+        value 12;
+        description
+          "AES-192-GMAC.";
+      }
+      enum "AES-256-GMAC" {
+        value 13;
+        description
+          "AES-256-GMAC.";
+      }
+      enum "AES-128-CTR" {
+        value 14;
+        description
+          "AES-128-CTR.";
+      }
+      enum "AES-192-CTR" {
+        value 15;
+        description
+          "AES-192-CTR.";
+      }
+      enum "AES-256-CTR" {
+        value 16;
+        description
+          "AES-256-CTR.";
+      }
+      enum "none" {
+        value 255;
+        description
+          "None.";
+      }
+    }
+    description
+      "The type of encryption-algorithm definition.";
+  }
+  typedef auth-algorithm-type {
+    type enumeration {
+      enum "MD5" {
+        value 1;
+        description
+          "MD5.";
+      }
+      enum "SHA1" {
+        value 2;
+        description
+          "SHA1.";
+      }
+      enum "SHA2-256" {
+        value 3;
+        description
+          "SHA2-256.";
+      }
+      enum "SHA2-384" {
+        value 4;
+        description
+          "SHA2-384.";
+      }
+      enum "SHA2-512" {
+        value 5;
+        description
+          "SHA2-512.";
+      }
+      enum "SM3" {
+        value 6;
+        description
+          "SM3.";
+      }
+      enum "none" {
+        value 255;
+        description
+          "None.";
+      }
+    }
+    description
+      "The type of authentication-algorithm definition.";
+  }
+  typedef integrity-algorithm-type {
+    type enumeration {
+      enum "HMAC-MD5-96" {
+        value 1;
+        description
+          "HMAC-MD5-96.";
+      }
+      enum "HMAC-SHA1-96" {
+        value 2;
+        description
+          "HMAC-SHA1-96.";
+      }
+      enum "HMAC-SHA2-256" {
+        value 3;
+        description
+          "HMAC-SHA2-256.";
+      }
+      enum "HMAC-SHA2-384" {
+        value 4;
+        description
+          "HMAC-SHA2-384.";
+      }
+      enum "HMAC-SHA2-512" {
+        value 5;
+        description
+          "HMAC-SHA2-512.";
+      }
+      enum "AES-XCBC-96" {
+        value 6;
+        description
+          "AES-XCBC-96.";
+      }
+      enum "AES-XCBC-128" {
+        value 7;
+        description
+          "AES-XCBC-128.";
+      }
+    }
+    description
+      "The type of integrity-algorithm definition.";
+  }
+  typedef auth-method-type {
+    type enumeration {
+      enum "pre-shared-key" {
+        value 1;
+        description
+          "Pre-shared key.";
+      }
+      enum "rsa-signature" {
+        value 2;
+        description
+          "RSA-signature.";
+      }
+      enum "digital-envelope" {
+        value 3;
+        description
+          "Digital-envelope.";
+      }
+      enum "rsassa-pss-sha2-256" {
+        value 4;
+        description
+          "Rsassa-pss-sha2-256.";
+      }
+      enum "rsassa-pss-sha2-384" {
+        value 5;
+        description
+          "Rsassa-pss-sha2-384.";
+      }
+      enum "ecdsa-signature" {
+        value 6;
+        description
+          "Ecdsa-signature.";
+      }
+    }
+    description
+      "Type of authentication method.";
+  }
+  typedef id-type {
+    type enumeration {
+      enum "ip" {
+        value 1;
+        description
+          "IP address.";
+      }
+      enum "fqdn" {
+        value 2;
+        description
+          "Fully Qualifed Domain name.";
+      }
+      enum "user-fqdn" {
+        value 3;
+        description
+          "User fqdn.";
+      }
+      enum "dn" {
+        value 4;
+        description
+          "Distinguished Name.";
+      }
+      enum "esn" {
+        value 5;
+        description
+          "Esn.";
+      }
+      enum "key-id" {
+        value 6;
+        description
+          "Key-id.";
+      }
+      enum "any" {
+        value 254;
+        description
+          "Any.";
+      }
+      enum "none" {
+        value 255;
+        description
+          "None.";
+      }
+    }
+    description
+      "Type of IKE id.";
+  }
+  typedef dpd-type {
+    type enumeration {
+      enum "periodic" {
+        value 1;
+        description
+          "Periodic.";
+      }
+      enum "on-demand" {
+        value 2;
+        description
+          "On-demand.";
+      }
+      enum "none" {
+        value 3;
+        description
+          "None.";
+      }
+    }
+    description
+      "Type of IKE DPD.";
+  }
+  typedef service-class-type {
+    type enumeration {
+      enum "af1" {
+        value 1;
+        description
+          "AF1.";
+      }
+      enum "af2" {
+        value 2;
+        description
+          "AF2.";
+      }
+      enum "af3" {
+        value 3;
+        description
+          "AF3.";
+      }
+      enum "af4" {
+        value 4;
+        description
+          "AF4.";
+      }
+      enum "be" {
+        value 5;
+        description
+          "BE.";
+      }
+      enum "cs6" {
+        value 6;
+        description
+          "CS6.";
+      }
+      enum "cs7" {
+        value 7;
+        description
+          "CS7.";
+      }
+      enum "ef" {
+        value 8;
+        description
+          "EF.";
+      }
+    }
+    description
+      "Type of service class.";
+  }
+  typedef anti-replay-window-size-type {
+    type uint32 {
+      range "32|64|128|256|512|1024|8192";
+    }
+    description
+      "Type of anti-replay window size.";
+  }
+  typedef sub-slot-type {
+    type enumeration {
+      enum "onboard" {
+        value 1;
+        description
+          "On-board Engine.";
+      }
+      enum "engine" {
+        value 2;
+        description
+          "VSUF Engine.";
+      }
+      enum "card" {
+        value 3;
+        description
+          "VSUF Card.";
+      }
+    }
+    description
+      "Type of sub slot.";
+  }
+  typedef lb-algorithm-type {
+    type enumeration {
+      enum "CRC32C" {
+        value 1;
+        description
+          "CRC32C.";
+      }
+      enum "CRC32" {
+        value 2;
+        description
+          "CRC32.";
+      }
+      enum "XOR" {
+        value 3;
+        description
+          "XOR.";
+      }
+    }
+    description
+      "Type of load balance algorithm.";
+  }
+  typedef ike-version-type {
+    type enumeration {
+      enum "v1" {
+        value 1;
+        description
+          "IKE version 1.";
+      }
+      enum "v2" {
+        value 2;
+        description
+          "IKE version 2.";
+      }
+      enum "all" {
+        value 3;
+        description
+          "IKE version 1 and 2.";
+      }
+    }
+    description
+      "Type of IKE version.";
+  }
+  typedef phase1-mode-type {
+    type enumeration {
+      enum "main" {
+        value 1;
+        description
+          "Main mode.";
+      }
+      enum "aggressive" {
+        value 2;
+        description
+          "Aggressive mode.";
+      }
+      enum "auto" {
+        value 3;
+        description
+          "Accept IKEV1 main mode and aggresive mode simultaneously.";
+      }
+    }
+    description
+      "Type of IKEv1 exchange.";
+  }
+  typedef sm-version-type {
+    type enumeration {
+      enum "draft" {
+        value 1;
+        description
+          "Follow draft GM/T XXXX-2013.";
+      }
+      enum "standard" {
+        value 2;
+        description
+          "Follow standard GM/T 0022-2014.";
+      }
+    }
+    description
+      "Type of sm version.";
+  }
+  typedef transform-protocol-type {
+    type enumeration {
+      enum "ah" {
+        value 1;
+        description
+          "AH.";
+      }
+      enum "esp" {
+        value 2;
+        description
+          "ESP.";
+      }
+      enum "ah-esp" {
+        value 3;
+        description
+          "AH-ESP.";
+      }
+    }
+    description
+      "Type of IPSec transform protocal.";
+  }
+  typedef encapsulation-mode-type {
+    type enumeration {
+      enum "tunnel" {
+        value 1;
+        description
+          "Tunnel.";
+      }
+      enum "transport" {
+        value 2;
+        description
+          "Transport.";
+      }
+      enum "auto" {
+        value 3;
+        description
+          "Accept tunnel mode and transport mode simultaneously.";
+      }
+    }
+    description
+      "Type of IPSec encapsulation mode.";
+  }
+  typedef policy-mode-type {
+    type enumeration {
+      enum "isakmp" {
+        value 1;
+        description
+          "Indicates use of isakmp to establish the IPsec SA.";
+      }
+      enum "isakmp-template" {
+        value 2;
+        description
+          "Indicates use of isakmp template to establish the IPsec SA.";
+      }
+      enum "efficient-vpn-client" {
+        value 4;
+        description
+          "Efficient vpn client.";
+      }
+    }
+    description
+      "Type of IPSec policy mode.";
+  }
+  typedef speed-limit-type {
+    type enumeration {
+      enum "policy-based" {
+        value 1;
+        description
+          "Speed limit based on IPSec policy.";
+      }
+      enum "ipsec-sa-based" {
+        value 2;
+        description
+          "Speed limit based on IPSec SA.";
+      }
+      enum "ike-sa-based" {
+        value 3;
+        description
+          "Speed limit based on IKE SA.";
+      }
+    }
+    description
+      "Type of speed limit.";
+  }
+  typedef track-obj-type {
+    type enumeration {
+      enum "nqa" {
+        value 1;
+        description
+          "NQA.";
+      }
+      enum "nqa-group" {
+        value 2;
+        description
+          "NQA-group.";
+      }
+      enum "bfd" {
+        value 3;
+        description
+          "BFD.";
+      }
+      enum "bfd-group" {
+        value 4;
+        description
+          "BFD-group.";
+      }
+      enum "vrrp" {
+        value 5;
+        description
+          "VRRP.";
+      }
+    }
+    description
+      "Type of track object.";
+  }
+  typedef ipsec-tunnel-status-type {
+    type enumeration {
+      enum "up" {
+        value 1;
+        description
+          "Up.";
+      }
+      enum "down" {
+        value 2;
+        description
+          "Down.";
+      }
+      enum "negotiating" {
+        value 3;
+        description
+          "Negotiating.";
+      }
+    }
+    description
+      "Type of IPSec tunnel status.";
+  }
+  typedef up-down-type {
+    type enumeration {
+      enum "up" {
+        value 1;
+        description
+          "Up.";
+      }
+      enum "down" {
+        value 2;
+        description
+          "Down.";
+      }
+    }
+    description
+      "Type of up or down status.";
+  }
+  typedef rsa-sign-padding-type {
+    type enumeration {
+      enum "pkcs1" {
+        value 0;
+        description
+          "Pkcs1.";
+      }
+      enum "pss" {
+        value 1;
+        description
+          "Pss.";
+      }
+      enum "pss-sha2-256" {
+        value 2;
+        description
+          "Pss with hash algorithm sha2-256.";
+      }
+    }
+    description
+      "Type of rsa signature padding.";
+  }
+  typedef policy-or-profile-status-type {
+    type enumeration {
+      enum "alone" {
+        value 1;
+        description
+          "Alone.";
+      }
+      enum "master" {
+        value 2;
+        description
+          "Master.";
+      }
+      enum "slave" {
+        value 3;
+        description
+          "Slave.";
+      }
+    }
+    description
+      "Type of IPSec policy or profile status.";
+  }
+  typedef df-bit-type {
+    type enumeration {
+      enum "copy" {
+        value 1;
+        description
+          "Copy.";
+      }
+      enum "clear" {
+        value 2;
+        description
+          "Clear.";
+      }
+      enum "set" {
+        value 3;
+        description
+          "Set.";
+      }
+    }
+    description
+      "Type of the Don't Fragment (DF) flag bit in an IPsec packet.";
+  }
+  typedef scenario-type {
+    type enumeration {
+      enum "ptp" {
+        value 1;
+        description "Point-to-point.";
+      }
+      enum "ptmp" {
+        value 2;
+        description "Point-to-multi-point.";
+      }
+    }
+    description
+      "Type of the scenario in ipsec policy template.";
+  }
+  ext:task-name "ipsec";
+}

@@ -1,0 +1,826 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-smart-policy-route {
+  namespace "urn:huawei:yang:huawei-smart-policy-route";
+  prefix "smart-policy-route";
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+  import huawei-time-range {
+    prefix timerange;
+  }
+  import huawei-site {
+    prefix site;
+  }
+  import huawei-security-app-group {
+    prefix app-group;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+     configuring network quality analysis.";
+
+  revision 2025-06-25 {
+    description "Modify the english description of the traffic-hold-ignore-bandwidth node.";
+    reference "";
+  }
+  revision 2025-01-07 {
+    description "Add application-priority of spr-policy and IPv6 rule of service-map.";
+    reference "";
+  }
+  revision 2024-11-29 {
+    description "Change revision description.";
+    reference "";
+  }
+  revision 2024-07-08 {
+    description "Add bandwidth configuration.";
+    reference "";
+  }
+  revision 2023-04-03 {
+    description "Add transport-network-fixed.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-07-18 {
+    description "Add IPv6 acls.";
+    reference "Huawei private.";
+  }
+
+  revision 2022-05-26 {
+    description "Add link-quality.";
+    reference "Huawei private.";
+  }
+  revision 2022-03-04 {
+    description "Modify site-list.";
+    reference "Huawei private.";
+  }
+  revision 2022-01-10 {
+    description "Add load balance mode.";
+    reference "Huawei private.";
+  }
+  revision 2021-01-28 {
+    description "Add suppress-switch-trap.";
+    reference "Huawei private.";
+  }
+  revision 2020-11-16 {
+    description "Add appgroups node.";
+    reference "Huawei private.";
+  }
+  revision 2020-05-11 {
+    description "Initial revision.";
+    reference "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+
+  typedef path-selection-mode {
+    type enumeration {
+      enum symmetric {
+        value 1;
+        description "Symmetric.";
+      }
+      enum asymmetric {
+        value 2;
+        description "Asymmetric.";
+      }
+    }
+    description
+      "Path selection mode.";
+  }
+  typedef default-action-type {
+    type enumeration {
+      enum discard {
+        value 1;
+        description "Discard.";
+      }
+      enum forward {
+        value 2;
+        description "Forward.";
+     }
+    }
+    description
+      "Default action type.";
+  }
+  typedef routing-mode-type {
+    type enumeration {
+      enum path-prefer {
+        value 1;
+        description "Path prefer mode.";
+      }
+      enum load-balance {
+        value 2;
+        description "Loading balance mode.";
+      }
+    }
+    description
+      "Routing mode type.";
+  }
+  typedef role-type {
+    type enumeration {
+      enum master {
+        value 1;
+        description "Master.";
+      }
+      enum backup {
+        value 2;
+        description "Backup.";
+      }
+    }
+    description
+      "Role type.";
+  }
+  container smart-policy-route {
+    presence "Create smart-policy-route.";
+    description 
+      "Configuration of smart policy routing.";
+    leaf switch-period {
+      type uint16 {
+        range "1..7200";
+      }
+      units s;
+      default 5;
+      description 
+        "Specify the SPR switchover period, in seconds.";
+    }
+    leaf refresh-period {
+      type uint16 {
+        range "1..5";
+      }
+      units s;
+      default 5;
+      description 
+        "Specify the SPR refresh period, in seconds.";
+    }
+    leaf suppress-flapping-period {
+      type uint32 {
+        range "2..14400";
+      }
+      units s;
+      description 
+        "Specify the flapping suppression period, in seconds. The flapping suppression period is at least twice the switchover period.";
+    }
+    leaf wait-restore-period {
+      type uint32 {
+        range "1..259200";
+      }
+      units s;
+      description 
+        "Specify the SPR wait restore period, in seconds.";
+    }
+    leaf path-selection {
+      type path-selection-mode;
+      default "asymmetric";
+      description 
+        "Specify the path selection mode.";
+    }
+    leaf same-network-prefer {
+      type boolean;
+      default "false";
+      description 
+          "Enable/disable the function of preferentially selecting the same network.";
+    }
+    leaf local-network-prefer {
+      type boolean;
+      default "false";
+      description 
+          "Enable/disable the function of preferentially selecting the local network.";
+    }
+    container link-quality {
+      description "Configure the link quality calculation mode.";
+      container based-rules {
+        description "Configure rules for calculating link quality.";
+        leaf bandwidth-enable {
+          type boolean;
+          default "true";
+          description 
+            "Enable/disable the function of calculating link quality based on bandwidth.";
+        }
+      }
+    }
+    leaf bandwidth-threshold-percentage {
+      type uint8 {
+        range "1..100";
+      }
+      units %;
+      default 95;
+      description 
+        "Specify the percentage of bandwidth threshold.";
+    }
+    container suppress-switch-trap {
+      description 
+        "Configure the attribute of suppress-switch-trap.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description 
+          "Enable/disable the suppress-switch-trap.";
+      }
+      leaf threshold {
+        type uint16 {
+          range "1..20000";
+        }
+        default "100";
+        description 
+          "Specify the threshold of the suppress-switch-trap.";
+      }
+      leaf time {
+        type uint32 {
+          range "120..86400";
+        }
+        units s;
+        default "120";
+        description 
+          "Specify the time of the suppress-switch-trap.";
+      }
+    }
+    container site-lists {
+      description "List of site lists.";
+      list site-list {
+        key "name";
+        description 
+          "Configure a site list.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description 
+            "Specify name of site list.";
+        }
+        container peer-sites {
+          description "List of sites.";
+          list peer-site {
+            key "id";
+            description "Configure a site in the site list.";
+            leaf id {
+              type uint16 {
+                range "1..65535";
+              }
+              description "Specify site ID.";
+            }
+          }
+        }
+      }
+    }
+    container service-maps {
+      description 
+        "List of service map.";
+      list service-map {
+        key "name";
+        description 
+          "Configure the SPR service profile.";
+        leaf name {
+          type string{
+            length "1..31";
+          }
+          description 
+            "Specify the name of an SPR service profile.";
+        }
+        container match-rule {
+          description 
+            "Configure an ACL or an SA application or group in the SPR service profile.";
+          container acls {
+            description 
+              "Configure an ACL in the SPR service profile.";
+            leaf-list acl {
+              type leafref {
+                path "/acl:acl/acl:groups/acl:group/acl:identity";
+              }
+              description 
+                "Specify an ACL number or name.";
+            }
+          }
+          container apps {
+            description 
+              "Configure an SA application in the SPR service profile.";
+            leaf-list app {
+              type string {
+                length "1..32";
+              }
+              description 
+                "Specify an SA application name.";
+            }
+          }
+          container appgroups {
+            description 
+              "Configure an SA application group in the SPR service profile.";
+            leaf-list appgroup {
+              type leafref {
+                path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+              }
+              description 
+                "Specify an SA application group name.";
+            }
+          }
+          container app-acls {
+            description 
+              "List of applications and ACLs.";
+            list app-acl {
+              key "acl app";
+              description 
+                "Configure an ACL and an SA application in the SPR service profile.";
+              leaf acl {
+                type leafref {
+                  path "/acl:acl/acl:groups/acl:group/acl:identity";
+                }
+                description 
+                  "Specify an ACL number or name.";
+              }
+              leaf app {
+                type string {
+                  length "1..32";
+                }
+                description "Specify an SA application name.";
+              }
+            }
+          }
+          container appgroup-acls {
+            description 
+              "List of application groups and ACLs.";
+            list appgroup-acl {
+              key "acl appgroup";
+              description 
+                "Configure an ACL and an SA application group in the SPR service profile.";
+              leaf acl {
+                type leafref {
+                  path "/acl:acl/acl:groups/acl:group/acl:identity";
+                }
+                description 
+                  "Specify an ACL number or name.";
+              }
+              leaf appgroup {
+                type leafref {
+                  path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+                }
+                description "Specify an SA application group name.";
+              }
+            }
+          }
+          container ipv6-acls {
+            description 
+              "Configure an IPv6 ACL in the SPR service profile.";
+            leaf-list ipv6-acl {
+              type leafref {
+                path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+              }
+              description 
+                "Specify an IPv6 ACL number or name.";
+            }
+          }
+          container appgroup-ipv6-acls {
+            description 
+              "List of application groups and ACLs.";
+            list appgroup-ipv6-acl {
+              key "ipv6-acl appgroup";
+              description 
+                "Configure an IPv6 ACL and an SA application group in the SPR service profile.";
+              leaf ipv6-acl {
+                type leafref {
+                  path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+                }
+                description 
+                  "Specify an IPv6 ACL number or name.";
+              }
+              leaf appgroup {
+                type leafref {
+                  path "/app-group:security-app-group/app-group:application-groups/app-group:application-group/app-group:name";
+                }
+                description "Specify an SA application group name.";
+              }
+            }
+          }
+          container app-ipv6-acls {
+            description 
+              "List of applications and ACLs.";
+            list app-ipv6-acl {
+              key "ipv6-acl app";
+              description 
+                "Configure an IPv6 ACL and an SA application in the SPR service profile.";
+              leaf ipv6-acl {
+                type leafref {
+                  path "/acl:acl/acl:group6s/acl:group6/acl:identity";
+                }
+                description 
+                  "Specify an IPv6 ACL number or name.";
+              }
+              leaf app {
+                type string {
+                  length "1..32";
+                }
+                description "Specify an SA application name.";
+              }
+            }
+          }
+        }
+      }
+    }
+    container spr-policys {
+      description "List of spr policys.";
+      list spr-policy {
+        key "node-index";
+        description 
+          "Configure an SPR policy.";
+        leaf node-index {
+          type uint16 {
+            range "1..30000";
+          }
+          description 
+            "Specify an SPR policy ID.";
+        }
+        leaf wait-restore-enable {
+          type boolean;
+          default "true";
+          description 
+            "Enable/disable the switchback function in the SPR policy.";
+        }
+        leaf time-range {
+          type leafref {
+            path "/timerange:time-range/timerange:time-range-instances/timerange:time-range-instance/timerange:name";
+          }
+          description 
+            "Specify the time segment in which the SPR policy takes effect.";
+        }
+        leaf default-action {
+          type default-action-type;
+          default "forward";
+          description 
+            "Specify the default action that is taken when no transport network meets conditions in the SPR policy.";
+        }
+        leaf routing-mode {
+          type routing-mode-type;
+          default "path-prefer";
+          description 
+            "Specify the routing mode of the SPR policy.";
+        }
+        leaf priority {
+          ext:dynamic-default;
+          type uint16 {
+            range "1..65535";
+          }
+          description 
+            "Specify the priority of an SPR policy.";
+        }
+        leaf transport-network-fixed {
+          type boolean;
+          default "false";
+          description 
+            "Enable/disable the fixed function of the transport network in the SPR policy.";
+        }
+        leaf service-map {
+          type leafref {
+            path "/smart-policy-route:smart-policy-route/service-maps/service-map/name";
+          }
+          description 
+            "Specify a service profile name.";
+        }
+        leaf application-priority {
+          when "../routing-mode='load-balance'";
+          type uint8 {
+            range "1..8";
+          }
+          description 
+            "Specify the application-priority of an SPR policy.";
+        }
+        container quality-threshold {
+          description 
+            "Configure the quality threshold of the service.";
+          leaf delay {
+            type uint16 {
+              range "0..5000";
+            }
+            units ms;
+            default "5000";
+            description 
+              "Specify the delay threshold of the service.";
+          }
+          leaf jitter {
+            type uint16 {
+              range "0..3000";
+            }
+            units ms;
+            default "3000";
+            description 
+              "Specify the jitter threshold of the service.";
+          }
+          leaf loss {
+            type uint16 {
+              range "0..1000";
+            }
+            units ‰;
+            default "1000";
+            description 
+              "Specify the packet loss rate threshold of the service.";
+          }
+          leaf cmi {
+            type uint16 {
+              range "0..9000";
+            }
+            units ms;
+            default "9000";
+            description 
+              "Specify the CMI threshold of the service.";
+          }
+        }
+        container bandwidth-threshold {
+          must "(./upper-limit-percentage and ./lower-limit-percentage and ./upper-limit-percentage > ./lower-limit-percentage) or (not (./upper-limit-percentage)) or (not (./lower-limit-percentage))";
+          description "Configure bandwidth threshold of the policy.";
+          leaf upper-limit-percentage {
+            type uint8 {
+              range "1..100";
+            }
+            units %;
+            description
+              "Specify the upper limit of bandwidth (in percentage).";
+          }
+          leaf lower-limit-percentage {
+            type uint8 {
+              range "1..100";
+            }
+            units %;
+            description
+              "Specify the lower limit of bandwidth (in percentage).";
+          }
+          leaf traffic-hold-ignore-bandwidth {
+            when "../../routing-mode='load-balance'";
+            type boolean;
+            default "false";
+            description
+              "Enable/disable the function of traffic hold ignoring bandwidth.";
+          }
+        }
+        container link-transport-networks {
+          description 
+            "List of transport networks.";
+          list link-transport-network {
+            key "network-name";
+            unique network-id;
+            description 
+              "Configure a transport network.";
+            leaf network-name {
+              type string {
+                length "1..31";
+              }
+              description 
+                "Specify the transport network name.";
+            }
+            leaf network-id {
+              ext:operation-exclude update|delete;
+              type uint32 {
+                range "1..4294967295";
+              }
+              description 
+                "Specify the transport network id.";
+            }
+            leaf role {
+              type role-type;
+              description 
+                "Specify the role of the transport network.";
+            }
+            leaf priority {
+              type uint8 {
+                range "1..8";
+              }
+              default "8";
+              description 
+                "Specify the priority of the transport network.";
+            }
+            leaf-list srv6-te-path-name {
+              type leafref {
+                path "/site:site/site:srv6-te-static-path/site:path-groups/site:path-group/site:name";
+              }
+              description 
+                "Specify the SRv6 TE path name.";
+            }
+            choice limit-type {
+               description
+                 "Specify the bandwidth threshold limit type.";
+                case limit-value {
+                    description
+                        "Configure the attribute of bandwidth-threshold.";
+                    container limit-value {
+                        description
+                        "Configure the value of bandwidth-threshold.";
+                        leaf lower {
+                            type uint32 {
+                            range "1..100000000";
+                            }
+                            units kbit/s;
+                            description
+                            "Specify the value of the lower-limit.";
+                        }
+                        leaf upper {
+                            type uint32 {
+                            range "1..100000000";
+                            }
+                            units kbit/s;
+                            description
+                            "Specify the value of the upper-limit.";
+                        }
+                    }
+                }
+                case limit-percentage {
+                    description
+                        "Configure the attribute of bandwidth-threshold.";
+                    container limit-percentage {
+                        description
+                        "Configure the percentage of bandwidth-threshold.";
+                        
+                        leaf lower {
+                            type uint8 {
+                            range "1..100";
+                            }
+                            units %;
+                            description
+                            "Specify the percentage of the lower-limit.";
+                        }
+                        leaf upper {
+                            type uint8 {
+                            range "1..100";
+                            }
+                            units %;
+                            description
+                            "Specify the percentage of the upper-limit.";
+                        }
+                    }
+                }
+            }
+            container bandwidth-threshold {
+              must "not (./link-upper-limit-value and ./link-lower-limit-value and ./link-upper-limit-value <= ./link-lower-limit-value)";
+              must "not (./link-upper-limit-percentage and ./link-lower-limit-percentage and ./link-upper-limit-percentage <= ./link-lower-limit-percentage)";
+              must "not (./application-upper-limit-value and ./application-lower-limit-value and ./application-upper-limit-value <= ./application-lower-limit-value)";
+              must "not (./application-upper-limit-percentage and ./application-lower-limit-percentage and ./application-upper-limit-percentage <= ./application-lower-limit-percentage)";
+              must "not ((./link-upper-limit-value or ./link-upper-limit-percentage) and (not (./link-lower-limit-value)) and (not (./link-lower-limit-percentage)))";
+              must "not ((./link-lower-limit-value or ./link-lower-limit-percentage) and (not (./link-upper-limit-value)) and (not (./link-upper-limit-percentage)))";
+              must "not ((./application-upper-limit-value or ./application-upper-limit-percentage) and (not (./application-lower-limit-value)) and (not (./application-lower-limit-percentage)))";
+              must "not ((./application-lower-limit-value or ./application-lower-limit-percentage) and (not (./application-upper-limit-value)) and (not (./application-upper-limit-percentage)))";
+              description
+                "Configure the bandwidth threshold of the link.";
+              choice link-upper-limit {
+                description
+                  "Configure the upper bandwidth limit of the link.";
+                case value {
+                  description
+                    "Configure the limit in value.";
+                  leaf link-upper-limit-value {
+                    type uint32 {
+                      range "1..4294967295";
+                    }
+                    units kbit/s;
+                    description
+                      "Specify the upper bandwidth limit of the link.";
+                  }
+                }
+                case percentage {
+                  description
+                    "Configure the limit in percentage.";
+                  leaf link-upper-limit-percentage {
+                    type uint8 {
+                      range "1..100";
+                    }
+                    units %;
+                    description
+                      "Specify the upper bandwidth limit of the link (in percentage).";
+                  }
+                }
+              }
+              choice link-lower-limit {
+                description
+                  "Configure the lower bandwidth limit of the link.";
+                case value {
+                  description
+                    "Configure the limit in value.";
+                  leaf link-lower-limit-value {
+                    type uint32 {
+                      range "1..4294967295";
+                    }
+                    units kbit/s;
+                    description
+                      "Specify the lower bandwidth limit of the link.";
+                  }
+                }
+                case percentage {
+                  description
+                    "Configure the limit in percentage.";
+                  leaf link-lower-limit-percentage {
+                    type uint8 {
+                      range "1..100";
+                    }
+                    units %;
+                    description
+                      "Specify the lower bandwidth limit of the link (in percentage).";
+                  }
+                }
+              }
+              choice application-upper-limit {
+                description
+                  "Configure the upper application bandwidth limit of the link.";
+                case value {
+                  description
+                    "Configure the limit in value.";
+                  leaf application-upper-limit-value {
+                    type uint32 {
+                      range "1..4294967295";
+                    }
+                    units kbit/s;
+                    description
+                      "Specify the upper application bandwidth limit of the link.";
+                  }
+                }
+                case percentage {
+                  description
+                    "Configure the limit in percentage.";
+                  leaf application-upper-limit-percentage {
+                    type uint8 {
+                      range "1..100";
+                    }
+                    units %;
+                    description
+                      "Specify the upper application bandwidth limit of the link (in percentage).";
+                  }
+                }
+              }
+              choice application-lower-limit {
+                description
+                  "Configure the lower application bandwidth limit of the link.";
+                case value {
+                  description
+                    "Configure the limit in value.";
+                  leaf application-lower-limit-value {
+                    type uint32 {
+                      range "1..4294967295";
+                    }
+                    units kbit/s;
+                    description
+                      "Specify the lower application bandwidth limit of the link.";
+                  }
+                }
+                case percentage {
+                  description
+                    "Configure the limit in percentage.";
+                  leaf application-lower-limit-percentage {
+                    type uint8 {
+                      range "1..100";
+                    }
+                    units %;
+                    description
+                      "Specify the lower application bandwidth limit of the link (in percentage).";
+                  }
+                }
+              }
+            }
+          }
+        }
+        leaf apply-to-site-list {
+            type leafref {
+                path "/smart-policy-route:smart-policy-route/site-lists/site-list/name";
+            }
+            description "Specify the name of a site list.";
+        }
+        container apply-to-vpn-instances {
+          description 
+            "List of VPN instance.";
+          list apply-to-vpn-instance {
+            key "vpn-instance";
+            description 
+              "Configure the VPN information of the SPR policy.";
+            leaf vpn-instance {
+              type leafref {
+                path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+              }
+              description 
+                "Specify the name of a VPN instance.";
+            }
+          }
+        }
+      }
+    }
+    container spr-instance-usage {
+      config false;
+      description "Statistics of spr instance usage.";
+      leaf spr-instance-limit {
+        type uint32;
+        description "Get spr instance limit.";
+      }          
+      leaf spr-instance-number {
+        type uint32;
+        description "Get spr instance number.";
+      }
+    }
+  }
+}

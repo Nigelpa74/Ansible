@@ -1,0 +1,332 @@
+/*
+Copyright (C) 2020 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ifm-phy-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ifm-phy-notification";
+  prefix ifm-phy-notification;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of interface physical module.";
+  revision 2020-07-15 {
+    description
+      "Change and add leafs.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-03-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "interface-mgr";
+  notification if-monitor-crc-error {
+    description
+      "The CRC error is rising.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf crc-error-statistics {
+      type uint64;
+      description
+        "Indicates real-time statistics on CRC error packets.";
+    }
+    leaf crc-error-threshold {
+      type uint32;
+      description
+        "Indicates the upper threshold for CRC error packets.";
+    }
+    leaf crc-error-interval {
+      type uint32;
+      units s;
+      description
+        "Indicates the interval for collecting statistics.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf if-monitor-all-statistics {
+      type uint32;
+      description
+        "Indicates real-time packet statistics.";
+    }
+  }
+  notification if-monitor-crc-error-resume {
+    description
+      "The CRC error alarm resume.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf crc-error-statistics {
+      type uint64;
+      description
+        "Indicates real-time statistics on CRC error packets.";
+    }
+    leaf crc-error-threshold {
+      type uint32;
+      description
+        "Indicates the upper threshold for CRC error packets.";
+    }
+    leaf crc-error-interval {
+      type uint32;
+      units s;
+      description
+        "Indicates the interval for collecting statistics.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf if-monitor-all-statistics {
+      type uint32;
+      description
+        "Indicates real-time packet statistics.";
+    }
+  }
+  notification if-monitor-input-rate-exceed {
+    description
+      "Interface input flow bandwidth usage exceeded the trap threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+  leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf input-rate {
+      type uint8;
+      units %;
+      description
+        "Indicates statistics on incoming traffic.";
+    }
+    leaf input-rate-threshold {
+      type uint8;
+      units %;
+      description
+        "Specifies an alarm threshold for incoming traffic.";
+    }
+  }
+    notification if-monitor-input-rate-exceed-resume {
+    description
+      "Interface input flow bandwidth usage was restored to the trap threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+  leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf input-rate {
+      type uint8;
+      units %;
+      description
+        "Indicates statistics on incoming traffic.";
+    }
+    leaf input-rate-threshold {
+      type uint8;
+      units %;
+      description
+        "Specifies an alarm threshold for incoming traffic.";
+    }
+  }
+  notification if-monitor-output-rate-exceed {
+    description
+      "Interface output flow bandwidth usage exceeded the trap threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf output-rate {
+      type uint8;
+      units %;
+      description
+        "Indicates statistics on outgoing traffic.";
+    }
+    leaf output-rate-threshold {
+      type uint8;
+      units %;
+      description
+        "Specifies an alarm threshold for outgoing traffic.";
+    }
+  }  
+  notification if-monitor-output-rate-exceed-resume {
+    description
+      "Interface output flow bandwidth usage was restored to the trap threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf output-rate {
+      type uint8;
+      units %;
+      description
+        "Indicates statistics on outgoing traffic.";
+    }
+    leaf output-rate-threshold {
+      type uint8;
+      units %;
+      description
+        "Specifies an alarm threshold for outgoing traffic.";
+    }
+  }
+  notification if-local-fault {
+    description
+      "The local fault alarm has occurred.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+  }
+  notification if-local-fault-resume {
+    description
+      "The local fault alarm has resumed.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+  }
+  notification if-remote-fault {
+    description
+      "The remote fault alarm has occurred.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+  }
+ notification if-remote-fault-resume {
+    description
+      "The remote fault alarm has resumed.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+  }
+  notification if-input-flow-change-over-threshold {
+    description
+      "The input rate change ratio exceeded the threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf threshold {
+      type uint32;
+      units "%";
+      description
+        "Indicates the threshold for change of input rate.";
+    }
+    leaf current-statistical-period-rate {
+      type uint32;
+      units "kB/s";
+      description
+        "Indicates the statistics of rate on current period.";
+    }
+    leaf last-statistical-period-rate {
+      type uint32;
+      units "kB/s";
+      description
+        "Indicates the statistics of rate on last period.";
+    }
+  }
+  notification if-output-flow-change-over-threshold {
+    description
+      "The output rate change ratio exceeded the threshold.";
+    leaf if-index {
+      type uint32;
+      description
+        "Indicates the index of an interface.";
+    }
+    leaf if-name {
+      type pub-type:if-name;
+      description
+        "Indicates the name of an interface.";
+    }
+    leaf threshold {
+      type uint32;
+      units "%";
+      description
+        "Indicates the threshold for change of output rate.";
+    }
+    leaf current-statistical-period-rate {
+      type uint32;
+      units "kB/s";
+      description
+        "Indicates the statistics of rate on current period.";
+    }
+    leaf last-statistical-period-rate {
+      type uint32;
+      units "kB/s";
+      description
+        "Indicates the statistics of rate on last period.";
+    }
+  }
+}

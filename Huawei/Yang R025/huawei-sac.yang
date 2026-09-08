@@ -1,0 +1,140 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-sac {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-sac";
+  prefix huawei-sac;
+  import huawei-extension {
+      prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-tunnel-management {
+    prefix tnlm;
+  }
+  import huawei-sd-wan-tunnel {
+    prefix sd-wan-tunnel;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for
+    smart application control.";
+  revision 2025-09-12 {
+    description "Modify aggregation-conn-enable constraint.";
+    reference "";
+  }
+  revision 2025-01-07 {
+    description "Add IPv6 configuration.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-09-19 {
+    description
+      "Add leaf bypass.";
+    reference "";
+  }
+  revision 2020-10-10 {
+    description
+      "Init revision.";
+    reference "";
+  }
+  ext:task-name "sdwan";
+  typedef interface-port-type {
+    type enumeration {
+      enum "uni" {
+        value 1;
+        description
+          "Indicates the user-side interface.";
+      }
+      enum "nni" {
+        value 2;
+        description
+          "Indicates the transmission-side interface.";
+      }
+      enum "ini" {
+        value 3;
+        description
+          "Indicates the interlink interface, which is connected to the SD-WAN dual-gateway device.";
+      }
+    }
+    description
+      "Interface port type, which define the location in the network.";
+  }
+  container sac {
+    description
+      "Smart application control global configuration.";
+    leaf authorization-enable {
+      type boolean;
+      default "false";
+      status deprecated;
+      description
+        "Enable/disable sac authorization, when there is no license to use.";
+    }
+    leaf bypass {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable sac bypass, when sac needs to be disabled or enabled globally.";
+    }
+    leaf ipv6-bypass {
+      type boolean;
+      default "false";
+      description
+        "Enable/disable sac IPv6 bypass, when IPv6 sac needs to be disabled or enabled globally.";
+    }
+  }
+  augment /ifm:ifm/ifm:interfaces/ifm:interface {
+    description
+      "Register sac container on interface.";
+    container sac {
+      description
+        "Configure sac configuration on interface.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable sac application identification.";
+      }
+      leaf ipv6-enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable IPv6 sac application identification.";
+      }
+      leaf statistic-enable {
+        when "../enable ='true' or ../ipv6-enable ='true'";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable sac application statistic.";
+      }
+      leaf port-type {
+        type interface-port-type;
+        description
+          "In the SD-WAN scenario, this parameter is used to identify the forward and return paths of applications in the dual-gateway scenario. 
+          This parameter does not need to be configured in the non-dual-gateway scenario.";
+      }
+      leaf aggregation-conn-enable {
+        when "(../enable ='true' or ../ipv6-enable ='true') and (../../ifm:type = 'Tunnel') and (../../tnlm:tunnel-protocol/sd-wan-tunnel:sd-wan-tunnel)";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable sac application statistic aggregation by connection.";
+      }
+    }
+  }
+}

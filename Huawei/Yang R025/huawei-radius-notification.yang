@@ -1,0 +1,105 @@
+/*
+Copyright (C) 2020-2021 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-radius-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-radius-notification";
+  prefix radius-notification;
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Communication was restored or interrupted between the device and RADIUS authentication server and accounting server.";
+  revision 2021-03-01 {
+    description
+      "Change Yang sequence.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-07-08 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "radius";
+  notification authentication-server-down {
+  description
+      "The communication with the RADIUS authentication server fails.";
+    leaf ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "Indicates the IP address of the RADIUS authentication server.";
+    }
+    leaf vpn-instance {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Indicates the VPN instance on the RADIUS authentication server.";
+    }
+  }
+  notification authentication-server-down-resume {
+  description
+      "The communication with the RADIUS authentication server resumed.";
+    leaf ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "Indicates the IP address of the RADIUS authentication server.";
+    }
+    leaf vpn-instance {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Indicates the VPN instance on the RADIUS authentication server.";
+    }
+  }
+  notification accounting-server-down {
+    description
+      "The communication with the RADIUS accounting server fails.";
+    leaf ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "Indicates the IP address of the RADIUS accounting server.";
+    }
+    leaf vpn-instance {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Indicates the VPN instance on the RADIUS accounting server.";
+    }
+  }
+  notification accounting-server-down-resume {
+    description
+      "The communication with the RADIUS accounting server resumed.";
+    leaf ip-address {
+      type inet:ipv4-address-no-zone;
+      description
+        "Indicates the IP address of the RADIUS accounting server.";
+    }
+    leaf vpn-instance {
+      type leafref {
+        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+      }
+      description
+        "Indicates the VPN instance on the RADIUS accounting server.";
+    }
+  }
+}

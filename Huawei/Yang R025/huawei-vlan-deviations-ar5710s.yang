@@ -1,0 +1,163 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-vlan-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-vlan-deviations-ar5710s";
+  prefix vlan-devs-ar5710s;
+
+  import huawei-vlan {
+    prefix vlan;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-vlan module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef vlan-type-deviations {
+    type enumeration {
+      enum common {
+        value 1;
+        description
+          "VLAN type is common VLAN.";
+      }
+      enum super {
+        value 2;
+        description
+          "VLAN type is super-VLAN.";
+      }
+      enum sub {
+        value 3;
+        description
+          "VLAN type is sub-VLAN.";
+      }
+    }
+    description
+      "VLAN type.";
+  }
+
+  typedef access-type-deviations {
+    type enumeration {
+      enum access {
+        value 1;
+        description
+          "Access port that accepts packets without VLAN tags.";
+      }
+      enum trunk {
+        value 2;
+        description
+          "Trunk port that accepts packets with VLAN tags.";
+      }
+      enum hybrid {
+        value 3;
+        description
+          "Hybrid port that accepts packets with or without VLAN tags.";
+      }
+    }
+    description
+      "VLAN access type.";
+  }
+
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:admin-status" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:broadcast-discard" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:unknown-multicast-discard" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:statistic-enable" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:statistic-discard" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:mac-aging-time" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:unknown-flow-drop" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:mux-principal-vlan" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:unkown-unicast-discard" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:suppression" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:ip-subnet-vlans" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:member-ports/vlan:member-port/vlan:state" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:member-ports/vlan:member-port/vlan:port-statistics" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:vlan-statistic" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:instances" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:default-instance" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:dynamic-vlans" {
+    deviate not-supported;
+  }
+  deviation "/vlan:reset-interface-vlan-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/vlan:vlanif-attribute/vlan:band-width-type/vlan:band-width-kbps" {
+    deviate not-supported;
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:type" {
+    deviate replace {
+      type vlan-devs-ar5710s:vlan-type-deviations;
+    }
+  }
+  deviation "/vlan:vlan/vlan:vlans/vlan:vlan/vlan:member-ports/vlan:member-port/vlan:access-type" {
+    deviate replace {
+      type vlan-devs-ar5710s:access-type-deviations;
+    }
+  }
+  ext:deviation-ext "/vlan:vlan/vlan:vlans/vlan:vlan" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete" {
+        ext:filter "id = 1";
+        description
+          "The VLANS whose id is 1 cannot be created or deleted.";
+      }
+    }
+    ext:deviate-ext "add" {
+      ext:generated-by "system" {
+        ext:filter "id = 1";
+        description
+          "The VLANS whose id is 1 are generated automatically.";
+      }
+    }
+  }
+}

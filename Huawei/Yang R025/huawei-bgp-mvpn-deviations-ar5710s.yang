@@ -1,0 +1,108 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-mvpn-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-mvpn-deviations-ar5710s";
+  prefix bgp-mvpn-devs-ar5710s;
+
+  import huawei-bgp-mvpn {
+    prefix bgp-mvpn;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-mvpn module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:common/bgp-mvpn:vpn-orf-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:common/bgp-mvpn:add-path-select-num" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:common/bgp-mvpn:c-multicast-ad-route-ignore" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-mvpn:ipv6-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:import-policy-type/bgp-mvpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:export-policy-type/bgp-mvpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:add-path-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:add-path-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp-mvpn:ipv6-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:import-policy-type/bgp-mvpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:export-policy-type/bgp-mvpn:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:add-path-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:add-path-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp-mvpn:ipv6-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type1-routes/bgp-mvpn:ng-type1-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type3-routes/bgp-mvpn:ng-type3-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type4-routes/bgp-mvpn:ng-type4-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type5-routes/bgp-mvpn:ng-type5-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type6-routes/bgp-mvpn:ng-type6-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv4-mvpn/bgp-mvpn:ng-type7-routes/bgp-mvpn:ng-type7-route/bgp-mvpn:advertise-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route/bgp-mvpn:ipv6-mvpn" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp-mvpn:ipv4-mvpn/bgp-mvpn:slow-peer/bgp-mvpn:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+}

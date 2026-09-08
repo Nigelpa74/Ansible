@@ -1,0 +1,663 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-eca {
+  namespace "urn:huawei:yang:huawei-eca";
+  prefix eca;
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Configuration of the ECA.";
+  revision 2025-07-01 {
+    description
+      "Support to network detect.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-23 {
+    description
+      "Support to collect optical information.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-22 {
+    description
+      "Support to installation scripts.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-09-01 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "diags-eca";
+  typedef script-type {
+    type enumeration {
+      enum user-defined {
+        value 0;
+        description
+          "The type of an eca script is user-defined.";
+      }
+      enum inspection {
+        value 1;
+        description
+          "The type of an eca script is inspection.";
+      }
+      enum build-in {
+        value 2;
+        description
+          "The type of an eca script is build-in.";
+      }
+    }
+    description
+      "Specify the type of an eca script.";
+  }
+  typedef script-register-status {
+    type enumeration {
+      enum success {
+        value 1;
+        description
+          "The register status of an eca script is success.";
+      }
+      enum failed {
+        value 2;
+        description
+          "The register status of an eca script is failed.";
+      }
+    }
+    description
+      "Specify the register status of an eca script.";
+  }
+  typedef script-running-status {
+    type enumeration {
+      enum idle {
+        value 1;
+        description
+          "The running status of an eca script is idle.";
+      }
+      enum running {
+        value 2;
+        description
+          "The running status of an eca script is running.";
+      }
+      enum waiting {
+        value 3;
+        description
+          "The running status of an eca script is waiting.";
+      }
+    }
+    description
+      "Specify the running status of an eca script.";
+  }
+  typedef script-result-type {
+    type enumeration {
+      enum none {
+        value 0;
+        description
+          "The script is installed but never run.";
+      }
+      enum pass {
+        value 1;
+        description
+          "The result of an eca script is pass.";
+      }
+      enum norelated {
+        value 2;
+        description
+          "The result of an eca script is norelated.";
+      }
+      enum failed {
+        value 3;
+        description
+          "The result of an eca script is failed.";
+      }
+    }
+    description
+      "Specify the result of an eca script.";
+  }
+  typedef inspection-status {
+    type enumeration {
+      enum running {
+        value 1;
+        description
+          "The running status of an eca inspection script is running.";
+      }
+      enum complete {
+        value 2;
+        description
+          "The running status of an eca inspection script is complete.";
+      }
+      enum script-invalid {
+        value 3;
+        description
+          "The running status of an eca inspection script is script-invalid.";
+      }
+      enum unconnected {
+        value 4;
+        description
+          "The running status of an eca inspection script is unconnected.";
+      }
+      enum nonexistence {
+        value 5;
+        description
+          "The running status of an eca inspection script is nonexistence.";
+      }
+      enum download-error {
+        value 6;
+        description
+          "The running status of an eca inspection script is download-error.";
+      }
+      enum upload-error {
+        value 7;
+        description
+          "The running status of an eca inspection script is upload-error.";
+      }
+      enum uninstalled {
+        value 8;
+        description
+          "The running status of an eca inspection script is uninstalled.";
+      }
+    }
+    description
+      "Specify the running status of an eca inspection script.";
+  }
+  typedef collect-type {
+    type enumeration {
+      enum optical-link-dirty-loose {
+        value 1;
+        description
+          "Specify the type of dirty or loose collecting optical link data.";
+      }
+    }
+    description
+      "Specify the collect type.";
+  }
+  typedef detect-scenario {
+    type enumeration {
+      enum network-disconnection {
+        value 0;
+        description
+          "The scenario of detect is network disconnection.";
+      }
+      enum poor-network-quality {
+        value 1;
+        description
+          "The scenario of detect is poor network quality.";
+      }
+      enum basic-detection {
+        value 2;
+        description
+          "The scenario of detect is basic detection.";
+      }
+      enum quick-detection {
+        value 3;
+        description
+          "The scenario of detect is quick detection.";
+      }      
+    }
+    description
+      "	Specify the detect scenario.";
+  }
+  container eca {
+    description "Event condition action.";
+    container history-service-infos {
+      config false;
+      description
+        "List of History service infos about service cpu usage.";
+      list history-service-info {
+        key "slot-id cpu-id start-time end-time service-name generated-time";
+        description
+          "Statistics of history service infos about service cpu usage.";
+        leaf slot-id {
+          type string {
+            length "1..50";
+          }
+          description
+            "Board slotID.";
+        }
+        leaf cpu-id {
+          type string {
+            length "1..50";
+          }
+          description
+            "CPU ID.";
+        }
+         leaf start-time {
+          type yang:date-and-time;
+          description
+            "Start time.";
+        }
+        leaf end-time {
+          type yang:date-and-time;
+          description
+            "End time.";
+        }
+        leaf service-name {
+          type string {
+            length "1..50";
+          }
+          description
+            "Service name.";
+        }
+        leaf generated-time {
+          type yang:date-and-time;
+          description
+            "Generated time of this data.";
+        }
+        leaf service-cpu-usage {
+          type uint32 {
+            range "0..100";
+          }
+          ext:support-filter "true";
+          units %;
+          default "0"; 
+          description
+            "Cpu usage of a service.";
+        }
+      }
+    }
+    container script-infos {
+      config false;
+      description
+        "List of information for eca scripts.";
+      list script-info {
+        key "name";
+        description
+          "Operational state of eca scripts.";
+        leaf name {
+          type string {
+            length "1..31";
+          }
+          description
+            "Specify the name of an eca script without json suffix.";
+        }
+        leaf script-type {
+          type script-type;
+          ext:support-filter "true";
+          description
+            "Specify the type of an eca script.";
+        }
+        leaf register-time {
+          type yang:date-and-time;
+          ext:support-filter "true";
+          description
+            "Specify the register time of an eca script.";
+        }
+        leaf register-status {
+          type script-register-status;
+          ext:support-filter "true";
+          description
+            "Specify the register status of an eca script.";
+        }
+        leaf register-fault-info {
+          type string {
+            length "0..75";
+          }
+          ext:support-filter "true";
+          description
+            "Specify the fault information of an eca script.";
+        }
+        leaf running-status {
+          type script-running-status;
+          ext:support-filter "true";
+          description
+            "Specify the running status of an eca script.";
+        }
+        leaf last-run-time {
+          type yang:date-and-time;
+          ext:support-filter "true";
+          description
+            "Specify the last execute time of an eca script.";
+        }
+        leaf last-run-result {
+          type script-result-type;
+          ext:support-filter "true";
+          description
+            "Specify the last run result of an eca script.";
+        }
+      }
+    }
+    container inspection-infos {
+      config false;
+      description
+        "List of eca inspection file information.";
+      list inspection-info {
+        key "name register-time";
+        description
+          "Operational state of eca inspection file information.";
+        leaf name {
+          type string {
+            length "1..63";
+          }
+          description
+            "Specify the name of an eca inspection file with json suffix.";
+        }
+        leaf register-time {
+            type yang:date-and-time; 
+            description
+              "Specify the register time of an eca inspection file.";
+        }
+        leaf status {
+          type inspection-status;
+          ext:support-filter "true";
+          description
+            "Specify the status of an eca inspection file.";
+        }
+        leaf result-file-name {
+          type string {
+            length "0..63";
+          }
+          ext:support-filter "true";
+          description
+            "Specify the file name of the last inspection result.";
+        }
+      }
+    }
+    container network-detect {
+      config false;
+      description "Statistics of network detect.";
+      container network-detect-results {
+        config false;
+        description "List of result for network detect.";
+        list network-detect-result {
+          key "detect-scenario";
+          description "Statistics of network detect.";
+          leaf detect-scenario {
+            type detect-scenario;
+            description
+            "Indicates the detect scene.";
+          }
+          leaf detect-status {
+            type enumeration {
+              enum "idle" {
+                value 0;
+                description
+                  "The status of network detect is idle.";
+              }
+              enum "running" {
+                value 1;
+                description
+                  "The status of network detect is running.";
+              }
+            }
+            description
+            "Indicates network detect status.";
+          }
+          leaf last-detect-time  {
+            type yang:date-and-time;
+            description
+              "Indicates the last detect time.";
+          }
+          container detect-items {
+            description "List of network detect.";
+            list detect-item {
+              key "item-name";
+              description "Statistics of of network detect.";
+              leaf item-name {
+                type string {
+                  length "1..63";
+                }
+                description
+                  "The name of detect item.";
+              }
+              leaf item-level {
+                type enumeration {
+                  enum "warning" {
+                    value 0;
+                    description
+                      "The risk information level of detect item is warning.";
+                  }
+                  enum "risk" {
+                    value 1;
+                    description
+                      "The risk information level of detect item is risk.";
+                  }
+                  enum "high-risk" {
+                    value 2;
+                    description
+                      "The risk information level of detect item is high risk.";
+                  }
+                }
+                description
+                  "Indicates the detect item risk level.";
+              }
+              leaf item-status {
+                type enumeration {
+                  enum "checking" {
+                    value 0;
+                    description
+                      "Detect in progress.";
+                  }
+                  enum "pass" {
+                    value 1;
+                    description
+                      "Check Passed.";
+                  }
+                  enum "fail" {
+                    value 2;
+                    description
+                      "The check item is fail.";
+                  }
+                  enum "inner-error" {
+                    value 3;
+                    description
+                      "Inner exception.";
+                  }
+                  enum "timeout" {
+                    value 4;
+                    description
+                      "Detect Timeout.";
+                  }
+                  enum "not-support" {
+                    value 5;
+                    description
+                      "The check item is not support.";
+                  }
+                }
+                description
+                  "The detect status.";
+              }
+              leaf item-type  {
+                type enumeration {
+                  enum "gateway" {
+                    value 0;
+                    description
+                      "The type of detect item is gateway.";
+                  }
+                  enum "wired" {
+                    value 1;
+                    description
+                      "The type of detect item is wired.";
+                  }
+                  enum "wireless" {
+                    value 2;
+                    description
+                      "The type of detect item is wireless.";
+                  }
+                  enum "device" {
+                    value 3;
+                    description
+                      "The type of detect item is device.";
+                  }
+                }
+                description
+                  "Indicates the detect item type.";
+              }
+              container fault-infos {
+                description
+                  "List of detect fault information.";
+                 list fault-info {
+                  key "mac-address object fault-detail-id";
+                   description
+                      "Indicates statistics for the detect fault information.";
+                   leaf mac-address {
+                     type pub-type:mac-address;
+                     description
+                       "The mac address of the device.";
+                   }
+                   leaf object {
+                     type string {
+                       length "1..127";
+                     }
+                     description
+                       "The object name of detect item.";
+                   }
+                   leaf fault-detail-id {
+                    type uint32;
+                     description
+                       "The fault detail id of detect item.";
+                   }
+                   leaf fault-detail {
+                     type string {
+                       length "1..127";
+                     }
+                     description
+                       "The fault detail of detect item.";
+                   }
+                   leaf suggestion {
+                     type uint32;
+                     description
+                       "The suggestion of detect item.";
+                   }
+                 }
+              }            
+            }            
+          }         
+        }
+      }
+    }
+    container fault-detects {
+      description
+        "List of fault detect.";
+      list fault-detect {
+        ext:operation-exclude create;
+        key "fault-mode";
+        description
+          "Configure Enable/disable to fault detect.";
+        leaf fault-mode {
+          type string {
+            length "1..63";
+          }
+          description
+            "The name of fault mode.";
+          }
+        leaf enabled { 
+          type boolean;
+          ext:dynamic-default;
+          description
+            "Enable/disable of the fault mode.";
+        }
+      }
+    }
+  }
+  rpc install-script {
+    description
+      "Install eca script.";
+    input  {
+      leaf script-type {
+        type script-type;
+        must "(.='user-defined') or (.='inspection')";
+        mandatory true;
+        description
+          "Specify the type of an eca script.";
+      }
+      leaf name {
+        type string {
+          length "1..63";
+        }
+        mandatory true;
+        description
+          "Specify the name of an eca script file with json suffix.";
+      }
+    }
+  }
+  rpc uninstall-script {
+    description
+      "Uninstall eca script.";
+    input  {
+      leaf script-type {
+        type script-type;
+        must "((.='user-defined') and (../name)) or (.='inspection')";
+        mandatory true;
+        description
+          "Specify the type of an eca script.";
+      }
+      leaf name {
+        type string {
+          length "1..63";
+        }
+        description
+          "Specify the name of an eca script file with json suffix.";
+      }
+    }
+  }
+  rpc collect-optical-info {
+    description
+      "Trigger a data collection.";
+    input  {
+      leaf collect-type {
+        type collect-type;
+        mandatory true;
+        description
+          "Specify the type of an eca script.";
+      }
+      leaf interface {
+        type string {
+          length "1..31";
+        }
+        mandatory true;
+        description
+          "Indicates the name of an interface.";
+      }
+    }
+  }
+  rpc trigger-network-detect {
+    description
+      "The trigger of network detect.";
+    input {
+      leaf operate {
+        type enumeration {
+          enum "start" {
+            value 0;
+            description
+              "Start network check.";
+          }
+          enum "cancel" {
+            value 1;
+            description
+              "Stop network check.";
+          }
+        }
+        must "not (../operate='cancel' and ../detect-scenario='quick-detection')";    
+        mandatory true;
+        description
+          "Indicates the action of a detect.";
+      }
+      leaf detect-scenario {
+        type detect-scenario;
+        mandatory true;
+        description
+          "Indicates the detect scenario.";
+      }
+    }
+  }
+}
+

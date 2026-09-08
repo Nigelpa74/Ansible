@@ -1,0 +1,103 @@
+/*
+Copyright (C) 2023 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-eula {
+  namespace "urn:huawei:yang:huawei-eula";
+  prefix eula;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains a collection of YANG definitions for managing EULA.";
+  revision 2023-10-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "eula";
+
+  typedef state-type {
+    type enumeration {
+      enum "not-signed" {
+        value 0;
+        description
+          "The EULA has not been signed.";
+      }
+      enum "manual-signed" {
+        value 1;
+        description
+          "The EULA has been manually signed.";
+      }
+      enum "auto-signed" {
+        value 2;
+        description
+          "The EULA has been automatically signed.";
+      }
+    }
+    description
+      "Enumeration of EULA signing types.";
+  }
+
+  container eula {
+    description
+      "End User License Agreement (EULA) management.";
+    container status {
+      config false;
+      description
+        "Statistics of EULA status information.";
+      leaf sign-state {
+        type state-type;
+        description
+          "The signing state of EULA.";
+      }
+      leaf user-name {
+        when "../sign-state!='not-signed'";
+        type string {
+          length "1..255";
+        }
+        description
+          "Name of the user who signs the EULA.";
+      }
+      leaf sign-date {
+        when "../sign-state!='not-signed'";
+        type yang:date-and-time;
+        description
+          "Time when the EULA is signed.";
+      }
+      leaf content {
+        when "../sign-state!='not-signed'";
+        type string {
+          length "1..255";
+        }
+        description
+          "Contents of the EULA agreement.";
+      }
+      leaf remain-day {
+        when "../sign-state='not-signed'";
+        type uint32;
+        description
+          "Remaining days before the system automatically signs the EULA.";
+      }
+    }
+  }
+
+  rpc accept-eula {
+    description
+      "Accept the End User License Agreement (EULA).";
+  }
+}

@@ -1,0 +1,354 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-cfg-notification {
+  namespace "urn:huawei:yang:huawei-cfg-notification";
+  prefix cfg-notification;
+
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-cfg-type {
+    prefix cfg-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "Notification of the Configuration management module.";
+  revision 2024-02-05 {
+    description
+      "Add cfg-config-unsaved and cfg-config-unsaved-clear notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-06-25 {
+    description
+      "Add backup-failure and backup-failure-clear notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-03-17 { 
+    description
+      "Added cfg-restore-fail type for mini-system.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-09 {
+    description
+      "Added cfg-restore-fail and cfg-restore-success notification.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-31 {
+    description
+      "Added the config-inconsistent/config-inconsistent-resume/next-startup-file-inconsistent/next-startup-file-inconsistent-resume messages.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-10-15 {
+    description
+      "Modify startup-integrity-fail-file-type.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-30 {
+    description
+      "Add flow-id-time and flow-id-terminal.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-06-25 {
+    description
+      "Add mini-system-config-recovery and mini-system-config-recovery-clear notification.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-02-10 {
+    description
+      "Add leaf of notification startup-file-integrity-fail.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2021-09-06 {
+    description
+      "Add configuration-lock notification.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2021-08-10 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef startup-integrity-fail-file-type {
+    type enumeration {
+      enum "default" {
+        value 0;
+        description
+          "Default configuration file.";
+      }
+      enum "startup" {
+        value 1;
+        description
+          "Startup configuration file.";
+      }
+      enum "next-cfg-file" {
+        value 2;
+        description
+          "Next startup configuration file.";
+      }
+      enum "next-paf-file" {
+        value 3;
+        description
+          "Next startup paf file.";
+      }
+    }
+    description
+      "Type of the startup configuration file whose integrity check fails.";
+  }
+
+  typedef cfg-restore-result-type {
+    type enumeration {
+      enum "cfg-partial-restore-failed" {
+        value 1;
+        description
+          "Failed to restore partial configurations in the configuration file.";
+      }
+      enum "cfg-open-file-failed" {
+        value 2;
+        description
+          "Failed to opent the configuration file.";
+      }
+      enum "cfg-file-not-exist" {
+        value 3;
+        description
+          "The configuration file does not exist.";
+      }
+      enum "cfg-verify-failed" {
+        value 4;
+        description
+          "Failed to verify the configuration file.";
+      }
+      enum "cfg-restore-unknown" {
+        value 5;
+        description
+          "Failed to restore configurations in the configuration file due to unknown reasons.";
+      }
+      enum "cfg-load-db-failed" {
+        value 6;
+        description
+          "Failed to load the configuration file into the database.";
+      }
+      enum "cfg-cli-unavailable" {
+        value 7;
+        description
+          "The CLI is unavailable.";
+      }
+      enum "default-cfg-verify-failed" {
+        value 9;
+        description
+          "Failed to verify the default configuration file.";
+      }
+      enum "default-cfg-restore-unknown" {
+        value 10;
+        description
+          "Failed to restore configurations in the default configuration file due to unknown reasons.";
+      }
+      enum "default-cfg-load-db-failed" {
+        value 11;
+        description
+          "Failed to load the default configuration file into the database.";
+      }
+      enum "mini-system-cfg-restore-unkown" {
+        value 12;
+        description
+          "Failed to restore configurations in the mini-system configuration file due to unknown reasons.";
+      }
+      enum "mini-system-cfg-load-db-failed" {
+        value 13;
+        description
+          "Failed to load the mini-system configuration file into the database.";
+      }
+    }
+    description
+      "Configuration restoration result type.";
+  }
+
+  ext:task-name "config";
+  notification next-startup-file-integrity-fail {
+    description
+      "Integrity check of the next startup configuration file failed.";
+  }
+
+  notification startup-file-integrity-fail {
+    description
+      "Integrity check of the startup configuration file failed.";
+    leaf startup-integrity-fail-file-type {
+      type startup-integrity-fail-file-type;
+      description
+        "Indicates the type of the startup configuration file whose integrity check fails.";
+    }
+  }
+
+  notification startup-file-integrity-fail-clear {
+    description
+      "The Integrity check of the configuration file failed alarm is manually cleared by user.";
+    leaf startup-integrity-fail-file-type {
+      type startup-integrity-fail-file-type;
+      description
+        "Indicates the type of the startup configuration file whose integrity check fails.";
+    }
+  }
+
+  notification configuration-lock {
+    description
+      "A user locks system configurations.";
+    leaf lock-username {
+      type string {
+        length "1..253";
+      }
+      description
+        "Name of a user who locks the system configuration.";
+    }
+    leaf lock-time {
+      type yang:date-and-time;
+      description
+        "Time when the system configuration is locked.";
+    }
+  }
+
+  notification configuration-unlock {
+    description
+      "A user unlocks system configurations.";
+    leaf unlock-username {
+      type string {
+        length "1..253";
+      }
+      description
+        "Name of a user who unlocks the system configuration.";
+    }
+    leaf unlock-time {
+      type yang:date-and-time;
+      description
+        "Time when the system configuration is unlocked.";
+    }
+  }
+   notification running-config-change {
+    description
+      "The running configuration was modified.";
+    leaf current-config-change-sequence-index {
+      type int32;
+      description
+        "Config sequence index.";
+    }
+    leaf config-change-reverse-count {
+      type int32;
+      description
+        "Count of config sequence index reverse.";
+    }
+    leaf config-change-table-max-index {
+      type int32;
+      description
+        "Max count of config sequence index.";
+    }
+    leaf config-baseline-time {
+      type yang:date-and-time;
+      description
+        "Baseline time of system configurations.";
+    }
+    leaf flow-id-time {
+      type yang:date-and-time;
+      description
+        "Time when the flow id has a change, for example, 2012-07-19 14:57:44 +08:00.";
+    }
+    leaf flow-id-terminal {
+      type cfg-type:terminal-type;
+      description
+        "Terminal type when the flow id has a change.";
+    }
+  }
+  notification mini-system-config-recovery {
+   description
+     "The system restores based on the minimum system configuration.";
+  }
+  notification mini-system-config-recovery-clear {
+   description
+     "The system does not restore based on the minimum system configuration.";
+  }
+  notification config-inconsistent {
+   description
+     "The running configurations on the active and standby main control boards are inconsistent.";
+  }
+  notification config-inconsistent-resume {
+   description
+     "The running configurations on the active and standby main control boards are consistent.";
+  }
+  notification next-startup-file-inconsistent {
+   description
+     "The next startup files on the active and standby main control boards are inconsistent.";
+  }
+  notification next-startup-file-inconsistent-resume {
+   description
+     "The next startup files on the active and standby main control boards are consistent.";
+  }
+  notification cfg-restore-fail {
+    leaf result {
+      type cfg-restore-result-type;
+      description
+        "Configuration restoration result.";
+    }
+   description
+     "Failed to restore the configuration.";
+  }
+  notification cfg-restore-success {
+   description
+     "The configuration was restored successfully.";
+  }
+  notification cfg-backup-failure {
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "The reason of configuration backup failure.";
+    }
+   description
+     "The configuration backup failed.";
+  }
+  notification cfg-backup-failure-clear {
+    leaf reason {
+      type string {
+        length "1..255";
+      }
+      description
+        "The reason of clear configuration backup failure.";
+    }
+   description
+     "The configuration backup succeeded.";
+  }
+  notification cfg-config-unsaved {
+   description
+     "The notification is generated when configuration changes are not saved within the specified time.";
+  }
+  notification cfg-config-unsaved-clear {
+   description
+     "The notification is generated when a new configuration file for the next startup is saved or set.";
+  }
+}

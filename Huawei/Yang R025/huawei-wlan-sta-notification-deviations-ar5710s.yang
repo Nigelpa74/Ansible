@@ -1,0 +1,49 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-sta-notification-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-sta-notification-deviations-ar5710s";
+  prefix hw-wstantf-devs-ar5710s;
+
+  import huawei-wlan-sta-notification {
+    prefix hw-wstantf;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-sta-notification module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wstantf:roam-user-exceed-threshold" {
+    deviate not-supported;
+  }
+  deviation "/hw-wstantf:roam-user-exceed-threshold-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wstantf:ap-sta-full" {
+    deviate not-supported;
+  }
+  deviation "/hw-wstantf:ap-sta-full-restore" {
+    deviate not-supported;
+  }
+  deviation "/hw-wstantf:sipfpm-user-flow-full" {
+    deviate not-supported;
+  }
+  deviation "/hw-wstantf:sipfpm-user-flow-full-restore" {
+    deviate not-supported;
+  }
+}

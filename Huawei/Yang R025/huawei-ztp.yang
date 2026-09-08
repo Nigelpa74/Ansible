@@ -1,0 +1,313 @@
+/*
+Copyright (C) 2019-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ztp {
+  namespace "urn:huawei:yang:huawei-ztp";
+  prefix ztp;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+
+  description
+    "ZTP (Zero Touch Provisioning) refers to the function of an automatically loading of version file (including system software, configuration files and patch files) used for powering on a new factory device or an empty configuration device.";
+  revision 2025-07-18 {
+    description
+      "Extend the register-center-interactions reply buffer length.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-12-02 {
+    description
+      "Increase ztp-domain-type specifications.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2024-05-09 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-12-20 {
+    description
+      "Increase register-center-interactions and bootstrap-server-interactions specifications.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2023-06-21 {
+    description
+      "Increase password specifications.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2021-04-12 {
+    description
+      "Increase password specifications.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2021-02-01 {
+    description
+      "Add ztp usb.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2020-03-04 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-02-21 {
+    description
+      "Modify description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-10-30 {
+    description
+      "Add task-name.";
+    reference
+      "Huawei private.";
+  }
+  revision 2019-09-29 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ztp";
+  typedef ztp-domain-type {
+    type enumeration {
+      enum "registration-center" {
+        value 1;
+        description
+          "Registration center domain type.";
+      }
+      enum "controller" {
+        value 2;
+        description
+          "Controller domain type.";
+      }
+    }
+    description
+      "The ztp domain type.";
+  }
+  container ztp {
+    description
+      "ZTP (Zero Touch Provisioning) refers to the function of an automatically loading of version file (including system software, configuration files and patch files) used for powering on a new factory device or an empty configuration device.";
+
+    container status {
+      config false;
+      description
+        "ZTP function status, the ZTP function for used to query the enabled state and completion state.";
+      leaf enable {
+        type boolean;
+        description
+          "ZTP function enable or disable status.";
+      }
+      leaf last {
+        type boolean;
+        description
+          "ZTP function completion status, used to record the completion of the last ZTP function.";
+      }
+      leaf pre-configuration-name {
+        type string {
+          length "1..65";
+        }
+        description
+          "ZTP function previous configuration file name.";
+      }
+    }
+
+    container usb-deployment {
+      description
+        "Configure ZTP Usb deployment, hmac verification password, and compressed file password.";
+
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable ZTP usb function status.";
+      }
+
+      leaf file-compress-password {
+        type pub-type:password-extend {
+          pattern "(%@%##.{123,143})|(%\\+%##.{123,143})|([^? ]{8,20})";
+        }
+        description
+          "ZTP usb file-compress password.";
+      }
+
+      leaf file-integrity-password {
+        type pub-type:password-extend {
+          pattern "(%@%##.{143,183})|(%\\+%##.{143,183})|([^? ]{32,64})";
+        }
+        description
+          "ZTP usb file-integrity password.";
+      }
+
+    }
+
+    container control {
+      description
+        "Configure ZTP function controller, used to control the ZTP function.";
+      leaf clear-temp-configuration {
+        type boolean;
+        description
+          "Enable/disable true to clear the temporary uplink path configuration. Set false will take no effect.";
+      }
+    }
+    container domains {
+      description
+        "List of domain, interaction with domain name during deployment.";
+      list domain {
+        key "domain-type domain-name";
+        description "Configure the domain to interact with the domain name during deployment.";
+        leaf domain-type {
+          type ztp-domain-type;
+          description
+            "Type of domain name.";
+        }
+        leaf domain-name {
+          type string {
+            length "1..63" {
+              description
+                'The string format does not support spaces. The length range is 1 to 63. It can be set to include a combination of numbers, letters, and "-", "_" or "."';
+            }
+          }
+          description
+            "Specifies the domain name of the corresponding device type.";
+        }
+        leaf port {
+          type uint32 {
+            range "10020";
+          }
+          default "10020";
+          description
+            "Specify port number.";
+        }
+      }
+    }
+  }
+  rpc query-ztp-uplink-port {
+    description
+      "Query the uplink port of ZTP temporary path configuration.";
+    output {
+      leaf ztp-uplink-port {
+        type string{
+          length "1..63";
+        }
+        description "ZTP temporary uplink port, like 'ethernetCsmacd.1.1.1'.";
+      }
+    }
+  }
+
+  rpc set-enable-status {
+    description
+      "Set ZTP enable status.";
+    input {
+      leaf enable {
+        type boolean;
+        description
+          "Enable status.";
+      }
+    }
+  }
+
+  rpc set-pre-configuration {
+    description
+      "Set ZTP previous configuration file name.";
+    input {
+      leaf file-name {
+        type string {
+          length "1..65";
+        }
+        description
+          "Previous configuration file name.";
+      }
+    }
+  }
+
+  rpc reset-pre-configuration {
+    description
+      "Reset ZTP previous configuration file name.";
+    input {
+      leaf confirm {
+        type boolean;
+        description
+          "Confirm reset.";
+      }
+    }
+  }
+  rpc register-center-interactions {
+    description
+      "Start interaction with the registration center.";
+    output  {
+      container response-result {
+        description
+          "Get execute results.";
+        leaf reply-info {
+          type string {
+            length "1..2048";
+          }
+          description
+            "Response from the registration center.";
+        }
+      }
+    }
+  }
+  rpc bootstrap-server-interactions {
+    description
+      "Set the IP address, port number, trust-state, and voucher of the Bootstrap to obtain the file to be downloaded.";
+    input  {
+      leaf server-url {
+        type string {
+          length "1..255";
+        }
+        description
+          "The URL of the remote bootstrap server.";
+      }
+      leaf trust-state {
+        type boolean;
+        description "Server trust status.";
+      }
+      leaf voucher {
+        type enumeration {
+          enum "domain-ip" {
+            value 1;
+            description
+              "Verify voucher by domain-ip.";
+          }
+          enum "esn" {
+            value 2;
+            description
+              "Verify voucher by esn.";
+          }
+        }
+        description
+          "Server voucher authentication mode.";
+      }
+    }
+  }
+}

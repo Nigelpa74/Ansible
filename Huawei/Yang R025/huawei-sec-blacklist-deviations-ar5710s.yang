@@ -1,0 +1,47 @@
+/******************************************************
+* Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+module huawei-sec-blacklist-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-sec-blacklist-deviations-ar5710s";
+  prefix huawei-sec-blacklist-devs-ar5710s;
+
+  import huawei-sec-blacklist {
+    prefix hw-sec-bls;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-sec-blacklist module.";
+
+  revision 2023-04-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-sec-bls:sec-blacklist/hw-sec-bls:destinations" {
+    deviate not-supported;
+  }
+  deviation "/hw-sec-bls:sec-blacklist/hw-sec-bls:sources" {
+    deviate not-supported;
+  }
+  deviation "/hw-sec-bls:configure-dynamic-dst-blacklist" {
+    deviate not-supported;
+  }
+  deviation "/hw-sec-bls:configure-dynamic-src-blacklist" {
+    deviate not-supported;
+  }
+  deviation "/hw-sec-bls:clear-all-dynamic-blacklist-items" {
+    deviate not-supported;
+  }
+}

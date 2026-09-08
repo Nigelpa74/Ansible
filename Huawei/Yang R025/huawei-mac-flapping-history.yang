@@ -1,0 +1,203 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mac-flapping-history {
+  namespace "urn:huawei:yang:huawei-mac-flapping-history";
+  prefix mac-flapping-history;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-mac {
+    prefix mac;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Mac flapping history records.";
+  revision 2022-05-06 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  augment "/mac:mac" { 
+    description
+      "The Mac flapping history configurations.";
+    container active-flaps {
+      config false;
+      description
+        "List of displayed fwm mac flapping active info.";
+      list active-flap {
+        key "slot";
+        description
+          "Statistics of displayed fwm mac flapping active info.";
+        leaf slot {
+          type string {
+            length "1..24";
+          }
+          description
+            "Slot ID.";
+        }
+        leaf start-time {
+          type yang:date-and-time;
+          description
+            "Mac flapping start time.";
+        }
+        leaf end-time {
+          type yang:date-and-time;
+          description
+            "Mac flapping end time.";
+        }
+        leaf mac {
+          type pub-type:mac-address {
+            length "0..255";
+          }
+          description
+            "MAC address.";
+        }
+        leaf broadcast-id {
+          type uint32;
+          description
+            "Broadcast ID.";
+        }
+        leaf broadcast-type {
+          type enumeration {
+            enum "VLAN" {
+              value 0;
+              description
+                "Virtual Local Area Network.";
+            }
+            enum "BD" {
+              value 1;
+              description
+                "Bridge Domain.";
+            }
+          }
+          description
+            "Broadcast domain type.";
+        }
+        leaf first-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The first port of mac flapping.";
+        }
+        leaf second-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The second port of mac flapping.";
+        }
+        leaf third-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The third port of mac flapping.";
+        }
+        leaf move-num {
+          type uint16;
+          description
+            "The times of mac flapping.";
+        }
+      }
+    }
+    container aged-flaps {
+      config false;
+      description
+        "List of displayed fwm mac flapping aged info.";
+      list aged-flap {
+        key "slot";
+        description
+          "Statistics of displayed fwm mac flapping aged info.";
+        leaf slot {
+          type string {
+            length "1..24";
+          }
+          description
+            "Slot ID.";
+        }
+        leaf start-time {
+          type yang:date-and-time;
+          description
+            "Mac flapping start time.";
+        }
+        leaf end-time {
+          type yang:date-and-time;
+          description
+            "Mac flapping end time.";
+        }
+        leaf mac {
+          type pub-type:mac-address {
+            length "0..255";
+          }
+          description
+            "MAC address.";
+        }
+        leaf broadcast-id {
+          type uint32;
+          description
+            "Broadcast ID.";
+        }
+        leaf broadcast-type {
+          type enumeration {
+            enum "VLAN" {
+              value 0;
+              description
+                "Virtual Local Area Network.";
+            }
+            enum "BD" {
+              value 1;
+              description
+                "Bridge Domain.";
+            }
+          }
+          description
+            "Broadcast domain type.";
+        }
+        leaf first-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The first port of mac flapping.";
+        }
+        leaf second-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The second port of mac flapping.";
+        }
+        leaf third-port {
+          type string {
+            length "1..40";
+          }
+          description
+            "The third port of mac flapping.";
+        }
+        leaf move-num {
+          type uint16;
+          description
+            "The times of mac flapping.";
+        }
+      }
+    }
+  }
+  ext:task-name "mac";
+}

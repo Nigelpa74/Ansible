@@ -1,0 +1,166 @@
+/*
+Copyright (C) 2021 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-tty-notification {
+  namespace "urn:huawei:yang:huawei-tty-notification";
+  prefix tty-notification;
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "Notification of tty.";
+
+  revision 2021-10-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  ext:task-name "tty";
+  notification user-login-fail {
+    description
+      "A user login failed. UserIndex= Username Index, UserName= User name, UserIP= Source Ip address, UserChannel= VTY slot name AuthType = Authentication mode (aaa or password), VpnInstanceName = Source Vpn Name.";
+    leaf user-index {
+      type uint32;
+      description
+        "Indicates the index of an user.";
+    }
+    leaf user-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the user name.";
+    }
+    leaf user-ip {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source IP address.";
+    }
+    leaf user-channel {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the VTY slot name.";
+    }
+    leaf auth-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the authentication mode. It can be either aaa or password.";
+    }
+    leaf vpn-instance-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source VPN instance name.";
+    }
+  }
+  notification user-login {
+    description
+      "User login successful. UserIndex= Username Index, UserName= User name, UserIP= Source Ip address, UserChannel= VTY slot name AuthType = Authentication mode (aaa or password), VpnInstanceName = Source Vpn Name.";
+    leaf user-index {
+      type uint32;
+      description
+        "Indicates the index of an user.";
+    }
+    leaf user-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the user name.";
+    }
+    leaf user-ip {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source IP address.";
+    }
+    leaf user-channel {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the VTY slot name.";
+    }
+    leaf auth-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the authentication mode. It can be either aaa or password.";
+    }
+    leaf vpn-instance-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source VPN instance name.";
+    }
+  }
+  notification user-logout {
+    description
+      "A user is logout. UserIndex= Username Index, UserName= User name, UserIP= Source Ip address, UserChannel= VTY slot name, AuthType = Authentication mode (aaa or password), VpnInstanceName = Source Vpn Name.";
+    leaf user-index {
+      type uint32;
+      description
+        "Indicates the index of an user.";
+    }
+    leaf user-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the user name.";
+    }
+    leaf user-ip {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source IP address.";
+    }
+    leaf user-channel {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the VTY slot name.";
+    }
+    leaf auth-type {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the authentication mode. It can be either aaa or password.";
+    }
+    leaf vpn-instance-name {
+      type string {
+        length "1..255";
+      }
+      description
+        "Indicates the source VPN instance name.";
+    }
+  }
+}

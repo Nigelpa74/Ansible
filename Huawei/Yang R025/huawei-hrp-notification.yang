@@ -1,0 +1,130 @@
+/*
+Copyright (C) 2021-2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-hrp-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-hrp-notification";
+  prefix hrp-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of hrp-notification.";
+  revision 2022-10-11 {
+    description
+      "Add two notifications and a role change reason.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-05-09 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  notification role-change {
+    description
+      "The HRP status changes.";
+    leaf reason {
+      type string {
+        length "1..256";
+      }
+      description
+        "Cause of the HRP status change. The possible values are as follows: - HRP is enabled: HRP is enabled. - HRP is disabled: HRP is disabled. - HRP hello packet negotiation succeeded: indicates that HRP-based negotiation succeeds. - HRP hello packet negotiation failed: indicates that the negotiation of HRP packets fails. - Local priority changed: The local priority changed. - Peer priority changed: The priority of the peer changed. - Prefered role changed: Indicates that prefered role changed.";
+    }
+    leaf old-state {
+      type string {
+        length "1..256";
+      }
+      description
+        "Old HRP status. The values are as follows: - initial: initialization - active: active state - standby: standby state - load sharing (primary): load balancing (primary state) - load sharing (secondary): load balancing (standby state).";
+    }
+    leaf new-state {
+      type string {
+        length "1..256";
+      }
+      description
+        "Current HRP status. The value can be: - initial: initialization - active: active state - standby: standby state - load sharing (primary): load balancing (primary state) - load sharing (secondary): load balancing (standby state).";
+    }
+    leaf local-fault-indicator {
+      type int32;
+      description
+        "Local HRP fault coefficient.";
+    }
+    leaf peer-fault-indicator {
+      type int32;
+      description
+        "HRP fault coefficient of the peer end.";
+    }
+    leaf local-robustness-indicator {
+      type int32;
+      description
+        "Local HRP robustness variable.";
+    }
+    leaf peer-robustness-indicator {
+      type int32;
+      description
+        "Robustness variable of the peer HRP.";
+    }
+  }
+  notification device-id {
+    description
+      "The heartbeat status of the high availability system is abnormal.";
+    leaf trap-link-state {
+      type string {
+        length "1..256";
+      }
+      description
+        "Connection status of dual-system hot backup.";
+    }
+    leaf trap-local-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "MAC address of the management network port on the local device.";
+    }
+    leaf trap-peer-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "MAC address of the management network port on the remote device.";
+    }
+  }
+  notification device-id-recover {
+    description
+      "The heartbeat status of the high availability system is restored.";
+    leaf trap-link-state {
+      type string {
+        length "1..256";
+      }
+      description
+        "Connection status of dual-system hot backup.";
+    }
+    leaf trap-local-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "MAC address of the management network port on the local device.";
+    }
+    leaf trap-peer-id {
+      type string {
+        length "1..256";
+      }
+      description
+        "MAC address of the management network port on the remote device.";
+    }
+  }
+  	ext:task-name "hrp";
+}

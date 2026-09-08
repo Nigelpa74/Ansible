@@ -1,0 +1,85 @@
+/*
+Copyright (C) 2021-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-vlan-pool {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-vlan-pool";
+  prefix vlan-pool;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-vlan {
+    prefix vlan;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "VLAN pool management.";
+  revision 2024-03-08 {
+    description
+      "Add string pattern.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-19 {
+    description
+      "Update description.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-11-07 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "vlan";
+
+  augment "/vlan:vlan" {
+    description
+      "VLAN pools configuration.";
+    container vlan-pools {
+      description "List of VLAN pools.";
+      list vlan-pool {
+        key "name";
+        max-elements 128;
+        description "Configure VLAN pool.";
+        leaf name {
+          type string {
+            length "1..31";
+            pattern '(".+"|"*[^ "]+"*)';
+          }
+          description "The name of VLAN pool.";
+        }
+        leaf vlan-list {
+          type pub-type:vlan-range;
+          description "The VLAN's configurations of VLAN pool. VLANs must be created before being added to VLAN pool.";
+        }
+        leaf assignment-method {
+          type enumeration {
+            enum hash {
+              value 1;
+              description "Hash allocation.";
+            }
+            enum even {
+              value 2;
+              description "Sequential allocation.";
+            }
+          }
+            default "hash";
+            description "Allocation algorithm of VLAN pool.";
+        }
+      }
+    }
+  }
+}

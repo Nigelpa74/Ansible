@@ -1,0 +1,69 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-multicast-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-multicast-deviations-ar5710s";
+  prefix mc-devs-ar5710s;
+
+  import huawei-multicast {
+    prefix mc;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-multicast module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef rmbase-af-type-deviations {
+    type enumeration {
+      enum ipv4unicast {
+        value 0;
+        description
+          "IPv4 unicast.";
+      }
+    }
+    description
+      "Address family.";
+  }
+
+  deviation "/mc:multicast/mc:global" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:invalid-packet-max-count/mc:ipv4/mc:mvpn-packets" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:invalid-packet-max-count/mc:ipv4/mc:igmp-snooping-packets" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:invalid-packet-max-count/mc:ipv6" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:global-outgoing-interface-limit-counts" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:session-car" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:micro-isolation-car" {
+    deviate not-supported;
+  }
+  deviation "/mc:multicast/mc:ssm-mapping-policys/mc:ssm-mapping-policy/mc:address-family" {
+    deviate replace {
+      type mc-devs-ar5710s:rmbase-af-type-deviations;
+    }
+  }
+}

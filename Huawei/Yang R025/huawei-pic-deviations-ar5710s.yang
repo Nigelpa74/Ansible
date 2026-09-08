@@ -1,0 +1,1101 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-pic-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-pic-deviations-ar5710s";
+  prefix pic-devs-ar5710s;
+
+  import huawei-pic {
+    prefix pic;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-driver {
+    prefix driver;
+  }
+  import huawei-ifm-trunk {
+    prefix ifm-trunk;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-license {
+    prefix lcs;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-pic module.";
+
+  revision 2025-02-24 {
+    description
+      "The deviations of the huawei-pic module were modified.";
+    reference "Huawei private.";
+  }
+  revision 2023-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef fec-mode-type-deviations {
+    type enumeration {
+      enum none {
+        value 0;
+        description
+          "None.";
+      }
+      enum rs-fec {
+        value 10;
+        description
+          "Rs fec mode.";
+      }
+      enum rs544-fec {
+        value 11;
+        description
+          "Rs544 fec mode.";
+      }
+      enum base-r-fec {
+        value 12;
+        description
+          "Base-r fec mode.";
+      }
+      enum na {
+        value 13;
+        description
+          "Not support fec mode.";
+      }
+    }
+    description
+      "Port fec mode type.";
+  }
+
+  typedef flowctl-type-deviations {
+    type enumeration {
+      enum all-enabled {
+        value 3;
+        description
+          "All Enabled.";
+      }
+      enum receive-enabled {
+        value 1;
+        description
+          "Receive Enabled.";
+      }
+      enum send-enabled {
+        value 2;
+        description
+          "Send Enabled.";
+      }
+      enum all-disabled {
+        value 0;
+        description
+          "All Disabled.";
+      }
+    }
+    description
+      "Flow control method of an Ethernet port.";
+  }
+
+  typedef port-negotiation-mode-type-deviations {
+    type enumeration {
+      enum slave {
+        value 0;
+        description
+          "Slave.";
+      }
+      enum auto {
+        value 2;
+        description
+          "Auto.";
+      }
+      enum master {
+        value 3;
+        description
+          "Master.";
+      }
+      enum slave-priority {
+        value 4;
+        description
+          "Slave priority.";
+      }
+      enum master-priority {
+        value 5;
+        description
+          "Master priority.";
+      }
+    }
+    description
+      "Port negotiation mode type.";
+  }
+
+  typedef eth-duplex-auto-type-deviations {
+    type enumeration {
+      enum half {
+        value 1;
+        description
+          "Half duplex.";
+      }
+      enum full {
+        value 2;
+        description
+          "Full duplex.";
+      }
+    }
+    description
+      "Duplex-auto type.";
+  }
+
+  typedef eth-speed-type-deviations {
+    type enumeration {
+      enum 10M {
+        value 0;
+        description
+          "Configure 10M.";
+      }
+      enum 100M {
+        value 1;
+        description
+          "Configure 100M.";
+      }
+      enum 1000M {
+        value 2;
+        description
+          "Configure 1000M.";
+      }
+      enum 10G {
+        value 6;
+        description
+          "Configure 10G.";
+      }
+      enum 40G {
+        value 7;
+        description
+          "Configure 40G.";
+      }
+      enum auto {
+        value 9;
+        description
+          "Auto.";
+      }
+      enum 2.5G {
+        value 15;
+        description
+          "Configure 2.5G.";
+      }
+      enum 5G {
+        value 17;
+        description
+          "Configure 5G.";
+      }
+      enum 10GE-GE-AUTO {
+        value 40;
+        description
+          "Configure 10GE-GE-AUTO.";
+      }
+      enum 25GE-GE-AUTO {
+        value 41;
+        description
+          "Configure 25GE-GE-AUTO.";
+      }
+      enum 2.5G-MODE {
+        value 42;
+        description
+          "Configure 2.5G-MODE.";
+      }
+    }
+    description
+      "Speed type.";
+  }
+
+  typedef panel-split-ports-split-type-deviations {
+    type enumeration {
+      enum 4X10GE {
+        value 1;
+        description
+          "Four 10G optical fiber ports.";
+      }
+      enum 4X25GE {
+        value 22;
+        description
+          "Four 25G optical fiber ports.";
+      }
+      enum 2X50GE {
+        value 24;
+        description
+          "Two 50G optical fiber ports.";
+      }
+      enum 4X50GE {
+        value 25;
+        description
+          "Four 50G optical fiber ports.";
+      }
+      enum 2X100GE {
+        value 26;
+        description
+          "Two 100G optical fiber ports.";
+      }
+      enum 4X100GE {
+        value 27;
+        description
+          "Four 100G optical fiber ports.";
+      }
+      enum 2X200GE {
+        value 28;
+        description
+          "Two 200G optical fiber ports.";
+      }
+      enum 2X400GE {
+        value 43;
+        description
+          "Two 400G optical fiber ports.";
+      }
+      enum 4X200GE {
+        value 45;
+        description
+          "Four 200G optical fiber ports.";
+      }
+    }
+    description
+      "Enum of split type.";
+  }
+
+  typedef port-trans-mode-type-deviations {
+    type enumeration {
+      enum lan-mode {
+        value 0;
+        description
+          "LAN Mode.";
+      }
+      enum otn-mode {
+        value 2;
+        description
+          "OTN Mode.";
+      }
+    }
+    description
+      "Port transmit mode type.";
+  }
+
+  typedef switch-type-deviations {
+    type enumeration {
+      enum DEFAULT {
+        value 0;
+        description
+          "Switch port default.";
+      }
+      enum 25GETO50GE {
+        value 2;
+        description
+          "Switch port from 25GE to 50GE.";
+      }
+      enum 40GETO100GE {
+        value 3;
+        description
+          "Switch port from 40GE to 100GE.";
+      }
+      enum 100GETO40GE {
+        value 4;
+        description
+          "Switch port from 100GE to 40GE.";
+      }
+      enum 100GETO200GE {
+        value 5;
+        description
+          "Switch port from 100GE to 200GE.";
+      }
+      enum GETO10GE {
+        value 6;
+        description
+          "Switch port from GE to 10GE.";
+      }
+    }
+    description
+      "Port switch type.";
+  }
+
+  deviation "/pic:pic/pic:port-statistics" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:panel-split-ports/pic:panel-split-port/pic:related-ports" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:tad-trans-alarm-if-downs" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:auto-clears" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:alarm-ais-inserts" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:port-extends" {
+    deviate not-supported;
+  }
+  deviation "/pic:laser-turn/pic:input/pic:laser-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/pic:laser-turn/pic:input/pic:laser-test-time" {
+    deviate not-supported;
+  }
+  deviation "/pic:attr-abort" {
+    deviate not-supported;
+  }
+  deviation "/pic:attr-start" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-crc-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-input-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-output-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-sdh-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-symbol-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-trans-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:clear-port-rx-pause-err-alarm" {
+    deviate not-supported;
+  }
+  deviation "/pic:test-local-loopback" {
+    deviate not-supported;
+  }
+  deviation "/pic:set-port-extend" {
+    deviate not-supported;
+  }
+  deviation "/pic:restart-flow-change-check" {
+    deviate not-supported;
+  }
+  deviation "/pic:reset-link-flap-statistic" {
+    deviate not-supported;
+  }
+  deviation "/pic:upgrade-trusted-optical-module" {
+    deviate not-supported;
+  }
+  deviation "/pic:abort-upgrade-trusted-optical-module" {
+    deviate not-supported;
+  }
+  deviation "/pic:get-upgrade-trusted-optical-module-info" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:hold-off-timer" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:hold-up-timer" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:up-hold-time" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:crc-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:symbol-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:input-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:output-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:sdh-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:bip8-sd-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:badbytes-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:optical-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:device-transceiver-force-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:tx-pause-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:loopback-clear" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:loopback-clear-period" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:port-down-laser-shut-log-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:optical-certified-alarm" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:optical-certified-down" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:optical-alarm-std-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:port-bandwidth-type" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:driver-mode" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:speed-downgrade" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:cpos-mix-service-mode-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:fall-flow-change-enable" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:fall-flow-change-remain-time" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:shutdown-inactive-port" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:flow-change-rx-threshold" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:flow-change-tx-threshold" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:flow-change-fall-rx-threshold" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:flow-change-fall-tx-threshold" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:flow-change-fall-start-bandwidth-ratio" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/pic:jumbo-frame/pic:max-non-jumbo-frame" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:card-tdm-param" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:service-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:em-set" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:service-switch" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:queue-priority" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:frame-format" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:process-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:port-group-modes" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:cmu-switchs" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:panel-slots" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:cards/devm:card/pic:invalid-ports" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:speed-switch-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:bit-error" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:trigger-time" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:trigger-time-type" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:tx-power-cfg-type" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:tx-power-target-value" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:eth-fec-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-pre-alm-thrc" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-pre-alm-thrp" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-pre-rsum-thrc" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-pre-rsum-thrp" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:gf-media-type" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:device-transceiver-type" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:hold-up" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:ipg" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:mru" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:mac-itf-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:switch-speed" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:promiscuous-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:flexphy-speed" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:attenuation" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:local-fault-status" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:romote-fault-status" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:remote-fault" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:los-trap-down-hold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:down-filter" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:link-flap-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:link-flap-resume-threshold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:combo" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:eth-wan-attr" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fall-flow-change" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-error-statistics/pic:bit0-error-count" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-error-statistics/pic:bit1-error-count" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-error-statistics/pic:bit0-and-bit1-error-count" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-error-statistics/pic:symbol-error-count" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-error-statistics/pic:pre-fec" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:local-loopback-result" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:b1tca" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:b2tca" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:b3tca" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:link-flap-statistic-infos" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:rx-high-power-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:rx-low-power-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tx-high-power-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tx-low-power-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:volt-high-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:volt-low-warn-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:wave-modulation-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable-wavelength-unit" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable-frequency-unit" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable-frequency-spacing" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:signal-dqpsk" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:signal-dqpsk-tx" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:signal-dqpsk-rx" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:gain-power" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:optical-mode" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tx-power" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:rx-power" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:chromatic-dispersion" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:polarization-mode-dispersion" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:direction-type" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:total-rx-power" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:total-rx-high-warn" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:total-rx-low-warn" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:total-rx-high-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:total-rx-low-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:bias" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:voltage" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:temperature" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:vendor-oui" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:vendor-rev" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:gpon-sn" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:wavelength-channel-number-status" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:agc-effective-value" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:apc-effective-value" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:optical-mode-status" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:channels/pic:channel/pic:wavelength" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:channels/pic:channel/pic:temperature" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:channels/pic:channel/pic:chromatic-dispersion" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:channels/pic:channel/pic:polarization-mode-dispersion" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:wave-mapping/pic:wave-map/pic:wavelength-channel" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:optical-statistic" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:edfas" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:powers" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:pos" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:atm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:cpos" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:e1t1" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:e3t3" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:phy-serial" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:phy-voice" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:adm-port" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:crc-enabled-down" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:input-enabled-down" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:input-error-high-threshold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:input-error-low-threshold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:input-error-interval" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:output-enabled-down" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:output-error-high-threshold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:output-error-low-threshold" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:output-error-interval" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:phy-updown-en" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:crc-per-cur" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:eth-port-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:sdh-port-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:pdh-port-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:crc-mfe-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:crc-sample" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-error-threshold/pic:crc-error-threshold/pic:crc-error-high" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-error-threshold/pic:crc-error-threshold/pic:crc-error-low" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-error-threshold/pic:crc-error-threshold/pic:crc-error-percent-alm-thr" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:link-crc" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-mfs-alarm" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:transmission-alarm" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/pic:fec-error-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:mib-statistics/pic:crc-error-statistics" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/lcs:license-items/lcs:license-item/pic:lcs-ports" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:lcs-ports" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:upgrade-ports" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:flexe-ports" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:expand-ports" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:rtus" {
+    deviate not-supported;
+  }
+  deviation "/lcs:license/pic:rtu-extends" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/pic:cmac-padding" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/pic:cmac-padding" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/pic:queue-priority" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:chassiss/devm:chassis/pic:traffic-statistic" {
+    deviate not-supported;
+  }
+  deviation "/pic:pic/pic:panel-split-ports/pic:panel-split-port/pic:split-type" {
+    deviate replace {
+      type pic-devs-ar5710s:panel-split-ports-split-type-deviations;
+    }
+  }
+  deviation "/pic:pic/pic:panel-switch-ports/pic:panel-switch-port/pic:switch-type" {
+    deviate replace {
+      type pic-devs-ar5710s:switch-type-deviations;
+    }
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:down-hold-time" {
+    deviate replace {
+      type uint32 {
+        range "0..3600000";
+      }
+    }
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:non-certified-optical-status-alarm" {
+    deviate replace {
+      type devm:switch-status-type;
+    }
+    deviate replace {
+      default "enable";
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/ifm-trunk:trunk/pic:jumbo-frame/pic:max-jumbo-frame" {
+    deviate delete {
+      must '../max-jumbo-frame >= ../max-non-jumbo-frame';
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:speed" {
+    deviate replace {
+      type pic-devs-ar5710s:eth-speed-type-deviations;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:duplex-auto" {
+    deviate replace {
+      type pic-devs-ar5710s:eth-duplex-auto-type-deviations;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:negotiation-mode" {
+    deviate replace {
+      type pic-devs-ar5710s:port-negotiation-mode-type-deviations;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:down-hold-time" {
+    deviate replace {
+      type uint32 {
+        range "0..3600000";
+      }
+    }
+    deviate add {
+      default "0";
+    }
+    deviate delete {
+      must "not(../trans-mode) or (../trans-mode and ../trans-mode!='otn-mode' and ../trans-mode!='wan-mode')";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:up-hold-time" {
+    deviate replace {
+      type uint32 {
+        range "0..3600000";
+      }
+    }
+    deviate add {
+      default "0";
+    }
+    deviate delete {
+      must "not(../trans-mode) or (../trans-mode and ../trans-mode!='otn-mode' and ../trans-mode!='wan-mode')";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:trans-mode" {
+    deviate replace {
+      type pic-devs-ar5710s:port-trans-mode-type-deviations;
+    }
+    deviate replace {
+      config false;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fec-mode" {
+    deviate replace {
+      type pic-devs-ar5710s:fec-mode-type-deviations;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:jumbo-frame" {
+    deviate replace {
+      type uint32 {
+        range "1518..15560";
+      }
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:flowctl" {
+    deviate replace {
+      type pic-devs-ar5710s:flowctl-type-deviations;
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:peer-identity" {
+    deviate replace {
+      type string {
+        length "1..507";
+      }
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:auto-downgrade" {
+    deviate delete {
+      default "disable";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:laser/pic:open-time" {
+    deviate replace {
+      type uint32 {
+        range "2..200";
+      }
+    }
+    deviate replace {
+      units "s";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:laser/pic:close-time" {
+    deviate replace {
+      type uint32 {
+        range "100..20000";
+      }
+    }
+    deviate replace {
+      units "s";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:wavelength-channel-number" {
+    deviate replace {
+      type uint32 {
+        range "1..96";
+      }
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable-wavelength" {
+    deviate replace {
+      units "pm";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:tunable-frequency" {
+    deviate replace {
+      units "MHz";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:manufacture-date" {
+    deviate replace {
+      type string {
+        pattern '\d{4}-\d{1,2}-\d{1,2}';
+      }
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:optical-module/pic:wave-mapping/pic:wave-map/pic:wavelength" {
+    deviate replace {
+      units "pm";
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-error-threshold/pic:crc-error-threshold/pic:crc-error-interval" {
+    deviate replace {
+      type uint32 {
+        range "10..65535";
+      }
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:port-alarm/pic:alarm-type/pic:crc-error-threshold/pic:crc-error-threshold/pic:crc-shutdown-en" {
+    deviate replace {
+      type devm:switch-status-type;
+    }
+    deviate delete {
+      must 'not(../crc-error-percent-alm-thr)';
+    }
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:fault-detect" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:ports/devm:port/pic:ethernet/pic:mdi" {
+    deviate not-supported;
+  }
+  deviation "/pic:port-prbs-check-start" {
+    deviate not-supported;
+  }
+  deviation "/pic:port-prbs-check-stop" {
+    deviate not-supported;
+  }
+  deviation "/pic:port-prbs-check-result-get" {
+    deviate not-supported;
+  }
+  deviation "/driver:driver/driver:global-attribute/pic:global/pic:high-frequency-update" {
+    deviate not-supported;
+  }
+}

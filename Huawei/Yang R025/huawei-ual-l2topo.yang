@@ -1,0 +1,1069 @@
+/*
+Copyright (C) 2024-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ual-l2topo {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-ual-l2topo";
+  prefix ual-l2topo;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import huawei-ual {
+    prefix ual;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Ubiquitous autonomy link configurations.";
+  revision 2025-09-10 {
+    description
+      "Add nodes for reboot device.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-04-20 {
+    description
+      "Add nodes for erps calculation.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-21 {
+    description
+      "Add nodes for topo service and device role.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-20 {
+    description
+      "Add nodes for board esn.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-02-12 {
+    description
+      "Modify the description of service information.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-29 {
+    description
+      "Add nodes for stack members.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-11-28 {
+    description
+      "Add rpc sync-physical-topo-info.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-08-20 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef device-status {
+    type enumeration {
+      enum "online" {
+        value 0;
+        description
+          "Online.";
+      }
+      enum "offline" {
+        value 1;
+        description
+          "Offline.";
+      }
+    }
+    description
+      "UAL device status.";
+  }
+  typedef device-type {
+    type enumeration {
+      enum "lsw" {
+        value 0;
+        description
+          "The device type is LSW.";
+      }
+      enum "ar" {
+        value 1;
+        description
+          "The device type is AR.";
+      }
+      enum "ap" {
+        value 2;
+        description
+          "The device type is AP.";
+      }
+      enum "ac" {
+        value 3;
+        description
+          "The device type is AC.";
+      }
+      enum "phone" {
+        value 4;
+        description
+          "The device type is PHONE.";
+      }
+      enum "unknown" {
+        value 5;
+        description
+          "The device type is unknown.";
+      }
+      enum "fw" {
+        value 6;
+        description
+          "The device type is FW.";
+      }
+      enum "built-in-ap" {
+        value 7;
+        description
+          "The device type is built-in AP.";
+      }
+    }
+    description
+      "The type of the device.";
+  }
+  typedef link-status {
+    type enumeration {
+      enum "up" {
+        value 0;
+        description
+          "Link status is up.";
+      }
+      enum "down" {
+        value 1;
+        description
+          "Link status is down.";
+      }
+      enum "unknown" {
+        value 2;
+        description
+          "Link status is unknown.";
+      }
+    }
+    description
+      "Link status of the interface.";
+  }
+  typedef data-source {
+    type enumeration {
+      enum "north" {
+        value 0;
+        description
+          "The source is north interface.";
+      }
+      enum "ual" {
+        value 1;
+        description
+          "The source is UAL.";
+      }
+    }
+    description
+      "Specifies how the data was discovered.";
+  }
+  typedef ac-role {
+    type enumeration {
+      enum "ac" {
+        value 2;
+        description
+          "The device role is AC.";
+      }
+    }
+    description
+      "Specify AC role and notify UAL.";
+  }
+  typedef opcode-type {
+    type enumeration {
+      enum "new" {
+        value 0;
+        description
+          "New.";
+      }
+      enum "update" {
+        value 1;
+        description
+          "Update.";
+      }
+      enum "delete" {
+        value 2;
+        description
+          "Delete.";
+      }
+      enum "abnormal" {
+        value 3;
+        description
+          "Abnormal.";
+      }
+    }
+    description
+      "Opcode type.";
+  }
+  typedef abnormal-reason {
+    type enumeration {
+      enum "normal" {
+        value 0;
+        description
+          "Normal status.";
+      }
+      enum "invalid-topo" {
+        value 1;
+        description
+          "Invalid topo.";
+      }
+      enum "unsupport-member" {
+        value 2;
+        description
+          "Unsupport network member.";
+      }
+      enum "linkdown" {
+        value 3;
+        description
+          "Linkdown.";
+      }
+      enum "invalid-para" {
+        value 4;
+        description
+          "Invalid parameter.";
+      }
+      enum "unused-ring" {
+        value 5;
+        description
+          "Unused ring.";
+      }
+      enum "unsupport-multi-rings" {
+        value 6;
+        description
+          "Unsupport multiple rings.";
+      }
+    }
+    description
+      "Abnormal reason.";
+  }
+
+  typedef erps-port-role {
+    type enumeration {
+      enum "common" {
+        value 0;
+        description
+          "Common port.";
+      }
+      enum "neighbour" {
+        value 1;
+        description
+          "RPL neighbour port.";
+      }
+      enum "owner" {
+        value 2;
+        description
+          "RPL owner port.";
+      }
+    }
+    description
+      "ERPS port role.";
+  }
+
+  rpc sync-physical-topo-info {
+    description
+      "Refresh network physical topology information.";
+  }
+  rpc reboot-device-mac-info {
+    description
+      "Reboot device MAC information.";
+    input {
+      leaf mac-address {
+        type pub-type:mac-address;
+        description
+          "The MAC address of the device.";
+      }
+    }
+  }
+  augment /ual:ual {
+    description
+      "Configure UAL.";
+    container l2topo {
+      description
+        "Configure UAL l2topo.";
+      container topo-service-devices {
+        description
+          "List of devices granted.";
+        list topo-service-device {
+          key "mac-address";
+          description
+            "Configure the device granted.";
+          leaf mac-address {
+            type pub-type:mac-address;
+            description
+              "The MAC address of the device.";
+          }
+        }
+      }
+      container device-roles {
+        description
+          "List of device roles.";
+        list device-role {
+          key "mac-address";
+          description
+            "Configure device role.";
+          leaf mac-address {
+            type pub-type:mac-address;
+            description
+              "The MAC of the device.";
+          }
+          leaf role-flag {
+            type ac-role;
+            description
+              "Specify AC role.";
+          }
+        }
+      }
+      container device-infos {
+        config false;
+        description
+          "List of device-info.";
+        list device-info {
+          key "mac-address";
+          description
+            "Operational state of device info.";
+          leaf mac-address {
+            type pub-type:mac-address;
+            description
+              "MAC address of the device.";
+          }
+          leaf device-type {
+            type device-type;
+            description
+              "The type of the device.";
+          }
+          leaf model {
+            type string {
+              length "1..64";
+            }
+            description
+              "The model of the device.";
+          }
+          leaf sn {
+            type string {
+              length "1..64";
+            }
+            description
+              "The SN of the device.";
+          }
+          leaf ip {
+            type inet:ip-address-no-zone;
+            description
+              "The IP address of the device.";
+          }
+          leaf software-version {
+            type string {
+              length "1..64";
+            }
+            description
+              "The software version of the device.";
+          }
+          leaf patch-version {
+            type string {
+              length "1..64";
+            }
+            description
+              "The patch version of the device.";
+          }
+          leaf state {
+            type device-status;
+            description
+              "The state of the device.";
+          }
+          leaf os-type {
+            type enumeration {
+              enum "other" {
+                value 0;
+                description
+                  "The OS type is other.";
+              }
+              enum "yunshan" {
+                value 1;
+                description
+                  "The OS type is YUNSHAN.";
+              }
+              enum "yunshan-lite" {
+                value 2;
+                description
+                  "The OS type is YUNSHAN LITE.";
+              }
+              enum "liteos" {
+                value 3;
+                description
+                  "The OS type is LITEOS.";
+              }
+              enum "vrpv5" {
+                value 4;
+                description
+                  "The OS type is VRPV5.";
+              }
+            }
+            description
+              "The OS type of the device.";
+          }
+          leaf capability {
+            type bits {
+              bit lc {
+                position 0;
+                description
+                  "Local controller capability.";
+              }
+              bit service-gw {
+                position 1;
+                description
+                  "Service gateway capability.";
+              }
+              bit admin-gw {
+                position 2;
+                description
+                  "Admin gateway capability.";
+              }
+              bit wac {
+                position 3;
+                description
+                  "WAC capability.";
+              }
+            }
+            description
+              "The capabilities of the device.";
+          }
+          leaf source {
+            type data-source;
+            description
+              "Specifies how the device was discovered.";
+          }
+          leaf service-cap {
+            type bits {
+              bit is-support-phylink-svc {
+                position 0;
+                description
+                  "Physical-link report capability.";
+              }
+              bit is-support-intf-svc {
+                position 1;
+                description
+                  "Interface report capability.";
+              }
+              bit is-support-stack-svc {
+                position 2;
+                description
+                  "Stack info report capability.";
+              }
+              bit is-support-dts-svc {
+                position 3;
+                description
+                  "DTS capability.";
+              }
+              bit is-support-ethtrunk-svc {
+                position 4;
+                description
+                  "Eth-trunk capability.";
+              }
+            }
+            description
+              "The service capabilities of the component.";
+          }
+          leaf work-mode {
+            type enumeration {
+              enum "unknown" {
+                value 0;
+                description
+                  "Unknown work mode.";
+              }
+              enum "fit-mode" {
+                value 1;
+                description
+                  "Work mode is fit mode.";
+              }
+              enum "fat-mode" {
+                value 2;
+                description
+                  "Work mode is fat mode.";
+              }
+              enum "cloud-mode" {
+                value 3;
+                description
+                  "Work mode is cloud mode.";
+              }
+              enum "router-mode" {
+                value 4;
+                description
+                  "Work mode is router mode.";
+              }
+            }
+            description
+              "The work mode of the device.";
+          }
+          container ap-info {
+            when "../device-type = 'ap'";
+            description
+              "Operational state of AP info.";
+            leaf ap-id {
+              type uint32;
+              description
+                "AP ID.";
+            }
+            leaf ap-type-id {
+              type uint32;
+              description
+                "AP type ID.";
+            }
+            leaf ap-work-mode {
+              type enumeration {
+                enum "unknown" {
+                  value 0;
+                  description
+                    "Unknown work mode.";
+                }
+                enum "fit-mode" {
+                  value 1;
+                  description
+                    "AP work mode is fit mode.";
+                }
+                enum "fat-mode" {
+                  value 2;
+                  description
+                    "AP work mode is fat mode.";
+                }
+                enum "cloud-mode" {
+                  value 3;
+                  description
+                    "AP work mode is cloud mode.";
+                }
+              }
+              description
+                "The AP work mode.";
+            }
+            leaf source {
+              type enumeration {
+                enum "ac" {
+                  value 0;
+                  description
+                    "The source is AC.";
+                }
+                enum "ual" {
+                  value 1;
+                  description
+                    "The source is UAL.";
+                }
+              }
+              description
+                "Specifies how the AP was discovered.";
+            }
+          }
+          container topo-level {
+            description
+              "Operational data of the device's topology level.";
+            leaf level {
+              type uint16;
+              description
+                "The topology level.";
+            }
+          }
+          container old-devices {
+            description
+              "List of old devices being replaced.";
+            list old-device {
+              key "mac-address";
+              description
+                "Operational state of old devices.";
+              leaf mac-address {
+                type pub-type:mac-address;
+                description
+                  "MAC address of the old device.";
+              }
+            }
+          }
+          container interfaces {
+            description
+              "List of interface.";
+            list interface {
+              key "if-name";
+              description
+                "Operational state of interface.";
+              leaf if-name {
+                type pub-type:if-name;
+                description
+                  "The name of the interface.";
+              }
+              leaf if-status {
+                type enumeration {
+                  enum "up" {
+                    value 0;
+                    description
+                      "Interface status is up.";
+                  }
+                  enum "down" {
+                    value 1;
+                    description
+                      "Interface status is down.";
+                  }
+                  enum "unknown" {
+                    value 2;
+                    description
+                      "Interface status is unknown.";
+                  }
+                }
+                description
+                  "Interface status.";
+              }
+              leaf if-mode {
+                type enumeration {
+                  enum "copper" {
+                    value 0;
+                    description
+                      "Mode of the interface is copper.";
+                  }
+                  enum "fiber" {
+                    value 1;
+                    description
+                      "Mode of the interface is fiber.";
+                  }
+                }
+                description
+                  "Interface mode.";
+              }
+              leaf is-l2-mode {
+                type boolean;
+                description
+                  "To identify an L2 interface.";
+              }
+              leaf if-role {
+                type enumeration {
+                  enum "inner" {
+                    value 0;
+                    description
+                      "The role of the interface is inner.";
+                  }
+                  enum "outer" {
+                    value 1;
+                    description
+                      "The role of the interface is outer.";
+                  }
+                }
+                description
+                  "The role of the interface.";
+              }
+              leaf eth-trunk-name {
+                type pub-type:if-name;
+                description
+                  " Eth-trunk interface name.";
+              }
+              leaf is-blocked {
+                type boolean;
+                description
+                  "Whether the interface is blocked.";
+              }
+              leaf source {
+                type data-source;
+                description
+                  "Specifies how the interface was discovered.";
+              }
+              container physical-links {
+                description
+                  "List of neighbor physical links.";
+                list physical-link {
+                  key "mac-address if-name";
+                  description
+                    "Operational state of physical-link.";
+                  leaf mac-address {
+                    type pub-type:mac-address;
+                    description
+                      "Mac address of neighbor device.";
+                  }
+                  leaf if-name {
+                    type pub-type:if-name;
+                    description
+                      "Interface name of neighbor device.";
+                  }
+                  leaf link-status {
+                    type link-status;
+                    description
+                      "Link status.";
+                  }
+                  leaf source {
+                    type data-source;
+                    description
+                      "Specifies how the physical link was discovered.";
+                  }
+                  leaf refresh {
+                    type boolean;
+                    description
+                      "The active state.";
+                  }
+                }
+              }
+            }
+          }
+          container board-esns {
+            description
+              "List of board esn.";
+            list board-esn {
+              key "chassis-id slot-id";
+              description
+                "Operational state of board esn.";
+              leaf chassis-id {
+                type uint32;
+                description
+                  "The chassis id of the board esn item.";
+              }
+              leaf slot-id {
+                type uint32;
+                description
+                  "The slot id of the board esn item.";
+              }
+              leaf board-esn {
+                type string {
+                  length 1..256;
+                }
+                description
+                  "Esn of the device board.";
+              }
+            }
+          }
+          container service-info {
+            description
+              "Operational data of service information.";
+            leaf configured-status {
+              type uint8;
+              description
+                "Whether is non-default configured.";
+            }
+            leaf cloud-managed-status {
+              type uint8;
+              description
+                "Whether is managed by cloud.";
+            }
+            leaf stacked-status {
+              type uint8;
+              description
+                "Whether is stack device.";
+            }
+            leaf erps-enabled {
+              type uint8;
+              description
+                "Whether is enabled ERPS protocol.";
+            }
+            leaf sep-enabled {
+              type uint8;
+              description
+                "Whether is enabled SEP protocol.";
+            }
+            leaf capwap-enabled {
+              type uint8;
+              description
+                "Whether is enabled CAPWAP protocol.";
+            }
+            leaf http-port {
+              type uint16;
+              description
+                "The HTTP/HTTPS port of the device.";
+            }
+            leaf mng-priority {
+              type uint8;
+              description
+                "Whether is configured by net management.";
+            }
+          }
+          container stack-members {
+            description
+              "List of stack-members.";
+            list stack-member {
+              key "member-id";
+              description
+                "Operational data of stack member device.";
+              leaf member-id {
+                type uint16;
+                description
+                  "ID of the member device.";
+              }
+              leaf member-esn {
+                type string {
+                  length "1..64";
+                }
+                description
+                  "SN of the member device.";
+              }
+              leaf member-mac {
+                type pub-type:mac-address;
+                description
+                  "MAC address of the member device.";
+              }
+              leaf role {
+                type enumeration {
+                  enum "master" {
+                    value 1;
+                    description
+                      "The role is master.";
+                  }
+                  enum "standby" {
+                    value 2;
+                    description
+                      "The role is standby.";
+                  }
+                  enum "slave" {
+                    value 3;
+                    description
+                      "The role is slave.";
+                  }
+                }
+                description
+                  "Role type of the member device.";
+              }
+              leaf priority {
+                type uint16;
+                description
+                  "The priority of the member device.";
+              }
+              leaf domain-id {
+                type uint16;
+                description
+                  "The domain ID of the member device.";
+              }
+              leaf model {
+                type string {
+                  length "1..64";
+                }
+                description
+                  "The model of the device.";
+              }
+              container stack-neighbors {
+                description
+                  "List of stack neighbor.";
+                list stack-neighbor {
+                  key "local-port";
+                  description
+                    "Operational state of stack neighbor.";
+                  leaf local-port {
+                    type string {
+                      length "1..64";
+                    }
+                    description
+                      "The local port of the member device.";
+                  }
+                  leaf neighbor-member-id {
+                    type uint16;
+                    description
+                      "The neighbor ID of the stack member device.";
+                  }
+                  leaf state {
+                    type enumeration {
+                      enum "down" {
+                        value 0;
+                        description
+                          "The neighbour state is down.";
+                      }
+                      enum "up" {
+                        value 1;
+                        description
+                          "The neighbour state is up.";
+                      }
+                    }
+                    description
+                      "Neighbour state.";
+                  }
+                  leaf neighbor-port {
+                    type string {
+                      length "1..64";
+                    }
+                    description
+                      "The neighbor port of the neighbor.";
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      container local-device-role {
+        config false;
+        description
+          "Operational data of local device role.";
+        leaf mac-address {
+          type pub-type:mac-address;
+          description
+            "Local device system MAC address.";
+        }
+        leaf device-role {
+          type enumeration {
+            enum "client" {
+              value 0;
+              description
+                "The role is client device.";
+            }
+            enum "lc" {
+              value 1;
+              description
+                "The role is local controller device.";
+            }
+          }
+          description
+            "The network role of the device.";
+        }
+        leaf lc-sysmac {
+          type pub-type:mac-address;
+          description
+            "Network controller system MAC address.";
+        }
+        leaf lc-manage-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Network controller manage IP.";
+        }
+        leaf lc-virtual-ip {
+          type inet:ip-address-no-zone;
+          description
+            "Network controller virtual IP.";
+        }
+        leaf lc-dyn-capality {
+          type bits {
+            bit cfg-status {
+              position 0;
+              description
+                "Whether is non-default configured.";
+            }
+            bit cloud {
+              position 1;
+              description
+                "Whether is managed by cloud.";
+            }
+            bit stack {
+              position 2;
+              description
+                "Whether is stack device..";
+            }
+            bit erps {
+              position 3;
+              description
+                "Whether is enabled ERPS protocol.";
+            }
+            bit sep {
+              position 4;
+              description
+                "Whether is enabled SEP protocol.";
+            }
+            bit ac {
+              position 5;
+              description
+                "Whether is enabled CAPWAP protocol.";
+            }
+          }
+          description
+            "Network controller dynamic capabilities.";
+        }
+        leaf lc-sn {
+          type string{
+            length "1..64";
+          }
+          description
+            "Network controller esn.";
+        }
+        leaf lc-model {
+          type string{
+            length "1..64";
+          }
+          description
+            "Network controller model.";
+        }
+      }
+      container erps-calculation {
+        description
+          "Configure ERPS calculation.";
+        container erps-rings {
+          config false;
+          description
+            "List of ERPS rings.";
+          list erps-ring {
+            key "ring-id";
+            description
+              "Operational data of ERPS rings.";
+            leaf ring-id {
+              type uint32 {
+                range "1..255";
+              }
+              description
+                "The ERPS ring ID.";
+            }
+            leaf control-vlan {
+              type uint32 {
+                range "1..4094";
+              }
+              description
+                "VLAN ID.";
+            }
+            leaf opcode {
+              type opcode-type;
+              description
+                "The opcode of erps ring.";
+            }
+            leaf abnormal-reason {
+              type abnormal-reason;
+              description
+                "The reason of abnormal state.";
+            }
+            container ring-devices {
+              description
+                "List of ring devices.";
+              list ring-device {
+                key "mac-address";
+                description
+                  "Operational data of ring devices.";
+                leaf mac-address {
+                  type pub-type:mac-address;
+                  description
+                    "MAC address.";
+                }
+                leaf sequence {
+                  type uint32;
+                  description
+                    "Sequence number.";
+                }
+                leaf left-port {
+                  type string {
+                    length "1..64";
+                  }
+                  description
+                    "Left port number.";
+                }
+                leaf left-port-role {
+                  type erps-port-role;
+                  description
+                    "Left port role.";
+                }
+                leaf right-port {
+                  type string {
+                    length "1..64";
+                  }
+                  description
+                    "Right port number.";
+                }
+                leaf right-port-role {
+                  type erps-port-role;
+                  description
+                    "Right port role.";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  ext:task-name "ual";
+}

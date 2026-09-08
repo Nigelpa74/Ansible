@@ -1,0 +1,36 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-monitor-link-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-monitor-link-deviations-ar5710s";
+  prefix mtlk-devs-ar5710s;
+
+  import huawei-monitor-link {
+    prefix mtlk;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-monitor-link module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/mtlk:monitor-link/mtlk:monitor-link-groups/mtlk:monitor-link-group/mtlk:downlink-recover-time" {
+    deviate not-supported;
+  }
+  deviation "/mtlk:monitor-link/mtlk:monitor-link-groups/mtlk:monitor-link-group/mtlk:downlink-interfaces/mtlk:downlink-interface/mtlk:remain-time" {
+    deviate not-supported;
+  }
+}

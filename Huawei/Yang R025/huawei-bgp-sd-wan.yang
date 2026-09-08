@@ -1,0 +1,307 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+
+module huawei-bgp-sd-wan {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-sd-wan";
+  prefix bgp-sd-wan;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-routing-policy {
+    prefix rtp;
+  }
+  import huawei-bgp-routing-table {
+    prefix bgp-rt;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Inter-AS routing protocol that exchanges Network Layer Reachability Information (NLRI) with other BGP systems.";
+  revision 2025-08-07 {
+    description
+      "Add prefer-non-graceful-restart-routes.";
+    reference "Huawei private.";
+  }
+  revision 2025-04-27 {
+    description
+      "Modify the description of single-group-detection-threshold.";
+    reference "Huawei private.";
+  }
+  revision 2022-05-05 {
+    description
+      "Add statistic of routing table.";
+    reference "Huawei private.";
+  }
+  revision 2020-11-02 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af" {
+    description
+      "BGP IPv4-sd-wan address family configuration.";
+    container ipv4-sd-wan {
+      when "../bgp:type='ipv4sdwan' and ../../../../../ni:name='_public_'";
+      description
+        "Configure IPv4-family sd-wan options.";
+      container common {
+        description
+          "Configure IPv4-family sd-wan common options.";
+        leaf routerid-neglect {
+          type boolean;
+          default "false";
+          description
+          "Enable/disable BGP to ignore router IDs when selecting the optimal route. Comparing router IDs is the last resort in route selection. This means that if one optimal route must be selected and no other parameters can be used to break the tie, router IDs can be used. If this option is selected, the first received route will be selected as the optimal route, and BGP will ignore the router ID and peer address in route selection.";
+        }
+        leaf reflect-change-path {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable an RR to use an export policy to change route AS_Path.";
+        }
+        leaf reflect-between-client {
+           type boolean;
+           default "true";
+           description
+             "Enable/disable route reflection between clients. If clients of a route reflector (RR) are fully meshed, you can disable route reflection among clients to reduce the cost.";
+        }
+        uses bgp:reflector-cluster-type;
+        leaf bestroute-as-path-ignore {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable BGP to ignore the AS_Path attribute when selecting the optimal route. By default, BGP uses the AS_Path attribute as one of route selection rules, and a route with a shorter AS_Path is preferred. After bestroute-as-path-ignore is selected, BGP does not compare the AS_Path length.";
+        }
+      }
+      uses bgp:slow-peer-type;
+      uses bgp:prefer-non-graceful-restart-routes;
+    }
+  }
+  
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af" {
+    description "BGP peer IPv4-sd-wan address family configuration.";
+    container ipv4-sd-wan {
+      when "../bgp:type='ipv4sdwan'";
+      description
+        "Configure IPv4-family sd-wan options.";
+      leaf group-name {
+        type leafref {
+          path "../../../../../../bgp:peer-groups/bgp:peer-group/bgp:name";
+        }
+        must "../../../../../../bgp:peer-groups/bgp:peer-group[bgp:name = current()]/bgp:afs/bgp:af[bgp:type = 'ipv4sdwan']";
+        must "../../../../../../bgp:peer-groups/bgp:peer-group[bgp:name = current()]/bgp:peer-establish-mode = 'static'";
+        description
+          "Configure a name for a peer group. After a peer is deleted from the peer group, the peer is disabled from the address family. The object cannot be modified.";
+        ext:operation-exclude update {
+          description "The node cannot be modified, when the peer already belongs to a peer-group.";
+        }
+      }
+      leaf reflect-client {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the local device as a route reflector (RR) and a peer or peer group as its client. This configuration is applicable between IBGP peers only. The configurations of RRs and its clients in an address family are valid only in this address family. Therefore, it is recommended to configure RRs and its clients in the specified address family that is required.";
+      }
+      uses bgp:rt-update-interval-type;
+      leaf advertise-ext-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable advertise the extended community attribute to a peer or peer group.";
+      }
+      leaf advertise-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable advertise the community attribute to a peer or a peer group.";
+      }
+      leaf allow-as-loop {
+        type uint32 {
+            range "1..10";
+        }
+        description
+          "Allow repetitive local AS numbers. By default, repetitive local AS numbers are not allowed.";
+      }
+      leaf discard-ext-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable discard the extended community attribute in the routing information about a specified peer.";
+      }
+      leaf graceful-restart-static-timer {
+          type uint32 {
+            range "3600..2147483647";
+          }
+          units s;
+          description
+            "Specifies the maximum time during which a peer waits for a BGP session reestablishment.";
+      }
+      uses bgp:as-path-filter-type;
+      choice import-policy-type {
+        description
+          "Set route policy or filter.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf import-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes learned from a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      choice export-policy-type {
+        description
+          "Set route policy or filter.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf export-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes to be advertised to a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      leaf safi-non-standard-compabile {
+        type bgp:peer-attr-enable-type;
+        description
+          "Enable/disable Non-standard capacity negotiation.";
+      }
+      container effect-state {
+        config false;
+        description
+          "Operational state of a BGP peer. It uses the peer-specific configuration or inherits the configuration of its peer group.";
+        leaf safi-non-standard-compabile {
+          type boolean;
+          description
+            "Enable/disable Non-standard capacity negotiation.";
+        }
+      }
+      uses bgp:route-limit-type;
+    }
+  }
+  
+  augment "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af" {
+    description
+      "BGP sd-wan address family configuration.";
+    container ipv4-sd-wan {
+      when "../bgp:type = 'ipv4sdwan'";
+      description
+        "Configure IPv4-family sd-wan options.";
+      leaf advertise-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable advertise the community attribute to a peer or a peer group.";
+      }
+      leaf advertise-ext-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable advertise the extended community attribute to a peer or peer group.";
+      }
+      leaf reflect-client {
+        when "../../../../bgp:type='ibgp'";
+        type boolean;
+        default "false";
+        description
+          "Enable/disable the local device as a route reflector (RR) and a peer or peer group as its client. This configuration is applicable between IBGP peers only. The configurations of RRs and its clients in an address family are valid only in this address family. Therefore, it is recommended to configure RRs and its clients in the specified address family that is required.";
+      }
+      uses bgp:rt-update-interval-type;
+      leaf allow-as-loop {
+        type uint32 {
+            range "1..10";
+        }
+        description
+          "Allow repetitive local AS numbers. By default, repetitive local AS numbers are not allowed.";
+      }
+      leaf discard-ext-community {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable discard the extended community attribute in the routing information about a specified peer.";
+      }
+      uses bgp:as-path-filter-type;
+      choice import-policy-type {
+        description
+          "Set route policy or filter.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf import-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes learned from a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      choice export-policy-type {
+        description
+          "Set route policy or filter.";
+        case rtp-ref {
+          description
+            "Route policy.";
+          leaf export-policy {
+            type leafref {
+              path "/rtp:routing-policy/rtp:policy-definitions/rtp:policy-definition/rtp:name";
+            }
+            description
+              "Specify the filtering policy applied to the routes to be advertised to a peer. By default, no such policy is specified.";
+          }
+        }
+      }
+      leaf safi-non-standard-compabile {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable Non-standard capacity negotiation.";
+      }
+      uses bgp:route-limit-type;
+    }
+  }
+  augment "/bgp:bgp/bgp:base-process/bgp-rt:bgp-route" {
+    description
+      "BGP sd-wan address family routes information.";
+    container ipv4-sd-wan {
+      config false;
+      description
+        "Statistics of BGP routes information of IPv4-family sd-wan address family.";
+      container statistics {
+        description
+          "List of BGP routes statistics information of the IPv4-family sd-wan address family.";
+        list statistic {
+          key "vpn-name";
+          description
+            "BGP IPv4-family sd-wan address family routes statistics.";
+          uses bgp-rt:routing-table-vpn-name;
+          uses bgp-rt:route-total-st-type;
+        }
+      }
+    }
+  }
+  ext:task-name "bgp";
+}

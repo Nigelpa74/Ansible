@@ -1,0 +1,39 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-voice-vlan-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-voice-vlan-deviations-ar5710s";
+  prefix voice-vlan-devs-ar5710s;
+
+  import huawei-voice-vlan {
+    prefix voice-vlan;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-voice-vlan module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/voice-vlan:voice-vlan/voice-vlan:global/voice-vlan:dynamic-compatibility-mode" {
+    deviate not-supported;
+  }
+  deviation "/voice-vlan:voice-vlan/voice-vlan:ouis/voice-vlan:oui" {
+    deviate replace {
+      max-elements 4;
+    }
+  }
+}

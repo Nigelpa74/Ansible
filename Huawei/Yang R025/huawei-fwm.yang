@@ -1,0 +1,243 @@
+/*
+Copyright (C) 2023-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-fwm {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-fwm";
+  prefix fwm;
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "The forward management.";
+  revision 2025-09-18 {
+    description
+      "Add fmea-item-name-type enum said-ping-alarm and add leaf effect-level.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-09-04 {
+    description
+      "Keep fmea-item-name-type enum reassembly-error.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-06-18 {
+    description
+      "Keep fmea-item-name-type enum lpu-linklost sfu-linklost.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-27 {
+    description
+      "Add fuction of change system forward fmea alarm sensitivity level.";
+    reference
+      "Huawei private.";
+  }
+  revision 2025-03-26 {
+    description
+      "Keep work-mode-type enum flc-enhance.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-04-03 {
+    description
+      "Keep work-mode-type enum sdwan.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-12-15 {
+    description
+      "Delete coprocessor-mode-type enum default.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-08-28 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  typedef work-mode-type {
+    type enumeration {
+      enum "ifit" {
+        value 1;
+        description
+          "IFIT mode.";
+      }
+      enum "sdwan" {
+        value 2;
+        description
+          "SDWAN mode.";
+      }
+      enum "flc-enhance" {
+        value 3;
+        description
+          "FLC-ENHANCE mode.";
+      }
+    }
+    description
+      "Enumerations of work mode type.";
+  }
+  typedef forward-resource-mode-type {
+    type enumeration {
+      enum "netstream" {
+        value 1;
+        description
+          "NetStream mode.";
+      }
+      enum "sflow" {
+        value 2;
+        description
+          "Sampled flow mode.";
+      }
+    }
+    description
+      "Enumerations of forward resource mode type.";
+  }
+  typedef coprocessor-mode-type {
+    type enumeration {
+      enum "service-telemetry" {
+        value 2;
+        description
+          "Service-telemetry mode.";
+      }
+    }
+    description
+      "Enumerations of coprocessor mode type.";
+  }
+
+  typedef fmea-item-name-type {
+    type enumeration {
+      enum "loopheart-mdie" {
+        value 1;
+        description
+          "Loopheart multi die.";
+      }
+      enum "xfi" {
+        value 2;
+        description
+          "Xfi.";
+      }
+      enum "lpu-linklost" {
+        value 3;
+        description
+          "Lpu-linklost.";
+      }
+      enum "sfu-linklost" {
+        value 4;
+        description
+          "Sfu-linklost.";
+      }
+      enum "reassembly-error" {
+        value 5;
+        description
+          "Reassembly-error.";
+      }
+      enum "said-ping-alarm" {
+        value 6;
+        description
+          "Said ping alarm.";
+      }
+    }
+    description
+      "FMEA item name type.";
+  }
+  typedef fmea-switch {
+    type enumeration {
+      enum "enable" {
+        value 0;
+        description
+          "FMEA item is enable.";
+      }
+      enum "disable" {
+        value 1;
+        description
+          "FMEA item is disable.";
+      }
+    }
+    description
+      "FMEA item status.";
+  }
+
+  container fwm {
+    description
+      "The forward management.";
+    container work-mode {
+      description
+        "Configure work mode.";
+      leaf mode {
+          type work-mode-type;
+          description
+            "Configure forward work mode.";
+      }
+    }
+    container coprocessor-mode {
+      description
+        "Configure coprocessor mode.";
+      leaf mode {
+          type coprocessor-mode-type;
+          description
+            "Configure forward coprocessor mode.";
+      }
+    }
+    container forward-resource-mode {
+      description
+        "Configure forward resource mode.";
+      leaf mode {
+          type forward-resource-mode-type;
+          description
+            "Configure forward resource mode.";
+      }
+    }
+    container fmea-items {
+      description
+        "List of fmea alarm item information.";
+      list fmea-item {
+        key "name";
+        description
+           "Configure fmea item information.";
+        ext:generated-by system;
+        leaf name {
+          type fmea-item-name-type; 
+          description
+            "Fmea item name.";
+        }
+        leaf level {
+          type uint8{
+            range "1..5";
+          }
+          description
+            "Fmea level.";
+        }
+        leaf effect-level {
+          type uint8{
+            range "1..5";
+          }
+          config false;
+          description
+            "Fmea item effect level value.";
+        }
+        leaf switch {
+          type fmea-switch;
+          default "enable";
+          description
+            "Fmea switch.";
+        }
+      }
+    }
+  }
+
+  ext:task-name "forwarding";
+}

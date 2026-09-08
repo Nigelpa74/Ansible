@@ -1,0 +1,253 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-arp-fwd {
+  namespace "urn:huawei:yang:huawei-arp-fwd";
+  prefix arp-fwd;
+  
+  import huawei-ifm {
+    prefix ifm;
+  }
+  
+  import huawei-arp {
+    prefix arp;
+  }
+  
+  import ietf-inet-types {
+    prefix inet;
+  }
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "ARP FWD configurations and status.";
+
+  revision 2025-09-11 {
+    description
+      "Add mlag-peerlink-keepMac and global-attribute.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-07-25 {
+    description
+      "Add leaf node arp-miss-suppress.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-24 {
+    description
+      "Add node and delete old nodes.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-08-06 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-04-16 {
+    description
+      "Add node.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-09-23 {
+    description
+      "Add leaf node arp-fast-reply.";
+    reference
+      "Huawei private.";
+  }
+  revision 2020-06-19 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  
+  typedef arp-resource-type {
+    type enumeration {
+      enum "global" {
+        value 0;
+        description
+          "Global mode.";
+      }
+      enum "extend" {
+        value 1;
+        description
+          "Extend mode.";
+      }
+    }
+    description
+      "ARP resource allocation mode.";
+  }
+
+  container arp-fwd {
+    description
+      "ARP FWD configurations and status.";
+	  
+    container redirect-arp-peers {
+      description
+        "List of configuring ARP redirect address.";
+      list redirect-arp-peer {
+        key "ipv4-address";
+		max-elements "256";
+        description
+          "Configure ARP redirect address.";
+        leaf ipv4-address {
+          type inet:ipv4-address-no-zone ;
+          description
+            "The destination IP address of ARP reply packets.";
+        }
+        leaf source-address {
+          type inet:ipv4-address-no-zone ;
+          description
+            "The source VTEP address of the VXLAN tunnel.";
+        }
+        leaf peer-address {
+          type inet:ipv4-address-no-zone ;
+          description
+            "The peer VTEP address of the VXLAN tunnel.";
+        }
+      }
+    }
+	
+    container m-lag-l3-enhanced {
+	  description
+	    "Configure enhanced M-LAG Layer 3 forwarding.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable enhanced M-LAG Layer 3 forwarding.";
+      }
+    }
+	
+    container arp-resource-mode {
+      description
+	    "Configure ARP resource allocation mode.";
+      leaf mode {
+		type arp-resource-type;
+		default "global";
+		description
+	      "ARP resource allocation mode.";
+      }
+    }
+    
+    container arp-miss-suppress {
+      description
+        "Configure arp miss-suppress.";
+      leaf suppress-enable {
+        type empty;
+        description
+          "Enable ARP Miss suppression.";
+      }
+    }
+    	
+    container arp-statistics {
+      config false;
+      description
+        "Statistics of ARP entry.";
+      container arp-entry-counts {
+        description
+          "List of ARP entry used number.";
+        list arp-entry-count {
+          key "slot vpn-name";
+          description
+            "Statistics of ARP entry used number.";
+          leaf slot {
+            type string {
+              length "0..16";
+            }
+            description
+              "Slot ID.";
+          }
+          leaf vpn-name {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            }
+            description
+              "Specifies a VPN instance name. Public network vpn-name value is '_public_'.";
+          }
+          leaf entrycount {
+            type uint32 {
+              range "0..10000000";
+            }
+            description
+              "ARP entry used number.";
+          }
+        }
+      }
+    }
+    container global-attribute {
+        description
+          "Configure arp global cfg.";
+        leaf mlag-smooth-upgrade {
+          type boolean;
+          default "false";
+          description
+            "Enable/disable arp global cfg.";
+      }
+    }
+    container mlag-peerlink-keepmac {
+      description
+        "Configure arp peerlink keepmac.";
+      leaf enable {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable arp peerlink keepmac.";
+      }
+    }
+  }
+  
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "ARP FWD configurations under ifm interface.";
+      container arp-miss-enable
+      {
+        when "../ifm:type='Vbdif'";
+        description
+          "Configure ARP miss function in VBDIF.";	  
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable ARP miss function in VBDIF.";
+        }
+      }
+  }
+  augment "/arp:arp/arp:global" {
+    description
+      "ARP FWD configurations under ARP global.";
+      container arp-fast-reply
+      {
+        description
+          "Configure ARP fast reply function.";	  
+        leaf enable {
+          type boolean;
+          default "true";
+          description
+            "Enable/disable ARP fast reply.";
+        }
+      }
+  }
+  ext:task-name "forwarding";
+}
+
+ 

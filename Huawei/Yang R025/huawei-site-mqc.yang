@@ -1,0 +1,82 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-site-mqc {
+  namespace "urn:huawei:yang:huawei-site-mqc";
+  prefix site-mqc;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-site {
+    prefix site;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Quality of service for EVPL management.";
+  revision 2022-06-14 {
+    description
+      "Modify direction type, add mandatory.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-02-16 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  typedef mqc-direction-type {
+    type enumeration {
+      enum "inbound" {
+        value 1; 
+        description
+          "Inbound.";
+      }
+      enum "outbound" {
+        value 2; 
+        description
+          "Outbound.";
+      }
+    }
+    description
+      "Direction type.";
+  }
+  ext:task-name "mqc";
+  augment /site:site/site:site-groups/site:site-group {
+    description
+      "Reference site group name.";
+    container traffic-policy {
+      presence "Apply traffic-policy.";
+      description
+        "Configure traffic-policys on site group node.";
+      leaf policy-name {
+        type leafref {
+          path "/qos:qos/qos:classifier-template/qos:traffic-policys/qos:traffic-policy/qos:name";
+        }
+        mandatory true;
+        description
+          "Traffic policy name.";
+      }
+      leaf direction {
+        type mqc-direction-type;
+        must "current()='outbound'";
+        mandatory true;
+        description
+          "Direction of traffic-policy applied.";        
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,249 @@
+/******************************************************
+* Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+module huawei-sec-blacklist {
+  namespace "urn:huawei:yang:huawei-sec-blacklist";
+  prefix hw-sec-bls;
+  import huawei-extension {
+    prefix ext;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "This module contains the YANG definition set for security blacklist.";
+  revision 2022-08-19 {
+    description
+      "Change prefix.";
+    reference "";
+  }
+  revision 2022-08-11 {
+    description
+      "Add enable leaf.";
+    reference "";
+  }
+  revision 2022-04-10 {
+    description
+      "Initial revision.";
+    reference "";
+  }
+  typedef op-type {
+    type enumeration {
+      enum "create" {
+        value 0;
+        description
+          "Indicate that the operation type is create.";
+      }
+      enum "delete" {
+        value 1;
+        description
+          "Indicate that the operation type is delete.";
+      }
+      enum "replace" {
+        value 2;
+        description
+          "Indicate that operation type is replace.";
+      }
+    }
+    description
+      "Indicate that the operation type in dynamic blacklist.";
+  }
+  container sec-blacklist {
+    description
+      "Indicate the security blacklist.";
+    container global {
+      description
+        "Configure the global blacklist config.";
+      leaf enabled {
+          type boolean;
+          default false;
+          description "Enable/disable the blacklist.";
+      }
+    }
+    container destinations {
+          description
+            "List of the destination config of static blacklists.";
+          list destination {
+            key "ip port protocol";
+            description
+              "Configure the destination config of static blacklist.";
+            leaf ip {
+              type inet:ip-address;
+              description
+                "Specify the destination ip address.";
+            }
+            leaf port {
+              type inet:port-number {
+                range "0..65535";
+              }
+              description
+                "Specify the destination port number.";
+            }
+            leaf protocol {
+              type uint8 {
+                range "0..255";
+              }
+              description
+                "Specify the protocol ID value (icmp:1 tcp:6 udp:17).";
+            }
+          }
+        }
+    container sources {
+      description
+        "List of the source config of static blacklists.";
+      list source {
+        key "ip port protocol";
+        description
+          "Configure the source config of static blacklist.";
+        leaf ip {
+          type inet:ip-address;
+          description
+            "Specify the source ip address.";
+        }
+        leaf port {
+          type inet:port-number {
+            range "0..65535";
+          }
+          description
+            "Specify the source port number.";
+        }
+        leaf protocol {
+          type uint8 {
+            range "0..255";
+          }
+          description
+            "Specify the protocol ID value (icmp:1 tcp:6 udp:17).";
+        }
+      }
+    }
+  }
+  rpc configure-dynamic-dst-blacklist {
+    description
+      "Configure destination blacklist items with aging time.";
+    input  {
+      container dst-blacklists {
+        description
+          "List of the security dynamic blacklists.";
+          list dst-blacklist {
+              key "operation-type";
+              description
+                "Configure the operation of dynamic blacklist.";
+              leaf operation-type {
+                type op-type;
+                description
+                  "Specify the operation of dynamic blacklist.";
+              }
+            container destinations {
+              description
+                "List of the destination config of dynamic blacklists.";
+              list destination {
+                key "ip port protocol";
+                description
+                  "Configure the destination config of dynamic blacklist.";
+                leaf ip {
+                  type inet:ip-address;
+                  description
+                    "Specify the destination ip address.";
+                }
+                leaf port {
+                  type inet:port-number {
+                    range "0..65535";
+                  }
+                  description
+                    "Specify the destination port number.";
+                }
+                leaf protocol {
+                  type uint8 {
+                    range "0..255";
+                  }
+                  description
+                    "Specify the protocol ID value (icmp:1 tcp:6 udp:17).";
+                }
+                leaf aging-time {
+                  type uint32 {
+                    range "1..65535";
+                  }
+                  units "min";
+                  mandatory true;
+                  description
+                    "Specify the aging time (in minutes).";
+                }
+              }
+            }
+        }
+      }
+    }
+  }
+  rpc configure-dynamic-src-blacklist {
+    description
+      "Configure source blacklist items with aging time.";
+    input  {
+      container src-blacklists {
+        description
+          "List of the security dynamic blacklists.";
+          list src-blacklist {
+              key "operation-type";
+              description
+                "Configure the operation of dynamic blacklist.";
+              leaf operation-type {
+                type op-type;
+                description
+                  "Specify the operation of dynamic blacklist.";
+              }
+            container sources {
+              description
+                "List of the source config of dynamic blacklists.";
+              list source {
+                key "ip port protocol";
+                description
+                  "Configure the source config of dynamic blacklist.";
+                leaf ip {
+                  type inet:ip-address;
+                  description
+                    "Specify the source ip address.";
+                }
+                leaf port {
+                  type inet:port-number {
+                    range "0..65535";
+                  }
+                  description
+                    "Specify the source port number.";
+                }
+                leaf protocol {
+                  type uint8 {
+                    range "0..255";
+                  }
+                  description
+                    "Specify the protocol ID value (icmp:1 tcp:6 udp:17).";
+                }
+                leaf aging-time {
+                  type uint32 {
+                    range "1..65535";
+                  }
+                  units "min";
+                  mandatory true;
+                  description
+                    "Specify the aging time (in minutes).";
+                }
+              }
+            }
+        }
+      }
+    }
+  }
+  rpc clear-all-dynamic-blacklist-items {
+    description
+      "Clear all dynamic blacklist items.";
+  }
+  ext:task-name "sec-bwls";
+}

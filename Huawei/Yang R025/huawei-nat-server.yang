@@ -1,0 +1,233 @@
+/******************************************************
+* Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+* Module description & tree structure
+*******************************************************/
+
+module huawei-nat-server {
+    namespace "urn:huawei:yang:huawei-nat-server";
+    prefix "hw-nat-server";
+
+    import huawei-nat {
+        prefix nat;
+    }
+    import huawei-security-zone {
+        prefix hw-security-zone;
+    }
+    import huawei-network-instance {
+        prefix ni;
+    }
+    import huawei-ifm {
+        prefix ifm;
+    }
+    import huawei-extension {
+        prefix ext;
+    }
+    import ietf-inet-types {
+        prefix inet;
+    }
+
+    organization
+          "Huawei Technologies Co., Ltd.";
+
+     contact
+          "Huawei Industrial Base
+          Bantian, Longgang
+          Shenzhen 518129
+          People's Republic of China
+          Website: http://www.huawei.com
+          Email: support@huawei.com";
+
+	description
+		"This module contains a collection of YANG definitions for Configuration of NAT Server.";
+
+    revision 2025-09-09 {
+        description
+            "Delete wrong mandatory condition.";
+        reference "";
+    }
+    revision 2025-08-30 {
+        description
+            "Modify import prefix and add must condition.";
+        reference "";
+    }
+    revision 2024-09-19 {
+        description
+            "Add mask-len leaf node.";
+        reference "";
+    }
+    revision 2023-03-21 {
+	     description
+		     "Add ip-range-type grouping.";
+          reference "";
+	}
+    revision 2023-01-12 {
+	     description
+		     "Modify the length of nat server description.";
+          reference "";
+	}
+    revision 2022-10-11 {
+	     description
+		     "Add nat server description.";
+          reference "";
+	}
+    revision 2021-03-11 {
+	     description
+		     "Initial revision.";
+          reference "";
+	}
+
+    typedef protocol-type {
+        type enumeration {
+            enum icmp {
+                value "1";
+                description "Indicate ICMP protocol.";
+            }
+            enum tcp {
+                value "6";
+                description "Indicate TCP protocol.";
+            }
+            enum udp {
+                value "17";
+                description "Indicate UDP protocol.";
+            }
+            enum ipv6 {
+                value "41";
+                description "Indicate IPv6 Encapsulation.";
+            }
+            enum gre {
+                value "47";
+                description "Indicate generic routing encapsulation.";
+            }
+            enum esp {
+                value "50";
+                description "Indicate encapsulating security payload.";
+            }
+            enum ah {
+                value "51";
+                description "Indicate authentication header.";
+            }
+            enum sctp {
+                value "132";
+                description "Indicate stream control transmission protocol.";
+            }
+        }
+        description "Specify the protocol run on ports.";
+    }
+
+    grouping ip-range-type {
+        description "Indicate IP range information.";
+        leaf start-ip {
+            type inet:ip-address;
+            description "Specify the IP address or the start IP address.";
+        }
+        leaf end-ip {
+            type inet:ip-address;
+            description "Specify the end IP address.";
+        }
+    }
+
+    grouping inside-type {
+        description "Indicate the private address range of intranet server.";
+        uses ip-range-type;
+    }
+
+    grouping global-type {
+        description "Indicate the public IP address information.";
+        choice global-element {
+            mandatory true;
+            description "Specify the public IP address or ingress interface of internet users.";
+            case global-ip {
+                uses ip-range-type;
+                description "Indicate IP address.";
+            }
+            case global-if {
+                description "Indicate global interface.";
+                leaf interface-name {
+                    type leafref {
+                        path "/ifm:ifm/ifm:interfaces/ifm:interface/ifm:name";
+                    }
+                    description "Specify the ingress interface of internet users.";
+                }
+            }
+        }
+    }
+
+    ext:task-name "nat-cgn";
+    container nat-server {
+        description "Configure NAT Server information.";
+        container server-mappings {
+            description "List of server-map information.";
+            list server-mapping {
+                key "name";
+                description "Configure the NAT Server Mapping.";
+                leaf name {
+                    type string {
+                        length "1..255";
+                    }
+                    description "Indicate the NAT Server's name.";
+                }
+                leaf description {
+                    type string {
+                        length "1..128";
+                    }
+                    description "Indicate the NAT Server's description.";
+                }
+                leaf global-vpn-name {
+                    type leafref {
+                        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                    }
+                    must "not(../global/interface-name)";
+                    description "Indicate the vpn-instance of the global.";
+                }
+                leaf global-zone {
+                    type hw-security-zone:security-zone-name-ref;
+                    description "Indicate the zone of the global.";
+                }
+                leaf protocol {
+                    type protocol-type;
+                    description "Indicate protocol of NAT Server.";
+                }
+                container global {
+                    description "Configure global field, it may be IP address or interface.";
+                    uses global-type;
+                }
+                container global-port {
+                    description "Configure global port of NAT Server.";
+                    uses nat:port-range-type;
+                }
+                container inside {
+                    description "Configure inside field, it must be IP address.";
+                    uses inside-type;
+                }
+                container inside-port {
+                    description "Configure inside port of NAT Server.";
+                    uses nat:port-range-type;
+                }
+                leaf mask-len {
+                    type uint8 {
+                        range "16..32";
+                    }
+                    description "Indicate the subnet mask length.";
+                }
+                leaf reverse-enable {
+                    type boolean;
+                    default true;
+                    description
+                        "Enable/disable the system from creating a reverse entry.
+                        If this parameter is not specified, both a server-map entry and its reverse entry are created.";
+                }
+                leaf inside-vpn-name {
+                    type leafref {
+                        path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+                    }
+                    description "Indicate the vpn-instance of the inside.";
+                }
+                leaf route-enable {
+                    type boolean;
+                    default "false";
+                    description "Enable/disable open programing routes (OPRs) for the configuration of server mapping.";
+	            }
+            }
+        }
+    }
+}

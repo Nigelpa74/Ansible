@@ -1,0 +1,42 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-devm-poe-notif-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-devm-poe-notif-deviations-ar5710s";
+  prefix devm-poe-notification-devs-ar5710s;
+
+  import huawei-devm-poe-notif {
+    prefix devm-poe-notification;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-devm-poe-notif module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/devm-poe-notification:poe-subcard-absent" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe-notification:poe-subcard-absent-resume" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe-notification:poe-power-unavailable" {
+    deviate not-supported;
+  }
+  deviation "/devm-poe-notification:poe-power-unavailable-resume" {
+    deviate not-supported;
+  }
+}

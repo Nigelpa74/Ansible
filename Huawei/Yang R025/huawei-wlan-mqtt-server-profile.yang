@@ -1,0 +1,102 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-mqtt-server-profile {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-mqtt-server-profile";
+  prefix mqtt-server-prof;
+  import huawei-pub-type {
+    prefix pub-type;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "Mqtt server profile configuration service package.";
+  revision 2025-07-16 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+
+  container wlan-mqtt-server-profile {
+    description
+      "Configure a mqtt server profile.";
+    container mqtt-server-profiles {
+      description
+        "List of mqtt server profiles.";
+      list mqtt-server-profile {
+        must "(./ip-address) or (./domain)";
+        key "profile-name";
+        leaf profile-name {
+          type string {
+            length "1..35";
+            pattern '[^\s?]+';
+            pattern '[!-~]+';
+          }
+          description
+            "Mqtt server profile name.";
+        }
+        leaf ip-address {
+          type inet:ip-address;
+          description
+            "Config server ip-address.";
+        }
+        leaf port {
+          type uint32 {
+              range "1..65535";
+          }
+          mandatory true;
+          description
+            "Config server port.";
+        }
+        leaf user-name {
+          type string {
+            length "1..31";
+          }
+          mandatory true;
+          description
+            "Config server user name.";
+        }
+        leaf password {
+          type pub-type:password-extend {
+            length "1..128";
+          }
+          mandatory true;
+          description
+            "Config server password.";
+        }
+        leaf pki-realm {
+          type string {
+            length "1..64";
+          }
+          description
+            "Config pki realm.";
+        }
+        leaf domain {
+          type inet:domain-name;
+          description
+            "Config domain.";
+        }
+        description
+          "Configure of Mqtt server profile.";
+      }
+    }
+  }
+  ext:task-name "pcm";
+
+}

@@ -1,0 +1,2128 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-bgp-deviations-ar5710s";
+  prefix bgp-devs-ar5710s;
+
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-l3vpn {
+    prefix l3vpn;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+  import huawei-acl {
+    prefix acl;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv4vpn {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum ipv6vpn {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+      enum evpn {
+        value 9;
+        description
+          "EVPN address family.";
+      }
+      enum mvpn {
+        value 10;
+        description
+          "IPv4 MVPN address family.";
+      }
+      enum ls {
+        value 13;
+        description
+          "Link-state Address Family.";
+      }
+      enum ipv6srpolicy {
+        value 21;
+        description
+          "IPv6-family Srpolicy Address Family.";
+      }
+      enum ipv4sdwan {
+        value 22;
+        description
+          "IPv4-family SD-WAN Address Family.";
+      }
+    }
+    description
+      "The type of bgpcommPrefix.";
+  }
+
+  typedef group-af-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+      enum ipv4vpn {
+        value 3;
+        description
+          "IPv4 VPN address family.";
+      }
+      enum ipv6uni {
+        value 5;
+        description
+          "IPv6 unicast address family.";
+      }
+      enum ipv6vpn {
+        value 6;
+        description
+          "IPv6 VPN address family.";
+      }
+      enum evpn {
+        value 9;
+        description
+          "EVPN address family.";
+      }
+      enum mvpn {
+        value 10;
+        description
+          "IPv4 MVPN address family.";
+      }
+      enum ls {
+        value 13;
+        description
+          "Link-state Address Family.";
+      }
+      enum ipv4sdwan {
+        value 22;
+        description
+          "IPv4-family SD-WAN Address Family.";
+      }
+    }
+    description
+      "The type of bgpcommPrefix.";
+  }
+
+  typedef ipv4-import-route-protocol-type-deviations {
+    type enumeration {
+      enum direct {
+        value 1;
+        description
+          "Import direct routes.";
+      }
+      enum ospf {
+        value 2;
+        description
+          "Import OSPF routes.";
+      }
+      enum isis {
+        value 3;
+        description
+          "Import IS-IS routes.";
+      }
+      enum static {
+        value 4;
+        description
+          "Import static routes.";
+      }
+      enum rip {
+        value 5;
+        description
+          "Import RIP routes.";
+      }
+      enum op-route {
+        value 14;
+        description
+          "Import OPR routes.";
+      }
+    }
+    description
+      "The protocol of bgpcommonImRoute.";
+  }
+
+  typedef ipv6-import-route-protocol-type-deviations {
+    type enumeration {
+      enum direct {
+        value 1;
+        description
+          "Import direct routes.";
+      }
+      enum isis {
+        value 3;
+        description
+          "Import IS-IS routes.";
+      }
+      enum static {
+        value 4;
+        description
+          "Import static routes.";
+      }
+      enum ospfv3 {
+        value 7;
+        description
+          "Import OSPFv3 routes.";
+      }
+      enum ripng {
+        value 8;
+        description
+          "Import RIPng routes.";
+      }
+      enum op-route {
+        value 14;
+        description
+          "Import OPR routes.";
+      }
+    }
+    description
+      "The protocol of bgpcommonImRoute.";
+  }
+
+  typedef nexthop-configuration-type-deviations {
+    type enumeration {
+      enum local {
+        value 1;
+        description
+          "The next hop is changed to the local IP address.";
+      }
+    }
+    description
+      "The nexthop configuration of bgp.";
+  }
+
+  typedef select-depend-type-ext-deviations {
+    type enumeration {
+      enum depend-ip {
+        value 2;
+        description
+          "Routing-dependent IP iteration.";
+      }
+      enum depend-none {
+        value 3;
+        description
+          "Routing-dependent ignore.";
+      }
+    }
+    description
+      "The type of nexthop select depend.";
+  }
+
+  typedef import-rib-ipv4-safi-type-deviations {
+    type enumeration {
+      enum ipv4uni {
+        value 1;
+        description
+          "IPv4 unicast address family.";
+      }
+    }
+    description
+      "The src address type of import rib.";
+  }
+
+  typedef ipv4-export-filter-protocol-type-deviations {
+    type enumeration {
+      enum noprotocol {
+        value 0;
+        description
+          "Import routes of all protocols.";
+      }
+      enum direct {
+        value 1;
+        description
+          "Import direct routes.";
+      }
+      enum ospf {
+        value 2;
+        description
+          "Import OSPF routes.";
+      }
+      enum isis {
+        value 3;
+        description
+          "Import IS-IS routes.";
+      }
+      enum static {
+        value 4;
+        description
+          "Import static routes.";
+      }
+      enum rip {
+        value 5;
+        description
+          "Import RIP routes.";
+      }
+    }
+    description
+      "The protocol of bgpcommonImRoute.";
+  }
+
+  typedef ipv6-export-filter-protocol-type-deviations {
+    type enumeration {
+      enum noprotocol {
+        value 0;
+        description
+          "Import routes of all protocols.";
+      }
+      enum direct {
+        value 1;
+        description
+          "Import direct routes.";
+      }
+      enum isis {
+        value 3;
+        description
+          "Import IS-IS routes.";
+      }
+      enum static {
+        value 4;
+        description
+          "Import static routes.";
+      }
+      enum ospfv3 {
+        value 7;
+        description
+          "Import OSPFv3 routes.";
+      }
+      enum ripng {
+        value 8;
+        description
+          "Import RIPng routes.";
+      }
+    }
+    description
+      "The protocol of bgpcommonImRoute.";
+  }
+
+  typedef bgp-advertise-route-mode-deviations {
+    type enumeration {
+      enum all {
+        value 0;
+        description
+          "All routes.";
+      }
+      enum valid {
+        value 2;
+        description
+          "Valid routes.";
+      }
+    }
+    description
+      "The mode of advertise route.";
+  }
+
+  typedef peer-establish-mode-deviations {
+    type enumeration {
+      enum static {
+        value 1;
+        description
+          "Establish a BGP peer relationship statically.";
+      }
+      enum dynamic {
+        value 2;
+        description
+          "Establish a BGP peer relationship dynamically.";
+      }
+      enum dynamic-ipv6 {
+        value 4;
+        description
+          "Establish a BGP IPv6 peer relationship dynamically.";
+      }
+    }
+    description
+      "The mode in which a BGP peer is established.";
+  }
+
+  typedef object-type-deviations {
+    type enumeration {
+      enum network {
+        value 1;
+        description
+          "Network route policy.";
+      }
+      enum import {
+        value 2;
+        description
+          "Import route policy.";
+      }
+    }
+    description
+      "The type of object to which the routing policy takes effect.";
+  }
+
+  typedef attr-type-deviations {
+    type enumeration {
+      enum extcommunity-rt {
+        value 1;
+        description
+          "Extended community attribute route target.";
+      }
+    }
+    description
+      "The type of route policy attribute.";
+  }
+
+  deviation "/bgp:bgp/bgp:global/bgp:memory-overload-exception-discard-route" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:global/bgp:peer-limit" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:global/bgp:load-balance-adaptive-orchestrator" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:paf-controls" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:session-car" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:micro-car" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:memory-overload-danger-new-route-type/bgp:auto" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:memory-overload-danger-new-route-type/bgp:accept" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:local-cross-no-med" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:origin-validation-as" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:orf-limit" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:graceful-restart/bgp:force-quit-time" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:graceful-restart/bgp:selection-deferral-time" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:graceful-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:remote-prefix-sid-states" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:error-discard-info" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:vpn-brief-infos" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:srgbs" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:bestroute-af-priority-all-vpn" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:bestroute-nexthop-priority-all-vpn" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:instance-processs" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:route-learning-acceleration" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:route-process-acceleration" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:auto-frr-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:frr-non-host-label-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:tunnel-selector-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:tunnel-selector-all" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:nexthop-select-depend-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:nexthop-inherit-ip-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:nexthop-resolve-aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:best-route-bit-error-detection" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:supernet-label-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:lsp-mtu" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:label-free-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:attribute-set-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:attribute-set-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:bestroute-rd-large-first" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:maximum-load-balancing-mixed" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:bestroute-nexthop-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:prefix-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:prefix-validation-source-all" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:bestroute-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:bestroute-allow-invalid-as" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:prefix-origin-as-default-valid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:reoriginate-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:original-attributes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:rpd-policy-change-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:load-balancing-ucmp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:load-balancing-local-learn-cross" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:attribute-set-as-path-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:route-select-rule-relax" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:multi-nexthop-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:attribute-set-reserve-srv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:preference/bgp:set-value-or-policy/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:nexthop-recursive-lookup/bgp:common/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:nexthop-recursive-lookup/bgp:common/bgp:include-srv6-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:nexthop-recursive-lookup/bgp:delay/bgp:critical-event-reachable-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:nexthop-recursive-lookup/bgp:delay/bgp:include-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:nexthop-recursive-lookup/bgp:delay/bgp:critical-reachable-include-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-routes/bgp:import-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-routes/bgp:import-route/bgp:non-relay-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:aggregate-routes/bgp:aggregate-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:network-routes/bgp:network-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:network-routes/bgp:network-route/bgp:non-relay-tunnel" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:network-routes/bgp:network-route/bgp:label-index" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:import-multipath" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:include-local-cross" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:exclude-no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-ribs/bgp:import-rib/bgp:include-label-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-ribs/bgp:import-rib/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:ipv4-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:lsp-options" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:segment-routing-ipv6/bgp:srv6-color-only-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:segment-routing-ipv6/bgp:srv6-track-bfd-for-locator-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:segment-routing-ipv6/bgp:srv6-anycast-sid-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:dampening-routes/bgp:dampening-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:routing-table-rib-only/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:qos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:instance-import-ribs" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:region-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:bestroute-nexthop-recursive-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:bestroute-address-family-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:load-balancing" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:esi-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:default-esi" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:option/bgp:advertise-community-graceful-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:option/bgp:ip-prefix-route-resolution-esad-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:option/bgp:valid-route-ipv6-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-peer-up" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:auto-frr-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:lsp-operation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:nexthop-select-depend-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:nexthop-inherit-ip-cost" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:nexthop-resolve-aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:attribute-set-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:attribute-set-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:best-route-bit-error-detection" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:bestroute-rd-large-first" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:bestroute-nexthop-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:maximum-load-balancing-mixed" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:prefix-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:prefix-validation-source-all" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:bestroute-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:bestroute-allow-invalid-as" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:prefix-origin-as-default-valid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:reoriginate-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:original-attributes" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:load-balancing-ucmp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:load-balancing-local-learn-cross" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:attribute-set-as-path-check" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:route-select-rule-relax" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:multi-nexthop-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:attribute-set-reserve-srv6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:preference/bgp:set-value-or-policy/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:nexthop-recursive-lookup/bgp:common/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:nexthop-recursive-lookup/bgp:common/bgp:include-srv6-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:nexthop-recursive-lookup/bgp:delay/bgp:critical-event-reachable-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-routes/bgp:import-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:aggregate-routes/bgp:aggregate-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:network-routes/bgp:network-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:import-multipath" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:include-local-cross" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:exclude-no-advertise" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-ribs/bgp:import-rib/bgp:include-label-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-ribs/bgp:import-rib/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:segment-routing-ipv6/bgp:srv6-color-only-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:segment-routing-ipv6/bgp:srv6-track-bfd-for-locator-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:segment-routing-ipv6/bgp:srv6-anycast-sid-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:dampening-routes/bgp:dampening-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-filter-policy/bgp:ipv6-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:ipv6-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:routing-table-rib-only/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:qos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:region-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:bestroute-nexthop-recursive-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:bestroute-address-family-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:load-balancing" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:esi-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:default-esi" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:advertise-community-graceful-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:ip-prefix-route-resolution-esad-route" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:add-path-label-ignore" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:route-relay-srpolicy-color-only" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-peer-up" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:auto-frr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:label-free-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:vpn-orf-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:dampening-routes/bgp:dampening-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:nexthop-recursive-lookup/bgp:common/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:nexthop-recursive-lookup/bgp:common/bgp:include-srv6-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:nexthop-recursive-lookup/bgp:bit-error-detection/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:bestroute-nexthop-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:bestroute-nexthop-recursive-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:option" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:advertise-on-startup" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:auto-frr" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:label-free-delay" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:vpn-orf-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:nexthop-recursive-lookup/bgp:common/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:nexthop-recursive-lookup/bgp:common/bgp:include-srv6-best-effort" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:nexthop-recursive-lookup/bgp:bit-error-detection/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:import-filter-policy/bgp:ipv6-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:export-filter-policy/bgp:ipv6-import-filter-protocol-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:dampening-routes/bgp:dampening-route/bgp:policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:bestroute-nexthop-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:bestroute-nexthop-recursive-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:option" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:advertise-on-startup" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-labeluni" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-multicast" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:unnumbered-peer-interfaces" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:tcp-ao-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:path-mtu-auto-discovery" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:local-ifnet-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:memory-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:mode-type/bgp:link" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:mode-type/bgp:one-arm-echo" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:valid-ttl-hops" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:delay-delete-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:graceful-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:role" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:uninterrupted-dynamic-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:label-route-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:check-tunnel-reachable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:check-withdraw-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:default-route-advertise-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:exp-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:update-group-independent" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:discard-ext-community-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:option" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-dependent-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:entropy-label-parameter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:route-server" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-policy/bgp:add-path-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:soo-reverse" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:static-route-nexthop-invariable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:unicast-route-nexthop-invariable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:discard-ext-community-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:default-route-advertise-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:update-group-independent" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:export-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:include-not-found" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:advertise-match-route-source" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-dependent-filter6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:route-server" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:add-path-policy/bgp:add-path-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:soo-reverse" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:ignore-bit-error" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-mac-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-vpnv4-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:high-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:prefix-sid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:remote-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:prefix-sid-packet" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:ignore-bit-error" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-mac-ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-vpnv6-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:high-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:prefix-sid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:prefix-sid-packet" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-labeluni" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-multicast" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:tcp-ao-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:tcp-ao-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:path-mtu-auto-discovery" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:local-ifnet-disable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:memory-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:memory-priority-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:extended-message" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:mode-type/bgp:link" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:mode-type/bgp:one-arm-echo" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:track-session-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:valid-ttl-hops-operation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:valid-ttl-hops" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:delay-delete-time" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:egress-engineer-parameter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:graceful-shutdown" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:role" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:uninterrupted-dynamic-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:label-route-capability" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:check-tunnel-reachable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:check-withdraw-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:default-route-advertise-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:exp-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:discard-ext-community-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:update-group-independent" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:update-group-independent-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:rpd-policy-export" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:option" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:entropy-label-parameter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-dependent-filter" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-dependent-filter-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:route-server" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-policy/bgp:add-path-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:soo-reverse" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:traffic-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:static-route-nexthop-invariable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:unicast-route-nexthop-invariable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:discard-ext-community-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:default-route-advertise-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-best-external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:tunnel-policy" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:update-group-independent" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:update-group-independent-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:export-origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:include-not-found" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:external" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:advertise-match-route-source" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-dependent-filter6" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-dependent-filter6-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:route-server" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:hierarchy-convergence" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:link-bandwidth" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:add-path-policy/bgp:add-path-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:soo-reverse" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:rpki" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:ignore-bit-error" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-mac-ip-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:reoriginate-vpnv4-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:high-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:prefix-sid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:prefix-sid-packet" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:private-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:remote-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:orf-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:orf-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:import-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:export-policy-type/bgp:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:ignore-bit-error" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:aigp" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-mac-ipv6-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:reoriginate-vpnv6-route-enable" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:origin-as-validation" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:high-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:prefix-sid" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:prefix-sid-state" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:private-nexthop" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:prefix-sid-packet" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-labeluni" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-multicast" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:state/bgp:send-capability-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:state/bgp:receive-capability-count" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:state/bgp:region-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:state/bgp:region-confederation-id" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:state/bgp:memory-priority" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-total-numbers/bgp:peer-total-number/bgp:unnumbered-peer-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-total-numbers/bgp:peer-total-number/bgp:unnumbered-peer-established-number" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-bfd-session-states/bgp:peer-bfd-session-state/bgp:bfd-type" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-bfd-session-states/bgp:peer-bfd-session-state/bgp:track-session-name" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-bfd-session-states/bgp:peer-bfd-session-state/bgp:valid-ttl-hops" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:egress-engineer-peer-sets" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:instance-processs" {
+    deviate not-supported;
+  }
+  deviation "/bgp:bgp/bgp:specifications/bgp:route-specs/bgp:route-spec/bgp:af-type" {
+    deviate replace {
+      type bgp-devs-ar5710s:af-type-deviations;
+    }
+  }
+  deviation "/bgp:bgp/bgp:memory-overload-danger-new-route-type" {
+    deviate delete {
+      default "auto";
+    }
+  }
+  deviation "/bgp:bgp/bgp:policy-effective/bgp:actions/bgp:action" {
+    deviate delete {
+      must "((object = 'network' or object = 'import') and attribute = 'extcommunity-rt') or (object = 'peer-export' and attribute = 'med-inherit-aigp')";
+    }
+    deviate add {
+      must "(object = 'network' or object = 'import') and attribute = 'extcommunity-rt'";
+    }
+  }
+  deviation "/bgp:bgp/bgp:policy-effective/bgp:actions/bgp:action/bgp:object" {
+    deviate replace {
+      type bgp-devs-ar5710s:object-type-deviations;
+    }
+  }
+  deviation "/bgp:bgp/bgp:policy-effective/bgp:actions/bgp:action/bgp:attribute" {
+    deviate replace {
+      type bgp-devs-ar5710s:attr-type-deviations;
+    }
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:dynamic-session-limit" {
+    deviate replace {
+      type uint32 {
+        range "1..16000";
+      }
+    }
+  }
+  deviation "/bgp:bgp/bgp:base-process/bgp:graceful-restart-status/bgp:afs/bgp:af/bgp:af" {
+    deviate replace {
+      type bgp-devs-ar5710s:af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:type" {
+    deviate replace {
+      type bgp-devs-ar5710s:af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:maximum-load-balancing-ibgp" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:maximum-load-balancing-ebgp" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:add-path-select-num" {
+    deviate add {
+      must "../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:maximum-load-balancing" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:route-relay-tunnel" {
+    deviate add {
+      must "../route-relay-tunnel='false' or ../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:route-relay-tunnel-selector" {
+    deviate add {
+      must "../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:maximum-load-balancing-eibgp" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:common/bgp:advertise-route-mode" {
+    deviate replace {
+      type bgp-devs-ar5710s:bgp-advertise-route-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-routes/bgp:import-route/bgp:protocol" {
+    deviate replace {
+      type bgp-devs-ar5710s:ipv4-import-route-protocol-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-routes/bgp:import-route/bgp:process-id" {
+    deviate add {
+      must "((../protocol='ospf' or ../protocol='isis' or ../protocol='rip') and ../process-id!=0) or (../protocol!='ospf' and ../protocol!='isis' and ../protocol!='rip' and ../process-id=0)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:advertise-active-routes-number" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-ribs/bgp:import-rib/bgp:source-vpn" {
+    deviate delete {
+      must "not(../../../../../../../../ni:name = current() and ../source-address-family = 'ipv4uni')";
+    }
+    deviate add {
+      must 'not(../../../../../../../../ni:name = current())';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-ribs/bgp:import-rib/bgp:source-address-family" {
+    deviate delete {
+      must "(current() = 'ipv4labeluni' and /ni:network-instance/ni:instances/ni:instance[ni:name=current()/../bgp:source-vpn]/bgp:bgp/bgp:base-process/bgp:afs/bgp:af[bgp:type='ipv4labeluni']/bgp:ipv4-labeluni) or (current() = 'ipv4uni' and /ni:network-instance/ni:instances/ni:instance[ni:name=current()/../bgp:source-vpn]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast'])";
+    }
+    deviate add {
+      must "/ni:network-instance/ni:instances/ni:instance[ni:name=current()/../bgp:source-vpn]/l3vpn:afs/l3vpn:af[l3vpn:type='ipv4-unicast']";
+    }
+    deviate replace {
+      type bgp-devs-ar5710s:import-rib-ipv4-safi-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:acl-ref/bgp:acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:protocol" {
+    deviate replace {
+      type bgp-devs-ar5710s:ipv4-export-filter-protocol-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:process-id" {
+    deviate add {
+      must "((../protocol='ospf' or ../protocol='isis' or ../protocol='rip') and ../process-id!=0) or (../protocol!='ospf' and ../protocol!='isis' and ../protocol!='rip' and ../process-id=0)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:ipv4-filter-protocol-policy-type/bgp:acl-ref/bgp:acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:slow-peer/bgp:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-on-startup/bgp:advertise-delay" {
+    deviate delete {
+      must 'not (../../bgp:advertise-peer-up/bgp:advertise-delay)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:advertise-on-startup/bgp:advertise-lowest-priority" {
+    deviate delete {
+      must 'not (../../bgp:advertise-peer-up/bgp:advertise-delay)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:maximum-load-balancing-ibgp" {
+    deviate add {
+      must "not (../maximum-load-balancing>1 or ../maximum-load-balancing-eibgp or ../load-balancing-eibgp-enable='true') or ../maximum-load-balancing-ibgp=1";
+    }
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:maximum-load-balancing-ebgp" {
+    deviate add {
+      must "not (../maximum-load-balancing>1 or ../maximum-load-balancing-eibgp or ../load-balancing-eibgp-enable='true') or ../maximum-load-balancing-ebgp=1";
+    }
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:explicit-null" {
+    deviate delete {
+      must "not(../lsp-operation='pop-go' and ../explicit-null='true')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:maximum-load-balancing" {
+    deviate add {
+      must 'not (../maximum-load-balancing-ibgp>1 or ../maximum-load-balancing-ebgp>1 or ../maximum-load-balancing-eibgp) or ../maximum-load-balancing=1';
+    }
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:route-relay-tunnel-v4" {
+    deviate add {
+      must "../route-relay-tunnel-v4='false' or ../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:route-relay-tunnel-v4-selector" {
+    deviate add {
+      must "../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:maximum-load-balancing-eibgp" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:common/bgp:advertise-route-mode" {
+    deviate replace {
+      type bgp-devs-ar5710s:bgp-advertise-route-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-routes/bgp:import-route/bgp:protocol" {
+    deviate replace {
+      type bgp-devs-ar5710s:ipv6-import-route-protocol-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:import-routes/bgp:import-route/bgp:process-id" {
+    deviate add {
+      must "((../protocol='ospfv3' or ../protocol='isis' or ../protocol='ripng') and ../process-id!=0) or (../protocol!='ospfv3' and ../protocol!='isis' and ../protocol!='ripng' and ../process-id=0)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-route-to-evpns/bgp:advertise-route-to-evpn/bgp:advertise-active-routes-number" {
+    deviate replace {
+      type uint16 {
+        range "1..128";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:protocol" {
+    deviate replace {
+      type bgp-devs-ar5710s:ipv6-export-filter-protocol-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:export-filter-policys/bgp:export-filter-policy/bgp:process-id" {
+    deviate add {
+      must "((../protocol='ospfv3' or ../protocol='ripng' or ../protocol='isis') and ../process-id!=0) or ((../protocol!='ospfv3' and ../protocol!='ripng' and ../protocol!='isis') and ../process-id=0)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:slow-peer/bgp:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-on-startup/bgp:advertise-delay" {
+    deviate delete {
+      must 'not (../../bgp:advertise-peer-up/bgp:advertise-delay)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:advertise-on-startup/bgp:advertise-lowest-priority" {
+    deviate delete {
+      must 'not (../../bgp:advertise-peer-up/bgp:advertise-delay)';
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:nexthop-select-depend-type" {
+    deviate replace {
+      type bgp-devs-ar5710s:select-depend-type-ext-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:acl-ref/bgp:acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-filter-policy/bgp:ipv4-import-filter-protocol-policy-type/bgp:acl-ref/bgp:acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:slow-peer/bgp:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:nexthop-select-depend-type" {
+    deviate replace {
+      type bgp-devs-ar5710s:select-depend-type-ext-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-vpn/bgp:slow-peer/bgp:absolute-detection-threshold" {
+    deviate replace {
+      default "60";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:dynamic-peer-prefixes/bgp:dynamic-peer-prefix/bgp:address" {
+    deviate add {
+      must "contains(../address, '.')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:dynamic-peer-prefixes/bgp:dynamic-peer-prefix/bgp:mask-length" {
+    deviate replace {
+      type uint8 {
+        range "0..32";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:password-type" {
+    deviate delete {
+      must "not(../password-type!='null' and (../key-chain-name or ../tcp-ao-name))";
+    }
+    deviate add {
+      must "not(../password-type!='null' and ../key-chain-name)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:key-chain-name" {
+    deviate delete {
+      must "not(../password-type!='null' or ../tcp-ao-name)";
+    }
+    deviate add {
+      must "not(../password-type and ../password-type!='null' and ../key-chain-name)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:conventional" {
+    deviate add {
+      must ".='false' or ../bgp:peer-establish-mode!='dynamic-ipv6'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:peer-establish-mode" {
+    deviate add {
+      must "not(. = 'dynamic-ipv6')";
+    }
+    deviate replace {
+      type bgp-devs-ar5710s:peer-establish-mode-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:min-rx-interval" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:bfd-parameter/bgp:min-tx-interval" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:local-graceful-restart/bgp:restart-time" {
+    deviate replace {
+      type uint32 {
+        range "3..3600";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:type" {
+    deviate replace {
+      type bgp-devs-ar5710s:group-af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:orf-type" {
+    deviate delete {
+      must "((../orf-mode='null' and ../orf-type='null') or (../orf-mode!='null' and ../orf-type!='null')) and ((../../../../../../../../ni:name!='_public_' and ../orf-type!='nonstandard-compatible') or ../../../../../../../../ni:name='_public_')";
+    }
+    deviate add {
+      must "((../orf-mode='null' and ../orf-type='null') or (../orf-mode!='null' and ../orf-type!='null')) and ../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-mode" {
+    deviate add {
+      must "(../../../../../../../../ni:name='_public_') or (../../../../../../../../ni:name!='_public_' and ../add-path-mode = 'null')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-number" {
+    deviate add {
+      must "../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:label-route-capability" {
+    deviate add {
+      must ".='false' or ../../../../bgp:peer-establish-mode!='dynamic-ipv6'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:nexthop-configure" {
+    deviate replace {
+      type bgp-devs-ar5710s:nexthop-configuration-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:label-route-capability-only" {
+    deviate add {
+      must ".='disable' or ../../../../../bgp:peer-establish-mode!='dynamic-ipv6'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-groups/bgp:peer-group/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:password-type" {
+    deviate delete {
+      must "not(../password-type!='null' and (../key-chain-name or ../tcp-ao-name))";
+    }
+    deviate add {
+      must "not(../password-type!='null' and ../key-chain-name)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:key-chain-name" {
+    deviate delete {
+      must "not(../password-type!='null' or ../tcp-ao-name)";
+    }
+    deviate add {
+      must "not(../password-type and ../password-type!='null' and ../key-chain-name)";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:egress-engineer" {
+    deviate add {
+      must "(contains(../address,'.') and ../egress-engineer='default') or contains(../address,':')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:block" {
+    deviate delete {
+      must "not((../block='true' and ../enable='true') or (../block='true' and ../track-session-name) or (../enable='true' and ../track-session-name))";
+    }
+    deviate add {
+      must "not(../block='true' and ../enable='true')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:min-rx-interval" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:bfd-parameter/bgp:min-tx-interval" {
+    deviate replace {
+      type uint32 {
+        range "10..2000";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:local-graceful-restart/bgp:restart-time" {
+    deviate replace {
+      type uint32 {
+        range "3..3600";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:local-graceful-restart/bgp:effect-restart-time" {
+    deviate replace {
+      type uint32 {
+        range "3..3600";
+      }
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:type" {
+    deviate replace {
+      type bgp-devs-ar5710s:af-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:orf-type" {
+    deviate delete {
+      must "((../orf-mode='null' and ../orf-type='null') or (../orf-mode!='null' and ../orf-type!='null')) and ((../../../../../../../../ni:name!='_public_' and ../orf-type!='nonstandard-compatible') or ../../../../../../../../ni:name='_public_')";
+    }
+    deviate add {
+      must "((../orf-mode='null' and ../orf-type='null') or (../orf-mode!='null' and ../orf-type!='null')) and ../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-mode" {
+    deviate add {
+      must "(../../../../../../../../ni:name='_public_') or (../../../../../../../../ni:name!='_public_' and ../add-path-mode = 'null')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:import-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:export-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:add-path-number" {
+    deviate add {
+      must "../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp:prefix-sid" {
+    deviate add {
+      must "(contains(../../../../address,'.') and ../prefix-sid='default') or contains(../../../../address,':')";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:label-route-capability" {
+    deviate add {
+      must "../label-route-capability='false' or ../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:nexthop-configure" {
+    deviate delete {
+      must "(not(contains(../../../../address,':')) and ../nexthop-configure='local') or contains(../../../../address,':')";
+    }
+    deviate replace {
+      type bgp-devs-ar5710s:nexthop-configuration-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp:option/bgp:label-route-capability-only" {
+    deviate add {
+      must "../../../../../../../../../ni:name='_public_'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn" {
+    deviate add {
+      must "not(contains(../../../address, ':'))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:import-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv4-vpn/bgp:export-acl-name-or-num" {
+    deviate delete {
+      must "(/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic') or (/acl:acl/acl:groups/acl:group[acl:number=number(current())] and /acl:acl/acl:groups/acl:group[acl:number=number(current())]/acl:type = 'basic')";
+    }
+    deviate add {
+      must "/acl:acl/acl:groups/acl:group[acl:identity=current()] and /acl:acl/acl:groups/acl:group[acl:identity=current()]/acl:type = 'basic'";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peers/bgp:peer/bgp:afs/bgp:af/bgp:ipv6-vpn" {
+    deviate add {
+      must "not(contains(../../../address, ':'))";
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:peer-total-numbers/bgp:peer-total-number/bgp:af-type" {
+    deviate replace {
+      type bgp-devs-ar5710s:af-type-deviations;
+    }
+  }
+}

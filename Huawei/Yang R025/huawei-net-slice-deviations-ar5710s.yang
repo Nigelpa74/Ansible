@@ -1,0 +1,88 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-net-slice-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-net-slice-deviations-ar5710s";
+  prefix net-slice-devs-ar5710s;
+
+  import huawei-net-slice {
+    prefix net-slice;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ip {
+    prefix ip;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-net-slice module.";
+
+  revision 2025-08-08 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/net-slice:net-slice/net-slice:instances/net-slice:instance/net-slice:source-prefix" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:instances/net-slice:instance/net-slice:strict-match" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:instances/net-slice:instance/net-slice:instance-type" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:instances/net-slice:instance/net-slice:associated-private-line-slices" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:global/net-slice:vlan-encapsulate-enable" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:network-slice-id-mapping" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:net-slice/net-slice:network-slice-source-prefix" {
+    deviate not-supported;
+  }
+  deviation "/net-slice:reset-flex-channel-statitic" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:slice-capabilitys" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slice-binding" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slices/net-slice:net-slice/net-slice:mode/net-slice:flex-channel-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slices/net-slice:net-slice/net-slice:mode/net-slice:spfc-mode" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slices/net-slice:net-slice/net-slice:flex-channel-statistics" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slices/net-slice:net-slice/net-slice:slice-id" {
+    deviate delete {
+      must '(../../../net-slice:net-slice-binding/net-slice:slice-id and count(../../net-slice:net-slice/net-slice:data-plane) <= 1) or not (../../../net-slice:net-slice-binding/net-slice:slice-id)';
+    }
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/net-slice:net-slices/net-slice:net-slice/net-slice:mode/net-slice:data-plane-mode/net-slice:data-plane" {
+    deviate delete {
+      must '../../../ip:ipv6 and (../../../ip:ipv6/ip:addresses/ip:address/ip:ip or ../../../net-slice:net-slice-binding)';
+    }
+    deviate add {
+      must '../../../ip:ipv6 and ../../../ip:ipv6/ip:addresses/ip:address/ip:ip';
+    }
+  }
+}

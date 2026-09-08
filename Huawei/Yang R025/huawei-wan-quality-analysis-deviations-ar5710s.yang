@@ -1,0 +1,37 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wan-quality-analysis-deviations-ar5710s {
+  namespace "urn:huawei:yang:huawei-wan-quality-analysis-deviations-ar5710s";
+  prefix wan-quality-analysis-devs-ar5710s;
+
+  import huawei-wan-quality-analysis {
+    prefix wan-quality-analysis;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wan-quality-analysis module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  ext:deviation-ext "/wan-quality-analysis:wan-quality-analysis" {
+    ext:deviate-ext "add" {
+      ext:operation-exclude "create|delete";
+    }
+  }
+}

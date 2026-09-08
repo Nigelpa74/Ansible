@@ -1,0 +1,160 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-capture-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-capture-deviations-ar5710s";
+  prefix capture-devs-ar5710s;
+
+  import huawei-capture {
+    prefix capture;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-capture module.";
+
+  revision 2022-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef direction-deviations {
+    type enumeration {
+      enum inbound {
+        value 1;
+        description
+          "Inbound.";
+      }
+      enum outbound {
+        value 2;
+        description
+          "Outbound.";
+      }
+    }
+    description
+      "Packet obtain direction.";
+  }
+
+  deviation "/capture:capture" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:soft-forward-drop" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:soft-forward-drop-type" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:tunnel/capture:vxlan" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:acl/capture:acl/capture:packet-match" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:acl/capture:acl6/capture:packet-match-v6" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:sample-rate" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:vlan-mode" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:file-size" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:buffer-only" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:overwrite" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:offset-value" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value-second" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:offset-value1" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value1" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-mask1" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:offset-value2" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value2" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-mask2" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:offset-value3" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value3" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-mask3" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:offset-value4" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-value4" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:match-mask4" {
+    deviate not-supported;
+  }
+  deviation "/capture:stop-capture/capture:input/capture:mode/capture:interface" {
+    deviate not-supported;
+  }
+  deviation "/capture:free-packet-header-obtain" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/capture:capture" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/capture:capture" {
+    deviate not-supported;
+  }
+  deviation "/capture:capture-packet/capture:input/capture:packet-number" {
+    deviate replace {
+      type uint32 {
+        range "1..5000";
+      }
+    }
+  }
+  deviation "/capture:capture-packet/capture:input/capture:timeout" {
+    deviate replace {
+      type uint32 {
+        range "1..86400";
+      }
+    }
+  }
+  deviation "/capture:capture-packet/capture:input/capture:direction" {
+    deviate replace {
+      type capture-devs-ar5710s:direction-deviations;
+    }
+  }
+}

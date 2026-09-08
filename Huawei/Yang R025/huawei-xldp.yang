@@ -1,0 +1,59 @@
+/*
+Copyright (C) 2022 Huawei Technologies Co., Ltd. All rights reserved.
+  module: huawei-xldp
+  +--rw xldp
+     +--rw enable?   boolean
+
+  augment ifm:ifm/ifm:interfaces/ifm:interface:
+    +--rw xldp
+       +--rw enable?   boolean
+*/
+
+module huawei-xldp {
+  namespace "urn:huawei:yang:huawei-xldp";
+  prefix xldp;
+  
+  import huawei-ifm {
+    prefix ifm;
+  } 
+  import huawei-extension {
+    prefix ext;
+  }  
+organization "Huawei Technologies Co., Ltd.";
+
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "X-Lean Discovery Protocol, which is simplified and centralized topology discovery technology in X-Lean Architecture.";
+
+  revision 2022-07-12 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+  ext:task-name "xldp";
+  container xldp {
+    description "XLdp global config.";
+    leaf enable {
+      type boolean;
+      description "Enable/disable global XLDP.";
+    }
+  }
+  
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    when "ifm:class = 'main-interface'";
+    description "Configuration of the interface.";
+    container xldp {
+      description "Configure XLDP on an interface.";
+      leaf enable {
+        type boolean;
+        description "Enable/disable XLDP on the interface.";
+      }
+    }
+  }
+}

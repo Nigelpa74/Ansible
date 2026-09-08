@@ -1,0 +1,128 @@
+/*
+Copyright (C) 2022-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mac-notify {
+  namespace "urn:huawei:yang:huawei-mac-notify";
+  prefix mac-notify;
+  import huawei-extension {
+    prefix ext;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-ethernet {
+    prefix ethernet;
+  }
+  import huawei-mac {
+    prefix mac;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Mac notify management.";
+  revision 2024-07-20 {
+    description
+      "Add New Leaf.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-11-22 {
+    description
+      "Modify Interval Time.";
+    reference
+      "Huawei private.";
+  }
+  revision 2022-05-06 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  augment "/mac:mac" { 
+    description
+      "The Mac notify configurations.";
+    container mac-notification {
+      description
+        "Configure the mac-notification interval time.";
+      leaf interval-time {
+        type uint32 {
+        range "10..600";
+        }
+        units "s";
+        default "10";
+        description
+          "Mac-notification interval time.";
+      }
+      leaf full-report-interval-time {
+        type uint32 {
+        range "360..10080";
+        }
+        units "min";
+        default "1440";
+        description
+          "Mac-notification full-report interval time.";
+      }
+    }
+    container mac-arp {
+      description
+        "Configure the mac arp enable.";
+      leaf mac-arp-enable {
+        type boolean;
+        default "true";
+        description
+          "Enable/disable mac arp.";
+      }
+    }
+    container mlag-notification {
+      description
+        "Configure the m-lag notification disable.";
+      leaf evpn {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable mlag not notify EVPN.";
+      }
+      leaf vlanif {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable mlag not notify VLANif.";
+      }
+      leaf vbdif {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable mlag not notify Vbdif.";
+      }
+    }
+  }
+  augment "/ifm:ifm/ifm:interfaces/ifm:interface" {
+    description
+      "Describes the MACs configuration of the interface.";    
+    container mac-notification {
+      when "../ethernet:ethernet/ethernet:main-interface/ethernet:l2-attribute";
+      description
+        "Configure Mac Notification information on interface.";
+      leaf learning {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable macaddress notification learning.";
+      }
+      leaf aging {
+        type boolean;
+        default "false";
+        description
+          "Enable/disable macaddress notification aging.";
+      }
+    }
+  }
+  ext:task-name "mac";
+}

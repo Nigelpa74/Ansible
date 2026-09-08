@@ -1,0 +1,55 @@
+/*
+Copyright (C) 2023-2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-eula-notification {
+  namespace "urn:huawei:yang:huawei-eula-notification";
+  prefix eula-notification;
+
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of eula.";
+  revision 2024-02-04 {
+    description
+      "Add parameters.";
+    reference
+      "Huawei private.";
+  }
+  revision 2023-10-27 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "eula";
+
+  notification eula-not-signed {
+    description
+      "The End User License Agreement (EULA) has not been manually signed.";
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days before the system automatically signs the EULA.";
+    }
+  }
+  notification eula-not-signed-clear {
+    description
+      "The End User License Agreement (EULA) has been manually signed.";
+    leaf remaining-days {
+      type uint32;
+      description
+        "Remaining days before the system automatically signs the EULA.";
+    }
+  }
+}

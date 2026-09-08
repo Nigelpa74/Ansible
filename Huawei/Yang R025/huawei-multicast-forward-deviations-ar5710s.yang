@@ -1,0 +1,154 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-multicast-forward-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-multicast-forward-deviations-ar5710s";
+  prefix multicast-forward-devs-ar5710s;
+
+  import huawei-multicast-forward {
+    prefix multicast-forward;
+  }
+  import huawei-ifm {
+    prefix ifm;
+  }
+  import huawei-qos {
+    prefix qos;
+  }
+  import huawei-devm {
+    prefix devm;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-multicast-forward module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/multicast-forward:multicast-forward/multicast-forward:global" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:forwarding-mode" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:nat" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:multicast-shaping" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:egress-forward-mode" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:mcfwd-entrys" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:multicast-speed-states" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:spatial-multicast" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:multicast-outgoing-interface-statics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:l3-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:l2-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:random-detect" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:multicast-forward/multicast-forward:static-frr" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:send-igmp-packet" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-l3-egress-all-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-l3-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-l2-egress-all-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-vlan-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-vsi-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:reset-bd-egress-statistics" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:set-stream-learn" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:set-stream-learn-global" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:single-2022d7-reset" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:single-fast-switch" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:group-fast-switch" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:single-2022d7-restore" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:single-2022d7-switch" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:single-fast-switch-in-batches" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:group-2022d7-switch" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:group-fast-switch-in-batches" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:get-multicast-forwarding-device" {
+    deviate not-supported;
+  }
+  deviation "/multicast-forward:get-multicast-speed-statistics" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:mpu-boards/devm:mpu-board/multicast-forward:multicast-forward" {
+    deviate not-supported;
+  }
+  deviation "/devm:devm/devm:lpu-boards/devm:lpu-board/multicast-forward:multicast-forward" {
+    deviate not-supported;
+  }
+  deviation "/ifm:ifm/ifm:interfaces/ifm:interface/multicast-forward:multicast-forward" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/multicast-forward:multicast-forward" {
+    deviate not-supported;
+  }
+  deviation "/qos:qos/qos:classifier-template/qos:traffic-behaviors/qos:traffic-behavior/multicast-forward:behavior-bind-multicast-nat-instance" {
+    deviate not-supported;
+  }
+}

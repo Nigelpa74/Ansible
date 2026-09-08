@@ -1,0 +1,43 @@
+/*
+Copyright (C) 2019 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-wlan-ap-group-profile-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-wlan-ap-group-profile-deviations-ar5710s";
+  prefix hw-wlan-agp-devs-ar5710s;
+
+  import huawei-wlan-ap-group-profile {
+    prefix hw-wlan-agp;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-wlan-ap-group-profile module.";
+
+  revision 2019-11-06 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-wlan-agp:wlan-ap-group-profile/hw-wlan-agp:ap-group-profiles/hw-wlan-agp:ap-group-profile/hw-wlan-agp:site-code" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-agp:wlan-ap-group-profile/hw-wlan-agp:ap-group-profiles/hw-wlan-agp:ap-group-profile/hw-wlan-agp:longitude" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-agp:wlan-ap-group-profile/hw-wlan-agp:ap-group-profiles/hw-wlan-agp:ap-group-profile/hw-wlan-agp:latitude" {
+    deviate not-supported;
+  }
+  deviation "/hw-wlan-agp:wlan-ap-group-profile/hw-wlan-agp:ap-group-profiles/hw-wlan-agp:ap-group-profile/hw-wlan-agp:altitude" {
+    deviate not-supported;
+  }
+}

@@ -1,0 +1,153 @@
+/********************************************
+Copyright (C) 2020-2022 Huawei Technologies Co., Ltd. All rights reserved.
+module: huawei-stun-server
+   +--rw stun-server!
+      +--rw enable?           boolean
+      +--rw listen
+      |  +--rw port?             uint16
+      |  +--rw ipv4-addresses
+      |     +--rw ipv4-address* [vpn-instance ipv4-address]
+      |        +--rw vpn-instance    -> /ni:network-instance/instances/instance/name
+      |        +--rw ipv4-address    inet:ipv4-address-no-zone
+      +--rw authentication!
+         +--rw username         string
+         +--rw password         pub-type:password-extend
+
+*/
+module huawei-stun-server {
+
+  namespace "urn:huawei:yang:huawei-stun-server";
+  prefix stun-server;
+  
+  import ietf-inet-types {
+    prefix inet;
+  }
+  
+  import huawei-network-instance {
+    prefix ni;
+  }
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  
+  import huawei-pub-type {
+    prefix pub-type;
+  }  
+  organization
+    "Huawei Technologies Co., Ltd.";
+     
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+
+  description
+    "This module contains a collection of YANG definitions for stun server.";
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2020-02-13 {
+    description "Initial revision.";
+    reference "";
+  }
+  ext:task-name  "stun";
+
+  /*****************************************************************
+  * Features
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Identities
+  *****************************************************************/
+
+  /*****************************************************************
+  * Type definitions
+  *****************************************************************/
+  
+  /*****************************************************************
+  * Groupings
+  *****************************************************************/
+
+  /*****************************************************************
+  * Main container
+  *****************************************************************/
+  container stun-server {
+    presence "create stun-server";
+    description "The container of stun.";
+    
+    leaf enable {
+      type boolean;
+      default "false";
+      description "Enable/disable stun server.";
+    }
+    
+    container listen {
+      description "Configure stun server.";
+    
+      leaf port {
+        type uint16 {
+          range "1024..65535";
+        }
+        default "3478";
+        description "The listening port of stun server.";
+      }    
+      
+      container ipv4-addresses {
+        description
+          "List of listening address.";
+    
+        list ipv4-address {
+      
+          key "vpn-instance ipv4-address" ;
+          description "Configure a listening address.";
+      
+          leaf vpn-instance {
+            type leafref {
+              path "/ni:network-instance/ni:instances/ni:instance/ni:name";
+            } 
+            description "The vpn instance name.";
+          }
+      
+          leaf ipv4-address {
+            type inet:ipv4-address-no-zone;
+            description "The listening address.";
+          }
+        }
+      }
+    }
+
+    container authentication {
+      presence "create authentication";
+      description
+        "Configure the authentication user name and password for the STUN server.";
+        leaf username {
+          type string {
+            length "6..64";
+          }
+          mandatory true;
+          description "Specifies the user name for STUN server.";
+        }
+        leaf password {
+          type pub-type:password-extend {
+            length "8..428";
+          }
+          mandatory true;
+          description "Specifies the user password for STUN server.";
+        }
+    }
+  }
+  
+    
+  /***************************************************************
+  * notification
+  ***************************************************************/
+  
+  /*************************************************************
+  * rpc 
+  **************************************************************/  
+}

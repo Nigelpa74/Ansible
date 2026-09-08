@@ -1,0 +1,147 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-bgp-srv6-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-bgp-srv6-deviations-ar5710s";
+  prefix bgp-srv6-devs-ar5710s;
+
+  import huawei-bgp-srv6 {
+    prefix bgp-srv6;
+  }
+  import huawei-srv6 {
+    prefix srv6;
+  }
+  import huawei-bgp {
+    prefix bgp;
+  }
+  import huawei-srpolicy {
+    prefix srpolicy;
+  }
+  import huawei-network-instance {
+    prefix ni;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-bgp-srv6 module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef sid-compress-type-deviations {
+    type enumeration {
+      enum common {
+        value 0;
+        description
+          "Not Support sid compress.";
+      }
+    }
+    description
+      "Sid mode type.";
+  }
+
+  typedef service-sid-type-deviations {
+    type enumeration {
+      enum unicast {
+        value 0;
+        description
+          "Unicast service SID.";
+      }
+    }
+    description
+      "L3VPN service SID type.";
+  }
+
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp-srv6:locator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:advertise-sbfd-discriminator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-mode" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:advertise-sbfd-discriminator" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-flavor" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locator-routes/bgp-srv6:locator-route/bgp-srv6:policy-type/bgp-srv6:xpl-ref" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/bgp-srv6:tunnel-vpnv4-infos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/srv6:srv6/srpolicy:srpolicy/srpolicy:policy-infos/srpolicy:policy-info/bgp-srv6:tunnel-vpnv6-infos" {
+    deviate not-supported;
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-compress-type" {
+    deviate delete {
+      must "(.='common' and not(../apply-sid-flavor)) or .='compress'";
+    }
+    deviate delete {
+      must ".='common' or /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../name]/srv6:compress-16";
+    }
+    deviate delete {
+      must "not(../apply-sid-flavor) or (../apply-sid-flavor and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode and ((../apply-sid-flavor='coc-next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or ../apply-sid-flavor!='coc-next'))";
+    }
+    deviate replace {
+      type bgp-srv6-devs-ar5710s:sid-compress-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv4-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:service-sid-type" {
+    deviate delete {
+      must "../../../../../../../../ni:name!='_public_' or .='unicast'";
+    }
+    deviate delete {
+      must ".='unicast' or ((not(../auto-sid) or ../auto-sid = 'false') and not(../advertise-sbfd-discriminator) and (../apply-sid-compress-type='common'))";
+    }
+    deviate replace {
+      type bgp-srv6-devs-ar5710s:service-sid-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:apply-sid-compress-type" {
+    deviate delete {
+      must "(.='common' and not(../apply-sid-flavor)) or .='compress'";
+    }
+    deviate delete {
+      must ".='common' or /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:locators/srv6:locator[srv6:name=current()/../name]/srv6:compress-16";
+    }
+    deviate delete {
+      must "not(../apply-sid-flavor) or (../apply-sid-flavor and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode and ((../apply-sid-flavor='coc-next' and /ni:network-instance/ni:instances/ni:instance[ni:name='_public_']/srv6:srv6/srv6:compress-16-mode='default') or ../apply-sid-flavor!='coc-next'))";
+    }
+    deviate replace {
+      type bgp-srv6-devs-ar5710s:sid-compress-type-deviations;
+    }
+  }
+  deviation "/ni:network-instance/ni:instances/ni:instance/bgp:bgp/bgp:base-process/bgp:afs/bgp:af/bgp:ipv6-unicast/bgp-srv6:locators/bgp-srv6:locator/bgp-srv6:service-sid-type" {
+    deviate delete {
+      must "../../../../../../../../ni:name!='_public_' or .='unicast'";
+    }
+    deviate delete {
+      must ".='unicast' or (not(../advertise-sbfd-discriminator) and (../apply-sid-compress-type='common'))";
+    }
+    deviate replace {
+      type bgp-srv6-devs-ar5710s:service-sid-type-deviations;
+    }
+  }
+}

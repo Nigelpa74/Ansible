@@ -1,0 +1,146 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-nat-policy-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-nat-policy-deviations-ar5710s";
+  prefix nat-policy-deviations-ar5710s;
+
+  import huawei-nat-policy {
+    prefix hw-nat-policy;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base Bantian, Longgang Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com Email: support@huawei.com";
+
+  revision 2025-04-14 {
+    description
+      "Add MAC leaf trim.";
+    reference "Huawei private.";
+  }
+  revision 2021-03-08 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:hit-count" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:nat-type" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-object" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-object-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-group-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-ipv6-excludes" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-ipv6-ranges" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-ipv6-range-excludes" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:domain-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:geo-location" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:geo-location-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:source-address/hw-nat-policy:address-mac" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-object" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-object-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-group-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-ipv6s" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-ipv6-excludes" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-ipv6-ranges" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-ipv6-range-excludes" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:domain-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:geo-location" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:geo-location-set" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:destination-address/hw-nat-policy:address-mac" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-object" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-group" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-object-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-group-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-items-exclude" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:action/hw-nat-policy:action/hw-nat-policy:do-nat/hw-nat-policy:destination-nat" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:default-rule" {
+    deviate not-supported;
+  }
+  deviation "/hw-nat-policy:nat-policy/hw-nat-policy:rules/hw-nat-policy:rule/hw-nat-policy:service/hw-nat-policy:service-items/hw-nat-policy:protocol-and-ports/hw-nat-policy:protocol-and-port/hw-nat-policy:protocol" {
+    deviate replace {
+      type enumeration {
+        enum tcp {
+          value 6;
+          description
+            "Indicates TCP.";
+        }
+        enum udp {
+          value 17;
+          description
+            "Indicates UDP.";
+        }
+      }
+    }
+  }
+}

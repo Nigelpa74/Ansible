@@ -1,0 +1,67 @@
+/*
+Copyright (C) 2024 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-web-manager-deviations-ar5710s {
+  yang-version 1.1;
+  namespace "urn:huawei:yang:huawei-web-manager-deviations-ar5710s";
+  prefix hw-web-man-devs-ar5710s;
+
+  import huawei-web-manager {
+    prefix hw-web-man;
+  }
+  import huawei-extension {
+    prefix ext;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-web-manager module.";
+
+  revision 2024-10-27 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  deviation "/hw-web-man:web-manager/hw-web-man:source-interface" {
+    deviate not-supported;
+  }
+  deviation "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:https-server-enable" {
+    deviate delete {
+      default "false";
+    }
+  }
+  deviation "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:https-port-number" {
+    deviate delete {
+      default "8443";
+    }
+  }
+  deviation "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:http-forward-enable" {
+    deviate delete {
+      default "false";
+    }
+  }
+  ext:deviation-ext "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:https-server-enable" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+  ext:deviation-ext "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:https-port-number" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+  ext:deviation-ext "/hw-web-man:web-manager/hw-web-man:web-server/hw-web-man:http-forward-enable" {
+    ext:deviate-ext "add" {
+      ext:dynamic-default;
+    }
+  }
+}

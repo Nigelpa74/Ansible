@@ -1,0 +1,66 @@
+/*
+Copyright (C) 2021 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-ntp-notification {
+  namespace "urn:huawei:yang:huawei-ntp-notification";
+  prefix ntp-notification;
+  
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of ntp.";
+  revision 2021-10-13 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name "ntp";
+
+  notification ntp-synchronization-failure {
+    description
+      "This notification is used to notify when the NTP state changes from synchronized to unsynchronized.";
+    leaf state {
+      type string{
+        length "1..31";
+      }
+      description
+        "NTP synchronization state.";
+    }
+    leaf source {
+      type string{
+        length "1..127";
+      }
+      description
+        "NTP synchronization source address.";
+    }
+  }
+  notification ntp-synchronization-failure-resume {
+    description
+      "This NTP state unsynchronized alarm was repaired.";
+    leaf state {
+      type string{
+        length "1..31";
+      }
+      description
+        "NTP synchronization state.";
+    }
+    leaf source {
+      type string{
+        length "1..127";
+      }
+      description
+        "NTP synchronization source address.";
+    }
+  }
+}

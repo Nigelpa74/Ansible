@@ -1,0 +1,500 @@
+/*
+Copyright (C) 2020-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-sd-wan-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-sd-wan-notification";
+  prefix sd-wan-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of evpn connection module.";
+  revision 2025-01-06 {
+    description "Add site and CPE exceed notification.";
+    reference "";
+  }
+  revision 2024-05-24 {
+    description "Add units for adaptive-qos adjust bandwidth.";
+    reference "";
+  }
+  revision 2024-03-18 {
+    description "Add adaptive-qos adjust bandwitdh.";
+    reference "";
+  }
+  revision 2024-01-03 {
+    description "Add reason code of connection down.";
+    reference "";
+  }
+  revision 2023-08-04 {
+    description "Add encrypted status change.";
+    reference "";
+  }
+  revision 2023-04-03 {
+    description "Add backup link used.";
+    reference "";
+  }
+  revision 2022-12-23 {
+    description "Modify task name.";
+    reference "";
+  }
+  revision 2022-04-24 {
+    description
+      "Add connect policy fail reason.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2022-01-10 {
+    description
+      "Add site diconnect and connect policy.";
+    reference
+      "Huawei private.";
+  }
+
+  revision 2020-12-23 {
+    description
+      "Initial revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "sdwan";
+  notification connection-down-report {
+    description
+      "The connection has entered the down state.";
+    leaf connection-id {
+      type uint32;
+      description
+        "Connection ID.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-tnp-id {
+      type uint32;
+      description
+        "ID of the destination TNP.";
+    }
+    leaf src-tnp-id {
+      type uint32;
+      description
+        "ID of the source TNP.";
+    }
+    leaf down-reason {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cause of the evpn connection down.";
+    }
+    leaf reason-code {
+      type uint32;
+      description
+        "Reason code of the evpn connection down.";
+    }
+  }
+  notification connection-up-report {
+    description
+      "The connection has entered the up state.";
+    leaf connection-id {
+      type uint32;
+      description
+        "Connection ID.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-tnp-id {
+      type uint32;
+      description
+        "ID of the destination TNP.";
+    }
+    leaf src-tnp-id {
+      type uint32;
+      description
+        "ID of the source TNP.";
+    }
+  }
+  notification connection-max-exceed {
+    description
+      "The number of connections has reached 100% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of connections to device support.";
+    }
+  }
+  notification connection-max-clear {
+    description
+      "The number of connections has decreased 95% of the maximum number.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "The maximum number of connections to device support.";
+    }
+  }
+  notification connection-threshold-exceed {
+    description
+      "The number of connections has exceeded the threshold.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "Maximum number of connections supported by the device.";
+    }
+    leaf current-connection-number {
+      type uint32;
+      description
+        "Number of current connections of a device.";
+    }
+    leaf threshold-percent {
+      type uint32;
+      description
+        "Specifies the upper threshold percentage. The value is fixed at 80%.";
+    }
+    leaf resume-threshold-percent {
+      type uint32;
+      description
+        "Indicates the percentage of the link recovery threshold. The value is fixed at 50%.";
+    }
+  }
+  notification connection-threshold-clear {
+    description
+      "The number of connections has decreased below the threshold.";
+    leaf maximum-number {
+      type uint32;
+      description
+        "Maximum number of connections supported by the device.";
+    }
+    leaf current-connection-number {
+      type uint32;
+      description
+        "Number of current connections of a device.";
+    }
+    leaf threshold-percent {
+      type uint32;
+      description
+        "Specifies the upper threshold percentage. The value is fixed at 80%.";
+    }
+    leaf resume-threshold-percent {
+      type uint32;
+      description
+        "Indicates the percentage of the link recovery threshold. The value is fixed at 50%.";
+    }
+  }
+  notification dtls-connection-failed {
+    description
+      "The DTLS connection is abnormal.";
+    leaf role {
+      type string {
+        length "1..16";
+      }
+      description
+        "DTLS role: server or client.";
+    }
+    leaf ip-address {
+      type string {
+        length "1..46";
+      }
+      description
+        "IP address of the peer end of a DTLS connection.";
+    }
+    leaf port {
+      type uint32;
+      description
+        "Peer port number of the DTLS connection.";
+    }
+    leaf vpn-instance {
+      type string {
+        length "1..31";
+      }
+      description
+        "Name of the VPN instance to which the DTLS connection belongs.";
+    }
+    leaf reason {
+      type string {
+        length "1..128";
+      }
+      description
+        "Cause of the DTLS connection failure.";
+    }
+    leaf err-code {
+      type uint32;
+      description
+        "Error code.";
+    }
+  }
+  notification site-disconnect {
+    description
+      "All connections between sites have entered down state.";
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+    leaf current-connection-number {
+      type uint32;
+      description
+        "Number of current connections of a device.";
+    }
+  }
+  notification site-connect {
+    description
+      "A connection between sites has entered up state.";
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+  }
+  notification connection-policy-fail {
+    description
+      "The connection policy failed to apply.";
+    leaf connection-id {
+      type uint32;
+      description
+        "Connection ID.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-tnp-id {
+      type uint32;
+      description
+        "ID of the destination TNP.";
+    }
+    leaf src-tnp-id {
+      type uint32;
+      description
+        "ID of the source TNP.";
+    }
+    leaf reason {
+      type string {
+        length "1..64";
+      }
+      description
+        "Cause of the connection policy failure.";
+    }
+  }
+  notification connection-policy-success {
+    description
+      "The connection policy applied successfully.";
+    leaf connection-id {
+      type uint32;
+      description
+        "Connection ID.";
+    }
+    leaf dest-site-id {
+      type uint32;
+      description
+        "ID of the destination site.";
+    }
+    leaf src-site-id {
+      type uint32;
+      description
+        "ID of the source site.";
+    }
+    leaf dest-tnp-id {
+      type uint32;
+      description
+        "ID of the destination TNP.";
+    }
+    leaf src-tnp-id {
+      type uint32;
+      description
+        "ID of the source TNP.";
+    }
+  }
+  notification backup-link-used {
+    description
+      "The backup link is in use.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Name of the interface.";
+    }
+  }
+  notification backup-link-no-longer-used {
+    description
+      "The backup link is no longer used.";
+    leaf interface-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "Name of the interface.";
+    }
+  }
+  notification tunnel-encrypt-status-change {
+    description
+      "The encryption status of the tunnel is changed.";
+    leaf network-type {
+      type string {
+        length "1..64";
+      }
+      description
+        "Type of network.";
+    }
+    leaf tnp-id-or-vpn-name {
+      type string {
+        length "1..64";
+      }
+      description
+        "The Tnp id or vpn name.";
+    }
+    leaf last-encryted {
+      type string {
+        length "1..64";
+      }
+      description
+        "Last Encryption Status.";
+    }
+    leaf current-encrypted {
+      type string {
+        length "1..64";
+      }
+      description
+        "Current encryption status.";
+    }
+  }
+  notification adaptive-adjust-bandwidth {
+    description
+      "Adaptive QoS adjust connection bandwidth.";
+    leaf connection-id {
+      type uint32;
+      description
+        "Connection ID.";
+    }
+    leaf shape-rate {
+      type uint32;
+      units "kbit/s";
+      description
+        "Shape rate of connection.";
+    }
+    leaf throughput {
+      type uint32;
+      units "kbit/s";
+      description
+        "Throughput of connection.";
+    }
+    leaf adapt {
+      type string {
+        length "1..8";
+      }
+      description
+        "Type of the adjustment.";
+    }
+    leaf wan-loss {
+      type uint32;
+      units ‰;
+      description
+        "Packet loss ratio of the WAN.";
+    }
+    leaf weight {
+      type string {
+        length "1..320";
+      }
+      description
+        "Adjusted weight of the queue.";
+    }
+  }
+  notification site-cpe-max-exceed {
+    description
+      "The number of remote sites or CPEs has reached the specifications.";
+    leaf local-site-id {
+      type uint32;
+      description
+        "Local site ID of the device.";
+    }
+    leaf remote-site-limit {
+      type uint32;
+      description
+        "The remote site specifications of the device.";
+    }
+    leaf remote-site-number {
+      type uint32;
+      description
+        "The number of remote sites of the device.";
+    }
+    leaf remote-cpe-limit {
+      type uint32;
+      description
+        "The remote CPE specifications of the device.";
+    }
+    leaf remote-cpe-number {
+      type uint32;
+      description
+        "The number of remote CPEs of the device.";
+    }
+  }
+  notification site-cpe-max-clear {
+    description
+      "The number of remote sites or CPEs has decreased below the specifications.";
+    leaf local-site-id {
+      type uint32;
+      description
+        "Local site ID of this device.";
+    }
+    leaf remote-site-limit {
+      type uint32;
+      description
+        "The remote site specifications of the device.";
+    }
+    leaf remote-site-number {
+      type uint32;
+      description
+        "The number of remote sites of the device.";
+    }
+    leaf remote-cpe-limit {
+      type uint32;
+      description
+        "The remote CPE specifications of the device.";
+    }
+    leaf remote-cpe-number {
+      type uint32;
+      description
+        "The number of remote CPEs of the device.";
+    }
+  }
+}

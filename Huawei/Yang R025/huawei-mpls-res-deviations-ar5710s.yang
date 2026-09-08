@@ -1,0 +1,64 @@
+/*
+Copyright (C) 2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-mpls-res-deviations-ar5710s {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-mpls-res-deviations-ar5710s";
+  prefix mpls-res-devs-ar5710s;
+
+  import huawei-mpls-res {
+    prefix mpls-res;
+  }
+
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+     Bantian, Longgang
+     Shenzhen 518129
+     People's Republic of China
+     Website: http://www.huawei.com
+     Email: support@huawei.com";
+  description
+    "This module defines deviation statements for huawei-mpls-res module.";
+
+  revision 2025-02-24 {
+    description
+      "Initial revision.";
+    reference "Huawei private.";
+  }
+
+  typedef mpls-label-type-deviations {
+    type enumeration {
+      enum reserved {
+        value 0;
+        description
+          "Reserved label type.";
+      }
+      enum static {
+        value 1;
+        description
+          "Static label type.";
+      }
+      enum dynamic {
+        value 2;
+        description
+          "Dynamic label type.";
+      }
+    }
+    description
+      "Label type.";
+  }
+
+  deviation "/mpls-res:mpls-res/mpls-res:static-label-segments" {
+    deviate not-supported;
+  }
+  deviation "/mpls-res:label-pre-reserve" {
+    deviate not-supported;
+  }
+  deviation "/mpls-res:mpls-res/mpls-res:mpls-label-statisticss/mpls-res:mpls-label-statistics/mpls-res:type" {
+    deviate replace {
+      type mpls-res-devs-ar5710s:mpls-label-type-deviations;
+    }
+  }
+}

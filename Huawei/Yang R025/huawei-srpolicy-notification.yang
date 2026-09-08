@@ -1,0 +1,726 @@
+/*
+Copyright (C) 2021-2025 Huawei Technologies Co., Ltd. All rights reserved.
+*/
+module huawei-srpolicy-notification {
+  yang-version 1;
+  namespace "urn:huawei:yang:huawei-srpolicy-notification";
+  prefix srpolicy-notification;
+  import huawei-extension {
+    prefix ext;
+  }
+  organization
+    "Huawei Technologies Co., Ltd.";
+  contact
+    "Huawei Industrial Base
+    Bantian, Longgang
+    Shenzhen 518129
+    People's Republic of China
+    Website: http://www.huawei.com
+    Email: support@huawei.com";
+  description
+    "Notification of Segment Routing Policy.";
+  revision 2025-03-19 {
+    description
+      "Added srpolicy-list-resource-id-conflict, srpolicy-list-resource-id-conflict-resume, srpolicy-bsid-conflict, srpolicy-bsid-conflict-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2024-12-06 {
+    description
+      "Added srpolicy-candipath-delete-hold, srpolicy-candipath-delete-hold-resume, srpolicy-path-mtu-too-large, srpolicy-path-mtu-too-large-resume.";
+    reference
+      "Huawei private.";
+  }
+  revision 2021-10-13 {
+    description
+      "Init revision.";
+    reference
+      "Huawei private.";
+  }
+  ext:task-name  "srpolicy";
+
+  typedef srpolicy-resource-type {
+    type enumeration {
+      enum "srv6-te-policy" {
+        value 0;
+        description
+          "SRv6 TE Policy.";
+      }
+      enum "srv6-te-policy-segment-list" {
+        value 1;
+        description
+          "Segment list of SRv6 TE Policy.";
+      }
+      enum "sr-mpls-te-policy" {
+        value 3;
+        description
+          "SR-MPLS TE Policy.";
+      }
+      enum "sr-mpls-te-policy-segment-list" {
+        value 4;
+        description
+          "Segment list of SR-MPLS TE Policy.";
+      }
+      enum "srv6-te-flow-group" {
+        value 5;
+        description
+          "SRv6 TE flow group.";
+      }
+      enum "unknown" {
+        value 100;
+        description
+          "Unknown.";
+      }
+    }
+    description
+      "SR Policy resource type.";
+  }
+
+  typedef list-resource-id-type {
+    type enumeration {
+      enum "bsid" {
+        value 0;
+        description
+          "BSID.";
+      }
+      enum "xsid" {
+        value 1;
+        description
+          "XSID.";
+      }
+    }
+    description
+      "Resource ID type of the SR Policy's segment list.";
+  }
+
+  typedef conflict-state-type {
+    type enumeration {
+      enum "in-conflict" {
+        value 1;
+        description
+          "Conflicting.";
+      }
+      enum "conflict-resolved" {
+        value 2;
+        description
+          "Conflict removed.";
+      }
+    }
+    description
+      "Current conflict status.";
+  }
+
+  notification srpolicy-candipath-down {
+    description
+      "The SR Policy's candidate path went down.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+    leaf protocol-origin {
+      type string {
+        length "0..32";
+      }
+      description
+        "Protocol origin of the candidate path.";
+    }
+    leaf node-address {
+      type string {
+        length "0..64";
+      }
+      description
+        "Node address of the candidate path.";
+    }
+    leaf asn {
+      type uint32;
+      description
+        "AS number of the candidate path.";
+    }
+    leaf discriminator {
+      type uint32;
+      description
+        "Discriminator of the candidate path.";
+    }
+    leaf preference {
+      type uint32;
+      description
+        "Preference of the candidate path.";
+    }
+    leaf down-reason {
+      type string {
+        length "0..128";
+      }
+      description
+        "Reason why the candidate path went Down.";
+    }
+  }
+  notification srpolicy-candipath-down-resume {
+    description
+      "The down alarm of SR Policy's candidate path was cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+    leaf protocol-origin {
+      type string {
+        length "0..32";
+      }
+      description
+        "Protocol origin of the candidate path.";
+    }
+    leaf node-address {
+      type string {
+        length "0..64";
+      }
+      description
+        "Node address of the candidate path.";
+    }
+    leaf asn {
+      type uint32;
+      description
+        "AS number of the candidate path.";
+    }
+    leaf discriminator {
+      type uint32;
+      description
+        "Discriminator of the candidate path.";
+    }
+    leaf preference {
+      type uint32;
+      description
+        "Preference of the candidate path.";
+    }
+  }
+
+  notification srpolicy-policy-down {
+    description
+      "The SR Policy went down.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+    leaf down-reason {
+      type string {
+        length "0..64";
+      }
+      description
+        "Reason why the SR Policy went Down.";
+    }
+  }
+  notification srpolicy-policy-down-resume {
+    description
+      "The SR Policy down alarm was cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+  }
+
+  notification srpolicy-res-threshold-exceed {
+    description
+      "The number of SR Policy resources exceeded the specified threshold.";
+    leaf resource-type {
+      type srpolicy-resource-type;
+      description
+        "SR Policy resource type.";
+    }
+    leaf current-count {
+      type uint32;
+      description
+        "Current number of SR Policy resources.";
+    }
+    leaf threshold-upper-limit {
+      type uint32;
+      units "%";
+      description
+        "Upper threshold for the number of SR Policy resources.";
+    }
+    leaf threshold-lower-limit {
+      type uint32;
+      units "%";
+      description
+        "Lower threshold for the number of SR Policy resources.";
+    }
+    leaf total-count {
+      type uint32;
+      description
+        "Total number of SR Policy resources supported.";
+    }
+  }
+  notification srpolicy-res-threshold-exceed-resume {
+    description
+      "The number of SR Policy resources fell below the specified threshold.";
+    leaf resource-type {
+      type srpolicy-resource-type;
+      description
+        "SR Policy resource type.";
+    }
+    leaf current-count {
+      type uint32;
+      description
+        "Current number of SR Policy resources.";
+    }
+    leaf threshold-upper-limit {
+      type uint32;
+      units "%";
+      description
+        "Upper threshold for the number of SR Policy resources.";
+    }
+    leaf threshold-lower-limit {
+      type uint32;
+      units "%";
+      description
+        "Lower threshold for the number of SR Policy resources.";
+    }
+    leaf total-count {
+      type uint32;
+      description
+        "Total number of SR Policy resources supported.";
+    }
+  }
+
+  notification srpolicy-res-total-count-exceed {
+    description
+      "The number of SR Policy resources exceeded the total number supported.";
+    leaf resource-type {
+      type srpolicy-resource-type;
+      description
+        "SR Policy resource type.";
+    }
+    leaf current-count {
+      type uint32;
+      description
+        "Current number of SR Policy resources.";
+    }
+    leaf total-count {
+      type uint32;
+      description
+        "Total number of SR Policy resources supported.";
+    }
+  }
+  notification srpolicy-res-total-count-exceed-resume {
+    description
+      "The number of SR Policy resources fell below the total number supported.";
+    leaf resource-type {
+      type srpolicy-resource-type;
+      description
+        "SR Policy resource type.";
+    }
+    leaf current-count {
+      type uint32;
+      description
+        "Current number of SR Policy resources.";
+    }
+    leaf total-count {
+      type uint32;
+      description
+        "Total number of SR Policy resources supported.";
+    }
+  }
+
+  notification spr-instance-path-switch {
+    description
+      "The path of the SPR instance changed.";
+    leaf spr-instance-endpoint {
+      type string {
+        length "0..64";
+      }
+      description
+        "SPR instance endpoint.";
+    }
+    leaf spr-policy-name {
+      type string {
+        length "0..32";
+      }
+      description
+        "SPR policy name.";
+    }
+    leaf previous-srpolicy-color {
+      type string {
+        length "0..256";
+      }
+      description
+        "Previous SR Policy color.";
+    }
+    leaf current-srpolicy-color {
+      type string {
+        length "0..256";
+      }
+      description
+        "Current SR Policy color.";
+    }
+    leaf switch-reason {
+      type string {
+        length "0..64";
+      }
+      description
+        "Reason why the SPR instance path was switched.";
+    }
+  }
+
+  notification srpolicy-candipath-delete-hold {
+    description
+      "The status of an SR Policy's candidate path changed to delete-hold.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+    leaf protocol-origin {
+      type string {
+        length "0..32";
+      }
+      description
+        "Protocol origin of the candidate path.";
+    }
+    leaf node-address {
+      type string {
+        length "0..64";
+      }
+      description
+        "Node address of the candidate path.";
+    }
+    leaf asn {
+      type uint32;
+      description
+        "AS number of the candidate path.";
+    }
+    leaf discriminator {
+      type uint32;
+      description
+        "Discriminator of the candidate path.";
+    }
+    leaf preference {
+      type uint32;
+      description
+        "Preference of the candidate path.";
+    }
+  }
+
+  notification srpolicy-candipath-delete-hold-resume {
+    description
+      "The alarm indicating that the status of an SR Policy's candidate path changed to delete-hold was cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "SR Policy endpoint.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "SR Policy color.";
+    }
+    leaf protocol-origin {
+      type string {
+        length "0..32";
+      }
+      description
+        "Protocol origin of the candidate path.";
+    }
+    leaf node-address {
+      type string {
+        length "0..64";
+      }
+      description
+        "Node address of the candidate path.";
+    }
+    leaf asn {
+      type uint32;
+      description
+        "AS number of the candidate path.";
+    }
+    leaf discriminator {
+      type uint32;
+      description
+        "Discriminator of the candidate path.";
+    }
+    leaf preference {
+      type uint32;
+      description
+        "Preference of the candidate path.";
+    }
+  }
+
+  notification srpolicy-path-mtu-too-large {
+    description
+      "The specified path MTU of the SR Policy is greater than the detected minimum path MTU.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf segment-list-id {
+      type uint32;
+      description
+        "ID of the segment list referenced by the SR Policy's candidate path.";
+    }
+    leaf specified-path-mtu {
+      type uint32;
+      description
+        "Specified MTU value.";
+    }
+    leaf detected-min-mtu {
+      type uint32;
+      description
+        "Minimum path MTU value that is detected.";
+    }
+    leaf reply-node-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reply node address.";
+    }
+  }
+
+  notification srpolicy-path-mtu-too-large-resume {
+    description
+      "The alarm indicating that the specified path MTU of an SR Policy is greater than the detected minimum path MTU was cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf segment-list-id {
+      type uint32;
+      description
+        "ID of the segment list referenced by the SR Policy's candidate path.";
+    }
+    leaf specified-path-mtu {
+      type uint32;
+      description
+        "Specified MTU value.";
+    }
+    leaf detected-min-mtu {
+      type uint32;
+      description
+        "Minimum path MTU value that is detected.";
+    }
+    leaf reply-node-address {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reply node address.";
+    }
+  }
+
+  notification srpolicy-list-resource-id-conflict {
+    description
+      "The alarm indicating that the resource ID to be used as the identifier of an SR Policy's segment list fails to be allocated is generated.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf segment-list-id {
+      type uint32;
+      description
+        "ID of the segment list referenced by the SR Policy's candidate path.";
+    }
+    leaf resource-id {
+      type string {
+        length "0..255";
+      }
+      description
+        "Resource ID of the SR Policy's segment list.";
+    }
+    leaf resource-id-type {
+      type list-resource-id-type;
+      description
+        "Resource ID type of the SR Policy's segment list.";
+    }
+    leaf resource-id-fail-reason {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reason why the resource ID of an SR Policy's segment list fails to be allocated.";
+    }
+    leaf conflict-state {
+      type conflict-state-type;
+      description
+        "Current conflict status.";
+    }
+  }
+
+  notification srpolicy-list-resource-id-conflict-resume {
+    description
+      "The alarm indicating that the resource ID to be used as the identifier of an SR Policy's segment list fails to be allocated is cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf segment-list-id {
+      type uint32;
+      description
+        "ID of the segment list referenced by the SR Policy's candidate path.";
+    }
+    leaf resource-id {
+      type string {
+        length "0..255";
+      }
+      description
+        "Resource ID of the SR Policy's segment list.";
+    }
+    leaf resource-id-type {
+      type list-resource-id-type;
+      description
+        "Resource ID type of the SR Policy's segment list.";
+    }
+    leaf resource-id-fail-reason {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reason why the resource ID of an SR Policy's segment list fails to be allocated.";
+    }
+    leaf conflict-state {
+      type conflict-state-type;
+      description
+        "Current conflict status.";
+    }
+  }
+
+  notification srpolicy-bsid-conflict {
+    description
+      "The alarm indicating that a binding SID to be used for an SR Policy fails to be allocated is generated.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf bsid {
+      type string {
+        length "0..255";
+      }
+      description
+        "Binding SID.";
+    }
+    leaf bsid-fail-reason {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reason why the binding SID of an SR Policy fails to be allocated.";
+    }
+    leaf conflict-state {
+      type conflict-state-type;
+      description
+        "Current conflict status.";
+    }
+  }
+
+  notification srpolicy-bsid-conflict-resume {
+    description
+      "The alarm indicating that a binding SID to be used for an SR Policy fails to be allocated is cleared.";
+    leaf endpoint {
+      type string {
+        length "0..255";
+      }
+      description
+        "Endpoint of the SR Policy.";
+    }
+    leaf color {
+      type uint32;
+      description
+        "Color value of the SR Policy.";
+    }
+    leaf bsid {
+      type string {
+        length "0..255";
+      }
+      description
+        "Binding SID.";
+    }
+    leaf bsid-fail-reason {
+      type string {
+        length "0..255";
+      }
+      description
+        "Reason why the binding SID of an SR Policy fails to be allocated.";
+    }
+    leaf conflict-state {
+      type conflict-state-type;
+      description
+        "Current conflict status.";
+    }
+  }
+}
