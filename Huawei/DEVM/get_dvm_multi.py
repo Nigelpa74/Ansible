@@ -16,6 +16,7 @@ FILTER = """
           <transmission-distance/>
           <manufacture-date/>
           <serial-number/>
+          <description/>
         </optical-module>
       </port>
     </ports>

@@ -31,7 +31,7 @@ def parsear_xml_consolidado(xml_path):
                 else "N/A"
             )
 
-            # Clasificación de tipo de interfaz
+            # Clasificación del tipo de interfaz por nombre de puerto
             if "100GE" in position:
                 iftype = "100G Ethernet"
             elif "10GE" in position:
@@ -48,6 +48,7 @@ def parsear_xml_consolidado(xml_path):
                 dist_elem = opt_elem.find("{*}transmission-distance")
                 mfg_elem = opt_elem.find("{*}manufacture-date")
                 sn_elem = opt_elem.find("{*}serial-number")
+                desc_elem = opt_elem.find("{*}description")  # 👈 1. Extraer etiqueta description
 
                 vendor_pn = (
                     pn_elem.text
@@ -88,6 +89,11 @@ def parsear_xml_consolidado(xml_path):
                     if sn_elem is not None and sn_elem.text
                     else "N/A"
                 )
+                sfp_desc = (
+                    desc_elem.text
+                    if desc_elem is not None and desc_elem.text
+                    else "N/A"
+                )  # 👈 Valor de velocidad/descripción
             else:
                 has_sfp = "No"
                 vendor_pn = "N/A"
@@ -95,7 +101,9 @@ def parsear_xml_consolidado(xml_path):
                 distance = "N/A"
                 mfg_date = "N/A"
                 serial_number = "N/A"
+                sfp_desc = "N/A"
 
+            # 👈 2. Se agrega la clave 'Velocidad/Descripción SFP' al reporte
             todos_los_puertos.append(
                 {
                     "Nodo": nombre_nodo,
@@ -104,6 +112,7 @@ def parsear_xml_consolidado(xml_path):
                     "Tipo Interfaz": iftype,
                     "Admin State": admin_state,
                     "SFP Instalado": has_sfp,
+                    "Velocidad/Descripción SFP": sfp_desc,
                     "Part Number (PN)": vendor_pn,
                     "Serial Number (SN)": serial_number,
                     "Longitud Onda": wavelength,
@@ -161,11 +170,13 @@ def generar_excel(datos_puertos, output_filename="Reporte_SFP_Consolidado.xlsx")
             cell.font = data_font
             cell.border = thin_border
 
+            # 👈 3. Se añade 'Velocidad/Descripción SFP' a la lista de alineación centrada
             if key in [
                 "IP Host",
                 "Puerto",
                 "Admin State",
                 "SFP Instalado",
+                "Velocidad/Descripción SFP",
                 "Longitud Onda",
                 "Distancia Nóminal",
                 "Fecha Fabricación",
