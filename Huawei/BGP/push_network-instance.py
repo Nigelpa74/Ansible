@@ -12,10 +12,10 @@ CONFIG_XML = """
             <peers>
               <peer nc:operation="merge"
                     xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
-                <address>10.50.38.6</address>
+                <address>10.50.13.26</address>
                 <remote-as>101</remote-as>
                 <group-name>eBGP_MINEDU_500</group-name>
-                <description>CID258685_390693_JENARO_HERRERA</description>
+                <description>CID258795_747278_YURIMAGUAS</description>
                 <afs>
                   <af>
                     <type>ipv4uni</type>
@@ -35,8 +35,8 @@ CONFIG_XML = """
   <ifm xmlns="urn:huawei:yang:huawei-ifm">
       <interfaces>
         <interface>
-          <name>10GE1/0/2</name>
-          <description>CID258685_390693_JENARO_HERRERA</description>
+          <name>10GE1/0/7</name>
+          <description>CID258795_747278_YURIMAGUAS</description>
           <admin-status>up</admin-status>
           <vrf-name>101</vrf-name>
           <l2-mode-enable>false</l2-mode-enable>
@@ -48,7 +48,7 @@ CONFIG_XML = """
           <ipv4 xmlns="urn:huawei:yang:huawei-ip">
             <addresses>
               <address>
-                <ip>10.50.38.5</ip>
+                <ip>10.50.13.25</ip>
                 <mask>255.255.255.252</mask>
                 <type>main</type>
               </address>
