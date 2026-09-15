@@ -6,36 +6,53 @@ CONFIG_XML = """
     <ifm xmlns="urn:huawei:yang:huawei-ifm">
       <interfaces>
         <interface>
-          <name>GE0/0/9.300</name>
-          <description>Test_Netconf</description>
-          <admin-status>up</admin-status>
-          <link-protocol>ethernet</link-protocol>
-          <vrf-name>_public_</vrf-name>
-          <ethernet xmlns="urn:huawei:yang:huawei-ethernet">
-            <l3-sub-interface>
-              <dot1q-termination>
-                <dot1q-vlans>
-                  <dot1q-vlans>
-                    <vlan-list>300</vlan-list>
-                  </dot1q-vlans>
-                </dot1q-vlans>
-              </dot1q-termination>
-            </l3-sub-interface>
-          </ethernet>
-          <ipv4 xmlns="urn:huawei:yang:huawei-ip">
-            <addresses>
-              <address>
-                <ip>172.16.30.2</ip>
-                <mask>255.255.255.252</mask>
-                <type>main</type>
-              </address>
-            </addresses>
-          </ipv4>
+          <name>Vlanif10</name>
+            <ip-statistics-enable xmlns="urn:huawei:yang:huawei-ifm-ip-statistics">
+              <unified-mode>
+                <ip-enable>disable</ip-enable>
+              </unified-mode>
+            </ip-statistics-enable>
         </interface>
       </interfaces>
     </ifm>
 </config>
 """
+
+# CONFIG_XML = """
+# <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+#     <ifm xmlns="urn:huawei:yang:huawei-ifm">
+#       <interfaces>
+#         <interface>
+#           <name>GE0/0/9.300</name>
+#           <description>Test_Netconf</description>
+#           <admin-status>up</admin-status>
+#           <link-protocol>ethernet</link-protocol>
+#           <vrf-name>_public_</vrf-name>
+#           <ethernet xmlns="urn:huawei:yang:huawei-ethernet">
+#             <l3-sub-interface>
+#               <dot1q-termination>
+#                 <dot1q-vlans>
+#                   <dot1q-vlans>
+#                     <vlan-list>300</vlan-list>
+#                   </dot1q-vlans>
+#                 </dot1q-vlans>
+#               </dot1q-termination>
+#             </l3-sub-interface>
+#           </ethernet>
+#           <ipv4 xmlns="urn:huawei:yang:huawei-ip">
+#             <addresses>
+#               <address>
+#                 <ip>172.16.30.2</ip>
+#                 <mask>255.255.255.252</mask>
+#                 <type>main</type>
+#               </address>
+#             </addresses>
+#           </ipv4>
+#         </interface>
+#       </interfaces>
+#     </ifm>
+# </config>
+# """
 
 def huawei_connect(router):
     return manager.connect(
@@ -64,7 +81,7 @@ def push_ifm(router):
     except Exception as e:
         print(f"[{nombre}] ❌ Error: {e}")
 
-def cargar_inventario(archivo="inventario.yml"):
+def cargar_inventario(archivo="inventario-c.yml"):
     with open(archivo) as f:
         data = yaml.safe_load(f)
     return data["routers"]

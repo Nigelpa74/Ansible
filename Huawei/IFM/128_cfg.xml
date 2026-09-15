@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<rpc-reply xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="urn:uuid:3403053f-4642-4fa3-a3ea-1499c0080722">
+  <data>
+    <cfg xmlns="urn:huawei:yang:huawei-cfg">
+      <startup-infos>
+        <startup-info>
+          <position>0</position>
+          <current-cfg-file>flash:/colegio_001.cfg</current-cfg-file>
+        </startup-info>
+      </startup-infos>
+    </cfg>
+  </data>
+</rpc-reply>
